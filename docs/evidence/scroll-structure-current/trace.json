@@ -1,0 +1,1138 @@
+{
+  "original": {
+    "query": "The viewport clips shipment records and the vertical layout does not move. Return the current code owner.",
+    "positive": "The viewport clips shipment records and the vertical layout does not move. Return the current code owner.",
+    "tokens": [
+      "viewport",
+      "clips",
+      "shipment",
+      "records",
+      "vertical",
+      "layout",
+      "move",
+      "return",
+      "current",
+      "code",
+      "owner",
+      "clip",
+      "record"
+    ],
+    "behavior_markers": [
+      "listdirection",
+      "scroll",
+      "height",
+      "verticalaxis"
+    ],
+    "rows": [
+      {
+        "id": 316,
+        "path": "src/pages/ShipmentTimelinePage.ets",
+        "symbol": "build",
+        "symbol_key": "symbol:fa147b69dfda46616bfa60f3",
+        "range": [
+          6,
+          16
+        ],
+        "source_digest": "31afefed3b40af5a4ec158089f4943b0dc7830b324f0ced0ff5ca06763f9bb37",
+        "roles": "[\"source_operation_checked:v2.1\"]",
+        "file_rank": 1,
+        "direct_score": 38.0,
+        "fields": {
+          "symbol": {
+            "value": "build",
+            "score": 0.0
+          },
+          "business_terms": {
+            "value": "",
+            "score": 0.0
+          },
+          "business_summary": {
+            "value": "",
+            "score": 0.0
+          },
+          "summary": {
+            "value": "ArkTS function or lifecycle method build in src/pages/ShipmentTimelinePage.ets",
+            "score": 1.5
+          },
+          "method_evidence": {
+            "value": "shipments shipment label axis vertical column list foreach each listitem item text listdirection direction height stateread state read",
+            "score": 4.0
+          },
+          "string_evidence": {
+            "value": "",
+            "score": 0.0
+          }
+        }
+      },
+      {
+        "id": 80,
+        "path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "generateSessionCode",
+        "symbol_key": "symbol:fa3de3eb2f3fc030454ff7ba",
+        "range": [
+          2,
+          4
+        ],
+        "source_digest": "52d5b3755b1ac1ded9a0dca48c89d62feb1512f7f15df7eddb7d8425bf6f9114",
+        "roles": "[\"source_operation_checked:v2.1\"]",
+        "file_rank": 2,
+        "direct_score": 35.5,
+        "fields": {
+          "symbol": {
+            "value": "generateSessionCode",
+            "score": 4.0
+          },
+          "business_terms": {
+            "value": "",
+            "score": 0.0
+          },
+          "business_summary": {
+            "value": "",
+            "score": 0.0
+          },
+          "summary": {
+            "value": "ArkTS function or lifecycle method generateSessionCode in src/crypto/SessionCodeGenerator.ets; identifier terms: generate session code",
+            "score": 1.5
+          },
+          "method_evidence": {
+            "value": "secret slice generate session code",
+            "score": 2.0
+          },
+          "string_evidence": {
+            "value": "",
+            "score": 0.0
+          }
+        }
+      }
+    ],
+    "reconstructed_ranked": [
+      {
+        "id": 80,
+        "project_id": "20ff729667cec42e",
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "generateSessionCode",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method generateSessionCode in src/crypto/SessionCodeGenerator.ets; identifier terms: generate session code",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fa3de3eb2f3fc030454ff7ba",
+        "qualified_name": "SessionCodeGenerator.generateSessionCode",
+        "signature": "generateSessionCode(secret: string):string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "52d5b3755b1ac1ded9a0dca48c89d62feb1512f7f15df7eddb7d8425bf6f9114",
+        "evidence_class": "static",
+        "method_evidence": "secret slice generate session code",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:secret.slice\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:fa3de3eb2f3fc030454ff7ba\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "SessionCodeGenerator",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:26:41+00:00",
+        "recall_lanes": [
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.06093987,
+          "best_rank": 4,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 9,
+              "weight": 1.45,
+              "score": 0.02101449
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 7,
+              "weight": 1.0,
+              "score": 0.01492537
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 4,
+              "weight": 1.6,
+              "score": 0.025
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 35.5,
+        "search_terms": [
+          "src/crypto/sessioncodegenerator.ets",
+          "arkts function or lifecycle method generatesessioncode in src/crypto/sessioncodegenerator.ets; identifier terms: generate session code",
+          "generatesessioncode",
+          "function",
+          "src",
+          "crypto",
+          "sessioncodegenerator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "generate",
+          "session",
+          "code",
+          "generator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 35.5,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        },
+        "file_rank": 2,
+        "file_structural_coverage": 0,
+        "direct_score": 35.5,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 7.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 21.39,
+        "evidence_score": 21.39,
+        "localization_reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "sessioncodegenerator",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      },
+      {
+        "id": 316,
+        "project_id": "20ff729667cec42e",
+        "file_path": "src/pages/ShipmentTimelinePage.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShipmentTimelinePage.ets",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fa147b69dfda46616bfa60f3",
+        "qualified_name": "ShipmentTimelinePage.build",
+        "signature": "build():unknown",
+        "start_line": 6,
+        "end_line": 16,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "31afefed3b40af5a4ec158089f4943b0dc7830b324f0ced0ff5ca06763f9bb37",
+        "evidence_class": "static",
+        "method_evidence": "shipments shipment label axis vertical column list foreach each listitem item text listdirection direction height stateread state read",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ShipmentTimelinePage",
+        "owner_kind": "component",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:26:41+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08623976,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 5,
+              "weight": 1.0,
+              "score": 0.01538462
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "behavior_method_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 8,
+              "weight": 1.45,
+              "score": 0.02132353
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 10,
+              "weight": 1.0,
+              "score": 0.01428571
+            }
+          ]
+        },
+        "method_evidence_coverage": 2,
+        "semantic_behavior_coverage": 2,
+        "kind": "symbol",
+        "score": 38.0,
+        "search_terms": [
+          "src/pages/shipmenttimelinepage.ets",
+          "arkts function or lifecycle method build in src/pages/shipmenttimelinepage.ets",
+          "build",
+          "function",
+          "src",
+          "pages",
+          "shipmenttimelinepage",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "shipment",
+          "timeline",
+          "page",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 38.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "exact_path_segment",
+            "semantic_behavior",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        },
+        "file_rank": 1,
+        "file_structural_coverage": 2,
+        "direct_score": 38.0,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 20.84,
+        "evidence_score": 20.84,
+        "localization_reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "semantic_behavior"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "shipmenttimelinepage",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "public_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "generateSessionCode",
+        "owner_name": "SessionCodeGenerator",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 21.39,
+        "evidence_score": 21.39,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/pages/ShipmentTimelinePage.ets",
+          "symbol": "build",
+          "owner_name": "ShipmentTimelinePage",
+          "owner_kind": "component",
+          "file_structural_coverage": 3,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 20.84,
+          "evidence_score": 20.84,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 6,
+            "end_line": 16,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/components/RecordPreview.ets",
+          "symbol": "build",
+          "owner_name": "RecordPreview",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  },
+  "independent": {
+    "query": "The viewport clips activities and the vertical layout does not move. Return the current code owner.",
+    "positive": "The viewport clips activities and the vertical layout does not move. Return the current code owner.",
+    "tokens": [
+      "viewport",
+      "clips",
+      "activities",
+      "vertical",
+      "layout",
+      "move",
+      "return",
+      "current",
+      "code",
+      "owner",
+      "clip",
+      "activity"
+    ],
+    "behavior_markers": [
+      "listdirection",
+      "scroll",
+      "height",
+      "verticalaxis"
+    ],
+    "rows": [
+      {
+        "id": 4,
+        "path": "ActivityPane.ets",
+        "symbol": "build",
+        "symbol_key": "symbol:4ff330d82f6d1562ccfc4874",
+        "range": [
+          4,
+          12
+        ],
+        "source_digest": "48578b5c77ec5db07f38c09d37d8470a2b14184bf4f9fb37a4169b7008644fa1",
+        "roles": "[\"source_operation_checked:v2.1\"]",
+        "file_rank": 1,
+        "direct_score": 38.0,
+        "fields": {
+          "symbol": {
+            "value": "build",
+            "score": 0.0
+          },
+          "business_terms": {
+            "value": "",
+            "score": 0.0
+          },
+          "business_summary": {
+            "value": "",
+            "score": 0.0
+          },
+          "summary": {
+            "value": "ArkTS function or lifecycle method build in ActivityPane.ets",
+            "score": 1.5
+          },
+          "method_evidence": {
+            "value": "activities axis vertical column list foreach each listitem item text listdirection direction height stateread state read",
+            "score": 4.0
+          },
+          "string_evidence": {
+            "value": "",
+            "score": 0.0
+          }
+        }
+      },
+      {
+        "id": 2,
+        "path": "AccessCodeGenerator.ts",
+        "symbol": "generateAccessCode",
+        "symbol_key": "symbol:9cafa4036ee971c6ee78fffe",
+        "range": [
+          2,
+          4
+        ],
+        "source_digest": "da27dd01ce510c09f74d45d01b5f2669ea92f3a22229d6eaa51193a3ea6c27f4",
+        "roles": "[\"source_operation_checked:v2.1\"]",
+        "file_rank": 2,
+        "direct_score": 35.5,
+        "fields": {
+          "symbol": {
+            "value": "generateAccessCode",
+            "score": 4.0
+          },
+          "business_terms": {
+            "value": "",
+            "score": 0.0
+          },
+          "business_summary": {
+            "value": "",
+            "score": 0.0
+          },
+          "summary": {
+            "value": "function generateAccessCode in AccessCodeGenerator.ts; identifier terms: generate access code",
+            "score": 1.5
+          },
+          "method_evidence": {
+            "value": "seed slice generate access code",
+            "score": 2.0
+          },
+          "string_evidence": {
+            "value": "",
+            "score": 0.0
+          }
+        }
+      }
+    ],
+    "reconstructed_ranked": [
+      {
+        "id": 2,
+        "project_id": "7e30a5b35c94dd4d",
+        "file_path": "AccessCodeGenerator.ts",
+        "symbol": "generateAccessCode",
+        "symbol_type": "function",
+        "summary": "function generateAccessCode in AccessCodeGenerator.ts; identifier terms: generate access code",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:9cafa4036ee971c6ee78fffe",
+        "qualified_name": "AccessCodeGenerator.generateAccessCode",
+        "signature": "generateAccessCode(seed: string):string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "da27dd01ce510c09f74d45d01b5f2669ea92f3a22229d6eaa51193a3ea6c27f4",
+        "evidence_class": "static",
+        "method_evidence": "seed slice generate access code",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:seed.slice\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:9cafa4036ee971c6ee78fffe\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "AccessCodeGenerator",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:27:32+00:00",
+        "recall_lanes": [
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.0651184,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 35.5,
+        "search_terms": [
+          "accesscodegenerator.ts",
+          "function generateaccesscode in accesscodegenerator.ts; identifier terms: generate access code",
+          "generateaccesscode",
+          "function",
+          "accesscodegenerator",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "generate",
+          "access",
+          "code",
+          "generator"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 35.5,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        },
+        "file_rank": 2,
+        "file_structural_coverage": 0,
+        "direct_score": 35.5,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 7.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 21.39,
+        "evidence_score": 21.39,
+        "localization_reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "accesscodegenerator",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      },
+      {
+        "id": 4,
+        "project_id": "7e30a5b35c94dd4d",
+        "file_path": "ActivityPane.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in ActivityPane.ets",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:4ff330d82f6d1562ccfc4874",
+        "qualified_name": "ActivityPane.build",
+        "signature": "build():unknown",
+        "start_line": 4,
+        "end_line": 12,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "48578b5c77ec5db07f38c09d37d8470a2b14184bf4f9fb37a4169b7008644fa1",
+        "evidence_class": "static",
+        "method_evidence": "activities axis vertical column list foreach each listitem item text listdirection direction height stateread state read",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ActivityPane",
+        "owner_kind": "component",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:27:32+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08845427,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "behavior_method_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 5,
+              "weight": 1.45,
+              "score": 0.02230769
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 5,
+              "weight": 1.0,
+              "score": 0.01538462
+            }
+          ]
+        },
+        "method_evidence_coverage": 2,
+        "semantic_behavior_coverage": 2,
+        "kind": "symbol",
+        "score": 38.0,
+        "search_terms": [
+          "activitypane.ets",
+          "arkts function or lifecycle method build in activitypane.ets",
+          "build",
+          "function",
+          "activitypane",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "activity",
+          "pane",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 38.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "method_evidence",
+            "exact_path_segment",
+            "semantic_behavior",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        },
+        "file_rank": 1,
+        "file_structural_coverage": 2,
+        "direct_score": 38.0,
+        "direct_match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 20.84,
+        "evidence_score": 20.84,
+        "localization_reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "semantic_behavior"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "activitypane",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "public_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "AccessCodeGenerator.ts",
+        "symbol": "generateAccessCode",
+        "owner_name": "AccessCodeGenerator",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 21.39,
+        "evidence_score": 21.39,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "ActivityPane.ets",
+          "symbol": "build",
+          "owner_name": "ActivityPane",
+          "owner_kind": "component",
+          "file_structural_coverage": 2,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 20.84,
+          "evidence_score": 20.84,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 4,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "NewsPane.ets",
+          "symbol": "build",
+          "owner_name": "NewsPane",
+          "owner_kind": "component",
+          "file_structural_coverage": 2,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 8.66,
+          "evidence_score": 8.66,
+          "reasons": [
+            "first_stage_rank_prior",
+            "source_locatable",
+            "semantic_behavior"
+          ],
+          "source_range": {
+            "start_line": 4,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  }
+}

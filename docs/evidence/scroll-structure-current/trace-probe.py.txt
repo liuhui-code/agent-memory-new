@@ -1,0 +1,22 @@
+import json,copy
+from pathlib import Path
+from tools.agent_memory_runtime.query_hierarchical_localization import select_file_candidates,direct_symbol_candidates,attach_candidate_metadata,rank_callables
+from tools.agent_memory_runtime.query_language import positive_retrieval_query
+from tools.agent_memory_runtime.query_behavior_concepts import behavior_marker_terms
+from tools.agent_memory_runtime.text import query_tokens,score_weighted_fields
+D=Path('docs/evidence/scroll-structure-current'); out={}
+for name,raw,paths in [('original',json.loads((D/'public.json').read_text())['context-abstract-scroll-structure::en-paraphrase']['raw'],['ShipmentTimelinePage','SessionCodeGenerator']),('independent',json.loads((D/'independent.json').read_text())['abstract']['raw'],['ActivityPane','AccessCodeGenerator'])]:
+ q=positive_retrieval_query(raw['query']);wiki=raw['wiki_matches'];files=select_file_candidates(wiki,8,q);direct=direct_symbol_candidates(wiki,files)
+ rows=[r for r in wiki if r.get('kind')=='symbol' and r.get('symbol_type') in ['function','method'] and any(p in r['file_path'] for p in paths)]
+ rows=attach_candidate_metadata(rows,files,direct);ranked=rank_callables(copy.deepcopy(rows),q,True)
+ traces=[]
+ for r in rows:
+  fields={}
+  for f,w in [('symbol',4),('business_terms',4),('business_summary',3),('summary',1.5),('method_evidence',2),('string_evidence',2.5)]:
+   val=r.get(f) or '';val=' '.join(val) if isinstance(val,list) else str(val)
+   fields[f]={'value':val,'score':score_weighted_fields(q,query_tokens(q),set(query_tokens(q)),[(f,val,w)],[])[0]}
+  traces.append({'id':r['id'],'path':r['file_path'],'symbol':r['symbol'],'symbol_key':r['symbol_key'],'range':[r['start_line'],r['end_line']],'source_digest':r['source_digest'],'roles':r['callable_roles'],'file_rank':r['file_rank'],'direct_score':r['direct_score'],'fields':fields})
+ out[name]={'query':raw['query'],'positive':q,'tokens':query_tokens(q),'behavior_markers':behavior_marker_terms(q),'rows':traces,'reconstructed_ranked':ranked,'public_evidence':raw['query_handoff']['callable_evidence']}
+(D/'trace.json').write_text(json.dumps(out,indent=2))
+for n,v in out.items():
+ print(n,v['behavior_markers']);print([(r['symbol'],r['localization_score']) for r in v['reconstructed_ranked']]);print([(r['symbol'],{k:v['score'] for k,v in r['fields'].items()})for r in v['rows']])

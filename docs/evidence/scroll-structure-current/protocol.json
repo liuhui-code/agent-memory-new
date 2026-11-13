@@ -1,0 +1,39 @@
+{
+  "classification": "independent Development controls, frozen before observation; no serving changes",
+  "sources": {
+    "ActivityPane.ets": "@Component\nstruct ActivityPane {\n @State activities: string[] = []\n build() {\n  Column() {\n   List() {\n    ForEach(this.activities, (activity: string) => {\n     ListItem() { Text(activity) }\n    })\n   }.listDirection(Axis.Vertical).height('100%')\n  }\n }\n}\n",
+    "AccessCodeGenerator.ts": "export class AccessCodeGenerator {\n generateAccessCode(seed: string): string {\n  return seed.slice(0, 8)\n }\n}\n",
+    "NewsPane.ets": "@Component\nstruct NewsPane {\n @State articles: string[] = []\n build() {\n  Scroll() {\n   Column() { ForEach(this.articles, (article: string) => { Text(article) }) }\n  }.height('100%')\n }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "abstract",
+      "query": "The viewport clips activities and the vertical layout does not move. Return the current code owner.",
+      "expected_primary": "ActivityPane.ets",
+      "basis": "only ActivityPane has vertical List layout and activities source"
+    },
+    {
+      "id": "explicit-layout",
+      "query": "Locate ActivityPane.build implementation.",
+      "expected_primary": "ActivityPane.ets"
+    },
+    {
+      "id": "explicit-generator",
+      "query": "Locate AccessCodeGenerator.generateAccessCode implementation.",
+      "expected_primary": "AccessCodeGenerator.ts"
+    },
+    {
+      "id": "real-scroll",
+      "query": "Locate NewsPane.build implementation.",
+      "expected_primary": "NewsPane.ets"
+    },
+    {
+      "id": "two-layouts",
+      "query": "Return both ActivityPane.build and NewsPane.build implementations.",
+      "expected_files": [
+        "ActivityPane.ets",
+        "NewsPane.ets"
+      ]
+    }
+  ]
+}

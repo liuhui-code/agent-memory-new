@@ -11690,3 +11690,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Freeze four independent public queries before execution. All already retain the requested source bodies; pair evidence remains uncertain, named single controls bounded.
 - Do not broaden multiple-target or field contracts without a red. Preserve results as a no-change control, not an original failure repair.
 - Evidence: docs/eval/same-file-explicit-pair; no runtime or original-pack changes.
+## 2026-11-13 - Freeze independent scroll callable-ranking collision
+
+- Rechecked only the scroll-structure original group at623981f:1/3 unchanged.
+- Independent vertical layout/generator/real Scroll controls reproduce the same
+  raw-first-layout to callable-first-generator boundary;4 positive controls pass.
+- Exact existing scoring trace preserves IDs, ranges, roles and source digests;
+  identifies generic `code owner` wording colliding with generator identifier terms.
+- No serving change: missing task-word attribution contract is not replaced by
+  score tuning, absent-source claims or source-operation authority expansion.
+  Evidence: docs/evidence/scroll-structure-current/README.md.

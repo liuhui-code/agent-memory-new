@@ -1,0 +1,62 @@
+[
+  {
+    "id": "abstract",
+    "pass": false,
+    "observed_primary": "AccessCodeGenerator.ts",
+    "compact_files": [
+      "AccessCodeGenerator.ts",
+      "ActivityPane.ets"
+    ],
+    "frozen_expected": {
+      "expected_primary": "ActivityPane.ets"
+    }
+  },
+  {
+    "id": "explicit-layout",
+    "pass": true,
+    "observed_primary": "ActivityPane.ets",
+    "compact_files": [
+      "ActivityPane.ets"
+    ],
+    "frozen_expected": {
+      "expected_primary": "ActivityPane.ets"
+    }
+  },
+  {
+    "id": "explicit-generator",
+    "pass": true,
+    "observed_primary": "AccessCodeGenerator.ts",
+    "compact_files": [
+      "AccessCodeGenerator.ts"
+    ],
+    "frozen_expected": {
+      "expected_primary": "AccessCodeGenerator.ts"
+    }
+  },
+  {
+    "id": "real-scroll",
+    "pass": true,
+    "observed_primary": "NewsPane.ets",
+    "compact_files": [
+      "NewsPane.ets"
+    ],
+    "frozen_expected": {
+      "expected_primary": "NewsPane.ets"
+    }
+  },
+  {
+    "id": "two-layouts",
+    "pass": true,
+    "observed_primary": "ActivityPane.ets",
+    "compact_files": [
+      "ActivityPane.ets",
+      "NewsPane.ets"
+    ],
+    "frozen_expected": {
+      "expected_files": [
+        "ActivityPane.ets",
+        "NewsPane.ets"
+      ]
+    }
+  }
+]
