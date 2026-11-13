@@ -11334,3 +11334,8 @@ Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
   retrieval-expanded text. Preserve actual positive lowercase identifiers.
 - 50 related checks pass. No budget, source-operation or legacy qualified-owner
   behavior changed; original natural-English failures remain unresolved.
+
+
+## Integration: restore data diagnostic fingerprint
+
+- The combined focused fingerprint check found run-data.py missing its standard comment. Add only the public header; AST remains identical and no assertions change. Rerun the same focused checks before publication.
