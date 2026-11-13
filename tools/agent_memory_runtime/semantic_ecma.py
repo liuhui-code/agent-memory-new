@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_state_access import state_accesses
+from .ecma_callback_mask import callback_mask_lines
 from .ecma_braces import block_end
 from .ecma_callable_body import callable_block_end
 from .ecma_callable_headers import method_header, top_level_callable_header
@@ -114,11 +115,12 @@ def parse_source(
     entities: list[SemanticEntity] = []
     relations: list[SemanticRelation] = []
     gaps: list[dict[str, str]] = []
+    state_lines = callback_mask_lines(lines) if state_annotations else None
     containers = parse_containers(lines, language, rel_path)
     entities.extend(container.entity for container in containers)
     callables: list[CallableBlock] = []
     for container in containers:
-        methods, states = parse_container_members(lines, language, rel_path, container, state_annotations)
+        methods, states = parse_container_members(lines, language, rel_path, container, state_annotations, state_lines)
         callables.extend(methods)
         entities.extend(block.entity for block in methods)
         entities.extend(states)
@@ -192,6 +194,7 @@ def parse_container_members(
     file_path: str,
     container: Container,
     state_annotations: bool,
+    state_lines: list[str] | None = None,
 ) -> tuple[list[CallableBlock], list[SemanticEntity]]:
     methods: list[CallableBlock] = []
     states: list[SemanticEntity] = []
@@ -216,7 +219,7 @@ def parse_container_members(
             index = end + 1
             continue
         if state_annotations:
-            state = STATE_RE.search(line)
+            state = STATE_RE.search(state_lines[index] if state_lines is not None else line)
             if state:
                 name = state.group(1)
                 qualified = f"{container.name}.{name}"

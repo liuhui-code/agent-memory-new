@@ -1,5 +1,13 @@
 # Local Development Log
 
+## 2026-11-14 — Admit state declarations only from supported code regions
+
+- Freeze actual public symbol API red: literal/comment/template decorators created four ghost states and polluted two same-name true owners' source positions.
+- Apply the existing strict lexical mask only to the two state declaration producer passes; true StateBoard/SecondBoard identities now retain exact lines 2/11, eight rows become two.
+- Preserve unknown entire-file legacy extraction, Event/route behavior and physical-line versus whole-text boundaries. No unknown-to-absence or ranking claim.
+- 42 focused and separate 13 state-related/fingerprint checks pass; selected comparison remains 2/3. Old indexes require ordinary merge learn-path, verified; installation alone leaves old rows.
+- Evidence: docs/eval/state-declaration-lexical/README.md. No full acceptance run or original failure count increase.
+
 ## 2026-11-14 — Preserve decorated state identity after declaration modifiers
 
 - Freeze independent public state symbol/edge evidence before correcting both semantic and legacy declaration extractors; modifier words are no longer mistaken for the field name.

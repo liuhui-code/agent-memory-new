@@ -14,6 +14,7 @@ from .ecma_callable_ranges import (
     callable_symbols_by_line,
 )
 from .source_call_scanner import code_mask
+from .ecma_callback_mask import callback_mask_lines
 from .models import IGNORE_DIRS
 from .log_api_catalog import (
     direct_log_pattern,
@@ -229,7 +230,9 @@ def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
         text,
     ):
         symbols.append((match.group(1), "native_module"))
-    for match in re.finditer(r"@(State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_][A-Za-z0-9_]*)", text):
+    state_lines = callback_mask_lines(text.splitlines())
+    state_text = "\n".join(state_lines) if state_lines is not None else text
+    for match in re.finditer(r"@(State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_][A-Za-z0-9_]*)", state_text):
         symbols.append((match.group(2), "state"))
     for match in re.finditer(r"@Event\s+([A-Za-z_][A-Za-z0-9_]*)", text):
         symbols.append((match.group(1), "event"))
