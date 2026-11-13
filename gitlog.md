@@ -11959,3 +11959,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   load and real literal controls retain their bodies. One Development red, two
   controls pass; no original-case score claim or architecture gate claim.
 - Evidence and review-only contract proposal: docs/evidence/history-action-before.
+
+## 2026-11-13 — Recheck only canonical English remaining variant
+
+- Freeze 3a7aea5 protocol, then one public raw/compact query. Generated preview is
+  absent; correct quota source remains, with ParcelRetry direct salience and
+  AccountSettings imports provenance reintroduced after three-method focus.
+- Read real source bodies rather than class labels. No artifact/typed-ID exclusion
+  contract is skipped; multiple/graph protection remains an unresolved authority
+  boundary. No production edit, query tuning, aggregate run or repair credit.
+- Evidence: docs/eval/canonical-retention-latest/README.md.
