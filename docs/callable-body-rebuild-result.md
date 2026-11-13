@@ -21,3 +21,8 @@ All five public checks pass, preserve every original source line, and retain
 exact callable evidence. Seventeen related tests pass. Modified runtime modules
 remain at 499 and 23 lines. Full-suite and aggregate capability evaluation are
 intentionally deferred under the user's latest instruction.
+
+A focused run of the existing runtime-capability-owner scenario still fails all
+three variants, as on the retained baseline. Its wrong-owner selection is not
+fixed by this excerpt repair. This stage does not reduce the remaining failure
+count and is not presented as such.

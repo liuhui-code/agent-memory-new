@@ -1,0 +1,131 @@
+[
+  {
+    "case_id": "context-runtime-capability-probe-owner::original",
+    "changes": {
+      "hierarchical_localization": {
+        "before": {
+          "observed": true,
+          "mode": "serving",
+          "serving_observed": true,
+          "file_recall": 1.0,
+          "callable_recall": 1.0,
+          "owner_recall": null,
+          "owner_precision": null,
+          "range_recall": 1.0,
+          "missing_callables": [],
+          "missing_owners": [],
+          "missing_ranges": [],
+          "file_candidate_count": 8,
+          "callable_candidate_count": 8,
+          "owner_candidate_count": 0,
+          "range_candidate_count": 8,
+          "audit_elapsed_ms": 365
+        },
+        "after": {
+          "observed": true,
+          "mode": "serving",
+          "serving_observed": true,
+          "file_recall": 1.0,
+          "callable_recall": 1.0,
+          "owner_recall": null,
+          "owner_precision": null,
+          "range_recall": 1.0,
+          "missing_callables": [],
+          "missing_owners": [],
+          "missing_ranges": [],
+          "file_candidate_count": 8,
+          "callable_candidate_count": 8,
+          "owner_candidate_count": 0,
+          "range_candidate_count": 8,
+          "audit_elapsed_ms": 278
+        }
+      }
+    }
+  },
+  {
+    "case_id": "context-runtime-capability-probe-owner::en-paraphrase",
+    "changes": {
+      "hierarchical_localization": {
+        "before": {
+          "observed": true,
+          "mode": "serving",
+          "serving_observed": true,
+          "file_recall": 1.0,
+          "callable_recall": 1.0,
+          "owner_recall": null,
+          "owner_precision": null,
+          "range_recall": 1.0,
+          "missing_callables": [],
+          "missing_owners": [],
+          "missing_ranges": [],
+          "file_candidate_count": 8,
+          "callable_candidate_count": 7,
+          "owner_candidate_count": 0,
+          "range_candidate_count": 7,
+          "audit_elapsed_ms": 439
+        },
+        "after": {
+          "observed": true,
+          "mode": "serving",
+          "serving_observed": true,
+          "file_recall": 1.0,
+          "callable_recall": 1.0,
+          "owner_recall": null,
+          "owner_precision": null,
+          "range_recall": 1.0,
+          "missing_callables": [],
+          "missing_owners": [],
+          "missing_ranges": [],
+          "file_candidate_count": 8,
+          "callable_candidate_count": 7,
+          "owner_candidate_count": 0,
+          "range_candidate_count": 7,
+          "audit_elapsed_ms": 406
+        }
+      }
+    }
+  },
+  {
+    "case_id": "context-runtime-capability-probe-owner::zh-noise",
+    "changes": {
+      "hierarchical_localization": {
+        "before": {
+          "observed": true,
+          "mode": "serving",
+          "serving_observed": true,
+          "file_recall": 1.0,
+          "callable_recall": 1.0,
+          "owner_recall": null,
+          "owner_precision": null,
+          "range_recall": 1.0,
+          "missing_callables": [],
+          "missing_owners": [],
+          "missing_ranges": [],
+          "file_candidate_count": 2,
+          "callable_candidate_count": 2,
+          "owner_candidate_count": 0,
+          "range_candidate_count": 2,
+          "audit_elapsed_ms": 311
+        },
+        "after": {
+          "observed": true,
+          "mode": "serving",
+          "serving_observed": true,
+          "file_recall": 1.0,
+          "callable_recall": 1.0,
+          "owner_recall": null,
+          "owner_precision": null,
+          "range_recall": 1.0,
+          "missing_callables": [],
+          "missing_owners": [],
+          "missing_ranges": [],
+          "file_candidate_count": 2,
+          "callable_candidate_count": 2,
+          "owner_candidate_count": 0,
+          "range_candidate_count": 2,
+          "audit_elapsed_ms": 278
+        }
+      }
+    }
+  }
+]
