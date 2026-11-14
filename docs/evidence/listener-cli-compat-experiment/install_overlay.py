@@ -23,7 +23,7 @@ def install(target):
     s=s.replace('    gaps.extend(operation_gaps)','    from .listener_experiment_support import attach\n    mechanisms = attach(text, rel_path, entities, mechanisms)\n    gaps.extend(operation_gaps)');path.write_text(s)
     shutil.copy2(D/'overlay_support.py',rt/'listener_experiment_support.py')
     s=(ROOT/'docs/evidence/listener-producer-feasibility/prototype.py').read_text()
-    s=s.replace("sys.path.insert(0, str(D.parents[2]))",'')
+    s=s.replace("sys.path.insert(0, str(D.parents[2]))",'').replace('from tools.agent_memory_runtime.', 'from .')
     (rt/'listener_experiment_prototype.py').write_text(s)
 
 if __name__=='__main__':install(sys.argv[1])
