@@ -78,3 +78,17 @@ be three collections, not merely two. Freeze tests for actual collect-call count
 one record_context_use/miss action, latency, unknown/custom/old-index/no-positive
 and guard-induced fallback as well as a positive no-fallback case. Preserve initial
 whole handoff comparisons rather than comparing against speculative R outputs.
+
+Additional pre-implementation review constraints: allow_render_recall defaults to
+False (the unchanged pre-R behavior) for direct collect/search/unknown paths; only
+the authorized context trial explicitly opts in. New IDENT() field initialization
+requires an explicit identical plain IDENT declared type. Protected names compare
+case-sensitively as source identifiers. No interpreter/type behavior is inferred.
+
+The later compact excerpt reader currently rereads files independently. The exact
+receipt-to-display interface is still under review; this document does NOT claim
+that merely hashing during limited_context binds that later read. A proposed narrow
+cached-receipt excerpt path would show the same capped source snapshot used for
+proof, under existing line/character/token budgets; no implicit fresh reread may
+re-certify changed bytes. C implementation is not yet approved while this boundary
+remains unresolved.
