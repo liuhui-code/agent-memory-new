@@ -4,16 +4,16 @@ This narrows READ-FIRST's unresolved semantic gate. It does not cover generic `r
 
 ## Complete request
 
-ASCII case-insensitive, whitespace separated, total <=400 characters:
+ASCII case-insensitive, exactly one ASCII space between request tokens, no tabs/newlines/non-ASCII whitespace, total <=400 characters:
 
 ```
 [The NP remains after NP; ] VERB the registry branch and store sync owners[.]
 VERB := Return | Locate | Find
 NP := WORD | WORD WORD | WORD WORD WORD
-WORD := [A-Za-z][A-Za-z-]*
+WORD := [A-Za-z]+(?:-[A-Za-z]+)*
 ```
 
-NP is contextual observation only. Reject NP tokens `and or not no only except exclude without return locate find source generated quoted literal both`, quotation characters and all punctuation other than internal hyphens. No stripping unknown prefix/tail, negative or mixed output clause. No implicit request-language translation or global alias. Parse the exact original request, not a cleaned retrieval query. Head-only and the optional observation form are composable, not a list of original query strings.
+NP is contextual observation only. Split each NP word at hyphens before checking reserved components. Reject NP components `and or not no only except exclude without return locate find source generated quoted literal both`, quotation characters and all punctuation other than internal hyphens. No stripping unknown prefix/tail, negative or mixed output clause. No implicit request-language translation or global alias. Parse the exact original request, not a cleaned retrieval query. Head-only and the optional observation form are composable, not a list of original query strings.
 
 ## Declared role spelling, not runtime semantics
 
@@ -24,6 +24,8 @@ The owner may reference unresolved external types and zero-argument constructors
 ## Bounded source grammar
 
 Each contributing file must be fully consumed as: optional ordinary named relative imports, followed by exactly one exported or unexported plain class with a simple identifier, no extends/implements/generics/accessors/static blocks/constructor. Comments are lexically masked, string literals only in approved positions; unknown template/regex/slash or malformed delimiter returns unknown. Fields and complete supported methods may appear in any order; duplicate field/method identifiers or collisions fail closed. Max four fields and two methods, source <=2 MiB and each method <=32768 characters.
+
+All source identifiers must be ordinary ASCII identifiers, excluding language keywords (`this`, `super`, `new`, `return`, `if`, `else`, `await`, `async`, `class`, `constructor`, `const`, `let`, `var`, `void`, `boolean`, `string`, `number`, `null`, `true`, `false`, `function`, `extends`, `implements`, `get`, `set`, `static`, `private`, `public`, `protected`, `export`, `import`, `default`, `from`, `as`, `try`, `catch`, `finally`, `throw`, `for`, `while`, `do`, `switch`, `case`, `break`, `continue`, `yield`, `interface`, `type`). The explicit fixed grammar tokens are not identifier captures. Field ownership and @State declaration ranges must come from current typed declaration rows plus the same-read source, not just a matching row name.
 
 Fields are limited to (a) `private FIELD: TYPE[ = new CTOR()]` and (b) `@State STATE: TYPE[] = []`, optional semicolons. TYPE/CTOR are simple identifiers, not semantic certificates. Local variable, parameter, FIELD and STATE names must be distinct; method identifiers cannot collide with fields or the constructor name.
 

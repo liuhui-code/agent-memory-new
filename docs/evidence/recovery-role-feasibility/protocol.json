@@ -1,0 +1,235 @@
+{
+  "status": "frozen before-only protocol; no execution yet",
+  "base": "dc68e4f",
+  "sources": {
+    "src/runtime/SessionRegistry.ets": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+    "src/stores/SessionSyncStore.ets": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "observed-return",
+      "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+      "criterion": "required"
+    },
+    {
+      "id": "head-locate",
+      "query": "Locate the registry branch and store sync owners.",
+      "criterion": "required"
+    },
+    {
+      "id": "observed-find",
+      "query": "The cached listing remains after reconnection; find the registry branch and store sync owners.",
+      "criterion": "required"
+    },
+    {
+      "id": "single",
+      "query": "Find SessionRegistry.chooseRepository source.",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "quoted",
+      "query": "Find the literal \"registry branch and store sync owners\".",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "mixed",
+      "query": "Return the registry branch and store sync owners and the logging policy.",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "negative",
+      "query": "Return the registry branch and store sync owners, but exclude SessionRegistry.",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "generic",
+      "query": "Locate repository selection and the synchronization trigger.",
+      "criterion": "unchanged"
+    }
+  ],
+  "required_files": [
+    "src/runtime/SessionRegistry.ets",
+    "src/stores/SessionSyncStore.ets"
+  ],
+  "gate": "Both required current typed owners admitted before focus and at least one lost by normal focus. No selection or precision oracle on unrelated extras. If absent, stop without modifying inputs.",
+  "purpose": "Independent natural two-file source-selection/store-sync pair, no added competition/noise. External repository types unresolved, no runtime relation claimed.",
+  "source_negative_controls": [
+    {
+      "id": "other-branch-field",
+      "source": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.other = new LocalSessionRepository()\n    }\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "same-constructor",
+      "source": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new NetworkSessionRepository()\n    }\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "discard-result",
+      "source": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = []\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "reassigned-local",
+      "source": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    loaded = []\n    this.sessions = loaded\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "non-state",
+      "source": "export class SessionSyncStore {\n  sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "wrong-receiver",
+      "source": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await other.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "missing-field",
+      "source": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "duplicate-method",
+      "source": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n  chooseRepository(): void {}\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "unknown-inheritance",
+      "source": "export class SessionRegistry extends BaseRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "role-lookalike",
+      "source": "export class SessionPreregistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "async-side-effect",
+      "source": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    notify()\n    this.sessions = loaded\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "branch-return-only",
+      "source": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      return new NetworkSessionRepository()\n    } else {\n      return new LocalSessionRepository()\n    }\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "field-shadow",
+      "source": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(repository: boolean): void {\n    if (repository) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+      "witness": "unknown"
+    },
+    {
+      "id": "extra-unknown-method",
+      "source": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n  getState(): SessionRecord[] { return this.sessions }\n}\n",
+      "witness": "unknown"
+    }
+  ],
+  "families": [
+    {
+      "id": "pair",
+      "sources": {
+        "src/runtime/SessionRegistry.ets": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+        "src/stores/SessionSyncStore.ets": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "observed-return",
+          "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+          "criterion": "required"
+        },
+        {
+          "id": "head-locate",
+          "query": "Locate the registry branch and store sync owners.",
+          "criterion": "required"
+        },
+        {
+          "id": "observed-find",
+          "query": "The cached listing remains after reconnection; find the registry branch and store sync owners.",
+          "criterion": "required"
+        },
+        {
+          "id": "single",
+          "query": "Find SessionRegistry.chooseRepository source.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted",
+          "query": "Find the literal \"registry branch and store sync owners\".",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "mixed",
+          "query": "Return the registry branch and store sync owners and the logging policy.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "negative",
+          "query": "Return the registry branch and store sync owners, but exclude SessionRegistry.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "generic",
+          "query": "Locate repository selection and the synchronization trigger.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "same-owner",
+      "sources": {
+        "src/SessionRegistryStore.ets": "export class SessionRegistryStore {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n  @State sessions: SessionRecord[] = []\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "same-owner",
+          "query": "Locate the registry branch and store sync owners.",
+          "criterion": "required"
+        }
+      ],
+      "required_files": [
+        "src/SessionRegistryStore.ets"
+      ]
+    },
+    {
+      "id": "two-registry",
+      "sources": {
+        "src/runtime/SessionRegistry.ets": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+        "src/stores/SessionSyncStore.ets": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n",
+        "src/BackupSessionRegistry.ets": "export class BackupSessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "two-registry",
+          "query": "Locate the registry branch and store sync owners.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "two-store",
+      "sources": {
+        "src/runtime/SessionRegistry.ets": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+        "src/stores/SessionSyncStore.ets": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n",
+        "src/BackupSessionSyncStore.ets": "export class BackupSessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "two-store",
+          "query": "Locate the registry branch and store sync owners.",
+          "criterion": "unchanged"
+        }
+      ]
+    }
+  ],
+  "grammar_controls": {
+    "unknown": [
+      "Return the registry branch and store sync owners. extra",
+      "The not-only fallback remains after reconnect; return the registry branch and store sync owners.",
+      "The stale--data remains after reconnect; return the registry branch and store sync owners.",
+      "Return\tthe registry branch and store sync owners.",
+      "Return\nthe registry branch and store sync owners.",
+      "Return the registry branch or store sync owners."
+    ]
+  }
+}
