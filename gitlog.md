@@ -12557,3 +12557,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - New branch from8d6e17b; do not mutate the frozen pending-publication branch.
 - Read latest ledgers and the already-run graph-provenance boundary probe: no old monotonic graph-promotion contract was found; do not repeat it as a missing bug test.
 - Original02 explicitly requests both source contexts but natural role names are outside existing exact-identity retention. Draft a local non-exclusive request contract and independent natural ProductTile/PriceLabel before for review; no runtime change or new execution yet.
+
+## Trial natural UI declaration-pair non-erasure
+
+- Fixed independent19 before has two same-layer public reds, with both declared UI sources admitted before bounded focus drops one; other positive requests already pass and remain protection controls.
+- Implement only full original-request parsing and exact/finite regular-plural declaration spelling correspondence. Same-read current typed declaration/method identities and existing complete anchor ranges bind a private non-erasure obligation; no graph flag, source append, range widening, score or budget change.
+- Ordinary dict/JSON and shallow/deep copies lose authority; query/range/proof mutation, stale or malformed identity, missing endpoints and path/log scope refuse. 35 focused tests pass. Candidate requires immutable public after and independent review; original02 has not been rerun for acceptance.

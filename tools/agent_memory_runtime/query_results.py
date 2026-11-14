@@ -168,6 +168,8 @@ def limited_context(
     normative = collect_normative_context(project, query, anchors)
     if normative:
         context["query_handoff"]["normative_context"] = normative
+    from .query_ui_pair import bind_ui_pair
+    context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
