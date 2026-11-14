@@ -12251,3 +12251,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   kept earlier harness errors historical and capacity evidence separately scoped.
 - Documented current-source-slice/trusted-owner boundary and diagnostic value-array
   budget, not whole response or compact improvement. No production authority added.
+
+## Isolated actual-query listener diagnostic
+
+- Real noncompact context now demonstrates a docs-only disposable overlay from
+  SQLite current source-slice facts to query-bound name association and raw
+  diagnostic; qualifiers unresolved, no ranking/unique/negative authority.
+- Five unchanged queries preserve same-snapshot raw retrieval exactly and
+  compact bodies/ranges/primary (all<=1500). Generic remains red; four pass.
+- Four safety controls pass, old-index/stale unknown, Native only uncertain
+  segment association observation. No production or original count change.

@@ -1,0 +1,90 @@
+{
+  "queries": [
+    {
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "association": "exact-name:one-observed",
+      "raw_same_snapshot_equal": true,
+      "compact_anchors_primary_equal": true,
+      "diagnostic_bytes": 2693,
+      "budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "oracle_pass": false
+    },
+    {
+      "query": "Find Relay.connect.",
+      "association": "unsupported-descriptor",
+      "raw_same_snapshot_equal": true,
+      "compact_anchors_primary_equal": true,
+      "diagnostic_bytes": 313,
+      "budget": {
+        "estimated_tokens": 893,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "oracle_pass": true
+    },
+    {
+      "query": "Find the callable that accepts DeliverySink.",
+      "association": "unsupported-descriptor",
+      "raw_same_snapshot_equal": true,
+      "compact_anchors_primary_equal": true,
+      "diagnostic_bytes": 313,
+      "budget": {
+        "estimated_tokens": 986,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "oracle_pass": true
+    },
+    {
+      "query": "Find Recovery.retryRejectedDelivery.",
+      "association": "unsupported-descriptor",
+      "raw_same_snapshot_equal": true,
+      "compact_anchors_primary_equal": true,
+      "diagnostic_bytes": 313,
+      "budget": {
+        "estimated_tokens": 969,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "oracle_pass": true
+    },
+    {
+      "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+      "association": "unsupported-descriptor",
+      "raw_same_snapshot_equal": true,
+      "compact_anchors_primary_equal": true,
+      "diagnostic_bytes": 313,
+      "budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "oracle_pass": true
+    }
+  ],
+  "controls": [
+    {
+      "id": "quoted",
+      "pass": true
+    },
+    {
+      "id": "negative",
+      "pass": true
+    },
+    {
+      "id": "wrapper",
+      "pass": true
+    },
+    {
+      "id": "multiple",
+      "pass": true
+    }
+  ],
+  "native_observation": "segment-uncertain:one-observed",
+  "stale_unknown": true,
+  "workspace": "/tmp/listener-query-display-0joj7qv2"
+}
