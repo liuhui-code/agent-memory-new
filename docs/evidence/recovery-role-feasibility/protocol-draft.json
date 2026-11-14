@@ -1,0 +1,56 @@
+{
+  "status": "draft awaiting review; not executed",
+  "base": "dc68e4f",
+  "sources": {
+    "src/runtime/SessionRegistry.ets": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+    "src/stores/SessionSyncStore.ets": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "observed-return",
+      "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+      "criterion": "required"
+    },
+    {
+      "id": "head-locate",
+      "query": "Locate the registry branch and store sync owners.",
+      "criterion": "required"
+    },
+    {
+      "id": "observed-find",
+      "query": "The cached listing remains after reconnection; find the registry branch and store sync owners.",
+      "criterion": "required"
+    },
+    {
+      "id": "single",
+      "query": "Find SessionRegistry.chooseRepository source.",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "quoted",
+      "query": "Find the literal \"registry branch and store sync owners\".",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "mixed",
+      "query": "Return the registry branch and store sync owners and the logging policy.",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "negative",
+      "query": "Return the registry branch and store sync owners, but exclude SessionRegistry.",
+      "criterion": "unchanged"
+    },
+    {
+      "id": "generic",
+      "query": "Locate repository selection and the synchronization trigger.",
+      "criterion": "unchanged"
+    }
+  ],
+  "required_files": [
+    "src/runtime/SessionRegistry.ets",
+    "src/stores/SessionSyncStore.ets"
+  ],
+  "gate": "Both required current typed owners admitted before focus and at least one lost by normal focus. No selection or precision oracle on unrelated extras. If absent, stop without modifying inputs.",
+  "purpose": "Independent natural two-file source-selection/store-sync pair, no added competition/noise. External repository types unresolved, no runtime relation claimed."
+}
