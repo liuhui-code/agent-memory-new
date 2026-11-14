@@ -14,7 +14,9 @@ old exact/ordinary/multiple/text controls retain identical code anchors, callabl
 evidence, log anchors and path context. This is a real consumer improvement on an
 independent public red, not a new producer role or invented source operation.
 
-**Original23 remains 2/3** on the one selected Development group (three variants).
+**Original23 currently measures 2/3** on the one selected Development group (three variants).
+The prior2/3 is a historical saved baseline, not a fresh acd7619 paired run; no
+same-machine current-base before/after causal improvement is claimed.
 The remaining Chinese request is outside the initial English-only complete grammar.
 No original failure improvement is attributed; cumulative repaired originals stays
 20. Original/English pass and Chinese fails; no other original group or aggregate
@@ -96,3 +98,13 @@ pool or increase any source/token limits.
 The existing hierarchical-localization file remains500 lines. New helper157 lines;
 other touched files remain below500. After final review, integration may use this
 fixed source chain plus evidence. Publication/merge remains the coordinator's task.
+
+## Final independent review
+
+Reviewer accepted source842f73b and the final public artifacts after independently
+checking all24 pairs:18 no-authority/unknown outputs retain complete callable evidence
+and anchors; all24 preserve logs/path. Eight positive excerpts were compared
+byte-for-byte to the frozen source lines, including both same-file Builders.
+All14 source files match; old5 plus symbol rows unchanged without roles; maximum1469.
+The review accepts this limited English consumer, not Chinese original-case closure
+or a full gate. No source changes followed this acceptance.
