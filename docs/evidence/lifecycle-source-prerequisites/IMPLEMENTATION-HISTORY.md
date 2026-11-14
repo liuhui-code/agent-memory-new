@@ -33,3 +33,18 @@ The first checker used the nonexistent `excerpt` field rather than actual
 correct output_budget field were corrected. No product/input/oracle changed.
 Original case 18 has not yet been re-evaluated; these results do not add original
 failure repair credit. Independent public review is pending.
+
+## Fresh original 18 single-group pair
+
+After independent fixed-public review approval, the unchanged Development case
+ran on fixed pre-implementation e932d15 and fixed 7db0cee, three variants each.
+Current baseline is **0/3**, not the older historical 1/3 observation. Candidate
+is **1/3**, solely zh-noise newly passing every mandatory check. Original and
+English-paraphrase still fail with unchanged outcome metrics; no grammar or
+protection change was attempted to turn those green. See original18-paired.json.
+This adds at most one original variant after final reviewer verification, not a
+whole-category completion or an inferred full-gate total.
+
+Both evaluation commands succeeded and wrote separate reports. The shell's final
+`tail -3` glob display command failed with an argument error; reading the saved
+files confirmed completion. Neither evaluation was rerun for that display error.

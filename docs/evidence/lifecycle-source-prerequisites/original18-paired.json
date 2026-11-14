@@ -1,0 +1,233 @@
+[
+  {
+    "variant": "original",
+    "before": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": false,
+        "expected_source_excerpt_returned": true
+      },
+      "observed_anchor_paths": [
+        "src/coordinators/DraftSessionCoordinator.ets",
+        "src/pages/DraftPage.ets",
+        "src/streaming/ConversationDraftStore.ets"
+      ],
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 1.0,
+      "context_token_estimate": 1492,
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      }
+    },
+    "after": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": false,
+        "expected_source_excerpt_returned": true
+      },
+      "observed_anchor_paths": [
+        "src/coordinators/DraftSessionCoordinator.ets",
+        "src/pages/DraftPage.ets",
+        "src/streaming/ConversationDraftStore.ets"
+      ],
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 1.0,
+      "context_token_estimate": 1492,
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      }
+    }
+  },
+  {
+    "variant": "en-paraphrase",
+    "before": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "observed_anchor_paths": [
+        "src/coordinators/OrderCommitCoordinator.ets",
+        "src/pages/LedgerMaintenancePage.ets",
+        "src/streaming/ConversationDraftStore.ets"
+      ],
+      "oracle_anchor_precision": 0.0,
+      "source_span_recall": 0.0,
+      "context_token_estimate": 1342,
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "typed_target_owner",
+          "structured_owner_kind",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      }
+    },
+    "after": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "observed_anchor_paths": [
+        "src/coordinators/OrderCommitCoordinator.ets",
+        "src/pages/LedgerMaintenancePage.ets",
+        "src/streaming/ConversationDraftStore.ets"
+      ],
+      "oracle_anchor_precision": 0.0,
+      "source_span_recall": 0.0,
+      "context_token_estimate": 1342,
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "typed_target_owner",
+          "structured_owner_kind",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      }
+    }
+  },
+  {
+    "variant": "zh-noise",
+    "before": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "observed_anchor_paths": [
+        "src/streaming/ConversationDraftStore.ets"
+      ],
+      "oracle_anchor_precision": 0.0,
+      "source_span_recall": 0.0,
+      "context_token_estimate": 1201,
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      }
+    },
+    "after": {
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "observed_anchor_paths": [
+        "src/coordinators/DraftSessionCoordinator.ets"
+      ],
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 1.0,
+      "context_token_estimate": 845,
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      }
+    }
+  }
+]
