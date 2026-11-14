@@ -1,0 +1,201 @@
+[
+  {
+    "case": "builder-source",
+    "observed": [
+      "ProfileScreen.ets",
+      "ProfileTile.ets",
+      "TrainingPalette.ts"
+    ],
+    "preserve": [
+      {
+        "query": "Find the declared Builder that sets padding, background color and width.",
+        "focused": [
+          "ProfileScreen.ets",
+          "ProfileTile.ets"
+        ],
+        "returned": [
+          "ProfileScreen.ets",
+          "ProfileTile.ets",
+          "TrainingPalette.ts"
+        ],
+        "added": [
+          {
+            "id": 6,
+            "project_id": "e1ea8ff5e61f88d2",
+            "file_path": "TrainingPalette.ts",
+            "symbol": "TrainingPalette",
+            "symbol_type": "class",
+            "summary": "class TrainingPalette in TrainingPalette.ts; identifier terms: training palette",
+            "calls": "",
+            "business_summary": null,
+            "business_terms": [],
+            "symbol_key": "symbol:83136def8ab4c16f03d3395b",
+            "qualified_name": "TrainingPalette",
+            "signature": "class TrainingPalette",
+            "start_line": 1,
+            "end_line": 3,
+            "semantic_adapter": "typescript-static@1.2",
+            "source_digest": "07ae1b2148b90ed8e8edc3dba4e4609e434cfa9b7d71d67ae7799a56107e95af",
+            "evidence_class": "static",
+            "method_evidence": "",
+            "string_evidence": "",
+            "mechanism_evidence": "[]",
+            "owner_name": "",
+            "owner_kind": "class",
+            "callable_roles": "[]",
+            "index_generation": 1,
+            "updated_at": "2026-11-14T09:01:47+00:00",
+            "kind": "symbol",
+            "score": 21.45,
+            "match_reasons": [
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "graph_depth": 1,
+            "search_terms": [
+              "trainingpalette.ts",
+              "class trainingpalette in trainingpalette.ts; identifier terms: training palette",
+              "trainingpalette",
+              "class",
+              "ts",
+              "in",
+              "identifier",
+              "terms",
+              "training",
+              "palette"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "bodybuilder-source",
+    "observed": [
+      "ProfileScreen.ets",
+      "ProfileTile.ets",
+      "TrainingPalette.ts"
+    ],
+    "preserve": [
+      {
+        "query": "Find bodybuilder profile source methods using padding backgroundColor width.",
+        "focused": [
+          "ProfileScreen.ets",
+          "ProfileTile.ets"
+        ],
+        "returned": [
+          "ProfileScreen.ets",
+          "ProfileTile.ets",
+          "TrainingPalette.ts"
+        ],
+        "added": [
+          {
+            "id": 6,
+            "project_id": "e1ea8ff5e61f88d2",
+            "file_path": "TrainingPalette.ts",
+            "symbol": "TrainingPalette",
+            "symbol_type": "class",
+            "summary": "class TrainingPalette in TrainingPalette.ts; identifier terms: training palette",
+            "calls": "",
+            "business_summary": null,
+            "business_terms": [],
+            "symbol_key": "symbol:83136def8ab4c16f03d3395b",
+            "qualified_name": "TrainingPalette",
+            "signature": "class TrainingPalette",
+            "start_line": 1,
+            "end_line": 3,
+            "semantic_adapter": "typescript-static@1.2",
+            "source_digest": "07ae1b2148b90ed8e8edc3dba4e4609e434cfa9b7d71d67ae7799a56107e95af",
+            "evidence_class": "static",
+            "method_evidence": "",
+            "string_evidence": "",
+            "mechanism_evidence": "[]",
+            "owner_name": "",
+            "owner_kind": "class",
+            "callable_roles": "[]",
+            "index_generation": 1,
+            "updated_at": "2026-11-14T09:01:47+00:00",
+            "kind": "symbol",
+            "score": 36.3,
+            "match_reasons": [
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "graph_depth": 1,
+            "search_terms": [
+              "trainingpalette.ts",
+              "class trainingpalette in trainingpalette.ts; identifier terms: training palette",
+              "trainingpalette",
+              "class",
+              "ts",
+              "in",
+              "identifier",
+              "terms",
+              "training",
+              "palette"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "explicit-palette",
+    "observed": [
+      "TrainingPalette.ts",
+      "ProfileTile.ets",
+      "ProfileScreen.ets"
+    ],
+    "preserve": []
+  },
+  {
+    "case": "true-build-graph",
+    "observed": [
+      "ProfileTile.ets"
+    ],
+    "preserve": []
+  },
+  {
+    "case": "bare-declared",
+    "observed": [
+      "ProfileScreen.ets",
+      "ProfileTile.ets",
+      "TrainingPalette.ts"
+    ],
+    "preserve": []
+  },
+  {
+    "case": "native-build-control",
+    "observed": [
+      "native/bridge.cpp"
+    ],
+    "preserve": [
+      {
+        "query": "Find build configuration and native source for energy_bridge.",
+        "focused": [
+          "native/CMakeLists.txt",
+          "native/bridge.cpp",
+          "native/CMakeLists.txt",
+          "native/bridge.cpp",
+          "build-profile.json5"
+        ],
+        "returned": [
+          "native/CMakeLists.txt",
+          "native/bridge.cpp",
+          "native/CMakeLists.txt",
+          "native/bridge.cpp",
+          "build-profile.json5"
+        ],
+        "added": []
+      }
+    ]
+  },
+  {
+    "case": "build-profile-path",
+    "observed": [
+      "native/CMakeLists.txt",
+      "build-profile.json5"
+    ],
+    "preserve": []
+  }
+]

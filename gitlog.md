@@ -12483,3 +12483,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - From published0a8a8fd, freeze natural imported-palette UI fixture, already-supported English Builder request, bodybuilder contrast and true native/build/path controls.
 - Scope only build word/identifier components; morphology and numeric suffix controls fixed before execution, no graph guard changes or R/S dependency.
 - Actual preserve-before/after graph provenance required before implementation. No public run yet. A transient exec disconnect recovered without workspace loss.
+
+## Independent build-marker before confirmed
+
+- Seven fixed public requests completed after observer tuple-key serialization correction; source/query/oracles unchanged.
+- Two main requests have actual precision reds and preserve snapshots prove imports Palette added back to two focused method sources. Bare-declared never calls this predicate; its unchanged criterion remains fixed.
+- Preserve first setup log and explicit missing-stderr limitation plus typed-key reproduction. Reviewer approved only frozen build-word/component implementation, no graph-policy change.

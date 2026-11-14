@@ -1,0 +1,2302 @@
+[
+  {
+    "function": "collect_graph_neighbor_matches",
+    "return_line": 70,
+    "returned": [],
+    "query": "Find build configuration and native source for energy_bridge.",
+    "focused": null,
+    "recalled": null,
+    "wiki_matches": [
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "build-profile.json5",
+        "summary": "HarmonyOS config with 1 non-empty lines",
+        "language": "HarmonyOS Config",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "03085dcf6065a624b0f28ebec73537589cc8e16d7b06a237273753a295136e4f",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07619048,
+          "best_rank": 3,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 3,
+              "weight": 1.35,
+              "score": 0.02142857
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 42.8,
+        "search_terms": [
+          "build-profile.json5",
+          "harmonyos config",
+          "harmonyos config with 1 non-empty lines",
+          "build",
+          "profile",
+          "json5",
+          "harmonyos",
+          "config",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "harmony",
+          "os"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "summary": "Build Artifact file with 3 non-empty lines; symbols: energy_bridge",
+        "language": "Build Artifact",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07833157,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 84.6,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build artifact",
+          "build artifact file with 3 non-empty lines; symbols: energy_bridge",
+          "native",
+          "cmakelists",
+          "txt",
+          "build",
+          "artifact",
+          "file",
+          "with",
+          "3",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge",
+          "c",
+          "make",
+          "lists",
+          "energy",
+          "bridge"
+        ],
+        "match_reasons": [
+          "file_path",
+          "expanded_query:file_summary",
+          "file_language",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "summary": "C/C++ file with 1 non-empty lines; symbols: energy_bridge_value",
+        "language": "C/C++",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07777631,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 72.2,
+        "search_terms": [
+          "native/bridge.cpp",
+          "c/c++",
+          "c/c++ file with 1 non-empty lines; symbols: energy_bridge_value",
+          "native",
+          "bridge",
+          "cpp",
+          "c",
+          "file",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge_value",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:file_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "summary": "build_target energy_bridge in native/CMakeLists.txt; identifier terms: energy bridge",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:44e2ce723c743e12fa701c65",
+        "qualified_name": "energy_bridge",
+        "signature": "project(energy_bridge)",
+        "start_line": 2,
+        "end_line": 2,
+        "semantic_adapter": "build-artifact-static@1.0",
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05655738,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build_target energy_bridge in native/cmakelists.txt; identifier terms: energy bridge",
+          "energy_bridge",
+          "build_target",
+          "native",
+          "cmakelists",
+          "txt",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "bridge",
+          "c",
+          "make",
+          "lists",
+          "build",
+          "target"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "expanded_query:symbol",
+          "symbol_type",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "summary": "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:ba1a40ce84c79ed0ae1fd426",
+        "qualified_name": "energy_bridge_value",
+        "signature": "extern \"C\" int energy_bridge_value()",
+        "start_line": 1,
+        "end_line": 1,
+        "semantic_adapter": "cpp-static@1.0",
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "evidence_class": "static",
+        "method_evidence": "energy bridge value",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08187467,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 89.0,
+        "search_terms": [
+          "native/bridge.cpp",
+          "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+          "energy_bridge_value",
+          "function",
+          "native",
+          "bridge",
+          "cpp",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "source_type": "code_file",
+        "source_id": 3,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 2,
+        "evidence": "native/bridge.cpp",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T09:01:52+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T09:01:52+00:00",
+        "created_at": "2026-11-14T09:01:52+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 1,
+        "evidence": "native/CMakeLists.txt",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T09:01:52+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T09:01:52+00:00",
+        "created_at": "2026-11-14T09:01:52+00:00"
+      }
+    ],
+    "origin": null,
+    "neighbor": null,
+    "edge": {
+      "id": 1,
+      "project_id": "2e0dae56d1181d21",
+      "source_type": "code_file",
+      "source_id": 2,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 1,
+      "evidence": "native/CMakeLists.txt",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-14T09:01:52+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-14T09:01:52+00:00",
+      "created_at": "2026-11-14T09:01:52+00:00"
+    },
+    "reverse": null,
+    "matched": {
+      "[\"code_file\", 1]": 42.8,
+      "[\"code_file\", 2]": 108.5,
+      "[\"code_file\", 3]": 89.0,
+      "[\"code_symbol\", 1]": 108.5,
+      "[\"code_symbol\", 2]": 89.0
+    }
+  },
+  {
+    "function": "focus_code_candidates",
+    "return_line": 112,
+    "returned": [
+      [
+        {
+          "id": 1,
+          "project_id": "2e0dae56d1181d21",
+          "file_path": "native/CMakeLists.txt",
+          "symbol": "energy_bridge",
+          "symbol_type": "build_target",
+          "summary": "build_target energy_bridge in native/CMakeLists.txt; identifier terms: energy bridge",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:44e2ce723c743e12fa701c65",
+          "qualified_name": "energy_bridge",
+          "signature": "project(energy_bridge)",
+          "start_line": 2,
+          "end_line": 2,
+          "semantic_adapter": "build-artifact-static@1.0",
+          "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T09:01:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05655738,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 108.5,
+          "search_terms": [
+            "native/cmakelists.txt",
+            "build_target energy_bridge in native/cmakelists.txt; identifier terms: energy bridge",
+            "energy_bridge",
+            "build_target",
+            "native",
+            "cmakelists",
+            "txt",
+            "in",
+            "identifier",
+            "terms",
+            "energy",
+            "bridge",
+            "c",
+            "make",
+            "lists",
+            "build",
+            "target"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "expanded_query:symbol",
+            "symbol_type",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "2e0dae56d1181d21",
+          "file_path": "native/bridge.cpp",
+          "symbol": "energy_bridge_value",
+          "symbol_type": "function",
+          "summary": "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:ba1a40ce84c79ed0ae1fd426",
+          "qualified_name": "energy_bridge_value",
+          "signature": "extern \"C\" int energy_bridge_value()",
+          "start_line": 1,
+          "end_line": 1,
+          "semantic_adapter": "cpp-static@1.0",
+          "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+          "evidence_class": "static",
+          "method_evidence": "energy bridge value",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T09:01:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.08187467,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 89.0,
+          "search_terms": [
+            "native/bridge.cpp",
+            "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+            "energy_bridge_value",
+            "function",
+            "native",
+            "bridge",
+            "cpp",
+            "in",
+            "identifier",
+            "terms",
+            "energy",
+            "value"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "2e0dae56d1181d21",
+          "file_path": "native/CMakeLists.txt",
+          "summary": "Build Artifact file with 3 non-empty lines; symbols: energy_bridge",
+          "language": "Build Artifact",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T09:01:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07833157,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 2,
+                "weight": 1.35,
+                "score": 0.02177419
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 84.6,
+          "search_terms": [
+            "native/cmakelists.txt",
+            "build artifact",
+            "build artifact file with 3 non-empty lines; symbols: energy_bridge",
+            "native",
+            "cmakelists",
+            "txt",
+            "build",
+            "artifact",
+            "file",
+            "with",
+            "3",
+            "non",
+            "empty",
+            "lines",
+            "symbols",
+            "energy_bridge",
+            "c",
+            "make",
+            "lists",
+            "energy",
+            "bridge"
+          ],
+          "match_reasons": [
+            "file_path",
+            "expanded_query:file_summary",
+            "file_language",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "energy_bridge",
+          "symbol_type": "build_target",
+          "start_line": 2,
+          "end_line": 2
+        },
+        {
+          "id": 3,
+          "project_id": "2e0dae56d1181d21",
+          "file_path": "native/bridge.cpp",
+          "summary": "C/C++ file with 1 non-empty lines; symbols: energy_bridge_value",
+          "language": "C/C++",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T09:01:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07777631,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 72.2,
+          "search_terms": [
+            "native/bridge.cpp",
+            "c/c++",
+            "c/c++ file with 1 non-empty lines; symbols: energy_bridge_value",
+            "native",
+            "bridge",
+            "cpp",
+            "c",
+            "file",
+            "with",
+            "1",
+            "non",
+            "empty",
+            "lines",
+            "symbols",
+            "energy_bridge_value",
+            "energy",
+            "value"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:file_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "energy_bridge_value",
+          "symbol_type": "function",
+          "start_line": 1,
+          "end_line": 1
+        },
+        {
+          "id": 1,
+          "project_id": "2e0dae56d1181d21",
+          "file_path": "build-profile.json5",
+          "summary": "HarmonyOS config with 1 non-empty lines",
+          "language": "HarmonyOS Config",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "03085dcf6065a624b0f28ebec73537589cc8e16d7b06a237273753a295136e4f",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T09:01:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07619048,
+            "best_rank": 3,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 3,
+                "weight": 1.35,
+                "score": 0.02142857
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 3,
+                "weight": 1.45,
+                "score": 0.02301587
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.8,
+          "search_terms": [
+            "build-profile.json5",
+            "harmonyos config",
+            "harmonyos config with 1 non-empty lines",
+            "build",
+            "profile",
+            "json5",
+            "harmonyos",
+            "config",
+            "with",
+            "1",
+            "non",
+            "empty",
+            "lines",
+            "harmony",
+            "os"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ]
+        }
+      ],
+      true
+    ],
+    "query": "Find build configuration and native source for energy_bridge.",
+    "focused": null,
+    "recalled": null,
+    "wiki_matches": null,
+    "edges": null,
+    "origin": null,
+    "neighbor": null,
+    "edge": null,
+    "reverse": null,
+    "matched": null
+  },
+  {
+    "function": "structural_boundary_query",
+    "return_line": 419,
+    "returned": true,
+    "query": "Find build configuration and native source for energy_bridge.",
+    "focused": null,
+    "recalled": null,
+    "wiki_matches": null,
+    "edges": null,
+    "origin": null,
+    "neighbor": null,
+    "edge": null,
+    "reverse": null,
+    "matched": null
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "return_line": 414,
+    "returned": [
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "summary": "build_target energy_bridge in native/CMakeLists.txt; identifier terms: energy bridge",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:44e2ce723c743e12fa701c65",
+        "qualified_name": "energy_bridge",
+        "signature": "project(energy_bridge)",
+        "start_line": 2,
+        "end_line": 2,
+        "semantic_adapter": "build-artifact-static@1.0",
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05655738,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build_target energy_bridge in native/cmakelists.txt; identifier terms: energy bridge",
+          "energy_bridge",
+          "build_target",
+          "native",
+          "cmakelists",
+          "txt",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "bridge",
+          "c",
+          "make",
+          "lists",
+          "build",
+          "target"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "expanded_query:symbol",
+          "symbol_type",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "summary": "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:ba1a40ce84c79ed0ae1fd426",
+        "qualified_name": "energy_bridge_value",
+        "signature": "extern \"C\" int energy_bridge_value()",
+        "start_line": 1,
+        "end_line": 1,
+        "semantic_adapter": "cpp-static@1.0",
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "evidence_class": "static",
+        "method_evidence": "energy bridge value",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08187467,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 89.0,
+        "search_terms": [
+          "native/bridge.cpp",
+          "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+          "energy_bridge_value",
+          "function",
+          "native",
+          "bridge",
+          "cpp",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "summary": "Build Artifact file with 3 non-empty lines; symbols: energy_bridge",
+        "language": "Build Artifact",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07833157,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 84.6,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build artifact",
+          "build artifact file with 3 non-empty lines; symbols: energy_bridge",
+          "native",
+          "cmakelists",
+          "txt",
+          "build",
+          "artifact",
+          "file",
+          "with",
+          "3",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge",
+          "c",
+          "make",
+          "lists",
+          "energy",
+          "bridge"
+        ],
+        "match_reasons": [
+          "file_path",
+          "expanded_query:file_summary",
+          "file_language",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "start_line": 2,
+        "end_line": 2
+      },
+      {
+        "id": 3,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "summary": "C/C++ file with 1 non-empty lines; symbols: energy_bridge_value",
+        "language": "C/C++",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07777631,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 72.2,
+        "search_terms": [
+          "native/bridge.cpp",
+          "c/c++",
+          "c/c++ file with 1 non-empty lines; symbols: energy_bridge_value",
+          "native",
+          "bridge",
+          "cpp",
+          "c",
+          "file",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge_value",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:file_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "start_line": 1,
+        "end_line": 1
+      },
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "build-profile.json5",
+        "summary": "HarmonyOS config with 1 non-empty lines",
+        "language": "HarmonyOS Config",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "03085dcf6065a624b0f28ebec73537589cc8e16d7b06a237273753a295136e4f",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07619048,
+          "best_rank": 3,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 3,
+              "weight": 1.35,
+              "score": 0.02142857
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 42.8,
+        "search_terms": [
+          "build-profile.json5",
+          "harmonyos config",
+          "harmonyos config with 1 non-empty lines",
+          "build",
+          "profile",
+          "json5",
+          "harmonyos",
+          "config",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "harmony",
+          "os"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "query": "Find build configuration and native source for energy_bridge.",
+    "focused": [
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "summary": "build_target energy_bridge in native/CMakeLists.txt; identifier terms: energy bridge",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:44e2ce723c743e12fa701c65",
+        "qualified_name": "energy_bridge",
+        "signature": "project(energy_bridge)",
+        "start_line": 2,
+        "end_line": 2,
+        "semantic_adapter": "build-artifact-static@1.0",
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05655738,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build_target energy_bridge in native/cmakelists.txt; identifier terms: energy bridge",
+          "energy_bridge",
+          "build_target",
+          "native",
+          "cmakelists",
+          "txt",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "bridge",
+          "c",
+          "make",
+          "lists",
+          "build",
+          "target"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "expanded_query:symbol",
+          "symbol_type",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "summary": "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:ba1a40ce84c79ed0ae1fd426",
+        "qualified_name": "energy_bridge_value",
+        "signature": "extern \"C\" int energy_bridge_value()",
+        "start_line": 1,
+        "end_line": 1,
+        "semantic_adapter": "cpp-static@1.0",
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "evidence_class": "static",
+        "method_evidence": "energy bridge value",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08187467,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 89.0,
+        "search_terms": [
+          "native/bridge.cpp",
+          "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+          "energy_bridge_value",
+          "function",
+          "native",
+          "bridge",
+          "cpp",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "summary": "Build Artifact file with 3 non-empty lines; symbols: energy_bridge",
+        "language": "Build Artifact",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07833157,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 84.6,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build artifact",
+          "build artifact file with 3 non-empty lines; symbols: energy_bridge",
+          "native",
+          "cmakelists",
+          "txt",
+          "build",
+          "artifact",
+          "file",
+          "with",
+          "3",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge",
+          "c",
+          "make",
+          "lists",
+          "energy",
+          "bridge"
+        ],
+        "match_reasons": [
+          "file_path",
+          "expanded_query:file_summary",
+          "file_language",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "start_line": 2,
+        "end_line": 2
+      },
+      {
+        "id": 3,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "summary": "C/C++ file with 1 non-empty lines; symbols: energy_bridge_value",
+        "language": "C/C++",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07777631,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 72.2,
+        "search_terms": [
+          "native/bridge.cpp",
+          "c/c++",
+          "c/c++ file with 1 non-empty lines; symbols: energy_bridge_value",
+          "native",
+          "bridge",
+          "cpp",
+          "c",
+          "file",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge_value",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:file_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "start_line": 1,
+        "end_line": 1
+      },
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "build-profile.json5",
+        "summary": "HarmonyOS config with 1 non-empty lines",
+        "language": "HarmonyOS Config",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "03085dcf6065a624b0f28ebec73537589cc8e16d7b06a237273753a295136e4f",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07619048,
+          "best_rank": 3,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 3,
+              "weight": 1.35,
+              "score": 0.02142857
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 42.8,
+        "search_terms": [
+          "build-profile.json5",
+          "harmonyos config",
+          "harmonyos config with 1 non-empty lines",
+          "build",
+          "profile",
+          "json5",
+          "harmonyos",
+          "config",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "harmony",
+          "os"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "recalled": [
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "summary": "build_target energy_bridge in native/CMakeLists.txt; identifier terms: energy bridge",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:44e2ce723c743e12fa701c65",
+        "qualified_name": "energy_bridge",
+        "signature": "project(energy_bridge)",
+        "start_line": 2,
+        "end_line": 2,
+        "semantic_adapter": "build-artifact-static@1.0",
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05655738,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build_target energy_bridge in native/cmakelists.txt; identifier terms: energy bridge",
+          "energy_bridge",
+          "build_target",
+          "native",
+          "cmakelists",
+          "txt",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "bridge",
+          "c",
+          "make",
+          "lists",
+          "build",
+          "target"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "expanded_query:symbol",
+          "symbol_type",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "summary": "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:ba1a40ce84c79ed0ae1fd426",
+        "qualified_name": "energy_bridge_value",
+        "signature": "extern \"C\" int energy_bridge_value()",
+        "start_line": 1,
+        "end_line": 1,
+        "semantic_adapter": "cpp-static@1.0",
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "evidence_class": "static",
+        "method_evidence": "energy bridge value",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08187467,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 89.0,
+        "search_terms": [
+          "native/bridge.cpp",
+          "function energy_bridge_value in native/bridge.cpp; identifier terms: energy bridge value",
+          "energy_bridge_value",
+          "function",
+          "native",
+          "bridge",
+          "cpp",
+          "in",
+          "identifier",
+          "terms",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/CMakeLists.txt",
+        "summary": "Build Artifact file with 3 non-empty lines; symbols: energy_bridge",
+        "language": "Build Artifact",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "79e3542f1bb9ce6e223a1dea8d42deaf5681efc8eb33711832d3d9c37c6653eb",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07833157,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 84.6,
+        "search_terms": [
+          "native/cmakelists.txt",
+          "build artifact",
+          "build artifact file with 3 non-empty lines; symbols: energy_bridge",
+          "native",
+          "cmakelists",
+          "txt",
+          "build",
+          "artifact",
+          "file",
+          "with",
+          "3",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge",
+          "c",
+          "make",
+          "lists",
+          "energy",
+          "bridge"
+        ],
+        "match_reasons": [
+          "file_path",
+          "expanded_query:file_summary",
+          "file_language",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "energy_bridge",
+        "symbol_type": "build_target",
+        "start_line": 2,
+        "end_line": 2
+      },
+      {
+        "id": 3,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "native/bridge.cpp",
+        "summary": "C/C++ file with 1 non-empty lines; symbols: energy_bridge_value",
+        "language": "C/C++",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "8eebc0169f1c4505c02528ac18d85dc1bc9ea345f676b7d846660b915ab6f510",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07777631,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 72.2,
+        "search_terms": [
+          "native/bridge.cpp",
+          "c/c++",
+          "c/c++ file with 1 non-empty lines; symbols: energy_bridge_value",
+          "native",
+          "bridge",
+          "cpp",
+          "c",
+          "file",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "symbols",
+          "energy_bridge_value",
+          "energy",
+          "value"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:file_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "energy_bridge_value",
+        "symbol_type": "function",
+        "start_line": 1,
+        "end_line": 1
+      },
+      {
+        "id": 1,
+        "project_id": "2e0dae56d1181d21",
+        "file_path": "build-profile.json5",
+        "summary": "HarmonyOS config with 1 non-empty lines",
+        "language": "HarmonyOS Config",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "03085dcf6065a624b0f28ebec73537589cc8e16d7b06a237273753a295136e4f",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T09:01:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07619048,
+          "best_rank": 3,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 3,
+              "weight": 1.35,
+              "score": 0.02142857
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 42.8,
+        "search_terms": [
+          "build-profile.json5",
+          "harmonyos config",
+          "harmonyos config with 1 non-empty lines",
+          "build",
+          "profile",
+          "json5",
+          "harmonyos",
+          "config",
+          "with",
+          "1",
+          "non",
+          "empty",
+          "lines",
+          "harmony",
+          "os"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "wiki_matches": null,
+    "edges": null,
+    "origin": null,
+    "neighbor": null,
+    "edge": null,
+    "reverse": null,
+    "matched": null
+  }
+]
