@@ -92,3 +92,15 @@ cached-receipt excerpt path would show the same capped source snapshot used for
 proof, under existing line/character/token budgets; no implicit fresh reread may
 re-certify changed bytes. C implementation is not yet approved while this boundary
 remains unresolved.
+
+Concrete receipt option under final review: a private request/member-bound receipt
+holds capped decoded source lines from the original validated read. A narrow Render
+compact branch displays only those witnessed build/helper ranges under unchanged
+line/character/token budgets and skips both normal attach_source_excerpts and final
+recover_partial_primary for that private branch, avoiding both independent rereads.
+Ordinary context remains untouched. This is a within-request source snapshot, not
+proof the on-disk file cannot subsequently change. Copy/JSON/mutation must not retain
+selection authority or use cached bytes without the exact original binding.
+Whether loss of this late binding can safely revert a complete old context without
+cross-layer re-execution remains the last reviewed interface decision, not a solved
+or implemented property. No source-consumer code exists at this point.
