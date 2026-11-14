@@ -160,15 +160,49 @@ def extract(source, path):
     return result, skipped
 
 
+def validate_witness(fact, case):
+    # Independent shape/source checks; no runtime authority or selector use.
+    from tools.agent_memory_runtime.semantic_models import symbol_key
+    src = fact['source']; source = case['source']
+    lines = source.splitlines(); masked = '\n'.join(callback_mask_lines(lines))
+    assert src['file_path'] == case['file_path']
+    assert src['source_digest'] == case['sha256']
+    assert src['symbol_key'] == symbol_key('ArkTS', src['file_path'], src['qualified_name'], src['signature'])
+    first,last = src['start_line'],src['end_line']
+    assert type(first) is int and type(last) is int and 0 < first <= last <= len(lines)
+    header = method_header(callback_mask_lines(lines), first-1)
+    assert header is not None and header.name == src['qualified_name'].rsplit('.',1)[-1]
+    ps = parameters(header.params); formal = fact['formal']
+    assert type(formal['index']) is int and 0 <= formal['index'] < len(ps)
+    assert ps[formal['index']] == (formal['name'],formal['declared_type'])
+    outer = [sum(len(v)+1 for v in lines[:first-1]),sum(len(v)+1 for v in lines[:last])-1]
+    ranges = [fact['argument_call']['range'],fact['argument_call']['object_range'],fact['callback']['range'],fact['callback']['body_range'],fact['invocation']['range']]
+    previous = outer
+    for span in ranges:
+        assert all(type(x) is int for x in span) and previous[0] <= span[0] < span[1] <= previous[1]
+        previous = span
+    call,obj,prop,body,inv = [masked[a:b] for a,b in ranges]
+    assert call.lstrip().startswith(fact['argument_call']['receiver']+'.'+fact['argument_call']['member'])
+    assert obj.startswith('{') and obj.endswith('}') and body.startswith('{') and body.endswith('}')
+    assert prop.lstrip().startswith(fact['callback']['property']+':')
+    assert re.fullmatch(re.escape(formal['name'])+r'\.'+re.escape(fact['invocation']['member'])+r'\s*\([^()]*\)',inv)
+
+
 def main():
     protocol = json.loads((D/'protocol.json').read_text())
     output = []
     for case in protocol['cases']:
         assert hashlib.sha256(case['source'].encode()).hexdigest() == case['sha256']
         facts, unknown = extract(case['source'], case['file_path'])
+        validation_errors = []
+        for f in facts:
+            try:
+                validate_witness(f, case)
+            except (AssertionError, KeyError, TypeError, ValueError) as error:
+                validation_errors.append(type(error).__name__+':'+str(error))
         actual = [[f['source']['qualified_name'],f['formal']['declared_type'],f['callback']['property'],f['invocation']['member']] for f in facts]
         output.append({'id':case['id'], 'expected':case['expected'], 'actual':actual,
-                       'pass':sorted(actual)==sorted(case['expected']), 'witnesses':facts, 'unknown':unknown})
+                       'pass':sorted(actual)==sorted(case['expected']) and not validation_errors, 'validation_errors':validation_errors, 'witnesses':facts, 'unknown':unknown})
     (D/'results.json').write_text(json.dumps(output, indent=2))
     print(json.dumps({'passed':sum(r['pass'] for r in output),'total':len(output),'failures':[r['id'] for r in output if not r['pass']]}))
 

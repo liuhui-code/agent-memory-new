@@ -30,3 +30,16 @@ call learn, context or rank; no original query runs. Output is structured JSON,
 including skipped/unknown diagnostics and every failed comparison. No changes to
 semantic models or persistence, no hidden detail-string protocol. Passing this
 matrix only supports further local-model review, not serving promotion.
+
+## Pre-execution review addition
+
+Facts are named `captured_parameter_member_invocation_in_call_argument`, not full
+value forwarding. Arguments may be callback parameters but positional forwarding
+is not certified. No SDK invocation claim. Two same-type formals are deliberately
+outside this experiment, not intrinsically indistinguishable source identities.
+
+Before the single run, add hard witness assertions independent of tuple matching:
+recomputed key/path/digest, parsed full outer range and formal index/name/type;
+every exact call/object/property/body/invocation interval slices the same known
+source, and intervals nest inside the outer range. All validation errors count as
+failures and are retained. This adds checks, not changed source or expected tuples.
