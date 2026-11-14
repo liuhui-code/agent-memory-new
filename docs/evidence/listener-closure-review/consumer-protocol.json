@@ -1,0 +1,84 @@
+{
+  "original_case_id": "context-native-result-listener-boundary",
+  "original_variant": "contract",
+  "fixed_five": "docs/eval/native-listener-current-20261114/protocol.json",
+  "controls": [
+    {
+      "id": "multiple-forwarders",
+      "sources": {
+        "multiple-forwarders.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\nexport class SecondRelay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+    },
+    {
+      "id": "different-property",
+      "sources": {
+        "different-property.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+    },
+    {
+      "id": "other-receiver",
+      "sources": {
+        "other-receiver.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { other.rejected(reason) }\n    })\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+    },
+    {
+      "id": "retry",
+      "sources": {
+        "retry.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+    },
+    {
+      "id": "comment",
+      "sources": {
+        "comment.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { /* target.rejected(reason) */ }\n    })\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+    },
+    {
+      "id": "qualifier-conflict",
+      "sources": {
+        "Relay.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+        "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+      },
+      "query": "Find the callable that binds disk storage callbacks to the DeliverySink rejected contract.",
+      "expectation": "unverified source qualifier remains unresolved; do not report contract satisfied"
+    },
+    {
+      "id": "different-type",
+      "sources": {
+        "Relay.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+        "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the OtherSink rejected contract.",
+      "expectation": "no weak match"
+    },
+    {
+      "id": "wrapper",
+      "sources": {
+        "Relay.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+        "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+      },
+      "query": "Find the wrapper that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "unsupported; no reorder"
+    },
+    {
+      "id": "negative",
+      "sources": {
+        "Relay.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+        "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to not DeliverySink rejected contract.",
+      "expectation": "unsupported; no reorder"
+    }
+  ],
+  "stop": "one ordinal candidate; no weight/query/source modifications based on outcomes; if precision still fails stop listener"
+}

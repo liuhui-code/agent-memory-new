@@ -64,3 +64,10 @@ literal, wrapper, negative. Exact source/query in protocol controls; original
 five plus original Native contract unchanged. Native Development fixedcase source
 and oracle copied exactly, not a consumed holdout. Record before/after primary,
 certainty, anchors/body/precision and every wrong/unknown outcome.
+
+Pre-freeze tightening: apply stable partition ONLY AFTER existing
+select_diverse_callables, not before it. Its selected member set must be exactly
+unchanged, avoiding displacement through MAX_CALLABLES. If target is absent from
+that set, candidate cannot help and no recall/cap change is allowed. Recompute
+source ranges with original function in new order; unchanged per-candidate
+source facts. This supersedes the earlier final-ranked-before-selection wording.
