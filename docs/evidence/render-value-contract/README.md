@@ -87,3 +87,11 @@ analyzer could inspect this slice with freshness, exact lexical identity and
 ambiguity checks; existing evidence does NOT authorize treating the generic
 call edge as the resulting proof or Runtime exclusion authority. No claim that
 all value-flow information is globally absent is made.
+
+### Budget extraction correction
+
+`binding-summary.json` initially read nonexistent top-level token fields, producing
+null values. That historical artifact is preserved. `budget-correction.json` reads
+actual saved `compact.output_budget` without rerunning any query: consumed generic
+1406, explicit 965, two-source 1283, literal 930; discarded generic 1409. All target
+1500 and output_budget.truncated=false. This is not a new acceptance run.
