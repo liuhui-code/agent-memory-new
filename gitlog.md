@@ -12183,3 +12183,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   compatibility risks separately from measured results. Formal integration is not
   approved; next finite protocol requirements are documented, no runtime changes.
 - Details: docs/eval/listener-request-permission/CLI-OVERLAY-REVIEW.md.
+
+## 2026-11-14 - Define bounded listener v2 review obligations
+
+- Distinguished source-time provider assertions from source-free decoder checks;
+  specified exact source association and unchanged legacy mechanism budget/terms.
+- Listed new frozen version contamination, identity, case collision and cap controls;
+  old 20-source/five-query inputs and failed overlay evidence remain unchanged.
+- No v2 execution, runtime or request parser change in this review stage.
