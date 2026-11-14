@@ -1,0 +1,1072 @@
+{
+  "trace_limit": "rank return object references serialized at command end, not immutable return-time snapshots; public output actual unmodified CLI",
+  "rows": [
+    {
+      "family": "retained-three-source",
+      "id": "builder-role",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "primary": {
+        "file_path": "LayoutGuide.ets",
+        "symbol": "build",
+        "owner_name": "LayoutGuide",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 29.9,
+        "evidence_score": 29.9,
+        "reasons": [
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 6,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1094,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "retained-three-source",
+      "id": "explicit-member",
+      "paths": [
+        "RibbonCanvas.ets"
+      ],
+      "primary": {
+        "file_path": "RibbonCanvas.ets",
+        "symbol": "renderStrip",
+        "owner_name": "RibbonCanvas",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "arkts_builder"
+        ],
+        "score": 57.5,
+        "evidence_score": 57.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 6,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 878,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "retained-three-source",
+      "id": "real-other-layout",
+      "paths": [
+        "PanelViewport.ets"
+      ],
+      "primary": {
+        "file_path": "PanelViewport.ets",
+        "symbol": "build",
+        "owner_name": "PanelViewport",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 42.0,
+        "evidence_score": 42.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 6,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1051,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "retained-three-source",
+      "id": "explicit-pair",
+      "paths": [
+        "RibbonCanvas.ets",
+        "PanelViewport.ets"
+      ],
+      "primary": {
+        "file_path": "RibbonCanvas.ets",
+        "symbol": "renderStrip",
+        "owner_name": "RibbonCanvas",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "arkts_builder"
+        ],
+        "score": 25.0,
+        "evidence_score": 25.0,
+        "reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "explicit_owner_identity",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [
+        {
+          "id": 6,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1130,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "retained-three-source",
+      "id": "literal-text",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "primary": {
+        "file_path": "LayoutGuide.ets",
+        "symbol": "build",
+        "owner_name": "LayoutGuide",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 52.0,
+        "evidence_score": 52.0,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 6,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1109,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "generated-suffix",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "primary": {
+        "file_path": "LayoutGuide.ets",
+        "symbol": "build",
+        "owner_name": "LayoutGuide",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 27.54,
+        "evidence_score": 27.54,
+        "reasons": [
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1101,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "generated-head",
+      "paths": [
+        "BuilderWrapper.ets"
+      ],
+      "primary": {
+        "file_path": "BuilderWrapper.ets",
+        "symbol": "build",
+        "owner_name": "BuilderWrapper",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 25.6,
+        "evidence_score": 25.6,
+        "reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1071,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "wrapper-head",
+      "paths": [
+        "BuilderWrapper.ets"
+      ],
+      "primary": {
+        "file_path": "BuilderWrapper.ets",
+        "symbol": "build",
+        "owner_name": "BuilderWrapper",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 26.5,
+        "evidence_score": 26.5,
+        "reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1058,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "text-head",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "primary": {
+        "file_path": "LayoutGuide.ets",
+        "symbol": "build",
+        "owner_name": "LayoutGuide",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 30.9,
+        "evidence_score": 30.9,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1101,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "quoted-head",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "primary": {
+        "file_path": "LayoutGuide.ets",
+        "symbol": "build",
+        "owner_name": "LayoutGuide",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 25.59,
+        "evidence_score": 25.59,
+        "reasons": [
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1089,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "named-other",
+      "paths": [
+        "PanelViewport.ets",
+        "BuilderWrapper.ets",
+        "LayoutGuide.ets",
+        "RibbonCanvas.ets"
+      ],
+      "primary": {
+        "file_path": "PanelViewport.ets",
+        "symbol": "build",
+        "owner_name": "PanelViewport",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 48.0,
+        "evidence_score": 48.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1424,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "multiple-target",
+      "paths": [
+        "PanelViewport.ets",
+        "BuilderWrapper.ets",
+        "LayoutGuide.ets",
+        "RibbonCanvas.ets"
+      ],
+      "primary": {
+        "file_path": "PanelViewport.ets",
+        "symbol": "build",
+        "owner_name": "PanelViewport",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 48.0,
+        "evidence_score": 48.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1426,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "ordinary-component",
+      "paths": [
+        "PanelViewport.ets",
+        "RibbonCanvas.ets",
+        "LayoutGuide.ets"
+      ],
+      "primary": {
+        "file_path": "PanelViewport.ets",
+        "symbol": "build",
+        "owner_name": "PanelViewport",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 21.29,
+        "evidence_score": 21.29,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1469,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "unknown-action",
+      "paths": [
+        "BuilderWrapper.ets",
+        "LayoutGuide.ets",
+        "RibbonCanvas.ets"
+      ],
+      "primary": {
+        "file_path": "LayoutGuide.ets",
+        "symbol": "build",
+        "owner_name": "LayoutGuide",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 21.2,
+        "evidence_score": 21.2,
+        "reasons": [
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [],
+      "tokens": {
+        "estimated_tokens": 1272,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "artifact-label",
+      "paths": [
+        "RibbonCanvas.ets"
+      ],
+      "primary": {
+        "file_path": "RibbonCanvas.ets",
+        "symbol": "renderStrip",
+        "owner_name": "RibbonCanvas",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "arkts_builder"
+        ],
+        "score": 34.475,
+        "evidence_score": 34.475,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1112,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "generated-output-head",
+      "paths": [
+        "BuilderWrapper.ets"
+      ],
+      "primary": {
+        "file_path": "BuilderWrapper.ets",
+        "symbol": "build",
+        "owner_name": "BuilderWrapper",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 24.37,
+        "evidence_score": 24.37,
+        "reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [],
+      "tokens": {
+        "estimated_tokens": 1047,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "negative-tail",
+      "paths": [
+        "BuilderWrapper.ets"
+      ],
+      "primary": {
+        "file_path": "BuilderWrapper.ets",
+        "symbol": "build",
+        "owner_name": "BuilderWrapper",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 23.29,
+        "evidence_score": 23.29,
+        "reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1060,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "output-role-controls",
+      "id": "negative-other-tail",
+      "paths": [
+        "BuilderWrapper.ets"
+      ],
+      "primary": {
+        "file_path": "BuilderWrapper.ets",
+        "symbol": "build",
+        "owner_name": "BuilderWrapper",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 22.75,
+        "evidence_score": 22.75,
+        "reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "bounded",
+      "known_in_full_trace": [
+        {
+          "id": 8,
+          "symbol_key": "symbol:6b8a059f84900b25db0a8219",
+          "qualified_name": "RibbonCanvas.renderStrip",
+          "digest": "478b7bcd35e98eb8ceabb3bc7494ff198461a87b8bd1404282cb58b2ccf5bd99",
+          "start": 4,
+          "end": 11
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1065,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "two-known-same-file",
+      "id": "singular-positive-two-known",
+      "paths": [
+        "DualParts.ets"
+      ],
+      "primary": {
+        "file_path": "DualParts.ets",
+        "symbol": "firstPart",
+        "owner_name": "DualParts",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "arkts_builder"
+        ],
+        "score": 14.5,
+        "evidence_score": 14.5,
+        "reasons": [
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [
+        {
+          "id": 2,
+          "symbol_key": "symbol:22bbf82ffda8d41f26e1858c",
+          "qualified_name": "DualParts.firstPart",
+          "digest": "dfdb7468d7c0e8a8c5b2e95b336a8c5f384c8b73afab16bed9caa4fe18fb8e89",
+          "start": 4,
+          "end": 4
+        },
+        {
+          "id": 3,
+          "symbol_key": "symbol:867c35e1dbe3e07bed50a374",
+          "qualified_name": "DualParts.secondPart",
+          "digest": "dfdb7468d7c0e8a8c5b2e95b336a8c5f384c8b73afab16bed9caa4fe18fb8e89",
+          "start": 6,
+          "end": 6
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 857,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "two-known-same-file",
+      "id": "plural-request",
+      "paths": [],
+      "primary": null,
+      "certainty": "unavailable",
+      "known_in_full_trace": [],
+      "tokens": {
+        "estimated_tokens": 555,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "delegating-known",
+      "id": "positive-delegation",
+      "paths": [
+        "DelegatingParts.ets"
+      ],
+      "primary": {
+        "file_path": "DelegatingParts.ets",
+        "symbol": "plainPart",
+        "owner_name": "DelegatingParts",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 14.5,
+        "evidence_score": 14.5,
+        "reasons": [
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 3,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [
+        {
+          "id": 3,
+          "symbol_key": "symbol:824896d9c9c75fe517f55b90",
+          "qualified_name": "DelegatingParts.decoratedPart",
+          "digest": "073eed061f1a2d2f24d2419557c1fbcc3821b295d6fd96c5d51a907243f1365a",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 855,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "lexical-unknown",
+      "id": "unknown-role",
+      "paths": [
+        "UnknownParts.ets"
+      ],
+      "primary": {
+        "file_path": "UnknownParts.ets",
+        "symbol": "unknownPart",
+        "owner_name": "UnknownParts",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 14.5,
+        "evidence_score": 14.5,
+        "reasons": [
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 5,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [],
+      "tokens": {
+        "estimated_tokens": 847,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "delegating-two-builders",
+      "id": "positive-delegating-builder",
+      "paths": [
+        "NestedParts.ets"
+      ],
+      "primary": {
+        "file_path": "NestedParts.ets",
+        "symbol": "leafPart",
+        "owner_name": "NestedParts",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "arkts_builder"
+        ],
+        "score": 14.5,
+        "evidence_score": 14.5,
+        "reasons": [
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [
+        {
+          "id": 2,
+          "symbol_key": "symbol:4ca326c177d69294d887a596",
+          "qualified_name": "NestedParts.leafPart",
+          "digest": "4cbf9a9a3950e3a7cbbb51b42fd9213c036684230aa56c73883c1df4e5a8ebf3",
+          "start": 4,
+          "end": 4
+        },
+        {
+          "id": 3,
+          "symbol_key": "symbol:b62d6fddb6ec4043ac267c70",
+          "qualified_name": "NestedParts.composedPart",
+          "digest": "4cbf9a9a3950e3a7cbbb51b42fd9213c036684230aa56c73883c1df4e5a8ebf3",
+          "start": 6,
+          "end": 6
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 853,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "family": "mixed-known-unknown",
+      "id": "positive-with-unknown",
+      "paths": [
+        "KnownParts.ets",
+        "UnknownParts.ets"
+      ],
+      "primary": {
+        "file_path": "KnownParts.ets",
+        "symbol": "renderPart",
+        "owner_name": "KnownParts",
+        "owner_kind": "component",
+        "target_owner_kind_match": true,
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "arkts_builder"
+        ],
+        "score": 14.5,
+        "evidence_score": 14.5,
+        "reasons": [
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "certainty": "uncertain",
+      "known_in_full_trace": [
+        {
+          "id": 2,
+          "symbol_key": "symbol:9e84f4e01229ce02b14c92ba",
+          "qualified_name": "KnownParts.renderPart",
+          "digest": "bd1ecb76f58bc32d8fe51ba96936c464bea5fb28dd2f546b93fd4c12b43519a4",
+          "start": 4,
+          "end": 4
+        }
+      ],
+      "tokens": {
+        "estimated_tokens": 1108,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  ]
+}
