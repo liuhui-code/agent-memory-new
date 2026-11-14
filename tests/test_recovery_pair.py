@@ -85,6 +85,26 @@ class RecoveryPairTests(unittest.TestCase):
         self.assertFalse(current_sources(bound))
         self.assertFalse(accepted_output(bound, self.before['compact'], self.before['compact']))
 
+    def test_same_owner_and_multiple_positive_identities(self):
+        all_before = json.loads((D / 'before-public.json').read_text())
+        for name in ('same-owner', 'two-registry', 'two-store'):
+            family = next(f for f in self.protocol['families'] if f['id'] == name)
+            observed = next(r for r in all_before if r['family'] == name)
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                for path, source in family['sources'].items():
+                    file = root / path; file.parent.mkdir(parents=True, exist_ok=True); file.write_text(source)
+                rows = observed['symbols']
+                project = SimpleNamespace(root=root, project_id=rows[0]['project_id'])
+                handoff = observed['raw']['query_handoff']
+                result = bind_from_rows(project, observed['case']['query'], handoff, rows,
+                                        [r for r in rows if r['symbol_type'] == 'class'])
+                if name == 'same-owner':
+                    self.assertTrue(valid(result, result['code_anchors'], observed['case']['query']))
+                    self.assertEqual(len(result._receipts), 1)
+                else:
+                    self.assertIs(result, handoff)
+
     def test_no_new_ranges_and_budget_guard(self):
         bound = self.bound()
         old = self.before['compact']

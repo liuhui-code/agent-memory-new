@@ -89,8 +89,6 @@ def bind_from_rows(project, query, handoff, rows, files):
             continue
         represented = [a for a in anchors if a.get('file_path') == path and a.get('symbol') == owner['symbol']
                        and (a.get('start_line'), a.get('end_line')) == (owner['start_line'], owner['end_line'])]
-        if len(represented) != 1:
-            continue
         valid_methods = []
         for method in parsed['methods']:
             matching = [r for r in rows if r.get('file_path') == path and r.get('qualified_name') == owner['symbol'] + '.' + method['name']]
@@ -116,11 +114,14 @@ def bind_from_rows(project, query, handoff, rows, files):
             matches = [m for m in valid_methods if m['kind'] == role]
             if len(matches) == 1:
                 roles[role].append((owner['symbol_key'], path))
-                receipts[path] = {'anchor': deepcopy(represented[0]), 'source': source,
-                                  'digest': owner['source_digest'], 'parsed': parsed}
+                if len(represented) == 1:
+                    receipts[path] = {'anchor': deepcopy(represented[0]), 'source': source,
+                                      'digest': owner['source_digest'], 'parsed': parsed}
     if any(len(items) != 1 for items in roles.values()):
         return handoff
     selected_paths = list(dict.fromkeys(roles[role][0][1] for role in ('registry', 'store')))
+    if any(path not in receipts for path in selected_paths):
+        return handoff
     result = RecoveryHandoff(handoff)
     result._query = query
     result._receipts = tuple(receipts[p] for p in selected_paths)
