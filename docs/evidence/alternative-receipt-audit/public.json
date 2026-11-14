@@ -1,0 +1,249 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "aad3f9ab9b47e98f",
+  "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "batch",
+      "shared",
+      "records",
+      "reduced",
+      "last",
+      "value",
+      "return",
+      "record",
+      "iteration",
+      "accumulator",
+      "owner",
+      "rather"
+    ],
+    "log_anchors": [],
+    "code_anchors": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "symbol": "SharedRecordCollector",
+        "symbol_type": "class",
+        "record_ids": [
+          120
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "SharedRecordCollector",
+            "start_line": 1,
+            "end_line": 13
+          }
+        ],
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 13
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "collect",
+            "start_line": 2,
+            "end_line": 10,
+            "content": "  collect(records: ShareRecord[]): string {\n    let output = ''\n    for (const record of records) {\n      if (record.kind === 'markup') {\n        output = this.convertMarkup(record.content)\n      } else {\n        output = record.content\n      }\n    }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": true
+          }
+        ]
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          37
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 5,
+            "end_line": 7
+          }
+        ],
+        "read_window": {
+          "start_line": 5,
+          "end_line": 7
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": null,
+            "start_line": 1,
+            "end_line": 8,
+            "content": "@Component\nexport struct RecordPreview {\n  @Prop sharedRecord: ShareRecord\n\n  build() {\n    Text(this.sharedRecord.content)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "symbol_type": "function",
+        "record_ids": [
+          74
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "recordSuccessfulUse",
+            "start_line": 9,
+            "end_line": 13
+          }
+        ],
+        "read_window": {
+          "start_line": 9,
+          "end_line": 13
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "recordSuccessfulUse",
+            "start_line": 3,
+            "end_line": 14,
+            "content": "  lastUsedAt: number\n}\n\nexport class SessionUsageCoordinator {\n  private sessionStore: SessionStore = new SessionStore()\n\n  async recordSuccessfulUse(session: SessionRecord): Promise<void> {\n    session.usageCount += 1\n    session.lastUsedAt = Date.now()\n    await this.sessionStore.save(session)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "owner_name": "SessionUsageCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": [
+          "async",
+          "persistence_write",
+          "source_operation_checked:v2.1",
+          "source_operation_unresolved:persistenceread"
+        ],
+        "score": 23.775,
+        "evidence_score": 23.775,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 9,
+          "end_line": 13,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "symbol": "collect",
+          "owner_name": "SharedRecordCollector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 22.14,
+          "evidence_score": 22.14,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 681
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor"
+  ],
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1421,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}

@@ -1,0 +1,356 @@
+[
+  {
+    "stage": "compact_callable",
+    "input": {
+      "id": 403,
+      "project_id": "aad3f9ab9b47e98f",
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "collect",
+      "symbol_type": "function",
+      "summary": "ArkTS function or lifecycle method collect in src/sharing/SharedRecordCollector.ets",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:fd68059c2833c041126346ce",
+      "qualified_name": "SharedRecordCollector.collect",
+      "signature": "collect(records: ShareRecord[]):string",
+      "start_line": 2,
+      "end_line": 12,
+      "semantic_adapter": "arkts-static@1.2",
+      "source_digest": "f3b1a6dad256dd3b15547fa2b0450152d828562fe3cfbf5464fd3820ff0de92b",
+      "evidence_class": "static",
+      "method_evidence": "record kind convertmarkup convert markup content stateread state read",
+      "string_evidence": "markup",
+      "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":5,\"source_key\":\"symbol:fd68059c2833c041126346ce\",\"terms\":[\"guard\",\"conditional\"]},{\"confidence\":0.9,\"detail\":\"call:convertmarkup\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:fd68059c2833c041126346ce\",\"terms\":[\"operation\",\"call\"]}]",
+      "owner_name": "SharedRecordCollector",
+      "owner_kind": "class",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "index_generation": 1,
+      "updated_at": "2026-11-14T05:06:19+00:00",
+      "source_rank": 1,
+      "source_count": 1,
+      "preferred_rank": 0,
+      "stratum_rank": 1,
+      "file_pool_rank": 1,
+      "file_rank": 1,
+      "file_structural_coverage": 1,
+      "direct_score": 48.0,
+      "direct_match_reasons": [
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence",
+        "source_locatable"
+      ],
+      "direct_recall_lanes": [
+        "broad_fts",
+        "symbol_identity_fts",
+        "symbol_semantic_fts",
+        "salient_string_fts"
+      ],
+      "graph_depth": 0,
+      "typed_contract_match": false,
+      "typed_contract_weak": false,
+      "first_stage_rank_prior": 8.0,
+      "owner_kind_match": false,
+      "explicit_owner_identity_match": false,
+      "target_owner_kind_match": false,
+      "localization_score": 22.14,
+      "evidence_score": 22.14,
+      "localization_reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence"
+      ],
+      "mechanism_hits": [],
+      "artifact_role": "production",
+      "artifact_family": "sharedrecordcollector",
+      "artifact_query_intent": "implementation",
+      "artifact_role_affinity": 1
+    },
+    "output": {
+      "source_operation_match": null,
+      "symbol_id": 403,
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "collect",
+      "qualified_name": "SharedRecordCollector.collect",
+      "start_line": 2,
+      "end_line": 12,
+      "score": 22.14,
+      "evidence_score": 22.14,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence"
+      ],
+      "graph_depth": 0,
+      "graph_relations": [],
+      "recall_lanes": [
+        "broad_fts",
+        "symbol_identity_fts",
+        "symbol_semantic_fts",
+        "salient_string_fts"
+      ],
+      "owner_name": "SharedRecordCollector",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "artifact_role": "production",
+      "artifact_query_intent": "implementation"
+    }
+  },
+  {
+    "stage": "compact_callable",
+    "input": {
+      "id": 403,
+      "project_id": "aad3f9ab9b47e98f",
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "collect",
+      "symbol_type": "function",
+      "summary": "ArkTS function or lifecycle method collect in src/sharing/SharedRecordCollector.ets",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:fd68059c2833c041126346ce",
+      "qualified_name": "SharedRecordCollector.collect",
+      "signature": "collect(records: ShareRecord[]):string",
+      "start_line": 2,
+      "end_line": 12,
+      "semantic_adapter": "arkts-static@1.2",
+      "source_digest": "f3b1a6dad256dd3b15547fa2b0450152d828562fe3cfbf5464fd3820ff0de92b",
+      "evidence_class": "static",
+      "method_evidence": "record kind convertmarkup convert markup content stateread state read",
+      "string_evidence": "markup",
+      "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":5,\"source_key\":\"symbol:fd68059c2833c041126346ce\",\"terms\":[\"guard\",\"conditional\"]},{\"confidence\":0.9,\"detail\":\"call:convertmarkup\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:fd68059c2833c041126346ce\",\"terms\":[\"operation\",\"call\"]}]",
+      "owner_name": "SharedRecordCollector",
+      "owner_kind": "class",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "index_generation": 1,
+      "updated_at": "2026-11-14T05:06:19+00:00",
+      "source_rank": 1,
+      "source_count": 1,
+      "preferred_rank": 0,
+      "stratum_rank": 1,
+      "file_pool_rank": 1,
+      "file_rank": 1,
+      "file_structural_coverage": 1,
+      "direct_score": 48.0,
+      "direct_match_reasons": [
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence",
+        "source_locatable"
+      ],
+      "direct_recall_lanes": [
+        "broad_fts",
+        "symbol_identity_fts",
+        "symbol_semantic_fts",
+        "salient_string_fts"
+      ],
+      "graph_depth": 0,
+      "typed_contract_match": false,
+      "typed_contract_weak": false,
+      "first_stage_rank_prior": 8.0,
+      "owner_kind_match": false,
+      "explicit_owner_identity_match": false,
+      "target_owner_kind_match": false,
+      "localization_score": 22.14,
+      "evidence_score": 22.14,
+      "localization_reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence"
+      ],
+      "mechanism_hits": [],
+      "artifact_role": "production",
+      "artifact_family": "sharedrecordcollector",
+      "artifact_query_intent": "implementation",
+      "artifact_role_affinity": 1
+    },
+    "output": {
+      "source_operation_match": null,
+      "symbol_id": 403,
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "collect",
+      "qualified_name": "SharedRecordCollector.collect",
+      "start_line": 2,
+      "end_line": 12,
+      "score": 22.14,
+      "evidence_score": 22.14,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence"
+      ],
+      "graph_depth": 0,
+      "graph_relations": [],
+      "recall_lanes": [
+        "broad_fts",
+        "symbol_identity_fts",
+        "symbol_semantic_fts",
+        "salient_string_fts"
+      ],
+      "owner_name": "SharedRecordCollector",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "artifact_role": "production",
+      "artifact_query_intent": "implementation"
+    }
+  },
+  {
+    "stage": "resolve_candidate_range",
+    "input": {
+      "source_operation_match": null,
+      "symbol_id": 403,
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "collect",
+      "qualified_name": "SharedRecordCollector.collect",
+      "start_line": 2,
+      "end_line": 12,
+      "score": 22.14,
+      "evidence_score": 22.14,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "salient_query_evidence"
+      ],
+      "graph_depth": 0,
+      "graph_relations": [],
+      "recall_lanes": [
+        "broad_fts",
+        "symbol_identity_fts",
+        "symbol_semantic_fts",
+        "salient_string_fts"
+      ],
+      "owner_name": "SharedRecordCollector",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "artifact_role": "production",
+      "artifact_query_intent": "implementation"
+    },
+    "output": {
+      "symbol_id": 403,
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "collect",
+      "callable_start_line": 2,
+      "callable_end_line": 12,
+      "start_line": 2,
+      "end_line": 12,
+      "selection_reason": "callable_symbol_range"
+    }
+  },
+  {
+    "stage": "selected_ranges",
+    "anchor": {
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "SharedRecordCollector",
+      "symbol_type": "class",
+      "record_ids": [
+        120
+      ],
+      "record_type": "code_file",
+      "source_ranges": [
+        {
+          "symbol": "SharedRecordCollector",
+          "start_line": 1,
+          "end_line": 13
+        }
+      ],
+      "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+      "read_window": {
+        "start_line": 1,
+        "end_line": 13
+      },
+      "role": "primary"
+    },
+    "output": [
+      {
+        "symbol": "collect",
+        "start_line": 2,
+        "end_line": 12,
+        "selection_reason": "callable_mechanism_window"
+      }
+    ]
+  },
+  {
+    "stage": "selected_ranges",
+    "anchor": {
+      "file_path": "src/sharing/SharedRecordCollector.ets",
+      "symbol": "SharedRecordCollector",
+      "symbol_type": "class",
+      "record_ids": [
+        120
+      ],
+      "record_type": "code_file",
+      "source_ranges": [
+        {
+          "symbol": "SharedRecordCollector",
+          "start_line": 1,
+          "end_line": 13
+        }
+      ],
+      "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+      "read_window": {
+        "start_line": 1,
+        "end_line": 13
+      },
+      "role": "primary"
+    },
+    "output": [
+      {
+        "symbol": "collect",
+        "start_line": 2,
+        "end_line": 12,
+        "selection_reason": "callable_mechanism_window"
+      }
+    ]
+  }
+]

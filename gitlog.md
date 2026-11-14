@@ -12334,3 +12334,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   nonactivated crossfile focus; paraphrase lacks support and crossfile permission.
 - No lost producer identity/certificate demonstrated; no runtime edits. Exact
   public reports/helper conditions saved in docs/evidence/cross-layer-current.
+
+## 2026-11-14 — Audit selected-alternative identity before recovery extension
+
+- Trace one unchanged public shared-record query: real collect method ID/digest
+  exist before localization projection, but no private receipt survives compact.
+  Actual selected excerpt range is2–12; char-limited output stops at10. The reader
+  does not retain a complete same-read suffix buffer.
+- Freeze one independent temperature-reduction qualification. It returns a full
+  method-anchor excerpt (1219/1500), not the needed class/file-anchor truncation.
+  Do not pad/requery to chase a red; no serving change is justified by this run.
+- Preserve source/query hashes, public outputs and profiler; validate invariants.
+  No runtime/tests changed, no full evaluation and cumulative repair count stays20.
+  Details: docs/evidence/alternative-receipt-audit/README.md.

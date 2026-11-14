@@ -1,0 +1,19 @@
+import sys,json,runpy,os,copy
+from pathlib import Path
+repo=Path.cwd();sys.path.insert(0,str(repo/'tools'))
+records=[]
+def prof(f,event,arg):
+ if event!='return':return
+ name=f.f_code.co_name;file=f.f_code.co_filename;loc=f.f_locals
+ if name=='compact_callable' and file.endswith('query_hierarchical_localization.py'):
+  item=loc.get('item',{})
+  if item.get('symbol')=='collect':records.append({'stage':name,'input':copy.deepcopy(item),'output':copy.deepcopy(arg)})
+ if name=='resolve_candidate_range' and file.endswith('query_callable_range_identity.py'):
+  item=loc.get('candidate',{})
+  if item.get('symbol')=='collect':records.append({'stage':name,'input':copy.deepcopy(item),'output':copy.deepcopy(arg)})
+ if name=='selected_ranges' and file.endswith('context_source_excerpt.py') and 'SharedRecordCollector' in str(loc.get('source_path')):
+  records.append({'stage':name,'anchor':copy.deepcopy(loc.get('anchor')),'output':copy.deepcopy(arg)})
+sys.setprofile(prof)
+try:runpy.run_path(str(repo/'tools/agent_memory.py'),run_name='__main__')
+finally:
+ sys.setprofile(None);Path(os.environ['TRACE_OUT']).write_text(json.dumps(records,indent=2,default=str))

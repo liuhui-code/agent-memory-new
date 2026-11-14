@@ -1,0 +1,25 @@
+[
+  {
+    "command": [
+      "init"
+    ],
+    "returncode": 0,
+    "stdout": "initialized agent memory for /tmp/tmpiarz2t0d/source at /tmp/tmpiarz2t0d/memory/projects/aad3f9ab9b47e98f\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "learn-path",
+      "--path",
+      "/tmp/tmpiarz2t0d/source"
+    ],
+    "returncode": 0,
+    "stdout": "Merged 158 files from . (parsed files=158, symbols=526, logs=13, edges=1449, skipped: ignored_directory=1)\n",
+    "stderr": ""
+  },
+  {
+    "command": "context compact",
+    "returncode": 0,
+    "stderr": ""
+  }
+]
