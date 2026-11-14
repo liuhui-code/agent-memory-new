@@ -1,0 +1,598 @@
+{
+  "classification": "Development prospective; not holdout",
+  "base": "0a8a8fd",
+  "runtime_changes_before_freeze": false,
+  "families": [
+    {
+      "id": "two-builder-competition",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+        "SurfaceSizing.ets": "@Component\nexport struct SurfaceSizing {\n  @Builder\n  sizeSurface() {\n    Row() {\n      Text('sample')\n    }\n    .padding(12)\n    .width(180)\n  }\n  build() {\n    this.sizeSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "direct-pair",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": true,
+          "expected": [
+            "SurfacePalette.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        },
+        {
+          "id": "passive-observation",
+          "query": "面板中的文本被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": true,
+          "expected": [
+            "SurfacePalette.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        },
+        {
+          "id": "supported-negative",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码，不要返回卡片或数据模型。",
+          "authority": true,
+          "expected": [
+            "SurfacePalette.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        },
+        {
+          "id": "generated-head",
+          "query": "请返回生成 Builder 源码的实现。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "wrapper-head",
+          "query": "请返回调用 Builder 的包装器源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "literal-head",
+          "query": "请返回文本“请返回设置内边距和背景颜色的 Builder 源码”。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "quoted-request",
+          "query": "“请返回设置内边距和背景颜色的 Builder 源码。”",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "negative-builder",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码，不要返回 Builder。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "mixed-output",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码，同时返回普通组件。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "unknown-exclusion",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码，不要返回工具。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "attribute-or",
+          "query": "请返回设置内边距或背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "duplicate-alias",
+          "query": "请返回设置背景色和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "negative-attribute",
+          "query": "请返回设置非内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "explicit-other",
+          "query": "请返回 SurfaceSizing.sizeSurface 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "unknown-prefix",
+          "query": "不要检查面板，请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "prefix-generated",
+          "query": "生成源码中的文字被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "negative-symptom",
+          "query": "面板中的文字未被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "two-positive",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+        "SurfaceSizing.ets": "@Component\nexport struct SurfaceSizing {\n  @Builder\n  sizeSurface() {\n    Row() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Red)\n  }\n  build() {\n    this.sizeSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "two-positive",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": true,
+          "expected": [
+            "SurfacePalette.ets",
+            "SurfaceSizing.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        }
+      ]
+    },
+    {
+      "id": "same-file-two-positive",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  @Builder\n  anotherSurface() {\n    Row().padding(8).backgroundColor(Color.Red)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "same-file-two-positive",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": true,
+          "expected": [
+            "SurfacePalette.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        }
+      ]
+    },
+    {
+      "id": "cross-chain-only",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    ;\n    Row().backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "cross-chain-only",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "unknown-only",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text(`${value}`)\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "unknown-only",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "ordinary-only",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "ordinary-only",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": false,
+          "expected": [],
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "known-plus-unknown",
+      "sources": {
+        "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+        "SurfaceSizing.ets": "@Component\nexport struct SurfaceSizing {\n  @Builder\n  sizeSurface() {\n    Row() {\n      Text(`${value}`)\n    }\n    .padding(12)\n    .backgroundColor(Color.Red)\n  }\n  build() {\n    this.sizeSurface()\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "known-plus-unknown",
+          "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+          "authority": true,
+          "expected": [
+            "SurfacePalette.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        }
+      ]
+    }
+  ],
+  "compatibility": "Replay unchanged accepted English 24 + old-index 5; no new English semantics",
+  "before_stop": "If actual public direct-pair red absent or full current known role identities unavailable, stop without changing fixtures/query/noise.",
+  "source_controls": [
+    {
+      "id": "same-chain",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": true,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "cross-chain",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    ;\n    Row().backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "nested-only",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample').backgroundColor(Color.Blue)\n    }\n    .padding(12)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "comment-only",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    // .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "wrong-case",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundcolor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "optional",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    obj?.Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "computed-multiline",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    obj[key]\n    .Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "control-closing",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    if (ready) {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "adjacent-no-separator",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }Column().padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "post-semicolon",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    ;.padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "helper-direct",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    helper() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": true,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "delegate-only",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    this.otherBuilder()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    },
+    {
+      "id": "unsupported-lexical",
+      "source": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text(`${value}`)\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+      "witness": false,
+      "required": [
+        "padding",
+        "backgroundColor"
+      ]
+    }
+  ],
+  "request_controls": [
+    {
+      "query": "面板中的文本被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被截断，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被遮挡，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被隐藏，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被覆盖，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被挤压，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被拉伸，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被压缩，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被移位，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被重叠，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置宽度的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置width的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置高度的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置height的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置内边距的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置padding的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置外边距的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置margin的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置背景色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置backgroundColor的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置列表排列方向的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置列表方向的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置listDirection的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回配置padding和backgroundColor的 Builder 源码，不要返回卡片。",
+      "eligible": true
+    },
+    {
+      "query": "请返回配置padding和backgroundColor的 Builder 源码，不要返回数据模型。",
+      "eligible": true
+    },
+    {
+      "query": "请返回配置padding和backgroundColor的 Builder 源码，不要返回卡片或数据模型。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "面板中的文本被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": true
+    },
+    {
+      "query": "请返回设置内边距和背景颜色的 Builder 源码，不要返回卡片或数据模型。",
+      "eligible": true
+    },
+    {
+      "query": "请返回生成 Builder 源码的实现。",
+      "eligible": false
+    },
+    {
+      "query": "请返回调用 Builder 的包装器源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回文本“请返回设置内边距和背景颜色的 Builder 源码”。",
+      "eligible": false
+    },
+    {
+      "query": "“请返回设置内边距和背景颜色的 Builder 源码。”",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置内边距和背景颜色的 Builder 源码，不要返回 Builder。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置内边距和背景颜色的 Builder 源码，同时返回普通组件。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置内边距和背景颜色的 Builder 源码，不要返回工具。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置内边距或背景颜色的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置背景色和背景颜色的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置非内边距和背景颜色的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回 SurfaceSizing.sizeSurface 源码。",
+      "eligible": false
+    },
+    {
+      "query": "不要检查面板，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "生成源码中的文字被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "面板中的文字未被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置高度和height的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置Padding的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "如果列表中的卡片被裁剪，请返回设置高度的 Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置高度的 Builder 源码，不要返回卡片或卡片。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置高度的 Builder 源码。额外文本",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置高度的 Builder\n源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置高度的         Builder 源码。",
+      "eligible": false
+    },
+    {
+      "query": "请返回设置高度的        Builder 源码。",
+      "eligible": true
+    }
+  ],
+  "card_descriptor_controls": [
+    {
+      "path": "src/CardView.ets",
+      "owner": "CardView.render",
+      "exclude_card": true
+    },
+    {
+      "path": "src/Postcard.ets",
+      "owner": "Postcard.render",
+      "exclude_card": false
+    },
+    {
+      "path": "src/ModelView.ets",
+      "owner": "ModelView.render",
+      "exclude_model": true
+    },
+    {
+      "path": "src/SurfacePalette.ets",
+      "owner": "SurfacePalette.paintSurface",
+      "exclude_card": false
+    }
+  ],
+  "freeze_note": "Prepared before any new public query. Draft text observation changed from unsupported 文字 to admitted 文本 before execution; no result-driven adjustment. Original query remains unchanged."
+}

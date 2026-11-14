@@ -1,0 +1,12 @@
+{
+  "classification": "Development prospective source-witness competition, not yet frozen or executed",
+  "independence_basis": "New padding/backgroundColor versus padding/width declarations; no original List/direction/height source or project identifiers",
+  "sources": {
+    "SurfacePalette.ets": "@Component\nexport struct SurfacePalette {\n  @Builder\n  paintSurface() {\n    Column() {\n      Text('sample')\n    }\n    .padding(12)\n    .backgroundColor(Color.Blue)\n  }\n  build() {\n    this.paintSurface()\n  }\n}\n",
+    "SurfaceSizing.ets": "@Component\nexport struct SurfaceSizing {\n  @Builder\n  sizeSurface() {\n    Row() {\n      Text('sample')\n    }\n    .padding(12)\n    .width(180)\n  }\n  build() {\n    this.sizeSurface()\n  }\n}\n"
+  },
+  "query": "请返回设置内边距和背景颜色的 Builder 源码。",
+  "proposed_expected_sources": ["SurfacePalette.ets"],
+  "before_stop": "Stop if no actual public red or full ranked positive Builder identity missing; do not add query words or distractors to manufacture a red.",
+  "claimed_result": null
+}

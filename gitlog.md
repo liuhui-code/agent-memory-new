@@ -12507,3 +12507,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Propose source-bound same-chain exact-call positive qualification and a documented six-name catalog, without implementing it or reviving the rejected generic trailing-operation producer.
 - Explicitly leave original generic-request sufficiency, full symptom/negative grammar and source-scope completeness as review gates. No new evaluation, original repair count or public publication.
 - Details: docs/evidence/builder-chinese-consumer/MODIFIER-WITNESS-DESIGN.md.
+
+## Freeze proposed Chinese Builder source-witness controls for review
+
+- Record complete finite Chinese AST/negative-role mapping and precise source-chain grammar; card is local only, with no global language alias change.
+- Freeze independent two-Builder padding/backgroundColor competition plus same/cross-chain, unknown, multi-positive, literal/conflict and English compatibility controls before any new run.
+- Correct the unexecuted draft observation's unsupported 文字 to vocabulary terminal 文本 before freeze; original query unchanged. No runtime edits or before result yet. Await review of concrete protocol before one public before.
