@@ -12244,3 +12244,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   mechanisms preserved, original5 queries remain1red/4green;compact <=1500.
 - Diagnostic value-array cap is not whole-list cap; source slices are not full
   owner authentication. See docs/evidence/listener-batch-display/README.md.
+
+## 2026-11-14 - Final review of listener batch/list experiment
+
+- Verified saved final21 model checks and separate five live checks without rerun;
+  kept earlier harness errors historical and capacity evidence separately scoped.
+- Documented current-source-slice/trusted-owner boundary and diagnostic value-array
+  budget, not whole response or compact improvement. No production authority added.
