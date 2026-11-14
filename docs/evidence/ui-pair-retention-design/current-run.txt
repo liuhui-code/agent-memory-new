@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/probe-current.py", line 12, in <module>
+    cli('init');cli('learn-path','--path','.','--json');result=cli('context','--query',q,'--compact','--json',trace=True)
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/probe-current.py", line 11, in cli
+    r=subprocess.run([*command,*args,'--project',str(project),'--memory-home',str(Path(t)/'memory')],capture_output=True,text=True,check=True);return json.loads(r.stdout)if '--json'in args else r.stdout
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python', '/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/trace-current-cli.py', '/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/current-original-trace.json', '/workspace/scratch/dcdb41e16594/remaining-after-builder/tools/agent_memory.py', 'context', '--query', 'Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts.', '--compact', '--json', '--project', '/tmp/agent-memory-benchmark-i4zj7_tp/workspace', '--memory-home', '/tmp/pair-current-3h5jc0a6/memory']' returned non-zero exit status 1.

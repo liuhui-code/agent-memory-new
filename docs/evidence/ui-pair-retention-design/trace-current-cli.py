@@ -1,7 +1,7 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 import sys,runpy,json,copy
 from pathlib import Path
-out=Path(sys.argv.pop(1));entry=sys.argv[1];sys.path.insert(0,str(Path(entry).resolve().parents[1]));rows=[]
+out=Path(sys.argv.pop(1));entry=sys.argv[1];sys.argv=sys.argv[1:];sys.path.insert(0,str(Path(entry).resolve().parents[1]));rows=[]
 def profile(frame,event,arg):
  if event=='return' and frame.f_code.co_name=='focus_callable_anchors':
   rows.append(copy.deepcopy({'function':frame.f_code.co_name,'query':frame.f_locals.get('query'),'anchors':frame.f_locals.get('anchors'),'evidence':frame.f_locals.get('evidence'),'path_activated':frame.f_locals.get('path_activated'),'returned':arg,'return_line':frame.f_lineno}))
