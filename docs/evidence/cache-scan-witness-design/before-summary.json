@@ -1,0 +1,113 @@
+[
+  {
+    "case": "scan-context",
+    "paths": [
+      "WindowCache.ts"
+    ],
+    "primary": {
+      "file_path": "WindowCache.ts",
+      "symbol": "store",
+      "owner_name": "WindowCache",
+      "owner_kind": "class",
+      "callable_roles": [
+        "guard",
+        "source_operation_checked:v2.1"
+      ],
+      "score": 19.76,
+      "evidence_score": 19.76,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 8,
+        "end_line": 20,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "correct_owner_already": true,
+    "complete_method": false,
+    "actual_excerpt_ranges": [
+      [
+        11,
+        21
+      ]
+    ]
+  },
+  {
+    "case": "scan-head",
+    "paths": [
+      "WindowCache.ts"
+    ],
+    "primary": {
+      "file_path": "WindowCache.ts",
+      "symbol": "store",
+      "owner_name": "WindowCache",
+      "owner_kind": "class",
+      "callable_roles": [
+        "guard",
+        "source_operation_checked:v2.1"
+      ],
+      "score": 14.57,
+      "evidence_score": 14.57,
+      "reasons": [
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "method_evidence"
+      ],
+      "source_range": {
+        "start_line": 8,
+        "end_line": 20,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "correct_owner_already": true,
+    "complete_method": false,
+    "actual_excerpt_ranges": [
+      [
+        11,
+        21
+      ]
+    ]
+  },
+  {
+    "case": "capacity-observation",
+    "paths": [
+      "WindowCache.ts"
+    ],
+    "primary": {
+      "file_path": "WindowCache.ts",
+      "symbol": "store",
+      "owner_name": "WindowCache",
+      "owner_kind": "class",
+      "callable_roles": [
+        "guard",
+        "source_operation_checked:v2.1"
+      ],
+      "score": 30.0,
+      "evidence_score": 30.0,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "semantic_mechanism"
+      ],
+      "source_range": {
+        "start_line": 12,
+        "end_line": 16,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "correct_owner_already": true,
+    "complete_method": true,
+    "actual_excerpt_ranges": [
+      [
+        8,
+        20
+      ]
+    ]
+  }
+]

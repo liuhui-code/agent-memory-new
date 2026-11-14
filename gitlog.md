@@ -12569,3 +12569,8 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Fixed e6e1afb passes19 frozen public non-erasure controls;14 unchanged requests retain complete compact handoffs, every raw handoff/log/path/callable field remains unchanged. Preserve initial over-strong same-file body checker failure and independent correction: both ranges retained, old excerpt1–16 still incomplete for read_window2–18.
 -37 focused candidate tests and separate45 related tests pass (overlapping, not summed); immutable source/fixture checks pass. Fresh original02 baseline8d is1/3; candidatee6 is3/3. Only two English variants improve; English paraphrase retains an extra VoiceMessage source at precision0.6667, so do not call it pure-target or globally unique.
 - Complete results saved locally for final review. No full gate, main mutation or remote publication; pending earlier publication batch remains unchanged.
+
+## Cache template independent before stops at missing owner red
+
+- Freeze82f92a7 ran13 independent public requests once onf0c7d45. All3 eligible timestamp expressions already select only WindowCache.store; no matched owner-selection red, so do not implement the new template or tune source/query/noise.
+- Two short requests still have incomplete11–21 excerpt versus method8–20; retain this distinct layer observation without borrowing it to justify the owner consumer. Capacity-observation has complete body. No original33/full run or repair credit.
