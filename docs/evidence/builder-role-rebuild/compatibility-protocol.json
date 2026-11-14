@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "id": "builder-role",
+      "query": "Locate the reusable Builder that sets row height and alignment.",
+      "expected": [
+        "RibbonCanvas.ets"
+      ],
+      "body": ""
+    },
+    {
+      "id": "explicit-member",
+      "query": "Locate RibbonCanvas.renderStrip source.",
+      "expected": [
+        "RibbonCanvas.ets"
+      ],
+      "body": ""
+    },
+    {
+      "id": "real-other-layout",
+      "query": "Locate PanelViewport.build source.",
+      "expected": [
+        "PanelViewport.ets"
+      ],
+      "body": ""
+    },
+    {
+      "id": "explicit-pair",
+      "query": "Find both RibbonCanvas and PanelViewport source.",
+      "expected": [
+        "RibbonCanvas.ets",
+        "PanelViewport.ets"
+      ],
+      "body": ""
+    },
+    {
+      "id": "literal-text",
+      "query": "Find the text \"Reusable Builder row height align items layout instructions\".",
+      "expected": [
+        "LayoutGuide.ets"
+      ],
+      "body": ""
+    }
+  ],
+  "sources": {
+    "RibbonCanvas.ets": "@Component\nexport struct RibbonCanvas {\n  @Builder\n  renderStrip() {\n    Row() {\n      Text('north')\n      Text('south')\n    }\n    .height(72)\n    .alignItems(VerticalAlign.Center)\n  }\n  build() {\n    Column() {\n      this.renderStrip()\n    }\n  }\n}\n",
+    "PanelViewport.ets": "@Component\nexport struct PanelViewport {\n  build() {\n    Row() {\n      Text('panel')\n    }\n    .height(72)\n    .alignItems(VerticalAlign.Center)\n  }\n}\n",
+    "LayoutGuide.ets": "@Component\nexport struct LayoutGuide {\n  build() {\n    Text('Reusable Builder row height align items layout instructions')\n  }\n}\n"
+  }
+}
