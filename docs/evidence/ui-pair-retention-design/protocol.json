@@ -1,0 +1,171 @@
+{
+  "status": "frozen prospective Development before; no runtime implementation",
+  "base": "8d6e17b",
+  "classification": "independent Development prospective UI pair retention",
+  "families": [
+    {
+      "id": "product-price",
+      "sources": {
+        "ProductTile.ets": "import { PriceLabel } from './PriceLabel'\n@Component\nexport struct ProductTile {\n @Prop title: string = ''\n @Prop amount: string = ''\n build() {\n  Column() {\n   Text(this.title).fontSize(18)\n   PriceLabel({ amount: this.amount })\n  }\n }\n}\n",
+        "PriceLabel.ets": "@Component\nexport struct PriceLabel {\n @Prop amount: string = ''\n build() {\n  Text(this.amount).fontSize(12)\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "natural-pair",
+          "query": "Product tiles and price labels render inconsistent text sizes. Return both UI source contexts.",
+          "required": [
+            "ProductTile.ets",
+            "PriceLabel.ets"
+          ]
+        },
+        {
+          "id": "typography-pair",
+          "query": "Locate the typography code for product tiles and price labels.",
+          "required": [
+            "ProductTile.ets",
+            "PriceLabel.ets"
+          ]
+        },
+        {
+          "id": "named-pair",
+          "query": "Return both ProductTile and PriceLabel component sources.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "single-child",
+          "query": "Find PriceLabel component source.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted",
+          "query": "Find the literal text \"Return both UI source contexts.\".",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "generated",
+          "query": "Return instructions for generating both UI source contexts.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "negative-target",
+          "query": "Product tiles and price labels render inconsistent text sizes. Return both UI source contexts, but exclude PriceLabel.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "mixed-output",
+          "query": "Product tiles and price labels render inconsistent text sizes. Return both UI source contexts and native build configuration.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "for-pair",
+          "query": "Return both UI source contexts for product tiles and price labels.",
+          "required": [
+            "ProductTile.ets",
+            "PriceLabel.ets"
+          ]
+        },
+        {
+          "id": "three-targets",
+          "query": "Return both UI source contexts for product tiles and price labels and status badges.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "duplicate-np",
+          "query": "Return both UI source contexts for product tiles and product tiles.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "irregular",
+          "query": "Return both UI source contexts for product children and price labels.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "ied-not-plural",
+          "query": "Return both UI source contexts for product tiled and price labels.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "partial-owner",
+          "query": "Return both UI source contexts for tiles and labels.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-tail",
+          "query": "Return both UI source contexts for product tiles and price labels. Explain the bug.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted-names",
+          "query": "Return both UI source contexts for \"product tiles\" and price labels.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-spelling",
+      "sources": {
+        "ProductTile.ets": "import { PriceLabel } from './PriceLabel'\n@Component\nexport struct ProductTile {\n @Prop title: string = ''\n @Prop amount: string = ''\n build() {\n  Column() {\n   Text(this.title).fontSize(18)\n   PriceLabel({ amount: this.amount })\n  }\n }\n}\n",
+        "PriceLabel.ets": "@Component\nexport struct PriceLabel {\n @Prop amount: string = ''\n build() {\n  Text(this.amount).fontSize(12)\n }\n}\n",
+        "ProductTiles.ets": "import { PriceLabel } from './PriceLabel'\n@Component\nexport struct ProductTiles {\n @Prop title: string = ''\n @Prop amount: string = ''\n build() {\n  Column() {\n   Text(this.title).fontSize(18)\n   PriceLabel({ amount: this.amount })\n  }\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "ambiguous-plural",
+          "query": "Return both UI source contexts for product tiles and price labels.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "same-file",
+      "sources": {
+        "ProductParts.ets": "@Component\nexport struct ProductTile {\n @Prop title: string = ''\n @Prop amount: string = ''\n build() {\n  Column() {\n   Text(this.title).fontSize(18)\n   PriceLabel({ amount: this.amount })\n  }\n }\n}\n@Component\nexport struct PriceLabel {\n @Prop amount: string = ''\n build() {\n  Text(this.amount).fontSize(12)\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "same-file-pair",
+          "query": "Return both UI source contexts for product tiles and price labels.",
+          "required": [
+            "ProductParts.ets"
+          ],
+          "required_owners": [
+            "ProductTile",
+            "PriceLabel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unrelated-declarations",
+      "sources": {
+        "ProductTile.ets": "@Component\nexport struct ProductTile {\n @Prop title: string = ''\n @Prop amount: string = ''\n build() {\n  Column() {\n   Text(this.title).fontSize(18)\n  }\n }\n}\n",
+        "PriceLabel.ets": "@Component\nexport struct PriceLabel {\n @Prop amount: string = ''\n build() {\n  Text(this.amount).fontSize(12)\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "no-relation-required",
+          "query": "Return both UI source contexts for product tiles and price labels.",
+          "required": [
+            "ProductTile.ets",
+            "PriceLabel.ets"
+          ]
+        }
+      ]
+    }
+  ],
+  "source_binding_controls": [
+    "current method anchor inside typed component declaration accepted",
+    "current component anchor accepted",
+    "state-only anchor refuses",
+    "one requested owner not admitted refuses",
+    "duplicate declaration identity refuses",
+    "malformed identity/source key/digest refuses",
+    "stale source bytes refuse",
+    "method owner different from containing declaration refuses",
+    "range outside declaration refuses",
+    "same file distinct owners retain both only if existing intervals support both",
+    "JSON copy cannot mint binding",
+    "mutated original request or consumed members refuses",
+    "insufficient budget never widens source or increases1500"
+  ]
+}

@@ -52,3 +52,20 @@ with distinct names; same normalized words resolving to multiple owners; only
 import/no component declaration; stale/missing identity and one endpoint not in
 anchors. A natural two-source request is allowed even with no render edge: the
 user explicitly asked for those two declarations, not a relation certificate.
+
+## Approved freeze clarification before first independent execution
+
+Reviewer accepts this NO-GRAPH contract, not the earlier graph proposal. Only
+exact and the existing final-s/final-ies plural branches may be used; -ied is
+explicitly NOT plural and is rejected. Irregular words are not inferred. Consider
+all exact/variant matches and refuse ambiguous assignments. Uniqueness is only
+within the current admitted declaration inventory, never a whole-project claim.
+
+'Complete admitted range' means an already-existing, complete readable method or
+component interval, not a requirement that both entire declaration bodies already
+be anchors. Same-read declaration row, typed owner attribution, interval containment
+and current digest must establish representation. A state-only anchor is not enough.
+No existing interval may grow and no missing source may be added. Two distinct
+owners in one file need both existing represented intervals; file count is not
+owner count. Source-binding controls in protocol.json are implementation gates,
+not invented successful public results. Baseline runs only the frozen public inputs.
