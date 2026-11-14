@@ -1,0 +1,46 @@
+test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) ... 
+  test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets not, height.') ... FAIL
+  test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets only, height.') ... FAIL
+  test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets height and.') ... FAIL
+  test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets and height.') ... FAIL
+
+======================================================================
+FAIL: test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets not, height.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/builder-positive-consumer/tests/test_builder_positive_consumer.py", line 32, in test_complete_attribute_tokens_and_separators
+    with self.subTest(query=query):self.assertFalse(declaration_request(query))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets only, height.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/builder-positive-consumer/tests/test_builder_positive_consumer.py", line 32, in test_complete_attribute_tokens_and_separators
+    with self.subTest(query=query):self.assertFalse(declaration_request(query))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets height and.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/builder-positive-consumer/tests/test_builder_positive_consumer.py", line 32, in test_complete_attribute_tokens_and_separators
+    with self.subTest(query=query):self.assertFalse(declaration_request(query))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_complete_attribute_tokens_and_separators (tests.test_builder_positive_consumer.BuilderPositiveConsumerTests.test_complete_attribute_tokens_and_separators) (query='Locate the Builder that sets and height.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/builder-positive-consumer/tests/test_builder_positive_consumer.py", line 32, in test_complete_attribute_tokens_and_separators
+    with self.subTest(query=query):self.assertFalse(declaration_request(query))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=4)

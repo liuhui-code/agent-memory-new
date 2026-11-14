@@ -12470,3 +12470,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve candidate source/tests only on its isolated branch/bundle. Integration is docs/evidence-only; metadata audit finds no existing syntax-only consumption eligibility to repair without a new contract. Details: docs/evidence/trailing-operation-request/REJECTED.md.
 
 - Final source review also retained an unresolved multiline computed-receiver scope leak in d06114c. Passing focused tests do not establish source-scope safety; no further candidate edits or production integration.
+
+## 2026-11-14 — Positive Builder declaration consumer, bounded English request
+
+- Reproduced the unchanged independent Builder red and four controls on current baseline; froze 24 public controls and five old-index code-only checks before consumer implementation.
+- Candidate842f73b uses a separate original-query/source-identity binding for positive arkts_builder declarations, not coarse component/source-operation authority. Unknown is not absence; multi-method evidence remains uncertain/non-exhaustive and existing limits/protections stay.
+- Immutable detached final run passes all frozen conditions, 78 focused tests and separate fingerprint check. Original23 remains2/3; no cumulative original gain and no full run.
+- Preserve pre-run semantic correction, private/query binding fixes and actual four syntax failures. Intermediate live-tree after output is not final SHA evidence. Details: docs/evidence/builder-positive-consumer/RESULT.md.
