@@ -85,3 +85,14 @@ Freeze this protocol before candidate execution, then implement only after revie
 A fixed-SHA after may establish a retrieval prerequisite, not approve the later
 source selector automatically. Preserve stopped-before diagnosis and all raw
 outputs. No original23 rerun until the two stages are independently reviewed.
+
+## Executable case partition (before first candidate public run)
+
+phase-r-acceptance.json distinguishes unknown REQUEST syntax from unknown SOURCE
+semantics. All six extra source families have the same eligible query; their
+lexical recall is allowed even where old consumer protocol demanded unchanged
+output for missing role or witness. Their original consumer expectations are NOT
+relaxed for consumer promotion. Phase R does not yet implement that consumer.
+The 14 unsupported request cases retain complete old code/evidence/log/path
+output. The four valid requests in the main family plus six source families
+may gain lexical candidates but must never emit Builder/source-witness authority.
