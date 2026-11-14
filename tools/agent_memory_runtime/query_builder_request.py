@@ -87,9 +87,11 @@ def recall_projection(query,custom_port=None):
     return PropertyRecall(request,retrieval,terms,_ISSUER)
 
 
-def projected_method_terms(query,projection,original_query=None):
+def projected_method_terms(query,projection,original_query=None,row=None):
     original=method_evidence_focus_terms(query)
     if not isinstance(projection,PropertyRecall) or not projection.valid_for(query,original_query):
+        return original
+    if row is not None and projection.excludes(dict(row)):
         return original
     merged=unique_list([*original,*projection.terms])
     return merged if len(merged)<=METHOD_EVIDENCE_QUERY_TERM_LIMIT else original

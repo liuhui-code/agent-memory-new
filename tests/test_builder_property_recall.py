@@ -99,6 +99,14 @@ class BuilderPropertyRecallTests(unittest.TestCase):
         self.assertEqual(filter_projected_method_ids(conn,project,ids,projection.retrieval,projection,query),[3])
         conn.close()
 
+    def test_excluded_existing_row_gets_no_new_coverage(self):
+        from tools.agent_memory_runtime.query_method_evidence import method_evidence_term_coverage
+        query='请返回设置 width 和 内边距 的 Builder 源码，不要返回卡片。'
+        projection=recall_projection(query)
+        terms=projected_method_terms(projection.retrieval,projection,query,{'file_path':'Card.ets','owner_name':'Card'})
+        self.assertEqual(terms,['width','builder'])
+        self.assertEqual(method_evidence_term_coverage('width builder padding',terms),2)
+
     def test_whitespace_bounds(self):
         self.assertIsNotNone(parse_builder_request(' '*16+QUERY+' '*16))
         self.assertIsNone(parse_builder_request(' '*17+QUERY))

@@ -93,7 +93,6 @@ def collect_matches_with_audit(
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
-    method_focus_terms = projected_method_terms(retrieval_query, projection, query)
     behavior_terms = behavior_marker_terms(retrieval_query)
     salient_terms = salient_query_tokens(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
@@ -313,7 +312,7 @@ def collect_matches_with_audit(
                 ("mechanism_evidence", row["mechanism_evidence"] or "", 2.5)
             )
         method_coverage = method_evidence_term_coverage(
-            row["method_evidence"] or "", method_focus_terms
+            row["method_evidence"] or "", projected_method_terms(retrieval_query, projection, query, row)
         ) if "method_body_fts" in symbol_lanes else 0
         score, reasons = score_projected_code(
             projection, row, query, retrieval_query,

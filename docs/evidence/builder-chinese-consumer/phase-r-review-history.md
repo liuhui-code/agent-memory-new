@@ -25,3 +25,10 @@ owner_name, so SQL now selects that field and missing owner means file-only matc
 No qualified_name fallback remains, including nested Plain.card.inner. Unit SQLite
 schema was corrected to the actual owner_name column rather than constraining the
 implementation to its initial fake table. Same 30 focused tests pass again.
+
+Compound review additionally exercised an excluded Card row already qualifying
+for the old method lane: old width+builder coverage2 was preserved, but global
+projected terms incorrectly raised coverage to3 and could add the strong
+multi_term_method_evidence reason. Per-row method coverage now uses only old terms
+for excluded rows, matching the existing scorer's no-new-contribution rule. Added
+this exact internal reproduction; no public after had run. 31 focused tests pass.
