@@ -1,0 +1,231 @@
+{
+  "historical_original": {
+    "base": "e760097",
+    "recorded_at": "2026-11-13T13:02:45+00:00",
+    "case": {
+      "case_id": "context-native-result-listener-boundary::contract",
+      "scenario_id": "context-native-result-listener-boundary",
+      "query_variant": "contract",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "src/recovery/NativeResultRecovery.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "src/recovery/NativeResultRecovery.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "src/recovery/NativeResultRecovery.ets"
+      ],
+      "missing_expected_anchors": [
+        "src/adapters/NativeResultBoundary.ets"
+      ],
+      "forbidden_anchor_hits": [
+        "src/recovery/NativeResultRecovery.ets"
+      ],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "src/adapters/NativeResultBoundary.ets",
+          "start_line": 6,
+          "end_line": 17
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 10,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 454
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 10,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "src/recovery/NativeResultRecovery.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1161,
+      "memory_prepare_ms": 1447,
+      "query_elapsed_ms": 418,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 1.0,
+        "required_source_spans": [
+          {
+            "file_path": "src/adapters/NativeResultBoundary.ets",
+            "start_line": 6,
+            "end_line": 17
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "src/adapters/NativeResultBoundary.ets",
+            "symbol": "attach"
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "src/adapters/NativeResultBoundary.ets",
+            "symbol": "attach"
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  },
+  "latest_independent": {
+    "base": "71f71ed disposable overlay",
+    "paths": [
+      "Recovery.ets"
+    ],
+    "primary": {
+      "file_path": "Recovery.ets",
+      "symbol": "retryRejectedDelivery",
+      "owner_name": "Recovery",
+      "owner_kind": "class",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "expanded_query:string_evidence"
+      ],
+      "source_range": {
+        "start_line": 2,
+        "end_line": 4,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "diagnostic_status": "exact-name:one-observed",
+    "append_only_accounting": {
+      "paths_after_append": [
+        "Recovery.ets",
+        "Relay.ets"
+      ],
+      "precision": 0.5,
+      "oracle_requires_only": "Relay.ets",
+      "not_actual_runtime_run": true
+    }
+  },
+  "scope": "saved evidence and set accounting only; no fresh original evaluation"
+}
