@@ -12294,3 +12294,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   candidate; no production integration or original repair count increment.
 - Complete frozen inputs, disposable code, CLI reports and traces retained at
   docs/evidence/listener-closure-review. Move to separate history-action contract.
+
+## History-only exact-symbol experiment rejected
+
+- One frozen disposable candidate made original source-replacement3/3 and
+  recovered independent history target, but violated explicit historical-reference
+  must-keep-exact control. Load body remained; primary attribution became wrong.
+- Rejected despite score improvement. No keyword exceptions or additional trial,
+  no production integration and no original repaired-count increment.
+- Full before/after/source verification at docs/evidence/history-symbol-attribution.

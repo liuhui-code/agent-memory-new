@@ -1,0 +1,515 @@
+{
+  "workspace": "/tmp/history-symbol-trial-20bagvf2",
+  "results": [
+    {
+      "id": "historical-action",
+      "before_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 36.57,
+        "evidence_score": 36.57,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "DocumentSession.ts",
+        "symbol": "swapDocument",
+        "owner_name": "DocumentSession",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 28.415,
+        "evidence_score": 28.415,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "after_paths": [
+        "DocumentSession.ts"
+      ],
+      "load_exact_omitted": true,
+      "must_keep_exact_pass": null,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 1082,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "actual-load",
+      "before_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 41.5,
+        "evidence_score": 41.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 41.5,
+        "evidence_score": 41.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "after_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "load_exact_omitted": false,
+      "must_keep_exact_pass": null,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 954,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "actual-literal",
+      "before_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 49.0,
+        "evidence_score": 49.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 49.0,
+        "evidence_score": 49.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "after_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "load_exact_omitted": false,
+      "must_keep_exact_pass": null,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 1321,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    },
+    {
+      "id": "historical-reference",
+      "before_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 40.74,
+        "evidence_score": 40.74,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 8,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      },
+      "after_primary": {
+        "file_path": "DocumentSession.ts",
+        "symbol": "swapDocument",
+        "owner_name": "DocumentSession",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 28.74,
+        "evidence_score": 28.74,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 9,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      },
+      "before_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "after_paths": [
+        "DocumentSession.ts",
+        "ThumbnailLoader.ts"
+      ],
+      "load_exact_omitted": true,
+      "must_keep_exact_pass": false,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 1300,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "current-load-after-history",
+      "before_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 38.29,
+        "evidence_score": 38.29,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 38.29,
+        "evidence_score": 38.29,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "after_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "load_exact_omitted": false,
+      "must_keep_exact_pass": true,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 1056,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "multiple-targets",
+      "before_primary": {
+        "file_path": "DocumentSession.ts",
+        "symbol": "swapDocument",
+        "owner_name": "DocumentSession",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 52.0,
+        "evidence_score": 52.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "DocumentSession.ts",
+        "symbol": "swapDocument",
+        "owner_name": "DocumentSession",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 52.0,
+        "evidence_score": 52.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "DocumentSession.ts"
+      ],
+      "after_paths": [
+        "DocumentSession.ts"
+      ],
+      "load_exact_omitted": false,
+      "must_keep_exact_pass": true,
+      "required_path_present": false,
+      "budget": {
+        "estimated_tokens": 1070,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "reverse-current-load",
+      "before_primary": {
+        "file_path": "DocumentSession.ts",
+        "symbol": "swapDocument",
+        "owner_name": "DocumentSession",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 49.0,
+        "evidence_score": 49.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 44.0,
+        "evidence_score": 44.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "DocumentSession.ts"
+      ],
+      "after_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "load_exact_omitted": false,
+      "must_keep_exact_pass": true,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 1058,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "quoted-history",
+      "before_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 39.55,
+        "evidence_score": 39.55,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 39.55,
+        "evidence_score": 39.55,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "before_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "after_paths": [
+        "ThumbnailLoader.ts"
+      ],
+      "load_exact_omitted": false,
+      "must_keep_exact_pass": true,
+      "required_path_present": true,
+      "budget": {
+        "estimated_tokens": 953,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  ]
+}
