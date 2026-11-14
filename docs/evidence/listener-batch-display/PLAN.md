@@ -68,3 +68,8 @@ escaping/symlink paths and wrong digest. Decode same UTF-8 normalization as
 prototype, compare raw-byte digest separately. The new value versus old raw
 side field is current-source status and per-fact checked source slicing;
 not request satisfaction or normal retrieval consumption.
+
+Additional source-bound controls frozen before run: `../`, absolute path,
+symlink escape, missing/stale bytes, source >32768 bytes all unknown. This
+experiment supports only project-relative fixture roots; external learn-path
+roots are not guessed or claimed supported. Original rows remain available.
