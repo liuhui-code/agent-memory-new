@@ -1,0 +1,184 @@
+{
+  "status": "review draft; not executed",
+  "classification": "prospective independent Development fixed cache source-template contract",
+  "base": "f0c7d45",
+  "sources": {
+    "WindowCache.ts": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+    "CacheStatus.ts": "export class CacheStatus {\n  description(): string {\n    return 'Cache capacity exceeded; timestamp scan and oldest entry deletion pending.'\n  }\n}\n",
+    "FifoBuffer.ts": "export class FifoBuffer {\n  private values: Map<string, string> = new Map()\n  trim(limit: number): void {\n    if (this.values.size > limit) {\n      const key = this.values.keys().next().value\n      this.values.delete(key)\n    }\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "scan-context",
+      "query": "Locate the timestamp scan and delete implementation for a cache exceeding capacity.",
+      "eligible": true,
+      "required": [
+        "WindowCache.ts"
+      ],
+      "required_method": "store",
+      "required_range": [
+        8,
+        20
+      ]
+    },
+    {
+      "id": "scan-head",
+      "query": "Find the timestamp scan and delete implementation.",
+      "eligible": true,
+      "required": [
+        "WindowCache.ts"
+      ],
+      "required_method": "store",
+      "required_range": [
+        8,
+        20
+      ]
+    },
+    {
+      "id": "capacity-observation",
+      "query": "The limited cache fails to remove its oldest entry after capacity is exceeded; return the timestamp scan and delete implementation rather than cache policy or models.",
+      "eligible": true,
+      "required": [
+        "WindowCache.ts"
+      ],
+      "required_method": "store",
+      "required_range": [
+        8,
+        20
+      ]
+    },
+    {
+      "id": "explicit-fifo",
+      "query": "Locate FifoBuffer.trim.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "explicit-description",
+      "query": "Locate CacheStatus.description.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "generic-eviction",
+      "query": "Locate executable eviction scan ownership when a cache remains above its entry limit.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "literal",
+      "query": "Return the text describing timestamp scan and delete implementation.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "generated",
+      "query": "Return code that generates the timestamp scan and delete implementation.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "quoted",
+      "query": "Find the literal \"timestamp scan and delete implementation\".",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "mixed",
+      "query": "Find the timestamp scan and delete implementation and the cache status description.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "historical",
+      "query": "Previously timestamp scan failed; find the timestamp scan and delete implementation.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "duplicate-exclusion",
+      "query": "Find the timestamp scan and delete implementation rather than models or models.",
+      "eligible": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "unknown-tail",
+      "query": "Find the timestamp scan and delete implementation; explain the cause.",
+      "eligible": false,
+      "criterion": "unchanged"
+    }
+  ],
+  "source_controls": [
+    {
+      "id": "positive",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": true
+    },
+    {
+      "id": "wrong-clock-field",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.payload < minimum) {\n        minimum = entryValue.payload\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "wrong-delete-receiver",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.other.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "wrong-delete-key",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(token) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "overwritten-selected",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    selected = token\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "reversed-comparison",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp > minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "clock-not-written",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: 0, payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "candidate-not-assigned",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "shadowed-iterator",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [token, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = token\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "nested-loop",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    queueMicrotask(() => {\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    })\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "trailing-call",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n    this.values.clear()\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "unknown-entry-type",
+      "source": "export interface OtherValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "getter-collection",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  get values(): Map<string, TimedValue> { return new Map() }\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "duplicate-interface",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\nexport interface TimedValue { timestamp:number; payload:string }\n",
+      "positive": false
+    }
+  ],
+  "stop": "No implementation if no independent actual public same-layer red or target current full identity is absent. No source/query/noise change after baseline."
+}
