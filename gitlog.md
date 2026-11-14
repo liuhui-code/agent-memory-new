@@ -12174,3 +12174,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Distinguished weak-match motivation from the already repaired range oracle;
   recorded local model validation obligations without granting consumer authority.
 - Evidence: docs/eval/listener-request-permission/README.md.
+
+## 2026-11-14 - Review disposable listener CLI model experiment
+
+- Read saved 19/20 CLI result and eleven passing bounded model checks without
+  rerunning; retained Native case-sensitive graft failure.
+- Recorded unexecuted version-dispatch, signature/nested validation and byte-cap
+  compatibility risks separately from measured results. Formal integration is not
+  approved; next finite protocol requirements are documented, no runtime changes.
+- Details: docs/eval/listener-request-permission/CLI-OVERLAY-REVIEW.md.
