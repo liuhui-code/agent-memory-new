@@ -1,0 +1,55 @@
+[
+  {
+    "name": "compound",
+    "paths": [
+      "BufferNote.ts"
+    ],
+    "required_present": false,
+    "proposed_exact_source_set": false,
+    "budget": {
+      "estimated_tokens": 1064,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "name": "prefix",
+    "paths": [
+      "BufferNote.ts"
+    ],
+    "required_present": true,
+    "proposed_exact_source_set": true,
+    "budget": {
+      "estimated_tokens": 1061,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "name": "other-compound",
+    "paths": [
+      "BufferNote.ts",
+      "EmptyGuard.ts"
+    ],
+    "required_present": true,
+    "proposed_exact_source_set": false,
+    "budget": {
+      "estimated_tokens": 1210,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "name": "multiple",
+    "paths": [
+      "EmptyGuard.ts"
+    ],
+    "required_present": false,
+    "proposed_exact_source_set": false,
+    "budget": {
+      "estimated_tokens": 1052,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+]

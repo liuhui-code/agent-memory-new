@@ -12413,3 +12413,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - No speculative mapping fix, parser revival, cap change or new retention right.
   Related33 checks pass; source and query hashes/public outputs retained.
   Details: docs/evidence/nested-command-current/README.md. Count remains20.
+
+## 2026-11-14 — Qualify compound-prefix salience without changing recall contracts
+
+- Froze three independent literal sources and four public queries before execution.
+  Two required-retention checks fail; the literal prefix control passes. Preserve
+  separate precision proposal and exact budget values, no source/query retuning.
+- Located explicit symmetric-prefix semantics and historical native-color novel
+  salience. Current independent failures instead involve upstream primary/anchor
+  selection, so they cannot justify a same-layer compound supplementation repair.
+- Twenty existing related tests pass; no runtime/test change, full run, original
+  count gain or public upload. See compound-prefix-contract evidence report.

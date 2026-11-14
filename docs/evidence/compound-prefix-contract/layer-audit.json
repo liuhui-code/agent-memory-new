@@ -1,0 +1,619 @@
+{
+  "current_base": "14663ac",
+  "historical_native_trace_base": "a6c1d93",
+  "historical_native_salience": [
+    {
+      "stage": "preserve_salient_evidence_candidates",
+      "query": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings.",
+      "structural_boundary_query": true,
+      "target_scope": {
+        "kind": "unknown",
+        "basis": [
+          "no_explicit_target_scope"
+        ]
+      },
+      "additions": [
+        {
+          "kind": "file",
+          "file_path": "src/widgets/MessageActionBar.ets",
+          "symbol": "MessageActionBar",
+          "owner_name": null,
+          "start_line": 2,
+          "end_line": 9,
+          "method_evidence": null,
+          "string_evidence": null,
+          "match_reasons": [
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "salient_query_evidence"
+          ],
+          "graph_depth": null,
+          "score": 25.8,
+          "semantic_behavior_coverage": null,
+          "source_fields_present": false,
+          "source_matches": [],
+          "redundant": false
+        },
+        {
+          "kind": "symbol",
+          "file_path": "src/io/ClipboardContentReader.ets",
+          "symbol": "readPlainText",
+          "owner_name": "ClipboardContentReader",
+          "start_line": 4,
+          "end_line": 11,
+          "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+          "string_evidence": "",
+          "match_reasons": [
+            "symbol_summary",
+            "search_terms",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "graph_depth": null,
+          "score": 12.5,
+          "semantic_behavior_coverage": 0,
+          "source_fields_present": true,
+          "source_matches": [
+            "system-bar"
+          ],
+          "redundant": false
+        }
+      ]
+    }
+  ],
+  "current_public_summary": [
+    {
+      "name": "compound",
+      "raw_paths": [
+        "BufferNote.ts",
+        "CapacityGuard.ts",
+        "BufferNote.ts",
+        "EmptyGuard.ts"
+      ],
+      "compact_paths": [
+        "BufferNote.ts"
+      ],
+      "callable_certainty": "bounded",
+      "callable_primary": {
+        "file_path": "BufferNote.ts",
+        "symbol": "check",
+        "owner_name": "BufferNote",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 21.14,
+        "evidence_score": 21.14,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      },
+      "salient_terms": [
+        "buffer",
+        "full",
+        "checking",
+        "exact",
+        "diagnostic",
+        "literal",
+        "buffer-full"
+      ],
+      "wiki_scores": [
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "check",
+          "score": 48.0,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "CapacityGuard.ts",
+          "symbol": "check",
+          "score": 19.0,
+          "match_reasons": [
+            "string_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "BufferNote",
+          "score": 43.0,
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "EmptyGuard.ts",
+          "symbol": "check",
+          "score": 12.5,
+          "match_reasons": [
+            "string_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "BufferNote",
+          "score": 38.8,
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "prefix",
+      "raw_paths": [
+        "BufferNote.ts",
+        "CapacityGuard.ts",
+        "BufferNote.ts",
+        "EmptyGuard.ts"
+      ],
+      "compact_paths": [
+        "BufferNote.ts"
+      ],
+      "callable_certainty": "bounded",
+      "callable_primary": {
+        "file_path": "BufferNote.ts",
+        "symbol": "check",
+        "owner_name": "BufferNote",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 20.42,
+        "evidence_score": 20.42,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      },
+      "salient_terms": [
+        "buffer",
+        "source",
+        "checking",
+        "exact",
+        "diagnostic",
+        "literal"
+      ],
+      "wiki_scores": [
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "check",
+          "score": 44.0,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "CapacityGuard.ts",
+          "symbol": "check",
+          "score": 8.5,
+          "match_reasons": [
+            "string_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "BufferNote",
+          "score": 43.0,
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "EmptyGuard.ts",
+          "symbol": "check",
+          "score": 8.5,
+          "match_reasons": [
+            "string_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "BufferNote",
+          "score": 38.8,
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "other-compound",
+      "raw_paths": [
+        "BufferNote.ts",
+        "EmptyGuard.ts"
+      ],
+      "compact_paths": [
+        "BufferNote.ts",
+        "EmptyGuard.ts"
+      ],
+      "callable_certainty": "uncertain",
+      "callable_primary": {
+        "file_path": "EmptyGuard.ts",
+        "symbol": "check",
+        "owner_name": "EmptyGuard",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 23.0,
+        "evidence_score": 23.0,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      },
+      "salient_terms": [
+        "buffer",
+        "empty",
+        "checking",
+        "exact",
+        "diagnostic",
+        "literal",
+        "buffer-empty"
+      ],
+      "wiki_scores": [
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "BufferNote",
+          "score": 63.6,
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence"
+          ]
+        },
+        {
+          "file_path": "EmptyGuard.ts",
+          "symbol": "check",
+          "score": 54.5,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "multiple",
+      "raw_paths": [
+        "EmptyGuard.ts",
+        "BufferNote.ts"
+      ],
+      "compact_paths": [
+        "EmptyGuard.ts"
+      ],
+      "callable_certainty": "bounded",
+      "callable_primary": {
+        "file_path": "EmptyGuard.ts",
+        "symbol": "check",
+        "owner_name": "EmptyGuard",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 29.5,
+        "evidence_score": 29.5,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "composed",
+        "target_scope": "multiple",
+        "members": [
+          {
+            "file_path": "EmptyGuard.ts",
+            "symbol": "check",
+            "owner_name": "EmptyGuard",
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "salient_query_evidence"
+            ]
+          },
+          {
+            "file_path": "BufferNote.ts",
+            "symbol": "check",
+            "owner_name": "BufferNote",
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "salient_query_evidence"
+            ]
+          },
+          {
+            "file_path": "CapacityGuard.ts",
+            "symbol": "check",
+            "owner_name": "CapacityGuard",
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "salient_query_evidence"
+            ]
+          }
+        ],
+        "selection_basis": [
+          "existing_localization",
+          "same_owner_scope",
+          "explicit_cross_file_targets",
+          "bounded_passage_diversity"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      },
+      "salient_terms": [
+        "buffer",
+        "full",
+        "empty",
+        "source",
+        "checks",
+        "buffer-full",
+        "buffer-empty"
+      ],
+      "wiki_scores": [
+        {
+          "file_path": "EmptyGuard.ts",
+          "symbol": "check",
+          "score": 66.25,
+          "match_reasons": [
+            "file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "file_path": "BufferNote.ts",
+          "symbol": "check",
+          "score": 48.75,
+          "match_reasons": [
+            "file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        }
+      ]
+    }
+  ],
+  "internal_pairs": [
+    {
+      "left": "buffer-full",
+      "right": "buffer",
+      "match": true
+    },
+    {
+      "left": "buffer-full",
+      "right": "full",
+      "match": false
+    },
+    {
+      "left": "buffer-full",
+      "right": "buffer-full",
+      "match": true
+    },
+    {
+      "left": "buffer-full",
+      "right": "bufferempty",
+      "match": false
+    },
+    {
+      "left": "buffer",
+      "right": "buffering",
+      "match": true
+    },
+    {
+      "left": "bu",
+      "right": "buffer",
+      "match": false
+    },
+    {
+      "left": "缓存-满",
+      "right": "缓存",
+      "match": false
+    },
+    {
+      "left": "route.path",
+      "right": "route",
+      "match": true
+    }
+  ],
+  "source_match_matrix": [
+    {
+      "term": "buffer-full",
+      "source": "buffer",
+      "matches": [
+        "buffer-full"
+      ]
+    },
+    {
+      "term": "buffer-full",
+      "source": "buffer full",
+      "matches": [
+        "buffer-full"
+      ]
+    },
+    {
+      "term": "buffer-full",
+      "source": "bufferFull",
+      "matches": []
+    },
+    {
+      "term": "buffer-full",
+      "source": "buffer-full",
+      "matches": [
+        "buffer-full"
+      ]
+    },
+    {
+      "term": "buffer-full",
+      "source": "buffer empty",
+      "matches": [
+        "buffer-full"
+      ]
+    },
+    {
+      "term": "buffer",
+      "source": "buffering",
+      "matches": [
+        "buffer"
+      ]
+    },
+    {
+      "term": "bu",
+      "source": "buffer",
+      "matches": []
+    },
+    {
+      "term": "缓存-满",
+      "source": "缓存 满",
+      "matches": []
+    }
+  ],
+  "source_hashes": {
+    "tools/agent_memory_runtime/query_salience.py": "e50885a4acf9022f39488127872ebb889fc784b2c4702a5182dae60835fb1c16",
+    "tools/agent_memory_runtime/query_salience_score.py": "1a2f7b38e18e4768c9292b47a81115a460b0b7f9434b78ccbb5b6aa2b3b2018d",
+    "tools/agent_memory_runtime/query_salient_source_retention.py": "cd8f7efd69618dfa2702a61e60f3505378dc63eb9508b70957da7e3592a18d83",
+    "tools/agent_memory_runtime/text.py": "5f88c871236a75f2868133cef19006de9973a95c719ed4b3ed3e1c8476fa5e7c",
+    "docs/eval/structural-role-current/selection-summary.json": "f72f2ded72329355065d469d9784620179247d2a9d9140115ebf87cbb5612bbb",
+    "docs/runtime.md": "b4b70f0ac3487699c39d3b37a2585d4316b8f7460669b7d6e0c47efa0953f2b7"
+  }
+}
