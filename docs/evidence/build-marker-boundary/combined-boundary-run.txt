@@ -1,0 +1,7 @@
+imported-ui-palette builder-source ['ProfileTile.ets']
+imported-ui-palette bodybuilder-source ['ProfileScreen.ets', 'ProfileTile.ets']
+imported-ui-palette explicit-palette ['TrainingPalette.ts', 'ProfileTile.ets', 'ProfileScreen.ets']
+imported-ui-palette true-build-graph ['ProfileTile.ets']
+imported-ui-palette bare-declared ['ProfileScreen.ets', 'ProfileTile.ets', 'TrainingPalette.ts']
+native-build native-build-control ['native/bridge.cpp']
+native-build build-profile-path ['native/CMakeLists.txt', 'build-profile.json5']

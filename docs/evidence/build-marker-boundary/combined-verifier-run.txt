@@ -1,0 +1,96 @@
+[
+  {
+    "case": "builder-source",
+    "checks": {
+      "expected_paths": true,
+      "actual_excerpts_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "preserve_no_addition": true,
+      "predicate_false": true
+    },
+    "predicates": [
+      false
+    ],
+    "preserve_calls": 1
+  },
+  {
+    "case": "bodybuilder-source",
+    "checks": {
+      "expected_paths": true,
+      "actual_excerpts_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "preserve_no_addition": true,
+      "predicate_false": true
+    },
+    "predicates": [
+      false
+    ],
+    "preserve_calls": 1
+  },
+  {
+    "case": "explicit-palette",
+    "checks": {
+      "compact_handoff_exact": true,
+      "raw_handoff_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true
+    },
+    "predicates": [],
+    "preserve_calls": 0
+  },
+  {
+    "case": "true-build-graph",
+    "checks": {
+      "compact_handoff_exact": true,
+      "raw_handoff_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true
+    },
+    "predicates": [],
+    "preserve_calls": 0
+  },
+  {
+    "case": "bare-declared",
+    "checks": {
+      "compact_handoff_exact": true,
+      "raw_handoff_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true
+    },
+    "predicates": [],
+    "preserve_calls": 0
+  },
+  {
+    "case": "native-build-control",
+    "checks": {
+      "compact_handoff_exact": true,
+      "raw_handoff_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true
+    },
+    "predicates": [
+      true
+    ],
+    "preserve_calls": 1
+  },
+  {
+    "case": "build-profile-path",
+    "checks": {
+      "compact_handoff_exact": true,
+      "raw_handoff_exact": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true
+    },
+    "predicates": [],
+    "preserve_calls": 0
+  }
+]
