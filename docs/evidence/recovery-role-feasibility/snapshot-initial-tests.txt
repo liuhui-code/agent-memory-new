@@ -1,0 +1,13 @@
+..............F........................................
+======================================================================
+FAIL: test_only_new_original_range_gets_snapshot (test_recovery_pair.RecoveryPairTests.test_only_new_original_range_gets_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/remaining-after-render/tests/test_recovery_pair.py", line 138, in test_only_new_original_range_gets_snapshot
+    self.assertFalse(accepted_output(bound, old, enlarged))
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 55 tests in 0.199s
+
+FAILED (failures=1)

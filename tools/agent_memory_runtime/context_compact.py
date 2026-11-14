@@ -43,11 +43,11 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     from .query_render_selection import render_context_view, attach_render_excerpts
     data, render_receipts = render_context_view(data)
-    from .query_recovery_pair import valid, accepted_output
+    from .query_recovery_pair import valid, accepted_output, complete_added_snapshots
     handoff = data.get("query_handoff") or {}
     if not render_receipts and valid(handoff, handoff.get("code_anchors") or [], data.get("query")):
         baseline = _compact_context({**data, "query_handoff": dict(handoff)})
-        candidate = _compact_context(data)
+        candidate = complete_added_snapshots(handoff, baseline, _compact_context(data))
         return candidate if accepted_output(handoff, baseline, candidate) else baseline
     return _compact_context(data, render_receipts)
 

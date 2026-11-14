@@ -207,3 +207,33 @@ def accepted_output(handoff, baseline, candidate):
                    and e.get('content') == '\n'.join(lines[e['start_line']-1:e['end_line']]) for e in excerpts):
             return False
     return candidate.get('output_budget', {}).get('estimated_tokens', 1501) <= 1500
+
+
+def complete_added_snapshots(handoff, baseline, candidate):
+    """Only new exact certified anchors may display the retained source bytes."""
+    if not valid(handoff, handoff.get('code_anchors') or [], handoff.get('input_query')):
+        return candidate
+    old_paths = {a.get('file_path') for a in baseline['query_handoff'].get('code_anchors') or []}
+    result = deepcopy(candidate)
+    for receipt in handoff._receipts:
+        original = receipt['anchor']
+        if original['file_path'] in old_paths:
+            continue
+        targets = [a for a in result['query_handoff'].get('code_anchors') or []
+                   if a.get('file_path') == original['file_path'] and a.get('symbol') == original['symbol']]
+        if len(targets) != 1:
+            continue
+        target = targets[0]
+        start, end = original['start_line'], original['end_line']
+        if not any(r.get('symbol') == original['symbol'] and r.get('start_line') == start and r.get('end_line') == end
+                   for r in target.get('source_ranges') or []):
+            continue
+        target['source_excerpts'] = [{'symbol': original['symbol'], 'start_line': start, 'end_line': end,
+            'content': '\n'.join(receipt['source'].splitlines()[start-1:end]),
+            'source': 'validated_request_snapshot', 'selection_reason': 'existing_recovery_role_range',
+            'focus_line': None, 'truncated': False}]
+    from .context_budget import synchronize_estimate
+    result['output_budget'] = {'estimated_tokens': 0, 'target_tokens': 1500,
+                               'truncated': bool(candidate.get('output_budget', {}).get('truncated'))}
+    synchronize_estimate(result)
+    return result

@@ -6,7 +6,7 @@ import tempfile
 from types import SimpleNamespace
 import unittest
 from tools.agent_memory_runtime.query_recovery_pair import (
-    bind_from_rows, recovery_request, valid, preserve_recovery_pair, accepted_output, current_sources,
+    bind_from_rows, recovery_request, valid, preserve_recovery_pair, accepted_output, current_sources, complete_added_snapshots,
 )
 
 D = Path(__file__).resolve().parents[1] / 'docs/evidence/recovery-role-feasibility'
@@ -119,6 +119,26 @@ class RecoveryPairTests(unittest.TestCase):
         unrelated['callable_evidence']['alternatives'].append({'file_path': 'Other.ets', 'owner_name': 'TelemetryReporter'})
         bound = self.bound(handoff=unrelated)
         self.assertTrue(valid(bound, bound['code_anchors'], self.query))
+
+    def test_only_new_original_range_gets_snapshot(self):
+        bound = self.bound()
+        replay = json.loads((D / 'after899-internal-projection.json').read_text())
+        old, candidate = replay['baseline'], replay['candidate']
+        result = complete_added_snapshots(bound, old, candidate)
+        self.assertEqual(result['query_handoff']['code_anchors'][0], old['query_handoff']['code_anchors'][0])
+        registry = result['query_handoff']['code_anchors'][1]
+        self.assertEqual((registry['source_excerpts'][0]['start_line'], registry['source_excerpts'][0]['end_line']), (1, 11))
+        self.assertEqual(registry['source_excerpts'][0]['source'], 'validated_request_snapshot')
+        self.assertTrue(accepted_output(bound, old, result))
+        for copied in (dict(bound), copy.copy(bound), copy.deepcopy(bound), json.loads(json.dumps(bound))):
+            self.assertEqual(complete_added_snapshots(copied, old, candidate), candidate)
+        enlarged = copy.deepcopy(result); enlarged['expansion']['use_when'] = 'x' * 8000
+        from tools.agent_memory_runtime.context_budget import synchronize_estimate
+        synchronize_estimate(enlarged)
+        self.assertFalse(accepted_output(bound, old, enlarged))
+        path = self.root / 'src/runtime/SessionRegistry.ets'
+        path.write_text(path.read_text() + 'class Shadow {}\n')
+        self.assertFalse(accepted_output(bound, old, result))
 
     def test_no_new_ranges_and_budget_guard(self):
         bound = self.bound()
