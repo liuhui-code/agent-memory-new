@@ -12226,3 +12226,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   Dual callback-property constraint is an explicit extra hypothesis, not inferred
   intent. No selector/ranking/public-query rerun or original failure gain.
 - Evidence: docs/evidence/listener-request-association; production untouched.
+
+## 2026-11-14 - Review offline listener name-association results
+
+- Read 35 matching controls and six unscored observations without rerun. Kept exact
+  and weak name lanes, partial coverage and dual-property hypothesis distinct.
+- Documented concrete runtime identity/coverage and consumer permission obligations;
+  no original improvement, production selector or ranking authority claimed.
