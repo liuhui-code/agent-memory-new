@@ -12323,3 +12323,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   and its file/class anchor is not the method interval. Current recovery correctly
   abstains under its explicit contract. No runtime/query/test execution or fix claim.
 - Details: docs/eval/listener-request-permission/SHARED-RECORD-BUDGET-AUDIT.md.
+## Current cross-layer error contract audit
+
+- Fixed original3variants remain1/3 atcdb8f39. Correct UI→service typed calls/awaits
+  and ranges exist. Original portfolio loses service to3-file order/cap then
+  nonactivated crossfile focus; paraphrase lacks support and crossfile permission.
+- No lost producer identity/certificate demonstrated; no runtime edits. Exact
+  public reports/helper conditions saved in docs/evidence/cross-layer-current.

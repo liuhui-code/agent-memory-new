@@ -1,0 +1,186 @@
+[
+  {
+    "variant": "original",
+    "scope": {
+      "kind": "multiple",
+      "basis": [
+        "explicit_multi_target_cue"
+      ]
+    },
+    "required": [
+      {
+        "id": 184,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "range": {
+          "start_line": 7,
+          "end_line": 14,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 181,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "range": {
+          "start_line": 6,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 90,
+        "path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "range": {
+          "start_line": 4,
+          "end_line": 12,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 182,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "showBanner",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 183,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "build",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      }
+    ]
+  },
+  {
+    "variant": "en-paraphrase",
+    "scope": {
+      "kind": "multiple",
+      "basis": [
+        "conjoined_evidence_cue"
+      ]
+    },
+    "required": [
+      {
+        "id": 90,
+        "path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "range": {
+          "start_line": 4,
+          "end_line": 12,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 182,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "showBanner",
+        "range": {
+          "start_line": 17,
+          "end_line": 17,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 181,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "range": {
+          "start_line": 6,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 184,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 183,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "build",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      }
+    ]
+  },
+  {
+    "variant": "zh-noise",
+    "scope": {
+      "kind": "multiple",
+      "basis": [
+        "explicit_multi_target_cue"
+      ]
+    },
+    "required": [
+      {
+        "id": 181,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "range": {
+          "start_line": 6,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 184,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 90,
+        "path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,631 @@
+[
+  {
+    "variant": "original",
+    "kind": "internal helper replay over saved ranked result, not new CLI",
+    "scope": {
+      "kind": "multiple",
+      "basis": [
+        "explicit_multi_target_cue"
+      ]
+    },
+    "permits_crossfile": true,
+    "matches_public_primary": true,
+    "eligibility": [
+      {
+        "id": 266,
+        "path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "range": {
+          "start_line": 7,
+          "end_line": 20,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "multi_term_method_evidence",
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 390,
+        "path": "src/services/ParcelDeliveryService.ets",
+        "symbol": "retryFailedParcel",
+        "range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 184,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "range": {
+          "start_line": 7,
+          "end_line": 14,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 107,
+        "path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "range": {
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 112,
+        "path": "src/logging/FileFailureReporter.ets",
+        "symbol": "report",
+        "range": {
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 181,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "range": {
+          "start_line": 6,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 90,
+        "path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "range": {
+          "start_line": 4,
+          "end_line": 12,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 386,
+        "path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "range": {
+          "start_line": 10,
+          "end_line": 12,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 267,
+        "path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "build",
+        "range": null,
+        "support_reasons": [
+          "multi_term_method_evidence",
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 474,
+        "path": "src/views/JobDispatchButton.ets",
+        "symbol": "build",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 182,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "showBanner",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 183,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "build",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      }
+    ],
+    "actual_portfolio": {
+      "schema_version": "agent-callable-passage-portfolio/v1",
+      "mode": "serving",
+      "state": "composed",
+      "target_scope": "multiple",
+      "members": [
+        {
+          "file_path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel",
+          "owner_name": "ParcelRetryPage",
+          "source_range": {
+            "start_line": 7,
+            "end_line": 20,
+            "selection_reason": "callable_symbol_range"
+          },
+          "support_reasons": [
+            "multi_term_method_evidence",
+            "salient_query_evidence"
+          ]
+        },
+        {
+          "file_path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "retryFailedParcel",
+          "owner_name": "ParcelDeliveryService",
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          },
+          "support_reasons": [
+            "salient_query_evidence"
+          ]
+        },
+        {
+          "file_path": "src/pages/JobDispatchPage.ets",
+          "symbol": "onClick",
+          "owner_name": "JobDispatchPage",
+          "source_range": {
+            "start_line": 7,
+            "end_line": 14,
+            "selection_reason": "callable_symbol_range"
+          },
+          "support_reasons": [
+            "salient_query_evidence"
+          ]
+        }
+      ],
+      "selection_basis": [
+        "existing_localization",
+        "same_owner_scope",
+        "explicit_cross_file_targets",
+        "bounded_passage_diversity"
+      ],
+      "candidate_recall_changed": false,
+      "boundary": "source_passage_composition_not_diagnosis"
+    },
+    "actual_path": {
+      "schema_version": "log-anchored-path-context/v1",
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "candidate_count": 8,
+      "seeds": [],
+      "path_candidates": [],
+      "gaps": {},
+      "bounds": {
+        "max_depth": 6,
+        "max_nodes": 80,
+        "max_edges": 160,
+        "max_raw_paths_per_seed": 20,
+        "max_returned_paths": 5,
+        "max_same_entry_paths": 2,
+        "cycle_visit_limit": 1
+      },
+      "lane_isolation": {
+        "log_anchor": "code_log_statements identity fields only",
+        "program_path": "current active code graph edges only",
+        "semantic_correction": "annotation in base context; cannot create or rank paths",
+        "experience": "advisory in base context; cannot create or rank paths"
+      }
+    }
+  },
+  {
+    "variant": "en-paraphrase",
+    "kind": "internal helper replay over saved ranked result, not new CLI",
+    "scope": {
+      "kind": "multiple",
+      "basis": [
+        "conjoined_evidence_cue"
+      ]
+    },
+    "permits_crossfile": false,
+    "matches_public_primary": true,
+    "eligibility": [
+      {
+        "id": 262,
+        "path": "src/pages/NotificationDetailsPage.ets",
+        "symbol": "build",
+        "range": {
+          "start_line": 3,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 90,
+        "path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "range": {
+          "start_line": 4,
+          "end_line": 12,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 107,
+        "path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "range": {
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 80,
+        "path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "generateSessionCode",
+        "range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 112,
+        "path": "src/logging/FileFailureReporter.ets",
+        "symbol": "report",
+        "range": {
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ],
+        "query_supported": true,
+        "excluded": false
+      },
+      {
+        "id": 182,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "showBanner",
+        "range": {
+          "start_line": 17,
+          "end_line": 17,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 370,
+        "path": "src/runtime/TransportRegistry.ets",
+        "symbol": "selectRepository",
+        "range": {
+          "start_line": 4,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 181,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "range": {
+          "start_line": 6,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 386,
+        "path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 184,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 183,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "build",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      }
+    ],
+    "actual_portfolio": {
+      "schema_version": "agent-callable-passage-portfolio/v1",
+      "mode": "serving",
+      "state": "inactive",
+      "members": [],
+      "selection_basis": [
+        "fewer_than_two_supported_callable_identities"
+      ],
+      "candidate_recall_changed": false,
+      "boundary": "source_passage_composition_not_diagnosis"
+    },
+    "actual_path": {
+      "schema_version": "log-anchored-path-context/v1",
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "candidate_count": 1,
+      "seeds": [],
+      "path_candidates": [],
+      "gaps": {},
+      "bounds": {
+        "max_depth": 6,
+        "max_nodes": 80,
+        "max_edges": 160,
+        "max_raw_paths_per_seed": 20,
+        "max_returned_paths": 5,
+        "max_same_entry_paths": 2,
+        "cycle_visit_limit": 1
+      },
+      "lane_isolation": {
+        "log_anchor": "code_log_statements identity fields only",
+        "program_path": "current active code graph edges only",
+        "semantic_correction": "annotation in base context; cannot create or rank paths",
+        "experience": "advisory in base context; cannot create or rank paths"
+      }
+    }
+  },
+  {
+    "variant": "zh-noise",
+    "kind": "internal helper replay over saved ranked result, not new CLI",
+    "scope": {
+      "kind": "multiple",
+      "basis": [
+        "explicit_multi_target_cue"
+      ]
+    },
+    "permits_crossfile": true,
+    "matches_public_primary": true,
+    "eligibility": [
+      {
+        "id": 266,
+        "path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "range": {
+          "start_line": 7,
+          "end_line": 20,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 107,
+        "path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "range": {
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 390,
+        "path": "src/services/ParcelDeliveryService.ets",
+        "symbol": "retryFailedParcel",
+        "range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 378,
+        "path": "src/services/AttachmentService.ets",
+        "symbol": "loadAttachment",
+        "range": {
+          "start_line": 4,
+          "end_line": 14,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 267,
+        "path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "build",
+        "range": {
+          "start_line": 22,
+          "end_line": 29,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 386,
+        "path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "range": {
+          "start_line": 10,
+          "end_line": 12,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 166,
+        "path": "src/pages/DownloadsPage.ets",
+        "symbol": "retryDownload",
+        "range": {
+          "start_line": 7,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 181,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "range": {
+          "start_line": 6,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 184,
+        "path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 90,
+        "path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 379,
+        "path": "src/services/AttachmentService.ets",
+        "symbol": "writeCache",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      },
+      {
+        "id": 270,
+        "path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "onClick",
+        "range": null,
+        "support_reasons": [],
+        "query_supported": false,
+        "excluded": false
+      }
+    ],
+    "actual_portfolio": {
+      "schema_version": "agent-callable-passage-portfolio/v1",
+      "mode": "serving",
+      "state": "inactive",
+      "members": [],
+      "selection_basis": [
+        "fewer_than_two_supported_callable_identities"
+      ],
+      "candidate_recall_changed": false,
+      "boundary": "source_passage_composition_not_diagnosis"
+    },
+    "actual_path": {
+      "schema_version": "log-anchored-path-context/v1",
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "candidate_count": 7,
+      "seeds": [],
+      "path_candidates": [],
+      "gaps": {},
+      "bounds": {
+        "max_depth": 6,
+        "max_nodes": 80,
+        "max_edges": 160,
+        "max_raw_paths_per_seed": 20,
+        "max_returned_paths": 5,
+        "max_same_entry_paths": 2,
+        "cycle_visit_limit": 1
+      },
+      "lane_isolation": {
+        "log_anchor": "code_log_statements identity fields only",
+        "program_path": "current active code graph edges only",
+        "semantic_correction": "annotation in base context; cannot create or rank paths",
+        "experience": "advisory in base context; cannot create or rank paths"
+      }
+    }
+  }
+]
