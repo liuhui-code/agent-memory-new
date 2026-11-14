@@ -12132,3 +12132,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Unpublished Builder source/test artifacts are absent; re-create bounded producer
   with new frozen controls and actual focused results rather than reuse old claims.
 - Preserve count20/no-full and rejected consumer boundary; publish stages promptly.
+## Rebuilt Builder declaration producer after environment recovery
+
+- Re-froze independent Development sources and formal public learn/list tests on
+  published 6371d430; observed two missing-role failures before implementation.
+- Add only source-bound positive `arkts_builder` syntax metadata in the supported
+  ArkTS subset. No owner-kind, ranking, query consumer or absence inference change.
+- New execution: 3 public tests and 66 focused related tests pass; normal merge
+  activates four roles while eleven identity fields remain unchanged. Five fixed
+  compatibility queries retain bodies/ranges/primary; generic red remains red.
+- Evidence: docs/evidence/builder-role-rebuild. No full gate or original-count gain.

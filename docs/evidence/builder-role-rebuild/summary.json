@@ -1,0 +1,131 @@
+{
+  "activation": {
+    "identity_fields": [
+      "symbol_key",
+      "file_path",
+      "qualified_name",
+      "symbol",
+      "symbol_type",
+      "owner_name",
+      "owner_kind",
+      "start_line",
+      "end_line",
+      "source_digest",
+      "signature"
+    ],
+    "unchanged": true,
+    "before": [],
+    "code_only": [],
+    "merged": [
+      [
+        "Global.ets",
+        "globalPart"
+      ],
+      [
+        "Global.ets",
+        "inlineGlobal"
+      ],
+      [
+        "Member.ets",
+        "CardParts.inlinePart"
+      ],
+      [
+        "Member.ets",
+        "CardParts.rowPart"
+      ]
+    ]
+  },
+  "compatibility": [
+    {
+      "id": "builder-role",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "pass": false,
+      "anchors_identical": true,
+      "before_budget": {
+        "estimated_tokens": 1090,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1094,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "explicit-member",
+      "paths": [
+        "RibbonCanvas.ets"
+      ],
+      "pass": true,
+      "anchors_identical": true,
+      "before_budget": {
+        "estimated_tokens": 874,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 878,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "real-other-layout",
+      "paths": [
+        "PanelViewport.ets"
+      ],
+      "pass": true,
+      "anchors_identical": true,
+      "before_budget": {
+        "estimated_tokens": 1051,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1051,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "explicit-pair",
+      "paths": [
+        "PanelViewport.ets",
+        "RibbonCanvas.ets"
+      ],
+      "pass": true,
+      "anchors_identical": true,
+      "before_budget": {
+        "estimated_tokens": 1126,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1130,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "literal-text",
+      "paths": [
+        "LayoutGuide.ets"
+      ],
+      "pass": true,
+      "anchors_identical": true,
+      "before_budget": {
+        "estimated_tokens": 1105,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1109,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  ]
+}
