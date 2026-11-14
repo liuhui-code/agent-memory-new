@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "context-builder-layout-source-focus::original",
+    "baseline": {
+      "status": "pass",
+      "precision": 1.0,
+      "anchors": [
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "tokens": 1204
+    },
+    "candidate": {
+      "status": "pass",
+      "precision": 1.0,
+      "anchors": [
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "tokens": 1204
+    }
+  },
+  {
+    "case_id": "context-builder-layout-source-focus::en-paraphrase",
+    "baseline": {
+      "status": "pass",
+      "precision": 1.0,
+      "anchors": [
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "tokens": 1189
+    },
+    "candidate": {
+      "status": "pass",
+      "precision": 1.0,
+      "anchors": [
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "tokens": 1189
+    }
+  },
+  {
+    "case_id": "context-builder-layout-source-focus::zh-noise",
+    "baseline": {
+      "status": "fail",
+      "precision": 0.5,
+      "anchors": [
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "tokens": 1347
+    },
+    "candidate": {
+      "status": "fail",
+      "precision": 0.3333,
+      "anchors": [
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/CatalogFilterPanel.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "tokens": 1341
+    }
+  }
+]

@@ -12545,3 +12545,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Implement frozen full-method direct-chain witness and Chinese positive non-exhaustive selection after all-known identity/selected/capacity validation, using same-read hash and local negative descriptors.
 - Keep original English path, ranking, producer and limits unchanged; bind modifier request/proofs and selected members to private snapshots.
 - Preserve initial13-control range setup error, malformed-private-binding review and standalone-header hardening. Corrected13 controls and42 focused tests pass before any public candidate run.
+
+## Reject original23 regression; preserve fresh pair and graph provenance
+
+- Fresh0a8a8fd original23 baseline and13e5101 candidate both2/3, but Chinese precision declines0.5→0.3333 with added CatalogFilterPanel. No original gain; cumulative20 unchanged. Candidate not approved for publication.
+- Fixed source witness succeeds for WorkGallery and excludes Toolbar; real reverse imports from FilterToggle introduces/protects Catalog. PhaseR-only diagnosis already has3 anchors; do not blame parser or relax graph guard.
+- Save original outputs, fresh pair, raw/compact detailed traces and narrow unconfirmed build-substring hypothesis. All source fixtures/queries unchanged, no full gate.
