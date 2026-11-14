@@ -64,3 +64,12 @@ as no optional facts, so unsupported evidence cannot abort legacy indexing.
 No general encoding claim: original-byte digest must equal the text-reencoded
 snapshot used by the experiment; mismatches yield no new facts. Arbitrary invalid
 UTF8/CRLF support is not established by this run.
+
+Additional pre-run capacity control uses16 actual onEvent property arrows invoking
+target.onFailure. Old and experimental CLI both index this exact source. It tests
+legacy mechanism prefix/order/terms preservation and exact remaining-byte packing,
+not an oracle demanding all16 witnesses survive. Capacity-conditioned omission is
+allowed only when the next complete record cannot fit. Artificial JSON near-cap
+strings remain unit tests of arithmetic only, separately labeled. Terms assertion
+uses actual baseline old CLI payload against experimental indexed payload, not
+self-comparison. No execution has occurred before this clarification.

@@ -78,7 +78,10 @@ def caps():
         assert len(legacy.encode())+(len(side.encode())if side is not None else 0)<=4096
         kept=json.loads(side)if side else[];assert all(v==witness for v in kept)
         if len(legacy.encode())>4000:assert not kept
-    side=pack(old,[witness]);assert mechanism_search_terms(old)==mechanism_search_terms(old)
+    side=pack(old,[witness])
+    actual_before=next(r for r in json.loads((D/'before-list.json').read_text())if r['symbol_key']==row['symbol_key'])
+    assert actual_before['mechanism_evidence']==row['mechanism_evidence']
+    assert mechanism_search_terms(actual_before['mechanism_evidence'])==mechanism_search_terms(row['mechanism_evidence'])
     retained,_=mechanism_evidence_payload(mechanisms);assert retained==old
     (D/'cap-observation.json').write_text(json.dumps({'legacy_bytes':len(old.encode()),'side_bytes':len(side.encode())if side else 0,'terms':terms,'legacy_unchanged':True},indent=2))
 check('4096-whole-side-omission-legacy-preserved',caps)

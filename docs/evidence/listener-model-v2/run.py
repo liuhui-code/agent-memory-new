@@ -31,17 +31,17 @@ def main():
     learned=run(candidate,project,'learn-path','--path','.','--json');(D/'merge.json').write_text(json.dumps(learned,indent=2))
     (D/'merged-list.json').write_text(json.dumps(rows(candidate,project),indent=2));queries(candidate,'after')
     controls=json.loads((ROOT/'docs/evidence/listener-producer-feasibility/protocol.json').read_text());out=[]
-    for case in [*controls['cases'], {**json.loads((D/'case-collision.json').read_text()), 'id':'case-collision'},json.loads((D/'length-control.json').read_text())]:
+    for case in [*controls['cases'], {**json.loads((D/'case-collision.json').read_text()), 'id':'case-collision'},json.loads((D/'length-control.json').read_text()),json.loads((D/'capacity-control.json').read_text())]:
         p=work/('control-'+case['id']);p.mkdir();(p/case['file_path']).write_text(case['source']);run(candidate,p,'init');run(candidate,p,'learn-path','--path','.','--json')
         r=rows(candidate,p)
-        if case['id']=='overcap-file':
-            oldproject=work/'long-baseline';prepare(oldproject,{case['file_path']:case['source']});oldrows=rows(ROOT,oldproject)
-            (D/'length-baseline.json').write_text(json.dumps(oldrows,indent=2))
+        if case['id'] in ['overcap-file','actual-near-cap']:
+            oldproject=work/(case['id']+'-baseline');prepare(oldproject,{case['file_path']:case['source']});oldrows=rows(ROOT,oldproject)
+            (D/(case['id']+'-baseline.json')).write_text(json.dumps(oldrows,indent=2))
         facts=[w for row in r for w in json.loads(row.get('typed_invocation_witnesses')or'[]')]
         actual=[[w['source']['qualified_name'],w['formal']['declared_type'],w['callback']['property'],w['invocation']['member']]for w in facts]
-        out.append({'id':case['id'],'expected':case['expected'],'actual':actual,'pass':sorted(actual)==sorted(case['expected']),'rows':r})
+        out.append({'id':case['id'],'expected':case['expected'],'actual':actual,'pass':sorted(actual)==sorted(case['expected']) if case['id']!='actual-near-cap' else None,'rows':r})
         (D/'indexed-controls.json').write_text(json.dumps(out,indent=2))
     (D/'workspace.json').write_text(json.dumps({'workspace':str(work),'candidate':str(candidate)},indent=2))
-    print(json.dumps({'controls':len(out),'passed':sum(x['pass']for x in out),'workspace':str(work)}))
+    print(json.dumps({'controls':len(out),'passed':sum(x['pass'] is True for x in out),'workspace':str(work)}))
 
 if __name__=='__main__':main()

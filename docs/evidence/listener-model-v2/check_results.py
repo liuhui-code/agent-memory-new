@@ -30,7 +30,7 @@ for before,after in zip(load('before-queries.json'),load('after-queries.json')):
     summary['queries'].append({'query':after['case']['query'],'pass':paths==expected and after['case']['body']in body,'paths':sorted(paths),'anchor_changes':changes,'body_range_primary_identical':True,'before_budget':before['compact']['output_budget'],'after_budget':after['compact']['output_budget']})
 summary['indexed_controls']=[{'id':x['id'],'pass':x['pass'],'expected':x['expected'],'actual':x['actual']}for x in load('indexed-controls.json')]
 long=next(x for x in load('indexed-controls.json')if x['id']=='overcap-file')
-old=load('length-baseline.json');assert identity(old)==identity(long['rows'])
+old=load('overcap-file-baseline.json');assert identity(old)==identity(long['rows'])
 assert sorted(r['mechanism_evidence'] for r in old)==sorted(r['mechanism_evidence']for r in long['rows'])
 summary['length_legacy_preserved']=True
 summary['model_checks']=load('model-results.json')
