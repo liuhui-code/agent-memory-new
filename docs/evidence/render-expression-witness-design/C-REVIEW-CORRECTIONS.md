@@ -30,3 +30,17 @@ A preflight compact projection now requires every positive complete method range
 and exact snapshot content to fit the unchanged 1500 budget before receipt minting;
 otherwise it returns whole baseline. This adds deterministic bounded projection
 work, not an increased budget. Fixed44 focused tests pass after that correction.
+
+Facade transport now validates before mutation, permits only empty inactive payload
+fields with no seeds/gaps and unchanged baseline freshness, preserves the trial's
+own freshness report, and repeats complete snapshot budget preflight after enrichment.
+Unknown payload fields conservatively fall back; this preserves the actual existing
+inactive_payload schema rather than assuming arbitrary false-activated metadata safe.
+The initial new unknown-extra test failed because compact legitimately ignored that
+field; the closed transport guard now explicitly rejects unknown fields. Initial
+failure retained. All 46 focused tests then pass.
+
+Successful private RenderContext accounting is deferred to final Facade selection;
+ordinary baseline contexts retain their original limited_context accounting. Tests
+check both final active-path fallback (empty baseline, miss) and valid inactive
+transport (positive adopted view) are recorded exactly once, not earlier R state.

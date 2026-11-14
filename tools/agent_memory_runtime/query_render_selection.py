@@ -152,3 +152,28 @@ def complete_snapshot_projection(payload,receipts):
                        and e.get('content')==expected and e.get('truncated') is False for e in excerpts):
                 return False
     return True
+
+
+def enrich_render_context(data,query,path_payload,freshness):
+    """Only the trusted Facade's empty-path enrichment can transport a receipt."""
+    baseline=deepcopy(dict(data))
+    baseline['source_freshness']=freshness
+    baseline.setdefault('query_handoff',{})['path_context']=path_payload
+    view,receipts=render_context_view(data)
+    if (receipts is None or query!=data.get('query')
+            or path_payload.get('activated') is not False
+            or path_payload.get('wrapped_log_evidence')
+            or path_payload.get('path_candidates')!=[]
+            or set(path_payload)-{'schema_version','activated','activation_reason','candidate_count','seeds',
+                                  'path_candidates','gaps','bounds','lane_isolation','graph_revision','wrapped_log_evidence'}
+            or path_payload.get('seeds') or path_payload.get('gaps')
+            or freshness!=data.get('source_freshness')):
+        return baseline
+    view=deepcopy(view)
+    view['query_handoff']['path_context']=deepcopy(path_payload)
+    from .context_compact import _compact_context
+    if not complete_snapshot_projection(_compact_context(view,receipts),receipts):
+        return baseline
+    result=RenderContext(baseline);result._view=view;result._receipts=receipts
+    result._binding=(query,snapshot(dict(result)),snapshot(view),receipts)
+    return result

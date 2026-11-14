@@ -17,7 +17,7 @@ class RenderSelectionTests(unittest.TestCase):
   for i,name,start,end,typ,owner in [(1,'MessageSurface',2,10,'component',''),(2,'build',4,6,'function','MessageSurface'),(3,'plainBody',7,9,'function','MessageSurface')]:
    self.db.execute('INSERT INTO code_symbols VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',(i,'p',name,'MessageSurface.ets',name,'MessageSurface.'+name if owner else name,start,end,digest,1,typ,'component',owner,'static','arkts-static@1.2'))
   self.db.execute('CREATE TABLE code_files(file_path TEXT,project_id TEXT,source_digest TEXT,index_generation INTEGER)');self.db.execute('INSERT INTO code_files VALUES(?,?,?,?)',('MessageSurface.ets','p',digest,1))
-  self.baseline=dict(project_id='p',project_path=str(root),query=Q,wiki_matches=[],query_handoff={'code_anchors':[],'log_anchors':[],'path_context':{}},edge_matches=[])
+  self.baseline=dict(source_freshness={},project_id='p',project_path=str(root),query=Q,wiki_matches=[],query_handoff={'code_anchors':[],'log_anchors':[],'path_context':{}},edge_matches=[])
   self.trial=deepcopy(self.baseline);self.trial['wiki_matches']=[{'file_path':'MessageSurface.ets'}]
  def tearDown(self):self.db.close();self.tmp.cleanup()
  def bind(self):
@@ -62,9 +62,7 @@ class RenderSelectionTests(unittest.TestCase):
   receipt=self.bind()
   with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial]),patch('tools.agent_memory_runtime.query_render_selection.bind_render_context',return_value=receipt),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
    result=limited_context(self.project,Q)
-  self.assertIs(result,receipt);record.assert_called_once();miss.assert_called_once()
-  self.assertIs(record.call_args.args[1],receipt._view);self.assertIs(miss.call_args.args[3],receipt._view)
-  self.assertTrue(miss.call_args.args[3]['query_handoff']['code_anchors'])
+  self.assertIs(result,receipt);record.assert_not_called();miss.assert_not_called()
  def clone_owner(self,name,source=None):
   source=(source or BASE).replace('MessageSurface',name);file=name+'.ets';(self.project.root/file).write_text(source);digest=hashlib.sha256(source.encode()).hexdigest()
   rows=[dict(r)for r in self.db.execute("SELECT * FROM code_symbols WHERE file_path='MessageSurface.ets'")]
@@ -84,3 +82,26 @@ class RenderSelectionTests(unittest.TestCase):
   self.path.write_text(source);digest=hashlib.sha256(source.encode()).hexdigest()
   self.db.execute('UPDATE code_symbols SET source_digest=?',(digest,));self.db.execute('UPDATE code_files SET source_digest=?',(digest,))
   out=compact_context(self.bind());self.assertEqual(out,compact_context(self.baseline))
+
+ def test_facade_enrichment_and_final_accounting(self):
+  from tools.agent_memory_runtime.context_facade import ContextFacade
+  inactive={'activated':False,'path_candidates':[],'activation_reason':'missing_log_anchor'}
+  for active in [False,True]:
+   receipt=self.bind();paths=dict(inactive,activated=active)
+   facade=ContextFacade(self.project,lambda p,q,i:receipt,SimpleNamespace(build=lambda q:paths))
+   with patch('tools.agent_memory_runtime.context_facade.filter_fresh_path_context',side_effect=lambda p,v,f:(v,f)),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
+    result=facade.execute(Q)
+   record.assert_called_once();miss.assert_called_once()
+   if active:
+    self.assertNotIsInstance(result,RenderContext);self.assertFalse(miss.call_args.args[3]['query_handoff']['code_anchors'])
+   else:
+    self.assertIsInstance(result,RenderContext);self.assertTrue(miss.call_args.args[3]['query_handoff']['code_anchors'])
+    self.assertTrue(compact_context(result)['query_handoff']['code_anchors'])
+ def test_enrichment_unknown_and_copy_no_permission(self):
+  from tools.agent_memory_runtime.query_render_selection import enrich_render_context
+  inactive={'activated':False,'path_candidates':[]}
+  for path,fresh in [(dict(inactive,wrapped_log_evidence=True),{}),(dict(inactive,path_candidates=[{}]),{}),(inactive,{'status':'changed'}),({}, {})]:
+   self.assertNotIsInstance(enrich_render_context(self.bind(),Q,path,fresh),RenderContext)
+  self.assertNotIsInstance(enrich_render_context(dict(self.bind()),Q,inactive,{}),RenderContext)
+  huge=dict(inactive,extra='x'*30000)
+  self.assertNotIsInstance(enrich_render_context(self.bind(),Q,huge,{}),RenderContext)
