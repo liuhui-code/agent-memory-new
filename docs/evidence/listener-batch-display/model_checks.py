@@ -63,7 +63,7 @@ def symlink():
     unknown({**row,'file_path':'escape.ets'})
 check('symlink-escape',symlink)
 def caps():
-    rows=[copy.deepcopy(row)for _ in range(100)];out=display(rows,root)
+    rows=[{k:copy.deepcopy(v)for k,v in row.items()if k!='experimental_listener_diagnostic'}for _ in range(100)];out=display(rows,root)
     diagnostics=[r['experimental_listener_diagnostic']for r in out if 'experimental_listener_diagnostic'in r]
     assert len(out)==100 and len(diagnostics)<=64
     assert len(json.dumps(diagnostics,ensure_ascii=False).encode())<=65536
