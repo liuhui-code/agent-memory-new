@@ -1,0 +1,219 @@
+{
+  "classification": "Offline Development source fact feasibility, not public query test",
+  "base": "63970fc",
+  "source_origin": "relay/native are exact existing sources; controls derived once before execution",
+  "expected_fields": [
+    "outer_qualified_name",
+    "formal_declared_type",
+    "callback_property",
+    "invoked_member"
+  ],
+  "cases": [
+    {
+      "id": "relay",
+      "file_path": "relay.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "accepted",
+          "accepted"
+        ],
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ],
+      "reason": "Saved independent source verbatim; two distinct local facts"
+    },
+    {
+      "id": "native",
+      "file_path": "native.ets",
+      "source": "export interface ResultListener {\n  onReady(surfaceId: string): void\n  onFailure(code: number, message: string): void\n}\n\nexport class NativeResultBoundary {\n  attach(runtime: NativeRuntime, listener: ResultListener): void {\n    runtime.setObserver({\n      onReady: (surfaceId: string) => {\n        listener.onReady(surfaceId)\n      },\n      onFailure: (code: number, message: string) => {\n        listener.onFailure(code, message)\n      }\n    })\n  }\n}\n",
+      "sha256": "465838a30364c57bcef82277aec58cc607e2cd24ca47a6f239cf21f478f81ebd",
+      "expected": [
+        [
+          "NativeResultBoundary.attach",
+          "ResultListener",
+          "onReady",
+          "onReady"
+        ],
+        [
+          "NativeResultBoundary.attach",
+          "ResultListener",
+          "onFailure",
+          "onFailure"
+        ]
+      ],
+      "reason": "Saved original source verbatim, no query selection test"
+    },
+    {
+      "id": "other-receiver",
+      "file_path": "other-receiver.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { other.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "010228284851e6ac4f73700be6686da5179fdee35b376c177cf3752035ecc824",
+      "expected": [],
+      "reason": "No outer typed target invocation"
+    },
+    {
+      "id": "shadow",
+      "file_path": "shadow.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (target: DeliverySink) => { target.rejected(target) }\n    })\n  }\n}\n",
+      "sha256": "be4a7a4ce072e315393238dc2ca2d5a8687ca7f5161ed8788bdc29325f98883d",
+      "expected": [],
+      "reason": "Callback shadows outer formal"
+    },
+    {
+      "id": "reassign",
+      "file_path": "reassign.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    target = other\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "6573fdc0710b57d9bb6f8da657d35f1a36c46754e0896e606ee033d21fce819c",
+      "expected": [],
+      "reason": "Unsupported receiver mutation, no proof"
+    },
+    {
+      "id": "alias",
+      "file_path": "alias.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    const alias = target\n    engine.observe({\n      rejected: (reason: string) => { alias.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "06965900a095ae5eeb5a21b818c65e2da4324d46ad3a5e1fe5e0ef883ecb8f90",
+      "expected": [],
+      "reason": "No alias propagation"
+    },
+    {
+      "id": "nested",
+      "file_path": "nested.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { later(() => { target.rejected(reason) }) }\n    })\n  }\n}\n",
+      "sha256": "c7622e98417b4957dafad0ecfd26b47e2b69f9c452125f2a3bb6a03d33b354fa",
+      "expected": [],
+      "reason": "Nested/deferred invocation not direct callback body"
+    },
+    {
+      "id": "unpassed-object",
+      "file_path": "unpassed-object.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    const handlers = {\n      rejected: (reason: string) => { target.rejected(reason) }\n    }\n  }\n}\n",
+      "sha256": "393cab3f7cee9ffef12919013c146e1b18699595cfec52c450998a20b4ac0c96",
+      "expected": [],
+      "reason": "Object not a call argument"
+    },
+    {
+      "id": "split",
+      "file_path": "split.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    target.rejected('outside')\n    engine.observe({\n      rejected: (reason: string) => { record(reason) }\n    })\n  }\n}\n",
+      "sha256": "84924164c015332f892394300d3fc9abf619d62b44817efe4b8e2b6191c80926",
+      "expected": [],
+      "reason": "Invocation outside arrow cannot certify arrow relation"
+    },
+    {
+      "id": "different-property",
+      "file_path": "different-property.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "f2796af8030c644bec8827a236fd81acfcee2b94e5febc7c10feac35e02be2c8",
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "accepted",
+          "rejected"
+        ]
+      ],
+      "reason": "Keep actual property and member distinct; not rejected callback selector proof"
+    },
+    {
+      "id": "unused",
+      "file_path": "unused.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { record(reason) }\n    })\n  }\n}\n",
+      "sha256": "ee79baffc02676d0e65167b86b6638c9bd66b4012984e87583cd3eef674a4d1e",
+      "expected": [],
+      "reason": "Typed signature alone insufficient"
+    },
+    {
+      "id": "interface-only",
+      "file_path": "interface-only.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\n",
+      "sha256": "075c085d18ede2716710d494c90d02c92c8fd4ac81789ab5e4bd3ef42607fee5",
+      "expected": [],
+      "reason": "Declaration not body witness"
+    },
+    {
+      "id": "retry",
+      "file_path": "retry.ets",
+      "source": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n",
+      "sha256": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+      "expected": [],
+      "reason": "Real retry operation valid but not callback argument relation"
+    },
+    {
+      "id": "multiple-forwarders",
+      "file_path": "multiple-forwarders.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\nexport class SecondRelay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "6aea904b408c0512b798dc02cfe69fee77d634f0b1416d3332accd1e291539ae",
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ],
+        [
+          "SecondRelay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ],
+      "reason": "Both source identities retained, no uniqueness"
+    },
+    {
+      "id": "two-typed-formals",
+      "file_path": "two-typed-formals.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink, second: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "38b7f45bf19d127930333c69043259aaeb8ccbe6789b533232ea782b69cb849a",
+      "expected": [],
+      "reason": "Ambiguous type-to-formal request binding remains unknown"
+    },
+    {
+      "id": "unknown-interpolation",
+      "file_path": "unknown-interpolation.ets",
+      "source": "const note = `${value}`\ninterface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "e2346537d3cc10ecbd50795546a7b58a1d522ae0bb0757cc20ca1a8e5abd9396",
+      "expected": [],
+      "reason": "Unknown whole-file lexical syntax gives no new facts"
+    },
+    {
+      "id": "comment",
+      "file_path": "comment.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { /* target.rejected(reason) */ }\n    })\n  }\n}\n",
+      "sha256": "08bc3276d4af36309dbead44e472716ab41b5defed7dea615cce044c3287a1cd",
+      "expected": [],
+      "reason": "Noncode cannot certify call"
+    },
+    {
+      "id": "string",
+      "file_path": "string.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { 'target.rejected(reason)' }\n    })\n  }\n}\n",
+      "sha256": "1a77976855e5a5ea618a73096a9cfa779bacbf7327ba99ab6c4cbc3cbe82fb10",
+      "expected": [],
+      "reason": "Literal cannot certify call"
+    },
+    {
+      "id": "member-suffix",
+      "file_path": "member-suffix.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { obj.target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "4060c1d8bfaf5619470aa92e07ca47fa4ae355d821c6a1ab64e4614acefb98d3",
+      "expected": [],
+      "reason": "Root receiver not outer formal"
+    },
+    {
+      "id": "same-name-owners",
+      "file_path": "same-name-owners.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "9164ce163b18f4b236737a98692fcbeb116d3759ecf56048f0b751ebeaaeef53",
+      "expected": [],
+      "reason": "Duplicate container/qualified identity gives no new facts"
+    }
+  ]
+}
