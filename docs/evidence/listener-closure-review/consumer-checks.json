@@ -1,0 +1,1530 @@
+[
+  {
+    "id": "multiple-forwarders",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "two_forwarders_retained": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/multiple-forwarders",
+        "before": [
+          [
+            6,
+            "symbol:2ed63d79d4e3632f4cdda1c6",
+            "multiple-forwarders.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:5b673d03dea884ef6f393ebc",
+            "multiple-forwarders.ets",
+            15,
+            15
+          ],
+          [
+            3,
+            "symbol:2e31bed42c3f72e3848cb668",
+            "multiple-forwarders.ets",
+            6,
+            10
+          ],
+          [
+            5,
+            "symbol:5df00afc991e8f32b4e780fc",
+            "multiple-forwarders.ets",
+            13,
+            17
+          ]
+        ],
+        "after": [
+          [
+            3,
+            "symbol:2e31bed42c3f72e3848cb668",
+            "multiple-forwarders.ets",
+            6,
+            10
+          ],
+          [
+            5,
+            "symbol:5df00afc991e8f32b4e780fc",
+            "multiple-forwarders.ets",
+            13,
+            17
+          ],
+          [
+            6,
+            "symbol:2ed63d79d4e3632f4cdda1c6",
+            "multiple-forwarders.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:5b673d03dea884ef6f393ebc",
+            "multiple-forwarders.ets",
+            15,
+            15
+          ]
+        ],
+        "weak": [
+          [
+            3,
+            "symbol:2e31bed42c3f72e3848cb668",
+            "multiple-forwarders.ets",
+            6,
+            10
+          ],
+          [
+            5,
+            "symbol:5df00afc991e8f32b4e780fc",
+            "multiple-forwarders.ets",
+            13,
+            17
+          ]
+        ],
+        "association": "exact-name:multiple-observed",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/multiple-forwarders",
+        "before": [
+          [
+            6,
+            "symbol:2ed63d79d4e3632f4cdda1c6",
+            "multiple-forwarders.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:5b673d03dea884ef6f393ebc",
+            "multiple-forwarders.ets",
+            15,
+            15
+          ],
+          [
+            3,
+            "symbol:2e31bed42c3f72e3848cb668",
+            "multiple-forwarders.ets",
+            6,
+            10
+          ],
+          [
+            5,
+            "symbol:5df00afc991e8f32b4e780fc",
+            "multiple-forwarders.ets",
+            13,
+            17
+          ]
+        ],
+        "after": [
+          [
+            3,
+            "symbol:2e31bed42c3f72e3848cb668",
+            "multiple-forwarders.ets",
+            6,
+            10
+          ],
+          [
+            5,
+            "symbol:5df00afc991e8f32b4e780fc",
+            "multiple-forwarders.ets",
+            13,
+            17
+          ],
+          [
+            6,
+            "symbol:2ed63d79d4e3632f4cdda1c6",
+            "multiple-forwarders.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:5b673d03dea884ef6f393ebc",
+            "multiple-forwarders.ets",
+            15,
+            15
+          ]
+        ],
+        "weak": [
+          [
+            3,
+            "symbol:2e31bed42c3f72e3848cb668",
+            "multiple-forwarders.ets",
+            6,
+            10
+          ],
+          [
+            5,
+            "symbol:5df00afc991e8f32b4e780fc",
+            "multiple-forwarders.ets",
+            13,
+            17
+          ]
+        ],
+        "association": "exact-name:multiple-observed",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "different-property",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/different-property",
+        "before": [
+          [
+            3,
+            "symbol:d0a8028e78e9463dbcf2bc85",
+            "different-property.ets",
+            6,
+            10
+          ],
+          [
+            4,
+            "symbol:7ef9570a6258958bb320dd8a",
+            "different-property.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            3,
+            "symbol:d0a8028e78e9463dbcf2bc85",
+            "different-property.ets",
+            6,
+            10
+          ],
+          [
+            4,
+            "symbol:7ef9570a6258958bb320dd8a",
+            "different-property.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [
+          [
+            3,
+            "symbol:d0a8028e78e9463dbcf2bc85",
+            "different-property.ets",
+            6,
+            10
+          ]
+        ],
+        "association": "exact-name:one-observed",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/different-property",
+        "before": [
+          [
+            3,
+            "symbol:d0a8028e78e9463dbcf2bc85",
+            "different-property.ets",
+            6,
+            10
+          ],
+          [
+            4,
+            "symbol:7ef9570a6258958bb320dd8a",
+            "different-property.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            3,
+            "symbol:d0a8028e78e9463dbcf2bc85",
+            "different-property.ets",
+            6,
+            10
+          ],
+          [
+            4,
+            "symbol:7ef9570a6258958bb320dd8a",
+            "different-property.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [
+          [
+            3,
+            "symbol:d0a8028e78e9463dbcf2bc85",
+            "different-property.ets",
+            6,
+            10
+          ]
+        ],
+        "association": "exact-name:one-observed",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "other-receiver",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/other-receiver",
+        "before": [
+          [
+            4,
+            "symbol:83c2ed09e236e601e819e808",
+            "other-receiver.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:7cac8ec205eeb3ec567f0e5e",
+            "other-receiver.ets",
+            6,
+            10
+          ]
+        ],
+        "after": [
+          [
+            4,
+            "symbol:83c2ed09e236e601e819e808",
+            "other-receiver.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:7cac8ec205eeb3ec567f0e5e",
+            "other-receiver.ets",
+            6,
+            10
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/other-receiver",
+        "before": [
+          [
+            4,
+            "symbol:83c2ed09e236e601e819e808",
+            "other-receiver.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:7cac8ec205eeb3ec567f0e5e",
+            "other-receiver.ets",
+            6,
+            10
+          ]
+        ],
+        "after": [
+          [
+            4,
+            "symbol:83c2ed09e236e601e819e808",
+            "other-receiver.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:7cac8ec205eeb3ec567f0e5e",
+            "other-receiver.ets",
+            6,
+            10
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/retry",
+        "before": [
+          [
+            2,
+            "symbol:128172b51d4e7e5237a7c253",
+            "retry.ets",
+            2,
+            4
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:128172b51d4e7e5237a7c253",
+            "retry.ets",
+            2,
+            4
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/retry",
+        "before": [
+          [
+            2,
+            "symbol:128172b51d4e7e5237a7c253",
+            "retry.ets",
+            2,
+            4
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:128172b51d4e7e5237a7c253",
+            "retry.ets",
+            2,
+            4
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "comment",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/comment",
+        "before": [
+          [
+            4,
+            "symbol:cb38dcf40899e4dc27168b93",
+            "comment.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:c3a4901b30b45e64dbbbf5c2",
+            "comment.ets",
+            6,
+            10
+          ]
+        ],
+        "after": [
+          [
+            4,
+            "symbol:cb38dcf40899e4dc27168b93",
+            "comment.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:c3a4901b30b45e64dbbbf5c2",
+            "comment.ets",
+            6,
+            10
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/comment",
+        "before": [
+          [
+            4,
+            "symbol:cb38dcf40899e4dc27168b93",
+            "comment.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:c3a4901b30b45e64dbbbf5c2",
+            "comment.ets",
+            6,
+            10
+          ]
+        ],
+        "after": [
+          [
+            4,
+            "symbol:cb38dcf40899e4dc27168b93",
+            "comment.ets",
+            8,
+            8
+          ],
+          [
+            3,
+            "symbol:c3a4901b30b45e64dbbbf5c2",
+            "comment.ets",
+            6,
+            10
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "qualifier-conflict",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": false,
+      "selected_order_unchanged": false,
+      "weak_primary_uncertain": true
+    },
+    "pass": false,
+    "traces": [
+      {
+        "query": "Find the callable that binds disk storage callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/qualifier-conflict",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ]
+        ],
+        "association": "exact-name:one-observed",
+        "qualifiers": {
+          "source_noun_phrase": "disk storage",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds disk storage callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/qualifier-conflict",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ]
+        ],
+        "association": "exact-name:one-observed",
+        "qualifiers": {
+          "source_noun_phrase": "disk storage",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "different-type",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the OtherSink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/different-type",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the OtherSink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/different-type",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "wrapper",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the wrapper that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/wrapper",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [],
+        "association": "unsupported-descriptor",
+        "qualifiers": [
+          "request not established"
+        ]
+      },
+      {
+        "query": "Find the wrapper that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/wrapper",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [],
+        "association": "unsupported-descriptor",
+        "qualifiers": [
+          "request not established"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "negative",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to not DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/negative",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [],
+        "association": "unsupported-descriptor",
+        "qualifiers": [
+          "request not established"
+        ]
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to not DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/negative",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [],
+        "association": "unsupported-descriptor",
+        "qualifiers": [
+          "request not established"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "same-typed-member-direct-retry",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/same-typed-member-direct-retry",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            9,
+            "symbol:1fd8debbc39b5c8d1d7d7fe6",
+            "TypedRetry.ets",
+            2,
+            4
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            9,
+            "symbol:1fd8debbc39b5c8d1d7d7fe6",
+            "TypedRetry.ets",
+            2,
+            4
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ]
+        ],
+        "association": "exact-name:one-observed",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/same-typed-member-direct-retry",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            9,
+            "symbol:1fd8debbc39b5c8d1d7d7fe6",
+            "TypedRetry.ets",
+            2,
+            4
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "after": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ],
+          [
+            9,
+            "symbol:1fd8debbc39b5c8d1d7d7fe6",
+            "TypedRetry.ets",
+            2,
+            4
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ]
+        ],
+        "weak": [
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ]
+        ],
+        "association": "exact-name:one-observed",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  },
+  {
+    "id": "different-member",
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    },
+    "pass": true,
+    "traces": [
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink completed contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/different-member",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      },
+      {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink completed contract.",
+        "project": "/tmp/listener-closure-xtlw2z76/different-member",
+        "before": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ]
+        ],
+        "after": [
+          [
+            2,
+            "symbol:b90f9bf108610691e92bea92",
+            "Recovery.ets",
+            2,
+            4
+          ],
+          [
+            5,
+            "symbol:108be89117e2a49ddd88c942",
+            "Relay.ets",
+            6,
+            11
+          ],
+          [
+            6,
+            "symbol:38abe2087d2f6905d0786b04",
+            "Relay.ets",
+            8,
+            8
+          ],
+          [
+            7,
+            "symbol:26012745a07b5ee8a6202086",
+            "Relay.ets",
+            9,
+            9
+          ]
+        ],
+        "weak": [],
+        "association": "domain-unknown",
+        "qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        }
+      }
+    ]
+  }
+]

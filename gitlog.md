@@ -12283,3 +12283,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Verified saved envelope saturation success and separately uncovered fact-count
   branch; preserved initial attribution mistake and corrected saved-row analysis.
 - No reruns, new fixtures or quality/oracle changes; no original gain claimed.
+
+## Listener closure consumer experiment rejected
+
+- One approved weak ordinal selected-set-only candidate, no numeric tuning,
+  primary forced uncertain, source facts checked. Actual original Native remains
+  2/3: attach recovered but precision/forbidden Recovery still fail.
+- Fixed independent generic still red; four positives unchanged. Competition
+  10/11 pass, qualifier-conflict genuinely fails relevance safety. No second
+  candidate; no production integration or original repair count increment.
+- Complete frozen inputs, disposable code, CLI reports and traces retained at
+  docs/evidence/listener-closure-review. Move to separate history-action contract.

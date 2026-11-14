@@ -1,0 +1,975 @@
+{
+  "workspace": "/tmp/listener-closure-xtlw2z76",
+  "cases": [
+    {
+      "id": "fixed-0",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "listener_relation_weak": true,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 14.29,
+        "evidence_score": 14.29,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "uncertain",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Relay.ets",
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 1204,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "fixed-1",
+      "before_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 36.5,
+        "evidence_score": 36.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 36.5,
+        "evidence_score": 36.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Relay.ets"
+      ],
+      "after_paths": [
+        "Relay.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 892,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "fixed-2",
+      "before_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "typed_contract_match": true,
+        "typed_contract_weak": false,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 10.5,
+        "evidence_score": 10.5,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "typed_contract_match": true,
+        "typed_contract_weak": false,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 10.5,
+        "evidence_score": 10.5,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Relay.ets"
+      ],
+      "after_paths": [
+        "Relay.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 986,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "fixed-3",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 66.5,
+        "evidence_score": 66.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 66.5,
+        "evidence_score": 66.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 969,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "fixed-4",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 57.5,
+        "evidence_score": 57.5,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 57.5,
+        "evidence_score": 57.5,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "multiple-forwarders",
+      "before_primary": {
+        "file_path": "multiple-forwarders.ets",
+        "symbol": "rejected",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 32.03,
+        "evidence_score": 32.03,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 8,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "multiple-forwarders.ets",
+        "symbol": "connect",
+        "listener_relation_weak": true,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 15.29,
+        "evidence_score": 15.29,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "uncertain",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "multiple-forwarders.ets"
+      ],
+      "after_paths": [
+        "multiple-forwarders.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 960,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "different-property",
+      "before_primary": {
+        "file_path": "different-property.ets",
+        "symbol": "connect",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 15.29,
+        "evidence_score": 15.29,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "different-property.ets",
+        "symbol": "connect",
+        "listener_relation_weak": true,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 15.29,
+        "evidence_score": 15.29,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "uncertain",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "different-property.ets"
+      ],
+      "after_paths": [
+        "different-property.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 916,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "other-receiver",
+      "before_primary": {
+        "file_path": "other-receiver.ets",
+        "symbol": "rejected",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 32.03,
+        "evidence_score": 32.03,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 8,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "other-receiver.ets",
+        "symbol": "rejected",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 32.03,
+        "evidence_score": 32.03,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 8,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "other-receiver.ets"
+      ],
+      "after_paths": [
+        "other-receiver.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 904,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "retry",
+      "before_primary": {
+        "file_path": "retry.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "retry.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "retry.ets"
+      ],
+      "after_paths": [
+        "retry.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 888,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "comment",
+      "before_primary": {
+        "file_path": "comment.ets",
+        "symbol": "rejected",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 32.03,
+        "evidence_score": 32.03,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 8,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "comment.ets",
+        "symbol": "rejected",
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 32.03,
+        "evidence_score": 32.03,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 8,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "comment.ets"
+      ],
+      "after_paths": [
+        "comment.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 902,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "qualifier-conflict",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 40.0,
+        "evidence_score": 40.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "listener_relation_weak": true,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 10.715,
+        "evidence_score": 10.715,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "uncertain",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets",
+        "Relay.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 1220,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "different-type",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 34.685,
+        "evidence_score": 34.685,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 34.685,
+        "evidence_score": 34.685,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 986,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "wrapper",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 986,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "negative",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "same-typed-member-direct-retry",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 45.0,
+        "evidence_score": 45.0,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Relay.ets",
+        "symbol": "connect",
+        "listener_relation_weak": true,
+        "owner_name": "Relay",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 14.29,
+        "evidence_score": 14.29,
+        "reasons": [
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "uncertain",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Relay.ets",
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 1309,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "different-member",
+      "before_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 31.57,
+        "evidence_score": 31.57,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_primary": {
+        "file_path": "Recovery.ets",
+        "symbol": "retryRejectedDelivery",
+        "owner_name": "Recovery",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 31.57,
+        "evidence_score": 31.57,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 4,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "after_certainty": "bounded",
+      "weak_primary_uncertain": true,
+      "before_paths": [
+        "Recovery.ets"
+      ],
+      "after_paths": [
+        "Recovery.ets"
+      ],
+      "budget": {
+        "estimated_tokens": 991,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  ]
+}

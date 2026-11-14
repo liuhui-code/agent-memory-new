@@ -1,0 +1,118 @@
+[
+  {
+    "id": "multiple-forwarders",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "two_forwarders_retained": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "different-property",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "other-receiver",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "retry",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "comment",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "qualifier-conflict",
+    "pass": false,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": false,
+      "selected_order_unchanged": false,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "different-type",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "wrapper",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "negative",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "same-typed-member-direct-retry",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "weak_primary_uncertain": true
+    }
+  },
+  {
+    "id": "different-member",
+    "pass": true,
+    "checks": {
+      "trace_present": true,
+      "same_selected_set": true,
+      "no_new_weak": true,
+      "selected_order_unchanged": true,
+      "weak_primary_uncertain": true
+    }
+  }
+]
