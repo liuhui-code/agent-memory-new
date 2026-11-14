@@ -34,6 +34,6 @@ def display(rows,root):
     for row in rows[:64]:
         d=diagnose(row,root);size=len(json.dumps(d,ensure_ascii=False).encode())
         if size>4096: d={'status':'unknown-diagnostic-cap'};size=len(json.dumps(d).encode())
-        if used+size+1>65536:break
-        row['experimental_listener_diagnostic']=d;used+=size+1
+        if used+size+2>65536:break
+        row['experimental_listener_diagnostic']=d;used+=size+2
     return rows
