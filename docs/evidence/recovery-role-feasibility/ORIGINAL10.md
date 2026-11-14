@@ -1,0 +1,7 @@
+# Fresh original10: no improvement, no regression
+
+The fixed original three-variant single group ran once on the pre-implementation b105fcb baseline and once on immutable321eb98. Both are 2/3. Mandatory checks, paths, precision, span recall and token estimates match for every variant. Original and Chinese pass; English still has only DeviceSyncStore, precision1 and span0.5, missing TransportRegistry. No full suite or repair-count increment.
+
+One separate observation-only diagnostic of the unchanged English query establishes the earliest refusal. The complete request is recognized, but bind_recovery_pair returns at its initial protection gate (line47), before reading source witnesses. Raw anchors include both requested complete class ranges plus LightingStore, DocumentSelectionStore, an AttachmentService log emitter and DownloadsPage wrapped caller. The actual compact output retains three direct/wrapped log anchors for attachment cached-file/download messages; path context is inactive/no_strong_log_anchor. Nonempty log anchors are sufficient to invoke the frozen refusal. This is not an unimplemented source spelling or field identity bug.
+
+Do not weaken the log guard or classify these logs irrelevant merely because the original oracle excludes them. The independent three positive requests are engineering benefits under the finite unprotected source contract; they are not original10 repairs. The initial ordinary-field representation revision, ambiguity failures, snapshot capacity correction and899 public failure remain preserved.

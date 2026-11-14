@@ -1,0 +1,134 @@
+[
+  {
+    "variant": "original",
+    "before": {
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 0.6667,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/repositories/ParcelRepository.ets",
+        "src/runtime/TransportRegistry.ets",
+        "src/stores/DeviceSyncStore.ets"
+      ],
+      "context_token_estimate": 1402
+    },
+    "after": {
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 0.6667,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/repositories/ParcelRepository.ets",
+        "src/runtime/TransportRegistry.ets",
+        "src/stores/DeviceSyncStore.ets"
+      ],
+      "context_token_estimate": 1402
+    },
+    "unchanged": true
+  },
+  {
+    "variant": "en-paraphrase",
+    "before": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 0.5,
+      "observed_anchor_paths": [
+        "src/stores/DeviceSyncStore.ets"
+      ],
+      "context_token_estimate": 1206
+    },
+    "after": {
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 0.5,
+      "observed_anchor_paths": [
+        "src/stores/DeviceSyncStore.ets"
+      ],
+      "context_token_estimate": 1206
+    },
+    "unchanged": true
+  },
+  {
+    "variant": "zh-noise",
+    "before": {
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/runtime/TransportRegistry.ets",
+        "src/stores/DeviceSyncStore.ets"
+      ],
+      "context_token_estimate": 1255
+    },
+    "after": {
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/runtime/TransportRegistry.ets",
+        "src/stores/DeviceSyncStore.ets"
+      ],
+      "context_token_estimate": 1255
+    },
+    "unchanged": true
+  }
+]
