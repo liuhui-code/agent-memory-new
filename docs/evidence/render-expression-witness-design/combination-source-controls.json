@@ -1,0 +1,52 @@
+[
+  {
+    "id": "named-relative-import",
+    "source": "import { ItemRecord } from './ItemRecord'\n@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": true
+  },
+  {
+    "id": "component-v2-param",
+    "source": "@ComponentV2\nexport struct MessageSurface {\n  @Param content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": true
+  },
+  {
+    "id": "protected-import",
+    "source": "import { Text } from './Text'\n@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  },
+  {
+    "id": "import-alias",
+    "source": "import { ItemRecord as Record } from './ItemRecord'\n@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  },
+  {
+    "id": "extra-top-level",
+    "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n\nfunction mutate() {}\n",
+    "positive": false
+  },
+  {
+    "id": "duplicate-field",
+    "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\ncontent: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  },
+  {
+    "id": "helper-field-shadow",
+    "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\nplainBody: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  },
+  {
+    "id": "unknown-member",
+    "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  get more() { return 1 }\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  },
+  {
+    "id": "unknown-field-initializer",
+    "source": "@Component\nexport struct MessageSurface {\n  content: string = load()\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  },
+  {
+    "id": "unexpected-top-level-string",
+    "source": "'text';\n@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "positive": false
+  }
+]
