@@ -69,7 +69,7 @@ class PropertyRecall:
                 and len(self.terms)>=2)
 
     def excludes(self,row):
-        owner=row.get('owner_name') or str(row.get('qualified_name') or '').rpartition('.')[0]
+        owner=row.get('owner_name') or ''
         names=str(row.get('file_path') or '')+' '+str(owner)
         return bool(set([*identifier_tokens(names), *tokenize(names)]) & set(self.request.exclusions))
 
@@ -111,7 +111,7 @@ def filter_projected_method_ids(conn,project,ids,query,projection,original_query
     if not isinstance(projection,PropertyRecall) or not projection.valid_for(query,original_query) or not ids:
         return ids
     from .query_method_evidence import method_evidence_term_coverage
-    rows=conn.execute('SELECT id,file_path,qualified_name,method_evidence FROM code_symbols '
+    rows=conn.execute('SELECT id,file_path,owner_name,method_evidence FROM code_symbols '
                       'WHERE project_id=? AND id IN ('+','.join('?' for _ in ids)+')',
                       [project.project_id,*ids]).fetchall()
     old=method_evidence_focus_terms(query)

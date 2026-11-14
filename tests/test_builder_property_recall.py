@@ -53,6 +53,7 @@ class BuilderPropertyRecallTests(unittest.TestCase):
         self.assertFalse(projection.valid_for(projection.retrieval))
         self.assertFalse(projection.excludes({'file_path':'Plain.ets','owner_name':'Plain','qualified_name':'Plain.card'}))
         self.assertFalse(projection.excludes({'file_path':'Plain.ets','qualified_name':'Plain.card'}))
+        self.assertFalse(projection.excludes({'file_path':'Plain.ets','qualified_name':'Plain.card.inner'}))
 
     def test_capacity_is_whole_projection_fallback(self):
         with patch('tools.agent_memory_runtime.query_builder_request.method_evidence_focus_terms',return_value=[str(i) for i in range(16)]):
@@ -88,8 +89,8 @@ class BuilderPropertyRecallTests(unittest.TestCase):
 
     def test_existing_two_term_coverage_gate(self):
         conn=sqlite3.connect(':memory:');conn.row_factory=sqlite3.Row
-        conn.execute('CREATE TABLE code_symbols(id INTEGER,project_id TEXT,file_path TEXT,qualified_name TEXT,method_evidence TEXT)')
-        conn.executemany('INSERT INTO code_symbols VALUES(?,?,?,?,?)',[(1,'p','CardView.ets','CardView.paint','padding backgroundcolor'),(2,'p','Surface.ets','Surface.paint','padding'),(3,'p','Palette.ets','Palette.paint','padding backgroundcolor')])
+        conn.execute('CREATE TABLE code_symbols(id INTEGER,project_id TEXT,file_path TEXT,owner_name TEXT,method_evidence TEXT)')
+        conn.executemany('INSERT INTO code_symbols VALUES(?,?,?,?,?)',[(1,'p','CardView.ets','CardView','padding backgroundcolor'),(2,'p','Surface.ets','Surface','padding'),(3,'p','Palette.ets','Palette','padding backgroundcolor')])
         project=SimpleNamespace(project_id='p')
         query=QUERY[:-1]+'，不要返回卡片。';projection=recall_projection(query)
         terms=projected_method_terms(projection.retrieval,projection,query)

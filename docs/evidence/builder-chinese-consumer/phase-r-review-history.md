@@ -19,3 +19,9 @@ constructor/table helper and code scorer, requires exact original receipt equali
 and only uses qualified_name's owner prefix when owner_name is unavailable. Added
 both reproductions before the first public candidate run. This is not an expansion
 of the frozen request surface or exclusions.
+
+Reviewer tightened the owner correction before public after: the real schema has
+owner_name, so SQL now selects that field and missing owner means file-only matching.
+No qualified_name fallback remains, including nested Plain.card.inner. Unit SQLite
+schema was corrected to the actual owner_name column rather than constraining the
+implementation to its initial fake table. Same 30 focused tests pass again.
