@@ -45,3 +45,20 @@ implementing the already frozen source witness and Chinese consumer, preserving
 unknown fallback, exclusions, current identity/digest and output limits. Do not
 merge the successful lexical phase with unimplemented source semantics or retroactively
 call this a one-stage consumer repair.
+
+## Read-only next-consumer gate check
+
+The main and adjacent requests, two-positive, and same-file-two-positive already
+retain their intended source bodies after Phase R. In the same-file case, one
+merged anchor contains both declared ranges4–10 and12–14 and an excerpt1–15 that
+includes both methods. Do not misreport the single file anchor as one lost method.
+
+The frozen known-plus-unknown family remains a concrete consumer precision red:
+Palette and Sizing both return, while only Palette carries a positive Builder
+role; Sizing has the intentionally unsupported interpolated-template source. The
+original prospective consumer expected only Palette. This can motivate review of
+positive role qualification, but it does not by itself demonstrate necessity of
+a new same-chain scanner versus role-only selection. Cross-chain-only, unknown-only
+and ordinary-only results carry lexical source context without the new selection
+marker, not false source certificates. Do not implement a larger witness contract
+solely on the already-green main case or the still-unrerun original23.
