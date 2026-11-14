@@ -18,3 +18,13 @@ Changed files compile, retain fingerprint and stay below500lines. The complete
 independent19 controls and known same-file excerpt limitation remain in AFTER.md.
 Original and independent inputs were never edited after freeze. Candidate is still
 on an isolated branch; main/pending publication scope remain unchanged.
+
+## Independent final review and tradeoff
+
+Independent final review accepted this exact candidate and fresh pair. English
+paraphrase trades anchor precision1.0→0.6667 for required source-span recall0.5→1.0:
+restoring the already admitted second requested owner also keeps the already
+admitted VoiceMessage source. This non-exclusive safeguard deliberately does not
+prune it. It satisfies the frozen acceptance threshold but is NOT lossless or a
+precision improvement. Original variant restores span0.5→1 without lowering its
+precision1.0; Chinese was already passing and receives no new credit.
