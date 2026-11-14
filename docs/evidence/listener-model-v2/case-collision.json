@@ -1,0 +1,19 @@
+{
+  "file_path": "CaseRelay.ets",
+  "source": "interface DeliverySink {\n onFailure(reason: string): void\n onfailure(reason: string): void\n}\nexport class CaseRelay {\n connect(engine: Engine, target: DeliverySink): void {\n  engine.observe({ upper: (reason: string) => { target.onFailure(reason) }, lower: (reason: string) => { target.onfailure(reason) } })\n }\n}\n",
+  "sha256": "a294ebb8d0db6021f9a7c1a0ea10a1f6ca3702171e0905f2624c9b815d8da99e",
+  "expected": [
+    [
+      "CaseRelay.connect",
+      "DeliverySink",
+      "upper",
+      "onFailure"
+    ],
+    [
+      "CaseRelay.connect",
+      "DeliverySink",
+      "lower",
+      "onfailure"
+    ]
+  ]
+}
