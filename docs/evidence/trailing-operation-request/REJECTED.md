@@ -36,7 +36,7 @@ pass. Unknown retains empty code anchors. Thus five required-path checks pass,
 one preservation check passes, two preservation checks fail. Do not call this an
 8/8 acceptance or an accepted repair.
 
-## Producer-only scope result, not a promotion certificate
+## Producer-only scope observations, with unresolved review counterexample
 
 The candidate adds case-preserving `call:.fontSize` / `call:.fontColor` positive
 static syntax observations to the existing operation mechanism, with unchanged
@@ -81,6 +81,14 @@ real Text/Column positives while rejecting these unsupported cases. Final review
 then found optional receiver prefixes still admitted; d06114c rejects optional,
 computed and unsupported new-constructor bases, rather than expanding grammar.
 The observed optional/new counterexamples remain in the review record.
+Final independent review still finds unsupported multiline computed bases leaking:
+`foo[bar]\n.render()\n.padding(8)` and
+`obj['Render']\n.factory()\n.padding(8)` both emit a new outer-method fact.
+The expression-prefix check resets at newline. This remains unresolved on the
+isolated rejected candidate; **do not call its source-scope contract fully safe
+or accepted**. The final review ran 16 focused tests successfully, but these
+additional counterexamples are not covered by those tests. Further speculative
+parser patching was stopped after this final review, as directed.
 
 Final focused run: **40 tests pass** (9 new + 31 related). Separate fingerprint
 check: 1 passes. Compile and diff whitespace checks pass. Runtime files remain

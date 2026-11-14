@@ -56,3 +56,49 @@ The revised `completed_call_base` rejected the earlier uppercase function and if
 | `class Inner extends Factory() {\n*Paint() {\nText("x").padding(8)\n}\n}` | only `Control.build` 3–9 | `call:.padding`, line 6, outer |
 
 These are review counterexamples, not extra acceptance successes. Unknown nested blocks must not acquire outer-method ownership merely because a nested head is uppercase and the existing callable parser did not recognize it. Consumer permission remains outside this review and was not changed.
+
+## 14e1eda receiver-prefix review
+
+Additional actual direct `parse_source` observations against `14e1eda`:
+
+| Body | Observed new tails |
+|---|---|
+| `foo?.bar().padding(8)` | `call:.padding`, line 4 |
+| `foo.bar?.().padding(8)` | none |
+| `foo[bar]().padding(8)` | none |
+| `obj['Render']().padding(8)` | none |
+| `new Foo().padding(8)` | `call:.padding`, line 4 |
+| `new (Foo())().padding(8)` | none |
+| `foo?.Column() { Text("x") }\n.padding(8)` | `call:.padding`, line 5 |
+| `foo.bar().padding(8)` | none (existing same-line generic operation dedupe key protects prior detail) |
+| `Text("x").width(12).padding(8)` | `call:.width`, line 4 (same-line generic key capacity is partial, not absence proof) |
+
+The optional cases violated the declared unsupported-prefix boundary. New-constructor syntax had no frozen positive support and was requested to remain conservative/unknown. These findings are separate from the known public quoted/negative-conflict compatibility failures. Source safety improvements do not turn those public policies green.
+
+## Final bounded review of isolated d06114c
+
+Immutable SHA `d06114cc68f893407243a207f169a3b11321cb19` was read before and after
+`tests.test_arkts_tail_operations` + `tests.test_operation_source_validity`: 16 tests
+passed, with no uncommitted `tools/tests` difference. This is not a public policy pass.
+
+One final direct source check found a remaining unsupported-prefix gap:
+
+| Body | Observed new tails |
+|---|---|
+| `foo?.bar().padding(8)` | none |
+| `foo[bar].render().padding(8)` | none |
+| `foo[bar]\n .render()\n .padding(8)` | `call:.padding`, line 6 |
+| `obj['Render']\n .factory()\n .padding(8)` | `call:.padding`, line 6 |
+| `new Foo().padding(8)` | none |
+| `class Inner {\n*Paint() { Text("x").padding(8) }\n}` | none |
+| `if(ready){}\n.padding(8)` | none |
+| `Column(){Text("x")}\n.padding(8)` | `call:.padding`, line 5 |
+| `Text("x").fontSize(14)` | `call:.fontSize`, line 4 |
+
+`expression_prefix` is reset on newline, so the computed receiver on the previous
+line is no longer seen when validating `.render()`/`.factory()` as the next base.
+Those are valid multiline computed access shapes but remain explicitly unsupported
+by this candidate's declared contract. The isolated candidate therefore still
+cannot receive an unqualified source-safety pass. No further implementation is
+requested in this review; preserve this counterexample with the already failed
+quoted/negative-conflict public compatibility controls and rejected candidate.

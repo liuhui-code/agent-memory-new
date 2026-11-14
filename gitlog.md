@@ -12468,3 +12468,5 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Candidate d06114c preserves bounded append-only static observations after source-scope review corrections. Forty focused tests pass plus a separate fingerprint check; old-index code-only unchanged and normal merge activation verified.
 - Reject production integration: two precommitted quoted/conflicting-target code-owner preservation controls change, despite preserved log anchors/path context. Original04 remains 0/3 and cumulative original repairs remains 20.
 - Preserve candidate source/tests only on its isolated branch/bundle. Integration is docs/evidence-only; metadata audit finds no existing syntax-only consumption eligibility to repair without a new contract. Details: docs/evidence/trailing-operation-request/REJECTED.md.
+
+- Final source review also retained an unresolved multiline computed-receiver scope leak in d06114c. Passing focused tests do not establish source-scope safety; no further candidate edits or production integration.
