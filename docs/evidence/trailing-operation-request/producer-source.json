@@ -1,0 +1,972 @@
+[
+  {
+    "id": "inline",
+    "source": "@Component\nexport struct Control {\n build() {\nText('Size').fontSize(14)\n }\n}\n",
+    "digest": "6f05ed08037ff90066d73630f11491b10fa9f2bddd18f8cf3eba1933e6289276",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 5,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "positive fontSize at declared method"
+  },
+  {
+    "id": "multiline",
+    "source": "@Component\nexport struct Control {\n build() {\nText('Size')\n .fontSize(14)\n }\n}\n",
+    "digest": "4331547a8d9c6e87999400e26240d8a5bf236cdd58795eaae6723939f7838976",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "positive fontSize at declared method"
+  },
+  {
+    "id": "dsl_after_block",
+    "source": "@Component\nexport struct Control {\n build() {\nColumn() { Text('Size') }\n .padding(8)\n }\n}\n",
+    "digest": "8355e4c61f651387deeed8f5499963eb1463129b0897f146cd0a56a68b0b3626",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "positive padding at declared method"
+  },
+  {
+    "id": "comments",
+    "source": "@Component\nexport struct Control {\n build() {\nText('Size')\n // .fontSize(99)\n /* .padding(99) */\n .fontColor(Color.Blue)\n }\n}\n",
+    "digest": "de9f6ef926d64a1efae3a5ab71adcca05d54a91d5fecaf9f169a884d332dbfe7",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 9,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 8,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "color"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontColor"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "only positive fontColor"
+  },
+  {
+    "id": "strings",
+    "source": "@Component\nexport struct Control {\n build() {\nconst note = '.fontSize(99)'\n Text(note)\n .padding(8)\n }\n}\n",
+    "digest": "01bf730286e68ed01bcd401bb97a03b104904197855c0ac0415e462c313631fd",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 8,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 6,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "only positive padding"
+  },
+  {
+    "id": "template_interpolation",
+    "source": "@Component\nexport struct Control {\n build() {\nconst note = `value ${other()}`\nText(note).fontSize(14)\n }\n}\n",
+    "digest": "8101f8eb6cbb0f8195aaf0a24703a9db5a348f364551ef8a394877eb1967804a",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1",
+          "source_operation_unresolved:runtimecapability",
+          "source_operation_unresolved:persistenceread"
+        ]
+      }
+    ],
+    "mechanisms": [],
+    "gaps": [
+      {
+        "kind": "operation_syntax_unverified_template",
+        "file_path": "Control.ets",
+        "symbol": "Control.build",
+        "start_line": "3",
+        "end_line": "6"
+      }
+    ],
+    "expected_proposed_contract": "unknown no new observations"
+  },
+  {
+    "id": "slash_unknown",
+    "source": "@Component\nexport struct Control {\n build() {\nconst ratio = 6 / 2\n Text('Size').fontSize(ratio)\n }\n}\n",
+    "digest": "36da03cd2d3bce287e1c287f54d8ab9884785f04e42734ecfe8c7be2920aae4c",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [],
+    "gaps": [],
+    "expected_proposed_contract": "unknown no new observations"
+  },
+  {
+    "id": "unbalanced",
+    "source": "@Component\nexport struct Control {\n build() {\nText('Size')\n .fontSize(14\n }\n}\n",
+    "digest": "dc339daf9e4d940e7e7e3149eb24dbc2aa7d8676599f892a48ed1590c25fd534",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [],
+    "gaps": [],
+    "expected_proposed_contract": "unknown no new observations"
+  },
+  {
+    "id": "nested_arrow",
+    "source": "@Component\nexport struct Control {\n build() {\nButton('Edit').onClick(() => {\n Text('Size').fontSize(14)\n })\n Text('Outer').padding(8)\n }\n}\n",
+    "digest": "159b8c2600cdfbb16fd0ea8976c713584d96dbfd90045e4a4cb23f914e005468",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 9,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 8,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:90e3767ac05960b94240c303",
+        "file_path": "Control.ets",
+        "name": "onClick",
+        "kind": "function",
+        "qualified_name": "Control.onClick@4",
+        "signature": "callback onClick@4",
+        "start_line": 4,
+        "end_line": 6,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "click"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onClick"
+      },
+      {
+        "source_key": "symbol:90e3767ac05960b94240c303",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "click"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onClick"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "no outer fontSize; outer padding allowed; callback observations initially unknown"
+  },
+  {
+    "id": "nested_function",
+    "source": "@Component\nexport struct Control {\n build() {\nfunction paint() { Text('Size').fontSize(14) }\n Text('Outer').padding(8)\n }\n}\n",
+    "digest": "3ea08c3288e81e9be63557f60b195ff5b569597f8879f9f26801287dc678d036",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "no outer fontSize; outer padding allowed"
+  },
+  {
+    "id": "two_methods",
+    "source": "@Component\nexport struct Pair {\n first() { Text('One').fontSize(14) }\n second() { Text('Two').padding(8) }\n}\n",
+    "digest": "2fdf7ae088eb8d6bfcd941782daa36bb0b5006fd8345fa759f2aa6a71735afab",
+    "entities": [
+      {
+        "key": "symbol:f6a57197d82ceec45318a316",
+        "file_path": "Control.ets",
+        "name": "Pair",
+        "kind": "component",
+        "qualified_name": "Pair",
+        "signature": "struct Pair",
+        "start_line": 2,
+        "end_line": 5,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:6ac3b193e21f6a66f7a44baf",
+        "file_path": "Control.ets",
+        "name": "first",
+        "kind": "function",
+        "qualified_name": "Pair.first",
+        "signature": "first():unknown",
+        "start_line": 3,
+        "end_line": 3,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Pair",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:aa854a69165abdf6faad99d4",
+        "file_path": "Control.ets",
+        "name": "second",
+        "kind": "function",
+        "qualified_name": "Pair.second",
+        "signature": "second():unknown",
+        "start_line": 4,
+        "end_line": 4,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Pair",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:6ac3b193e21f6a66f7a44baf",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 3,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      },
+      {
+        "source_key": "symbol:aa854a69165abdf6faad99d4",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "fontSize only first; padding only second; no cross-method promotion"
+  },
+  {
+    "id": "capacity",
+    "source": "@Component\nexport struct Control {\n build() {\nthis.a.one();this.a.two();this.a.three();this.a.four();this.a.five();this.a.six();this.a.seven();this.a.eight();Text('Size').fontSize(14)\n }\n}\n",
+    "digest": "3442e725576898798cd9300e4db458cc06bf8dbc0e984521cd85951094223a1a",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 5,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.eight"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "existing eight line operations unchanged; no new fact displaces them"
+  },
+  {
+    "id": "dedupe_collision",
+    "source": "@Component\nexport struct Control {\n build() {\nthis.x.fontSize(12); Text('Size').fontSize(14)\n }\n}\n",
+    "digest": "41ecd046c0e7e082c16365bb4455712022183418013ed9b0d78b48828aec4d0d",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 5,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:x.fontsize"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "existing operation with same(kind,line,terms) keeps original detail/order; new duplicate must not overwrite"
+  },
+  {
+    "id": "total_capacity",
+    "source": "@Component\nexport struct Control {\n build() {\nthis.a.one();this.a.two();this.a.three();this.a.four();this.a.five();this.a.six();this.a.seven();this.a.eight();\nthis.a.nine();this.a.ten();this.a.eleven();this.a.twelve();this.a.thirteen();this.a.fourteen();this.a.fifteen();this.a.sixteen();\nText('Size').fontSize(14)\n }\n}\n",
+    "digest": "7616a775a4ebdf214bd62555309765b325c4d4ed78834fe0084aab1caed06421",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 8,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.eight"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.sixteen"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 6,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "existing16 complete mechanism sequence unchanged; no appended modifier"
+  },
+  {
+    "id": "nested_object_method",
+    "source": "@Component\nexport struct Control {\n build() {\nconst actions = {\n render() { Text('Size').fontSize(14) }\n}\nText('Outer').padding(8)\n }\n}\n",
+    "digest": "4e676fcf1e310bf6efb403fe6dba32a28487f8f26a3991b3df2133dafa4bdaba",
+    "entities": [
+      {
+        "key": "symbol:5806e656a4a14292bdf83041",
+        "file_path": "Control.ets",
+        "name": "Control",
+        "kind": "component",
+        "qualified_name": "Control",
+        "signature": "struct Control",
+        "start_line": 2,
+        "end_line": 9,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:1adca3f1a158873dc62949de",
+        "file_path": "Control.ets",
+        "name": "actions",
+        "kind": "object",
+        "qualified_name": "actions",
+        "signature": "const actions",
+        "start_line": 4,
+        "end_line": 6,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "module",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:436625de1683b12696da4abc",
+        "file_path": "Control.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "Control.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 8,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "Control",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:ee2b7a29cba58189fbd2a1d9",
+        "file_path": "Control.ets",
+        "name": "render",
+        "kind": "function",
+        "qualified_name": "actions.render",
+        "signature": "render():unknown",
+        "start_line": 5,
+        "end_line": 5,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "actions",
+        "owner_kind": "module",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ],
+    "gaps": [],
+    "expected_proposed_contract": "do not attach nested render fontSize to outer declared method; unknown nested identity allowed; outer padding allowed"
+  }
+]

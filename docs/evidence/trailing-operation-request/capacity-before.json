@@ -1,0 +1,342 @@
+[
+  {
+    "id": "eight_distinct_line_keys",
+    "source": "@Component\nexport struct Cap {\n build() {\nthis.a.write_alpha();this.a.write_beta();this.a.write_gamma();this.a.write_delta();this.a.write_epsilon();this.a.write_zeta();this.a.write_eta();this.a.write_theta();Text('X').padding(8)\n }\n}\n",
+    "old": [
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "alpha"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_alpha"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "beta"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_beta"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "gamma"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_gamma"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "delta"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_delta"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "epsilon"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_epsilon"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "zeta"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_zeta"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "eta"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_eta"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "write",
+          "theta"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.write_theta"
+      }
+    ],
+    "count": 8,
+    "expected_old_count": 8
+  },
+  {
+    "id": "sixteen_independent_lines",
+    "source": "@Component\nexport struct Cap {\n build() {\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nText('X').padding(8)\n }\n}\n",
+    "old": [
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 6,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 8,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 9,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 10,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 11,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 12,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 13,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 14,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 15,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 16,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 17,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 18,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      },
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 19,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.run"
+      }
+    ],
+    "count": 16,
+    "expected_old_count": 16
+  },
+  {
+    "id": "real_dedupe_collision",
+    "source": "@Component\nexport struct Cap {\n build() {\nthis.x.padding(12);Text('X').padding(8)\n }\n}\n",
+    "old": [
+      {
+        "source_key": "symbol:b6649a6846c5a543b16204ca",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:x.padding"
+      }
+    ],
+    "count": 1,
+    "expected_old_count": 1
+  }
+]

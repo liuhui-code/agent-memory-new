@@ -1,0 +1,427 @@
+[
+  {
+    "id": "inline",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ]
+  },
+  {
+    "id": "multiline",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ]
+  },
+  {
+    "id": "dsl_after_block",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ]
+  },
+  {
+    "id": "comments",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "color"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontColor"
+      }
+    ]
+  },
+  {
+    "id": "strings",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 6,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ]
+  },
+  {
+    "id": "template_interpolation",
+    "old": [],
+    "new": []
+  },
+  {
+    "id": "slash_unknown",
+    "old": [],
+    "new": []
+  },
+  {
+    "id": "unbalanced",
+    "old": [],
+    "new": []
+  },
+  {
+    "id": "nested_arrow",
+    "old": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "click"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onClick"
+      },
+      {
+        "source_key": "symbol:90e3767ac05960b94240c303",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "click"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onClick"
+      }
+    ],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "click"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onClick"
+      },
+      {
+        "source_key": "symbol:90e3767ac05960b94240c303",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "click"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onClick"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ]
+  },
+  {
+    "id": "nested_function",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ]
+  },
+  {
+    "id": "two_methods",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:6ac3b193e21f6a66f7a44baf",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 3,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      },
+      {
+        "source_key": "symbol:aa854a69165abdf6faad99d4",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ]
+  },
+  {
+    "id": "capacity",
+    "old": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.eight"
+      }
+    ],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.eight"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ]
+  },
+  {
+    "id": "dedupe_collision",
+    "old": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:x.fontsize"
+      }
+    ],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:x.fontsize"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ]
+  },
+  {
+    "id": "total_capacity",
+    "old": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.eight"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.sixteen"
+      }
+    ],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 4,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.eight"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 5,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:a.sixteen"
+      },
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call",
+          "font",
+          "size"
+        ],
+        "line": 6,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.fontSize"
+      }
+    ]
+  },
+  {
+    "id": "nested_object_method",
+    "old": [],
+    "new": [
+      {
+        "source_key": "symbol:436625de1683b12696da4abc",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 7,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:.padding"
+      }
+    ]
+  }
+]

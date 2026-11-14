@@ -1,0 +1,147 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "StatusCaption.ets": "@Component\nexport struct StatusCaption {\n  @State textSize: number = 14\n  build() {\n    Text('Connection')\n      .fontSize(this.textSize)\n      .fontColor(Color.Blue)\n  }\n}\n",
+    "CaptureLogger.ets": "export class CaptureLogger {\n  error(message: string): void {\n    console.error(message)\n  }\n}\n",
+    "ThemeRefresh.ets": "import { CaptureLogger } from './CaptureLogger'\nexport class ThemeRefresh {\n  private logger: CaptureLogger = new CaptureLogger()\n  reload(): void {\n    this.logger.error('theme font catalog refresh failed')\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "source",
+      "query": "字号显示错误，请定位 fontSize 的源码。",
+      "required": [
+        "StatusCaption.ets"
+      ],
+      "excluded": [
+        "CaptureLogger.ets",
+        "ThemeRefresh.ets"
+      ]
+    },
+    {
+      "id": "qualified",
+      "query": "Locate StatusCaption.build source.",
+      "required": [
+        "StatusCaption.ets"
+      ],
+      "excluded": []
+    },
+    {
+      "id": "event",
+      "query": "Find the log theme font catalog refresh failed.",
+      "required": [
+        "ThemeRefresh.ets"
+      ],
+      "excluded": []
+    },
+    {
+      "id": "logger_owner",
+      "query": "Find ThemeRefresh.reload source.",
+      "required": [
+        "ThemeRefresh.ets"
+      ],
+      "excluded": []
+    },
+    {
+      "id": "multiple",
+      "query": "Find both StatusCaption.build and ThemeRefresh.reload source.",
+      "required": [
+        "StatusCaption.ets",
+        "ThemeRefresh.ets"
+      ],
+      "excluded": []
+    },
+    {
+      "id": "quoted",
+      "query": "字号显示错误，请定位 \"fontSize\" 的源码。",
+      "policy": "preserve before log/path and code-owner behavior; no new eligibility"
+    },
+    {
+      "id": "negative_conflict",
+      "query": "字号显示错误，请定位 fontSize 的源码，不要返回 fontSize。",
+      "policy": "preserve before log/path and code-owner behavior; no new eligibility"
+    },
+    {
+      "id": "unknown",
+      "query": "字体有问题，请找实现。",
+      "policy": "preserve before log/path and code-owner behavior; no new eligibility"
+    }
+  ],
+  "source_controls": [
+    {
+      "id": "inline",
+      "body": "Text('Size').fontSize(14)",
+      "expected": "positive fontSize at declared method"
+    },
+    {
+      "id": "multiline",
+      "body": "Text('Size')\n .fontSize(14)",
+      "expected": "positive fontSize at declared method"
+    },
+    {
+      "id": "dsl_after_block",
+      "body": "Column() { Text('Size') }\n .padding(8)",
+      "expected": "positive padding at declared method"
+    },
+    {
+      "id": "comments",
+      "body": "Text('Size')\n // .fontSize(99)\n /* .padding(99) */\n .fontColor(Color.Blue)",
+      "expected": "only positive fontColor"
+    },
+    {
+      "id": "strings",
+      "body": "const note = '.fontSize(99)'\n Text(note)\n .padding(8)",
+      "expected": "only positive padding"
+    },
+    {
+      "id": "template_interpolation",
+      "body": "const note = `value ${other()}`\nText(note).fontSize(14)",
+      "expected": "unknown no new observations"
+    },
+    {
+      "id": "slash_unknown",
+      "body": "const ratio = 6 / 2\n Text('Size').fontSize(ratio)",
+      "expected": "unknown no new observations"
+    },
+    {
+      "id": "unbalanced",
+      "body": "Text('Size')\n .fontSize(14",
+      "expected": "unknown no new observations"
+    },
+    {
+      "id": "nested_arrow",
+      "body": "Button('Edit').onClick(() => {\n Text('Size').fontSize(14)\n })\n Text('Outer').padding(8)",
+      "expected": "no outer fontSize; outer padding allowed; callback observations initially unknown"
+    },
+    {
+      "id": "nested_function",
+      "body": "function paint() { Text('Size').fontSize(14) }\n Text('Outer').padding(8)",
+      "expected": "no outer fontSize; outer padding allowed"
+    },
+    {
+      "id": "two_methods",
+      "sources": "@Component\nexport struct Pair {\n first() { Text('One').fontSize(14) }\n second() { Text('Two').padding(8) }\n}\n",
+      "expected": "fontSize only first; padding only second; no cross-method promotion"
+    },
+    {
+      "id": "capacity",
+      "body": "this.a.one();this.a.two();this.a.three();this.a.four();this.a.five();this.a.six();this.a.seven();this.a.eight();Text('Size').fontSize(14)",
+      "expected": "existing eight line operations unchanged; no new fact displaces them"
+    },
+    {
+      "id": "dedupe_collision",
+      "body": "this.x.fontSize(12); Text('Size').fontSize(14)",
+      "expected": "existing operation with same(kind,line,terms) keeps original detail/order; new duplicate must not overwrite"
+    },
+    {
+      "id": "total_capacity",
+      "body": "this.a.one();this.a.two();this.a.three();this.a.four();this.a.five();this.a.six();this.a.seven();this.a.eight();\nthis.a.nine();this.a.ten();this.a.eleven();this.a.twelve();this.a.thirteen();this.a.fourteen();this.a.fifteen();this.a.sixteen();\nText('Size').fontSize(14)",
+      "expected": "existing16 complete mechanism sequence unchanged; no appended modifier"
+    },
+    {
+      "id": "nested_object_method",
+      "body": "const actions = {\n render() { Text('Size').fontSize(14) }\n}\nText('Outer').padding(8)",
+      "expected": "do not attach nested render fontSize to outer declared method; unknown nested identity allowed; outer padding allowed"
+    }
+  ],
+  "source_controls_note": "Expected proposed source contract; current absence is not a public retention result."
+}

@@ -1,0 +1,23 @@
+{
+  "classification": "internal producer capacity boundaries; not public retrieval red",
+  "controls": [
+    {
+      "id": "eight_distinct_line_keys",
+      "body": "this.a.write_alpha();this.a.write_beta();this.a.write_gamma();this.a.write_delta();this.a.write_epsilon();this.a.write_zeta();this.a.write_eta();this.a.write_theta();Text('X').padding(8)",
+      "expected_old_count": 8,
+      "new_allowed": false
+    },
+    {
+      "id": "sixteen_independent_lines",
+      "body": "this.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nthis.a.run()\nText('X').padding(8)",
+      "expected_old_count": 16,
+      "new_allowed": false
+    },
+    {
+      "id": "real_dedupe_collision",
+      "body": "this.x.padding(12);Text('X').padding(8)",
+      "expected_old_count": 1,
+      "new_allowed": false
+    }
+  ]
+}

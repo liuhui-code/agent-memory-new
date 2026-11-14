@@ -1,0 +1,124 @@
+[
+  {
+    "id": "source",
+    "query": "字号显示错误，请定位 fontSize 的源码。",
+    "before_paths": [
+      "CaptureLogger.ets"
+    ],
+    "after_paths": [
+      "StatusCaption.ets"
+    ],
+    "frozen_required_path_check": true,
+    "same_code_owner_paths": false,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": null
+  },
+  {
+    "id": "qualified",
+    "query": "Locate StatusCaption.build source.",
+    "before_paths": [
+      "StatusCaption.ets"
+    ],
+    "after_paths": [
+      "StatusCaption.ets"
+    ],
+    "frozen_required_path_check": true,
+    "same_code_owner_paths": true,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": null
+  },
+  {
+    "id": "event",
+    "query": "Find the log theme font catalog refresh failed.",
+    "before_paths": [
+      "ThemeRefresh.ets",
+      "CaptureLogger.ets"
+    ],
+    "after_paths": [
+      "ThemeRefresh.ets",
+      "CaptureLogger.ets"
+    ],
+    "frozen_required_path_check": true,
+    "same_code_owner_paths": true,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": null
+  },
+  {
+    "id": "logger_owner",
+    "query": "Find ThemeRefresh.reload source.",
+    "before_paths": [
+      "ThemeRefresh.ets",
+      "CaptureLogger.ets"
+    ],
+    "after_paths": [
+      "ThemeRefresh.ets",
+      "CaptureLogger.ets"
+    ],
+    "frozen_required_path_check": true,
+    "same_code_owner_paths": true,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": null
+  },
+  {
+    "id": "multiple",
+    "query": "Find both StatusCaption.build and ThemeRefresh.reload source.",
+    "before_paths": [
+      "ThemeRefresh.ets",
+      "StatusCaption.ets"
+    ],
+    "after_paths": [
+      "ThemeRefresh.ets",
+      "StatusCaption.ets"
+    ],
+    "frozen_required_path_check": true,
+    "same_code_owner_paths": true,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": null
+  },
+  {
+    "id": "quoted",
+    "query": "字号显示错误，请定位 \"fontSize\" 的源码。",
+    "before_paths": [
+      "CaptureLogger.ets"
+    ],
+    "after_paths": [
+      "StatusCaption.ets"
+    ],
+    "frozen_required_path_check": null,
+    "same_code_owner_paths": false,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": false
+  },
+  {
+    "id": "negative_conflict",
+    "query": "字号显示错误，请定位 fontSize 的源码，不要返回 fontSize。",
+    "before_paths": [
+      "CaptureLogger.ets"
+    ],
+    "after_paths": [
+      "StatusCaption.ets"
+    ],
+    "frozen_required_path_check": null,
+    "same_code_owner_paths": false,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": false
+  },
+  {
+    "id": "unknown",
+    "query": "字体有问题，请找实现。",
+    "before_paths": [],
+    "after_paths": [],
+    "frozen_required_path_check": null,
+    "same_code_owner_paths": true,
+    "same_log_anchors": true,
+    "same_path_context": true,
+    "preservation_control_pass": true
+  }
+]

@@ -12461,3 +12461,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   Preserve this evidence gap instead of weakening the log gate or reviving global
   language splitting. One existing guard control passes; no full run or upload.
 - Evidence: docs/evidence/negative-identifier-current/README.md. Count remains20.
+
+## 2026-11-14 — Isolate rejected ArkTS trailing-operation producer experiment
+
+- Froze independent typography source/queries and corrected capacity controls before implementation; no consumer change, no full run.
+- Candidate d06114c preserves bounded append-only static observations after source-scope review corrections. Forty focused tests pass plus a separate fingerprint check; old-index code-only unchanged and normal merge activation verified.
+- Reject production integration: two precommitted quoted/conflicting-target code-owner preservation controls change, despite preserved log anchors/path context. Original04 remains 0/3 and cumulative original repairs remains 20.
+- Preserve candidate source/tests only on its isolated branch/bundle. Integration is docs/evidence-only; metadata audit finds no existing syntax-only consumption eligibility to repair without a new contract. Details: docs/evidence/trailing-operation-request/REJECTED.md.

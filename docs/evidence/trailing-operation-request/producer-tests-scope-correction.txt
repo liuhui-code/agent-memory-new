@@ -1,0 +1,168 @@
+test_calls_case_and_dsl (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_calls_case_and_dsl) ... FAIL
+test_capacity_collision (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_capacity_collision) ... ok
+test_comments_strings (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_comments_strings) ... FAIL
+test_lexical_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_lexical_unknown) ... ok
+test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) ... 
+  test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="function Paint() {Text('x').fontSize(12)}") ... FAIL
+  test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="function* Paint() {Text('x').fontSize(12)}") ... FAIL
+  test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="const f = function Paint() {Text('x').fontSize(12)}") ... FAIL
+  test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="Button('x').onClick(() => { Text('x').fontSize(12) })") ... FAIL
+  test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="const a = { render() {Text('x').fontSize(12)} }") ... FAIL
+test_non_expression_completed_bases (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_non_expression_completed_bases) ... ok
+test_other_language_unchanged (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_other_language_unchanged) ... ok
+test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) ... 
+  test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="class Inner { *Paint() {Text('x').fontSize(12)} }") ... FAIL
+  test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="class Inner { get Paint() {Text('x').fontSize(12)} }") ... FAIL
+  test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="class Inner extends Factory() { *Paint() {Text('x').fontSize(12)} }") ... FAIL
+  test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="{ Text('x').fontSize(12) }") ... FAIL
+  test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="if (ready) { Text('x').fontSize(12) }") ... FAIL
+
+======================================================================
+FAIL: test_calls_case_and_dsl (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_calls_case_and_dsl)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 26, in test_calls_case_and_dsl
+    self.assertEqual(self.added("Text('x').fontSize(14)"), ['call:.fontSize'])
+AssertionError: Lists differ: [] != ['call:.fontSize']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.fontSize'
+
+- []
++ ['call:.fontSize']
+
+======================================================================
+FAIL: test_comments_strings (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_comments_strings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 35, in test_comments_strings
+    self.assertEqual(self.added("const x = '.fontSize(12)'\nText(x)\n// .padding(8)\n.fontColor(Color.Blue)"), ['call:.fontColor'])
+AssertionError: Lists differ: [] != ['call:.fontColor']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.fontColor'
+
+- []
++ ['call:.fontColor']
+
+======================================================================
+FAIL: test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="function Paint() {Text('x').fontSize(12)}")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 42, in test_nested_bodies_unknown
+    self.assertIn('call:.padding', added)
+AssertionError: 'call:.padding' not found in []
+
+======================================================================
+FAIL: test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="function* Paint() {Text('x').fontSize(12)}")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 42, in test_nested_bodies_unknown
+    self.assertIn('call:.padding', added)
+AssertionError: 'call:.padding' not found in []
+
+======================================================================
+FAIL: test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="const f = function Paint() {Text('x').fontSize(12)}")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 42, in test_nested_bodies_unknown
+    self.assertIn('call:.padding', added)
+AssertionError: 'call:.padding' not found in []
+
+======================================================================
+FAIL: test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="Button('x').onClick(() => { Text('x').fontSize(12) })")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 42, in test_nested_bodies_unknown
+    self.assertIn('call:.padding', added)
+AssertionError: 'call:.padding' not found in []
+
+======================================================================
+FAIL: test_nested_bodies_unknown (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_nested_bodies_unknown) (body="const a = { render() {Text('x').fontSize(12)} }")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 42, in test_nested_bodies_unknown
+    self.assertIn('call:.padding', added)
+AssertionError: 'call:.padding' not found in []
+
+======================================================================
+FAIL: test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="class Inner { *Paint() {Text('x').fontSize(12)} }")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 55, in test_unknown_nested_declarations
+    self.assertEqual(self.added(body + "\nText('outer').padding(8)"), ['call:.padding'])
+AssertionError: Lists differ: [] != ['call:.padding']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.padding'
+
+- []
++ ['call:.padding']
+
+======================================================================
+FAIL: test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="class Inner { get Paint() {Text('x').fontSize(12)} }")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 55, in test_unknown_nested_declarations
+    self.assertEqual(self.added(body + "\nText('outer').padding(8)"), ['call:.padding'])
+AssertionError: Lists differ: [] != ['call:.padding']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.padding'
+
+- []
++ ['call:.padding']
+
+======================================================================
+FAIL: test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="class Inner extends Factory() { *Paint() {Text('x').fontSize(12)} }")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 55, in test_unknown_nested_declarations
+    self.assertEqual(self.added(body + "\nText('outer').padding(8)"), ['call:.padding'])
+AssertionError: Lists differ: [] != ['call:.padding']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.padding'
+
+- []
++ ['call:.padding']
+
+======================================================================
+FAIL: test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="{ Text('x').fontSize(12) }")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 55, in test_unknown_nested_declarations
+    self.assertEqual(self.added(body + "\nText('outer').padding(8)"), ['call:.padding'])
+AssertionError: Lists differ: [] != ['call:.padding']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.padding'
+
+- []
++ ['call:.padding']
+
+======================================================================
+FAIL: test_unknown_nested_declarations (tests.test_arkts_tail_operations.ArkTSTailOperationTests.test_unknown_nested_declarations) (body="if (ready) { Text('x').fontSize(12) }")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/negative-identifier/tests/test_arkts_tail_operations.py", line 55, in test_unknown_nested_declarations
+    self.assertEqual(self.added(body + "\nText('outer').padding(8)"), ['call:.padding'])
+AssertionError: Lists differ: [] != ['call:.padding']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'call:.padding'
+
+- []
++ ['call:.padding']
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.063s
+
+FAILED (failures=12)

@@ -1,0 +1,8 @@
+source ['StatusCaption.ets'] True
+qualified ['StatusCaption.ets'] True
+event ['ThemeRefresh.ets', 'CaptureLogger.ets'] True
+logger_owner ['ThemeRefresh.ets', 'CaptureLogger.ets'] True
+multiple ['ThemeRefresh.ets', 'StatusCaption.ets'] True
+quoted ['StatusCaption.ets'] None
+negative_conflict ['StatusCaption.ets'] None
+unknown [] None
