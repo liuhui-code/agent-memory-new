@@ -12500,3 +12500,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - One unchanged original Chinese Development public trace on0a8a8fd confirms full WorkGallery12–20 body and no graph/log/path protection.
 - Full ranked/selected pool contains two genuine arkts_builder declarations: WorkGallery and NavigationToolbar. Opening the Chinese request gate alone would retain both and cannot be sold as original precision repair.
 - Preserve exact ID/key/digest/range and raw-anchor boundary; no parser/runtime change or query/oracle edit. Raw-source intersection is a new scope contract with late-correct-source risk, not an automatic fix. Details: docs/evidence/builder-chinese-consumer/ORIGINAL-BOUNDARY.md.
+
+## Builder Chinese modifier-witness design review
+
+- Retain 29ad7d7 original public trace; two real Builder candidates mean grammar alone is insufficient.
+- Propose source-bound same-chain exact-call positive qualification and a documented six-name catalog, without implementing it or reviving the rejected generic trailing-operation producer.
+- Explicitly leave original generic-request sufficiency, full symptom/negative grammar and source-scope completeness as review gates. No new evaluation, original repair count or public publication.
+- Details: docs/evidence/builder-chinese-consumer/MODIFIER-WITNESS-DESIGN.md.
