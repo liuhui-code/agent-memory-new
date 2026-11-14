@@ -1,0 +1,187 @@
+[
+  {
+    "family": "pair",
+    "case": "observed-return",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "required_files": true,
+      "normal_anchors_unchanged": true,
+      "src/runtime/SessionRegistry.ets_full_excerpt": true,
+      "src/stores/SessionSyncStore.ets_full_excerpt": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "head-locate",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "required_files": true,
+      "normal_anchors_unchanged": true,
+      "src/runtime/SessionRegistry.ets_full_excerpt": true,
+      "src/stores/SessionSyncStore.ets_full_excerpt": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "observed-find",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "required_files": true,
+      "normal_anchors_unchanged": true,
+      "src/runtime/SessionRegistry.ets_full_excerpt": true,
+      "src/stores/SessionSyncStore.ets_full_excerpt": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "single",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "quoted",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "mixed",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "negative",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "pair",
+    "case": "generic",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "same-owner",
+    "case": "same-owner",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "two-registry",
+    "case": "two-registry",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  },
+  {
+    "family": "two-store",
+    "case": "two-store",
+    "checks": {
+      "same_input": true,
+      "raw_handoff_unchanged": true,
+      "budget": true,
+      "log_keywords_unchanged": true,
+      "log_anchors_unchanged": true,
+      "path_context_unchanged": true,
+      "relation_hints_unchanged": true,
+      "complete_compact_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    "passed": true
+  }
+]

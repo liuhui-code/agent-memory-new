@@ -1,0 +1,798 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+    "anchors": null,
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      [
+        {
+          "id": 2,
+          "project_id": "89f896cb48a092f0",
+          "file_path": "src/stores/SessionSyncStore.ets",
+          "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "06c8eb0f3c8b4e464e6305357c6a95a7d1efd7391d8bc17a3d209a5f000a661e",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T11:21:53+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "structural_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.09796404,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "structural_fts",
+                "rank": 2,
+                "weight": 1.25,
+                "score": 0.02016129
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 2,
+                "weight": 1.35,
+                "score": 0.02177419
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 72.6,
+          "search_terms": [
+            "src/stores/sessionsyncstore.ets",
+            "arkts",
+            "arkts file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+            "src",
+            "stores",
+            "sessionsyncstore",
+            "ets",
+            "file",
+            "with",
+            "8",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "repositoryboundary",
+            "lifecyclesync",
+            "datasourceboundary",
+            "statewrite",
+            "asyncboundary",
+            "session",
+            "sync",
+            "store",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "structural_behavior",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "SessionSyncStore",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        },
+        {
+          "id": 1,
+          "project_id": "89f896cb48a092f0",
+          "file_path": "src/runtime/SessionRegistry.ets",
+          "summary": "ArkTS file with 10 non-empty lines; behavior: fallbackbranch, repositoryboundary, conditionalbranch, statewrite",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "862acd311e9fe24a6f0b35c2cecdbc663f3fd26d683acb58be4e8ef7b7697136",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T11:21:53+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "structural_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07540984,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "structural_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/runtime/sessionregistry.ets",
+            "arkts",
+            "arkts file with 10 non-empty lines; behavior: fallbackbranch, repositoryboundary, conditionalbranch, statewrite",
+            "src",
+            "runtime",
+            "sessionregistry",
+            "ets",
+            "file",
+            "with",
+            "10",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "fallbackbranch",
+            "repositoryboundary",
+            "conditionalbranch",
+            "statewrite",
+            "session",
+            "registry",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "structural_behavior",
+            "query_focus_coverage"
+          ],
+          "symbol": "SessionRegistry",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      true
+    ],
+    "return_line": 100
+  },
+  {
+    "function": "rank_callables",
+    "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+    "anchors": null,
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      {
+        "id": 4,
+        "project_id": "89f896cb48a092f0",
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "syncSessions",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method syncSessions in src/stores/SessionSyncStore.ets; identifier terms: sync sessions",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:c4d6e725bb307e544c327258",
+        "qualified_name": "SessionSyncStore.syncSessions",
+        "signature": "async syncSessions():Promise<void>",
+        "start_line": 5,
+        "end_line": 8,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "06c8eb0f3c8b4e464e6305357c6a95a7d1efd7391d8bc17a3d209a5f000a661e",
+        "evidence_class": "static",
+        "method_evidence": "repository loadsessions load sessions sync statewrite state write stateread read asyncboundary async",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:repository.loadsessions\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:c4d6e725bb307e544c327258\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:repository.loadSessions\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":6,\"source_key\":\"symbol:c4d6e725bb307e544c327258\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\",\"sessions\"]}]",
+        "owner_name": "SessionSyncStore",
+        "owner_kind": "store",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T11:21:53+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 3,
+        "direct_score": 79.0,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": true,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 32.5,
+        "evidence_score": 32.5,
+        "localization_reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "semantic_behavior"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "sessionsyncstore",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      },
+      {
+        "id": 2,
+        "project_id": "89f896cb48a092f0",
+        "file_path": "src/runtime/SessionRegistry.ets",
+        "symbol": "chooseRepository",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method chooseRepository in src/runtime/SessionRegistry.ets; identifier terms: choose repository",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:882c3005c7e15b54d67d42b9",
+        "qualified_name": "SessionRegistry.chooseRepository",
+        "signature": "chooseRepository(online: boolean):void",
+        "start_line": 4,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "862acd311e9fe24a6f0b35c2cecdbc663f3fd26d683acb58be4e8ef7b7697136",
+        "evidence_class": "static",
+        "method_evidence": "repository choose networksessionrepository network session localsessionrepository local statewrite state write stateread read",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":5,\"source_key\":\"symbol:882c3005c7e15b54d67d42b9\",\"terms\":[\"guard\",\"conditional\"]}]",
+        "owner_name": "SessionRegistry",
+        "owner_kind": "class",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T11:21:53+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 2,
+        "file_structural_coverage": 3,
+        "direct_score": 33.5,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 7.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 15.03,
+        "evidence_score": 15.03,
+        "localization_reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "semantic_behavior"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "sessionregistry",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "return_line": 349
+  },
+  {
+    "function": "rank_callables",
+    "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+    "anchors": null,
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      {
+        "id": 4,
+        "project_id": "89f896cb48a092f0",
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "syncSessions",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method syncSessions in src/stores/SessionSyncStore.ets; identifier terms: sync sessions",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:c4d6e725bb307e544c327258",
+        "qualified_name": "SessionSyncStore.syncSessions",
+        "signature": "async syncSessions():Promise<void>",
+        "start_line": 5,
+        "end_line": 8,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "06c8eb0f3c8b4e464e6305357c6a95a7d1efd7391d8bc17a3d209a5f000a661e",
+        "evidence_class": "static",
+        "method_evidence": "repository loadsessions load sessions sync statewrite state write stateread read asyncboundary async",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:repository.loadsessions\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:c4d6e725bb307e544c327258\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:repository.loadSessions\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":6,\"source_key\":\"symbol:c4d6e725bb307e544c327258\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\",\"sessions\"]}]",
+        "owner_name": "SessionSyncStore",
+        "owner_kind": "store",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T11:21:53+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 3,
+        "direct_score": 79.0,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": true,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 32.5,
+        "evidence_score": 32.5,
+        "localization_reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "structured_owner_kind",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "semantic_behavior"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "sessionsyncstore",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      },
+      {
+        "id": 2,
+        "project_id": "89f896cb48a092f0",
+        "file_path": "src/runtime/SessionRegistry.ets",
+        "symbol": "chooseRepository",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method chooseRepository in src/runtime/SessionRegistry.ets; identifier terms: choose repository",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:882c3005c7e15b54d67d42b9",
+        "qualified_name": "SessionRegistry.chooseRepository",
+        "signature": "chooseRepository(online: boolean):void",
+        "start_line": 4,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "862acd311e9fe24a6f0b35c2cecdbc663f3fd26d683acb58be4e8ef7b7697136",
+        "evidence_class": "static",
+        "method_evidence": "repository choose networksessionrepository network session localsessionrepository local statewrite state write stateread read",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":5,\"source_key\":\"symbol:882c3005c7e15b54d67d42b9\",\"terms\":[\"guard\",\"conditional\"]}]",
+        "owner_name": "SessionRegistry",
+        "owner_kind": "class",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T11:21:53+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 2,
+        "file_structural_coverage": 3,
+        "direct_score": 33.5,
+        "direct_match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "behavior_method_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 7.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 15.03,
+        "evidence_score": 15.03,
+        "localization_reasons": [
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "semantic_behavior"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "sessionregistry",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "return_line": 349
+  },
+  {
+    "function": "focus_callable_anchors",
+    "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 2,
+        "record_type": "code_file",
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "SessionSyncStore",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 1,
+        "record_type": "code_file",
+        "file_path": "src/runtime/SessionRegistry.ets",
+        "symbol": "SessionRegistry",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: fallbackbranch, repositoryboundary, conditionalbranch, statewrite",
+        "start_line": 1,
+        "end_line": 11,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "syncSessions",
+        "owner_name": "SessionSyncStore",
+        "owner_kind": "store",
+        "file_structural_coverage": 3,
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1",
+          "source_operation:persistenceread"
+        ],
+        "score": 32.5,
+        "evidence_score": 32.5,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/runtime/SessionRegistry.ets",
+          "symbol": "chooseRepository",
+          "owner_name": "SessionRegistry",
+          "owner_kind": "class",
+          "file_structural_coverage": 3,
+          "callable_roles": [
+            "state_write",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 15.03,
+          "evidence_score": 15.03,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 4,
+            "end_line": 10,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "fewer_than_two_supported_callable_identities"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_activated": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {},
+      "wrapped_log_evidence": false
+    },
+    "returned": [
+      {
+        "source": "wiki",
+        "record_id": 2,
+        "record_type": "code_file",
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "SessionSyncStore",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "return_line": 97
+  },
+  {
+    "function": "focus_callable_anchors",
+    "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 2,
+        "record_type": "code_file",
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "SessionSyncStore",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 1,
+        "record_type": "code_file",
+        "file_path": "src/runtime/SessionRegistry.ets",
+        "symbol": "SessionRegistry",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: fallbackbranch, repositoryboundary, conditionalbranch, statewrite",
+        "start_line": 1,
+        "end_line": 11,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "syncSessions",
+        "owner_name": "SessionSyncStore",
+        "owner_kind": "store",
+        "file_structural_coverage": 3,
+        "callable_roles": [
+          "async",
+          "state_write",
+          "source_operation_checked:v2.1",
+          "source_operation:persistenceread"
+        ],
+        "score": 32.5,
+        "evidence_score": 32.5,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/runtime/SessionRegistry.ets",
+          "symbol": "chooseRepository",
+          "owner_name": "SessionRegistry",
+          "owner_kind": "class",
+          "file_structural_coverage": 3,
+          "callable_roles": [
+            "state_write",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 15.03,
+          "evidence_score": 15.03,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 4,
+            "end_line": 10,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "fewer_than_two_supported_callable_identities"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_activated": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {},
+      "wrapped_log_evidence": false
+    },
+    "returned": [
+      {
+        "source": "wiki",
+        "record_id": 2,
+        "record_type": "code_file",
+        "file_path": "src/stores/SessionSyncStore.ets",
+        "symbol": "SessionSyncStore",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "return_line": 97
+  }
+]
