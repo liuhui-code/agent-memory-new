@@ -12520,3 +12520,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - No rank_callables/bind_localization event and empty wiki_matches mean planned consumer eligibility is missing; honor frozen stop and do not implement or change fixture/query.
 - Read-only analysis separates intent label from retrieval: missing 源码 code_location trigger is not sufficient cause; new AST-to-exact-call recall would need a separate contract. Details in builder-chinese-consumer/BEFORE-RESULT.md.
 - No original rerun, no original gains, no full gate.
+
+## Separate proposed AST property-recall predecessor
+
+- Stored method evidence already contains padding/backgroundcolor/width; no new producer or schema needed.
+- Freeze separate Phase R design: original full AST, bounded existing method lane and code scorer projection, marked lexical expansion only; no query rewrite or semantic/source authority.
+- Consumer remains stopped. No implementation or candidate run yet; original 24 sources/queries unchanged.
