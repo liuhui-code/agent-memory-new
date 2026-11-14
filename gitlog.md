@@ -12513,3 +12513,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Record complete finite Chinese AST/negative-role mapping and precise source-chain grammar; card is local only, with no global language alias change.
 - Freeze independent two-Builder padding/backgroundColor competition plus same/cross-chain, unknown, multi-positive, literal/conflict and English compatibility controls before any new run.
 - Correct the unexecuted draft observation's unsupported 文字 to vocabulary terminal 文本 before freeze; original query unchanged. No runtime edits or before result yet. Await review of concrete protocol before one public before.
+
+## Chinese Builder fixed independent before stops before selection
+
+- Completed 24 frozen actual public requests; 23 returned no code anchors, while explicit SurfaceSizing identity control returned source. Both independent modifier pairs are empty despite indexed Builder roles.
+- No rank_callables/bind_localization event and empty wiki_matches mean planned consumer eligibility is missing; honor frozen stop and do not implement or change fixture/query.
+- Read-only analysis separates intent label from retrieval: missing 源码 code_location trigger is not sufficient cause; new AST-to-exact-call recall would need a separate contract. Details in builder-chinese-consumer/BEFORE-RESULT.md.
+- No original rerun, no original gains, no full gate.
