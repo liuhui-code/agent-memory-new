@@ -43,6 +43,12 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     from .query_render_selection import render_context_view, attach_render_excerpts
     data, render_receipts = render_context_view(data)
+    from .query_recovery_pair import valid, accepted_output
+    handoff = data.get("query_handoff") or {}
+    if not render_receipts and valid(handoff, handoff.get("code_anchors") or [], data.get("query")):
+        baseline = _compact_context({**data, "query_handoff": dict(handoff)})
+        candidate = _compact_context(data)
+        return candidate if accepted_output(handoff, baseline, candidate) else baseline
     return _compact_context(data, render_receipts)
 
 
@@ -126,6 +132,9 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         )
         code_candidates = preserve_ui_pair(handoff, code_candidates, focused_candidates,
                                            str(data.get("query") or ""), projection_path)
+    from .query_recovery_pair import preserve_recovery_pair
+    code_candidates = preserve_recovery_pair(handoff, records(handoff.get("code_anchors")),
+                                             code_candidates, str(data.get("query") or ""), projection_path)
     code_anchors = assign_anchor_roles(
         diverse_code_anchors(
             code_candidates, path_context["activated"], str(data.get("query") or "")

@@ -190,6 +190,8 @@ def _context_pass(
         context["query_handoff"]["normative_context"] = normative
     from .query_ui_pair import bind_ui_pair
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
+    from .query_recovery_pair import bind_recovery_pair
+    context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
     return context
 
 
