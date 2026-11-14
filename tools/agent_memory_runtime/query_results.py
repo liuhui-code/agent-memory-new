@@ -8,7 +8,7 @@ from typing import Any
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT
 from .memory_calibration import calibrate_payload
 from .models import Project
-from .query_builder_request import recall_projection
+from .query_render_recall import recall_projection
 from .query_caller_ownership import requested_caller_identities
 from .query_code_selection import diverse_code_matches
 from .query_collect import collect_matches_with_audit

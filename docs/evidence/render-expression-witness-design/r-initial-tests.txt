@@ -1,0 +1,18 @@
+........F..............
+======================================================================
+FAIL: test_score_and_exact_not_granted (tests.test_render_capability_recall.RenderRecallTests.test_score_and_exact_not_granted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/next-after-ui-pair/tests/test_render_capability_recall.py", line 38, in test_score_and_exact_not_granted
+    self.assertEqual(score,1.5);self.assertEqual(set(reasons),{'method_evidence:column','method_evidence:text','expanded_render_capability:column','expanded_render_capability:text'})
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+'expanded_query:method_evidence'
+Items in the second set but not the first:
+'method_evidence:text'
+'method_evidence:column'
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.085s
+
+FAILED (failures=1)

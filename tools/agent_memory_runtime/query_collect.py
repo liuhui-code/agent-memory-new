@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from .query_builder_request import recall_projection, projected_method_terms, score_projected_code
+from .query_render_recall import recall_projection, projected_method_terms, score_projected_code
 from .experience_maturity import score_experience_maturity
 from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_by_type
 from .feedback_policy import candidate_ids

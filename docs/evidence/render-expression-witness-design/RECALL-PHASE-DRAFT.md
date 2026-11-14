@@ -75,3 +75,10 @@ will be added. Original 13 target criteria remain final criteria; R candidate-po
 success is a prerequisite result only, never substituted for compact acceptance.
 A local dispatcher will preserve all Builder functions unchanged and separately
 handle RenderRecall; it will not reuse Builder source/role authority.
+
+Initial test observation: 22/23 passed; the new assertion incorrectly expected
+per-term generic field reasons. The unchanged score helper emits
+expanded_query:method_evidence. The assertion was corrected to that existing
+format; actual added term-specific render reasons and 1.5 score were already
+correct. The failed initial log is retained; no public inputs or runtime changed
+for this correction.
