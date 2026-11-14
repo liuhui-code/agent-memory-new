@@ -12142,3 +12142,7 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   activates four roles while eleven identity fields remain unchanged. Five fixed
   compatibility queries retain bodies/ranges/primary; generic red remains red.
 - Evidence: docs/evidence/builder-role-rebuild. No full gate or original-count gain.
+
+- Rebuilt Builder integration: 39 focused checks pass; independent reviewer reran
+  3 public tests and verified saved same-byte merge/identity and query comparisons.
+  Producer-only accepted, original repaired count20 unchanged, no full suite.

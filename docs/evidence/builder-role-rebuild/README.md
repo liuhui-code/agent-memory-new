@@ -42,3 +42,10 @@ No generic decorator resolver is claimed. Ordinary parser behavior is unchanged.
 The lost earlier attempt exposed multiline stacked decorators; this rebuilt
 protocol includes that negative before implementation, rather than claiming a
 recovered candidate-red artifact. No old unpublished test result is substituted.
+
+Integrated verification: 39 focused tests pass on integrated code commit4384941,
+including declaration-role, headers/profile, source-operation identity/projection
+and fingerprint. This is a separate integration set, not a full suite or summed
+with the worker66. Independent review reran three public tests and checked the
+actual activation/compatibility artifacts, accepting producer-only with the
+conservative unknown boundaries. No original failure improvement is claimed.
