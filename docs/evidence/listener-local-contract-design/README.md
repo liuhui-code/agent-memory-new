@@ -93,29 +93,56 @@ No two-defect architecture permission is claimed. If implementing 2–5 requires
 resolving arbitrary binding/scope or API behavior, stop this subset rather than
 incrementally building an unreviewed JS parser.
 
-## Can existing storage carry it?
+## Representation review: existing fields are NOT a complete proof interface
 
-Yes, conditionally, without a SQLite/schema migration: keep kind=callback_binding
-and introduce an explicitly versioned, fully parsed detail representation of the
-above tuple. source_key already supplies outer identity; line supplies invocation
-location. Validate all inner intervals and tuple references at production. Detail
-must fit the existing 240-character model limit (the generic mechanism() helper
-currently truncates at 120: do NOT route proof through silent truncation). Emit
-nothing if the complete record does not fit. Preserve terms as ordinary search
-hints; consumers must not reconstruct the tuple from terms or callback: text.
+Revision after parent review: the first design suggested a versioned tuple in
+`detail`. That would create an implicit protocol in a bounded descriptive string.
+It is withdrawn as a proof transport design. Existing callback_binding/terms/detail
+may carry a readable hint only. No consumer may promote such a hint or legacy
+records into exact receiver/containment evidence, even if the text looks complete.
 
-The existing fields are adequate as a bounded transport envelope, **not already
-an adequate authority contract**. A new typed detail version and strict decoder
-are still necessary. Do not add a general source_operation_checked role, reuse
-v2.1 unique-operation certification, or give old callback_binding records new
-meaning. Record-cap loss and legacy indices remain unknown. Retention under the
-16/4096 caps must be tested before promising public availability; do not raise
-caps or reserve rank slots silently to make the fixture pass.
+If this relation proceeds as consumable structural evidence, the minimum honest
+model change is an **explicit optional typed binding object**, with a separately
+versioned contract. For example, `callback_argument_binding` would contain:
 
-An alternative consumer-side source reread would avoid metadata evolution but
-would duplicate proof scanning and need exact raw record identity/digest gating;
-it is not the smaller first producer phase. No consumer should treat this detail
-as a private source-read certificate.
+- version (`1`), formal parameter name and bare declared type;
+- argument call receiver/member tokens (syntax, not resolved API registration);
+- callback property name and exact invoked member;
+- same-source start/end offset pairs for the argument call, callback body and
+  receiver invocation, plus the outer callable's exact source identity binding.
+
+The mechanism's existing source_key and the indexed row's file/key/full range/
+source_digest bind the envelope. Offsets must have a defined unit (indices into
+newline-normalized source text used by the adapter), with original-byte digest
+binding that snapshot; never use columns from a differently decoded snapshot.
+The producer validates direct containment and receiver declaration identity before
+emission. Typed field validation checks version, identifiers, integer/non-bool
+ordered bounds and proper nesting; consumers reject incomplete/unknown versions
+and mismatched indexed identity/digest. Validation does not reconstruct binding
+from coordinates alone. The struct is a positive source fact, never an absence
+or runtime object-flow assertion.
+
+This requires real changes to SemanticMechanism, `validate_mechanism`,
+SemanticBatch roundtrip and the consuming decoder. `from_dict` currently calls
+`SemanticMechanism(**item)`: old readers will reject an added unexpected field.
+Therefore backward/forward version/capability policy must be decided and tested,
+not dismissed because SQLite already has a JSON column. The JSON persistence may
+avoid a database table migration, but it does NOT avoid a semantic model/protocol
+extension. Adapter version must distinguish the new producer; old indexed rows
+without this structure remain unknown and normal merge activates new facts.
+
+`mechanism_evidence_payload` preserves full records then stops at 4096 bytes;
+its atomic whole-record behavior is reusable. No truncating proof fields, no
+packing identity into the 12-term/120-character helper. Entire missing records
+under the 16-mechanism or byte cap remain unknown. Existing descriptive fields
+remain descriptive, even on the same record. Roundtrip/export/provider/old-reader
+compatibility and bounded field sizes need explicit tests before approval.
+
+A consumer-side current-source proof would instead require exact typed record,
+range and digest checks plus source rereading/scanning. That is another interface
+change, not a shortcut justified by existing lexical fields. Do not choose it
+merely to hide model evolution. At present only the syntactic subset design is
+plausible; no existing field alone already implements the required relation.
 
 ## Consumer proposal and unresolved authorization boundary
 
@@ -162,12 +189,12 @@ to add score/weight changes or relax weak certainty.
 | Nested/deferred callback or unknown mask/template/slash | Unknown; no negative certificate and no loss of legacy source |
 | Real Recovery retry and literal request (existing controls) | Existing source and body retained; do not suppress retry |
 | Two real forwarders / two callbacks matching selector | Both positive tuples; consumer cannot certify unique owner |
-| Old index, altered bytes/digest, malformed/cap-truncated detail | No trusted new match; normal merge only activates current facts |
+| Old index, altered bytes/digest, malformed typed binding / cap-omitted record | No trusted new match; normal merge only activates current facts |
 | Ordinary accepts/invokes/literal/declaration typed queries | Existing classification and weak behavior unchanged |
 
 This matrix is a design obligation, not new frozen executable sources or queries.
 No matrix row has been run in this design review. A next approved step would
 freeze the supported source grammar and counterexamples before implementation,
 then run formal learn/list plus the already saved five public queries unchanged.
-Schema roundtrip/caps, stable key/range/digest, installation-without-learn versus
+Semantic model/version roundtrip and caps, stable key/range/digest, installation-without-learn versus
 ordinary merge, and actual compact bodies/budgets are mandatory checkpoints.
