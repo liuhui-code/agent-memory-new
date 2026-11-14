@@ -12551,3 +12551,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Fresh0a8a8fd original23 baseline and13e5101 candidate both2/3, but Chinese precision declines0.5→0.3333 with added CatalogFilterPanel. No original gain; cumulative20 unchanged. Candidate not approved for publication.
 - Fixed source witness succeeds for WorkGallery and excludes Toolbar; real reverse imports from FilterToggle introduces/protects Catalog. PhaseR-only diagnosis already has3 anchors; do not blame parser or relax graph guard.
 - Save original outputs, fresh pair, raw/compact detailed traces and narrow unconfirmed build-substring hypothesis. All source fixtures/queries unchanged, no full gate.
+
+## Next isolated UI-pair retention review after accepted Builder combination
+
+- New branch from8d6e17b; do not mutate the frozen pending-publication branch.
+- Read latest ledgers and the already-run graph-provenance boundary probe: no old monotonic graph-promotion contract was found; do not repeat it as a missing bug test.
+- Original02 explicitly requests both source contexts but natural role names are outside existing exact-identity retention. Draft a local non-exclusive request contract and independent natural ProductTile/PriceLabel before for review; no runtime change or new execution yet.

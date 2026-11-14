@@ -1,0 +1,63 @@
+{
+  "status": "review draft; not executed; full contract not yet approved",
+  "base": "8d6e17b",
+  "classification": "independent Development prospective UI pair retention",
+  "families": [
+    {
+      "id": "product-price",
+      "sources": {
+        "ProductTile.ets": "import { PriceLabel } from './PriceLabel'\n@Component\nexport struct ProductTile {\n @Prop title: string = ''\n @Prop amount: string = ''\n build() {\n  Column() {\n   Text(this.title).fontSize(18)\n   PriceLabel({ amount: this.amount })\n  }\n }\n}\n",
+        "PriceLabel.ets": "@Component\nexport struct PriceLabel {\n @Prop amount: string = ''\n build() {\n  Text(this.amount).fontSize(12)\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "natural-pair",
+          "query": "Product tiles and price labels render inconsistent text sizes. Return both UI source contexts.",
+          "required": [
+            "ProductTile.ets",
+            "PriceLabel.ets"
+          ]
+        },
+        {
+          "id": "typography-pair",
+          "query": "Locate the typography code for product tiles and price labels.",
+          "required": [
+            "ProductTile.ets",
+            "PriceLabel.ets"
+          ]
+        },
+        {
+          "id": "named-pair",
+          "query": "Return both ProductTile and PriceLabel component sources.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "single-child",
+          "query": "Find PriceLabel component source.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted",
+          "query": "Find the literal text \"Return both UI source contexts.\".",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "generated",
+          "query": "Return instructions for generating both UI source contexts.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "negative-target",
+          "query": "Product tiles and price labels render inconsistent text sizes. Return both UI source contexts, but exclude PriceLabel.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "mixed-output",
+          "query": "Product tiles and price labels render inconsistent text sizes. Return both UI source contexts and native build configuration.",
+          "criterion": "unchanged"
+        }
+      ]
+    }
+  ],
+  "outstanding": "Source-byte identity/stale controls, same-file and multiple-pair controls must be fixed after reviewer contract decision before execution. No results exist."
+}
