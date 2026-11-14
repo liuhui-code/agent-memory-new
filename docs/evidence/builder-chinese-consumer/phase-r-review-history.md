@@ -9,3 +9,13 @@ as the source symbol's owner-qualified name when the raw symbol row has no
 owner_name; no arbitrary string/body fields are scanned. No public candidate
 query ran before this correction. Preserve this discovery rather than describing
 the initial implementation as passing.
+
+Compound reviewer then demonstrated two finite contract violations in 948020a:
+different original negative ASTs can normalize to the same positive query, so a
+clean-query-only valid_for check admitted descriptor reuse; qualified_name included
+the method's final segment and Plain.card falsely looked like a card owner.
+Correction passes an independent original-query value through the built-in recall
+constructor/table helper and code scorer, requires exact original receipt equality,
+and only uses qualified_name's owner prefix when owner_name is unavailable. Added
+both reproductions before the first public candidate run. This is not an expansion
+of the frozen request surface or exclusions.

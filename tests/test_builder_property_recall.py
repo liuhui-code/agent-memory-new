@@ -38,12 +38,21 @@ class BuilderPropertyRecallTests(unittest.TestCase):
 
     def test_query_and_descriptor_binding(self):
         projection=recall_projection(QUERY)
-        self.assertTrue(projection.valid_for(QUERY))
-        self.assertFalse(projection.valid_for(QUERY+' extra'))
-        self.assertFalse(dataclasses.replace(projection,terms=('width','height')).valid_for(QUERY))
-        self.assertFalse(dataclasses.replace(projection,issuer=object()).valid_for(QUERY))
-        self.assertFalse(dataclasses.replace(projection,request=dataclasses.replace(projection.request,exclusions=('card',))).valid_for(QUERY))
+        self.assertTrue(projection.valid_for(QUERY,QUERY))
+        self.assertFalse(projection.valid_for(QUERY+' extra',QUERY))
+        self.assertFalse(dataclasses.replace(projection,terms=('width','height')).valid_for(QUERY,QUERY))
+        self.assertFalse(dataclasses.replace(projection,issuer=object()).valid_for(QUERY,QUERY))
+        self.assertFalse(dataclasses.replace(projection,request=dataclasses.replace(projection.request,exclusions=('card',))).valid_for(QUERY,QUERY))
         self.assertEqual(projected_method_terms(QUERY,dict()),['builder'])
+
+    def test_distinct_negative_ast_cannot_reuse_clean_query(self):
+        one=QUERY[:-1]+'，不要返回卡片。'
+        two=QUERY[:-1]+'，不要返回数据模型。'
+        projection=recall_projection(one)
+        self.assertFalse(projection.valid_for(projection.retrieval,two))
+        self.assertFalse(projection.valid_for(projection.retrieval))
+        self.assertFalse(projection.excludes({'file_path':'Plain.ets','owner_name':'Plain','qualified_name':'Plain.card'}))
+        self.assertFalse(projection.excludes({'file_path':'Plain.ets','qualified_name':'Plain.card'}))
 
     def test_capacity_is_whole_projection_fallback(self):
         with patch('tools.agent_memory_runtime.query_builder_request.method_evidence_focus_terms',return_value=[str(i) for i in range(16)]):
@@ -52,18 +61,18 @@ class BuilderPropertyRecallTests(unittest.TestCase):
     def test_old_field_weights_and_actual_expansion_reason(self):
         projection=recall_projection(QUERY)
         fields=[('method_evidence','padding backgroundcolor',.75)]
-        score,reasons=score_projected_code(projection,{},QUERY,['builder'],set(),fields,[])
+        score,reasons=score_projected_code(projection,{},QUERY,QUERY,['builder'],set(),fields,[])
         self.assertEqual(score,1.5)
         self.assertIn('expanded_builder_property:padding',reasons)
         self.assertIn('expanded_builder_property:backgroundcolor',reasons)
         self.assertFalse(any('exact' in x or 'source_operation' in x for x in reasons))
-        empty=score_projected_code(projection,{},QUERY,['builder'],set(),[('method_evidence','width',.75)],[])
+        empty=score_projected_code(projection,{},QUERY,QUERY,['builder'],set(),[('method_evidence','width',.75)],[])
         self.assertEqual(empty,(0.0,[]))
-        self.assertEqual(score_projected_code(None,{},QUERY,['builder'],set(),fields,[]),score_weighted_fields(QUERY,['builder'],set(),fields,[]))
+        self.assertEqual(score_projected_code(None,{},QUERY,QUERY,['builder'],set(),fields,[]),score_weighted_fields(QUERY,['builder'],set(),fields,[]))
 
     def test_no_query_rewrite_or_exact_identity_credit(self):
         projection=recall_projection(QUERY)
-        score,reasons=score_projected_code(projection,{},QUERY,[],set(),[('method_evidence','padding',.75)],[('exact_symbol','padding',12)])
+        score,reasons=score_projected_code(projection,{},QUERY,QUERY,[],set(),[('method_evidence','padding',.75)],[('exact_symbol','padding',12)])
         self.assertEqual(score,.75)
         self.assertNotIn('exact_symbol',reasons)
 
@@ -72,7 +81,7 @@ class BuilderPropertyRecallTests(unittest.TestCase):
         projection=recall_projection(query)
         for file,excluded in [('Card.ets',True),('CardView.ets',True),('Postcard.ets',False),('DataModel.ets',True),('SurfacePalette.ets',False)]:
             self.assertEqual(projection.excludes({'file_path':file}),excluded)
-            score,_=score_projected_code(projection,{'file_path':file},projection.retrieval,[],set(),[('method_evidence','padding backgroundcolor',.75)],[])
+            score,_=score_projected_code(projection,{'file_path':file},query,projection.retrieval,[],set(),[('method_evidence','padding backgroundcolor',.75)],[])
             self.assertEqual(score,0 if excluded else 1.5)
         from tools.agent_memory_runtime.query_language import excluded_code_candidate
         self.assertFalse(excluded_code_candidate('不要返回卡片',{'file_path':'CardView.ets'}))
@@ -83,10 +92,10 @@ class BuilderPropertyRecallTests(unittest.TestCase):
         conn.executemany('INSERT INTO code_symbols VALUES(?,?,?,?,?)',[(1,'p','CardView.ets','CardView.paint','padding backgroundcolor'),(2,'p','Surface.ets','Surface.paint','padding'),(3,'p','Palette.ets','Palette.paint','padding backgroundcolor')])
         project=SimpleNamespace(project_id='p')
         query=QUERY[:-1]+'，不要返回卡片。';projection=recall_projection(query)
-        terms=projected_method_terms(projection.retrieval,projection)
+        terms=projected_method_terms(projection.retrieval,projection,query)
         ids=qualifying_method_evidence_ids(conn,project,[1,2,3],terms)
         self.assertEqual(ids,[1,3])
-        self.assertEqual(filter_projected_method_ids(conn,project,ids,projection.retrieval,projection),[3])
+        self.assertEqual(filter_projected_method_ids(conn,project,ids,projection.retrieval,projection,query),[3])
         conn.close()
 
     def test_whitespace_bounds(self):

@@ -61,15 +61,16 @@ class PropertyRecall:
     terms: tuple[str,...]
     issuer: object
 
-    def valid_for(self,query):
-        return (self.issuer is _ISSUER and query==self.retrieval
+    def valid_for(self,query,original_query=None):
+        return (self.issuer is _ISSUER and original_query==self.request.original and query==self.retrieval
                 and parse_builder_request(self.request.original)==self.request
                 and positive_retrieval_query(self.request.original)==query
                 and self.terms==tuple(x.casefold() for x in self.request.requirements)
                 and len(self.terms)>=2)
 
     def excludes(self,row):
-        names=' '.join(str(row.get(k) or '') for k in ('file_path','owner_name','qualified_name'))
+        owner=row.get('owner_name') or str(row.get('qualified_name') or '').rpartition('.')[0]
+        names=str(row.get('file_path') or '')+' '+str(owner)
         return bool(set([*identifier_tokens(names), *tokenize(names)]) & set(self.request.exclusions))
 
 
@@ -86,16 +87,16 @@ def recall_projection(query,custom_port=None):
     return PropertyRecall(request,retrieval,terms,_ISSUER)
 
 
-def projected_method_terms(query,projection):
+def projected_method_terms(query,projection,original_query=None):
     original=method_evidence_focus_terms(query)
-    if not isinstance(projection,PropertyRecall) or not projection.valid_for(query):
+    if not isinstance(projection,PropertyRecall) or not projection.valid_for(query,original_query):
         return original
     merged=unique_list([*original,*projection.terms])
     return merged if len(merged)<=METHOD_EVIDENCE_QUERY_TERM_LIMIT else original
 
 
-def score_projected_code(projection,row,query,tokens,expanded,fields,exact):
-    active=(isinstance(projection,PropertyRecall) and projection.valid_for(query)
+def score_projected_code(projection,row,original_query,query,tokens,expanded,fields,exact):
+    active=(isinstance(projection,PropertyRecall) and projection.valid_for(query,original_query)
             and not projection.excludes(dict(row)))
     added=[x for x in projection.terms if x not in tokens] if active else []
     score,reasons=score_weighted_fields(query,[*tokens,*added],expanded|set(added),fields,exact)
@@ -106,8 +107,8 @@ def score_projected_code(projection,row,query,tokens,expanded,fields,exact):
     return score,reasons
 
 
-def filter_projected_method_ids(conn,project,ids,query,projection):
-    if not isinstance(projection,PropertyRecall) or not projection.valid_for(query) or not ids:
+def filter_projected_method_ids(conn,project,ids,query,projection,original_query=None):
+    if not isinstance(projection,PropertyRecall) or not projection.valid_for(query,original_query) or not ids:
         return ids
     from .query_method_evidence import method_evidence_term_coverage
     rows=conn.execute('SELECT id,file_path,qualified_name,method_evidence FROM code_symbols '

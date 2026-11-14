@@ -93,7 +93,7 @@ def collect_matches_with_audit(
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
-    method_focus_terms = projected_method_terms(retrieval_query, projection)
+    method_focus_terms = projected_method_terms(retrieval_query, projection, query)
     behavior_terms = behavior_marker_terms(retrieval_query)
     salient_terms = salient_query_tokens(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
@@ -106,7 +106,7 @@ def collect_matches_with_audit(
         "incident_trace_matches": [],
     }
     with connect(project) as conn:
-        recalled = (recall_port or SQLiteCandidateRecall(property_projection=projection)).recall(
+        recalled = (recall_port or SQLiteCandidateRecall(property_projection=projection, original_query=query)).recall(
             conn, project, retrieval_query
         )
         log_effects = collect_log_effect_matches(conn, project, retrieval_query)
@@ -316,7 +316,7 @@ def collect_matches_with_audit(
             row["method_evidence"] or "", method_focus_terms
         ) if "method_body_fts" in symbol_lanes else 0
         score, reasons = score_projected_code(
-            projection, row, retrieval_query,
+            projection, row, query, retrieval_query,
             tokens,
             expanded_terms,
             weighted_fields,

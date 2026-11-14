@@ -123,8 +123,9 @@ class SQLiteCandidateRecall:
     def __init__(
         self,
         rank_fusion: RankFusionPort | None = None,
-        property_projection=None,
+        property_projection=None, original_query=None,
     ) -> None:
+        self.original_query = original_query
         self.property_projection = property_projection
         self.rank_fusion = rank_fusion or ReciprocalRankFusion(
             channel_weights=CANDIDATE_CHANNEL_WEIGHTS
@@ -138,7 +139,7 @@ class SQLiteCandidateRecall:
         table_audits: dict[str, dict[str, Any]] = {}
         for table_name, limit in QUERY_FTS_RECALL_LIMITS.items():
             recalled = recall_table_candidates(
-                conn, project, table_name, query, limit, self.rank_fusion, self.property_projection,
+                conn, project, table_name, query, limit, self.rank_fusion, self.property_projection, self.original_query,
             )
             rows[table_name] = fetch_rows_by_ids(
                 conn,
@@ -240,7 +241,7 @@ def recall_table_candidates(
     query: str,
     limit: int,
     rank_fusion: RankFusionPort,
-    property_projection=None,
+    property_projection=None, original_query=None,
 ) -> TableCandidateRecall:
     lane_ids: dict[str, list[int]] = {}
     fielded_audit: dict[str, Any] = {}
@@ -289,7 +290,7 @@ def recall_table_candidates(
                 fts_expression([term], " OR "),
                 per_term_limit,
             )
-    method_terms = projected_method_terms(query, property_projection)
+    method_terms = projected_method_terms(query, property_projection, original_query)
     behavior_terms = behavior_marker_terms(query)
     if table_name == "code_symbols" and len(method_terms) >= 2:
         method_ids = fts_table_ids(
@@ -299,7 +300,7 @@ def recall_table_candidates(
         )
         lane_ids["method_body_fts"] = filter_projected_method_ids(
             conn, project, qualifying_method_evidence_ids(conn, project, method_ids, method_terms),
-            query, property_projection,
+            query, property_projection, original_query,
         )
     if table_name == "code_symbols" and behavior_terms:
         lane_ids["behavior_method_fts"] = fts_table_ids(
