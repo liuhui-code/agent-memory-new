@@ -1,0 +1,12 @@
+======================================================================
+FAIL: test_public_both_retains_both_already_admitted_callers (tests.test_requested_caller_diversity.RequestedCallerDiversityTests.test_public_both_retains_both_already_admitted_callers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/caller-only/tests/test_requested_caller_diversity.py", line 21, in test_public_both_retains_both_already_admitted_callers
+    self.assertTrue({'ConfirmPanel.ets','ResetPanel.ets'} <= paths)
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 16 tests in 7.829s
+
+FAILED (failures=1)

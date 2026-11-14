@@ -20,3 +20,26 @@ One additional unchanged `both` raw query is now frozen for return-only observat
 of caller collector, code focus and diversity. It is not an added acceptance case.
 The four clean raw outputs are already saved. Compare returned anchors and inspect
 exact two admitted caller IDs/digests/ranges, not an injected source set.
+
+Qualification refinement after initial candidate: require a query-time binding to
+all recognized target references resolving uniquely in the existing collector.
+This is not a full natural-language parse or proof of all callers. Generic,
+quoted and unresolved recognized targets get no preservation binding. The binding
+is an ephemeral dict-subclass attribute, not a published JSON authority field;
+projection or a changed query/identity loses eligibility. Internal test factories
+were supplemented with that binding after the original red freeze; their bytes
+are not claimed unchanged. Public independent sources/queries remain unchanged.
+
+After focused candidate verification, run only the original category42 Development
+scenario (three unchanged variants) on baseline14663ac and candidate. Manifest
+classification is development/editable/project_neutral, not holdout. No aggregate
+or other scenario. This determines original improvement separately from independent
+multi-target retention; strict caller-only equality is not silently relaxed.
+
+Independent review tightened eligibility further: complete mode uses the unchanged
+legacy separator grammar, rejecting no-space comma, trailing separators, unsupported
+conjunctions/actions, or any matched caller-of clause with no qualified first token.
+Its resolved targets must exactly equal the IDs used by the SQL edge filter before
+private binding is issued. An intermediate permissive comma parser is not retained.
+The default parser and caller collection results remain unchanged. Review counter-
+examples and intermediate failing logs remain saved; no acceptance source was tuned.
