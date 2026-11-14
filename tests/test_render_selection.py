@@ -65,3 +65,22 @@ class RenderSelectionTests(unittest.TestCase):
   self.assertIs(result,receipt);record.assert_called_once();miss.assert_called_once()
   self.assertIs(record.call_args.args[1],receipt._view);self.assertIs(miss.call_args.args[3],receipt._view)
   self.assertTrue(miss.call_args.args[3]['query_handoff']['code_anchors'])
+ def clone_owner(self,name,source=None):
+  source=(source or BASE).replace('MessageSurface',name);file=name+'.ets';(self.project.root/file).write_text(source);digest=hashlib.sha256(source.encode()).hexdigest()
+  rows=[dict(r)for r in self.db.execute("SELECT * FROM code_symbols WHERE file_path='MessageSurface.ets'")]
+  next_id=self.db.execute('SELECT MAX(id) FROM code_symbols').fetchone()[0]+1
+  for i,row in enumerate(rows):
+   row.update(id=next_id+i,symbol_key=name+'.'+str(i),file_path=file,source_digest=digest)
+   for key in ['symbol','qualified_name','owner_name']:row[key]=row[key].replace('MessageSurface',name)
+   self.db.execute('INSERT INTO code_symbols VALUES('+','.join('?'for _ in row)+')',list(row.values()))
+  self.db.execute('INSERT INTO code_files VALUES(?,?,?,?)',(file,'p',digest,1));self.trial['wiki_matches'].append({'file_path':file})
+ def test_two_and_three_positive_owners_all_retained(self):
+  for name in ['SecondView','ThirdView']:
+   self.clone_owner(name);out=compact_context(self.bind());anchors=out['query_handoff']['code_anchors']
+   self.assertEqual({a['file_path']for a in anchors},{r['file_path']for r in self.trial['wiki_matches']})
+   self.assertTrue(all(len(a.get('source_excerpts',[]))==2 and all(not e['truncated']for e in a['source_excerpts'])for a in anchors))
+ def test_insufficient_complete_snapshot_budget_falls_back(self):
+  source=BASE.replace('Text(this.plainBody())',"Text('"+'x'*1700+"');Text(this.plainBody())")
+  self.path.write_text(source);digest=hashlib.sha256(source.encode()).hexdigest()
+  self.db.execute('UPDATE code_symbols SET source_digest=?',(digest,));self.db.execute('UPDATE code_files SET source_digest=?',(digest,))
+  out=compact_context(self.bind());self.assertEqual(out,compact_context(self.baseline))

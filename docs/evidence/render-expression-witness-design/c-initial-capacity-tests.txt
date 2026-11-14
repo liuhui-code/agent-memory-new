@@ -1,0 +1,15 @@
+.F........
+======================================================================
+FAIL: test_insufficient_complete_snapshot_budget_falls_back (tests.test_render_selection.RenderSelectionTests.test_insufficient_complete_snapshot_budget_falls_back)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/next-after-ui-pair/tests/test_render_selection.py", line 86, in test_insufficient_complete_snapshot_budget_falls_back
+    out=compact_context(self.bind());self.assertEqual(out,compact_context(self.baseline))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'sch[316 chars]s': [{'file_path': 'MessageSurface.ets', 'symb[2688 chars]lse}} != {'sch[316 chars]s': [], 'callable_evidence': {}, 'path_context[1577 chars]lse}}
+Diff is 8256 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.046s
+
+FAILED (failures=1)

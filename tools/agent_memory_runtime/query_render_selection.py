@@ -84,6 +84,9 @@ def bind_render_context(project,query,baseline,trial):
     view=deepcopy(trial);view['query_handoff']['code_anchors']=selected
     view['query_handoff']['callable_evidence']={'schema_version':'agent-callable-evidence/v1','certainty':'uncertain',
         'primary':None,'alternatives':[],'boundary':'positive_static_expression_template_not_runtime_proof'}
+    from .context_compact import _compact_context
+    if not complete_snapshot_projection(_compact_context(view,tuple(receipts)),tuple(receipts)):
+        return baseline
     result=RenderContext(baseline);result._view=view;result._receipts=tuple(receipts)
     result._binding=(query,snapshot(dict(result)),snapshot(view),result._receipts)
     return result
@@ -135,3 +138,17 @@ def attach_render_excerpts(payload,receipts,token_budget):
         payload['query_handoff']['source_excerpt_policy']={'source':'validated_request_snapshot','body_persisted':False,
             'excerpt_count':count,'excerpt_chars':used_total}
     return count
+
+
+def complete_snapshot_projection(payload,receipts):
+    anchors=payload.get('query_handoff',{}).get('code_anchors')or[]
+    if payload.get('output_budget',{}).get('estimated_tokens',1501)>1500:
+        return False
+    for path,digest,lines,members in receipts:
+        excerpts=[e for a in anchors if a.get('file_path')==path for e in a.get('source_excerpts')or[]]
+        for symbol,start,end in members:
+            expected='\n'.join(lines[start-1:end])
+            if not any(e.get('symbol')==symbol and e.get('start_line')==start and e.get('end_line')==end
+                       and e.get('content')==expected and e.get('truncated') is False for e in excerpts):
+                return False
+    return True

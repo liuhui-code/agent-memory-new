@@ -43,6 +43,11 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     from .query_render_selection import render_context_view, attach_render_excerpts
     data, render_receipts = render_context_view(data)
+    return _compact_context(data, render_receipts)
+
+
+def _compact_context(data: dict[str, Any], render_receipts=None) -> dict[str, Any]:
+    from .query_render_selection import attach_render_excerpts
     handoff = data.get("query_handoff") if isinstance(data.get("query_handoff"), dict) else {}
     protected_paths = projected_guards(handoff)
     compact = compact_handoff(handoff, data)

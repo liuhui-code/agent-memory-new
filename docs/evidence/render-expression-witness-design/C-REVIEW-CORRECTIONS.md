@@ -16,3 +16,17 @@ Tests check the actual passed object and its nonempty selected anchors, not mere
 call count. This does not change public frozen queries or negative acceptance.
 
 42 focused tests pass after these fixes. Public after has not yet run on C.
+
+Fixed feacb99 public13 completed but all requests fell back to the baseline:
+generic remains three sources, head-only empty. This is not accepted or hidden.
+ContextFacade adds path_context/source_freshness after limited_context, legitimately
+invalidating the whole baseline snapshot. A narrow, explicitly reviewed enrichment
+transport is required; the permission binding will not simply ignore path changes.
+
+The separately requested capacity control exposed a real defect: a valid 1700-char
+Text label made the selected build excerpt incomplete, yet selection survived.
+Two/three positive-owner controls passed. The failed capacity log is retained.
+A preflight compact projection now requires every positive complete method range
+and exact snapshot content to fit the unchanged 1500 budget before receipt minting;
+otherwise it returns whole baseline. This adds deterministic bounded projection
+work, not an increased budget. Fixed44 focused tests pass after that correction.
