@@ -58,3 +58,14 @@ admission and failure/onFailure member selector remain separate unapproved work.
 No additional fixture/query tuning or prototype revisions were performed after
 this run. A later reviewer counterexample must be saved as a new observation,
 not silently repaired into these20 results.
+
+## Independent review limits
+
+Reviewer inspected protocol, prototype and saved results without another run.
+All7 witness validation error lists are empty; digest/formal/key and nested slice
+assertions are present. Those assertions share existing header/parameter helpers
+with the prototype, so they are not a second independent language parser proof.
+Intervals use splitlines-normalized characters; arbitrary encoding/newline forms
+were not separately validated in this frozen matrix. No production acceptance or
+current original-case score follows. Integrated fingerprint check1passes and diff
+whitespace check passes; production tools/tests remain the Builder checkpoint.

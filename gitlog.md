@@ -12155,3 +12155,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   ownership nonclaims, and separate consumer approval boundary. No runtime edits,
   new queries, test runs, original result change or remote publication.
 - Details: docs/eval/listener-binding-contract-review/README.md.
+
+## Bounded offline typed callback relation feasibility
+
+- Preserve named-listener/direct-invocation contract reviews without converting
+  weak matching into a claimed strong bug or inventing two architecture defects.
+- Freeze20 source controls, extractor and source/containment assertions before
+  one offline run:20/20 comparisons,7 structured facts. Independent review read
+  saved results; no SDK execution, positional valueflow or unique-owner proof.
+- Runtime/model/schema/selector unchanged; no public query or full suite run,
+  original repaired count20 unchanged. Source/consumer/model limits remain open.
