@@ -19,3 +19,8 @@ Do not change production unless actual public qualification plus an independentl
 reviewed general compound-evidence contract justifies it. Existing symmetric
 prefix recall is intentional; a new exact-compound requirement must not be
 misrepresented as a pre-existing exact-match contract.
+
+Pre-execution clarification: add one both-literals public query and internal
+source-token matrix covering split, camelCase, hyphen, prefix and Chinese forms.
+No public invocation has occurred before this addition. CamelCase is not declared
+an exact literal match for a hyphenated literal; its observation stays internal.

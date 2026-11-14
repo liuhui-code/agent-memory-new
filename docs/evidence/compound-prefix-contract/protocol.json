@@ -6,9 +6,96 @@
     "EmptyGuard.ts": "export class EmptyGuard {\n  check(code: string): boolean {\n    return code === 'buffer-empty'\n  }\n}\n"
   },
   "queries": [
-    ["compound", "Locate the source checking the exact diagnostic literal `buffer-full`.", "CapacityGuard.ts"],
-    ["prefix", "Locate the source checking the exact diagnostic literal `buffer`.", "BufferNote.ts"],
-    ["other-compound", "Locate the source checking the exact diagnostic literal `buffer-empty`.", "EmptyGuard.ts"]
+    [
+      "compound",
+      "Locate the source checking the exact diagnostic literal `buffer-full`.",
+      "CapacityGuard.ts"
+    ],
+    [
+      "prefix",
+      "Locate the source checking the exact diagnostic literal `buffer`.",
+      "BufferNote.ts"
+    ],
+    [
+      "other-compound",
+      "Locate the source checking the exact diagnostic literal `buffer-empty`.",
+      "EmptyGuard.ts"
+    ],
+    [
+      "multiple",
+      "Return both source checks for `buffer-full` and `buffer-empty`.",
+      [
+        "CapacityGuard.ts",
+        "EmptyGuard.ts"
+      ]
+    ]
   ],
-  "internal_pairs": [["buffer-full", "buffer"], ["buffer-full", "full"], ["buffer-full", "buffer-full"], ["buffer-full", "bufferempty"], ["buffer", "buffering"], ["bu", "buffer"], ["缓存-满", "缓存"], ["route.path", "route"]]
+  "internal_pairs": [
+    [
+      "buffer-full",
+      "buffer"
+    ],
+    [
+      "buffer-full",
+      "full"
+    ],
+    [
+      "buffer-full",
+      "buffer-full"
+    ],
+    [
+      "buffer-full",
+      "bufferempty"
+    ],
+    [
+      "buffer",
+      "buffering"
+    ],
+    [
+      "bu",
+      "buffer"
+    ],
+    [
+      "缓存-满",
+      "缓存"
+    ],
+    [
+      "route.path",
+      "route"
+    ]
+  ],
+  "source_match_matrix": [
+    [
+      "buffer-full",
+      "buffer"
+    ],
+    [
+      "buffer-full",
+      "buffer full"
+    ],
+    [
+      "buffer-full",
+      "bufferFull"
+    ],
+    [
+      "buffer-full",
+      "buffer-full"
+    ],
+    [
+      "buffer-full",
+      "buffer empty"
+    ],
+    [
+      "buffer",
+      "buffering"
+    ],
+    [
+      "bu",
+      "buffer"
+    ],
+    [
+      "缓存-满",
+      "缓存 满"
+    ]
+  ]
 }
