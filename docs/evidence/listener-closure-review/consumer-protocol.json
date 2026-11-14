@@ -78,6 +78,25 @@
       },
       "query": "Find the callable that binds engine observer callbacks to not DeliverySink rejected contract.",
       "expectation": "unsupported; no reorder"
+    },
+    {
+      "id": "same-typed-member-direct-retry",
+      "sources": {
+        "Relay.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+        "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n",
+        "TypedRetry.ets": "export class TypedRetry {\n  retry(target: DeliverySink): void {\n    target.rejected(\"retry remains rejected\")\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expectation": "callback fact weak only; genuine direct retry retained in selected set, not absence"
+    },
+    {
+      "id": "different-member",
+      "sources": {
+        "Relay.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+        "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+      },
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink completed contract.",
+      "expectation": "no weak match; no synonym expansion"
     }
   ],
   "stop": "one ordinal candidate; no weight/query/source modifications based on outcomes; if precision still fails stop listener"
