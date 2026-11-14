@@ -1,0 +1,13 @@
+{
+  "classification": "Existing Development scenario; readonly single original Chinese public trace, no scoring or edit",
+  "base": "0a8a8fd",
+  "case_id": "context-builder-layout-source-focus",
+  "query": "横向作品列表中的卡片被裁剪，请返回设置列表方向和高度的 Builder 源码，不要返回卡片或数据模型。",
+  "source": "docs/eval/fixtures/system-capability",
+  "observe": [
+    "actual known Builder rows and selected identities",
+    "graph/path/log guards",
+    "selected and excerpt ranges"
+  ],
+  "stop": "One unchanged original probe; no query editing"
+}
