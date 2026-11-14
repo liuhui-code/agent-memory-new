@@ -55,3 +55,16 @@ current source bytes. No production architectural approval is inferred.
 If display requires dropping mandatory old content, stop; do not raise caps.
 Reviewer approves this plan before protocol freeze/implementation. No new
 public queries, noise, tuning or aggregate evaluation.
+
+## Reviewer-approved bounds before execution
+
+New list diagnostics: at most 64 rows receive diagnosis, each encoded diagnostic
+<=4096 bytes, accumulated diagnostic JSON <=65536 bytes. Overflow fields are
+omitted (unknown/not inspected), never remove original list rows. Original raw
+side fields remain as before; these caps apply to added diagnostics, NOT a
+claim that the entire existing list response is 65536 bytes or 1500 tokens.
+Use existing safe source-path resolver beneath project root; reject missing,
+escaping/symlink paths and wrong digest. Decode same UTF-8 normalization as
+prototype, compare raw-byte digest separately. The new value versus old raw
+side field is current-source status and per-fact checked source slicing;
+not request satisfaction or normal retrieval consumption.

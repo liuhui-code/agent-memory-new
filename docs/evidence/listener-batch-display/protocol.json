@@ -1,0 +1,31 @@
+{
+  "base": "b6d958b",
+  "original_inputs": {
+    "docs/evidence/listener-producer-feasibility/protocol.json": "d8e56cfe5ac10f84afb9a3b45bef2f62d2b364006d0f90138c766a7572ea0af3",
+    "docs/eval/native-listener-current-20261114/protocol.json": "32dd8b7f7233e92a4fd90db613b0002bb8181aa1ea4f02b87b880b7df0e6d5c5"
+  },
+  "model_controls": [
+    "64 accepted before dedup",
+    "65 rejected before iteration",
+    "65536 byte bound",
+    "wrong list type",
+    "duplicate canonical fact one",
+    "same identity conflicting member reject",
+    "class kind reject",
+    "bool bounds reject",
+    "source identity mismatch reject"
+  ],
+  "display_controls": [
+    "current snapshot checked",
+    "code-only old index unknown",
+    "merge activates",
+    "changed bytes stale",
+    "missing source unknown",
+    "path escape unknown",
+    "malformed side unknown",
+    "unknown version unknown",
+    "diagnostic caps no original row removal"
+  ],
+  "legacy_compatibility": "exact old mechanisms/terms preserved; optional failure only drops optional evidence",
+  "query_expectation": "same five oracle outcomes; same body/range/primary; compact <=1500"
+}

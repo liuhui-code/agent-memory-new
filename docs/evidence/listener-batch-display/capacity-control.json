@@ -1,0 +1,8 @@
+{
+  "id": "actual-near-cap",
+  "file_path": "CapacityRelay.ets",
+  "source": "interface DeliverySink { onFailure(reason: string): void }\nexport class CapacityRelay {\n connect(engine: Engine, target: DeliverySink): void {\n  engine.observe({\n   onEvent00: (reason: string) => { target.onFailure(reason) },\n   onEvent01: (reason: string) => { target.onFailure(reason) },\n   onEvent02: (reason: string) => { target.onFailure(reason) },\n   onEvent03: (reason: string) => { target.onFailure(reason) },\n   onEvent04: (reason: string) => { target.onFailure(reason) },\n   onEvent05: (reason: string) => { target.onFailure(reason) },\n   onEvent06: (reason: string) => { target.onFailure(reason) },\n   onEvent07: (reason: string) => { target.onFailure(reason) },\n   onEvent08: (reason: string) => { target.onFailure(reason) },\n   onEvent09: (reason: string) => { target.onFailure(reason) },\n   onEvent10: (reason: string) => { target.onFailure(reason) },\n   onEvent11: (reason: string) => { target.onFailure(reason) },\n   onEvent12: (reason: string) => { target.onFailure(reason) },\n   onEvent13: (reason: string) => { target.onFailure(reason) },\n   onEvent14: (reason: string) => { target.onFailure(reason) },\n   onEvent15: (reason: string) => { target.onFailure(reason) }\n  })\n }\n}\n",
+  "sha256": "1da09ba301c6c1c3e0b6e73dfe677a958abead4b1782b980ce1b0b75a42e7b78",
+  "expected": [],
+  "expectation_note": "capacity-conditioned: exact legacy prefix and independent combined-byte packing check; no demand all16 survive"
+}
