@@ -122,11 +122,21 @@ def bind_from_rows(project, query, handoff, rows, files):
     selected_paths = list(dict.fromkeys(roles[role][0][1] for role in ('registry', 'store')))
     if any(path not in receipts for path in selected_paths):
         return handoff
+    from .query_recovery_source import components
+    certified = {(path, receipts[path]['parsed']['owner']) for path in selected_paths}
+    evidence = handoff.get('callable_evidence') or {}
+    observed = [evidence.get('primary') or {}, *(evidence.get('alternatives') or []),
+                *((evidence.get('passage_portfolio') or {}).get('members') or [])]
+    for item in observed:
+        owner = item.get('owner_name')
+        if (isinstance(owner, str) and {'registry', 'store'} & components(owner)
+                and (item.get('file_path'), owner) not in certified):
+            return handoff
     result = RecoveryHandoff(handoff)
     result._query = query
     result._receipts = tuple(receipts[p] for p in selected_paths)
     result._root = str(root)
-    result._binding = (query, snapshot(anchors), snapshot(result._receipts), result._root)
+    result._binding = (query, snapshot(anchors), snapshot(result._receipts), result._root, snapshot(evidence))
     return result
 
 
@@ -134,7 +144,8 @@ def valid(handoff, anchors, query, path=None):
     if not isinstance(handoff, RecoveryHandoff) or not recovery_request(query) or protected(handoff, path):
         return False
     try:
-        return ((query, snapshot(anchors), snapshot(handoff._receipts), handoff._root) == handoff._binding
+        return ((query, snapshot(anchors), snapshot(handoff._receipts), handoff._root,
+                 snapshot(handoff.get('callable_evidence') or {})) == handoff._binding
                 and query == handoff._query and isinstance(handoff._receipts, tuple)
                 and 1 <= len(handoff._receipts) <= 2)
     except (AttributeError, TypeError, ValueError):

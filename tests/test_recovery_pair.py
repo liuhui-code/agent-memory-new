@@ -105,6 +105,21 @@ class RecoveryPairTests(unittest.TestCase):
                 else:
                     self.assertIs(result, handoff)
 
+    def test_conservative_evidence_ambiguity_is_not_positive_authority(self):
+        handoff = copy.deepcopy(self.handoff)
+        primary = handoff['callable_evidence']['primary']
+        another_method = {**primary, 'symbol': 'otherMethod'}
+        handoff['callable_evidence']['alternatives'].append(another_method)
+        bound = self.bound(handoff=handoff)
+        self.assertTrue(valid(bound, bound['code_anchors'], self.query))
+        bound['callable_evidence']['alternatives'].append({'file_path': 'different.ets', 'owner_name': 'SessionSyncStore'})
+        self.assertFalse(valid(bound, bound['code_anchors'], self.query))
+        self.assertIs(self.bound(handoff=handoff), handoff)
+        unrelated = copy.deepcopy(self.handoff)
+        unrelated['callable_evidence']['alternatives'].append({'file_path': 'Other.ets', 'owner_name': 'TelemetryReporter'})
+        bound = self.bound(handoff=unrelated)
+        self.assertTrue(valid(bound, bound['code_anchors'], self.query))
+
     def test_no_new_ranges_and_budget_guard(self):
         bound = self.bound()
         old = self.before['compact']
