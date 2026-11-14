@@ -16,3 +16,20 @@ ranges; the source hash, current rows, pool and independent edge digest are all
 updated together. Both one-positive and two-positive cases still qualify in
 full, but complete-class display cannot fit, so binding returns the identical
 baseline object, not a partial positive selection. No public fixture changed.
+
+## Immutable 7db0cee actual public after
+
+The unchanged eleven-request protocol ran once in a detached 7db0cee worktree.
+The Chinese red now selects the full BufferSession class; both complete owners
+are retained in the multiple-positive control. Nine no-authority/control compact
+handoffs are exactly unchanged. All eleven raw handoffs, log fields and path
+contexts match the earliest before. Positive source snapshots equal the complete
+frozen class bytes; estimated sizes are 789 and 977 within the unchanged 1500.
+All source files and queries are the frozen inputs; runtime/tests have no diff.
+49 related tests pass at this fixed SHA (overlaps earlier counts).
+
+The first checker used the nonexistent `excerpt` field rather than actual
+`content`, causing KeyError. Its source/log remain; only that schema key and the
+correct output_budget field were corrected. No product/input/oracle changed.
+Original case 18 has not yet been re-evaluated; these results do not add original
+failure repair credit. Independent public review is pending.

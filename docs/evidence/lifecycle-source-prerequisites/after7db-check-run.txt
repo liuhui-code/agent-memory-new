@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/lifecycle-final-7db0cee/docs/evidence/lifecycle-source-prerequisites/check-after.py", line 20, in <module>
+    checks['complete_exact_snapshots']=all(any(e['start_line']==1 and e['end_line']==len(sources[x['file_path']].splitlines()) and e['excerpt']==sources[x['file_path']].rstrip('\n') and e.get('source')=='validated_request_snapshot' for e in x.get('source_excerpts',[]))for x in a['code_anchors'])
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/lifecycle-final-7db0cee/docs/evidence/lifecycle-source-prerequisites/check-after.py", line 20, in <genexpr>
+    checks['complete_exact_snapshots']=all(any(e['start_line']==1 and e['end_line']==len(sources[x['file_path']].splitlines()) and e['excerpt']==sources[x['file_path']].rstrip('\n') and e.get('source')=='validated_request_snapshot' for e in x.get('source_excerpts',[]))for x in a['code_anchors'])
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/lifecycle-final-7db0cee/docs/evidence/lifecycle-source-prerequisites/check-after.py", line 20, in <genexpr>
+    checks['complete_exact_snapshots']=all(any(e['start_line']==1 and e['end_line']==len(sources[x['file_path']].splitlines()) and e['excerpt']==sources[x['file_path']].rstrip('\n') and e.get('source')=='validated_request_snapshot' for e in x.get('source_excerpts',[]))for x in a['code_anchors'])
+                                                                                                                                   ~^^^^^^^^^^^
+KeyError: 'excerpt'

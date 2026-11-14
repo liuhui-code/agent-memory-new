@@ -1,0 +1,225 @@
+[
+  {
+    "id": "lifecycle-0",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "BufferSession.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1163,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "lifecycle-1",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "all_positive_only": true,
+      "complete_exact_snapshots": true
+    },
+    "paths": [
+      "BufferSession.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 789,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "lifecycle-2",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "PendingQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 967,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "lifecycle-3",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "BufferSession.ets",
+      "PendingQueue.ets",
+      "WriteQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1421,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "unknown-0",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "PendingQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1082,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "unknown-1",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [],
+    "budget": {
+      "estimated_tokens": 566,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "unknown-2",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "PendingQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1079,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "unknown-3",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "PendingQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1083,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "unknown-4",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "PendingQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1094,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "unknown-5",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "complete_handoff_unchanged": true
+    },
+    "paths": [
+      "PendingQueue.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 1080,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "id": "two-complete-owners",
+    "checks": {
+      "raw_handoff_unchanged": true,
+      "logs_unchanged": true,
+      "path_unchanged": true,
+      "budget": true,
+      "required": true,
+      "forbidden": true,
+      "all_positive_only": true,
+      "complete_exact_snapshots": true
+    },
+    "paths": [
+      "BufferSession.ets",
+      "EditorSession.ets"
+    ],
+    "budget": {
+      "estimated_tokens": 977,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+]
