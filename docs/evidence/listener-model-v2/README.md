@@ -89,3 +89,11 @@ a general architecture overhaul, but model/DB/public-list changes still require
 review. The direct weak lexical case has not become a second strong-contract
 failure. Selector semantics and request-side members remain separate unapproved
 work. No experiment component is imported by committed production code.
+
+Additional untested model boundary: this version does not establish a complete
+batch-wide MAX witness limit, duplicate-record policy or every invalid entity-kind
+case. Existing source extraction is bounded, but arbitrary supplied batches need
+separate limit/kind/duplicate validation review. Do not promote32 checks to a full
+untrusted-provider acceptance gate. Capacity's stored pass:null remains literally
+not evaluated by the ordinary tuple comparator; only the distinct capacity
+contract was evaluated and passed, not the omitted full-fact oracle.

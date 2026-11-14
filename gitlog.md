@@ -12191,3 +12191,21 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Listed new frozen version contamination, identity, case collision and cap controls;
   old 20-source/five-query inputs and failed overlay evidence remain unchanged.
 - No v2 execution, runtime or request parser change in this review stage.
+
+## Listener typed model v2: disposable-runtime compatibility evidence
+
+- Freeze20 existing source controls, five existing public queries, and additional
+  exact-case/length/version/signature/unit/capacity tests before a new isolated run.
+- Experiment uses a copied runtime and real CLI/SQLite; no committed production
+  model, database, selector or ranking change. Independent typed side evidence
+  avoids joining lowercased descriptive operation text.
+-20 existing source controls and two extra Boolean controls pass; separate actual
+  capacity contract retains16 old mechanisms (3378bytes), omits all16 optional
+  witnesses and stores[] (2bytes). Ordinary tuple-comparator pass:null remains
+  unevaluated; an inherited misleading terminal label is preserved and explained.
+-32 enumerated model checks pass, including clean legacy unknown, v1 pollution
+  rejection and old-reader rejection. Not full decoder/source authentication or
+  arbitrary-provider/MAX/duplicate/kind coverage. Five public outcomes remain one
+  red/four green, exact bodies/ranges/primary unchanged. No original-count gain.
+- Evidence: docs/evidence/listener-model-v2. Bundle and independent review required
+  before any further proposal; request binding remains a separate stage.
