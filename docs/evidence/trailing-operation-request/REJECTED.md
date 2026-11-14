@@ -42,7 +42,9 @@ The candidate adds case-preserving `call:.fontSize` / `call:.fontColor` positive
 static syntax observations to the existing operation mechanism, with unchanged
 source key, line, method range and raw-byte digest. It does not establish receiver
 type, runtime execution, causal effect, source-operation completeness, uniqueness
-or absence. No schema/role version upgrade. Unsupported syntax adds no new fact.
+or absence. No schema/role version upgrade. The intended unsupported-syntax
+boundary is no new fact, but the final multiline-computed counterexample below
+shows that the candidate does not fully enforce it.
 Unknown nested blocks are not implicitly outer-method bodies. Only known declared
 methods and bounded known construction scopes are considered. Expression-bodied
 arrows, unknown slash/template interpolation/unbalanced syntax remain unsupported.
@@ -93,7 +95,7 @@ parser patching was stopped after this final review, as directed.
 Final focused run: **40 tests pass** (9 new + 31 related). Separate fingerprint
 check: 1 passes. Compile and diff whitespace checks pass. Runtime files remain
 483 and 148 lines, under the existing 500-line limit. These runs are not a full
-gate. Source controls and activation are separate probes, not added to 39.
+gate. Source controls and activation are separate probes, not added to 40.
 
 Unchanged original04 Development group: **0/3 before and after**. Original remains
 WorkspaceAbility only; English remains InventoryItem + InventoryList + Overlay;
