@@ -24,7 +24,7 @@ known Builder identities cannot be collapsed by display diversity or forced uniq
 
 English only, single sentence, exact full-string consumption, optional final dot:
 `(Find|Locate|Identify) (the|a|an) (reusable|declared)? (@Builder|Builder)
- (declaration|method|function)? [that (sets|configures|arranges|renders) ATTRS]`.
+ (declaration|method|function)? [that (sets|configures) ATTRS]`.
 Without the relative clause the role noun is the entire output target. ATTRS is a
 comma/and-separated list of one- or two-word lower-case noun labels. The grammar
 must reject reserved grammatical words (prepositions, determiners, auxiliaries,
@@ -87,3 +87,26 @@ non-declaration output request. Do not adjust queries, sources or eligibility af
 observations to chase a pass. Source/test implementation starts only after reviewer
 accepts this design plus frozen actual before. Original23 is evaluated separately
 only after candidate focused tests; no full gate or original repair claim inferred.
+
+## Pre-execution design correction (no run has occurred)
+
+The initial ATTRS wording incorrectly suggested a noun classifier. It is only a
+finite lower-case token surface; relevance remains ordinary lexical evidence. A
+Builder that renders source text can be a genuine declaration target. The frozen
+artifact-label query is therefore NOT proof of artifact-output intent. It remains
+unsupported in this first subset because the relative action grammar now admits
+only sets/configures, not renders/arranges. This whole-action limitation applies
+equally to every content noun, not a source/text word ban. Initial proposal and
+protocol commits remain in history. No result/query/oracle was tuned after a run.
+Generated source output-head and unconsumed suffix remain distinct controls.
+
+Qualification is parsed from the original untouched public query, before localizer
+positive_retrieval_query cleaning. It cannot be minted from a cleaned rank query.
+An original unknown/negative/mixed sentence must not be turned into a positive
+request. Validate source row identity before compact projection drops digest/key;
+never reconstruct authority from a JSON boolean or truncated roles.
+
+For multiple role matches within the existing bounded candidate pool, preserve
+distinct method identities including same-file members. If projection cannot retain
+all admitted matches within unchanged limits, retain prior behavior with uncertainty
+rather than silently asserting a unique match. Non-exhaustiveness is explicit.
