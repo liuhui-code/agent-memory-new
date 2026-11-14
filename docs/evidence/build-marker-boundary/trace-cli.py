@@ -3,6 +3,10 @@ import copy,json,runpy,sys
 from pathlib import Path
 runtime,out,*args=sys.argv[1:];rows=[]
 WATCH={'structural_boundary_query','preserve_structural_boundary_neighbors','focus_code_candidates','collect_graph_neighbor_matches','promote_neighbor','builder_anchors'}
+def jsonable(value):
+ if isinstance(value,dict):return {(json.dumps(k) if isinstance(k,tuple) else k):jsonable(v) for k,v in value.items()}
+ if isinstance(value,(tuple,list)):return [jsonable(v) for v in value]
+ return value
 def observe(frame,event,arg):
  if event=='return' and frame.f_code.co_name in WATCH and 'agent_memory_runtime' in frame.f_code.co_filename:
   keys=('query','focused','recalled','wiki_matches','edges','origin','neighbor','edge','reverse','matched')
@@ -11,4 +15,4 @@ def observe(frame,event,arg):
 sys.argv=[runtime,*args];sys.path.insert(0,str(Path(runtime).parent));sys.setprofile(observe)
 try:runpy.run_path(runtime,run_name='__main__')
 finally:
- sys.setprofile(None);Path(out).write_text(json.dumps(rows,indent=2,ensure_ascii=False))
+ sys.setprofile(None);Path(out).write_text(json.dumps(jsonable(rows),indent=2,ensure_ascii=False))
