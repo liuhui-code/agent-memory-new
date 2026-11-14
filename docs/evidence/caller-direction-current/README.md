@@ -96,3 +96,14 @@ candidate outputs are retained under their original filenames, not overwritten.
 Independent review of immutable source013ef95 reran22 focused/related tests, all
 passed with unchanged source before/after. No remaining concrete blocker reported.
 The source code in the final documentation commits is identical to013ef95.
+
+## Coordinator integration verification
+
+Integrated source is byte-identical to source commit013ef95 across tools/tests.
+After merging append-only development records, the coordinator ran the five focused
+modules requested-caller-diversity, caller-target-identity, query-caller-ownership,
+context-callable-focus and context-primary-budget: **43 passed**. The first command
+mistyped the final module as context-primary-source-budget; its import error is
+preserved in integration-setup-error.txt (33 actual tests passed, one loader error).
+No code or assertion changed to correct that command. Correct invocation output is
+integration.txt. This is focused integration, not aggregate acceptance or CI.

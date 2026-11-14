@@ -1,0 +1,15 @@
+======================================================================
+ERROR: test_context_primary_source_budget (unittest.loader._FailedTest.test_context_primary_source_budget)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_context_primary_source_budget
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_context_primary_source_budget'
+
+
+----------------------------------------------------------------------
+Ran 34 tests in 8.112s
+
+FAILED (errors=1)

@@ -12436,7 +12436,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Carry a query-bound identity set locally around intent's dict projection; no
   private authority is published to JSON. Missing, conflicting, legacy or projected
   identities and unknown/partial target grammar retain old behavior.
-- Nine focused tests plus32 existing related tests pass (one existing expected
-  failure). Independent both now retains2/2 callers; strict caller-only equality
+- Nine focused plus32 related tests ran:40 passed and1 existing expected
+  failure. Independent both now retains2/2 callers; strict caller-only equality
   remains false because callee context remains. Original42 remains1/3; no count
   gain, no aggregate or remote publication. See caller-direction-current evidence.
+
+## 2026-11-14 — Verify integrated requested-caller repair
+
+- Integrated runtime/tests remain byte-identical to reviewed013ef95. Corrected a
+  mistyped test module invocation without code/assertion edits; retained the loader
+  error and subsequent43 focused integration passes in caller-direction-current.
+- No full gate or original repair-count increase; source/publication scopes remain
+  separate. No new source/experiment files were included in the old37-file release.
