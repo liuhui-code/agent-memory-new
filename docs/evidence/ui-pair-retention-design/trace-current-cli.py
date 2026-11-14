@@ -3,7 +3,7 @@ import sys,runpy,json,copy
 from pathlib import Path
 out=Path(sys.argv.pop(1));entry=sys.argv[1];sys.argv=sys.argv[1:];sys.path.insert(0,str(Path(entry).resolve().parents[1]));sys.path.insert(0,str(Path(entry).resolve().parent));rows=[]
 def profile(frame,event,arg):
- if event=='return' and frame.f_code.co_name=='focus_callable_anchors':
+ if event=='return' and frame.f_code.co_name in {'focus_callable_anchors','retains_ui_pair'}:
   rows.append(copy.deepcopy({'function':frame.f_code.co_name,'query':frame.f_locals.get('query'),'anchors':frame.f_locals.get('anchors'),'evidence':frame.f_locals.get('evidence'),'path_activated':frame.f_locals.get('path_activated'),'returned':arg,'return_line':frame.f_lineno}))
 sys.setprofile(profile)
 try:runpy.run_path(entry,run_name='__main__')
