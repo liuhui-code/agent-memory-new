@@ -1,0 +1,14 @@
+....E...................................
+======================================================================
+ERROR: test_same_snapshot_display_no_reread (tests.test_render_selection.RenderSelectionTests.test_same_snapshot_display_no_reread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/next-after-ui-pair/tests/test_render_selection.py", line 39, in test_same_snapshot_display_no_reread
+    self.assertTrue(all(e['source']=='validated_request_snapshot'for e in excerpts));self.assertLessEqual(out['context_budget']['estimated_tokens'],1500)
+                                                                                                          ~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'context_budget'
+
+----------------------------------------------------------------------
+Ran 40 tests in 0.049s
+
+FAILED (errors=1)

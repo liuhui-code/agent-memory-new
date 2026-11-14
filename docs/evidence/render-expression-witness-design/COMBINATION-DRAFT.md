@@ -104,3 +104,13 @@ selection authority or use cached bytes without the exact original binding.
 Whether loss of this late binding can safely revert a complete old context without
 cross-layer re-execution remains the last reviewed interface decision, not a solved
 or implemented property. No source-consumer code exists at this point.
+
+Implementation records: normal mapping contains the full old baseline and private
+attributes carry a separate projected view plus immutable snapshot receipts. Copy,
+JSON, bad binding use baseline. Positive display labels validated_request_snapshot,
+not current disk. Positive requests incur baseline construction too. Source scanner
+has 19+10 frozen controls; field/whole-file grammar is closed, not a generic parser.
+Two initial test-authoring errors are retained: replacing the factory call in a new
+test accidentally altered the builder namespace, and a new budget assertion used
+context_budget instead of existing output_budget. Both assertions were corrected;
+neither required a serving change nor changed frozen public inputs or criteria.

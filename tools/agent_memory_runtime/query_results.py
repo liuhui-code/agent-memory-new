@@ -96,8 +96,8 @@ def diverse_log_matches(
 def limited_context(project: Project, query: str, explicit_intent: str | None = None) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
-    if recall_projection(query, allow_render_recall=True) is not None:
-        from .query_render_recall import RenderRecall
+    from .query_render_recall import parse_render_request, RenderRecall
+    if parse_render_request(query) is not None:
         if isinstance(recall_projection(query, allow_render_recall=True), RenderRecall):
             trial = _context_pass(project, query, explicit_intent, allow_render_recall=True)
             from .query_render_selection import bind_render_context

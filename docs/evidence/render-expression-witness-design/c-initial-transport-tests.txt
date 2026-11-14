@@ -1,0 +1,14 @@
+.E.......................
+======================================================================
+ERROR: test_builder_dispatch_exact (tests.test_render_capability_recall.RenderRecallTests.test_builder_dispatch_exact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/next-after-ui-pair/tests/test_render_capability_recall.py", line 47, in test_builder_dispatch_exact
+    q='请返回设置内边距和背景颜色的 Builder 源码。';p=enabled_projection(q);b=r.buildeenabled_projection(q)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tools.agent_memory_runtime.query_render_recall' has no attribute 'buildeenabled_projection'
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.014s
+
+FAILED (errors=1)
