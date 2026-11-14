@@ -9,7 +9,12 @@
         "multiple-forwarders.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\nexport class SecondRelay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "two_forwarders_retained": true
+      }
     },
     {
       "id": "different-property",
@@ -17,7 +22,12 @@
         "different-property.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "property_matching_not_claimed": true
+      }
     },
     {
       "id": "other-receiver",
@@ -25,7 +35,13 @@
         "other-receiver.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { other.rejected(reason) }\n    })\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "retry",
@@ -33,7 +49,13 @@
         "retry.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "comment",
@@ -41,7 +63,13 @@
         "comment.ets": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { /* target.rejected(reason) */ }\n    })\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained"
+      "expectation": "no exclusion or authority; matched primary uncertain, all candidates retained",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "qualifier-conflict",
@@ -50,7 +78,13 @@
         "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
       },
       "query": "Find the callable that binds disk storage callbacks to the DeliverySink rejected contract.",
-      "expectation": "unverified source qualifier remains unresolved; do not report contract satisfied"
+      "expectation": "unverified source qualifier remains unresolved; do not report contract satisfied",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "different-type",
@@ -59,7 +93,13 @@
         "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the OtherSink rejected contract.",
-      "expectation": "no weak match"
+      "expectation": "no weak match",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "wrapper",
@@ -68,7 +108,13 @@
         "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
       },
       "query": "Find the wrapper that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "unsupported; no reorder"
+      "expectation": "unsupported; no reorder",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "negative",
@@ -77,7 +123,13 @@
         "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to not DeliverySink rejected contract.",
-      "expectation": "unsupported; no reorder"
+      "expectation": "unsupported; no reorder",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     },
     {
       "id": "same-typed-member-direct-retry",
@@ -87,7 +139,11 @@
         "TypedRetry.ets": "export class TypedRetry {\n  retry(target: DeliverySink): void {\n    target.rejected(\"retry remains rejected\")\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
-      "expectation": "callback fact weak only; genuine direct retry retained in selected set, not absence"
+      "expectation": "callback fact weak only; genuine direct retry retained in selected set, not absence",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true
+      }
     },
     {
       "id": "different-member",
@@ -96,7 +152,13 @@
         "Recovery.ets": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
       },
       "query": "Find the callable that binds engine observer callbacks to the DeliverySink completed contract.",
-      "expectation": "no weak match; no synonym expansion"
+      "expectation": "no weak match; no synonym expansion",
+      "safety_oracle": {
+        "selected_identity_set_unchanged": true,
+        "weak_primary_uncertain": true,
+        "no_new_weak": true,
+        "selected_order_unchanged": true
+      }
     }
   ],
   "stop": "one ordinal candidate; no weight/query/source modifications based on outcomes; if precision still fails stop listener"

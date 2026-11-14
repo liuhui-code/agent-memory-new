@@ -71,3 +71,11 @@ unchanged, avoiding displacement through MAX_CALLABLES. If target is absent from
 that set, candidate cannot help and no recall/cap change is allowed. Recompute
 source ranges with original function in new order; unchanged per-candidate
 source facts. This supersedes the earlier final-ranked-before-selection wording.
+
+Reviewer approval pre-run: qualifier-conflict is a true negative safety oracle,
+not pass merely because flags disclaim satisfaction. Type/member alone must not
+newly prioritize the unsupported disk-storage relation. If this candidate does,
+record failure and stop without keyword guards/revised query/another rule.
+Other receiver/retry/comment/different type/member/unsupported forms require no
+weak/no ordering change. Multi-forwarder preserves both; property mismatch may
+support target-member weak only. Original explicit/literal controls unchanged.
