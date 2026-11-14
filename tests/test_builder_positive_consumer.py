@@ -44,6 +44,11 @@ class BuilderPositiveConsumerTests(unittest.TestCase):
   local=bind_localization(self.project,self.query,[self.row],[self.row],self.local([self.row]))
   local._rows[0]['source_digest']='0'*64;original={'primary':None,'alternatives':[]}
   self.assertIs(project_builder_evidence(local,original),original)
+ def test_valid_query_rebinding_rejected(self):
+  other='Find the declared Builder.';evidence=self.evidence();evidence._query=other
+  anchors=[{'file_path':'Other.ets'}];self.assertEqual(builder_anchors(anchors,evidence,False,other),anchors)
+  local=bind_localization(self.project,self.query,[self.row],[self.row],self.local([self.row]));local._query=other
+  original={'primary':None,'alternatives':[]};self.assertIs(project_builder_evidence(local,original),original)
  def test_unknown_and_partial_identity_fallback(self):
   for key,value in [('id',True),('source_digest',''),('symbol_key',''),('end_line',0),('index_generation',False),('semantic_adapter','unknown')]:
    row=dict(self.row);row[key]=value;original=self.local([row])
