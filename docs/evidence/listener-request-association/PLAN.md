@@ -72,3 +72,16 @@ These are new explicitly synthetic descriptor controls, not new benchmark querie
 or changes to the original cases. Freeze full inputs, expected lane/status and
 source provenance; then freeze implementation; execute once and preserve all
 mismatches. No after-result lexical patches. No public context rerun, no ranking.
+
+## Reviewer-approved semantic corrections before execution
+
+“Exact” means exact-name association only. All outputs set relation_satisfied=false
+and eligible_for_ranking=false, with source/target qualifiers preserved as
+unresolved_qualifiers. No unverified predicate is silently marked satisfied.
+
+The request's target Member does not necessarily select the callback PROPERTY.
+Report two separate observational lanes: target-member-only and an additional
+restrictive dual-name hypothesis. The latter always carries
+property_selector_assumed=true and relation_attachment_unresolved=true. It is not
+claimed to decode rejected-property intent. Different-property controls must show
+the distinction; neither lane may confer ranking or a positive full-request claim.

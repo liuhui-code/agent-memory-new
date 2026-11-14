@@ -1,0 +1,972 @@
+{
+  "classification": "offline descriptor/name association, no ranking",
+  "controls": [
+    {
+      "id": "exact",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "exact-name:one-observed"
+      }
+    },
+    {
+      "id": "exact-onFailure",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink onFailure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onFailure",
+          "member": "onFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "exact-name:one-observed"
+      }
+    },
+    {
+      "id": "failure-segment",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onFailure",
+          "member": "onFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "failure-collision",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onFailure",
+          "member": "onFailure",
+          "origin": "synthetic association fixture, not learned source"
+        },
+        {
+          "identity": "synthetic:B",
+          "declared_type": "DeliverySink",
+          "property": "failureCount",
+          "member": "failureCount",
+          "origin": "synthetic association fixture, not learned source"
+        },
+        {
+          "identity": "synthetic:C",
+          "declared_type": "DeliverySink",
+          "property": "retryFailure",
+          "member": "retryFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "collision-unknown",
+        "dual_name_hypothesis": "collision-unknown"
+      }
+    },
+    {
+      "id": "single-failureCount",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "failureCount",
+          "member": "failureCount",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "single-retryFailure",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "retryFailure",
+          "member": "retryFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "case-exact-priority",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink onFailure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onFailure",
+          "member": "onFailure",
+          "origin": "synthetic association fixture, not learned source"
+        },
+        {
+          "identity": "synthetic:B",
+          "declared_type": "DeliverySink",
+          "property": "onfailure",
+          "member": "onfailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "exact-name:one-observed"
+      }
+    },
+    {
+      "id": "case-weak",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink ONFAILURE contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onfailure",
+          "member": "onfailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "case-collision",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink FAILURE contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "failure",
+          "member": "failure",
+          "origin": "synthetic association fixture, not learned source"
+        },
+        {
+          "identity": "synthetic:B",
+          "declared_type": "DeliverySink",
+          "property": "Failure",
+          "member": "Failure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "collision-unknown",
+        "dual_name_hypothesis": "collision-unknown"
+      }
+    },
+    {
+      "id": "http-acronym",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink HTTPFailure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onHTTPFailure",
+          "member": "onHTTPFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "http-segment",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink HTTP contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "onHTTPFailure",
+          "member": "onHTTPFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "snake",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "on_failure",
+          "member": "on_failure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "snake-exact",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink on_failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "on_failure",
+          "member": "on_failure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "exact-name:one-observed"
+      }
+    },
+    {
+      "id": "property-mismatch",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "accepted",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "no-name-association"
+      }
+    },
+    {
+      "id": "property-segment-only",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "failureCount",
+          "member": "onFailure",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "segment-uncertain:one-observed",
+        "dual_name_hypothesis": "segment-uncertain:one-observed"
+      }
+    },
+    {
+      "id": "two-forwarders",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        },
+        {
+          "identity": "synthetic:B",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:multiple-observed",
+        "dual_name_hypothesis": "exact-name:multiple-observed"
+      }
+    },
+    {
+      "id": "partial",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "partial",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "exact-name:one-observed"
+      }
+    },
+    {
+      "id": "capped",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [],
+      "coverage": "capped",
+      "expected": {
+        "target_member": "domain-unknown",
+        "dual_name_hypothesis": "domain-unknown"
+      }
+    },
+    {
+      "id": "old-index",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [],
+      "coverage": "old-index",
+      "expected": {
+        "target_member": "domain-unknown",
+        "dual_name_hypothesis": "domain-unknown"
+      }
+    },
+    {
+      "id": "type-case",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "deliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "no-name-association",
+        "dual_name_hypothesis": "no-name-association"
+      }
+    },
+    {
+      "id": "long-source-qualifier",
+      "query": "Locate the callable that binds the remote asynchronous application notification observer callbacks to the host DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "exact-name:one-observed",
+        "dual_name_hypothesis": "exact-name:one-observed"
+      }
+    },
+    {
+      "id": "quoted",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink 'rejected' contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "negated",
+      "query": "Find the callable that does not bind engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "negated-source",
+      "query": "Find the callable that binds not engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "caller",
+      "query": "Find the caller that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "wrapper",
+      "query": "Find the wrapper that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "return",
+      "query": "Find the callable that returns engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "declaration",
+      "query": "Find the DeliverySink declaration.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "two-types",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink OtherSink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "two-members",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected and accepted contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "extra-command",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract. Then show the caller.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "embedded-command",
+      "query": "Find the callable that binds engine then list services observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "unknown-relation",
+      "query": "Find the callable that routes engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "literal",
+      "query": "Find the string literal 'DeliverySink rejected contract'.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    },
+    {
+      "id": "accepts",
+      "query": "Find the callable that accepts DeliverySink.",
+      "facts": [
+        {
+          "identity": "synthetic:A",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "synthetic association fixture, not learned source"
+        }
+      ],
+      "coverage": "complete-fixture",
+      "expected": {
+        "target_member": "unsupported-descriptor",
+        "dual_name_hypothesis": "unsupported-descriptor"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "id": "saved-independent-0",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "facts": [
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "accepted",
+          "member": "accepted",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        },
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        }
+      ],
+      "coverage": "saved-fixture-partial",
+      "expected": null
+    },
+    {
+      "id": "saved-independent-1",
+      "query": "Find Relay.connect.",
+      "facts": [
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "accepted",
+          "member": "accepted",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        },
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        }
+      ],
+      "coverage": "saved-fixture-partial",
+      "expected": null
+    },
+    {
+      "id": "saved-independent-2",
+      "query": "Find the callable that accepts DeliverySink.",
+      "facts": [
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "accepted",
+          "member": "accepted",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        },
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        }
+      ],
+      "coverage": "saved-fixture-partial",
+      "expected": null
+    },
+    {
+      "id": "saved-independent-3",
+      "query": "Find Recovery.retryRejectedDelivery.",
+      "facts": [
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "accepted",
+          "member": "accepted",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        },
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        }
+      ],
+      "coverage": "saved-fixture-partial",
+      "expected": null
+    },
+    {
+      "id": "saved-independent-4",
+      "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+      "facts": [
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "accepted",
+          "member": "accepted",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        },
+        {
+          "identity": "symbol:74e040c92fbcc12cc58d8a25",
+          "declared_type": "DeliverySink",
+          "property": "rejected",
+          "member": "rejected",
+          "origin": "saved v2 indexed relay",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 11,
+            "file_path": "relay.ets",
+            "outer_range": [
+              113,
+              327
+            ],
+            "qualified_name": "Relay.connect",
+            "signature": "connect(engine: Engine, target: DeliverySink):void",
+            "snapshot_length": 329,
+            "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+            "start_line": 6,
+            "symbol_key": "symbol:74e040c92fbcc12cc58d8a25"
+          }
+        }
+      ],
+      "coverage": "saved-fixture-partial",
+      "expected": null
+    },
+    {
+      "id": "saved-native-contract",
+      "query": "Find the callable that binds native runtime observer callbacks to the host ResultListener failure contract.",
+      "facts": [
+        {
+          "identity": "symbol:ecba392ecdb216614254f298",
+          "declared_type": "ResultListener",
+          "property": "onReady",
+          "member": "onReady",
+          "origin": "saved v2 indexed native",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 16,
+            "file_path": "native.ets",
+            "outer_range": [
+              157,
+              449
+            ],
+            "qualified_name": "NativeResultBoundary.attach",
+            "signature": "attach(runtime: NativeRuntime, listener: ResultListener):void",
+            "snapshot_length": 451,
+            "source_digest": "465838a30364c57bcef82277aec58cc607e2cd24ca47a6f239cf21f478f81ebd",
+            "start_line": 7,
+            "symbol_key": "symbol:ecba392ecdb216614254f298"
+          }
+        },
+        {
+          "identity": "symbol:ecba392ecdb216614254f298",
+          "declared_type": "ResultListener",
+          "property": "onFailure",
+          "member": "onFailure",
+          "origin": "saved v2 indexed native",
+          "source": {
+            "coordinate_unit": "newline-normalized decoded character, half-open",
+            "end_line": 16,
+            "file_path": "native.ets",
+            "outer_range": [
+              157,
+              449
+            ],
+            "qualified_name": "NativeResultBoundary.attach",
+            "signature": "attach(runtime: NativeRuntime, listener: ResultListener):void",
+            "snapshot_length": 451,
+            "source_digest": "465838a30364c57bcef82277aec58cc607e2cd24ca47a6f239cf21f478f81ebd",
+            "start_line": 7,
+            "symbol_key": "symbol:ecba392ecdb216614254f298"
+          }
+        }
+      ],
+      "coverage": "saved-fixture-partial",
+      "expected": null
+    }
+  ],
+  "input_hashes": {
+    "docs/eval/native-listener-current-20261114/protocol.json": "32dd8b7f7233e92a4fd90db613b0002bb8181aa1ea4f02b87b880b7df0e6d5c5",
+    "docs/evidence/listener-model-v2/indexed-controls.json": "717d09084f28d33ac676b5f68380601868ba085bece81c97b16dd0a7923ef9b6"
+  }
+}
