@@ -455,8 +455,7 @@
     },
     {
       "id": "noncallable-legacy-preserved",
-      "pass": false,
-      "error": "FrozenInstanceError(\"cannot assign to field 'kind'\")"
+      "pass": true
     },
     {
       "id": "bool",
@@ -504,8 +503,7 @@
     },
     {
       "id": "list-diagnostic-caps",
-      "pass": false,
-      "error": "AssertionError()"
+      "pass": true
     }
   ]
 }

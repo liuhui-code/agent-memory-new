@@ -1,0 +1,2505 @@
+{
+  "source_status": [
+    {
+      "id": "actual-cli-stale",
+      "pass": true
+    },
+    {
+      "id": "actual-cli-missing",
+      "pass": true
+    }
+  ],
+  "optional_faults": [
+    {
+      "mode": "duplicate",
+      "learn": {
+        "source": "/tmp/listener-model-v2-gqu8evss/fixed",
+        "path": ".",
+        "scope_id": 1,
+        "mode": "merge",
+        "files": [
+          "Recovery.ets",
+          "Relay.ets"
+        ],
+        "count": 2,
+        "summary": "Merged 2 files from .",
+        "parse_stats": {
+          "files_indexed": 2,
+          "skipped_by_reason": {
+            "outside_source_root": 1
+          },
+          "languages": {
+            "ArkTS": 2
+          },
+          "symbols_total": 7,
+          "symbols_by_type": {
+            "class": 2,
+            "function": 4,
+            "interface": 1
+          },
+          "code_logs_total": 0,
+          "code_logs_by_level": {},
+          "business_semantics_restored": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "semantic_index": {
+            "schema_version": "semantic-index/v1",
+            "adapters": [
+              {
+                "id": "arkts-static",
+                "version": "1.2+listener-experiment-v2",
+                "language": "ArkTS"
+              }
+            ],
+            "capabilities": [
+              "api_boundaries",
+              "async_flow",
+              "callbacks",
+              "calls",
+              "definitions",
+              "inheritance",
+              "mechanisms",
+              "references",
+              "state_flow",
+              "types"
+            ],
+            "files_indexed": 2,
+            "entities": 7,
+            "relations_extracted": 4,
+            "mechanisms_extracted": 6,
+            "relations_emitted": 4,
+            "unresolved_relations": 0,
+            "method_summaries_enriched": 4,
+            "gaps": [],
+            "adapter_errors": [],
+            "provider_runs": [
+              {
+                "language": "ArkTS",
+                "mode": "auto",
+                "status": "static",
+                "selected": "static",
+                "provider_configured": false,
+                "duration_ms": 0.0,
+                "output_bytes": 0,
+                "batch": 1,
+                "batch_files": 2
+              }
+            ],
+            "log_effects": {
+              "schema_version": "log-effect/v1",
+              "wrappers_resolved": 0,
+              "effects_emitted": 0,
+              "truncated": false,
+              "max_wrapper_depth": 0
+            },
+            "graph_candidate_resolution": {
+              "provider": "scoped-unique-symbols/v1",
+              "local_symbol_count": 7,
+              "reference_name_count": 4,
+              "resolved_external_symbol_count": 0,
+              "candidate_symbol_count": 7
+            }
+          },
+          "passage_index": {
+            "schema_version": "code-passages-v2",
+            "files_written": 2,
+            "symbols_written": 7,
+            "passages_written": 9
+          },
+          "normative_index": {
+            "schema_version": "normative-index/v1",
+            "source_root": "/tmp/listener-model-v2-gqu8evss/fixed",
+            "documents_indexed": 0,
+            "documents_added": 0,
+            "documents_updated": 0,
+            "documents_unchanged": 0,
+            "documents_retired": 0,
+            "retirement_counts": {},
+            "retirement_sample": [],
+            "retirement_sample_truncated": false,
+            "indexed_sample": [],
+            "indexed_sample_truncated": false,
+            "documents_requiring_metadata_review": 0,
+            "metadata_issues": [],
+            "metadata_issue_count": 0,
+            "metadata_issues_truncated": false,
+            "read_issues": [],
+            "read_issue_count": 0,
+            "read_issues_truncated": false,
+            "next_action": "no_normative_change",
+            "approval_inferred": false
+          },
+          "reverse_dependents_reindexed": [
+            "Recovery.ets",
+            "Relay.ets"
+          ],
+          "dispatch_dependents_reindexed": [],
+          "edge_rebuild": {
+            "mode": "merge",
+            "scope_file_count": 2,
+            "scope_files": [
+              "Recovery.ets",
+              "Relay.ets"
+            ],
+            "before": {
+              "node_counts": {
+                "code_file": 2,
+                "code_log_statement": 0,
+                "code_symbol": 7
+              },
+              "edge_count": 11,
+              "relation_counts": {
+                "contains": 7,
+                "exposes_api": 4
+              }
+            },
+            "after": {
+              "node_counts": {
+                "code_file": 2,
+                "code_log_statement": 0,
+                "code_symbol": 7
+              },
+              "edge_count": 11,
+              "relation_counts": {
+                "contains": 7,
+                "exposes_api": 4
+              }
+            },
+            "edges_deleted_estimate": 11,
+            "edges_inserted_estimate": 11,
+            "edge_delta": 0
+          },
+          "phase_ms": {
+            "extract": 4.402,
+            "load_scope": 5.983,
+            "invalidate": 1.011,
+            "prepare_rows": 3.437,
+            "insert_rows": 0.427,
+            "restore_business": 0.073,
+            "rebuild_graph": 39.455,
+            "summarize": 0.259,
+            "commit": 0.946,
+            "total": 56.019
+          },
+          "memory_edges_total": 13,
+          "memory_edges_total_provider": "project-counter/v1",
+          "index_generation": 3,
+          "source_revision": "unversioned"
+        },
+        "semantic_followup": {
+          "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+          "workflow_steps": [
+            "Read the listed files, symbols, and logs in current source.",
+            "Fill missing business_summary and business_terms in followup_payload_template.",
+            "Write the completed payload with learn-business.",
+            "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+          ],
+          "recommended_next_action": "run_learn_business_now",
+          "truncated": false,
+          "returned_counts": {
+            "files": 2,
+            "symbols": 7,
+            "logs": 0
+          },
+          "remaining_counts": {
+            "files": 0,
+            "symbols": 0,
+            "logs": 0
+          },
+          "followup_payload_template": {
+            "files": [
+              {
+                "file_path": "Relay.ets",
+                "summary": "ArkTS file with 12 non-empty lines",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [
+                  {
+                    "symbol": "rejected",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method rejected in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "rejected",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "rejected",
+                      "function",
+                      "ArkTS function or lifecycle method rejected in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "connect",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method connect in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "connect",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "connect",
+                      "function",
+                      "ArkTS function or lifecycle method connect in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "accepted",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method accepted in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "accepted",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "accepted",
+                      "function",
+                      "ArkTS function or lifecycle method accepted in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "Relay",
+                    "symbol_type": "class",
+                    "summary": "ArkTS class Relay declared in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "class",
+                      "arkts",
+                      "declared",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "Relay",
+                      "class",
+                      "ArkTS class Relay declared in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "DeliverySink",
+                    "symbol_type": "interface",
+                    "summary": "interface DeliverySink in Relay.ets; identifier terms: delivery sink",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "deliverysink",
+                      "interface",
+                      "in",
+                      "identifier",
+                      "terms",
+                      "delivery",
+                      "sink"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "DeliverySink",
+                      "interface",
+                      "interface DeliverySink in Relay.ets; identifier terms: delivery sink"
+                    ]
+                  }
+                ],
+                "logs": [],
+                "priority_score": 120,
+                "priority_reasons": [
+                  "arkts_page_or_module",
+                  "missing_file_business_summary",
+                  "missing_file_business_terms",
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "relay",
+                  "ets",
+                  "arkts",
+                  "file",
+                  "with",
+                  "12",
+                  "non",
+                  "empty",
+                  "lines",
+                  "rejected",
+                  "connect",
+                  "accepted",
+                  "deliverysink",
+                  "ark",
+                  "ts",
+                  "delivery",
+                  "sink"
+                ],
+                "hint_context": [
+                  "Relay.ets",
+                  "ArkTS file with 12 non-empty lines",
+                  "rejected connect accepted Relay DeliverySink"
+                ],
+                "truncated_counts": {
+                  "symbols": 0,
+                  "logs": 0
+                }
+              },
+              {
+                "file_path": "Recovery.ets",
+                "summary": "ArkTS file with 5 non-empty lines; behavior: lifecyclesync",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [
+                  {
+                    "symbol": "retryRejectedDelivery",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "recovery",
+                      "ets",
+                      "retryrejecteddelivery",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "identifier",
+                      "terms",
+                      "retry",
+                      "rejected",
+                      "delivery",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Recovery.ets",
+                      "retryRejectedDelivery",
+                      "function",
+                      "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery"
+                    ]
+                  },
+                  {
+                    "symbol": "Recovery",
+                    "symbol_type": "class",
+                    "summary": "ArkTS class Recovery declared in Recovery.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "recovery",
+                      "ets",
+                      "class",
+                      "arkts",
+                      "declared",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Recovery.ets",
+                      "Recovery",
+                      "class",
+                      "ArkTS class Recovery declared in Recovery.ets"
+                    ]
+                  }
+                ],
+                "logs": [],
+                "priority_score": 60,
+                "priority_reasons": [
+                  "arkts_page_or_module",
+                  "missing_file_business_summary",
+                  "missing_file_business_terms",
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "recovery",
+                  "ets",
+                  "arkts",
+                  "file",
+                  "with",
+                  "5",
+                  "non",
+                  "empty",
+                  "lines",
+                  "behavior",
+                  "lifecyclesync",
+                  "retryrejecteddelivery",
+                  "ark",
+                  "ts",
+                  "retry",
+                  "rejected",
+                  "delivery"
+                ],
+                "hint_context": [
+                  "Recovery.ets",
+                  "ArkTS file with 5 non-empty lines; behavior: lifecyclesync",
+                  "retryRejectedDelivery Recovery"
+                ],
+                "truncated_counts": {
+                  "symbols": 0,
+                  "logs": 0
+                }
+              }
+            ]
+          }
+        }
+      },
+      "rows": [
+        {
+          "id": 21,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "rejected",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method rejected in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:26012745a07b5ee8a6202086",
+          "qualified_name": "Relay.rejected@9",
+          "signature": "callback rejected@9",
+          "start_line": 9,
+          "end_line": 9,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "target",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:target.rejected\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:26012745a07b5ee8a6202086\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 20,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "accepted",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method accepted in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:38abe2087d2f6905d0786b04",
+          "qualified_name": "Relay.accepted@8",
+          "signature": "callback accepted@8",
+          "start_line": 8,
+          "end_line": 8,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "target",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:target.accepted\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:38abe2087d2f6905d0786b04\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 19,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "connect",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method connect in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:108be89117e2a49ddd88c942",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "engine observe target accepted rejected",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:engine.observe\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:target.accepted\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:target.rejected\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[{\"argument_call\":{\"member\":\"observe\",\"object_range\":[188,322],\"range\":[173,326],\"receiver\":\"engine\"},\"callback\":{\"body_range\":[225,251],\"property\":\"accepted\",\"range\":[196,251]},\"formal\":{\"declared_type\":\"DeliverySink\",\"index\":1,\"name\":\"target\"},\"invocation\":{\"member\":\"accepted\",\"range\":[227,249],\"receiver\":\"target\"},\"source\":{\"coordinate_unit\":\"newline-normalized decoded character, half-open\",\"end_line\":11,\"file_path\":\"Relay.ets\",\"outer_range\":[113,327],\"qualified_name\":\"Relay.connect\",\"signature\":\"connect(engine: Engine, target: DeliverySink):void\",\"snapshot_length\":329,\"source_digest\":\"0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661\",\"start_line\":6,\"symbol_key\":\"symbol:108be89117e2a49ddd88c942\"},\"version\":\"typed-local-invocation/v2\"},{\"argument_call\":{\"member\":\"observe\",\"object_range\":[188,322],\"range\":[173,326],\"receiver\":\"engine\"},\"callback\":{\"body_range\":[289,316],\"property\":\"rejected\",\"range\":[259,321]},\"formal\":{\"declared_type\":\"DeliverySink\",\"index\":1,\"name\":\"target\"},\"invocation\":{\"member\":\"rejected\",\"range\":[291,314],\"receiver\":\"target\"},\"source\":{\"coordinate_unit\":\"newline-normalized decoded character, half-open\",\"end_line\":11,\"file_path\":\"Relay.ets\",\"outer_range\":[113,327],\"qualified_name\":\"Relay.connect\",\"signature\":\"connect(engine: Engine, target: DeliverySink):void\",\"snapshot_length\":329,\"source_digest\":\"0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661\",\"start_line\":6,\"symbol_key\":\"symbol:108be89117e2a49ddd88c942\"},\"version\":\"typed-local-invocation/v2\"}]",
+          "experimental_listener_diagnostic": {
+            "status": "current-source-slices-checked",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": [
+              {
+                "argument_call": {
+                  "member": "observe",
+                  "object_range": [
+                    188,
+                    322
+                  ],
+                  "range": [
+                    173,
+                    326
+                  ],
+                  "receiver": "engine"
+                },
+                "callback": {
+                  "body_range": [
+                    225,
+                    251
+                  ],
+                  "property": "accepted",
+                  "range": [
+                    196,
+                    251
+                  ]
+                },
+                "formal": {
+                  "declared_type": "DeliverySink",
+                  "index": 1,
+                  "name": "target"
+                },
+                "invocation": {
+                  "member": "accepted",
+                  "range": [
+                    227,
+                    249
+                  ],
+                  "receiver": "target"
+                },
+                "source": {
+                  "coordinate_unit": "newline-normalized decoded character, half-open",
+                  "end_line": 11,
+                  "file_path": "Relay.ets",
+                  "outer_range": [
+                    113,
+                    327
+                  ],
+                  "qualified_name": "Relay.connect",
+                  "signature": "connect(engine: Engine, target: DeliverySink):void",
+                  "snapshot_length": 329,
+                  "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+                  "start_line": 6,
+                  "symbol_key": "symbol:108be89117e2a49ddd88c942"
+                },
+                "version": "typed-local-invocation/v2"
+              },
+              {
+                "argument_call": {
+                  "member": "observe",
+                  "object_range": [
+                    188,
+                    322
+                  ],
+                  "range": [
+                    173,
+                    326
+                  ],
+                  "receiver": "engine"
+                },
+                "callback": {
+                  "body_range": [
+                    289,
+                    316
+                  ],
+                  "property": "rejected",
+                  "range": [
+                    259,
+                    321
+                  ]
+                },
+                "formal": {
+                  "declared_type": "DeliverySink",
+                  "index": 1,
+                  "name": "target"
+                },
+                "invocation": {
+                  "member": "rejected",
+                  "range": [
+                    291,
+                    314
+                  ],
+                  "receiver": "target"
+                },
+                "source": {
+                  "coordinate_unit": "newline-normalized decoded character, half-open",
+                  "end_line": 11,
+                  "file_path": "Relay.ets",
+                  "outer_range": [
+                    113,
+                    327
+                  ],
+                  "qualified_name": "Relay.connect",
+                  "signature": "connect(engine: Engine, target: DeliverySink):void",
+                  "snapshot_length": 329,
+                  "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+                  "start_line": 6,
+                  "symbol_key": "symbol:108be89117e2a49ddd88c942"
+                },
+                "version": "typed-local-invocation/v2"
+              }
+            ]
+          }
+        },
+        {
+          "id": 18,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "Relay",
+          "symbol_type": "class",
+          "summary": "ArkTS class Relay declared in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:8809be450e0f6aba3ddee7ed",
+          "qualified_name": "Relay",
+          "signature": "class Relay",
+          "start_line": 5,
+          "end_line": 12,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 17,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "DeliverySink",
+          "symbol_type": "interface",
+          "summary": "interface DeliverySink in Relay.ets; identifier terms: delivery sink",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:9416bac5792175eef982d099",
+          "qualified_name": "DeliverySink",
+          "signature": "interface DeliverySink",
+          "start_line": 1,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 16,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Recovery.ets",
+          "symbol": "retryRejectedDelivery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:b90f9bf108610691e92bea92",
+          "qualified_name": "Recovery.retryRejectedDelivery",
+          "signature": "retryRejectedDelivery():void",
+          "start_line": 2,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+          "evidence_class": "static",
+          "method_evidence": "queue schedule retry rejected delivery stateread state read",
+          "string_evidence": "engine delivery rejected callback retry target observer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:queue.schedule\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:b90f9bf108610691e92bea92\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Recovery",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 15,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Recovery.ets",
+          "symbol": "Recovery",
+          "symbol_type": "class",
+          "summary": "ArkTS class Recovery declared in Recovery.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:63cc5f8a0742b20bf09d859d",
+          "qualified_name": "Recovery",
+          "signature": "class Recovery",
+          "start_line": 1,
+          "end_line": 5,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 3,
+          "updated_at": "2026-11-14T02:12:32+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        }
+      ],
+      "pass": true
+    },
+    {
+      "mode": "overcount",
+      "learn": {
+        "source": "/tmp/listener-model-v2-gqu8evss/fixed",
+        "path": ".",
+        "scope_id": 1,
+        "mode": "merge",
+        "files": [
+          "Recovery.ets",
+          "Relay.ets"
+        ],
+        "count": 2,
+        "summary": "Merged 2 files from .",
+        "parse_stats": {
+          "files_indexed": 2,
+          "skipped_by_reason": {
+            "outside_source_root": 1
+          },
+          "languages": {
+            "ArkTS": 2
+          },
+          "symbols_total": 7,
+          "symbols_by_type": {
+            "class": 2,
+            "function": 4,
+            "interface": 1
+          },
+          "code_logs_total": 0,
+          "code_logs_by_level": {},
+          "business_semantics_restored": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "semantic_index": {
+            "schema_version": "semantic-index/v1",
+            "adapters": [
+              {
+                "id": "arkts-static",
+                "version": "1.2+listener-experiment-v2",
+                "language": "ArkTS"
+              }
+            ],
+            "capabilities": [
+              "api_boundaries",
+              "async_flow",
+              "callbacks",
+              "calls",
+              "definitions",
+              "inheritance",
+              "mechanisms",
+              "references",
+              "state_flow",
+              "types"
+            ],
+            "files_indexed": 2,
+            "entities": 7,
+            "relations_extracted": 4,
+            "mechanisms_extracted": 6,
+            "relations_emitted": 4,
+            "unresolved_relations": 0,
+            "method_summaries_enriched": 4,
+            "gaps": [],
+            "adapter_errors": [],
+            "provider_runs": [
+              {
+                "language": "ArkTS",
+                "mode": "auto",
+                "status": "static",
+                "selected": "static",
+                "provider_configured": false,
+                "duration_ms": 0.0,
+                "output_bytes": 0,
+                "batch": 1,
+                "batch_files": 2
+              }
+            ],
+            "log_effects": {
+              "schema_version": "log-effect/v1",
+              "wrappers_resolved": 0,
+              "effects_emitted": 0,
+              "truncated": false,
+              "max_wrapper_depth": 0
+            },
+            "graph_candidate_resolution": {
+              "provider": "scoped-unique-symbols/v1",
+              "local_symbol_count": 7,
+              "reference_name_count": 4,
+              "resolved_external_symbol_count": 0,
+              "candidate_symbol_count": 7
+            }
+          },
+          "passage_index": {
+            "schema_version": "code-passages-v2",
+            "files_written": 2,
+            "symbols_written": 7,
+            "passages_written": 9
+          },
+          "normative_index": {
+            "schema_version": "normative-index/v1",
+            "source_root": "/tmp/listener-model-v2-gqu8evss/fixed",
+            "documents_indexed": 0,
+            "documents_added": 0,
+            "documents_updated": 0,
+            "documents_unchanged": 0,
+            "documents_retired": 0,
+            "retirement_counts": {},
+            "retirement_sample": [],
+            "retirement_sample_truncated": false,
+            "indexed_sample": [],
+            "indexed_sample_truncated": false,
+            "documents_requiring_metadata_review": 0,
+            "metadata_issues": [],
+            "metadata_issue_count": 0,
+            "metadata_issues_truncated": false,
+            "read_issues": [],
+            "read_issue_count": 0,
+            "read_issues_truncated": false,
+            "next_action": "no_normative_change",
+            "approval_inferred": false
+          },
+          "reverse_dependents_reindexed": [
+            "Recovery.ets",
+            "Relay.ets"
+          ],
+          "dispatch_dependents_reindexed": [],
+          "edge_rebuild": {
+            "mode": "merge",
+            "scope_file_count": 2,
+            "scope_files": [
+              "Recovery.ets",
+              "Relay.ets"
+            ],
+            "before": {
+              "node_counts": {
+                "code_file": 2,
+                "code_log_statement": 0,
+                "code_symbol": 7
+              },
+              "edge_count": 11,
+              "relation_counts": {
+                "contains": 7,
+                "exposes_api": 4
+              }
+            },
+            "after": {
+              "node_counts": {
+                "code_file": 2,
+                "code_log_statement": 0,
+                "code_symbol": 7
+              },
+              "edge_count": 11,
+              "relation_counts": {
+                "contains": 7,
+                "exposes_api": 4
+              }
+            },
+            "edges_deleted_estimate": 11,
+            "edges_inserted_estimate": 11,
+            "edge_delta": 0
+          },
+          "phase_ms": {
+            "extract": 4.195,
+            "load_scope": 5.412,
+            "invalidate": 0.976,
+            "prepare_rows": 2.81,
+            "insert_rows": 0.563,
+            "restore_business": 0.075,
+            "rebuild_graph": 25.586,
+            "summarize": 0.232,
+            "commit": 0.174,
+            "total": 40.039
+          },
+          "memory_edges_total": 13,
+          "memory_edges_total_provider": "project-counter/v1",
+          "index_generation": 4,
+          "source_revision": "unversioned"
+        },
+        "semantic_followup": {
+          "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+          "workflow_steps": [
+            "Read the listed files, symbols, and logs in current source.",
+            "Fill missing business_summary and business_terms in followup_payload_template.",
+            "Write the completed payload with learn-business.",
+            "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+          ],
+          "recommended_next_action": "run_learn_business_now",
+          "truncated": false,
+          "returned_counts": {
+            "files": 2,
+            "symbols": 7,
+            "logs": 0
+          },
+          "remaining_counts": {
+            "files": 0,
+            "symbols": 0,
+            "logs": 0
+          },
+          "followup_payload_template": {
+            "files": [
+              {
+                "file_path": "Relay.ets",
+                "summary": "ArkTS file with 12 non-empty lines",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [
+                  {
+                    "symbol": "rejected",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method rejected in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "rejected",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "rejected",
+                      "function",
+                      "ArkTS function or lifecycle method rejected in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "connect",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method connect in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "connect",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "connect",
+                      "function",
+                      "ArkTS function or lifecycle method connect in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "accepted",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method accepted in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "accepted",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "accepted",
+                      "function",
+                      "ArkTS function or lifecycle method accepted in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "Relay",
+                    "symbol_type": "class",
+                    "summary": "ArkTS class Relay declared in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "class",
+                      "arkts",
+                      "declared",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "Relay",
+                      "class",
+                      "ArkTS class Relay declared in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "DeliverySink",
+                    "symbol_type": "interface",
+                    "summary": "interface DeliverySink in Relay.ets; identifier terms: delivery sink",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "deliverysink",
+                      "interface",
+                      "in",
+                      "identifier",
+                      "terms",
+                      "delivery",
+                      "sink"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "DeliverySink",
+                      "interface",
+                      "interface DeliverySink in Relay.ets; identifier terms: delivery sink"
+                    ]
+                  }
+                ],
+                "logs": [],
+                "priority_score": 120,
+                "priority_reasons": [
+                  "arkts_page_or_module",
+                  "missing_file_business_summary",
+                  "missing_file_business_terms",
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "relay",
+                  "ets",
+                  "arkts",
+                  "file",
+                  "with",
+                  "12",
+                  "non",
+                  "empty",
+                  "lines",
+                  "rejected",
+                  "connect",
+                  "accepted",
+                  "deliverysink",
+                  "ark",
+                  "ts",
+                  "delivery",
+                  "sink"
+                ],
+                "hint_context": [
+                  "Relay.ets",
+                  "ArkTS file with 12 non-empty lines",
+                  "rejected connect accepted Relay DeliverySink"
+                ],
+                "truncated_counts": {
+                  "symbols": 0,
+                  "logs": 0
+                }
+              },
+              {
+                "file_path": "Recovery.ets",
+                "summary": "ArkTS file with 5 non-empty lines; behavior: lifecyclesync",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [
+                  {
+                    "symbol": "retryRejectedDelivery",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "recovery",
+                      "ets",
+                      "retryrejecteddelivery",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "identifier",
+                      "terms",
+                      "retry",
+                      "rejected",
+                      "delivery",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Recovery.ets",
+                      "retryRejectedDelivery",
+                      "function",
+                      "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery"
+                    ]
+                  },
+                  {
+                    "symbol": "Recovery",
+                    "symbol_type": "class",
+                    "summary": "ArkTS class Recovery declared in Recovery.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "recovery",
+                      "ets",
+                      "class",
+                      "arkts",
+                      "declared",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Recovery.ets",
+                      "Recovery",
+                      "class",
+                      "ArkTS class Recovery declared in Recovery.ets"
+                    ]
+                  }
+                ],
+                "logs": [],
+                "priority_score": 60,
+                "priority_reasons": [
+                  "arkts_page_or_module",
+                  "missing_file_business_summary",
+                  "missing_file_business_terms",
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "recovery",
+                  "ets",
+                  "arkts",
+                  "file",
+                  "with",
+                  "5",
+                  "non",
+                  "empty",
+                  "lines",
+                  "behavior",
+                  "lifecyclesync",
+                  "retryrejecteddelivery",
+                  "ark",
+                  "ts",
+                  "retry",
+                  "rejected",
+                  "delivery"
+                ],
+                "hint_context": [
+                  "Recovery.ets",
+                  "ArkTS file with 5 non-empty lines; behavior: lifecyclesync",
+                  "retryRejectedDelivery Recovery"
+                ],
+                "truncated_counts": {
+                  "symbols": 0,
+                  "logs": 0
+                }
+              }
+            ]
+          }
+        }
+      },
+      "rows": [
+        {
+          "id": 28,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "rejected",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method rejected in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:26012745a07b5ee8a6202086",
+          "qualified_name": "Relay.rejected@9",
+          "signature": "callback rejected@9",
+          "start_line": 9,
+          "end_line": 9,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "target",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:target.rejected\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:26012745a07b5ee8a6202086\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 27,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "accepted",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method accepted in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:38abe2087d2f6905d0786b04",
+          "qualified_name": "Relay.accepted@8",
+          "signature": "callback accepted@8",
+          "start_line": 8,
+          "end_line": 8,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "target",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:target.accepted\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:38abe2087d2f6905d0786b04\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 26,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "connect",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method connect in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:108be89117e2a49ddd88c942",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "engine observe target accepted rejected",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:engine.observe\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:target.accepted\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:target.rejected\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 25,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "Relay",
+          "symbol_type": "class",
+          "summary": "ArkTS class Relay declared in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:8809be450e0f6aba3ddee7ed",
+          "qualified_name": "Relay",
+          "signature": "class Relay",
+          "start_line": 5,
+          "end_line": 12,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 24,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "DeliverySink",
+          "symbol_type": "interface",
+          "summary": "interface DeliverySink in Relay.ets; identifier terms: delivery sink",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:9416bac5792175eef982d099",
+          "qualified_name": "DeliverySink",
+          "signature": "interface DeliverySink",
+          "start_line": 1,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 23,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Recovery.ets",
+          "symbol": "retryRejectedDelivery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:b90f9bf108610691e92bea92",
+          "qualified_name": "Recovery.retryRejectedDelivery",
+          "signature": "retryRejectedDelivery():void",
+          "start_line": 2,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+          "evidence_class": "static",
+          "method_evidence": "queue schedule retry rejected delivery stateread state read",
+          "string_evidence": "engine delivery rejected callback retry target observer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:queue.schedule\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:b90f9bf108610691e92bea92\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Recovery",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 22,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Recovery.ets",
+          "symbol": "Recovery",
+          "symbol_type": "class",
+          "summary": "ArkTS class Recovery declared in Recovery.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:63cc5f8a0742b20bf09d859d",
+          "qualified_name": "Recovery",
+          "signature": "class Recovery",
+          "start_line": 1,
+          "end_line": 5,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 4,
+          "updated_at": "2026-11-14T02:12:33+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        }
+      ],
+      "pass": true
+    },
+    {
+      "mode": "conflict",
+      "learn": {
+        "source": "/tmp/listener-model-v2-gqu8evss/fixed",
+        "path": ".",
+        "scope_id": 1,
+        "mode": "merge",
+        "files": [
+          "Recovery.ets",
+          "Relay.ets"
+        ],
+        "count": 2,
+        "summary": "Merged 2 files from .",
+        "parse_stats": {
+          "files_indexed": 2,
+          "skipped_by_reason": {
+            "outside_source_root": 1
+          },
+          "languages": {
+            "ArkTS": 2
+          },
+          "symbols_total": 7,
+          "symbols_by_type": {
+            "class": 2,
+            "function": 4,
+            "interface": 1
+          },
+          "code_logs_total": 0,
+          "code_logs_by_level": {},
+          "business_semantics_restored": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "semantic_index": {
+            "schema_version": "semantic-index/v1",
+            "adapters": [
+              {
+                "id": "arkts-static",
+                "version": "1.2+listener-experiment-v2",
+                "language": "ArkTS"
+              }
+            ],
+            "capabilities": [
+              "api_boundaries",
+              "async_flow",
+              "callbacks",
+              "calls",
+              "definitions",
+              "inheritance",
+              "mechanisms",
+              "references",
+              "state_flow",
+              "types"
+            ],
+            "files_indexed": 2,
+            "entities": 7,
+            "relations_extracted": 4,
+            "mechanisms_extracted": 6,
+            "relations_emitted": 4,
+            "unresolved_relations": 0,
+            "method_summaries_enriched": 4,
+            "gaps": [],
+            "adapter_errors": [],
+            "provider_runs": [
+              {
+                "language": "ArkTS",
+                "mode": "auto",
+                "status": "static",
+                "selected": "static",
+                "provider_configured": false,
+                "duration_ms": 0.0,
+                "output_bytes": 0,
+                "batch": 1,
+                "batch_files": 2
+              }
+            ],
+            "log_effects": {
+              "schema_version": "log-effect/v1",
+              "wrappers_resolved": 0,
+              "effects_emitted": 0,
+              "truncated": false,
+              "max_wrapper_depth": 0
+            },
+            "graph_candidate_resolution": {
+              "provider": "scoped-unique-symbols/v1",
+              "local_symbol_count": 7,
+              "reference_name_count": 4,
+              "resolved_external_symbol_count": 0,
+              "candidate_symbol_count": 7
+            }
+          },
+          "passage_index": {
+            "schema_version": "code-passages-v2",
+            "files_written": 2,
+            "symbols_written": 7,
+            "passages_written": 9
+          },
+          "normative_index": {
+            "schema_version": "normative-index/v1",
+            "source_root": "/tmp/listener-model-v2-gqu8evss/fixed",
+            "documents_indexed": 0,
+            "documents_added": 0,
+            "documents_updated": 0,
+            "documents_unchanged": 0,
+            "documents_retired": 0,
+            "retirement_counts": {},
+            "retirement_sample": [],
+            "retirement_sample_truncated": false,
+            "indexed_sample": [],
+            "indexed_sample_truncated": false,
+            "documents_requiring_metadata_review": 0,
+            "metadata_issues": [],
+            "metadata_issue_count": 0,
+            "metadata_issues_truncated": false,
+            "read_issues": [],
+            "read_issue_count": 0,
+            "read_issues_truncated": false,
+            "next_action": "no_normative_change",
+            "approval_inferred": false
+          },
+          "reverse_dependents_reindexed": [
+            "Recovery.ets",
+            "Relay.ets"
+          ],
+          "dispatch_dependents_reindexed": [],
+          "edge_rebuild": {
+            "mode": "merge",
+            "scope_file_count": 2,
+            "scope_files": [
+              "Recovery.ets",
+              "Relay.ets"
+            ],
+            "before": {
+              "node_counts": {
+                "code_file": 2,
+                "code_log_statement": 0,
+                "code_symbol": 7
+              },
+              "edge_count": 11,
+              "relation_counts": {
+                "contains": 7,
+                "exposes_api": 4
+              }
+            },
+            "after": {
+              "node_counts": {
+                "code_file": 2,
+                "code_log_statement": 0,
+                "code_symbol": 7
+              },
+              "edge_count": 11,
+              "relation_counts": {
+                "contains": 7,
+                "exposes_api": 4
+              }
+            },
+            "edges_deleted_estimate": 11,
+            "edges_inserted_estimate": 11,
+            "edge_delta": 0
+          },
+          "phase_ms": {
+            "extract": 3.953,
+            "load_scope": 5.798,
+            "invalidate": 1.042,
+            "prepare_rows": 3.268,
+            "insert_rows": 0.412,
+            "restore_business": 0.072,
+            "rebuild_graph": 25.883,
+            "summarize": 0.284,
+            "commit": 0.213,
+            "total": 40.948
+          },
+          "memory_edges_total": 13,
+          "memory_edges_total_provider": "project-counter/v1",
+          "index_generation": 5,
+          "source_revision": "unversioned"
+        },
+        "semantic_followup": {
+          "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+          "workflow_steps": [
+            "Read the listed files, symbols, and logs in current source.",
+            "Fill missing business_summary and business_terms in followup_payload_template.",
+            "Write the completed payload with learn-business.",
+            "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+          ],
+          "recommended_next_action": "run_learn_business_now",
+          "truncated": false,
+          "returned_counts": {
+            "files": 2,
+            "symbols": 7,
+            "logs": 0
+          },
+          "remaining_counts": {
+            "files": 0,
+            "symbols": 0,
+            "logs": 0
+          },
+          "followup_payload_template": {
+            "files": [
+              {
+                "file_path": "Relay.ets",
+                "summary": "ArkTS file with 12 non-empty lines",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [
+                  {
+                    "symbol": "rejected",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method rejected in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "rejected",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "rejected",
+                      "function",
+                      "ArkTS function or lifecycle method rejected in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "connect",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method connect in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "connect",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "connect",
+                      "function",
+                      "ArkTS function or lifecycle method connect in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "accepted",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method accepted in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "accepted",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "accepted",
+                      "function",
+                      "ArkTS function or lifecycle method accepted in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "Relay",
+                    "symbol_type": "class",
+                    "summary": "ArkTS class Relay declared in Relay.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "class",
+                      "arkts",
+                      "declared",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "Relay",
+                      "class",
+                      "ArkTS class Relay declared in Relay.ets"
+                    ]
+                  },
+                  {
+                    "symbol": "DeliverySink",
+                    "symbol_type": "interface",
+                    "summary": "interface DeliverySink in Relay.ets; identifier terms: delivery sink",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "relay",
+                      "ets",
+                      "deliverysink",
+                      "interface",
+                      "in",
+                      "identifier",
+                      "terms",
+                      "delivery",
+                      "sink"
+                    ],
+                    "hint_context": [
+                      "Relay.ets",
+                      "DeliverySink",
+                      "interface",
+                      "interface DeliverySink in Relay.ets; identifier terms: delivery sink"
+                    ]
+                  }
+                ],
+                "logs": [],
+                "priority_score": 120,
+                "priority_reasons": [
+                  "arkts_page_or_module",
+                  "missing_file_business_summary",
+                  "missing_file_business_terms",
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "relay",
+                  "ets",
+                  "arkts",
+                  "file",
+                  "with",
+                  "12",
+                  "non",
+                  "empty",
+                  "lines",
+                  "rejected",
+                  "connect",
+                  "accepted",
+                  "deliverysink",
+                  "ark",
+                  "ts",
+                  "delivery",
+                  "sink"
+                ],
+                "hint_context": [
+                  "Relay.ets",
+                  "ArkTS file with 12 non-empty lines",
+                  "rejected connect accepted Relay DeliverySink"
+                ],
+                "truncated_counts": {
+                  "symbols": 0,
+                  "logs": 0
+                }
+              },
+              {
+                "file_path": "Recovery.ets",
+                "summary": "ArkTS file with 5 non-empty lines; behavior: lifecyclesync",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [
+                  {
+                    "symbol": "retryRejectedDelivery",
+                    "symbol_type": "function",
+                    "summary": "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "recovery",
+                      "ets",
+                      "retryrejecteddelivery",
+                      "function",
+                      "arkts",
+                      "or",
+                      "lifecycle",
+                      "method",
+                      "in",
+                      "identifier",
+                      "terms",
+                      "retry",
+                      "rejected",
+                      "delivery",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Recovery.ets",
+                      "retryRejectedDelivery",
+                      "function",
+                      "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery"
+                    ]
+                  },
+                  {
+                    "symbol": "Recovery",
+                    "symbol_type": "class",
+                    "summary": "ArkTS class Recovery declared in Recovery.ets",
+                    "business_summary": "",
+                    "business_terms": [],
+                    "priority_score": 20,
+                    "priority_reasons": [
+                      "missing_symbol_semantics",
+                      "missing_symbol_business_summary",
+                      "missing_symbol_business_terms"
+                    ],
+                    "hint_terms": [
+                      "recovery",
+                      "ets",
+                      "class",
+                      "arkts",
+                      "declared",
+                      "in",
+                      "ark",
+                      "ts"
+                    ],
+                    "hint_context": [
+                      "Recovery.ets",
+                      "Recovery",
+                      "class",
+                      "ArkTS class Recovery declared in Recovery.ets"
+                    ]
+                  }
+                ],
+                "logs": [],
+                "priority_score": 60,
+                "priority_reasons": [
+                  "arkts_page_or_module",
+                  "missing_file_business_summary",
+                  "missing_file_business_terms",
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "recovery",
+                  "ets",
+                  "arkts",
+                  "file",
+                  "with",
+                  "5",
+                  "non",
+                  "empty",
+                  "lines",
+                  "behavior",
+                  "lifecyclesync",
+                  "retryrejecteddelivery",
+                  "ark",
+                  "ts",
+                  "retry",
+                  "rejected",
+                  "delivery"
+                ],
+                "hint_context": [
+                  "Recovery.ets",
+                  "ArkTS file with 5 non-empty lines; behavior: lifecyclesync",
+                  "retryRejectedDelivery Recovery"
+                ],
+                "truncated_counts": {
+                  "symbols": 0,
+                  "logs": 0
+                }
+              }
+            ]
+          }
+        }
+      },
+      "rows": [
+        {
+          "id": 35,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "rejected",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method rejected in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:26012745a07b5ee8a6202086",
+          "qualified_name": "Relay.rejected@9",
+          "signature": "callback rejected@9",
+          "start_line": 9,
+          "end_line": 9,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "target",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:target.rejected\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:26012745a07b5ee8a6202086\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 34,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "accepted",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method accepted in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:38abe2087d2f6905d0786b04",
+          "qualified_name": "Relay.accepted@8",
+          "signature": "callback accepted@8",
+          "start_line": 8,
+          "end_line": 8,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "target",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:target.accepted\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:38abe2087d2f6905d0786b04\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 33,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "connect",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method connect in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:108be89117e2a49ddd88c942",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "engine observe target accepted rejected",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:engine.observe\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:target.accepted\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:target.rejected\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:108be89117e2a49ddd88c942\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Relay",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 32,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "Relay",
+          "symbol_type": "class",
+          "summary": "ArkTS class Relay declared in Relay.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:8809be450e0f6aba3ddee7ed",
+          "qualified_name": "Relay",
+          "signature": "class Relay",
+          "start_line": 5,
+          "end_line": 12,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 31,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Relay.ets",
+          "symbol": "DeliverySink",
+          "symbol_type": "interface",
+          "summary": "interface DeliverySink in Relay.ets; identifier terms: delivery sink",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:9416bac5792175eef982d099",
+          "qualified_name": "DeliverySink",
+          "signature": "interface DeliverySink",
+          "start_line": 1,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 30,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Recovery.ets",
+          "symbol": "retryRejectedDelivery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method retryRejectedDelivery in Recovery.ets; identifier terms: retry rejected delivery",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:b90f9bf108610691e92bea92",
+          "qualified_name": "Recovery.retryRejectedDelivery",
+          "signature": "retryRejectedDelivery():void",
+          "start_line": 2,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+          "evidence_class": "static",
+          "method_evidence": "queue schedule retry rejected delivery stateread state read",
+          "string_evidence": "engine delivery rejected callback retry target observer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:queue.schedule\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:b90f9bf108610691e92bea92\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "Recovery",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        },
+        {
+          "id": 29,
+          "project_id": "12042833e7cfa133",
+          "file_path": "Recovery.ets",
+          "symbol": "Recovery",
+          "symbol_type": "class",
+          "summary": "ArkTS class Recovery declared in Recovery.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:63cc5f8a0742b20bf09d859d",
+          "qualified_name": "Recovery",
+          "signature": "class Recovery",
+          "start_line": 1,
+          "end_line": 5,
+          "semantic_adapter": "arkts-static@1.2+listener-experiment-v2",
+          "source_digest": "575539f319903204bd4804783ec5e5955222339bd967b1bbd7a5cbe59866e8bd",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 5,
+          "updated_at": "2026-11-14T02:12:34+00:00",
+          "typed_invocation_witnesses": "[]",
+          "experimental_listener_diagnostic": {
+            "status": "unknown",
+            "coverage": "bounded-record-not-global",
+            "cap_status": "optional-may-be-omitted",
+            "relation_satisfied": false,
+            "eligible_for_ranking": false,
+            "unresolved_qualifiers": [
+              "request not evaluated"
+            ],
+            "facts": []
+          }
+        }
+      ],
+      "pass": true
+    }
+  ]
+}

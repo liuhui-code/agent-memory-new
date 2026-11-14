@@ -12233,3 +12233,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   and weak name lanes, partial coverage and dual-property hypothesis distinct.
 - Documented concrete runtime identity/coverage and consumer permission obligations;
   no original improvement, production selector or ranking authority claimed.
+
+## Listener batch/display isolated follow-up
+
+- Added docs-only disposable runtime experiment: bounded typed optional batch,
+  canonical duplicate normalization, conflicting identity/invalid kind unknown,
+  current-source-slice diagnostic in actual CLI list. No production changes.
+- Original20 source controls pass;21 focused checks pass after preserved harness
+  corrections;2 live freshness+3 live optional fault-index checks pass. Old
+  mechanisms preserved, original5 queries remain1red/4green;compact <=1500.
+- Diagnostic value-array cap is not whole-list cap; source slices are not full
+  owner authentication. See docs/evidence/listener-batch-display/README.md.
