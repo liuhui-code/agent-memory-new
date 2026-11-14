@@ -12533,3 +12533,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Keep original queries, intent, global aliases, scoring coefficients, method coverage thresholds and English Builder source selector unchanged. Custom recall ports receive no projection.
 - Initial focused run 29 passed; parent found exact Card local exclusion omission outside that run. Preserve review history, fix whole-token local matching, and rerun the corrected 29 focused checks successfully.
 - No candidate public run yet; source witness/consumer remains unimplemented pending separate qualification.
+
+## Phase R fixed public result
+
+- Fixed63e0fdc (runtime4f85e2d) actual24 Chinese phase checks pass: two independent property pairs now recall the corresponding full Builder identities;14 unsupported request outputs unchanged, all log/path outputs unchanged, no new selection authority.
+- Existing English24 and old-index5 match accepted final842;20 source-byte checks pass. Fixed31 focused tests and compile pass; tools/tests remained unchanged during execution.
+- This is only the separately reviewed lexical retrieval prerequisite. Original23 not rerun, cumulative20 unchanged, same-chain consumer not implemented, no full gate.
