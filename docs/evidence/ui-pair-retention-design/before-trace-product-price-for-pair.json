@@ -1,0 +1,165 @@
+[
+  {
+    "function": "focus_callable_anchors",
+    "query": "Return both UI source contexts for product tiles and price labels.",
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 1,
+        "record_type": "code_symbol",
+        "file_path": "PriceLabel.ets",
+        "symbol": "PriceLabel",
+        "symbol_type": "component",
+        "summary": "ArkTS component PriceLabel declared in PriceLabel.ets; identifier terms: price label",
+        "start_line": 2,
+        "end_line": 7,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 4,
+        "record_type": "code_symbol",
+        "file_path": "ProductTile.ets",
+        "symbol": "ProductTile",
+        "symbol_type": "component",
+        "summary": "ArkTS component ProductTile declared in ProductTile.ets; identifier terms: product tile",
+        "start_line": 3,
+        "end_line": 12,
+        "graph_neighbor": true,
+        "graph_relation": "passes_property",
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 5,
+        "record_type": "code_symbol",
+        "file_path": "ProductTile.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in ProductTile.ets",
+        "start_line": 6,
+        "end_line": 11,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "ProductTile.ets",
+        "symbol": "build",
+        "owner_name": "ProductTile",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 22.15,
+        "evidence_score": 22.15,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 11,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "PriceLabel.ets",
+          "symbol": "build",
+          "owner_name": "PriceLabel",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 19.42,
+          "evidence_score": 19.42,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "expanded_query:file_path"
+          ],
+          "source_range": {
+            "start_line": 4,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "fewer_than_two_supported_callable_identities"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_activated": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {},
+      "wrapped_log_evidence": false
+    },
+    "returned": [
+      {
+        "source": "wiki",
+        "record_id": 1,
+        "record_type": "code_symbol",
+        "file_path": "PriceLabel.ets",
+        "symbol": "PriceLabel",
+        "symbol_type": "component",
+        "summary": "ArkTS component PriceLabel declared in PriceLabel.ets; identifier terms: price label",
+        "start_line": 2,
+        "end_line": 7,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 4,
+        "record_type": "code_symbol",
+        "file_path": "ProductTile.ets",
+        "symbol": "ProductTile",
+        "symbol_type": "component",
+        "summary": "ArkTS component ProductTile declared in ProductTile.ets; identifier terms: product tile",
+        "start_line": 3,
+        "end_line": 12,
+        "graph_neighbor": true,
+        "graph_relation": "passes_property",
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 5,
+        "record_type": "code_symbol",
+        "file_path": "ProductTile.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in ProductTile.ets",
+        "start_line": 6,
+        "end_line": 11,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "return_line": 80
+  }
+]
