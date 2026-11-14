@@ -12261,3 +12261,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   compact bodies/ranges/primary (all<=1500). Generic remains red; four pass.
 - Four safety controls pass, old-index/stale unknown, Native only uncertain
   segment association observation. No production or original count change.
+
+## 2026-11-14 - Review real raw listener query diagnostics
+
+- Read actual same-snapshot raw equality and compact/source controls without rerun;
+  kept generic red, four original greens and separate safety/Native observations.
+- Clarified fact identity counts versus owner counts and standalone diagnostic
+  envelope budget versus total raw/compact budgets. No serving promotion claimed.
