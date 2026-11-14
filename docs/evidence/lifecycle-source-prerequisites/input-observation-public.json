@@ -1,0 +1,3328 @@
+[
+  {
+    "variant": {
+      "id": "zh-noise",
+      "description": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。"
+    },
+    "raw": {
+      "project_id": "102e665ba4b1c6c7",
+      "project_path": "/tmp/agent-memory-benchmark-griftrr8/workspace",
+      "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+      "memory_intent": "general_context",
+      "memory_intent_v2": "general_context",
+      "memory_intent_source": "inferred",
+      "retrieval_lanes": {
+        "counts": {
+          "main_reflections": 0,
+          "correction_guards": 0,
+          "semantic_patch_notes": 0,
+          "blocked_memory_notes": 0
+        },
+        "intent_profile": {
+          "intent": "general_context",
+          "intent_v2": "general_context",
+          "intent_source": "inferred",
+          "legacy_intent": "general_context",
+          "preferred_lanes": [
+            "semantic_facts",
+            "wiki_matches",
+            "reusable_procedure",
+            "historical_reflection"
+          ],
+          "interference_policy": "prefer source-backed and high-quality memories"
+        },
+        "lane_budgets": {
+          "main_reflections": 2,
+          "correction_guards": 4,
+          "semantic_patch_notes": 6,
+          "blocked_memory_notes": 8
+        },
+        "policy": {
+          "procedure_experience": "main context only when the query intent can reuse a procedure",
+          "correction_experience": "guardrail lane; not injected as the main task direction by default",
+          "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+        }
+      },
+      "memory_brief": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "main_reflection_count": 0,
+        "correction_guard_count": 0,
+        "semantic_patch_count": 0,
+        "blocked_count": 0,
+        "conflict_count": 0
+      },
+      "followup_focus": null,
+      "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+      "semantic_facts": [],
+      "reflections": [],
+      "episodes": [],
+      "wiki_matches": [
+        {
+          "id": 426,
+          "project_id": "102e665ba4b1c6c7",
+          "file_path": "src/streaming/ConversationDraftStore.ets",
+          "symbol": "queueIncrementalWrite",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method queueIncrementalWrite in src/streaming/ConversationDraftStore.ets; identifier terms: queue incremental write",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:6b0efaf0af8c74a3ad174691",
+          "qualified_name": "ConversationDraftStore.queueIncrementalWrite",
+          "signature": "queueIncrementalWrite(sessionId: string, content: string):void",
+          "start_line": 22,
+          "end_line": 27,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "bb2cb74cafa3d08359e6298ef95bc1890259c79141ef44f3e26e0f2e72263e34",
+          "evidence_class": "static",
+          "method_evidence": "normalizecontent normalize content writetail write tail repository savedraft save draft queue incremental statewrite state write stateread read persistencewrite persistence",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:normalizecontent\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":23,\"source_key\":\"symbol:6b0efaf0af8c74a3ad174691\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:writetail.then\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":24,\"source_key\":\"symbol:6b0efaf0af8c74a3ad174691\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:repository.savedraft\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":25,\"source_key\":\"symbol:6b0efaf0af8c74a3ad174691\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:repository.saveDraft\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":25,\"source_key\":\"symbol:6b0efaf0af8c74a3ad174691\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"draft\"]}]",
+          "owner_name": "ConversationDraftStore",
+          "owner_kind": "store",
+          "callable_roles": "[\"state_write\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-14T11:34:42+00:00",
+          "recall_lanes": [
+            "behavior_method_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.02076923,
+            "best_rank": 5,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "behavior_method_fts",
+                "rank": 5,
+                "weight": 1.35,
+                "score": 0.02076923
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 2,
+          "kind": "symbol",
+          "score": 12.0,
+          "search_terms": [
+            "src/streaming/conversationdraftstore.ets",
+            "arkts function or lifecycle method queueincrementalwrite in src/streaming/conversationdraftstore.ets; identifier terms: queue incremental write",
+            "queueincrementalwrite",
+            "function",
+            "src",
+            "streaming",
+            "conversationdraftstore",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "queue",
+            "incremental",
+            "write",
+            "conversation",
+            "draft",
+            "store",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "semantic_behavior",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 12.0,
+            "rerank_score": null,
+            "match_reasons": [
+              "semantic_behavior",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "code_log_matches": [],
+      "edge_matches": [
+        {
+          "id": 609,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 112,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 45,
+          "evidence": "src/services/DispatchProfileService.ets -> src/logging/FailureReporter.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 600,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 90,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 118,
+          "evidence": "src/pages/SnapshotAuditPage.ets -> src/services/SnapshotCoordinator.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 584,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 79,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 116,
+          "evidence": "src/pages/ProductSearchPage.ets -> src/services/ProductSearchService.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 583,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 79,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 35,
+          "evidence": "src/pages/ProductSearchPage.ets -> src/entities/ProductRecord.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 575,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 68,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 109,
+          "evidence": "src/pages/DownloadsPage.ets -> src/services/AttachmentService.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 560,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 36,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 99,
+          "evidence": "src/examples/ThumbnailPoolExample.ets -> src/pools/ThumbnailPool.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 553,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 1,
+          "relation": "imports",
+          "target_type": "code_file",
+          "target_id": 52,
+          "evidence": "src/abilities/ProfileBootstrapAbility.ets -> src/models/ProfileList.ets",
+          "confidence": 0.85,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_import",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.85",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 545,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 109,
+          "relation": "contains",
+          "target_type": "code_log_statement",
+          "target_id": 10,
+          "evidence": "src/services/AttachmentService.ets:12",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 543,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 109,
+          "relation": "contains",
+          "target_type": "code_log_statement",
+          "target_id": 9,
+          "evidence": "src/services/AttachmentService.ets:11",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 541,
+          "project_id": "102e665ba4b1c6c7",
+          "source_type": "code_file",
+          "source_id": 109,
+          "relation": "contains",
+          "target_type": "code_log_statement",
+          "target_id": 8,
+          "evidence": "src/services/AttachmentService.ets:8",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-14T11:34:43+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-14T11:34:43+00:00",
+          "created_at": "2026-11-14T11:34:43+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "incident_trace_matches": [],
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "suggested_followup_terms": [
+        "src/streaming/conversationdraftstore.ets",
+        "arkts function or lifecycle method queueincrementalwrite in src/streaming/conversationdraftstore.ets; identifier terms: queue incremental write",
+        "queueincrementalwrite",
+        "function",
+        "src",
+        "streaming",
+        "conversationdraftstore",
+        "ets",
+        "arkts",
+        "or",
+        "lifecycle",
+        "method"
+      ],
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+        "log_keywords": [
+          "草稿保存后重启仍被清空",
+          "草稿",
+          "稿保",
+          "保存",
+          "存后",
+          "后重",
+          "重启",
+          "启仍",
+          "仍被",
+          "被清",
+          "清空",
+          "请只返回同时负责生命周期恢复",
+          "请只",
+          "只返",
+          "返回",
+          "回同",
+          "同时",
+          "时负",
+          "负责",
+          "责生"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 426,
+            "record_type": "code_symbol",
+            "file_path": "src/streaming/ConversationDraftStore.ets",
+            "symbol": "queueIncrementalWrite",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method queueIncrementalWrite in src/streaming/ConversationDraftStore.ets; identifier terms: queue incremental write",
+            "start_line": 22,
+            "end_line": 27,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "src/streaming/ConversationDraftStore.ets",
+            "symbol": "queueIncrementalWrite",
+            "owner_name": "ConversationDraftStore",
+            "owner_kind": "store",
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "state_write",
+              "persistence_write",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 13.66,
+            "evidence_score": 13.66,
+            "reasons": [
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 23,
+              "end_line": 27,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "createSnapshotArchive",
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "saveDraft",
+              "owner_name": "DraftSessionCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 13,
+                "end_line": 15,
+                "selection_reason": "semantic_mechanism_window"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "composed",
+            "target_scope": "multiple",
+            "members": [
+              {
+                "file_path": "src/streaming/ConversationDraftStore.ets",
+                "symbol": "queueIncrementalWrite",
+                "owner_name": "ConversationDraftStore",
+                "source_range": {
+                  "start_line": 23,
+                  "end_line": 27,
+                  "selection_reason": "semantic_mechanism_window",
+                  "mechanism_kind": "persistence_write",
+                  "mechanism_terms": [
+                    "persistencewrite"
+                  ]
+                },
+                "support_reasons": [
+                  "semantic_mechanism"
+                ]
+              },
+              {
+                "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+                "symbol": "saveDraft",
+                "owner_name": "DraftSessionCoordinator",
+                "source_range": {
+                  "start_line": 13,
+                  "end_line": 15,
+                  "selection_reason": "semantic_mechanism_window",
+                  "mechanism_kind": "persistence_write",
+                  "mechanism_terms": [
+                    "persistencewrite"
+                  ]
+                },
+                "support_reasons": [
+                  "semantic_mechanism"
+                ]
+              }
+            ],
+            "selection_basis": [
+              "existing_localization",
+              "same_owner_scope",
+              "explicit_cross_file_targets",
+              "bounded_passage_diversity"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      },
+      "network_limits": {
+        "max_depth": 1,
+        "edge_limit": 10,
+        "evidence_chain_limit": 3,
+        "allowed_relations": [
+          "configured_by",
+          "contains",
+          "emits_log",
+          "imports",
+          "passes_property",
+          "renders_component",
+          "routes_to",
+          "uses_resource"
+        ]
+      },
+      "source_freshness": {
+        "schema_version": "source-freshness/v1",
+        "status": "current",
+        "generation": 1,
+        "source_revision": "unversioned",
+        "extractor_version": "code-derived:v1",
+        "candidate_file_count": 44,
+        "checked_file_count": 44,
+        "current_file_count": 44,
+        "blocked_rows": 0,
+        "blocked_rows_by_table": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "stale_paths": [],
+        "missing_paths": [],
+        "unverified_paths": [],
+        "boundary_drift_scope_ids": [],
+        "policy": "digest_mismatch_and_missing_source_blocked"
+      },
+      "memory_use_policy": {
+        "mode": "advisory",
+        "authority_order": [
+          "current_source",
+          "explicit_user_instruction",
+          "source_truth",
+          "verified_experience",
+          "usable_hint",
+          "weak_hint"
+        ],
+        "rules": [
+          "Current source files and explicit user instructions override stored memory.",
+          "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+          "Use weak hints only to choose what to inspect next.",
+          "Do not let recency override evidence, status, confidence, or feedback penalties."
+        ]
+      },
+      "query_audit": {
+        "result_counts": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 1,
+          "code_log_matches": 0,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        },
+        "candidate_recall": {
+          "schema_version": "agent-candidate-recall-audit/v1",
+          "source_freshness": {
+            "schema_version": "source-freshness/v1",
+            "status": "current",
+            "generation": 1,
+            "source_revision": "unversioned",
+            "extractor_version": "code-derived:v1",
+            "candidate_file_count": 44,
+            "checked_file_count": 44,
+            "current_file_count": 44,
+            "blocked_rows": 0,
+            "blocked_rows_by_table": {
+              "code_files": 0,
+              "code_symbols": 0,
+              "code_log_statements": 0
+            },
+            "stale_paths": [],
+            "missing_paths": [],
+            "unverified_paths": [],
+            "boundary_drift_scope_ids": [],
+            "policy": "digest_mismatch_and_missing_source_blocked"
+          },
+          "provider": "sqlite_fts5_passage_rrf/v4",
+          "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+          "tables": {
+            "semantic_facts": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "reflections": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "episodes": {
+              "requested_limit": 80,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "code_files": {
+              "requested_limit": 160,
+              "candidate_count": 40,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 3,
+              "lane_counts": {
+                "broad_fts": 0,
+                "structural_fts": 40,
+                "file_identity_fts": 0,
+                "file_semantic_fts": 0,
+                "salient_file_fts": 0
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "file_identity_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 6.0,
+                    "identity_terms_weight": 9.0
+                  },
+                  "file_semantic_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 1.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "salient_file_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 0,
+                    "query_term_count": 3,
+                    "file_path_weight": 3.0,
+                    "semantic_terms_weight": 8.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": false,
+                "serving_channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 3,
+                  "channel_counts": {
+                    "file_identity_fts": 0,
+                    "file_semantic_fts": 0,
+                    "salient_file_fts": 0
+                  },
+                  "fused_candidate_count": 0
+                },
+                "candidate_fusion": {},
+                "candidate_refs": []
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 5,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "structural_fts": 40,
+                  "file_identity_fts": 0,
+                  "file_semantic_fts": 0,
+                  "salient_file_fts": 0
+                },
+                "fused_candidate_count": 40
+              },
+              "candidate_refs": [
+                {
+                  "id": 26,
+                  "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 74,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 69,
+                  "file_path": "src/pages/DraftPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 123,
+                  "file_path": "src/stores/DeviceSyncStore.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 60,
+                  "file_path": "src/pages/CallbackAuditPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 84,
+                  "file_path": "src/pages/RevenueQuarterPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 125,
+                  "file_path": "src/stores/LightingStore.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 28,
+                  "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 27,
+                  "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 77,
+                  "file_path": "src/pages/ParcelRetryPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 3,
+                  "file_path": "src/abilities/SnapshotTransferAbility.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 114,
+                  "file_path": "src/services/ParcelDeliveryService.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 118,
+                  "file_path": "src/services/SnapshotCoordinator.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 68,
+                  "file_path": "src/pages/DownloadsPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 90,
+                  "file_path": "src/pages/SnapshotAuditPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 5,
+                  "file_path": "src/actions/BackupCommandPanel.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 50,
+                  "file_path": "src/models/CanvasSelection.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 51,
+                  "file_path": "src/models/InteractionState.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 112,
+                  "file_path": "src/services/DispatchProfileService.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 124,
+                  "file_path": "src/stores/DocumentSelectionStore.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 29,
+                  "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 24,
+                  "file_path": "src/controllers/WorkspaceSelectionController.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 103,
+                  "file_path": "src/runtime/LeaseController.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 64,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 95,
+                  "file_path": "src/pages/VoiceMessagePage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 105,
+                  "file_path": "src/runtime/TransportRegistry.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 131,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 150,
+                  "file_path": "src/web/DesktopEditorFocusController.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 25,
+                  "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 127,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 42,
+                  "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 82,
+                  "file_path": "src/pages/QuotaRecoveryPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 92,
+                  "file_path": "src/pages/ThemePreferencesPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 9,
+                  "file_path": "src/components/KeyboardFocusHint.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 155,
+                  "file_path": "src/widgets/SeatCell.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 79,
+                  "file_path": "src/pages/ProductSearchPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 85,
+                  "file_path": "src/pages/RuleCreatorPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 145,
+                  "file_path": "src/views/PlaybackTouchSurface.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                },
+                {
+                  "id": 86,
+                  "file_path": "src/pages/RuleEditorPage.ets",
+                  "channels": [
+                    "structural_fts"
+                  ]
+                }
+              ]
+            },
+            "code_symbols": {
+              "requested_limit": 220,
+              "candidate_count": 24,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "behavior_method_fts": 24,
+                "symbol_identity_fts": 0,
+                "symbol_semantic_fts": 0,
+                "string_key_fts": 0,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 0
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "symbol_identity_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "symbol",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 2.0,
+                    "symbol_weight": 8.0,
+                    "identity_terms_weight": 10.0
+                  },
+                  "symbol_semantic_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "symbol",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 0,
+                    "symbol_weight": 2.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "method_body_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms"
+                    ],
+                    "candidate_count": 0,
+                    "body_terms_weight": 8.0
+                  },
+                  "string_key_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "string_terms"
+                    ],
+                    "candidate_count": 0,
+                    "string_terms_weight": 9.0
+                  },
+                  "semantic_mechanism_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "mechanism_terms"
+                    ],
+                    "candidate_count": 0,
+                    "mechanism_terms_weight": 9.0
+                  },
+                  "salient_string_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms",
+                      "string_terms"
+                    ],
+                    "candidate_count": 0,
+                    "query_term_count": 3,
+                    "body_terms_weight": 3.0,
+                    "string_terms_weight": 10.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": false,
+                "serving_channels": [
+                  "salient_string_fts",
+                  "semantic_mechanism_fts",
+                  "string_key_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 6,
+                  "channel_counts": {
+                    "symbol_identity_fts": 0,
+                    "symbol_semantic_fts": 0,
+                    "method_body_fts": 0,
+                    "string_key_fts": 0,
+                    "semantic_mechanism_fts": 0,
+                    "salient_string_fts": 0
+                  },
+                  "fused_candidate_count": 0
+                },
+                "candidate_fusion": {},
+                "candidate_refs": []
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 7,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "behavior_method_fts": 24,
+                  "symbol_identity_fts": 0,
+                  "symbol_semantic_fts": 0,
+                  "string_key_fts": 0,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 0
+                },
+                "fused_candidate_count": 24
+              },
+              "candidate_refs": [
+                {
+                  "id": 88,
+                  "file_path": "src/examples/ThumbnailPoolExample.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "runThumbnailPoolExample"
+                },
+                {
+                  "id": 66,
+                  "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "saveDraft"
+                },
+                {
+                  "id": 7,
+                  "file_path": "src/abilities/SnapshotTransferAbility.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "createSnapshotArchive"
+                },
+                {
+                  "id": 8,
+                  "file_path": "src/abilities/SnapshotTransferAbility.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "restoreSnapshotArchive"
+                },
+                {
+                  "id": 426,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "queueIncrementalWrite"
+                },
+                {
+                  "id": 378,
+                  "file_path": "src/services/AttachmentService.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "loadAttachment"
+                },
+                {
+                  "id": 429,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "commitCompletedDraft"
+                },
+                {
+                  "id": 74,
+                  "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "recordSuccessfulUse"
+                },
+                {
+                  "id": 70,
+                  "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "commitOrder"
+                },
+                {
+                  "id": 96,
+                  "file_path": "src/io/AssetArchiveInstaller.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "installBundle"
+                },
+                {
+                  "id": 364,
+                  "file_path": "src/runtime/LeaseController.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "attach"
+                },
+                {
+                  "id": 385,
+                  "file_path": "src/services/DispatchProfileService.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "constructor"
+                },
+                {
+                  "id": 60,
+                  "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "updateLabel"
+                },
+                {
+                  "id": 61,
+                  "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "resetIndicator"
+                },
+                {
+                  "id": 141,
+                  "file_path": "src/pages/CallbackAuditPage.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "refreshNow"
+                },
+                {
+                  "id": 29,
+                  "file_path": "src/components/KeyboardFocusHint.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "updateFocusMessage"
+                },
+                {
+                  "id": 120,
+                  "file_path": "src/models/CanvasSelection.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "selectHandle"
+                },
+                {
+                  "id": 122,
+                  "file_path": "src/models/InteractionState.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "selectPointer"
+                },
+                {
+                  "id": 154,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "updateFolder"
+                },
+                {
+                  "id": 339,
+                  "file_path": "src/pages/VoiceMessagePage.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "toggleRecording"
+                },
+                {
+                  "id": 413,
+                  "file_path": "src/stores/DocumentSelectionStore.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "selectEntry"
+                },
+                {
+                  "id": 501,
+                  "file_path": "src/web/DesktopEditorFocusController.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "attach"
+                },
+                {
+                  "id": 502,
+                  "file_path": "src/web/DesktopEditorFocusController.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "on"
+                },
+                {
+                  "id": 517,
+                  "file_path": "src/widgets/SeatCell.ets",
+                  "channels": [
+                    "behavior_method_fts"
+                  ],
+                  "symbol": "onCellTapped"
+                }
+              ]
+            },
+            "code_log_statements": {
+              "requested_limit": 180,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            }
+          }
+        },
+        "retrieval_stages": {
+          "scored": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 65,
+            "code_log_matches": 0,
+            "edge_matches": 40,
+            "incident_trace_matches": 0
+          },
+          "after_intent_gate": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 65,
+            "code_log_matches": 0,
+            "edge_matches": 40,
+            "incident_trace_matches": 0
+          },
+          "selected": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 1,
+            "code_log_matches": 0,
+            "edge_matches": 10,
+            "incident_trace_matches": 0
+          }
+        },
+        "top_explanations": {
+          "semantic_facts": [],
+          "reflections": [],
+          "episodes": [],
+          "wiki_matches": [
+            {
+              "type": "wiki_matches",
+              "id": 426,
+              "score": 12.0,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02076923,
+                "best_rank": 5,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "behavior_method_fts",
+                    "rank": 5,
+                    "weight": 1.35,
+                    "score": 0.02076923
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 12.0,
+                "rerank_score": null,
+                "match_reasons": [
+                  "semantic_behavior",
+                  "source_locatable"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "code_log_matches": [],
+          "edge_matches": [
+            {
+              "type": "edge_matches",
+              "id": 545,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "edge_matches",
+              "id": 543,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "edge_matches",
+              "id": 541,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "incident_trace_matches": []
+        },
+        "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+        "hierarchical_localization": {
+          "schema_version": "agent-hierarchical-localization/v2",
+          "provider": "sqlite_hierarchical_localizer/v2",
+          "mode": "serving",
+          "projection_contract": {
+            "candidate_recall_changed": false,
+            "affects_serving_projection": true,
+            "consumer": "query_handoff.callable_evidence"
+          },
+          "limits": {
+            "files": 8,
+            "file_callable_pool": 128,
+            "direct_callable_pool": 32,
+            "graph_seeds": 6,
+            "graph_owners": 16,
+            "callables": 12,
+            "source_ranges": 8
+          },
+          "stage_counts": {
+            "file_candidates": 8,
+            "file_callable_pool": 23,
+            "graph_seed_count": 6,
+            "graph_owner_pool": 0,
+            "selected_callables": 12,
+            "selected_ranges": 8
+          },
+          "file_candidates": [
+            {
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "score": 12.0,
+              "first_rank": 1,
+              "record_ids": [
+                426,
+                429,
+                127
+              ],
+              "direct_symbol_ids": [
+                426,
+                429
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts",
+                "structural_fts"
+              ],
+              "structural_coverage": 2,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "score": 9.0,
+              "first_rank": 2,
+              "record_ids": [
+                7,
+                8,
+                3
+              ],
+              "direct_symbol_ids": [
+                7,
+                8
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts",
+                "structural_fts"
+              ],
+              "structural_coverage": 1,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/components/KeyboardFocusHint.ets",
+              "score": 9.0,
+              "first_rank": 4,
+              "record_ids": [
+                29,
+                9
+              ],
+              "direct_symbol_ids": [
+                29
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts",
+                "structural_fts"
+              ],
+              "structural_coverage": 1,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+              "score": 9.0,
+              "first_rank": 5,
+              "record_ids": [
+                60,
+                61,
+                25
+              ],
+              "direct_symbol_ids": [
+                60,
+                61
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts",
+                "structural_fts"
+              ],
+              "structural_coverage": 1,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "score": 9.0,
+              "first_rank": 7,
+              "record_ids": [
+                66,
+                26
+              ],
+              "direct_symbol_ids": [
+                66
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts",
+                "structural_fts"
+              ],
+              "structural_coverage": 3,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/examples/ThumbnailPoolExample.ets",
+              "score": 9.0,
+              "first_rank": 10,
+              "record_ids": [
+                88
+              ],
+              "direct_symbol_ids": [
+                88
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "structural_coverage": 1,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/io/AssetArchiveInstaller.ets",
+              "score": 9.0,
+              "first_rank": 11,
+              "record_ids": [
+                96
+              ],
+              "direct_symbol_ids": [
+                96
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "structural_coverage": 1,
+              "definition_identity": false
+            },
+            {
+              "file_path": "src/pages/CallbackAuditPage.ets",
+              "score": 9.0,
+              "first_rank": 14,
+              "record_ids": [
+                141,
+                60
+              ],
+              "direct_symbol_ids": [
+                141
+              ],
+              "match_reasons": [
+                "semantic_behavior",
+                "source_locatable",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "behavior_method_fts",
+                "structural_fts"
+              ],
+              "structural_coverage": 2,
+              "definition_identity": false
+            }
+          ],
+          "graph_seeds": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 426,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "queueIncrementalWrite",
+              "qualified_name": "ConversationDraftStore.queueIncrementalWrite",
+              "start_line": 22,
+              "end_line": 27,
+              "score": 13.66,
+              "evidence_score": 13.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "ConversationDraftStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "state_write",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 429,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "commitCompletedDraft",
+              "qualified_name": "ConversationDraftStore.commitCompletedDraft",
+              "start_line": 37,
+              "end_line": 41,
+              "score": 13.12,
+              "evidence_score": 13.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "ConversationDraftStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 66,
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "saveDraft",
+              "qualified_name": "DraftSessionCoordinator.saveDraft",
+              "start_line": 13,
+              "end_line": 15,
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "DraftSessionCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 7,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "createSnapshotArchive",
+              "qualified_name": "SnapshotTransferAbility.createSnapshotArchive",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 8,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "restoreSnapshotArchive",
+              "qualified_name": "SnapshotTransferAbility.restoreSnapshotArchive",
+              "start_line": 6,
+              "end_line": 8,
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 29,
+              "file_path": "src/components/KeyboardFocusHint.ets",
+              "symbol": "updateFocusMessage",
+              "qualified_name": "KeyboardFocusHint.updateFocusMessage",
+              "start_line": 5,
+              "end_line": 7,
+              "score": 8.12,
+              "evidence_score": 8.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "KeyboardFocusHint",
+              "owner_kind": "component",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            }
+          ],
+          "graph_owner_candidates": [],
+          "callable_candidates": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 426,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "queueIncrementalWrite",
+              "qualified_name": "ConversationDraftStore.queueIncrementalWrite",
+              "start_line": 22,
+              "end_line": 27,
+              "score": 13.66,
+              "evidence_score": 13.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "ConversationDraftStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "state_write",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 429,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "commitCompletedDraft",
+              "qualified_name": "ConversationDraftStore.commitCompletedDraft",
+              "start_line": 37,
+              "end_line": 41,
+              "score": 13.12,
+              "evidence_score": 13.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "ConversationDraftStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 7,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "createSnapshotArchive",
+              "qualified_name": "SnapshotTransferAbility.createSnapshotArchive",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 8,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "restoreSnapshotArchive",
+              "qualified_name": "SnapshotTransferAbility.restoreSnapshotArchive",
+              "start_line": 6,
+              "end_line": 8,
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 66,
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "saveDraft",
+              "qualified_name": "DraftSessionCoordinator.saveDraft",
+              "start_line": 13,
+              "end_line": 15,
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "DraftSessionCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 29,
+              "file_path": "src/components/KeyboardFocusHint.ets",
+              "symbol": "updateFocusMessage",
+              "qualified_name": "KeyboardFocusHint.updateFocusMessage",
+              "start_line": 5,
+              "end_line": 7,
+              "score": 8.12,
+              "evidence_score": 8.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "KeyboardFocusHint",
+              "owner_kind": "component",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 60,
+              "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+              "symbol": "updateLabel",
+              "qualified_name": "DocumentNavigationCoordinator.updateLabel",
+              "start_line": 9,
+              "end_line": 11,
+              "score": 7.12,
+              "evidence_score": 7.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "DocumentNavigationCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 61,
+              "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+              "symbol": "resetIndicator",
+              "qualified_name": "DocumentNavigationCoordinator.resetIndicator",
+              "start_line": 13,
+              "end_line": 15,
+              "score": 7.12,
+              "evidence_score": 7.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "DocumentNavigationCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 88,
+              "file_path": "src/examples/ThumbnailPoolExample.ets",
+              "symbol": "runThumbnailPoolExample",
+              "qualified_name": "runThumbnailPoolExample",
+              "start_line": 3,
+              "end_line": 7,
+              "score": 5.12,
+              "evidence_score": 5.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "",
+              "owner_kind": "module",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 64,
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "aboutToAppear",
+              "qualified_name": "DraftSessionCoordinator.aboutToAppear",
+              "start_line": 5,
+              "end_line": 7,
+              "score": 4.5,
+              "evidence_score": 4.5,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [],
+              "owner_name": "DraftSessionCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "lifecycle",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 96,
+              "file_path": "src/io/AssetArchiveInstaller.ets",
+              "symbol": "installBundle",
+              "qualified_name": "AssetArchiveInstaller.installBundle",
+              "start_line": 4,
+              "end_line": 11,
+              "score": 4.12,
+              "evidence_score": 4.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "AssetArchiveInstaller",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 141,
+              "file_path": "src/pages/CallbackAuditPage.ets",
+              "symbol": "refreshNow",
+              "qualified_name": "CallbackAuditPage.refreshNow",
+              "start_line": 5,
+              "end_line": 7,
+              "score": 3.12,
+              "evidence_score": 3.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "behavior_method_fts"
+              ],
+              "owner_name": "CallbackAuditPage",
+              "owner_kind": "component",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            }
+          ],
+          "source_ranges": [
+            {
+              "symbol_id": 426,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "queueIncrementalWrite",
+              "callable_start_line": 22,
+              "callable_end_line": 27,
+              "start_line": 23,
+              "end_line": 27,
+              "selection_reason": "semantic_mechanism_window",
+              "mechanism_kind": "persistence_write",
+              "mechanism_terms": [
+                "persistencewrite"
+              ]
+            },
+            {
+              "symbol_id": 429,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "commitCompletedDraft",
+              "callable_start_line": 37,
+              "callable_end_line": 41,
+              "start_line": 38,
+              "end_line": 41,
+              "selection_reason": "semantic_mechanism_window",
+              "mechanism_kind": "persistence_write",
+              "mechanism_terms": [
+                "persistencewrite"
+              ]
+            },
+            {
+              "symbol_id": 7,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "createSnapshotArchive",
+              "callable_start_line": 2,
+              "callable_end_line": 4,
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 8,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "restoreSnapshotArchive",
+              "callable_start_line": 6,
+              "callable_end_line": 8,
+              "start_line": 6,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 66,
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "saveDraft",
+              "callable_start_line": 13,
+              "callable_end_line": 15,
+              "start_line": 13,
+              "end_line": 15,
+              "selection_reason": "semantic_mechanism_window",
+              "mechanism_kind": "persistence_write",
+              "mechanism_terms": [
+                "persistencewrite"
+              ]
+            },
+            {
+              "symbol_id": 29,
+              "file_path": "src/components/KeyboardFocusHint.ets",
+              "symbol": "updateFocusMessage",
+              "callable_start_line": 5,
+              "callable_end_line": 7,
+              "start_line": 5,
+              "end_line": 7,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 60,
+              "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+              "symbol": "updateLabel",
+              "callable_start_line": 9,
+              "callable_end_line": 11,
+              "start_line": 9,
+              "end_line": 11,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 61,
+              "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+              "symbol": "resetIndicator",
+              "callable_start_line": 13,
+              "callable_end_line": 15,
+              "start_line": 13,
+              "end_line": 15,
+              "selection_reason": "callable_symbol_range"
+            }
+          ]
+        },
+        "callable_evidence_set": {
+          "schema_version": "agent-callable-evidence-set/v1",
+          "mode": "shadow",
+          "serving_projection_changed": false,
+          "target_scope": {
+            "kind": "multiple",
+            "basis": [
+              "explicit_multi_target_cue"
+            ]
+          },
+          "members": [
+            {
+              "position": 1,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "queueIncrementalWrite",
+              "owner_name": "ConversationDraftStore",
+              "owner_kind": "store",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "semantic_mechanism",
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            },
+            {
+              "position": 2,
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "commitCompletedDraft",
+              "owner_name": "ConversationDraftStore",
+              "owner_kind": "store",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "semantic_mechanism",
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            },
+            {
+              "position": 3,
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "createSnapshotArchive",
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            }
+          ],
+          "competition": {
+            "member_count": 3,
+            "distinct_file_count": 2,
+            "same_owner_kind_alternative": true,
+            "graph_backed_alternative": false,
+            "excluded_member_count": 0
+          },
+          "calibration": {
+            "state": "portfolio_required",
+            "basis": [
+              "explicit_multi_target"
+            ]
+          },
+          "boundary": "retrieval_calibration_not_diagnosis"
+        },
+        "callable_passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/streaming/ConversationDraftStore.ets",
+              "symbol": "queueIncrementalWrite",
+              "owner_name": "ConversationDraftStore",
+              "source_range": {
+                "start_line": 23,
+                "end_line": 27,
+                "selection_reason": "semantic_mechanism_window",
+                "mechanism_kind": "persistence_write",
+                "mechanism_terms": [
+                  "persistencewrite"
+                ]
+              },
+              "support_reasons": [
+                "semantic_mechanism"
+              ]
+            },
+            {
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "saveDraft",
+              "owner_name": "DraftSessionCoordinator",
+              "source_range": {
+                "start_line": 13,
+                "end_line": 15,
+                "selection_reason": "semantic_mechanism_window",
+                "mechanism_kind": "persistence_write",
+                "mechanism_terms": [
+                  "persistencewrite"
+                ]
+              },
+              "support_reasons": [
+                "semantic_mechanism"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_cross_file_targets",
+            "bounded_passage_diversity"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    "compact": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "102e665ba4b1c6c7",
+      "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "草稿保存后重启仍被清空",
+          "草稿",
+          "稿保",
+          "保存",
+          "存后",
+          "后重",
+          "重启",
+          "启仍",
+          "仍被",
+          "被清",
+          "清空",
+          "请只返回同时负责生命周期恢复"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/streaming/ConversationDraftStore.ets",
+            "symbol": "queueIncrementalWrite",
+            "symbol_type": "function",
+            "record_ids": [
+              426
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "queueIncrementalWrite",
+                "start_line": 22,
+                "end_line": 27
+              }
+            ],
+            "read_window": {
+              "start_line": 22,
+              "end_line": 27
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "queueIncrementalWrite",
+                "start_line": 22,
+                "end_line": 27,
+                "content": "  queueIncrementalWrite(sessionId: string, content: string): void {\n    const snapshot = this.normalizeContent(content)\n    this.writeTail = this.writeTail.then(async () => {\n      await this.repository.saveDraft(sessionId, snapshot)\n    })\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "src/streaming/ConversationDraftStore.ets",
+            "symbol": "queueIncrementalWrite",
+            "owner_name": "ConversationDraftStore",
+            "owner_kind": "store",
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "state_write",
+              "persistence_write",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 13.66,
+            "evidence_score": 13.66,
+            "reasons": [
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 23,
+              "end_line": 27,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/abilities/SnapshotTransferAbility.ets",
+              "symbol": "createSnapshotArchive",
+              "owner_name": "SnapshotTransferAbility",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+              "symbol": "saveDraft",
+              "owner_name": "DraftSessionCoordinator",
+              "owner_kind": "coordinator",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "persistence_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 13,
+                "end_line": 15,
+                "selection_reason": "semantic_mechanism_window"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 244
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1201,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]
