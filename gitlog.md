@@ -12268,3 +12268,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   kept generic red, four original greens and separate safety/Native observations.
 - Clarified fact identity counts versus owner counts and standalone diagnostic
   envelope budget versus total raw/compact budgets. No serving promotion claimed.
+
+## Raw listener diagnostic capacity follow-up
+
+- Fixed real-source envelope control reached26876-byte hypothetical output and
+  safely emitted unknown-cap without changing old raw/compact retrieval.
+- Intended >64-fact control was blocked by64-row scan and extra callback symbols;
+  only40checked facts. Retained branch-not-covered result; no input resizing.
+- Corrected only internal attribution from capped DESC list diagnostic to source
+  checks on saved ASC rows; no repeated public query. See CAPACITY-RESULTS.md.

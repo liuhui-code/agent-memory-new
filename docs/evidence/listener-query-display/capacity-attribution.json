@@ -1,0 +1,16 @@
+[
+  {
+    "id": "fact-cap",
+    "actual_context_unknown_cap": true,
+    "source_check_count_same_saved_rows": 40,
+    "intended_fact_branch_confirmed": false,
+    "interpretation": "initial attribution reused list diagnostic (DESC first64), unlike context ASC first64; actual CLI results unchanged"
+  },
+  {
+    "id": "envelope-cap",
+    "actual_context_unknown_cap": true,
+    "source_check_count_same_saved_rows": 32,
+    "intended_fact_branch_confirmed": true,
+    "interpretation": "initial attribution reused list diagnostic (DESC first64), unlike context ASC first64; actual CLI results unchanged"
+  }
+]

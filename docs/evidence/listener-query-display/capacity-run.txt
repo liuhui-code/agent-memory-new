@@ -1,0 +1,37 @@
+{
+  "workspace": "/tmp/listener-query-cap-jgqit0pv",
+  "results": [
+    {
+      "id": "fact-cap",
+      "pass": false,
+      "checks": {
+        "unknown_cap": true,
+        "partial": true,
+        "false_authority": true,
+        "raw_equal": true,
+        "compact_equal": true,
+        "compact_no_diagnostic": true,
+        "compact_budget": true,
+        "intended_branch": false
+      },
+      "checked_facts": 0,
+      "hypothetical_envelope_bytes": 1021
+    },
+    {
+      "id": "envelope-cap",
+      "pass": true,
+      "checks": {
+        "unknown_cap": true,
+        "partial": true,
+        "false_authority": true,
+        "raw_equal": true,
+        "compact_equal": true,
+        "compact_no_diagnostic": true,
+        "compact_budget": true,
+        "intended_branch": true
+      },
+      "checked_facts": 32,
+      "hypothetical_envelope_bytes": 26876
+    }
+  ]
+}
