@@ -12495,3 +12495,8 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve all non-build structural markers and existing positive-query cleanup/fallback. Recognize only pre-frozen build morphology, numeric suffix and explicit identifier components.
 - Builder/bodybuilder no longer request build boundaries; actual BuildCache/build_cache/path and native/build positives retained. No graph guard, R/S, ranking or API change.
 - Five new focused tests plus existing structural-exclusion/English consumer tests pass; awaiting fixed public seven-case verification.
+## 2026-11-14 — Chinese Builder original: two known declarations, not grammar alone
+
+- One unchanged original Chinese Development public trace on0a8a8fd confirms full WorkGallery12–20 body and no graph/log/path protection.
+- Full ranked/selected pool contains two genuine arkts_builder declarations: WorkGallery and NavigationToolbar. Opening the Chinese request gate alone would retain both and cannot be sold as original precision repair.
+- Preserve exact ID/key/digest/range and raw-anchor boundary; no parser/runtime change or query/oracle edit. Raw-source intersection is a new scope contract with late-correct-source risk, not an automatic fix. Details: docs/evidence/builder-chinese-consumer/ORIGINAL-BOUNDARY.md.
