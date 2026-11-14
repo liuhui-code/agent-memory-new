@@ -1,0 +1,63 @@
+{
+  "base": "cdb8f39",
+  "case": {
+    "id": "context-cross-layer-error-contract-owner",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "Transport submission throws, but the page banner renders a serialized error instead of useful failure details; return producer and consumer handling code."
+      },
+      {
+        "id": "zh-noise",
+        "description": "\u540e\u53f0\u4efb\u52a1\u53d1\u9001\u5931\u8d25\u540e\u9875\u9762\u53ea\u663e\u793a\u539f\u59cb\u9519\u8bef\u5bf9\u8c61\uff0c\u8bf7\u540c\u65f6\u8fd4\u56de\u670d\u52a1\u5c42 catch \u8fd4\u56de\u503c\u548c\u9875\u9762\u5c42\u9519\u8bef\u63d0\u793a\u6d88\u8d39\u903b\u8f91\u3002"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/gateways/JobTransport.ets",
+        "src/pages/JobDispatchPage.ets"
+      ],
+      "forbidden_files": [
+        "src/config/JobFailureMessages.ets",
+        "src/views/JobDispatchButton.ets"
+      ],
+      "root_cause_category": "error_contract",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 3,
+        "min_anchor_precision": 0.66,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/gateways/JobTransport.ets",
+            "start_line": 4,
+            "end_line": 13
+          },
+          {
+            "file_path": "src/pages/JobDispatchPage.ets",
+            "start_line": 5,
+            "end_line": 15
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  },
+  "casepack_sha256": "8af1074414c3db63e164145ad8b9a1fcaf8dee69120ebe4d22876a15d8bb801e",
+  "source_project": "docs/eval/fixtures/system-capability"
+}
