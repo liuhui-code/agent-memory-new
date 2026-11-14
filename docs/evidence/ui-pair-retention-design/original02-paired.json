@@ -1,0 +1,59 @@
+{
+  "before_runtime": "8d6e17b",
+  "after_runtime": "e6e1afb",
+  "cases": [
+    {
+      "variant": "original",
+      "before_status": "fail",
+      "after_status": "pass",
+      "before_paths": [
+        "src/views/MessageRow.ets"
+      ],
+      "after_paths": [
+        "src/views/MessageRow.ets",
+        "src/views/QuotedMessagePreview.ets"
+      ],
+      "before_span": 0.5,
+      "after_span": 1.0,
+      "after_precision": 1.0,
+      "after_tokens": 1461,
+      "all_mandatory_pass": true
+    },
+    {
+      "variant": "en-paraphrase",
+      "before_status": "fail",
+      "after_status": "pass",
+      "before_paths": [
+        "src/views/MessageRow.ets"
+      ],
+      "after_paths": [
+        "src/pages/VoiceMessagePage.ets",
+        "src/views/MessageRow.ets",
+        "src/views/QuotedMessagePreview.ets"
+      ],
+      "before_span": 0.5,
+      "after_span": 1.0,
+      "after_precision": 0.6667,
+      "after_tokens": 1419,
+      "all_mandatory_pass": true
+    },
+    {
+      "variant": "zh-noise",
+      "before_status": "pass",
+      "after_status": "pass",
+      "before_paths": [
+        "src/views/MessageRow.ets",
+        "src/views/QuotedMessagePreview.ets"
+      ],
+      "after_paths": [
+        "src/views/MessageRow.ets",
+        "src/views/QuotedMessagePreview.ets"
+      ],
+      "before_span": 1.0,
+      "after_span": 1.0,
+      "after_precision": 1.0,
+      "after_tokens": 1438,
+      "all_mandatory_pass": true
+    }
+  ]
+}
