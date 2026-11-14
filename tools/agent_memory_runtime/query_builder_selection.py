@@ -28,10 +28,11 @@ def declaration_request(query):
     attributes = match['attributes']
     if attributes is None:
         return True
-    if any(word in RESERVED for word in attributes.split()):
-        return False
     parts = re.split(r',\s*| and ', attributes)
-    return bool(parts) and all(re.fullmatch(r'[a-z]+(?: [a-z]+)?', part) for part in parts)
+    return bool(parts) and all(
+        re.fullmatch(r'[a-z]+(?: [a-z]+)?', part)
+        and not any(word in RESERVED | {'and'} for word in part.split())
+        for part in parts)
 
 
 def identity(row):

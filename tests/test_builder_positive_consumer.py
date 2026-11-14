@@ -24,6 +24,13 @@ class BuilderPositiveConsumerTests(unittest.TestCase):
   for family in p['families']:
    for c in family['cases']:
     with self.subTest(c=c['id']):self.assertEqual(declaration_request(c['query']),c['authority'])
+ def test_complete_attribute_tokens_and_separators(self):
+  for query in ['Locate the Builder that sets not, height.',
+                'Locate the Builder that sets only, height.',
+                'Locate the Builder that sets height and.',
+                'Locate the Builder that sets and height.']:
+   with self.subTest(query=query):self.assertFalse(declaration_request(query))
+  self.assertTrue(declaration_request('Locate the Builder that renders source text.'))
  def test_positive_private_projection_and_copy_rejection(self):
   evidence=self.evidence();anchors=[{'file_path':'Other.ets'}]
   result=builder_anchors(anchors,evidence,False,self.query)
