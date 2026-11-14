@@ -1,0 +1,125 @@
+{
+  "schema_version": "semantic-index/listener-experiment-v2",
+  "adapter": {
+    "id": "experiment",
+    "version": "2",
+    "language": "ArkTS"
+  },
+  "capabilities": [],
+  "source_digests": {
+    "Relay.ets": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661"
+  },
+  "entities": [
+    {
+      "key": "symbol:108be89117e2a49ddd88c942",
+      "file_path": "Relay.ets",
+      "name": "connect",
+      "kind": "function",
+      "qualified_name": "Relay.connect",
+      "signature": "connect(engine: Engine, target: DeliverySink):void",
+      "start_line": 6,
+      "end_line": 11,
+      "exported": false,
+      "evidence_class": "static",
+      "owner_name": "",
+      "owner_kind": "",
+      "callable_roles": []
+    }
+  ],
+  "relations": [],
+  "mechanisms": [
+    {
+      "source_key": "symbol:108be89117e2a49ddd88c942",
+      "kind": "operation",
+      "terms": [
+        "operation",
+        "call"
+      ],
+      "line": 7,
+      "confidence": 0.9,
+      "evidence_class": "static",
+      "detail": "call:engine.observe"
+    },
+    {
+      "source_key": "symbol:108be89117e2a49ddd88c942",
+      "kind": "operation",
+      "terms": [
+        "operation",
+        "call"
+      ],
+      "line": 8,
+      "confidence": 0.9,
+      "evidence_class": "static",
+      "detail": "call:target.accepted"
+    },
+    {
+      "source_key": "symbol:108be89117e2a49ddd88c942",
+      "kind": "operation",
+      "terms": [
+        "operation",
+        "call"
+      ],
+      "line": 9,
+      "confidence": 0.9,
+      "evidence_class": "static",
+      "detail": "call:target.rejected"
+    }
+  ],
+  "gaps": [],
+  "typed_invocation_witnesses": [
+    {
+      "argument_call": {
+        "member": "observe",
+        "object_range": [
+          188,
+          322
+        ],
+        "range": [
+          173,
+          326
+        ],
+        "receiver": "engine"
+      },
+      "callback": {
+        "body_range": [
+          225,
+          251
+        ],
+        "property": "accepted",
+        "range": [
+          196,
+          251
+        ]
+      },
+      "formal": {
+        "declared_type": "DeliverySink",
+        "index": 1,
+        "name": "target"
+      },
+      "invocation": {
+        "member": "accepted",
+        "range": [
+          227,
+          249
+        ],
+        "receiver": "target"
+      },
+      "source": {
+        "coordinate_unit": "newline-normalized decoded character, half-open",
+        "end_line": 11,
+        "file_path": "Relay.ets",
+        "outer_range": [
+          113,
+          327
+        ],
+        "qualified_name": "Relay.connect",
+        "signature": "connect(engine: Engine, target: DeliverySink):void",
+        "snapshot_length": 329,
+        "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+        "start_line": 6,
+        "symbol_key": "symbol:108be89117e2a49ddd88c942"
+      },
+      "version": "typed-local-invocation/v2"
+    }
+  ]
+}
