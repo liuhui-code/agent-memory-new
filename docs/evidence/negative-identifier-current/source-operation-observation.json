@@ -1,0 +1,110 @@
+{
+  "src/views/InventoryList.ets": {
+    "digest": "319a1641ed35e94935ceb4de0c3c21ef313f568576205add7c1966d34f84a2f8",
+    "entities": [
+      {
+        "key": "symbol:35591918369fce710e6803c9",
+        "file_path": "src/views/InventoryList.ets",
+        "name": "InventoryList",
+        "kind": "component",
+        "qualified_name": "InventoryList",
+        "signature": "struct InventoryList",
+        "start_line": 2,
+        "end_line": 15,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:fac419ad59e5867a961c04fd",
+        "file_path": "src/views/InventoryList.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "InventoryList.build",
+        "signature": "build():unknown",
+        "start_line": 5,
+        "end_line": 14,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "InventoryList",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:e0e755555839cc147800e05b",
+        "file_path": "src/views/InventoryList.ets",
+        "name": "rows",
+        "kind": "state",
+        "qualified_name": "InventoryList.rows",
+        "signature": "rows",
+        "start_line": 3,
+        "end_line": 3,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": []
+      }
+    ],
+    "mechanisms": [],
+    "gaps": []
+  },
+  "src/views/InventoryOverlayPanel.ets": {
+    "digest": "5204a8cd787b6a736a44f8c7214557433eeb43797eb6fd282e3c03c1029d648d",
+    "entities": [
+      {
+        "key": "symbol:221a634fc2161d1735bffbc7",
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "name": "InventoryOverlayPanel",
+        "kind": "component",
+        "qualified_name": "InventoryOverlayPanel",
+        "signature": "struct InventoryOverlayPanel",
+        "start_line": 2,
+        "end_line": 17,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:79da38552ae4888f36250579",
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "InventoryOverlayPanel.build",
+        "signature": "build():unknown",
+        "start_line": 5,
+        "end_line": 16,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "InventoryOverlayPanel",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:96ee838655f315ac7a8260fe",
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "name": "selectedCategory",
+        "kind": "state",
+        "qualified_name": "InventoryOverlayPanel.selectedCategory",
+        "signature": "selectedCategory",
+        "start_line": 3,
+        "end_line": 3,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": []
+      }
+    ],
+    "mechanisms": [],
+    "gaps": []
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "mode": "saved public inputs read-only admission replay; not new query",
+  "positive_query": "库存列表分隔线粗细错误，请定位 divider 的源码， inventory",
+  "excluded_identifiers": [
+    "inventoryitem",
+    "inventoryrecord"
+  ],
+  "behavior_markers": [],
+  "target_scope": {
+    "kind": "unknown",
+    "basis": [
+      "no_explicit_target_scope"
+    ]
+  },
+  "all_logs_admitted": true,
+  "logs": [
+    {
+      "path": "src/logging/ConsoleFailureReporter.ets",
+      "function": "report",
+      "evidence_class": null,
+      "event_priority": 0,
+      "reasons": [
+        "expanded_query:log_context",
+        "expanded_query:search_terms"
+      ]
+    },
+    {
+      "path": "src/services/DispatchProfileService.ets",
+      "function": "run",
+      "evidence_class": "inferred_wrapped",
+      "event_priority": 0,
+      "reasons": [
+        "expanded_query:log_message",
+        "expanded_query:log_context",
+        "expanded_query:search_terms",
+        "inferred_wrapped"
+      ]
+    },
+    {
+      "path": "src/validation/OrderValidator.ets",
+      "function": "validate",
+      "evidence_class": null,
+      "event_priority": 0,
+      "reasons": [
+        "expanded_query:log_context",
+        "expanded_query:search_terms"
+      ]
+    },
+    {
+      "path": "src/services/AccountUpdateService.ets",
+      "function": "dispatchUpdate",
+      "evidence_class": null,
+      "event_priority": 0,
+      "reasons": [
+        "expanded_query:log_context",
+        "expanded_query:search_terms"
+      ]
+    },
+    {
+      "path": "src/pages/AccountSettingsPage.ets",
+      "function": "saveAccount",
+      "evidence_class": "static_wrapped",
+      "event_priority": 0,
+      "reasons": [
+        "expanded_query:log_context",
+        "expanded_query:search_terms",
+        "static_wrapped"
+      ]
+    }
+  ],
+  "primary": {
+    "file_path": "src/logging/ConsoleFailureReporter.ets",
+    "symbol": "report",
+    "owner_name": "ConsoleFailureReporter",
+    "owner_kind": "class",
+    "callable_roles": [
+      "source_operation_checked:v2.1"
+    ],
+    "score": 21.38,
+    "evidence_score": 21.38,
+    "reasons": [
+      "expanded_query:summary",
+      "expanded_query:method_evidence",
+      "expanded_query:string_evidence",
+      "first_stage_rank_prior"
+    ],
+    "source_range": {
+      "start_line": 5,
+      "end_line": 7,
+      "selection_reason": "callable_symbol_range"
+    }
+  },
+  "certainty": "uncertain",
+  "original_results": [
+    {
+      "query_variant": "original",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "oracle_anchor_precision": 0.0,
+      "forbidden_anchor_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "src/views/InventoryList.ets",
+          "start_line": 6,
+          "end_line": 14
+        }
+      ]
+    },
+    {
+      "query_variant": "en-paraphrase",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": false,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 0.3333,
+      "forbidden_anchor_hits": [
+        "src/views/InventoryItem.ets"
+      ],
+      "missing_required_source_spans": []
+    },
+    {
+      "query_variant": "zh-noise",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "oracle_anchor_precision": 0.3333,
+      "forbidden_anchor_hits": [],
+      "missing_required_source_spans": []
+    }
+  ]
+}

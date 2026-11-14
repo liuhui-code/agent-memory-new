@@ -1,0 +1,5517 @@
+{
+  "raw": {
+    "project_id": "2c8b966ad1a1244d",
+    "project_path": "/tmp/agent-memory-benchmark-j04tpvum/workspace",
+    "query": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 InventoryRecord 或 InventoryItem。",
+    "memory_intent": "correction_guard",
+    "memory_intent_v2": "semantic_correction",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "correction_guard",
+        "intent_v2": "semantic_correction",
+        "intent_source": "inferred",
+        "legacy_intent": "correction_guard",
+        "preferred_lanes": [
+          "correction_guard",
+          "semantic_patch",
+          "semantic_facts",
+          "wiki_matches"
+        ],
+        "interference_policy": "prefer correction guardrails and semantic patches; keep procedure advice out of main context"
+      },
+      "lane_budgets": {
+        "main_reflections": 0,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "correction_guard",
+      "intent_v2": "semantic_correction",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": "log",
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 141,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "319a1641ed35e94935ceb4de0c3c21ef313f568576205add7c1966d34f84a2f8",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:37+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07732661,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 5,
+              "weight": 1.35,
+              "score": 0.02076923
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 63.6,
+        "search_terms": [
+          "src/views/inventorylist.ets",
+          "arkts",
+          "arkts file with 14 non-empty lines; components: inventorylist; component terms: inventory, list; operations: divider",
+          "src",
+          "views",
+          "inventorylist",
+          "ets",
+          "file",
+          "with",
+          "14",
+          "non",
+          "empty",
+          "lines",
+          "components",
+          "component",
+          "terms",
+          "inventory",
+          "list",
+          "operations",
+          "divider",
+          "ark",
+          "ts",
+          "harmonyos",
+          "page"
+        ],
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "behavior_operation",
+          "exact_behavior_operation",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "InventoryList",
+        "symbol_type": "component",
+        "start_line": 2,
+        "end_line": 15,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 63.6,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "behavior_operation",
+            "exact_behavior_operation",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 466,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:b09fee8cf07c5f9f0a36ff22",
+        "qualified_name": "InventoryItem.build",
+        "signature": "build():unknown",
+        "start_line": 3,
+        "end_line": 5,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "3b9c1eadef6891584ae2c9504df457639d85a3eb496b06c474fcc546d7c07683",
+        "evidence_class": "static",
+        "method_evidence": "text",
+        "string_evidence": "inventory item",
+        "mechanism_evidence": "[]",
+        "owner_name": "InventoryItem",
+        "owner_kind": "component",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:37+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.09394263,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 8,
+              "weight": 1.0,
+              "score": 0.01470588
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 12,
+              "weight": 1.45,
+              "score": 0.02013889
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 14,
+              "weight": 1.0,
+              "score": 0.01351351
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 44.0,
+        "search_terms": [
+          "src/views/inventoryitem.ets",
+          "arkts function or lifecycle method build in src/views/inventoryitem.ets",
+          "build",
+          "function",
+          "src",
+          "views",
+          "inventoryitem",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "inventory",
+          "item",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 44.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 142,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "5204a8cd787b6a736a44f8c7214557433eeb43797eb6fd282e3c03c1029d648d",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:37+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07496843,
+          "best_rank": 3,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 6,
+              "weight": 1.35,
+              "score": 0.02045455
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 39.8,
+        "search_terms": [
+          "src/views/inventoryoverlaypanel.ets",
+          "arkts",
+          "arkts file with 16 non-empty lines; components: inventoryoverlaypanel; component terms: inventory, overlay, panel; operations: shadow, backgroundcolor",
+          "src",
+          "views",
+          "inventoryoverlaypanel",
+          "ets",
+          "file",
+          "with",
+          "16",
+          "non",
+          "empty",
+          "lines",
+          "components",
+          "component",
+          "terms",
+          "inventory",
+          "overlay",
+          "panel",
+          "operations",
+          "shadow",
+          "backgroundcolor",
+          "ark",
+          "ts",
+          "background",
+          "color",
+          "harmonyos",
+          "page"
+        ],
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "InventoryOverlayPanel",
+        "symbol_type": "component",
+        "start_line": 2,
+        "end_line": 17,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 39.8,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [
+      {
+        "id": 2,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "line": 6,
+        "function": "report",
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "{message}",
+        "raw_statement": "hilog.error(0x3200, 'ConsoleFailureReporter', message)",
+        "business_summary": null,
+        "business_terms": [],
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": null,
+        "process_hint": null,
+        "neighbor_terms": null,
+        "source_digest": "1e8606b631542e2c07bccd16277169582c1ba17021ab095bc46d49bd2a9cd84c",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:37+00:00",
+        "start_line": 5,
+        "end_line": 7,
+        "recall_lanes": [
+          "broad_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01639344,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "kind": "log_statement",
+        "score": 13.8,
+        "search_terms": [
+          "src/logging/consolefailurereporter.ets",
+          "error",
+          "hilog",
+          "{message}",
+          "report",
+          "src",
+          "logging",
+          "consolefailurereporter",
+          "ets",
+          "message",
+          "0x3200",
+          "console",
+          "failure",
+          "reporter",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "debug",
+          "warning",
+          "failed"
+        ],
+        "match_reasons": [
+          "expanded_query:log_context",
+          "expanded_query:search_terms"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 13.8,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:log_context",
+            "expanded_query:search_terms"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 11,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/services/DispatchProfileService.ets",
+        "line": 11,
+        "function": "run",
+        "wrapper_symbol": "report",
+        "sink_log_id": 2,
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "DISPATCH_PROFILE_8A21 load failed",
+        "evidence_class": "inferred_wrapped",
+        "wrapper_depth": 1,
+        "truncated": 0,
+        "call_path": [
+          "run",
+          "report",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/DispatchProfileService.ets#run",
+          "src/logging/ConsoleFailureReporter.ets#report",
+          "src/logging/ConsoleFailureReporter.ets#hilog.error"
+        ],
+        "raw_call": "reporter.report('DISPATCH_PROFILE_8A21 load failed')",
+        "source_digest": "e9a35190fadfdcaf6e86ae2e09f53e313e85e89d44bd0d92d392a4c34b6d7a15",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:39+00:00",
+        "kind": "log_effect",
+        "raw_statement": "reporter.report('DISPATCH_PROFILE_8A21 load failed')",
+        "business_summary": "",
+        "business_terms": [],
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": "[]",
+        "process_hint": "",
+        "neighbor_terms": "[]",
+        "recall_lanes": [
+          "log_effect_fts"
+        ],
+        "recall_fusion": {},
+        "start_line": 10,
+        "end_line": 12,
+        "score": 11.7,
+        "search_terms": [
+          "src/services/dispatchprofileservice.ets",
+          "error",
+          "hilog",
+          "dispatch_profile_8a21 load failed",
+          "run",
+          "src",
+          "services",
+          "dispatchprofileservice",
+          "ets",
+          "dispatch_profile_8a21",
+          "load",
+          "failed",
+          "reporter",
+          "report",
+          "dispatch",
+          "profile",
+          "service",
+          "8",
+          "a21",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failure"
+        ],
+        "match_reasons": [
+          "expanded_query:log_message",
+          "expanded_query:log_context",
+          "expanded_query:search_terms",
+          "inferred_wrapped"
+        ],
+        "log_signal_score": 0.51,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "stage",
+          "route_or_resource",
+          "entity_id_or_key",
+          "action_result",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_reason",
+          "missing_correlation"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 11.7,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:log_message",
+            "expanded_query:log_context",
+            "expanded_query:search_terms",
+            "inferred_wrapped"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 13,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/validation/OrderValidator.ets",
+        "line": 4,
+        "function": "validate",
+        "level": "error",
+        "logger": "console",
+        "message_template": "Required customer",
+        "raw_statement": "console.error('Required customer')",
+        "business_summary": null,
+        "business_terms": [],
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": null,
+        "process_hint": null,
+        "neighbor_terms": null,
+        "source_digest": "a4a80466b4741e5dbdd0676b12a37fc8ba4c28a88d6f7577fe62e10725493312",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:37+00:00",
+        "start_line": 2,
+        "end_line": 8,
+        "recall_lanes": [
+          "broad_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01612903,
+          "best_rank": 2,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "kind": "log_statement",
+        "score": 11.4,
+        "search_terms": [
+          "src/validation/ordervalidator.ets",
+          "error",
+          "console",
+          "required customer",
+          "validate",
+          "src",
+          "validation",
+          "ordervalidator",
+          "ets",
+          "required",
+          "customer",
+          "order",
+          "validator",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "hilog",
+          "debug",
+          "warning",
+          "failed",
+          "failure"
+        ],
+        "match_reasons": [
+          "expanded_query:log_context",
+          "expanded_query:search_terms"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 11.4,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:log_context",
+            "expanded_query:search_terms"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 6,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/services/AccountUpdateService.ets",
+        "line": 3,
+        "function": "dispatchUpdate",
+        "level": "info",
+        "logger": "console",
+        "message_template": "submit account update ${displayName}",
+        "raw_statement": "console.info(`submit account update ${displayName}`)",
+        "business_summary": null,
+        "business_terms": [],
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": null,
+        "process_hint": null,
+        "neighbor_terms": null,
+        "source_digest": "36bab51b8524001e2c49e58b81527b1ba25283923add7464ad02ff65c31d3726",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:37+00:00",
+        "start_line": 2,
+        "end_line": 4,
+        "recall_lanes": [
+          "broad_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01587302,
+          "best_rank": 3,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "kind": "log_statement",
+        "score": 10.2,
+        "search_terms": [
+          "src/services/accountupdateservice.ets",
+          "info",
+          "console",
+          "submit account update ${displayname}",
+          "dispatchupdate",
+          "src",
+          "services",
+          "accountupdateservice",
+          "ets",
+          "submit",
+          "account",
+          "update",
+          "displayname",
+          "service",
+          "display",
+          "name",
+          "dispatch",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "hilog",
+          "debug",
+          "error",
+          "warning",
+          "failed",
+          "failure"
+        ],
+        "match_reasons": [
+          "expanded_query:log_context",
+          "expanded_query:search_terms"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 10.2,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:log_context",
+            "expanded_query:search_terms"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 3,
+        "project_id": "2c8b966ad1a1244d",
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "line": 14,
+        "function": "saveAccount",
+        "wrapper_symbol": "dispatchUpdate",
+        "sink_log_id": 6,
+        "level": "info",
+        "logger": "console",
+        "message_template": "submit account update ${displayName}",
+        "evidence_class": "static_wrapped",
+        "wrapper_depth": 1,
+        "truncated": 0,
+        "call_path": [
+          "saveAccount",
+          "dispatchUpdate",
+          "console.info"
+        ],
+        "call_path_locations": [
+          "src/pages/AccountSettingsPage.ets#saveAccount",
+          "src/services/AccountUpdateService.ets#dispatchUpdate",
+          "src/services/AccountUpdateService.ets#console.info"
+        ],
+        "raw_call": "updateService.dispatchUpdate(this.displayName)",
+        "source_digest": "af1de608b28d9c5a7580143f276c128c6f900b0d22096fc4fb71162bbf59eab2",
+        "index_generation": 1,
+        "updated_at": "2026-11-14T05:59:39+00:00",
+        "kind": "log_effect",
+        "raw_statement": "updateService.dispatchUpdate(this.displayName)",
+        "business_summary": "",
+        "business_terms": [],
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": "[]",
+        "process_hint": "",
+        "neighbor_terms": "[]",
+        "recall_lanes": [
+          "log_effect_fts"
+        ],
+        "recall_fusion": {},
+        "start_line": 9,
+        "end_line": 15,
+        "score": 9.18,
+        "search_terms": [
+          "src/pages/accountsettingspage.ets",
+          "info",
+          "console",
+          "submit account update ${displayname}",
+          "saveaccount",
+          "src",
+          "pages",
+          "accountsettingspage",
+          "ets",
+          "submit",
+          "account",
+          "update",
+          "displayname",
+          "updateservice",
+          "dispatchupdate",
+          "this",
+          "settings",
+          "page",
+          "display",
+          "name",
+          "save",
+          "service",
+          "dispatch",
+          "arkts",
+          "harmonyos",
+          "component",
+          "log",
+          "logger",
+          "hilog",
+          "debug",
+          "error",
+          "warning",
+          "failed",
+          "failure"
+        ],
+        "match_reasons": [
+          "expanded_query:log_context",
+          "expanded_query:search_terms",
+          "static_wrapped"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 9.18,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:log_context",
+            "expanded_query:search_terms",
+            "static_wrapped"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "edge_matches": [
+      {
+        "id": 609,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 112,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 45,
+        "evidence": "src/services/DispatchProfileService.ets -> src/logging/FailureReporter.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 564,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 57,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 107,
+        "evidence": "src/pages/AccountSettingsPage.ets -> src/services/AccountUpdateService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 563,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 46,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 45,
+        "evidence": "src/logging/FileFailureReporter.ets -> src/logging/FailureReporter.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 561,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 43,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 45,
+        "evidence": "src/logging/ConsoleFailureReporter.ets -> src/logging/FailureReporter.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 551,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 130,
+        "relation": "contains",
+        "target_type": "code_log_statement",
+        "target_id": 13,
+        "evidence": "src/validation/OrderValidator.ets:4",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 537,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 107,
+        "relation": "contains",
+        "target_type": "code_log_statement",
+        "target_id": 6,
+        "evidence": "src/services/AccountUpdateService.ets:3",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 531,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 46,
+        "relation": "contains",
+        "target_type": "code_log_statement",
+        "target_id": 3,
+        "evidence": "src/logging/FileFailureReporter.ets:6",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 529,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 43,
+        "relation": "contains",
+        "target_type": "code_log_statement",
+        "target_id": 2,
+        "evidence": "src/logging/ConsoleFailureReporter.ets:6",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 472,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 142,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 472,
+        "evidence": "src/views/InventoryOverlayPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 471,
+        "project_id": "2c8b966ad1a1244d",
+        "source_type": "code_file",
+        "source_id": 142,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 471,
+        "evidence": "src/views/InventoryOverlayPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-14T05:59:38+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-14T05:59:38+00:00",
+        "created_at": "2026-11-14T05:59:38+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "src/logging/consolefailurereporter.ets",
+      "error",
+      "hilog",
+      "logging",
+      "log",
+      "logger",
+      "warning",
+      "failed",
+      "dispatch_profile_8a21 load failed",
+      "dispatchprofileservice",
+      "dispatch_profile_8a21",
+      "load"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 InventoryRecord 或 InventoryItem。",
+      "log_keywords": [
+        "库存列表分隔线粗细错误",
+        "库存",
+        "存列",
+        "列表",
+        "表分",
+        "分隔",
+        "隔线",
+        "线粗",
+        "粗细",
+        "细错",
+        "错误",
+        "请定位",
+        "请定",
+        "定位",
+        "divider",
+        "的源码",
+        "的源",
+        "源码",
+        "不要返回",
+        "不要"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 2,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "hilog",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/logging/ConsoleFailureReporter.ets",
+          "function": "report",
+          "line": 6,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 2,
+          "effect_id": 11,
+          "message_template": "DISPATCH_PROFILE_8A21 load failed",
+          "logger": "hilog",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/services/DispatchProfileService.ets",
+          "function": "run",
+          "line": 11,
+          "evidence_class": "inferred_wrapped",
+          "wrapper_symbol": "report",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "run",
+            "report",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/services/DispatchProfileService.ets#run",
+            "src/logging/ConsoleFailureReporter.ets#report",
+            "src/logging/ConsoleFailureReporter.ets#hilog.error"
+          ]
+        },
+        {
+          "log_id": 13,
+          "effect_id": null,
+          "message_template": "Required customer",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/validation/OrderValidator.ets",
+          "function": "validate",
+          "line": 4,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 6,
+          "effect_id": null,
+          "message_template": "submit account update ${displayName}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/AccountUpdateService.ets",
+          "function": "dispatchUpdate",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 6,
+          "effect_id": 3,
+          "message_template": "submit account update ${displayName}",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "function": "saveAccount",
+          "line": 14,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "dispatchUpdate",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "saveAccount",
+            "dispatchUpdate",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/pages/AccountSettingsPage.ets#saveAccount",
+            "src/services/AccountUpdateService.ets#dispatchUpdate",
+            "src/services/AccountUpdateService.ets#console.info"
+          ]
+        }
+      ],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 141,
+          "record_type": "code_file",
+          "file_path": "src/views/InventoryList.ets",
+          "symbol": "InventoryList",
+          "symbol_type": "component",
+          "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+          "start_line": 2,
+          "end_line": 15,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 466,
+          "record_type": "code_symbol",
+          "file_path": "src/views/InventoryItem.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+          "start_line": 3,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 142,
+          "record_type": "code_file",
+          "file_path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "InventoryOverlayPanel",
+          "symbol_type": "component",
+          "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+          "start_line": 2,
+          "end_line": 17,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "log_emitter",
+          "record_id": 2,
+          "record_type": "code_log_statement",
+          "file_path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 5,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wrapped_log_caller",
+          "record_id": 11,
+          "record_type": "code_log_effect",
+          "file_path": "src/services/DispatchProfileService.ets",
+          "symbol": "run",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 10,
+          "end_line": 12,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "log_emitter",
+          "record_id": 13,
+          "record_type": "code_log_statement",
+          "file_path": "src/validation/OrderValidator.ets",
+          "symbol": "validate",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 2,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "log_emitter",
+          "record_id": 6,
+          "record_type": "code_log_statement",
+          "file_path": "src/services/AccountUpdateService.ets",
+          "symbol": "dispatchUpdate",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wrapped_log_caller",
+          "record_id": 3,
+          "record_type": "code_log_effect",
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "saveAccount",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 9,
+          "end_line": 15,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": {
+          "file_path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report",
+          "owner_name": "ConsoleFailureReporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 21.38,
+          "evidence_score": 21.38,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "owner_name": "InventoryList",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 19.47,
+            "evidence_score": 19.47,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 14,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "owner_name": "InventoryOverlayPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.75,
+            "evidence_score": 15.75,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 16,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "candidate_count": 13,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 13,
+      "checked_file_count": 13,
+      "current_file_count": 13,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 3,
+        "code_log_matches": 5,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 13,
+          "checked_file_count": 13,
+          "current_file_count": 13,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 8,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 5,
+              "file_identity_fts": 8,
+              "file_semantic_fts": 6,
+              "salient_file_fts": 4
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 8,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 6,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 4,
+                  "query_term_count": 5,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 8,
+                  "file_semantic_fts": 6,
+                  "salient_file_fts": 4
+                },
+                "fused_candidate_count": 8
+              },
+              "candidate_fusion": {
+                "141": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06093317,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 5,
+                      "weight": 1.35,
+                      "score": 0.02076923
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    }
+                  ]
+                },
+                "140": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06060988,
+                  "best_rank": 2,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 4,
+                      "weight": 1.35,
+                      "score": 0.02109375
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    }
+                  ]
+                },
+                "142": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05934343,
+                  "best_rank": 3,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 6,
+                      "weight": 1.35,
+                      "score": 0.02045455
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    }
+                  ]
+                },
+                "34": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05923634,
+                  "best_rank": 3,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 3,
+                      "weight": 1.35,
+                      "score": 0.02142857
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    }
+                  ]
+                },
+                "43": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03775615,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 1,
+                      "weight": 1.35,
+                      "score": 0.02213115
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "45": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03715881,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 2,
+                      "weight": 1.35,
+                      "score": 0.02177419
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "19": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02014925,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 7,
+                      "weight": 1.35,
+                      "score": 0.02014925
+                    }
+                  ]
+                },
+                "46": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01985294,
+                  "best_rank": 8,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 8,
+                      "weight": 1.35,
+                      "score": 0.01985294
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 141,
+                  "file_path": "src/views/InventoryList.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 140,
+                  "file_path": "src/views/InventoryItem.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 142,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 34,
+                  "file_path": "src/entities/InventoryRecord.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 43,
+                  "file_path": "src/logging/ConsoleFailureReporter.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 45,
+                  "file_path": "src/logging/FailureReporter.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 19,
+                  "file_path": "src/config/JobFailureMessages.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                },
+                {
+                  "id": 46,
+                  "file_path": "src/logging/FileFailureReporter.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 4,
+              "channel_counts": {
+                "broad_fts": 5,
+                "file_identity_fts": 8,
+                "file_semantic_fts": 6,
+                "salient_file_fts": 4
+              },
+              "fused_candidate_count": 8
+            },
+            "candidate_refs": [
+              {
+                "id": 141,
+                "file_path": "src/views/InventoryList.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 140,
+                "file_path": "src/views/InventoryItem.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 142,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 34,
+                "file_path": "src/entities/InventoryRecord.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 43,
+                "file_path": "src/logging/ConsoleFailureReporter.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 45,
+                "file_path": "src/logging/FailureReporter.ets",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 19,
+                "file_path": "src/config/JobFailureMessages.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              },
+              {
+                "id": 46,
+                "file_path": "src/logging/FileFailureReporter.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              }
+            ]
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 17,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 11,
+              "method_body_fts": 0,
+              "symbol_identity_fts": 17,
+              "symbol_semantic_fts": 16,
+              "string_key_fts": 3,
+              "semantic_mechanism_fts": 0,
+              "salient_string_fts": 2
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 17,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 16,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 5,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 3,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 0,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 2,
+                  "query_term_count": 5,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 17,
+                  "symbol_semantic_fts": 16,
+                  "method_body_fts": 0,
+                  "string_key_fts": 3,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 2
+                },
+                "fused_candidate_count": 17
+              },
+              "candidate_fusion": {
+                "466": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.07923675,
+                  "best_rank": 1,
+                  "channel_count": 4,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 12,
+                      "weight": 1.45,
+                      "score": 0.02013889
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 14,
+                      "weight": 1.0,
+                      "score": 0.01351351
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 2,
+                      "weight": 1.2,
+                      "score": 0.01935484
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 1,
+                      "weight": 1.6,
+                      "score": 0.02622951
+                    }
+                  ]
+                },
+                "107": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05918826,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 1,
+                      "weight": 1.2,
+                      "score": 0.01967213
+                    }
+                  ]
+                },
+                "468": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0590028,
+                  "best_rank": 2,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 13,
+                      "weight": 1.45,
+                      "score": 0.01986301
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 15,
+                      "weight": 1.0,
+                      "score": 0.01333333
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 2,
+                      "weight": 1.6,
+                      "score": 0.02580645
+                    }
+                  ]
+                },
+                "112": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05280416,
+                  "best_rank": 3,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 17,
+                      "weight": 1.45,
+                      "score": 0.01883117
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 3,
+                      "weight": 1.2,
+                      "score": 0.01904762
+                    }
+                  ]
+                },
+                "106": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04016393,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    }
+                  ]
+                },
+                "110": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03888889,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                },
+                "269": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03828125,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "86": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03701357,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 5,
+                      "weight": 1.45,
+                      "score": 0.02230769
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 8,
+                      "weight": 1.0,
+                      "score": 0.01470588
+                    }
+                  ]
+                },
+                "465": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03625541,
+                  "best_rank": 6,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 6,
+                      "weight": 1.45,
+                      "score": 0.0219697
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 10,
+                      "weight": 1.0,
+                      "score": 0.01428571
+                    }
+                  ]
+                },
+                "467": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0357263,
+                  "best_rank": 7,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 7,
+                      "weight": 1.45,
+                      "score": 0.02164179
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 11,
+                      "weight": 1.0,
+                      "score": 0.01408451
+                    }
+                  ]
+                },
+                "469": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03550725,
+                  "best_rank": 9,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 9,
+                      "weight": 1.45,
+                      "score": 0.02101449
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 9,
+                      "weight": 1.0,
+                      "score": 0.01449275
+                    }
+                  ]
+                },
+                "470": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03521242,
+                  "best_rank": 8,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 8,
+                      "weight": 1.45,
+                      "score": 0.02132353
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 12,
+                      "weight": 1.0,
+                      "score": 0.01388889
+                    }
+                  ]
+                },
+                "45": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03471795,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 15,
+                      "weight": 1.45,
+                      "score": 0.01933333
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "111": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03423046,
+                  "best_rank": 6,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 16,
+                      "weight": 1.45,
+                      "score": 0.01907895
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "472": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03412117,
+                  "best_rank": 11,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 11,
+                      "weight": 1.45,
+                      "score": 0.02042254
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 13,
+                      "weight": 1.0,
+                      "score": 0.01369863
+                    }
+                  ]
+                },
+                "471": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03275249,
+                  "best_rank": 14,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 14,
+                      "weight": 1.45,
+                      "score": 0.01959459
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 16,
+                      "weight": 1.0,
+                      "score": 0.01315789
+                    }
+                  ]
+                },
+                "385": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02071429,
+                  "best_rank": 10,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 10,
+                      "weight": 1.45,
+                      "score": 0.02071429
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 466,
+                  "file_path": "src/views/InventoryItem.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 107,
+                  "file_path": "src/logging/ConsoleFailureReporter.ets",
+                  "symbol": "report",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 468,
+                  "file_path": "src/views/InventoryList.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 112,
+                  "file_path": "src/logging/FileFailureReporter.ets",
+                  "symbol": "report",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 106,
+                  "file_path": "src/logging/ConsoleFailureReporter.ets",
+                  "symbol": "ConsoleFailureReporter",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 110,
+                  "file_path": "src/logging/FailureReporter.ets",
+                  "symbol": "FailureReporter",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 269,
+                  "file_path": "src/pages/ParcelRetryPage.ets",
+                  "symbol": "failureMessage",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 86,
+                  "file_path": "src/entities/InventoryRecord.ets",
+                  "symbol": "InventoryRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 465,
+                  "file_path": "src/views/InventoryItem.ets",
+                  "symbol": "InventoryItem",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 467,
+                  "file_path": "src/views/InventoryList.ets",
+                  "symbol": "InventoryList",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 469,
+                  "file_path": "src/views/InventoryList.ets",
+                  "symbol": "rows",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 470,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "InventoryOverlayPanel",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 45,
+                  "file_path": "src/config/JobFailureMessages.ets",
+                  "symbol": "JobFailureMessages",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 111,
+                  "file_path": "src/logging/FileFailureReporter.ets",
+                  "symbol": "FileFailureReporter",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 472,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "selectedCategory",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 471,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 385,
+                  "file_path": "src/services/DispatchProfileService.ets",
+                  "symbol": "constructor",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 7,
+              "channel_counts": {
+                "broad_fts": 11,
+                "method_body_fts": 0,
+                "symbol_identity_fts": 17,
+                "symbol_semantic_fts": 16,
+                "string_key_fts": 3,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 2
+              },
+              "fused_candidate_count": 17
+            },
+            "candidate_refs": [
+              {
+                "id": 466,
+                "file_path": "src/views/InventoryItem.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 107,
+                "file_path": "src/logging/ConsoleFailureReporter.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts"
+                ],
+                "symbol": "report"
+              },
+              {
+                "id": 468,
+                "file_path": "src/views/InventoryList.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 106,
+                "file_path": "src/logging/ConsoleFailureReporter.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "ConsoleFailureReporter"
+              },
+              {
+                "id": 86,
+                "file_path": "src/entities/InventoryRecord.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "InventoryRecord"
+              },
+              {
+                "id": 112,
+                "file_path": "src/logging/FileFailureReporter.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts"
+                ],
+                "symbol": "report"
+              },
+              {
+                "id": 465,
+                "file_path": "src/views/InventoryItem.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "InventoryItem"
+              },
+              {
+                "id": 467,
+                "file_path": "src/views/InventoryList.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "InventoryList"
+              },
+              {
+                "id": 469,
+                "file_path": "src/views/InventoryList.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "rows"
+              },
+              {
+                "id": 470,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "InventoryOverlayPanel"
+              },
+              {
+                "id": 472,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "selectedCategory"
+              },
+              {
+                "id": 471,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 110,
+                "file_path": "src/logging/FailureReporter.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "FailureReporter"
+              },
+              {
+                "id": 269,
+                "file_path": "src/pages/ParcelRetryPage.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "failureMessage"
+              },
+              {
+                "id": 45,
+                "file_path": "src/config/JobFailureMessages.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "JobFailureMessages"
+              },
+              {
+                "id": 111,
+                "file_path": "src/logging/FileFailureReporter.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "FileFailureReporter"
+              },
+              {
+                "id": 385,
+                "file_path": "src/services/DispatchProfileService.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "constructor"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 3,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 3
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 1,
+              "channel_counts": {
+                "broad_fts": 3
+              },
+              "fused_candidate_count": 3
+            },
+            "candidate_refs": [
+              {
+                "id": 2,
+                "file_path": "src/logging/ConsoleFailureReporter.ets",
+                "channels": [
+                  "broad_fts"
+                ]
+              },
+              {
+                "id": 13,
+                "file_path": "src/validation/OrderValidator.ets",
+                "channels": [
+                  "broad_fts"
+                ]
+              },
+              {
+                "id": 6,
+                "file_path": "src/services/AccountUpdateService.ets",
+                "channels": [
+                  "broad_fts"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 24,
+          "code_log_matches": 5,
+          "edge_matches": 37,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 24,
+          "code_log_matches": 5,
+          "edge_matches": 37,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 3,
+          "code_log_matches": 5,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 141,
+            "score": 63.6,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "file_path",
+              "file_summary",
+              "search_terms",
+              "exact_path_segment",
+              "behavior_operation",
+              "exact_behavior_operation",
+              "query_focus_coverage",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.07732661,
+              "best_rank": 1,
+              "channel_count": 4,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "file_identity_fts",
+                  "rank": 5,
+                  "weight": 1.35,
+                  "score": 0.02076923
+                },
+                {
+                  "channel": "file_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "salient_file_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 63.6,
+              "rerank_score": null,
+              "match_reasons": [
+                "file_path",
+                "file_summary",
+                "search_terms",
+                "exact_path_segment",
+                "behavior_operation",
+                "exact_behavior_operation",
+                "query_focus_coverage",
+                "salient_query_evidence"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 466,
+            "score": 44.0,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "salient_string_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.09394263,
+              "best_rank": 1,
+              "channel_count": 5,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 8,
+                  "weight": 1.0,
+                  "score": 0.01470588
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 12,
+                  "weight": 1.45,
+                  "score": 0.02013889
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 14,
+                  "weight": 1.0,
+                  "score": 0.01351351
+                },
+                {
+                  "channel": "string_key_fts",
+                  "rank": 2,
+                  "weight": 1.2,
+                  "score": 0.01935484
+                },
+                {
+                  "channel": "salient_string_fts",
+                  "rank": 1,
+                  "weight": 1.6,
+                  "score": 0.02622951
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 44.0,
+              "rerank_score": null,
+              "match_reasons": [
+                "file_path",
+                "symbol_summary",
+                "search_terms",
+                "string_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 142,
+            "score": 39.8,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "file_path",
+              "file_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.07496843,
+              "best_rank": 3,
+              "channel_count": 4,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 4,
+                  "weight": 1.0,
+                  "score": 0.015625
+                },
+                {
+                  "channel": "file_identity_fts",
+                  "rank": 6,
+                  "weight": 1.35,
+                  "score": 0.02045455
+                },
+                {
+                  "channel": "file_semantic_fts",
+                  "rank": 3,
+                  "weight": 1.0,
+                  "score": 0.01587302
+                },
+                {
+                  "channel": "salient_file_fts",
+                  "rank": 3,
+                  "weight": 1.45,
+                  "score": 0.02301587
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 39.8,
+              "rerank_score": null,
+              "match_reasons": [
+                "file_path",
+                "file_summary",
+                "search_terms",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [
+          {
+            "type": "code_log_matches",
+            "id": 2,
+            "score": 13.8,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "expanded_query:log_context",
+              "expanded_query:search_terms"
+            ],
+            "recall_lanes": [
+              "broad_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01639344,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 13.8,
+              "rerank_score": null,
+              "match_reasons": [
+                "expanded_query:log_context",
+                "expanded_query:search_terms"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "code_log_matches",
+            "id": 11,
+            "score": 11.7,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "expanded_query:log_message",
+              "expanded_query:log_context",
+              "expanded_query:search_terms",
+              "inferred_wrapped"
+            ],
+            "recall_lanes": [
+              "log_effect_fts"
+            ],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 11.7,
+              "rerank_score": null,
+              "match_reasons": [
+                "expanded_query:log_message",
+                "expanded_query:log_context",
+                "expanded_query:search_terms",
+                "inferred_wrapped"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "code_log_matches",
+            "id": 13,
+            "score": 11.4,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "expanded_query:log_context",
+              "expanded_query:search_terms"
+            ],
+            "recall_lanes": [
+              "broad_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01612903,
+              "best_rank": 2,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 11.4,
+              "rerank_score": null,
+              "match_reasons": [
+                "expanded_query:log_context",
+                "expanded_query:search_terms"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 551,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 537,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 531,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 7,
+          "file_callable_pool": 7,
+          "graph_seed_count": 6,
+          "graph_owner_pool": 2,
+          "selected_callables": 8,
+          "selected_ranges": 8
+        },
+        "file_candidates": [
+          {
+            "file_path": "src/views/InventoryList.ets",
+            "score": 63.6,
+            "first_rank": 1,
+            "record_ids": [
+              141,
+              467,
+              468,
+              469
+            ],
+            "direct_symbol_ids": [
+              467,
+              468,
+              469
+            ],
+            "match_reasons": [
+              "file_path",
+              "file_summary",
+              "search_terms",
+              "exact_path_segment",
+              "behavior_operation",
+              "exact_behavior_operation",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "symbol",
+              "symbol_summary",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "score": 43.5,
+            "first_rank": 3,
+            "record_ids": [
+              470,
+              142,
+              471,
+              472
+            ],
+            "direct_symbol_ids": [
+              470,
+              471,
+              472
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable",
+              "file_summary",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/logging/ConsoleFailureReporter.ets",
+            "score": 22.5,
+            "first_rank": 9,
+            "record_ids": [
+              106,
+              107,
+              43
+            ],
+            "direct_symbol_ids": [
+              106,
+              107
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable",
+              "expanded_query:string_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/logging/FailureReporter.ets",
+            "score": 13.031,
+            "first_rank": 11,
+            "record_ids": [
+              110,
+              45
+            ],
+            "direct_symbol_ids": [
+              110
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/config/JobFailureMessages.ets",
+            "score": 12.25,
+            "first_rank": 12,
+            "record_ids": [
+              45,
+              19
+            ],
+            "direct_symbol_ids": [
+              45
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/logging/FileFailureReporter.ets",
+            "score": 12.25,
+            "first_rank": 13,
+            "record_ids": [
+              111,
+              112,
+              46
+            ],
+            "direct_symbol_ids": [
+              111,
+              112
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable",
+              "expanded_query:string_evidence"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "file_identity_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "score": 10.25,
+            "first_rank": 14,
+            "record_ids": [
+              269
+            ],
+            "direct_symbol_ids": [
+              269
+            ],
+            "match_reasons": [
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 468,
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryList.build",
+            "start_line": 5,
+            "end_line": 14,
+            "score": 19.47,
+            "evidence_score": 19.47,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "InventoryList",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 471,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryOverlayPanel.build",
+            "start_line": 5,
+            "end_line": 16,
+            "score": 15.75,
+            "evidence_score": 15.75,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "InventoryOverlayPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 107,
+            "file_path": "src/logging/ConsoleFailureReporter.ets",
+            "symbol": "report",
+            "qualified_name": "ConsoleFailureReporter.report",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 21.38,
+            "evidence_score": 21.38,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "ConsoleFailureReporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 112,
+            "file_path": "src/logging/FileFailureReporter.ets",
+            "symbol": "report",
+            "qualified_name": "FileFailureReporter.report",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 13.12,
+            "evidence_score": 13.12,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "FileFailureReporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 266,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "retryFailedParcel",
+            "qualified_name": "ParcelRetryPage.retryFailedParcel",
+            "start_line": 7,
+            "end_line": 20,
+            "score": 14.5,
+            "evidence_score": 14.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "ParcelRetryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "async",
+              "guard",
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 267,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "build",
+            "qualified_name": "ParcelRetryPage.build",
+            "start_line": 22,
+            "end_line": 29,
+            "score": 6.5,
+            "evidence_score": 6.5,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "ParcelRetryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 270,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "onClick",
+            "qualified_name": "ParcelRetryPage.onClick@25",
+            "start_line": 25,
+            "end_line": 27,
+            "score": null,
+            "evidence_score": null,
+            "reasons": [],
+            "graph_depth": 1,
+            "graph_relations": [
+              "calls"
+            ],
+            "recall_lanes": [],
+            "owner_name": "ParcelRetryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": null,
+            "artifact_query_intent": null
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 386,
+            "file_path": "src/services/DispatchProfileService.ets",
+            "symbol": "run",
+            "qualified_name": "DispatchProfileService.run",
+            "start_line": 10,
+            "end_line": 12,
+            "score": 7.65,
+            "evidence_score": 7.65,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "graph_owner:calls",
+              "source_locatable"
+            ],
+            "graph_depth": 1,
+            "graph_relations": [
+              "calls"
+            ],
+            "recall_lanes": [],
+            "owner_name": "DispatchProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": null,
+            "artifact_query_intent": null
+          }
+        ],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 107,
+            "file_path": "src/logging/ConsoleFailureReporter.ets",
+            "symbol": "report",
+            "qualified_name": "ConsoleFailureReporter.report",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 21.38,
+            "evidence_score": 21.38,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "ConsoleFailureReporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 468,
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryList.build",
+            "start_line": 5,
+            "end_line": 14,
+            "score": 19.47,
+            "evidence_score": 19.47,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "InventoryList",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 471,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryOverlayPanel.build",
+            "start_line": 5,
+            "end_line": 16,
+            "score": 15.75,
+            "evidence_score": 15.75,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "InventoryOverlayPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 266,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "retryFailedParcel",
+            "qualified_name": "ParcelRetryPage.retryFailedParcel",
+            "start_line": 7,
+            "end_line": 20,
+            "score": 14.5,
+            "evidence_score": 14.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "ParcelRetryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "async",
+              "guard",
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 112,
+            "file_path": "src/logging/FileFailureReporter.ets",
+            "symbol": "report",
+            "qualified_name": "FileFailureReporter.report",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 13.12,
+            "evidence_score": 13.12,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "FileFailureReporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 386,
+            "file_path": "src/services/DispatchProfileService.ets",
+            "symbol": "run",
+            "qualified_name": "DispatchProfileService.run",
+            "start_line": 10,
+            "end_line": 12,
+            "score": 7.65,
+            "evidence_score": 7.65,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "graph_owner:calls",
+              "source_locatable"
+            ],
+            "graph_depth": 1,
+            "graph_relations": [
+              "calls"
+            ],
+            "recall_lanes": [],
+            "owner_name": "DispatchProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 267,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "build",
+            "qualified_name": "ParcelRetryPage.build",
+            "start_line": 22,
+            "end_line": 29,
+            "score": 6.5,
+            "evidence_score": 6.5,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "ParcelRetryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 270,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "onClick",
+            "qualified_name": "ParcelRetryPage.onClick@25",
+            "start_line": 25,
+            "end_line": 27,
+            "score": 4.5,
+            "evidence_score": 4.5,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "ParcelRetryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 107,
+            "file_path": "src/logging/ConsoleFailureReporter.ets",
+            "symbol": "report",
+            "callable_start_line": 5,
+            "callable_end_line": 7,
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 468,
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 14,
+            "start_line": 5,
+            "end_line": 14,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 471,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 16,
+            "start_line": 5,
+            "end_line": 16,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 266,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "retryFailedParcel",
+            "callable_start_line": 7,
+            "callable_end_line": 20,
+            "start_line": 7,
+            "end_line": 20,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 112,
+            "file_path": "src/logging/FileFailureReporter.ets",
+            "symbol": "report",
+            "callable_start_line": 5,
+            "callable_end_line": 7,
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 386,
+            "file_path": "src/services/DispatchProfileService.ets",
+            "symbol": "run",
+            "callable_start_line": 10,
+            "callable_end_line": 12,
+            "start_line": 10,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 267,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "build",
+            "callable_start_line": 22,
+            "callable_end_line": 29,
+            "start_line": 22,
+            "end_line": 29,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 270,
+            "file_path": "src/pages/ParcelRetryPage.ets",
+            "symbol": "onClick",
+            "callable_start_line": 25,
+            "callable_end_line": 27,
+            "start_line": 25,
+            "end_line": 27,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "unknown",
+          "basis": [
+            "no_explicit_target_scope"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "src/logging/ConsoleFailureReporter.ets",
+            "symbol": "report",
+            "owner_name": "ConsoleFailureReporter",
+            "owner_kind": "class",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "owner_name": "InventoryList",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 3,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "owner_name": "InventoryOverlayPanel",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 3,
+          "distinct_file_count": 3,
+          "same_owner_kind_alternative": false,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "insufficient",
+          "basis": [
+            "no_substantive_primary_support"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  },
+  "compact": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "2c8b966ad1a1244d",
+    "query": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 InventoryRecord 或 InventoryItem。",
+    "memory_intent": "semantic_correction",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "库存列表分隔线粗细错误",
+        "库存",
+        "存列",
+        "列表",
+        "表分",
+        "分隔",
+        "隔线",
+        "线粗"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 2,
+          "message_template": "DISPATCH_PROFILE_8A21 load failed",
+          "logger": "hilog",
+          "file_path": "src/services/DispatchProfileService.ets",
+          "function": "run",
+          "line": 11,
+          "effect_id": 11,
+          "evidence_class": "inferred_wrapped",
+          "wrapper_symbol": "report",
+          "wrapper_depth": 1,
+          "call_path": [
+            "run",
+            "report",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/services/DispatchProfileService.ets#run",
+            "src/logging/ConsoleFailureReporter.ets#report",
+            "src/logging/ConsoleFailureReporter.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 6,
+          "message_template": "submit account update ${displayName}",
+          "logger": "console",
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "function": "saveAccount",
+          "line": 14,
+          "effect_id": 3,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "dispatchUpdate",
+          "wrapper_depth": 1,
+          "call_path": [
+            "saveAccount",
+            "dispatchUpdate",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/pages/AccountSettingsPage.ets#saveAccount",
+            "src/services/AccountUpdateService.ets#dispatchUpdate",
+            "src/services/AccountUpdateService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 2,
+          "message_template": "{message}",
+          "logger": "hilog",
+          "file_path": "src/logging/ConsoleFailureReporter.ets",
+          "function": "report",
+          "line": 6,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/views/InventoryList.ets",
+          "symbol": "InventoryList",
+          "symbol_type": "component",
+          "record_ids": [
+            141
+          ],
+          "record_type": "code_file",
+          "source_ranges": [
+            {
+              "symbol": "InventoryList",
+              "start_line": 2,
+              "end_line": 15
+            }
+          ],
+          "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+          "read_window": {
+            "start_line": 2,
+            "end_line": 15
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "InventoryList",
+              "start_line": 5,
+              "end_line": 15,
+              "content": "  build() {\n    List() {\n      ForEach(this.rows, (row: string) => {\n        ListItem() {\n          Text(row)\n        }\n      })\n    }\n    .divider({ strokeWidth: 1, color: Color.Gray })\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "InventoryOverlayPanel",
+          "symbol_type": "component",
+          "record_ids": [
+            142
+          ],
+          "record_type": "code_file",
+          "source_ranges": [
+            {
+              "symbol": "InventoryOverlayPanel",
+              "start_line": 2,
+              "end_line": 17
+            }
+          ],
+          "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+          "read_window": {
+            "start_line": 2,
+            "end_line": 17
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "InventoryOverlayPanel",
+              "start_line": 1,
+              "end_line": 12,
+              "content": "@Component\nexport struct InventoryOverlayPanel {\n  @State selectedCategory: number = 0\n\n  build() {\n    Column() {\n      Grid() {\n        GridItem() { Text('Category chooser') }\n      }\n      Row() {\n        TextInput({ placeholder: 'Numeric quantity' })\n      }",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "source": "wrapped_log_caller",
+          "file_path": "src/services/DispatchProfileService.ets",
+          "symbol": "run",
+          "record_ids": [
+            11
+          ],
+          "record_type": "code_log_effect",
+          "source_ranges": [
+            {
+              "symbol": "run",
+              "start_line": 10,
+              "end_line": 12
+            }
+          ],
+          "read_window": {
+            "start_line": 10,
+            "end_line": 12
+          },
+          "role": "expansion"
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": {
+          "file_path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report",
+          "owner_kind": "class",
+          "source_range": {
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": []
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 2,
+        "excerpt_chars": 454
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_strong_log_anchor"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_strong_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 3,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1478,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}

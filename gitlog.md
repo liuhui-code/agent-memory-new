@@ -12448,3 +12448,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   error and subsequent43 focused integration passes in caller-direction-current.
 - No full gate or original repair-count increase; source/publication scopes remain
   separate. No new source/experiment files were included in the old37-file release.
+
+## 2026-11-14 — Verify explicit-negative owner exclusion before modifying it
+
+- Original ArkTS UI group remains0/3; actual Chinese trace already removes both
+  explicitly excluded owners. The remaining precision failure is not negative
+  identity or graph-protection leakage, so no exclusion patch was made.
+- Read back weak-log admission: no behavior markers, unknown scope, priority0
+  inferred wrapper and uncertain reporter primary. Existing full-method guard is
+  not satisfied; exact file operation hints are not method certificates.
+- Current source adapter has no typed modifier operation for the divider method.
+  Preserve this evidence gap instead of weakening the log gate or reviving global
+  language splitting. One existing guard control passes; no full run or upload.
+- Evidence: docs/evidence/negative-identifier-current/README.md. Count remains20.
