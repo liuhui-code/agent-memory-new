@@ -20,6 +20,15 @@
           "acceptance": "positive_full_method_sources"
         },
         {
+          "id": "adjacent-pair",
+          "query": "请返回设置内边距和宽度的 Builder 源码。",
+          "authority": true,
+          "expected": [
+            "SurfaceSizing.ets"
+          ],
+          "acceptance": "positive_full_method_sources"
+        },
+        {
           "id": "passive-observation",
           "query": "面板中的文本被裁剪，请返回设置内边距和背景颜色的 Builder 源码。",
           "authority": true,
@@ -594,5 +603,6 @@
       "exclude_card": false
     }
   ],
-  "freeze_note": "Prepared before any new public query. Draft text observation changed from unsupported 文字 to admitted 文本 before execution; no result-driven adjustment. Original query remains unchanged."
+  "freeze_note": "Prepared before any new public query. Draft text observation changed from unsupported 文字 to admitted 文本 before execution; no result-driven adjustment. Original query remains unchanged.",
+  "positive_body_assertion": "For every returned positive Builder, returned source range and excerpt must contain its entire verified declaration method, byte-equal to frozen source lines. For same-file-two-positive both method identities/ranges must survive, not merely one shared file path."
 }
