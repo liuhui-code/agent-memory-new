@@ -1,0 +1,3 @@
+First tracing wrapper failed before runtime main import with ModuleNotFoundError:
+agent_memory_runtime. No context query ran. Corrected wrapper sys.path to include
+tools, matching normal CLI module resolution; fixed fixture/query unchanged.

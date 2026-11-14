@@ -1,0 +1,40 @@
+======================================================================
+FAIL: test_distinct_typed_callers_survive_similarity_without_changing_order (tests.test_requested_caller_diversity.RequestedCallerDiversityTests.test_distinct_typed_callers_survive_similarity_without_changing_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/caller-only/tests/test_requested_caller_diversity.py", line 23, in test_distinct_typed_callers_survive_similarity_without_changing_order
+    self.assertEqual([a,b],diverse_code_matches([a,b],5,query=Q))
+AssertionError: Lists differ: [{'id[343 chars]ls']}, {'id': 2, 'kind': 'symbol', 'file_path'[307 chars]s']}] != [{'id[343 chars]ls']}]
+
+First list contains 1 additional elements.
+First extra element 1:
+{'id': 2, 'kind': 'symbol', 'file_path': 'ResetPanel.ets', 'symbol': 'onClick', 'symbol_key': 'symbol:2', 'start_line': 6, 'end_line': 8, 'source_digest': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'score': 20, 'match_reasons': ['caller_owner', 'graph_neighbor', 'graph_relation:caller_owner'], 'caller_relations': ['calls']}
+
+Diff is 975 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_public_both_retains_both_already_admitted_callers (tests.test_requested_caller_diversity.RequestedCallerDiversityTests.test_public_both_retains_both_already_admitted_callers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/caller-only/tests/test_requested_caller_diversity.py", line 20, in test_public_both_retains_both_already_admitted_callers
+    self.assertTrue({'ConfirmPanel.ets','ResetPanel.ets'} <= paths)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_same_source_duplicate_and_limits_are_unchanged (tests.test_requested_caller_diversity.RequestedCallerDiversityTests.test_same_source_duplicate_and_limits_are_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/caller-only/tests/test_requested_caller_diversity.py", line 38, in test_same_source_duplicate_and_limits_are_unchanged
+    self.assertEqual([a,b],diverse_code_matches([a,copy.deepcopy(a),b],5,query=Q))
+AssertionError: Lists differ: [{'id[343 chars]ls']}, {'id': 2, 'kind': 'symbol', 'file_path'[307 chars]s']}] != [{'id[343 chars]ls']}]
+
+First list contains 1 additional elements.
+First extra element 1:
+{'id': 2, 'kind': 'symbol', 'file_path': 'ResetPanel.ets', 'symbol': 'onClick', 'symbol_key': 'symbol:2', 'start_line': 6, 'end_line': 8, 'source_digest': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'score': 20, 'match_reasons': ['caller_owner', 'graph_neighbor', 'graph_relation:caller_owner'], 'caller_relations': ['calls']}
+
+Diff is 975 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.233s
+
+FAILED (failures=3)
