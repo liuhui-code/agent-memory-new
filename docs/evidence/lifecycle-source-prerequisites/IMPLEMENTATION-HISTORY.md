@@ -7,3 +7,12 @@ The initial related run had57 successful tests and one failure: the old render c
 The first source-binding tests failed the inactive-edge negative because the fake SQL connection returned an expired edge despite the real WHERE valid_to IS NULL. The runtime now explicitly validates active state, exact endpoint types/relation and project as well, rather than weakening the test. Both original failure logs remain. Private authority and trial copies lose authority explicitly, as do final ordinarydict/JSON copies.
 
 The private early-focus qualifier returns only existing qualifying file items, preserving the original output limit; it does not increase weight or attach old source_operation markers. This locally changes selection for the exact qualified request, not a generic per-file marker union. Whole-class indexed ranges are new explicitly authorized read scope under this finite source contract and are displayed using retained snapshot bytes. Final complete-positive set and budget preflights still must pass. No public candidate after or original18 acceptance has been run yet.
+
+## Capacity review control
+
+Reviewer requested actual valid-source capacity checks before public after. A
+unit-only source revision adds a long legal inline comment without changing line
+ranges; the source hash, current rows, pool and independent edge digest are all
+updated together. Both one-positive and two-positive cases still qualify in
+full, but complete-class display cannot fit, so binding returns the identical
+baseline object, not a partial positive selection. No public fixture changed.

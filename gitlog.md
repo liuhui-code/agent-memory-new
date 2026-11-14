@@ -12574,3 +12574,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 
 - Freeze82f92a7 ran13 independent public requests once onf0c7d45. All3 eligible timestamp expressions already select only WindowCache.store; no matched owner-selection red, so do not implement the new template or tune source/query/noise.
 - Two short requests still have incomplete11–21 excerpt versus method8–20; retain this distinct layer observation without borrowing it to justify the owner consumer. Capacity-observation has complete body. No original33/full run or repair credit.
+
+## Lifecycle candidate capacity boundary
+- Added valid long-comment source controls for one and two qualified owners;
+  full source identities remain valid but complete output falls back atomically.
+- Nine focused selection tests pass. Candidate remains isolated pending public
+  fixed-input acceptance; no original failure claim or full-suite run.

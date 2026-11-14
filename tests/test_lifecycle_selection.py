@@ -1,5 +1,5 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
-import copy,json,tempfile,unittest
+import copy,hashlib,json,tempfile,unittest
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -80,6 +80,25 @@ class LifecycleSelectionTests(unittest.TestCase):
         self.assertEqual({x['file_path']for x in selected},{'BufferSession.ets','EditorSession.ets'})
         r=bind_lifecycle_context(self.query,self.baseline,self.trial(a));self.assertIsInstance(r,LifecycleContext)
         payload=compact_context(r);self.assertEqual(len(payload['query_handoff']['code_anchors']),2)
+
+    def test_complete_capacity_fallback_single_and_multiple(self):
+        for family,case,count in [('original-four','lifecycle-1',1),('two-complete-owners','two-complete-owners',2)]:
+            self.load(family,case)
+            path=self.root/'BufferSession.ets'
+            source=path.read_text().replace('private text', '/* '+('capacity payload '*1200)+' */ private text',1)
+            path.write_text(source);digest=hashlib.sha256(path.read_bytes()).hexdigest()
+            for row in self.rows+self.files+self.items:
+                if row.get('file_path')=='BufferSession.ets':row['source_digest']=digest
+            ids={r['id']for r in self.rows if r.get('file_path')=='BufferSession.ets'}
+            for edge in self.edges:
+                if edge.get('source_type')=='code_symbol' and edge.get('source_id')in ids:
+                    value=json.loads(edge['evidence']);value['source_digest']=digest;edge['evidence']=json.dumps(value)
+            authority=self.authority();self.assertIsNotNone(authority)
+            self.assertEqual(len(authority._receipts),count)
+            self.assertGreater(len(source),15000)
+            # Valid complete source qualification, but no partial owner display.
+            result=bind_lifecycle_context(self.query,self.baseline,self.trial(authority))
+            self.assertIs(result,self.baseline)
 
     def test_edge_and_node_freshness_are_independent(self):
         edge=next(e for e in self.edges if e.get('evidence_kind')=='static_semantic_calls')
