@@ -82,3 +82,8 @@ expanded_query:method_evidence. The assertion was corrected to that existing
 format; actual added term-specific render reasons and 1.5 score were already
 correct. The failed initial log is retained; no public inputs or runtime changed
 for this correction.
+
+Pre-public self-review corrected Python case-insensitive Unicode terminal matching:
+re.ASCII now enforces the frozen ASCII surface (dotless-i UI spelling rejected).
+08cff9d remains in history; no public experiment ran on it. No accepted ASCII
+query changed. This is an implementation-boundary correction, not new syntax.

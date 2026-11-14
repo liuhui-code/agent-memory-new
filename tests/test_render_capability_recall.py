@@ -23,7 +23,7 @@ class RenderRecallTests(unittest.TestCase):
   for bad in [copy(p),deepcopy(p),replace(p,issuer=object()),replace(p,terms=('text',))]:self.assertFalse(bad.valid_for(p.retrieval,a))
   self.assertEqual(r.projected_method_terms(Q,{}),method_evidence_focus_terms(Q))
  def test_grammar_limits(self):
-  for q in [Q+' extra',Q+'\n',Q.replace('Return','Return  '),Q.replace('owner','owner and model'), 'Not '+Q,'"'+Q+'"']:
+  for q in [Q+' extra',Q+'\n',Q.replace('UI','Uı'),Q.replace('Return','Return  '),Q.replace('owner','owner and model'), 'Not '+Q,'"'+Q+'"']:
    self.assertIsNone(r.parse_render_request(q),q)
  def test_custom_and_capacity(self):
   self.assertIsNone(r.recall_projection(Q,object()))

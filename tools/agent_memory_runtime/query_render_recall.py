@@ -10,7 +10,7 @@ from .text import unique_list, score_weighted_fields, weighted_token_matches
 _NP=r'[A-Za-z]+(?: [A-Za-z]+){0,2}'
 _PATTERN=re.compile(r'(?:(?P<observation>'+_NP+r') details still display markup tags\. )?'
     r'(?:Locate|Find|Return) the UI rendering cleanup owner'
-    r'(?: rather than the (?P<exclusion>'+_NP+r') data entity)?\.?',re.I)
+    r'(?: rather than the (?P<exclusion>'+_NP+r') data entity)?\.?',re.I|re.ASCII)
 _RESERVED=set('and or not only except exclude return find locate source code render generate caller wrapper'.split())
 _TERMS=('column','row','text')
 _ISSUER=object()
