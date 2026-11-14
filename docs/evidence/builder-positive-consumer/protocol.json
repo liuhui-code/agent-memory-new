@@ -1,0 +1,198 @@
+{
+  "classification": "Development prospective consumer; not holdout",
+  "base": "acd7619",
+  "design": "175c9bd",
+  "old_grammar_artifacts": "unrecovered; no reused acceptance results",
+  "families": [
+    {
+      "id": "retained-three-source",
+      "sources": {
+        "RibbonCanvas.ets": "@Component\nexport struct RibbonCanvas {\n  @Builder\n  renderStrip() {\n    Row() {\n      Text('north')\n      Text('south')\n    }\n    .height(72)\n    .alignItems(VerticalAlign.Center)\n  }\n  build() {\n    Column() {\n      this.renderStrip()\n    }\n  }\n}\n",
+        "PanelViewport.ets": "@Component\nexport struct PanelViewport {\n  build() {\n    Row() {\n      Text('panel')\n    }\n    .height(72)\n    .alignItems(VerticalAlign.Center)\n  }\n}\n",
+        "LayoutGuide.ets": "@Component\nexport struct LayoutGuide {\n  build() {\n    Text('Reusable Builder row height align items layout instructions')\n  }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "builder-role",
+          "query": "Locate the reusable Builder that sets row height and alignment.",
+          "expected": [
+            "RibbonCanvas.ets"
+          ],
+          "body": "",
+          "authority": true,
+          "acceptance": "positive_exact_expected"
+        },
+        {
+          "id": "explicit-member",
+          "query": "Locate RibbonCanvas.renderStrip source.",
+          "expected": [
+            "RibbonCanvas.ets"
+          ],
+          "body": "",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "real-other-layout",
+          "query": "Locate PanelViewport.build source.",
+          "expected": [
+            "PanelViewport.ets"
+          ],
+          "body": "",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "explicit-pair",
+          "query": "Find both RibbonCanvas and PanelViewport source.",
+          "expected": [
+            "RibbonCanvas.ets",
+            "PanelViewport.ets"
+          ],
+          "body": "",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "literal-text",
+          "query": "Find the text \"Reusable Builder row height align items layout instructions\".",
+          "expected": [
+            "LayoutGuide.ets"
+          ],
+          "body": "",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "output-role-controls",
+      "sources": {
+        "RibbonCanvas.ets": "@Component\nexport struct RibbonCanvas {\n  @Builder\n  renderStrip() {\n    Row() {\n      Text('north')\n      Text('south')\n    }\n    .height(72)\n    .alignItems(VerticalAlign.Center)\n  }\n  build() {\n    Column() {\n      this.renderStrip()\n    }\n  }\n}\n",
+        "PanelViewport.ets": "@Component\nexport struct PanelViewport {\n  build() {\n    Row() {\n      Text('panel')\n    }\n    .height(72)\n    .alignItems(VerticalAlign.Center)\n  }\n}\n",
+        "LayoutGuide.ets": "@Component\nexport struct LayoutGuide {\n  build() {\n    Text('Reusable Builder row height align items layout instructions')\n  }\n}\n",
+        "SourceFactory.ets": "export function makeSource(): string {\n return '@Builder function panel() { Text(\\\"generated\\\") }'\n}\n",
+        "BuilderWrapper.ets": "import { RibbonCanvas } from './RibbonCanvas'\n@Component\nexport struct BuilderWrapper {\n build() { RibbonCanvas() }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "generated-suffix",
+          "query": "Locate the reusable Builder that sets row height and alignment in the generated source.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "generated-head",
+          "query": "Locate the function that generates Builder source.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "wrapper-head",
+          "query": "Locate the wrapper that calls a Builder.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "text-head",
+          "query": "Find the text describing the reusable Builder that sets row height and alignment.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "quoted-head",
+          "query": "Locate the \"Builder\" that sets row height and alignment.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "named-other",
+          "query": "Locate PanelViewport.build as the Builder declaration.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "multiple-target",
+          "query": "Find both the Builder declaration and PanelViewport.build.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "ordinary-component",
+          "query": "Locate the component that sets row height and alignment.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "unknown-action",
+          "query": "Inspect the reusable Builder and explain its output.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        },
+        {
+          "id": "artifact-label",
+          "query": "Locate the reusable Builder that renders source text.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "two-known-same-file",
+      "sources": {
+        "DualParts.ets": "@Component\nexport struct DualParts {\n @Builder\n firstPart() { Text('first') }\n @Builder\n secondPart() { Text('second') }\n build() { Column() { this.firstPart(); this.secondPart() } }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "singular-positive-two-known",
+          "query": "Locate the declared Builder.",
+          "authority": true,
+          "acceptance": "both_known_role_identities_no_unique",
+          "expected_symbols": [
+            "DualParts.firstPart",
+            "DualParts.secondPart"
+          ]
+        },
+        {
+          "id": "plural-request",
+          "query": "Find both Builder declarations.",
+          "authority": false,
+          "acceptance": "unchanged_code_primary_logs_paths"
+        }
+      ]
+    },
+    {
+      "id": "delegating-known",
+      "sources": {
+        "DelegatingParts.ets": "@Component\nexport struct DelegatingParts {\n plainPart() { Text('delegate') }\n @Builder\n decoratedPart() { this.plainPart() }\n build() { this.decoratedPart() }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "positive-delegation",
+          "query": "Locate the declared Builder.",
+          "authority": true,
+          "acceptance": "positive_known_role",
+          "expected_symbols": [
+            "DelegatingParts.decoratedPart"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lexical-unknown",
+      "sources": {
+        "UnknownParts.ets": "const matcher = /pattern/\n@Component\nexport struct UnknownParts {\n @Builder\n unknownPart() { Text('unknown') }\n build() { this.unknownPart() }\n}\n"
+      },
+      "cases": [
+        {
+          "id": "unknown-role",
+          "query": "Locate the declared Builder.",
+          "authority": true,
+          "acceptance": "no_positive_role_unchanged_code_primary_logs_paths"
+        }
+      ]
+    }
+  ],
+  "stop": "Review grammar and frozen before before implementation; no query/source tuning after observation",
+  "old_index": "Separate archive learned by pre-producer runtime; code-only no roles must preserve prior output. If unavailable report missing control rather than mutate DB."
+}
