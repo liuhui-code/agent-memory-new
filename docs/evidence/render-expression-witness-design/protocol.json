@@ -1,0 +1,252 @@
+{
+  "classification": "prospective independent Development finite render-expression contract",
+  "base": "f0c7d45",
+  "status": "frozen prospective current before; no implementation",
+  "families": [
+    {
+      "id": "retained-message",
+      "sources": {
+        "MessageSurface.ets": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+        "MessageRecord.ets": "export class MessageRecord {\n  content: string = ''\n  title: string = ''\n}\n",
+        "DetailPanel.ets": "@Component\nexport struct DetailPanel {\n  build() {\n    Column() { Text('Message details') }\n  }\n}\n",
+        "DisplaySettings.ets": "export class DisplaySettings {\n  displayName: string = ''\n  saveName(): void {\n    this.displayName = this.displayName.trim()\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "generic",
+          "query": "Message details still display markup tags. Locate the UI rendering cleanup owner rather than the message data entity.",
+          "required": [
+            "MessageSurface.ets"
+          ],
+          "forbidden": [
+            "DetailPanel.ets",
+            "DisplaySettings.ets",
+            "MessageRecord.ets"
+          ],
+          "authority": true,
+          "criterion": "target"
+        },
+        {
+          "id": "explicit",
+          "query": "Locate MessageSurface.plainBody source.",
+          "required": [
+            "MessageSurface.ets"
+          ],
+          "forbidden": [
+            "DetailPanel.ets",
+            "DisplaySettings.ets"
+          ],
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "two",
+          "query": "Locate MessageSurface.plainBody and DetailPanel.build source.",
+          "required": [
+            "MessageSurface.ets",
+            "DetailPanel.ets"
+          ],
+          "forbidden": [],
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "literal",
+          "query": "Find the literal Message details.",
+          "required": [
+            "DetailPanel.ets"
+          ],
+          "forbidden": [],
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "head-only",
+          "query": "Return the UI rendering cleanup owner.",
+          "required": [
+            "MessageSurface.ets"
+          ],
+          "forbidden": [
+            "MessageRecord.ets",
+            "DisplaySettings.ets",
+            "DetailPanel.ets"
+          ],
+          "authority": true,
+          "criterion": "target"
+        },
+        {
+          "id": "generated",
+          "query": "Return code that generates the UI rendering cleanup owner.",
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "entity",
+          "query": "Find the message data entity rather than the UI rendering cleanup owner.",
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted-head",
+          "query": "Find the literal \"Locate the UI rendering cleanup owner\".",
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "mixed",
+          "query": "Locate the UI rendering cleanup owner and the data entity.",
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-prefix",
+          "query": "Previously an entity failed. Locate the UI rendering cleanup owner.",
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "negative-owner",
+          "query": "Locate the UI rendering cleanup owner, but exclude MessageSurface.",
+          "authority": false,
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-tail",
+          "query": "Locate the UI rendering cleanup owner. Explain the bug.",
+          "authority": false,
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "discarded-return",
+      "sources": {
+        "MessageSurface.ets": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    this.plainBody(); Column() { Text(this.content) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+        "MessageRecord.ets": "export class MessageRecord {\n  content: string = ''\n  title: string = ''\n}\n",
+        "DetailPanel.ets": "@Component\nexport struct DetailPanel {\n  build() {\n    Column() { Text('Message details') }\n  }\n}\n",
+        "DisplaySettings.ets": "export class DisplaySettings {\n  displayName: string = ''\n  saveName(): void {\n    this.displayName = this.displayName.trim()\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "discarded-return",
+          "query": "Message details still display markup tags. Locate the UI rendering cleanup owner rather than the message data entity.",
+          "required": [
+            "MessageSurface.ets"
+          ],
+          "forbidden": [
+            "DetailPanel.ets",
+            "DisplaySettings.ets",
+            "MessageRecord.ets"
+          ],
+          "authority": false,
+          "criterion": "unchanged"
+        }
+      ]
+    }
+  ],
+  "source_controls": [
+    {
+      "id": "consumed",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": true
+    },
+    {
+      "id": "discarded",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    this.plainBody(); Column() { Text(this.content) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "other-receiver",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(other.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "second-argument",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.content, this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "assignment-first",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    const value = this.plainBody(); Column() { Text(value) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "nested-callback",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { items.forEach(() => { Text(this.plainBody()) }) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "helper-with-arg",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(value: string): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "helper-async",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  async plainBody(): Promise<string> {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "duplicate-helper",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string { return '' }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "same-name-field",
+      "source": "@Component\nexport struct MessageSurface {\n  plainBody: string = ''\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "text-shadow",
+      "source": "import { Text } from './other'\n@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "regexp-shadow",
+      "source": "const RegExp = OtherConstructor\n@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace(new RegExp('<[^>]+>'), '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "ASI-return",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return\n      this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "unknown-tag",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p class=foo>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "unknown-pattern",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace(new RegExp('.*'), '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "unknown-flags",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace(new RegExp('<[^>]+>', 'i'), '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "regexp-positive",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace(new RegExp('<[^>]+>', 'g'), '')\n  }\n}\n",
+      "positive": true
+    },
+    {
+      "id": "second-helper",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody())\n    Text(this.otherBody()) }\n  }\n  otherBody(): string { return this.content.replace('<p>', '') }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "literal-return",
+      "source": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return 'this.content.replace()'\n  }\n}\n",
+      "positive": false
+    }
+  ],
+  "identity_controls": [
+    "missing/stale digest refuses",
+    "wrong owner or method range refuses",
+    "two positive owners cannot force unique",
+    "copied/mutated query or source proof refuses",
+    "insufficient output budget cannot expand1500"
+  ],
+  "stop": "Need current actual matched owner-selection red plus complete current owner/build/helper identities; otherwise stop without source/query/noise edits."
+}
