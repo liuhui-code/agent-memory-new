@@ -31,6 +31,12 @@ class BuilderPositiveConsumerTests(unittest.TestCase):
   for copied in [dict(evidence),json.loads(json.dumps(evidence))]:self.assertEqual(builder_anchors(anchors,copied,False,self.query),anchors)
   self.assertEqual(builder_anchors(anchors,evidence,False,self.query+' extra'),anchors)
   evidence['primary']['symbol']='changed';self.assertEqual(builder_anchors(anchors,evidence,False,self.query),anchors)
+ def test_consumed_members_and_localization_binding(self):
+  evidence=self.evidence();evidence._members[0]['symbol']='changed';anchors=[{'file_path':'Other.ets'}]
+  self.assertEqual(builder_anchors(anchors,evidence,False,self.query),anchors)
+  local=bind_localization(self.project,self.query,[self.row],[self.row],self.local([self.row]))
+  local._rows[0]['source_digest']='0'*64;original={'primary':None,'alternatives':[]}
+  self.assertIs(project_builder_evidence(local,original),original)
  def test_unknown_and_partial_identity_fallback(self):
   for key,value in [('id',True),('source_digest',''),('symbol_key',''),('end_line',0),('index_generation',False),('semantic_adapter','unknown')]:
    row=dict(self.row);row[key]=value;original=self.local([row])

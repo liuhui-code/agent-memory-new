@@ -65,7 +65,7 @@ class BuilderEvidence(dict):
 
 def evidence_binding(value):
     return (deepcopy(value.get('primary')), deepcopy(value.get('alternatives')),
-            deepcopy(value.get(MARKER)))
+            deepcopy(value.get(MARKER)), deepcopy(getattr(value, '_members', None)))
 
 
 def bind_localization(project, query, ranked, selected, result):
@@ -106,11 +106,14 @@ def bind_localization(project, query, ranked, selected, result):
     bound = BuilderLocalization(result)
     bound._query = query
     bound._rows = deepcopy(known)
+    bound._snapshot = deepcopy(known)
     return bound
 
 
 def project_builder_evidence(localization, evidence):
-    if not isinstance(localization, BuilderLocalization):
+    if (not isinstance(localization, BuilderLocalization)
+            or not declaration_request(getattr(localization, '_query', None))
+            or getattr(localization, '_rows', None) != getattr(localization, '_snapshot', None)):
         return evidence
     from .query_callable_evidence import compact_candidate
     candidates = localization.get('callable_candidates') or []
