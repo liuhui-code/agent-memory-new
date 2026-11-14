@@ -12125,3 +12125,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   them is not neutral metadata repair. Internal check is not independent public red.
 - No production edits, query/noise variants, original rerun or repair claim.
 - Evidence: docs/eval/graph-provenance-boundary/README.md.
+
+## Workspace rollback recovery of unpublished Builder stage
+
+- Read back public6371d430/main320e951 and restored a clean connected Git checkout.
+- Unpublished Builder source/test artifacts are absent; re-create bounded producer
+  with new frozen controls and actual focused results rather than reuse old claims.
+- Preserve count20/no-full and rejected consumer boundary; publish stages promptly.
