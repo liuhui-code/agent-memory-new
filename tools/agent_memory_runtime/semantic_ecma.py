@@ -130,6 +130,8 @@ def parse_source(
     callbacks = parse_callback_callables(lines, language, rel_path, containers)
     callables.extend(callbacks)
     entities.extend(block.entity for block in callbacks)
+    from .arkts_builder_roles import attach_builder_roles
+    attach_builder_roles(lines, language, rel_path, containers, callables)
     imports = parse_imports(project, path, text, language)
     by_qualified = {entity.qualified_name: entity for entity in entities}
     by_name = unique_entity_names(entities)
