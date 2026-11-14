@@ -12209,3 +12209,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   red/four green, exact bodies/ranges/primary unchanged. No original-count gain.
 - Evidence: docs/evidence/listener-model-v2. Bundle and independent review required
   before any further proposal; request binding remains a separate stage.
+
+## 2026-11-14 - Review isolated listener v2 results
+
+- Read saved source/model/capacity/query results without rerun; separated successful
+  compatibility experiment from untested batch cap/duplicate/callable-kind limits.
+- Proposed a separate finite exact-member descriptor experiment, keeping natural
+  failure/onFailure mapping unsupported and production consumer unapproved.
