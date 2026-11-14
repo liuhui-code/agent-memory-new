@@ -57,13 +57,19 @@ def diverse_code_matches(
     max_per_file: int = 2,
     query: str = "",
     caller_identities=None,
+    lifecycle_authority=None,
 ) -> list[dict[str, Any]]:
     explicit_paths = protected_explicit_paths(items, query)
     attach_file_source_locations(items)
     items = filter_query_role_candidates(items, query)
     items = interleave_graph_candidate(items, explicit_paths)
     recalled_items = items
-    focused, focused_candidates = focus_code_candidates(items, query)
+    from .query_lifecycle_selection import lifecycle_focus
+    qualified = lifecycle_focus(lifecycle_authority, query, items)
+    if qualified is None:
+        focused, focused_candidates = focus_code_candidates(items, query)
+    else:
+        focused, focused_candidates = qualified, True
     if explicit_paths:
         focused_ids = {id(item) for item in focused}
         focused_ids.update(

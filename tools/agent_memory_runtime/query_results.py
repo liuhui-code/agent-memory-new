@@ -50,6 +50,7 @@ def limited_matches(
     limits: dict[str, int],
     query: str = "",
     caller_identities=None,
+    lifecycle_authority=None,
 ) -> dict[str, list[dict[str, Any]]]:
     bounded = {
         key: value[: limits.get(key, len(value))]
@@ -61,6 +62,7 @@ def limited_matches(
         wiki_limit,
         query=query,
         caller_identities=caller_identities,
+        lifecycle_authority=lifecycle_authority,
     )
     log_limit = limits.get("code_log_matches", len(matches.get("code_log_matches", [])))
     bounded["code_log_matches"] = diverse_log_matches(
@@ -93,7 +95,7 @@ def diverse_log_matches(
     return sorted(selected, key=lambda item: positions.get(id(item), len(values)))
 
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
@@ -102,11 +104,17 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             trial = _context_pass(project, query, explicit_intent, allow_render_recall=True)
             from .query_render_selection import bind_render_context
             result = bind_render_context(project, query, baseline, trial)
+    from .query_lifecycle_selection import lifecycle_request, bind_lifecycle_context, LifecycleContext, lifecycle_context_view
+    if lifecycle_request(query):
+        trial = _context_pass(project, query, explicit_intent, allow_lifecycle=True)
+        result = bind_lifecycle_context(query, baseline, trial)
     from .query_render_selection import RenderContext, render_context_view
-    if isinstance(result, RenderContext) and defer_render_accounting:
+    if ((isinstance(result, RenderContext) and defer_render_accounting)
+            or (isinstance(result, LifecycleContext) and defer_lifecycle_accounting)):
         result._pending_accounting = True
     else:
         adopted, _ = render_context_view(result)
+        adopted, _ = lifecycle_context_view(adopted)
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
     return result
@@ -116,13 +124,17 @@ def _context_pass(
     project: Project,
     query: str,
     explicit_intent: str | None = None,
-    *, allow_render_recall: bool = False,
+    *, allow_render_recall: bool = False, allow_lifecycle: bool = False,
 ) -> dict[str, Any]:
     collection = collect_matches_with_audit(project, query, allow_render_recall=allow_render_recall)
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches, explicit_intent)
     caller_ids = requested_caller_identities(matches.get("wiki_matches") or [], query)
-    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query, caller_ids)
+    authority = None
+    if allow_lifecycle:
+        from .query_lifecycle_selection import qualify_lifecycle
+        authority = qualify_lifecycle(project, query, gated["matches"].get("wiki_matches") or [])
+    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query, caller_ids, authority)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
         for item in bounded["code_log_matches"]
@@ -192,6 +204,10 @@ def _context_pass(
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
     from .query_recovery_pair import bind_recovery_pair
     context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
+    if authority is not None:
+        from .query_lifecycle_selection import LifecycleTrial
+        context = LifecycleTrial(context)
+        context._lifecycle_authority = authority
     return context
 
 
