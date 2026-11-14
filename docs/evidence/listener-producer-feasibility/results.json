@@ -1,0 +1,649 @@
+[
+  {
+    "id": "relay",
+    "expected": [
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "accepted",
+        "accepted"
+      ],
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "rejected",
+        "rejected"
+      ]
+    ],
+    "actual": [
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "accepted",
+        "accepted"
+      ],
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "rejected",
+        "rejected"
+      ]
+    ],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "relay.ets",
+          "symbol_key": "symbol:74e040c92fbcc12cc58d8a25",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 11,
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "target",
+          "declared_type": "DeliverySink"
+        },
+        "argument_call": {
+          "receiver": "engine",
+          "member": "observe",
+          "range": [
+            173,
+            326
+          ],
+          "object_range": [
+            188,
+            322
+          ]
+        },
+        "callback": {
+          "property": "accepted",
+          "range": [
+            196,
+            251
+          ],
+          "body_range": [
+            225,
+            251
+          ]
+        },
+        "invocation": {
+          "receiver": "target",
+          "member": "accepted",
+          "range": [
+            227,
+            249
+          ]
+        }
+      },
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "relay.ets",
+          "symbol_key": "symbol:74e040c92fbcc12cc58d8a25",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 11,
+          "source_digest": "0febec81880bc01463707206e1ec93eeaa1d6e0b9b258136ff651b9dfdfe1661",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "target",
+          "declared_type": "DeliverySink"
+        },
+        "argument_call": {
+          "receiver": "engine",
+          "member": "observe",
+          "range": [
+            173,
+            326
+          ],
+          "object_range": [
+            188,
+            322
+          ]
+        },
+        "callback": {
+          "property": "rejected",
+          "range": [
+            259,
+            321
+          ],
+          "body_range": [
+            289,
+            316
+          ]
+        },
+        "invocation": {
+          "receiver": "target",
+          "member": "rejected",
+          "range": [
+            291,
+            314
+          ]
+        }
+      }
+    ],
+    "unknown": []
+  },
+  {
+    "id": "native",
+    "expected": [
+      [
+        "NativeResultBoundary.attach",
+        "ResultListener",
+        "onReady",
+        "onReady"
+      ],
+      [
+        "NativeResultBoundary.attach",
+        "ResultListener",
+        "onFailure",
+        "onFailure"
+      ]
+    ],
+    "actual": [
+      [
+        "NativeResultBoundary.attach",
+        "ResultListener",
+        "onReady",
+        "onReady"
+      ],
+      [
+        "NativeResultBoundary.attach",
+        "ResultListener",
+        "onFailure",
+        "onFailure"
+      ]
+    ],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "native.ets",
+          "symbol_key": "symbol:ecba392ecdb216614254f298",
+          "qualified_name": "NativeResultBoundary.attach",
+          "signature": "attach(runtime: NativeRuntime, listener: ResultListener):void",
+          "start_line": 7,
+          "end_line": 16,
+          "source_digest": "465838a30364c57bcef82277aec58cc607e2cd24ca47a6f239cf21f478f81ebd",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "listener",
+          "declared_type": "ResultListener"
+        },
+        "argument_call": {
+          "receiver": "runtime",
+          "member": "setObserver",
+          "range": [
+            228,
+            448
+          ],
+          "object_range": [
+            248,
+            444
+          ]
+        },
+        "callback": {
+          "property": "onReady",
+          "range": [
+            256,
+            333
+          ],
+          "body_range": [
+            288,
+            333
+          ]
+        },
+        "invocation": {
+          "receiver": "listener",
+          "member": "onReady",
+          "range": [
+            298,
+            325
+          ]
+        }
+      },
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "native.ets",
+          "symbol_key": "symbol:ecba392ecdb216614254f298",
+          "qualified_name": "NativeResultBoundary.attach",
+          "signature": "attach(runtime: NativeRuntime, listener: ResultListener):void",
+          "start_line": 7,
+          "end_line": 16,
+          "source_digest": "465838a30364c57bcef82277aec58cc607e2cd24ca47a6f239cf21f478f81ebd",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "listener",
+          "declared_type": "ResultListener"
+        },
+        "argument_call": {
+          "receiver": "runtime",
+          "member": "setObserver",
+          "range": [
+            228,
+            448
+          ],
+          "object_range": [
+            248,
+            444
+          ]
+        },
+        "callback": {
+          "property": "onFailure",
+          "range": [
+            341,
+            443
+          ],
+          "body_range": [
+            387,
+            438
+          ]
+        },
+        "invocation": {
+          "receiver": "listener",
+          "member": "onFailure",
+          "range": [
+            397,
+            430
+          ]
+        }
+      }
+    ],
+    "unknown": []
+  },
+  {
+    "id": "other-receiver",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "shadow",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "reassign",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:not-supported-argument-call"
+    ]
+  },
+  {
+    "id": "alias",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:not-supported-argument-call"
+    ]
+  },
+  {
+    "id": "nested",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "unpassed-object",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:not-supported-argument-call"
+    ]
+  },
+  {
+    "id": "split",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:not-supported-argument-call"
+    ]
+  },
+  {
+    "id": "different-property",
+    "expected": [
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "accepted",
+        "rejected"
+      ]
+    ],
+    "actual": [
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "accepted",
+        "rejected"
+      ]
+    ],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "different-property.ets",
+          "symbol_key": "symbol:d0a8028e78e9463dbcf2bc85",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 10,
+          "source_digest": "f2796af8030c644bec8827a236fd81acfcee2b94e5febc7c10feac35e02be2c8",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "target",
+          "declared_type": "DeliverySink"
+        },
+        "argument_call": {
+          "receiver": "engine",
+          "member": "observe",
+          "range": [
+            173,
+            263
+          ],
+          "object_range": [
+            188,
+            259
+          ]
+        },
+        "callback": {
+          "property": "accepted",
+          "range": [
+            196,
+            258
+          ],
+          "body_range": [
+            226,
+            253
+          ]
+        },
+        "invocation": {
+          "receiver": "target",
+          "member": "rejected",
+          "range": [
+            228,
+            251
+          ]
+        }
+      }
+    ],
+    "unknown": []
+  },
+  {
+    "id": "unused",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "interface-only",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": []
+  },
+  {
+    "id": "retry",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Recovery.retryRejectedDelivery:not-supported-argument-call"
+    ]
+  },
+  {
+    "id": "multiple-forwarders",
+    "expected": [
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "rejected",
+        "rejected"
+      ],
+      [
+        "SecondRelay.connect",
+        "DeliverySink",
+        "rejected",
+        "rejected"
+      ]
+    ],
+    "actual": [
+      [
+        "Relay.connect",
+        "DeliverySink",
+        "rejected",
+        "rejected"
+      ],
+      [
+        "SecondRelay.connect",
+        "DeliverySink",
+        "rejected",
+        "rejected"
+      ]
+    ],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "multiple-forwarders.ets",
+          "symbol_key": "symbol:2e31bed42c3f72e3848cb668",
+          "qualified_name": "Relay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 6,
+          "end_line": 10,
+          "source_digest": "6aea904b408c0512b798dc02cfe69fee77d634f0b1416d3332accd1e291539ae",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "target",
+          "declared_type": "DeliverySink"
+        },
+        "argument_call": {
+          "receiver": "engine",
+          "member": "observe",
+          "range": [
+            173,
+            263
+          ],
+          "object_range": [
+            188,
+            259
+          ]
+        },
+        "callback": {
+          "property": "rejected",
+          "range": [
+            196,
+            258
+          ],
+          "body_range": [
+            226,
+            253
+          ]
+        },
+        "invocation": {
+          "receiver": "target",
+          "member": "rejected",
+          "range": [
+            228,
+            251
+          ]
+        }
+      },
+      {
+        "version": "offline-callback-source/v1",
+        "source": {
+          "file_path": "multiple-forwarders.ets",
+          "symbol_key": "symbol:5df00afc991e8f32b4e780fc",
+          "qualified_name": "SecondRelay.connect",
+          "signature": "connect(engine: Engine, target: DeliverySink):void",
+          "start_line": 13,
+          "end_line": 17,
+          "source_digest": "6aea904b408c0512b798dc02cfe69fee77d634f0b1416d3332accd1e291539ae",
+          "coordinate_unit": "newline-normalized decoded character, half-open"
+        },
+        "formal": {
+          "index": 1,
+          "name": "target",
+          "declared_type": "DeliverySink"
+        },
+        "argument_call": {
+          "receiver": "engine",
+          "member": "observe",
+          "range": [
+            354,
+            444
+          ],
+          "object_range": [
+            369,
+            440
+          ]
+        },
+        "callback": {
+          "property": "rejected",
+          "range": [
+            377,
+            439
+          ],
+          "body_range": [
+            407,
+            434
+          ]
+        },
+        "invocation": {
+          "receiver": "target",
+          "member": "rejected",
+          "range": [
+            409,
+            432
+          ]
+        }
+      }
+    ],
+    "unknown": []
+  },
+  {
+    "id": "two-typed-formals",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:formal-unknown"
+    ]
+  },
+  {
+    "id": "unknown-interpolation",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "lexical-unknown"
+    ]
+  },
+  {
+    "id": "comment",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "string",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "member-suffix",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": [
+      "Relay.connect:callback-or-receiver-unknown"
+    ]
+  },
+  {
+    "id": "same-name-owners",
+    "expected": [],
+    "actual": [],
+    "pass": true,
+    "validation_errors": [],
+    "witnesses": [],
+    "unknown": []
+  }
+]
