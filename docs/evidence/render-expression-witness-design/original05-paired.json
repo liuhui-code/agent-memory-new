@@ -1,0 +1,133 @@
+[
+  {
+    "variant": "original",
+    "before": {
+      "status": "fail",
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/pages/AccountSettingsPage.ets",
+        "src/pages/NotificationDetailsPage.ets",
+        "src/views/ArticleMarkupView.ets"
+      ],
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "context_token_estimate": 1438
+    },
+    "after": {
+      "status": "fail",
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/pages/AccountSettingsPage.ets",
+        "src/pages/NotificationDetailsPage.ets",
+        "src/views/ArticleMarkupView.ets"
+      ],
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "context_token_estimate": 1438
+    }
+  },
+  {
+    "variant": "en-paraphrase",
+    "before": {
+      "status": "pass",
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/views/ArticleMarkupView.ets"
+      ],
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "context_token_estimate": 1143
+    },
+    "after": {
+      "status": "pass",
+      "oracle_anchor_precision": 1.0,
+      "source_span_recall": 1.0,
+      "observed_anchor_paths": [
+        "src/views/ArticleMarkupView.ets"
+      ],
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "context_token_estimate": 1143
+    }
+  },
+  {
+    "variant": "zh-noise",
+    "before": {
+      "status": "fail",
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 0.0,
+      "observed_anchor_paths": [
+        "src/viewmodels/GalleryListViewModel.ets",
+        "src/views/ArticleMarkupView.ets",
+        "src/views/QuotedMessagePreview.ets"
+      ],
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "context_token_estimate": 1468
+    },
+    "after": {
+      "status": "fail",
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 0.0,
+      "observed_anchor_paths": [
+        "src/viewmodels/GalleryListViewModel.ets",
+        "src/views/ArticleMarkupView.ets",
+        "src/views/QuotedMessagePreview.ets"
+      ],
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "context_token_estimate": 1468
+    }
+  }
+]
