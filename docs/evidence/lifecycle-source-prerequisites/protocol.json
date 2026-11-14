@@ -1,0 +1,304 @@
+{
+  "status": "frozen for one current independent before only; no implementation",
+  "base": "1ef2332",
+  "old_cases": [
+    {
+      "id": "lifecycle-0",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+      "required": [
+        "BufferSession.ets"
+      ],
+      "forbidden": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    {
+      "id": "lifecycle-1",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+      "required": [
+        "BufferSession.ets"
+      ],
+      "forbidden": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    {
+      "id": "lifecycle-2",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find PendingQueue.append.",
+      "required": [
+        "PendingQueue.ets"
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "lifecycle-3",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find both BufferSession and PendingQueue source.",
+      "required": [
+        "BufferSession.ets",
+        "PendingQueue.ets"
+      ],
+      "forbidden": []
+    }
+  ],
+  "old_case_hashes": {
+    "lifecycle-0": "08168ce526c6ffed8146596e05bbb85bf214f5ef0b271c5a796b529cefaacb51",
+    "lifecycle-1": "b649f849dd325be45e53f1be59b9ced7d191536c1157ec2c7b8dbb587d5622ca",
+    "lifecycle-2": "02a8ef63d3bf1b5081a7164969380fc524f829a5e29534c85af937e10313ab53",
+    "lifecycle-3": "fd4ab02639ca9d26eda761e37d5b76eda4dfa2d369f98d3500c900b54ba620f1"
+  },
+  "source_negatives": [
+    {
+      "id": "different-field",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.other)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "discard-load",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "different-receiver",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await archive.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "hook-not-calling",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    notifyReady()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "extra-reassignment",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n    this.text = \"lost\"\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "delegated-save",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    this.queue(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "duplicate-method",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  reload(): void {}\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "shadow-field",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    const text = await cache.load()\n    this.text = text\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "unknown-tail",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\nclass Another {}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "unknown-inheritance",
+      "source": "export class BufferSession extends Base {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "argumentful-hook",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload(true)\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    },
+    {
+      "id": "different-return-shape",
+      "source": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    return cache.save(this.text)\n  }\n}\n",
+      "expected": "unknown"
+    }
+  ],
+  "request_negatives": [
+    {
+      "query": "请定位同时负责生命周期恢复、状态更新和持久化的源码，并解释日志。",
+      "expected": "old_output"
+    },
+    {
+      "query": "请不要返回同时负责生命周期恢复、状态更新和持久化的源码。",
+      "expected": "old_output"
+    },
+    {
+      "query": "请生成同时负责生命周期恢复、状态更新和持久化的源码。",
+      "expected": "old_output"
+    },
+    {
+      "query": "“重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。”",
+      "expected": "old_output"
+    },
+    {
+      "query": "重启后恢复任意资料，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+      "expected": "old_output"
+    },
+    {
+      "query": "请定位两个分别负责生命周期恢复、状态更新和持久化的源码。",
+      "expected": "old_output"
+    }
+  ],
+  "additional_cases": [
+    {
+      "id": "two-complete-owners",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "EditorSession.ets": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n"
+      },
+      "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+      "expected": "both complete positive owners if all fit; otherwise complete baseline, never partial positive permission"
+    }
+  ],
+  "typed_negatives": [
+    "wrong hook target id",
+    "stale edge source digest",
+    "mismatched class/method generation",
+    "missing method key",
+    "State row wrong owner/range",
+    "ordinary dict/JSON/copy",
+    "original query change",
+    "source drift outside class",
+    "capacity insufficient"
+  ],
+  "edge_freshness": {
+    "no_generation_column": true,
+    "required_json_source_digest": "same-read file hash",
+    "required_adapter": "same as both endpoint rows",
+    "required_extractor": "semantic-index:v1/<adapter>",
+    "required_relation": "calls",
+    "required_kind": "static_semantic_calls",
+    "active": "valid_to is null",
+    "not_freshness_proof": [
+      "unversioned revision",
+      "timestamp alone",
+      "target-node digest alone"
+    ]
+  },
+  "families": [
+    {
+      "id": "original-four",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "lifecycle-0",
+          "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "forbidden": [
+            "WriteQueue.ets",
+            "TextPanel.ets"
+          ],
+          "criterion": "old frozen required/forbidden"
+        },
+        {
+          "id": "lifecycle-1",
+          "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "forbidden": [
+            "WriteQueue.ets",
+            "TextPanel.ets"
+          ],
+          "criterion": "old frozen required/forbidden"
+        },
+        {
+          "id": "lifecycle-2",
+          "query": "Find PendingQueue.append.",
+          "required": [
+            "PendingQueue.ets"
+          ],
+          "forbidden": [],
+          "criterion": "old frozen required/forbidden"
+        },
+        {
+          "id": "lifecycle-3",
+          "query": "Find both BufferSession and PendingQueue source.",
+          "required": [
+            "BufferSession.ets",
+            "PendingQueue.ets"
+          ],
+          "forbidden": [],
+          "criterion": "old frozen required/forbidden"
+        },
+        {
+          "id": "unknown-0",
+          "query": "请定位同时负责生命周期恢复、状态更新和持久化的源码，并解释日志。",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-1",
+          "query": "请不要返回同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-2",
+          "query": "请生成同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-3",
+          "query": "“重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。”",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-4",
+          "query": "重启后恢复任意资料，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "unknown-5",
+          "query": "请定位两个分别负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "two-complete-owners",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "EditorSession.ets": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "two-complete-owners",
+          "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "both complete positive owners if all fit; otherwise complete baseline, never partial positive permission"
+        }
+      ]
+    }
+  ]
+}

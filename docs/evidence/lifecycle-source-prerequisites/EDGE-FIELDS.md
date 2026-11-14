@@ -1,0 +1,5 @@
+# Actual stored edge representation
+
+The saved independent lifecycle audit has a code_file→reload `static_call` edge without source hash and a separate onMount(code_symbol2)→reload(code_symbol3) `static_semantic_calls` edge. Only the latter is eligible for the proposed qualifier. Its JSON evidence is semantic-evidence/v1 with adapter arkts-static@1.2, detail local method call, line4 and source_digest f0f4a6b216fa4030929a5bf0134a2fdefd99544da99cd47f2c2069fc53d9e3a8. extractor_version is semantic-index:v1/arkts-static@1.2; valid_to is null. There is no edge generation column. The source-node/file generation and the edge's extraction source hash are distinct checks, not a fabricated shared field.
+
+Current independent before must confirm these actual fields remain available, both endpoints identify the expected same-owner methods, and edge digest equals the newly read full source. Missing field or only the code_file edge cannot satisfy the qualification. The source-revision value `unversioned`, confidence and timestamps are not substitute freshness evidence.
