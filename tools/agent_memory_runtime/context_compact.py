@@ -108,11 +108,12 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
     if declaration is not None:
         code_candidates, callable_evidence = declaration, None
     else:
-        from .query_ui_pair import retains_ui_pair
-        retain_pair = retains_ui_pair(handoff, code_candidates, str(data.get("query") or ""), projection_path)
-        code_candidates = code_candidates if retain_pair else focus_callable_anchors(
+        from .query_ui_pair import preserve_ui_pair
+        focused_candidates = focus_callable_anchors(
             code_candidates, callable_evidence, projection_path, str(data.get("query") or ""),
         )
+        code_candidates = preserve_ui_pair(handoff, code_candidates, focused_candidates,
+                                           str(data.get("query") or ""), projection_path)
     code_anchors = assign_anchor_roles(
         diverse_code_anchors(
             code_candidates, path_context["activated"], str(data.get("query") or "")

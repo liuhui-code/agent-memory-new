@@ -92,7 +92,10 @@ def bind_from_rows(project,query,handoff,rows,files):
             if not file.is_relative_to(root) or file.suffix!='.ets' or file.stat().st_size>2*1024*1024:
                 return handoff
             if path not in reads:
-                raw=file.read_bytes();reads[path]=(hashlib.sha256(raw).hexdigest(),len(raw.decode('utf-8').splitlines()))
+                raw=file.read_bytes()
+                if len(raw)>2*1024*1024:
+                    return handoff
+                reads[path]=(hashlib.sha256(raw).hexdigest(),len(raw.decode('utf-8').splitlines()))
         except (OSError,UnicodeError):
             return handoff
         digest,lines=reads[path]
@@ -144,3 +147,20 @@ def retains_ui_pair(handoff,anchors,query,path):
     return (current==getattr(handoff,'_binding',None)
             and getattr(handoff,'_query',None)==query
             and getattr(handoff,'_anchors',None)==current[1])
+
+
+def preserve_ui_pair(handoff,anchors,focused,query,path):
+    if not retains_ui_pair(handoff,anchors,query,path):
+        return focused
+    for owner,represented in handoff._proof:
+        complete=False
+        for row in represented:
+            file_path,start,end=row[3],row[6],row[7]
+            complete=complete or any(
+                a.get('file_path')==file_path
+                and type(a.get('start_line'))is int and type(a.get('end_line'))is int
+                and a['start_line']<=start<=end<=a['end_line']
+                for a in focused)
+        if not complete:
+            return anchors
+    return focused

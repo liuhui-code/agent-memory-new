@@ -3,7 +3,7 @@ from copy import copy,deepcopy
 import hashlib,json,tempfile,unittest
 from pathlib import Path
 from types import SimpleNamespace
-from tools.agent_memory_runtime.query_ui_pair import pair_request,spelling_matches,bind_from_rows,retains_ui_pair,PairHandoff
+from tools.agent_memory_runtime.query_ui_pair import pair_request,spelling_matches,bind_from_rows,retains_ui_pair,preserve_ui_pair,PairHandoff
 
 Q='Locate the typography code for product tiles and price labels.'
 class UIPairTests(unittest.TestCase):
@@ -45,3 +45,20 @@ class UIPairTests(unittest.TestCase):
   for path in [{'activated':True},{'wrapped_log_evidence':True}]:self.assertFalse(self.valid(h,path=path))
  def test_unknown_unchanged(self):
   h={'code_anchors':self.anchors};self.assertIs(bind_from_rows(self.project,'Find one component.',h,self.rows,self.files),h)
+
+ def test_legal_focus_with_both_owners_is_not_disabled(self):
+  anchors=[*self.anchors,dict(self.anchors[0],symbol='extra')];h=self.bind(anchors=anchors)
+  focused=deepcopy(self.anchors)
+  self.assertIs(preserve_ui_pair(h,anchors,focused,Q,{}),focused)
+  self.assertIs(preserve_ui_pair(h,anchors,focused[:1],Q,{}),anchors)
+ def test_same_file_owner_ranges_not_just_path(self):
+  source='@Component\nstruct ProductTile {\n build() {}\n}\n@Component\nstruct PriceLabel {\n build() {}\n}\n';(self.root/'Parts.ets').write_text(source);digest=hashlib.sha256(source.encode()).hexdigest()
+  for i,r in enumerate(self.rows):
+   r.update(file_path='Parts.ets',source_digest=digest)
+   if i>=2:r['start_line']+=4;r['end_line']+=4
+  self.files=[dict(file_path='Parts.ets',source_digest=digest,index_generation=1)]
+  anchors=[dict(file_path='Parts.ets',symbol='build',start_line=n,end_line=n)for n in [3,7]]
+  h=self.bind(anchors=anchors)
+  self.assertIsInstance(h,PairHandoff)
+  self.assertIs(preserve_ui_pair(h,anchors,anchors[:1],Q,{}),anchors)
+  kept=deepcopy(anchors);self.assertIs(preserve_ui_pair(h,anchors,kept,Q,{}),kept)
