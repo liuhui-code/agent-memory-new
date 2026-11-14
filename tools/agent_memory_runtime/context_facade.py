@@ -32,11 +32,14 @@ class ContextFacade:
         )
         from .query_render_selection import RenderContext, enrich_render_context, render_context_view
         if isinstance(result, RenderContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
             result = enrich_render_context(result, query, path_payload, freshness)
-            adopted, _ = render_context_view(result)
-            from .query_results import record_context_use, record_query_miss_if_empty
-            record_context_use(self.project, adopted)
-            record_query_miss_if_empty(self.project, "context", query, adopted)
+            if pending:
+                adopted, _ = render_context_view(result)
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, adopted)
+                record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
         result["source_freshness"] = freshness
         handoff = result.setdefault("query_handoff", {})

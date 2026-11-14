@@ -62,7 +62,9 @@ class RenderSelectionTests(unittest.TestCase):
   receipt=self.bind()
   with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial]),patch('tools.agent_memory_runtime.query_render_selection.bind_render_context',return_value=receipt),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
    result=limited_context(self.project,Q)
-  self.assertIs(result,receipt);record.assert_not_called();miss.assert_not_called()
+  self.assertIs(result,receipt);record.assert_called_once();miss.assert_called_once()
+  self.assertIs(record.call_args.args[1],receipt._view)
+  self.assertIs(miss.call_args.args[3],receipt._view)
  def clone_owner(self,name,source=None):
   source=(source or BASE).replace('MessageSurface',name);file=name+'.ets';(self.project.root/file).write_text(source);digest=hashlib.sha256(source.encode()).hexdigest()
   rows=[dict(r)for r in self.db.execute("SELECT * FROM code_symbols WHERE file_path='MessageSurface.ets'")]
@@ -87,7 +89,7 @@ class RenderSelectionTests(unittest.TestCase):
   from tools.agent_memory_runtime.context_facade import ContextFacade
   inactive={'activated':False,'path_candidates':[],'activation_reason':'missing_log_anchor'}
   for active in [False,True]:
-   receipt=self.bind();paths=dict(inactive,activated=active)
+   receipt=self.bind();receipt._pending_accounting=True;paths=dict(inactive,activated=active)
    facade=ContextFacade(self.project,lambda p,q,i:receipt,SimpleNamespace(build=lambda q:paths))
    with patch('tools.agent_memory_runtime.context_facade.filter_fresh_path_context',side_effect=lambda p,v,f:(v,f)),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
     result=facade.execute(Q)
@@ -105,3 +107,13 @@ class RenderSelectionTests(unittest.TestCase):
   self.assertNotIsInstance(enrich_render_context(dict(self.bind()),Q,inactive,{}),RenderContext)
   huge=dict(inactive,extra='x'*30000)
   self.assertNotIsInstance(enrich_render_context(self.bind(),Q,huge,{}),RenderContext)
+
+ def test_composition_only_explicitly_defers(self):
+  from tools.agent_memory_runtime.context_composition import build_context_facade
+  from tools.agent_memory_runtime.query_results import limited_context
+  facade=build_context_facade(self.project)
+  self.assertEqual(facade.base_context.keywords,{'defer_render_accounting':True})
+  receipt=self.bind()
+  with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial]),patch('tools.agent_memory_runtime.query_render_selection.bind_render_context',return_value=receipt),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
+   result=limited_context(self.project,Q,defer_render_accounting=True)
+  self.assertIs(result,receipt);self.assertTrue(result._pending_accounting);record.assert_not_called();miss.assert_not_called()

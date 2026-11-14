@@ -44,3 +44,12 @@ Successful private RenderContext accounting is deferred to final Facade selectio
 ordinary baseline contexts retain their original limited_context accounting. Tests
 check both final active-path fallback (empty baseline, miss) and valid inactive
 transport (positive adopted view) are recorded exactly once, not earlier R state.
+
+Independent87 review identified direct limited_context consumers in attribution and
+focused evaluators which never reach Facade. Deferral is now explicit, default
+False, and only the context_composition Facade wrapper requests it. Direct calls
+record the adopted view once as before; Facade records only an explicitly pending
+receipt and clears that pending state. Ordinary contexts keep old accounting.
+New tests cover direct successful once, explicit composition deferral, final valid
+Facade once and protected fallback once. All47 focused tests pass. No evaluator
+full suite was run or changed.

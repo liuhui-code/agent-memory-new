@@ -93,7 +93,7 @@ def diverse_log_matches(
     return sorted(selected, key=lambda item: positions.get(id(item), len(values)))
 
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
@@ -102,11 +102,13 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             trial = _context_pass(project, query, explicit_intent, allow_render_recall=True)
             from .query_render_selection import bind_render_context
             result = bind_render_context(project, query, baseline, trial)
-    from .query_render_selection import RenderContext
-    # Successful private trials are accounted after the Facade's final guards.
-    if not isinstance(result, RenderContext):
-        record_context_use(project, result)
-        record_query_miss_if_empty(project, "context", query, result)
+    from .query_render_selection import RenderContext, render_context_view
+    if isinstance(result, RenderContext) and defer_render_accounting:
+        result._pending_accounting = True
+    else:
+        adopted, _ = render_context_view(result)
+        record_context_use(project, adopted)
+        record_query_miss_if_empty(project, "context", query, adopted)
     return result
 
 

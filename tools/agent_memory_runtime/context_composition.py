@@ -1,6 +1,7 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 
 from __future__ import annotations
+from functools import partial
 
 from .context_facade import ContextFacade
 from .models import Project
@@ -25,6 +26,6 @@ def build_context_facade(
     )
     return ContextFacade(
         project,
-        limited_context,
+        partial(limited_context, defer_render_accounting=True),
         path_context,
     )
