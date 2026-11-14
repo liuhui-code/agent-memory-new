@@ -1,0 +1,14 @@
+........F....
+======================================================================
+FAIL: test_edge_and_node_freshness_are_independent (test_lifecycle_selection.LifecycleSelectionTests.test_edge_and_node_freshness_are_independent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/lifecycle-source-prerequisites/tests/test_lifecycle_selection.py", line 86, in test_edge_and_node_freshness_are_independent
+    edge['valid_to']='old';self.assertIsNone(self.authority())
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: <tools.agent_memory_runtime.query_lifecycle_selection.LifecycleAuthority object at 0x7fe6fb198bc0> is not None
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.331s
+
+FAILED (failures=1)

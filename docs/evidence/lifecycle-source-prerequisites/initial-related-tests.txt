@@ -1,0 +1,15 @@
+..........................F...............................
+======================================================================
+FAIL: test_composition_only_explicitly_defers (test_render_selection.RenderSelectionTests.test_composition_only_explicitly_defers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/lifecycle-source-prerequisites/tests/test_render_selection.py", line 115, in test_composition_only_explicitly_defers
+    self.assertEqual(facade.base_context.keywords,{'defer_render_accounting':True})
+AssertionError: {'defer_render_accounting': True, 'defer_lifecycle_accounting': True} != {'defer_render_accounting': True}
+- {'defer_lifecycle_accounting': True, 'defer_render_accounting': True}
++ {'defer_render_accounting': True}
+
+----------------------------------------------------------------------
+Ran 58 tests in 0.542s
+
+FAILED (failures=1)

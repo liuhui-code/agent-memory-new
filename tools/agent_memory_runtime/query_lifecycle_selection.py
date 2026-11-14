@@ -93,7 +93,10 @@ def qualify_lifecycle(project,query,items):
         hook=members[parsed['hook']];restore=members[parsed['restore']]
         matching_edges=[]
         for edge in edges:
-            if edge['source_id']!=hook['id'] or edge['target_id']!=restore['id']:
+            if (edge['source_id']!=hook['id'] or edge['target_id']!=restore['id']
+                or edge.get('source_type')!='code_symbol' or edge.get('target_type')!='code_symbol'
+                or edge.get('relation')!='calls' or edge.get('valid_to') is not None
+                or edge.get('project_id')!=project.project_id):
                 continue
             try:e=json.loads(edge['evidence'])
             except(TypeError,ValueError):continue

@@ -66,10 +66,13 @@ def diverse_code_matches(
     recalled_items = items
     from .query_lifecycle_selection import lifecycle_focus
     qualified = lifecycle_focus(lifecycle_authority, query, items)
-    if qualified is None:
-        focused, focused_candidates = focus_code_candidates(items, query)
-    else:
-        focused, focused_candidates = qualified, True
+    if qualified is not None and not explicit_paths:
+        # Existing file items only: private complete-owner proof, not lexical
+        # cross-file similarity, determines this finite request's positive set.
+        representatives = [item for item in qualified if item.get("kind") == "file"]
+        if len(representatives) <= limit and len({item.get("file_path") for item in representatives}) == len(representatives):
+            return representatives
+    focused, focused_candidates = focus_code_candidates(items, query)
     if explicit_paths:
         focused_ids = {id(item) for item in focused}
         focused_ids.update(
