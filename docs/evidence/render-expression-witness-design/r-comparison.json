@@ -1,0 +1,250 @@
+[
+  {
+    "id": "generic",
+    "changes": {
+      "raw": [
+        "callable_evidence"
+      ],
+      "compact": [
+        "callable_evidence"
+      ]
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 7,
+        "end_line": 9
+      }
+    ],
+    "final_paths": [
+      "MessageRecord.ets",
+      "MessageSurface.ets",
+      "DisplaySettings.ets"
+    ]
+  },
+  {
+    "id": "explicit",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 7,
+        "end_line": 9
+      },
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 4,
+        "end_line": 6
+      }
+    ],
+    "final_paths": [
+      "MessageSurface.ets"
+    ]
+  },
+  {
+    "id": "two",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 7,
+        "end_line": 9
+      },
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 4,
+        "end_line": 6
+      }
+    ],
+    "final_paths": [
+      "MessageSurface.ets",
+      "DetailPanel.ets",
+      "MessageRecord.ets"
+    ]
+  },
+  {
+    "id": "literal",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 7,
+        "end_line": 9
+      }
+    ],
+    "final_paths": [
+      "DetailPanel.ets"
+    ]
+  },
+  {
+    "id": "head-only",
+    "changes": {
+      "raw": [
+        "code_anchors",
+        "callable_evidence"
+      ],
+      "compact": [
+        "code_anchors",
+        "callable_evidence",
+        "source_excerpt_policy"
+      ]
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 7,
+        "end_line": 9
+      }
+    ],
+    "final_paths": [
+      "DetailPanel.ets",
+      "MessageSurface.ets"
+    ]
+  },
+  {
+    "id": "generated",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [],
+    "final_paths": []
+  },
+  {
+    "id": "entity",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90",
+        "start_line": 7,
+        "end_line": 9
+      }
+    ],
+    "final_paths": [
+      "MessageRecord.ets",
+      "MessageSurface.ets",
+      "DetailPanel.ets"
+    ]
+  },
+  {
+    "id": "quoted-head",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [],
+    "final_paths": []
+  },
+  {
+    "id": "mixed",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [],
+    "final_paths": []
+  },
+  {
+    "id": "unknown-prefix",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [],
+    "final_paths": []
+  },
+  {
+    "id": "negative-owner",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [],
+    "final_paths": [
+      "DetailPanel.ets"
+    ]
+  },
+  {
+    "id": "unknown-tail",
+    "changes": {
+      "raw": [],
+      "compact": []
+    },
+    "message_methods": [],
+    "final_paths": []
+  },
+  {
+    "id": "discarded-return",
+    "changes": {
+      "raw": [
+        "callable_evidence"
+      ],
+      "compact": [
+        "callable_evidence"
+      ]
+    },
+    "message_methods": [
+      {
+        "qualified_name": "MessageSurface.build",
+        "source_digest": "05ec60ccd34bfcd0cfb48319d2ca206fed4557b9dfec7be25493ba645b126342",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "qualified_name": "MessageSurface.plainBody",
+        "source_digest": "05ec60ccd34bfcd0cfb48319d2ca206fed4557b9dfec7be25493ba645b126342",
+        "start_line": 7,
+        "end_line": 9
+      }
+    ],
+    "final_paths": [
+      "MessageRecord.ets",
+      "MessageSurface.ets",
+      "DisplaySettings.ets"
+    ]
+  }
+]
