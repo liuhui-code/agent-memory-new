@@ -24,7 +24,7 @@ known Builder identities cannot be collapsed by display diversity or forced uniq
 
 English only, single sentence, exact full-string consumption, optional final dot:
 `(Find|Locate|Identify) (the|a|an) (reusable|declared)? (@Builder|Builder)
- (declaration|method|function)? [that (sets|configures) ATTRS]`.
+ (declaration|method|function)? [that (sets|configures|arranges|renders) ATTRS]`.
 Without the relative clause the role noun is the entire output target. ATTRS is a
 comma/and-separated list of one- or two-word lower-case noun labels. The grammar
 must reject reserved grammatical words (prepositions, determiners, auxiliaries,
@@ -88,17 +88,25 @@ observations to chase a pass. Source/test implementation starts only after revie
 accepts this design plus frozen actual before. Original23 is evaluated separately
 only after candidate focused tests; no full gate or original repair claim inferred.
 
-## Pre-execution design correction (no run has occurred)
+## Pre-execution semantic correction v2 (no run has occurred)
 
-The initial ATTRS wording incorrectly suggested a noun classifier. It is only a
-finite lower-case token surface; relevance remains ordinary lexical evidence. A
-Builder that renders source text can be a genuine declaration target. The frozen
-artifact-label query is therefore NOT proof of artifact-output intent. It remains
-unsupported in this first subset because the relative action grammar now admits
-only sets/configures, not renders/arranges. This whole-action limitation applies
-equally to every content noun, not a source/text word ban. Initial proposal and
-protocol commits remain in history. No result/query/oracle was tuned after a run.
-Generated source output-head and unconsumed suffix remain distinct controls.
+Initial ATTRS wording wrongly suggested a noun classifier. It is only a finite
+lower-case token surface; ordinary relevance remains lexical, not source proof.
+The artifact-label request has Builder as its output head, so v1's false authority
+expectation was a design/oracle error, not an observed runtime result. Its query
+is preserved and v2 marks positive role-head qualification WITHOUT certification
+of renders behavior. A brief unexecuted narrower-verb proposal (044b293) is
+superseded, not silently used as evidence. No source/text negative word list.
+Generated source output-head and unconsumed suffix are separate unknown controls.
+
+Finite ATTRS reserved function words (case-insensitive whole token):
+`a an the in on at from to into with without by for of as about over under within
+through between before after is are was were be been being can could would should
+will may might must not no never only except excluding both either neither or but
+that which who whose while when where why how if then else than rather instead`.
+These bound the supported surface; remaining tokens are NOT certified nouns or
+properties. Comma/and are supported list separators only. Full-string parsing
+must reject role-target plural/head switching or unconsumed tails.
 
 Qualification is parsed from the original untouched public query, before localizer
 positive_retrieval_query cleaning. It cannot be minted from a cleaned rank query.
