@@ -72,3 +72,41 @@ If no receipt exists, report that concrete projection gap first. No new architec
 ranking, primary reassignment, aggregation proof, or original-score gain follows
 from this audit. The old exploratory aggregation query is not a frozen acceptance
 red and must not be relabeled as one.
+
+## Follow-up: smallest binding path to investigate (not implemented)
+
+Read the current projection chain, not another public query:
+`query_callable_evidence.compact_candidate` intentionally emits path/name/range but
+not symbol_id or source_digest. `query_callable_range_identity.resolve_candidate_range`
+already uses the internal symbol_id when present, requires a unique matching range,
+and verifies containment within candidate bounds. These are existing identity
+checks, not an ownership or causal proof. `context_compact` currently passes only
+`data.wiki_matches` as recovery source_rows. In the saved response this offers the
+class/file row, not a collect method receipt.
+
+A bounded design may preserve an internal receipt from that already-selected
+candidate/range stage, rather than re-resolve by file/name after compact projection.
+Whether the original collect candidate actually had a validated symbol_id is not
+established by the saved projected response; the implementer must inspect that
+chain before claiming the needed identity already exists. Legacy/name-only ranges
+must not silently become exact typed method identities.
+
+The minimum proposed authority is completion of an existing selected partial
+method excerpt, not primary promotion or a new anchor: exact candidate ID and full
+method bounds; its selected range and excerpt symbol/start; same file digest and
+bounded snapshot; range contained in the pre-existing authorized file/class read
+window; exact old prefix; and exactly one eligible receipt. Conflicting IDs, two
+same-name methods, several ranges or uncertain source receipt must abstain. Do not
+change record_type, record_ids, source_ranges, primary, alternatives, roles,
+certainty, or source access to manufacture a match. A new private receipt must
+remain auditable without impersonating the file/class anchor as a method entity.
+
+Only after a frozen actual public fixture demonstrates the same class-anchor / 
+selected-alternative method-window truncation should a transactional completion be
+implemented. Preserve all other payload fields and excerpts; honor per-source,
+total-character, line and token caps; if full completion does not fit, retain the
+original object. No need for rank-diagnostic deletion has been demonstrated in
+this saved example. Tests must separately prove absence of output changes when
+identity is unknown and when capacity is insufficient. This is a proposed local
+projection/recovery extension requiring review, not an existing contract violation
+or a semantic aggregation certificate. No fixture/query/code was executed here.

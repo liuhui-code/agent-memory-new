@@ -12323,6 +12323,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   and its file/class anchor is not the method interval. Current recovery correctly
   abstains under its explicit contract. No runtime/query/test execution or fix claim.
 - Details: docs/eval/listener-request-permission/SHARED-RECORD-BUDGET-AUDIT.md.
+- Follow-up design read: existing internal symbol/range resolver could supply a
+  private receipt before projection; saved compact does not prove one exists.
+  Completion permission, identity ambiguity and transactional caps remain explicit.
+
 ## Current cross-layer error contract audit
 
 - Fixed original3variants remain1/3 atcdb8f39. Correct UI→service typed calls/awaits
