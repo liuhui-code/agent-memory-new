@@ -75,3 +75,29 @@ The next work is a reviewed role-binding design with source identity, one-owner/
 actions, negative/quoted roles, literal requests and unknowns. It cannot be justified
 by changing support/caps on the original query. These limits are per-hypothesis,
 not a statement that either group is permanently impossible.
+
+## Bounded local recovery search
+
+A follow-up searched readable `/workspace/scratch/dcdb41e16594`, `/workspace/shared`
+and `/tmp` once. It did not access Codex sessions, a remote service or an original
+query. `recovery-search.json` records inventory, target SHA-256 values and coverage.
+
+- No filesystem candidate with any of the three exact basenames was found.
+- Inspected 34 archive listings, including nested archives to depth two, for those
+  basenames. No matching member was found. No arbitrary archive extraction occurred.
+- Inventoried 47 Git bundles. Every advertised tip was already present either in
+  the integration object database or another scanned local repository. Seven head
+  entries absent from integration were verified present in those other databases;
+  they were not silently omitted.
+- Inspected 39 distinct local Git object databases, including unreachable objects
+  exposed by `cat-file --batch-all-objects`. Deduplicated 7,220 blob IDs and SHA-256
+  scanned 373,200,662 bytes. No blob matched any of the three expected digests.
+  The 1 GiB total / 32 MiB per-blob bounds were not reached; no oversized blob was
+  skipped. There were no archive scan errors.
+
+This is a bounded negative recovery result, not proof the files never existed.
+Archive-embedded Git databases were not unpacked and traversed separately; archived
+files with different names were not all content-hashed. Hidden paths outside the
+three stated roots and remote history were not searched. No historical evidence
+was reconstructed or changed. The requested exact originals remain unavailable
+within the checked coverage, so the old 06 raw response cannot be newly certified.

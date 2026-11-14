@@ -12380,3 +12380,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   No pre-existing owner aggregation certificate was silently discarded.
 - No runtime/test change, full gate, original-count gain or public upload.
   Details: docs/evidence/lifecycle-owner-contract/README.md.
+
+## 2026-11-14 — Bounded local recovery check for category06 originals
+
+- Searched the three exact missing basenames in current readable workspace roots
+  and 34 archive listings, then checked exact known SHA-256 values against 7,220
+  unique blobs across 39 local Git databases (373,200,662 bytes).
+- All 47 bundle advertised tips were accounted for in scanned object databases.
+  No matching files/blobs, errors or exhausted scan limits; preserved scope limits.
+- No remote writes, public queries, production changes or fabricated replacement
+  evidence. Report and machine-readable inventory appended to paired-role audit.
