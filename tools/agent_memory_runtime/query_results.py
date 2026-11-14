@@ -8,6 +8,7 @@ from typing import Any
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT
 from .memory_calibration import calibrate_payload
 from .models import Project
+from .query_builder_request import recall_projection
 from .query_caller_ownership import requested_caller_identities
 from .query_code_selection import diverse_code_matches
 from .query_collect import collect_matches_with_audit
@@ -180,11 +181,14 @@ def localization_input(
     positive = positive_retrieval_query(query)
     if positive == " ".join(query.split()):
         return matches, False
-    collection = collect_matches_with_audit(project, positive)
-    positive_matches = dict(collection.matches)
+    projection = recall_projection(query)
+    # Original collection already scored the positive query with its bound AST.
+    positive_matches = (dict(matches) if projection is not None
+                        else dict(collect_matches_with_audit(project, positive).matches))
     positive_matches["wiki_matches"] = [
         item for item in positive_matches.get("wiki_matches") or []
         if not excluded_code_candidate(query, item)
+        and (projection is None or not projection.excludes(item))
     ]
     return gate_matches_by_intent(project, query, positive_matches)["matches"], True
 

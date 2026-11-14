@@ -112,3 +112,30 @@ class BuilderPropertyRecallTests(unittest.TestCase):
         self.assertIsNone(parse_builder_request(' '*17+QUERY))
         self.assertIsNone(parse_builder_request(QUERY+' '*17))
         self.assertIsNone(parse_builder_request(QUERY.replace(' Builder','\u3000Builder')))
+
+
+class BuilderLocalizationTransportTests(unittest.TestCase):
+    def test_original_bound_matches_reused_without_mutation(self):
+        from copy import deepcopy
+        from tools.agent_memory_runtime.query_results import localization_input
+        query=QUERY[:-1]+'，不要返回卡片或数据模型。'
+        matches={'wiki_matches':[{'file_path':'Palette.ets','owner_name':'Palette'},
+                  {'file_path':'Card.ets','owner_name':'Card'},
+                  {'file_path':'DataModel.ets','owner_name':'DataModel'}],
+                 'code_log_matches':[{'message':'retained'}]}
+        original=deepcopy(matches)
+        with patch('tools.agent_memory_runtime.query_results.collect_matches_with_audit') as collect, patch('tools.agent_memory_runtime.query_results.gate_matches_by_intent',side_effect=lambda p,q,m:{'matches':m}):
+            result,safe=localization_input(object(),query,matches)
+        collect.assert_not_called();self.assertTrue(safe)
+        self.assertEqual(result['wiki_matches'],[matches['wiki_matches'][0]])
+        self.assertEqual(result['code_log_matches'],matches['code_log_matches'])
+        self.assertEqual(matches,original)
+
+    def test_unknown_negative_request_keeps_old_recollection(self):
+        from tools.agent_memory_runtime.query_results import localization_input
+        from tools.agent_memory_runtime.query_language import positive_retrieval_query
+        query=QUERY[:-1]+'，不要返回其他内容。'
+        with patch('tools.agent_memory_runtime.query_results.collect_matches_with_audit',return_value=SimpleNamespace(matches={'wiki_matches':[]})) as collect, patch('tools.agent_memory_runtime.query_results.gate_matches_by_intent',side_effect=lambda p,q,m:{'matches':m}):
+            project=object();result,safe=localization_input(project,query,{'wiki_matches':[{'file_path':'unused.ets'}]})
+        collect.assert_called_once_with(project,positive_retrieval_query(query))
+        self.assertEqual(result,{'wiki_matches':[]});self.assertTrue(safe)

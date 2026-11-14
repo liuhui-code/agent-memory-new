@@ -35,3 +35,11 @@ full AST is correctly unavailable. Thus localization loses its source candidates
 Proposed correction is transport of the already original-bound collection for an
 eligible descriptor, with explicit original/local negative filters retained, not
 parsing or granting authority from cleaned text. Original23 remains unrun.
+
+Reviewer approved the narrow transport fix. Eligible complete original AST now
+reuses a shallow copy of already positive-scored original matches, retaining old
+negative matcher plus local descriptor exclusion. Other keys and original matches
+are untouched; noneligible requests retain the old second collection. direct_scores
+stays True as before for this branch. Added mocks covering no second collection,
+real Card/Model exclusions, no mutation and unsupported-tail old behavior.44 focused
+checks pass before a separately recorded fixed-SHA final public rerun.
