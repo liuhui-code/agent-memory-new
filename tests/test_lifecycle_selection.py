@@ -50,6 +50,8 @@ class LifecycleSelectionTests(unittest.TestCase):
     def test_full_request_and_source_identity(self):
         self.assertTrue(lifecycle_request(self.query));a=self.authority();self.assertIsNotNone(a)
         self.assertEqual([r['parsed']['owner']for r in a._receipts],['BufferSession'])
+        for copied in (copy.copy(a),copy.deepcopy(a)):
+            self.assertIsNone(lifecycle_focus(copied,self.query,self.items))
         for c in json.loads((D/'protocol.json').read_text())['request_negatives']:
             self.assertFalse(lifecycle_request(c['query']))
         self.assertFalse(lifecycle_request('Find the owner combining lifecycle restore, current text state and storage commit after restart.'))
@@ -108,8 +110,16 @@ class LifecycleSelectionTests(unittest.TestCase):
             facade=ContextFacade(self.project,lambda *args:result,SimpleNamespace(build=lambda query:payload))
             final=facade.execute(self.query);self.assertIsInstance(final,LifecycleContext)
             use.assert_called_once();miss.assert_called_once()
-        with patch('tools.agent_memory_runtime.query_results._context_pass',return_value=self.baseline) as run, patch('tools.agent_memory_runtime.query_results.record_context_use'), patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty'):
+        with patch('tools.agent_memory_runtime.query_results._context_pass',return_value=self.baseline) as run, patch('tools.agent_memory_runtime.query_results.record_context_use') as use, patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty') as miss:
             limited_context(self.project,'Find BufferSession source.');self.assertEqual(run.call_count,1)
+            use.assert_called_once();miss.assert_called_once()
+        with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial(a)]), patch('tools.agent_memory_runtime.query_results.record_context_use') as use, patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty') as miss:
+            result=limited_context(self.project,self.query,defer_lifecycle_accounting=True)
+            payload={'activated':True,'path_candidates':[],'activation_reason':'test active'}
+            facade=ContextFacade(self.project,lambda *args:result,SimpleNamespace(build=lambda query:payload))
+            final=facade.execute(self.query);self.assertNotIsInstance(final,LifecycleContext)
+            use.assert_called_once();miss.assert_called_once()
+            self.assertEqual(use.call_args.args[1]['query_handoff']['code_anchors'],self.baseline['query_handoff']['code_anchors'])
 
     def test_source_drift_and_inactive_enrichment(self):
         a=self.authority();r=bind_lifecycle_context(self.query,self.baseline,self.trial(a))

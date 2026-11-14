@@ -1,0 +1,9 @@
+# Isolated lifecycle implementation history
+
+18bdc7c is explicitly WIP, not acceptance. The first integration command failed to create its process because exec transport disconnected; a read-back confirmed no integration edits had executed, then the identical integration was performed. Source helper files survived and were committed.
+
+The initial related run had57 successful tests and one failure: the old render composition test asserted exactly one partial keyword. New explicit `defer_lifecycle_accounting=True` extends that composition interface while keeping both flags defaultfalse for direct callers. The test expectation was updated for this deliberate interface extension, not to hide a runtime failure. Render behavior continues to be independently tested; new tests cover ordinary non-lifecycle once-only accounting, direct lifecycle once, and deferred facade success/fallback recording the actual final view once.
+
+The first source-binding tests failed the inactive-edge negative because the fake SQL connection returned an expired edge despite the real WHERE valid_to IS NULL. The runtime now explicitly validates active state, exact endpoint types/relation and project as well, rather than weakening the test. Both original failure logs remain. Private authority and trial copies lose authority explicitly, as do final ordinarydict/JSON copies.
+
+The private early-focus qualifier returns only existing qualifying file items, preserving the original output limit; it does not increase weight or attach old source_operation markers. This locally changes selection for the exact qualified request, not a generic per-file marker union. Whole-class indexed ranges are new explicitly authorized read scope under this finite source contract and are displayed using retained snapshot bytes. Final complete-positive set and budget preflights still must pass. No public candidate after or original18 acceptance has been run yet.

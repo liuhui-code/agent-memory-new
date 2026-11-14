@@ -23,6 +23,10 @@ def pool_identity(items):
 
 
 class LifecycleAuthority:
+    def __copy__(self):
+        return {}
+    def __deepcopy__(self,memo):
+        return {}
     def valid(self,query,items=None):
         try:
             return (lifecycle_request(query) and self._binding==(query,self._pool,snapshot(self._receipts),self._root)
@@ -32,7 +36,10 @@ class LifecycleAuthority:
 
 
 class LifecycleTrial(dict):
-    pass
+    def __copy__(self):
+        return dict(self)
+    def __deepcopy__(self,memo):
+        return deepcopy(dict(self),memo)
 
 
 class LifecycleContext(dict):
