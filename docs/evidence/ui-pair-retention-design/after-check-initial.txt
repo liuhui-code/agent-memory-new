@@ -1,0 +1,6 @@
+[('same-file-pair', 'requested_declarations_complete')]
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/ui-pair-final-e6e1afb/docs/evidence/ui-pair-retention-design/check-after.py", line 17, in <module>
+    (D/'after-fixed-verdicts.json').write_text(json.dumps(out,indent=2));print([(r['case'],k)for r in out for k,v in r['checks'].items()if not v]);assert len(out)==19 and all(all(r['checks'].values())for r in out)
+                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
