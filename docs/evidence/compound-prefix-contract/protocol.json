@@ -1,0 +1,14 @@
+{
+  "classification": "independent Development qualification",
+  "sources": {
+    "CapacityGuard.ts": "export class CapacityGuard {\n  check(code: string): boolean {\n    return code === 'buffer-full'\n  }\n}\n",
+    "BufferNote.ts": "export class BufferNote {\n  check(code: string): boolean {\n    return code === 'buffer'\n  }\n}\n",
+    "EmptyGuard.ts": "export class EmptyGuard {\n  check(code: string): boolean {\n    return code === 'buffer-empty'\n  }\n}\n"
+  },
+  "queries": [
+    ["compound", "Locate the source checking the exact diagnostic literal `buffer-full`.", "CapacityGuard.ts"],
+    ["prefix", "Locate the source checking the exact diagnostic literal `buffer`.", "BufferNote.ts"],
+    ["other-compound", "Locate the source checking the exact diagnostic literal `buffer-empty`.", "EmptyGuard.ts"]
+  ],
+  "internal_pairs": [["buffer-full", "buffer"], ["buffer-full", "full"], ["buffer-full", "buffer-full"], ["buffer-full", "bufferempty"], ["buffer", "buffering"], ["bu", "buffer"], ["缓存-满", "缓存"], ["route.path", "route"]]
+}
