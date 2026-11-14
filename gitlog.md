@@ -12401,3 +12401,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   different layer. No independent second defect class for a shared value model.
 - No query rerun, fixture manipulation, runtime/test changes or remote publication.
   See docs/evidence/gesture-consumption-contract/README.md.
+
+## 2026-11-14 — Audit nested command identity versus file-level anchor selection
+
+- Reused seven fixed independent public queries unchanged; nested member lookup
+  remains flat/uncertain, declared owner positives and ambiguity control retain
+  their earlier behavior. No original case or aggregate evaluation rerun.
+- Froze and investigated a primary7–9 versus anchor2–4 discrepancy. Actual raw
+  shows a per-file two-record limit, not record/range corruption; the correct
+  class anchor and full excerpt already cover the selected method.
+- No speculative mapping fix, parser revival, cap change or new retention right.
+  Related33 checks pass; source and query hashes/public outputs retained.
+  Details: docs/evidence/nested-command-current/README.md. Count remains20.

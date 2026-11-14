@@ -1,0 +1,31 @@
+{
+  "instance-command-field": {
+    "sources": {
+      "ActionDeck.ts": "0cbe7b0dfb2b503858549f178360a36eaf2b674254ae5d19833ea18c4afbd592",
+      "TransferWorker.ts": "2c9c516b0e6f266cb103864d28c55ae6e4a360b096fbfcdd39e7303b413ce999"
+    },
+    "queries": [
+      "Locate the Upload draft command title and its execute binding.",
+      "Locate ActionDeck.commands field initializer."
+    ]
+  },
+  "nested-object-owner": {
+    "sources": {
+      "OperationPlan.ts": "95136eb4d2d7d1d3bb4337efa27dd9b3d60623d4627daab542a4df51b9586f0d"
+    },
+    "queries": [
+      "Locate OperationPlan.upload.execute.",
+      "Locate OperationPlan.discard.execute."
+    ]
+  },
+  "same-file-declared-owners": {
+    "sources": {
+      "TwinHandlers.ts": "6f9df2321ee179bce10a0fd0125b1b7f3b60055936300f605cec8a36c9e146a6"
+    },
+    "queries": [
+      "Locate UploadHandler.execute implementation.",
+      "Locate DiscardHandler.execute implementation.",
+      "Locate execute implementation."
+    ]
+  }
+}
