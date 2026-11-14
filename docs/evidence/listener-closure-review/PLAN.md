@@ -34,3 +34,33 @@ Source pointers:
 - docs/eval/native-listener-current-20261114/{README,baseline,independent}.json/md
 - docs/evidence/listener-query-display/{after,summary,native-observation}.json
   Real raw evidence present but existing generic retrieval still red.
+
+## Coordinator scope clarification: one weak ordinal experiment allowed
+
+Coordinator explicitly permits one weak-relevance reordering trial despite the
+initial prohibition. No numerical score/threshold changes. Only already-ranked
+candidates may move: stable partition after any existing strong typed (not weak),
+explicit owner identity, source-operation or target-owner-kind match. Among all
+other candidates, positive checked type/member name association precedes legacy
+lexical order. Never delete candidates, never infer negative from no fact. Same
+weak matches retain old relative order. Strong identities unchanged. New independent
+flag `listener_relation_weak` is projected into callable evidence; any selected
+weak candidate is always uncertain before existing score-gap/typed/source branches.
+Do not reuse typed_contract_match or certify a new source_operation.
+
+Use original unexpanded request for frozen descriptor so retrieval expansion
+cannot invent identity/permission. Facts come only from existing source-checked
+SQLite diagnostic path; exact and segment-uncertain association lanes remain
+weak. No qualifier is claimed satisfied. Known unresolved or contradictory source
+qualifiers remain explicit and cannot justify exclusion; this trial tests whether
+ordinal weak evidence suffices without that exclusion. No pruning/focus rules or
+budgets change. New primary can improve while precision remains failure, which
+triggers stop, not a second candidate.
+
+Freeze controls before run: existing genuine recovery plus callback; different
+member/type; accepted-property→rejected-member; two real forwarders; source chain
+qualifier conflicting with request; unavailable current source; explicit method,
+literal, wrapper, negative. Exact source/query in protocol controls; original
+five plus original Native contract unchanged. Native Development fixedcase source
+and oracle copied exactly, not a consumed holdout. Record before/after primary,
+certainty, anchors/body/precision and every wrong/unknown outcome.
