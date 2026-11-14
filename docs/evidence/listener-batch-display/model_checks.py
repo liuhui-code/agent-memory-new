@@ -37,7 +37,8 @@ def preservation(values,entity=e):
 for name,values in [('conflict',[witness,{**witness,'version':'other'}]),('overcount',[witness]*65),('wrongtype',True)]:
     check('legacy-preserved-'+name,lambda values=values:preservation(values))
 def kind():
-    entity=copy.deepcopy(e);entity.kind='class';preservation([witness],entity)
+    from dataclasses import replace
+    entity=replace(e,kind='class');preservation([witness],entity)
 check('noncallable-legacy-preserved',kind)
 for name,change in [('bool',lambda w:w['formal'].update(index=True)),('identity',lambda w:w['source'].update(symbol_key='wrong'))]:
     def mutated(change=change):

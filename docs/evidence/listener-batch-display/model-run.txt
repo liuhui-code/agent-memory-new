@@ -78,11 +78,11 @@
   },
   {
     "id": "symlink-escape",
-    "pass": true
+    "pass": false,
+    "error": "FileExistsError(17, 'File exists')"
   },
   {
     "id": "list-diagnostic-caps",
-    "pass": false,
-    "error": "AssertionError()"
+    "pass": true
   }
 ]
