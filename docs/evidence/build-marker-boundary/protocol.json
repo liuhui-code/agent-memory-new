@@ -1,0 +1,187 @@
+{
+  "classification": "Development prospective build-marker boundary; not holdout",
+  "base": "0a8a8fd",
+  "families": [
+    {
+      "id": "imported-ui-palette",
+      "sources": {
+        "ProfileTile.ets": "import { TrainingPalette } from './TrainingPalette'\n@Component\nexport struct ProfileTile {\n  @Builder\n  renderTile() {\n    Row() { Text('bodybuilder profile') }\n    .padding(12)\n    .backgroundColor(TrainingPalette.surface)\n    .width(180)\n  }\n  build() { this.renderTile() }\n}\n",
+        "ProfileScreen.ets": "@Component\nexport struct ProfileScreen {\n  build() {\n    Column() { Text('bodybuilder profile') }\n    .padding(12)\n    .backgroundColor(Color.White)\n    .width(180)\n  }\n}\n",
+        "TrainingPalette.ts": "export class TrainingPalette {\n  static surface: string = '#eeeeee'\n}\n"
+      },
+      "cases": [
+        {
+          "id": "builder-source",
+          "query": "Find the declared Builder that sets padding, background color and width.",
+          "expected": [
+            "ProfileTile.ets"
+          ],
+          "criterion": "exact_methods_and_no_false_build_neighbor"
+        },
+        {
+          "id": "bodybuilder-source",
+          "query": "Find bodybuilder profile source methods using padding backgroundColor width.",
+          "expected": [
+            "ProfileTile.ets",
+            "ProfileScreen.ets"
+          ],
+          "criterion": "no_false_build_neighbor"
+        },
+        {
+          "id": "explicit-palette",
+          "query": "Find ProfileTile and TrainingPalette source and their import relationship.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "true-build-graph",
+          "query": "Find the build imports and source for ProfileTile and TrainingPalette.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "bare-declared",
+          "query": "Find the declared Builder.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "native-build",
+      "sources": {
+        "native/CMakeLists.txt": "cmake_minimum_required(VERSION 3.16)\nproject(energy_bridge)\nadd_library(energy_bridge SHARED bridge.cpp)\n",
+        "native/bridge.cpp": "extern \"C\" int energy_bridge_value() { return 7; }\n",
+        "build-profile.json5": "{ \"externalNativeOptions\": { \"path\": \"./native/CMakeLists.txt\" } }\n"
+      },
+      "cases": [
+        {
+          "id": "native-build-control",
+          "query": "Find build configuration and native source for energy_bridge.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "build-profile-path",
+          "query": "Find build-profile.json5 and CMakeLists.txt source configuration.",
+          "criterion": "unchanged"
+        }
+      ]
+    }
+  ],
+  "predicate_controls": [
+    {
+      "query": "build",
+      "expected": true
+    },
+    {
+      "query": "BuildCache",
+      "expected": true
+    },
+    {
+      "query": "build_cache",
+      "expected": true
+    },
+    {
+      "query": "build-profile.json5",
+      "expected": true
+    },
+    {
+      "query": "build.sh",
+      "expected": true
+    },
+    {
+      "query": "NativeBuildCache",
+      "expected": true
+    },
+    {
+      "query": "源码Build配置",
+      "expected": true
+    },
+    {
+      "query": "rebuild",
+      "expected": true
+    },
+    {
+      "query": "rebuilds",
+      "expected": true
+    },
+    {
+      "query": "rebuilding",
+      "expected": true
+    },
+    {
+      "query": "builds",
+      "expected": true
+    },
+    {
+      "query": "building",
+      "expected": true
+    },
+    {
+      "query": "build2",
+      "expected": true
+    },
+    {
+      "query": "Build2Cache",
+      "expected": true
+    },
+    {
+      "query": "exclude build artifacts",
+      "expected": true
+    },
+    {
+      "query": "Find handler; exclude NativeBuildCache.",
+      "expected": true
+    },
+    {
+      "query": "CMakeLists.txt",
+      "expected": true
+    },
+    {
+      "query": "native",
+      "expected": true
+    },
+    {
+      "query": "package",
+      "expected": true
+    },
+    {
+      "query": "定位原生构建边界",
+      "expected": true
+    },
+    {
+      "query": "Builder",
+      "expected": false
+    },
+    {
+      "query": "bodybuilder",
+      "expected": false
+    },
+    {
+      "query": "builderCache",
+      "expected": false
+    },
+    {
+      "query": "BodyBuilderProfile",
+      "expected": false
+    },
+    {
+      "query": "mybuild",
+      "expected": false
+    },
+    {
+      "query": "buildable",
+      "expected": false
+    },
+    {
+      "query": "prebuilder",
+      "expected": false
+    },
+    {
+      "query": "bodybuild2",
+      "expected": false
+    },
+    {
+      "query": "Find handler; exclude build artifacts.",
+      "expected": false
+    }
+  ],
+  "stop": "No public red or no actual preserve_structural_boundary_neighbors added-import trace: stop; no source/query/noise changes."
+}

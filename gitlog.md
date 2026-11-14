@@ -12477,3 +12477,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Candidate842f73b uses a separate original-query/source-identity binding for positive arkts_builder declarations, not coarse component/source-operation authority. Unknown is not absence; multi-method evidence remains uncertain/non-exhaustive and existing limits/protections stay.
 - Immutable detached final run passes all frozen conditions, 78 focused tests and separate fingerprint check. Original23 remains2/3; no cumulative original gain and no full run.
 - Preserve pre-run semantic correction, private/query binding fixes and actual four syntax failures. Intermediate live-tree after output is not final SHA evidence. Details: docs/evidence/builder-positive-consumer/RESULT.md.
+
+## Freeze narrow build-marker independent before
+
+- From published0a8a8fd, freeze natural imported-palette UI fixture, already-supported English Builder request, bodybuilder contrast and true native/build/path controls.
+- Scope only build word/identifier components; morphology and numeric suffix controls fixed before execution, no graph guard changes or R/S dependency.
+- Actual preserve-before/after graph provenance required before implementation. No public run yet. A transient exec disconnect recovered without workspace loss.
