@@ -1,0 +1,155 @@
+[
+  {
+    "id": "same-chain",
+    "expected": true,
+    "actual": true,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": [
+      [
+        "padding",
+        "backgroundColor"
+      ]
+    ]
+  },
+  {
+    "id": "cross-chain",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 11
+    },
+    "witness": null
+  },
+  {
+    "id": "nested-only",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 9
+    },
+    "witness": null
+  },
+  {
+    "id": "comment-only",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": null
+  },
+  {
+    "id": "wrong-case",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": null
+  },
+  {
+    "id": "optional",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": null
+  },
+  {
+    "id": "computed-multiline",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 11
+    },
+    "witness": null
+  },
+  {
+    "id": "control-closing",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": null
+  },
+  {
+    "id": "adjacent-no-separator",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 9
+    },
+    "witness": null
+  },
+  {
+    "id": "post-semicolon",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": null
+  },
+  {
+    "id": "helper-direct",
+    "expected": true,
+    "actual": true,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": [
+      [
+        "padding",
+        "backgroundColor"
+      ]
+    ]
+  },
+  {
+    "id": "delegate-only",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 6
+    },
+    "witness": null
+  },
+  {
+    "id": "unsupported-lexical",
+    "expected": false,
+    "actual": false,
+    "row": {
+      "symbol": "paintSurface",
+      "start_line": 4,
+      "end_line": 10
+    },
+    "witness": null
+  }
+]

@@ -12539,3 +12539,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Fixed63e0fdc (runtime4f85e2d) actual24 Chinese phase checks pass: two independent property pairs now recall the corresponding full Builder identities;14 unsupported request outputs unchanged, all log/path outputs unchanged, no new selection authority.
 - Existing English24 and old-index5 match accepted final842;20 source-byte checks pass. Fixed31 focused tests and compile pass; tools/tests remained unchanged during execution.
 - This is only the separately reviewed lexical retrieval prerequisite. Original23 not rerun, cumulative20 unchanged, same-chain consumer not implemented, no full gate.
+
+## Phase S local candidate before public verification
+
+- Implement frozen full-method direct-chain witness and Chinese positive non-exhaustive selection after all-known identity/selected/capacity validation, using same-read hash and local negative descriptors.
+- Keep original English path, ranking, producer and limits unchanged; bind modifier request/proofs and selected members to private snapshots.
+- Preserve initial13-control range setup error, malformed-private-binding review and standalone-header hardening. Corrected13 controls and42 focused tests pass before any public candidate run.

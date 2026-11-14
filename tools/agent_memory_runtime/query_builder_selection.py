@@ -5,6 +5,7 @@ import hashlib
 from pathlib import Path
 import re
 from .text import json_list
+from .query_builder_request import parse_builder_request, BuilderRequest
 
 REQUEST = re.compile(
     r'(?i:find|locate|identify) (?i:the|a|an) (?:(?i:reusable|declared) )?'
@@ -60,7 +61,7 @@ class BuilderLocalization(dict):
 
 class BuilderEvidence(dict):
     def valid_for(self, query):
-        return (getattr(self, '_query', None) == query and declaration_request(query)
+        return (getattr(self, '_query', None) == query and (declaration_request(query) or parse_builder_request(query) is not None)
                 and getattr(self, '_binding', None) == evidence_binding(self))
 
 
@@ -70,6 +71,9 @@ def evidence_binding(value):
 
 
 def bind_localization(project, query, ranked, selected, result):
+    if parse_builder_request(query) is not None:
+        from .query_builder_witness import bind_modifier_localization
+        return bind_modifier_localization(project, query, ranked, selected, result)
     if not declaration_request(query):
         return result
     known = [row for row in ranked if 'arkts_builder' in json_list(row.get('callable_roles'))]
@@ -112,10 +116,18 @@ def bind_localization(project, query, ranked, selected, result):
 
 
 def project_builder_evidence(localization, evidence):
+    modifier = getattr(localization, '_modifier', None)
+    query = getattr(localization, '_query', None)
+    if modifier is not None and (not isinstance(modifier, tuple) or len(modifier) != 2
+                                 or not isinstance(modifier[0], BuilderRequest)
+                                 or not isinstance(modifier[1], tuple)):
+        return evidence
+    binding = (query, getattr(localization, '_rows', None))
+    if modifier is not None:
+        binding += (modifier,)
     if (not isinstance(localization, BuilderLocalization)
-            or not declaration_request(getattr(localization, '_query', None))
-            or (getattr(localization, '_query', None), getattr(localization, '_rows', None))
-            != getattr(localization, '_snapshot', None)):
+            or not (declaration_request(query) or (modifier is not None and parse_builder_request(query) == modifier[0]))
+            or binding != getattr(localization, '_snapshot', None)):
         return evidence
     from .query_callable_evidence import compact_candidate
     candidates = localization.get('callable_candidates') or []
@@ -138,6 +150,10 @@ def project_builder_evidence(localization, evidence):
     result.update(primary=members[0], alternatives=members[1:], certainty='uncertain')
     result[MARKER] = {'kind': 'positive_declared_builder', 'known_matches': len(members),
                       'scope': 'retrieved_candidates_non_exhaustive', 'behavior_certified': False}
+    if modifier is not None:
+        result[MARKER].update(kind='positive_builder_direct_modifiers',
+                              required_calls=list(modifier[0].requirements),
+                              source_scope='same_chain_syntactic_non_exhaustive')
     result._query = localization._query
     result._members = deepcopy(members)
     result._binding = evidence_binding(result)
