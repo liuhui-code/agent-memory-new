@@ -12165,3 +12165,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   saved results; no SDK execution, positional valueflow or unique-owner proof.
 - Runtime/model/schema/selector unchanged; no public query or full suite run,
   original repaired count20 unchanged. Source/consumer/model limits remain open.
+
+## 2026-11-14 - Inspect listener request and typed model permission
+
+- Froze and ran eight offline existing-classifier/tokenizer cases once; no public
+  query, runtime/schema/weight or oracle change. Retained plain rejected empty
+  identifier split and failure token collisions rather than adding selectors.
+- Distinguished weak-match motivation from the already repaired range oracle;
+  recorded local model validation obligations without granting consumer authority.
+- Evidence: docs/eval/listener-request-permission/README.md.

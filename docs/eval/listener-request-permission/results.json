@@ -1,0 +1,109 @@
+[
+  {
+    "id": "native-fixed",
+    "existing_descriptor": null,
+    "descriptor_expected": true,
+    "member_tokens": {
+      "onFailure": [
+        "on",
+        "failure"
+      ]
+    },
+    "overlap_members": [
+      "onFailure"
+    ],
+    "safe_token_authority": false
+  },
+  {
+    "id": "independent-fixed",
+    "existing_descriptor": null,
+    "descriptor_expected": true,
+    "member_tokens": {
+      "rejected": []
+    },
+    "overlap_members": [],
+    "safe_token_authority": false
+  },
+  {
+    "id": "token-collision",
+    "existing_descriptor": null,
+    "descriptor_expected": true,
+    "member_tokens": {
+      "onFailure": [
+        "on",
+        "failure"
+      ],
+      "failureCount": [
+        "failure",
+        "count"
+      ],
+      "retryFailure": [
+        "retry",
+        "failure"
+      ]
+    },
+    "overlap_members": [
+      "onFailure",
+      "failureCount",
+      "retryFailure"
+    ],
+    "safe_token_authority": false
+  },
+  {
+    "id": "literal",
+    "existing_descriptor": {
+      "kind": "literal",
+      "identifier": "DeliverySink"
+    },
+    "descriptor_expected": true,
+    "member_tokens": {
+      "rejected": []
+    },
+    "overlap_members": [],
+    "safe_token_authority": false
+  },
+  {
+    "id": "parameter-positive",
+    "existing_descriptor": {
+      "kind": "parameter",
+      "identifier": "DeliverySink",
+      "operation": "rejected"
+    },
+    "descriptor_expected": true,
+    "member_tokens": {
+      "rejected": []
+    },
+    "overlap_members": [],
+    "safe_token_authority": false
+  },
+  {
+    "id": "negative",
+    "existing_descriptor": null,
+    "descriptor_expected": true,
+    "member_tokens": {
+      "rejected": []
+    },
+    "overlap_members": [],
+    "safe_token_authority": false
+  },
+  {
+    "id": "two-types",
+    "existing_descriptor": null,
+    "descriptor_expected": true,
+    "member_tokens": {
+      "rejected": []
+    },
+    "overlap_members": [],
+    "safe_token_authority": false
+  },
+  {
+    "id": "wrapper",
+    "existing_descriptor": null,
+    "descriptor_expected": true,
+    "member_tokens": {
+      "rejected": []
+    },
+    "overlap_members": [],
+    "safe_token_authority": false
+  }
+]
