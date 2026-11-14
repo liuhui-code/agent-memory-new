@@ -1,0 +1,411 @@
+{
+  "stable_identity_fields": [
+    "symbol_key",
+    "file_path",
+    "qualified_name",
+    "symbol",
+    "symbol_type",
+    "owner_name",
+    "owner_kind",
+    "start_line",
+    "end_line",
+    "source_digest",
+    "signature"
+  ],
+  "installation_only_unknown": true,
+  "merge_witnesses": 2,
+  "queries": [
+    {
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "pass": false,
+      "paths": [
+        "Recovery.ets"
+      ],
+      "anchor_changes": [
+        {
+          "record_ids": [
+            [
+              2
+            ],
+            [
+              9
+            ]
+          ]
+        }
+      ],
+      "body_range_primary_identical": true,
+      "before_budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "query": "Find Relay.connect.",
+      "pass": true,
+      "paths": [
+        "Relay.ets"
+      ],
+      "anchor_changes": [
+        {
+          "record_ids": [
+            [
+              5,
+              3
+            ],
+            [
+              12,
+              10
+            ]
+          ]
+        }
+      ],
+      "body_range_primary_identical": true,
+      "before_budget": {
+        "estimated_tokens": 892,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 893,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "query": "Find the callable that accepts DeliverySink.",
+      "pass": true,
+      "paths": [
+        "Relay.ets"
+      ],
+      "anchor_changes": [
+        {}
+      ],
+      "body_range_primary_identical": true,
+      "before_budget": {
+        "estimated_tokens": 986,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 986,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "query": "Find Recovery.retryRejectedDelivery.",
+      "pass": true,
+      "paths": [
+        "Recovery.ets"
+      ],
+      "anchor_changes": [
+        {
+          "record_ids": [
+            [
+              2,
+              1
+            ],
+            [
+              9,
+              8
+            ]
+          ]
+        }
+      ],
+      "body_range_primary_identical": true,
+      "before_budget": {
+        "estimated_tokens": 969,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 969,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+      "pass": true,
+      "paths": [
+        "Recovery.ets"
+      ],
+      "anchor_changes": [
+        {
+          "record_ids": [
+            [
+              2
+            ],
+            [
+              9
+            ]
+          ]
+        }
+      ],
+      "body_range_primary_identical": true,
+      "before_budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  ],
+  "indexed_controls": [
+    {
+      "id": "relay",
+      "pass": true,
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "accepted",
+          "accepted"
+        ],
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ],
+      "actual": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "accepted",
+          "accepted"
+        ],
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ]
+    },
+    {
+      "id": "native",
+      "pass": false,
+      "expected": [
+        [
+          "NativeResultBoundary.attach",
+          "ResultListener",
+          "onReady",
+          "onReady"
+        ],
+        [
+          "NativeResultBoundary.attach",
+          "ResultListener",
+          "onFailure",
+          "onFailure"
+        ]
+      ],
+      "actual": []
+    },
+    {
+      "id": "other-receiver",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "shadow",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "reassign",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "alias",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "nested",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "unpassed-object",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "split",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "different-property",
+      "pass": true,
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "accepted",
+          "rejected"
+        ]
+      ],
+      "actual": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "accepted",
+          "rejected"
+        ]
+      ]
+    },
+    {
+      "id": "unused",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "interface-only",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "retry",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "multiple-forwarders",
+      "pass": true,
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ],
+        [
+          "SecondRelay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ],
+      "actual": [
+        [
+          "SecondRelay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ],
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ]
+    },
+    {
+      "id": "two-typed-formals",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "unknown-interpolation",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "comment",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "string",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "member-suffix",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    },
+    {
+      "id": "same-name-owners",
+      "pass": true,
+      "expected": [],
+      "actual": []
+    }
+  ],
+  "model_checks": [
+    {
+      "id": "new-roundtrip",
+      "pass": true
+    },
+    {
+      "id": "legacy-unknown",
+      "pass": true
+    },
+    {
+      "id": "old-reader-explicit-rejection",
+      "pass": true
+    },
+    {
+      "id": "bad-version",
+      "pass": true
+    },
+    {
+      "id": "bool-coordinate",
+      "pass": true
+    },
+    {
+      "id": "bad-nesting",
+      "pass": true
+    },
+    {
+      "id": "wrong-key",
+      "pass": true
+    },
+    {
+      "id": "wrong-digest",
+      "pass": true
+    },
+    {
+      "id": "oversized",
+      "pass": true
+    },
+    {
+      "id": "wrong-receiver",
+      "pass": true
+    },
+    {
+      "id": "atomic-byte-cap-omits-whole-witness",
+      "pass": true
+    }
+  ]
+}
