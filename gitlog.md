@@ -12146,3 +12146,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Rebuilt Builder integration: 39 focused checks pass; independent reviewer reran
   3 public tests and verified saved same-byte merge/identity and query comparisons.
   Producer-only accepted, original repaired count20 unchanged, no full suite.
+
+## 2026-11-14 - Review named listener callback-binding contract
+
+- Read retained public listener red and four controls; separated existing lexical
+  mechanisms from an unimplemented call-argument/typed-receiver containment fact.
+- Recorded minimal source identity and shadow/reassignment controls, API/unique
+  ownership nonclaims, and separate consumer approval boundary. No runtime edits,
+  new queries, test runs, original result change or remote publication.
+- Details: docs/eval/listener-binding-contract-review/README.md.
