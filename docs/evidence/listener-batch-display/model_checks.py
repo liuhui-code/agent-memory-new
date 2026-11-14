@@ -38,7 +38,8 @@ for name,values in [('conflict',[witness,{**witness,'version':'other'}]),('overc
     check('legacy-preserved-'+name,lambda values=values:preservation(values))
 def kind():
     from dataclasses import replace
-    entity=replace(e,kind='class');preservation([witness],entity)
+    entity=replace(e,kind='class')
+    assert optional_batch([witness],{entity.key:entity},{entity.file_path:row['source_digest']})==[]
 check('noncallable-legacy-preserved',kind)
 for name,change in [('bool',lambda w:w['formal'].update(index=True)),('identity',lambda w:w['source'].update(symbol_key='wrong'))]:
     def mutated(change=change):
@@ -60,7 +61,7 @@ def version():
     w=copy.deepcopy(witness);w['version']='unknown';unknown({**row,'typed_invocation_witnesses':json.dumps([w])})
 check('version',version)
 def symlink():
-    path=root/'escape.ets';path.symlink_to(work/'outside.ets');(work/'outside.ets').write_text('outside')
+    path=root/'escape.ets';path.unlink(missing_ok=True);path.symlink_to(work/'outside.ets');(work/'outside.ets').write_text('outside')
     unknown({**row,'file_path':'escape.ets'})
 check('symlink-escape',symlink)
 def caps():

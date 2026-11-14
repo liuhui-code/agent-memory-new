@@ -33,8 +33,7 @@
   },
   {
     "id": "noncallable-legacy-preserved",
-    "pass": false,
-    "error": "FrozenInstanceError(\"cannot assign to field 'kind'\")"
+    "pass": true
   },
   {
     "id": "bool",
@@ -78,8 +77,7 @@
   },
   {
     "id": "symlink-escape",
-    "pass": false,
-    "error": "FileExistsError(17, 'File exists')"
+    "pass": true
   },
   {
     "id": "list-diagnostic-caps",

@@ -1,0 +1,88 @@
+[
+  {
+    "id": "64-exact-duplicates-one",
+    "pass": true
+  },
+  {
+    "id": "65-before-iterate",
+    "pass": true
+  },
+  {
+    "id": "wrong-container",
+    "pass": true
+  },
+  {
+    "id": "byte-cap",
+    "pass": true
+  },
+  {
+    "id": "conflict-identity",
+    "pass": true
+  },
+  {
+    "id": "legacy-preserved-conflict",
+    "pass": true
+  },
+  {
+    "id": "legacy-preserved-overcount",
+    "pass": true
+  },
+  {
+    "id": "legacy-preserved-wrongtype",
+    "pass": true
+  },
+  {
+    "id": "noncallable-legacy-preserved",
+    "pass": false,
+    "error": "ValueError('semantic mechanism source must be callable')"
+  },
+  {
+    "id": "bool",
+    "pass": true
+  },
+  {
+    "id": "identity",
+    "pass": true
+  },
+  {
+    "id": "current-source",
+    "pass": true
+  },
+  {
+    "id": "absolute",
+    "pass": true
+  },
+  {
+    "id": "escape",
+    "pass": true
+  },
+  {
+    "id": "missing",
+    "pass": true
+  },
+  {
+    "id": "stale-digest",
+    "pass": true
+  },
+  {
+    "id": "old-index",
+    "pass": true
+  },
+  {
+    "id": "malformed",
+    "pass": true
+  },
+  {
+    "id": "version",
+    "pass": true
+  },
+  {
+    "id": "symlink-escape",
+    "pass": false,
+    "error": "FileExistsError(17, 'File exists')"
+  },
+  {
+    "id": "list-diagnostic-caps",
+    "pass": true
+  }
+]
