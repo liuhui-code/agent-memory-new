@@ -1,0 +1,182 @@
+[
+  {
+    "id": "generic",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "only_required": true,
+      "both_complete_exact_snapshots": true
+    },
+    "paths": [
+      "MessageSurface.ets"
+    ],
+    "tokens": 845
+  },
+  {
+    "id": "explicit",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [
+      "MessageSurface.ets"
+    ],
+    "tokens": 965
+  },
+  {
+    "id": "two",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [
+      "MessageSurface.ets",
+      "DetailPanel.ets",
+      "MessageRecord.ets"
+    ],
+    "tokens": 1283
+  },
+  {
+    "id": "literal",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [
+      "DetailPanel.ets"
+    ],
+    "tokens": 930
+  },
+  {
+    "id": "head-only",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "only_required": true,
+      "both_complete_exact_snapshots": true
+    },
+    "paths": [
+      "MessageSurface.ets"
+    ],
+    "tokens": 808
+  },
+  {
+    "id": "generated",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [],
+    "tokens": 568
+  },
+  {
+    "id": "entity",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [
+      "MessageRecord.ets",
+      "MessageSurface.ets",
+      "DetailPanel.ets"
+    ],
+    "tokens": 1263
+  },
+  {
+    "id": "quoted-head",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [],
+    "tokens": 569
+  },
+  {
+    "id": "mixed",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [],
+    "tokens": 568
+  },
+  {
+    "id": "unknown-prefix",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [],
+    "tokens": 576
+  },
+  {
+    "id": "negative-owner",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [
+      "DetailPanel.ets"
+    ],
+    "tokens": 846
+  },
+  {
+    "id": "unknown-tail",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [],
+    "tokens": 567
+  },
+  {
+    "id": "discarded-return",
+    "checks": {
+      "original_input_equal": true,
+      "raw_handoff_same": true,
+      "logs_path_same": true,
+      "budget": true,
+      "complete_compact_same": true
+    },
+    "paths": [
+      "MessageRecord.ets",
+      "MessageSurface.ets",
+      "DisplaySettings.ets"
+    ],
+    "tokens": 1409
+  }
+]
