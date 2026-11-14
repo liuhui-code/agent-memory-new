@@ -55,9 +55,9 @@ class RenderRecall:
         return self.__copy__()
 
 
-def recall_projection(query,custom_port=None):
+def recall_projection(query,custom_port=None,allow_render_recall=False):
     old=builder.recall_projection(query,custom_port)
-    if old is not None or custom_port is not None:
+    if old is not None or custom_port is not None or not allow_render_recall:
         return old
     request=parse_render_request(query)
     if request is None:

@@ -87,8 +87,9 @@ def collect_matches_with_audit(
     project: Project,
     query: str,
     recall_port: CandidateRecallPort | None = None,
+    *, allow_render_recall: bool = False,
 ) -> CollectedMatches:
-    projection = recall_projection(query, recall_port)
+    projection = recall_projection(query, recall_port, allow_render_recall)
     retrieval_query = positive_retrieval_query(query)
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))

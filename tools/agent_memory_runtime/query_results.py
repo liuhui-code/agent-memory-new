@@ -93,12 +93,27 @@ def diverse_log_matches(
     return sorted(selected, key=lambda item: positions.get(id(item), len(values)))
 
 
-def limited_context(
+def limited_context(project: Project, query: str, explicit_intent: str | None = None) -> dict[str, Any]:
+    baseline = _context_pass(project, query, explicit_intent)
+    result = baseline
+    if recall_projection(query, allow_render_recall=True) is not None:
+        from .query_render_recall import RenderRecall
+        if isinstance(recall_projection(query, allow_render_recall=True), RenderRecall):
+            trial = _context_pass(project, query, explicit_intent, allow_render_recall=True)
+            from .query_render_selection import bind_render_context
+            result = bind_render_context(project, query, baseline, trial)
+    record_context_use(project, result)
+    record_query_miss_if_empty(project, "context", query, result)
+    return result
+
+
+def _context_pass(
     project: Project,
     query: str,
     explicit_intent: str | None = None,
+    *, allow_render_recall: bool = False,
 ) -> dict[str, Any]:
-    collection = collect_matches_with_audit(project, query)
+    collection = collect_matches_with_audit(project, query, allow_render_recall=allow_render_recall)
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches, explicit_intent)
     caller_ids = requested_caller_identities(matches.get("wiki_matches") or [], query)
@@ -109,7 +124,7 @@ def limited_context(
     ]
     followup_focus = infer_followup_focus(query, bounded)
     localization_matches, direct_scores_safe = localization_input(
-        project, query, gated["matches"],
+        project, query, gated["matches"], allow_render_recall=allow_render_recall,
     )
     localization = SQLiteHierarchicalLocalizer().localize(
         project, query, localization_matches, direct_scores_safe,
@@ -170,8 +185,6 @@ def limited_context(
         context["query_handoff"]["normative_context"] = normative
     from .query_ui_pair import bind_ui_pair
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
-    record_context_use(project, context)
-    record_query_miss_if_empty(project, "context", query, context)
     return context
 
 
@@ -179,11 +192,12 @@ def localization_input(
     project: Project,
     query: str,
     matches: dict[str, list[dict[str, Any]]],
+    *, allow_render_recall: bool = False,
 ) -> tuple[dict[str, list[dict[str, Any]]], bool]:
     positive = positive_retrieval_query(query)
     if positive == " ".join(query.split()):
         return matches, False
-    projection = recall_projection(query)
+    projection = recall_projection(query, allow_render_recall=allow_render_recall)
     # Original collection already scored the positive query with its bound AST.
     positive_matches = (dict(matches) if projection is not None
                         else dict(collect_matches_with_audit(project, positive).matches))

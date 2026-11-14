@@ -41,6 +41,8 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 
 
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
+    from .query_render_selection import render_context_view, attach_render_excerpts
+    data, render_receipts = render_context_view(data)
     handoff = data.get("query_handoff") if isinstance(data.get("query_handoff"), dict) else {}
     protected_paths = projected_guards(handoff)
     compact = compact_handoff(handoff, data)
@@ -63,25 +65,30 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
         },
     }
     budget_truncated = False
-    excerpt_reserve = multi_excerpt_reserve_tokens(payload, data.get("project_path"))
+    excerpt_reserve = (0 if render_receipts else multi_excerpt_reserve_tokens(payload, data.get("project_path")))
     if excerpt_reserve:
         budget_truncated = enforce_budget(
             payload, COMPACT_TOKEN_BUDGET, reserve_tokens=excerpt_reserve, protected_paths=protected_paths,
         )
-    excerpt_count = attach_source_excerpts(
-        payload, data.get("project_path"), COMPACT_TOKEN_BUDGET
-    )
-    if not excerpt_count and has_source_excerpt_candidate(payload, data.get("project_path")):
+    excerpt_count = (attach_render_excerpts(payload, render_receipts, COMPACT_TOKEN_BUDGET)
+                     if render_receipts else attach_source_excerpts(
+                         payload, data.get("project_path"), COMPACT_TOKEN_BUDGET))
+    if not excerpt_count and (render_receipts or has_source_excerpt_candidate(payload, data.get("project_path"))):
         budget_truncated = enforce_budget(
             payload, SOURCE_EXCERPT_PRE_BUDGET, reserve_tokens=0, protected_paths=protected_paths,
         ) or budget_truncated
-        attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
+        if render_receipts:
+            attach_render_excerpts(payload, render_receipts, COMPACT_TOKEN_BUDGET)
+        else:
+            attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
     budget_truncated = enforce_budget(payload, COMPACT_TOKEN_BUDGET, protected_paths=protected_paths) or budget_truncated
     payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
     payload["sufficiency"] = diagnosis_sufficiency(
         payload["query_handoff"], payload["evidence_gaps"], payload["source_freshness"],
     )
     finalize_budget(payload, COMPACT_TOKEN_BUDGET, truncated=budget_truncated)
+    if render_receipts:
+        return payload
     from .context_source_recovery import recover_partial_primary
     return recover_partial_primary(payload, data.get('project_path'), COMPACT_TOKEN_BUDGET,
                                    source_rows=data.get('wiki_matches') or [])
