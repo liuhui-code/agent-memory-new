@@ -50,3 +50,18 @@ class RenderSelectionTests(unittest.TestCase):
   with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial])as call,patch('tools.agent_memory_runtime.query_render_selection.bind_render_context',return_value=self.baseline),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
    self.assertIs(limited_context(self.project,Q),self.baseline)
   self.assertEqual(call.call_count,2);self.assertTrue(call.call_args.kwargs['allow_render_recall']);record.assert_called_once();miss.assert_called_once()
+
+ def test_protected_both_contexts_fallback(self):
+  for context in (self.baseline,self.trial):
+   for field in ['identity_match','graph_neighbor','graph_relation','log_identity_match']:
+    context['query_handoff']['code_anchors']=[{'file_path':'Protected.ets',field:True}]
+    self.assertIs(self.bind(),self.baseline,field)
+    context['query_handoff']['code_anchors']=[]
+ def test_success_records_adopted_view_not_empty_baseline(self):
+  from tools.agent_memory_runtime.query_results import limited_context
+  receipt=self.bind()
+  with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial]),patch('tools.agent_memory_runtime.query_render_selection.bind_render_context',return_value=receipt),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
+   result=limited_context(self.project,Q)
+  self.assertIs(result,receipt);record.assert_called_once();miss.assert_called_once()
+  self.assertIs(record.call_args.args[1],receipt._view);self.assertIs(miss.call_args.args[3],receipt._view)
+  self.assertTrue(miss.call_args.args[3]['query_handoff']['code_anchors'])

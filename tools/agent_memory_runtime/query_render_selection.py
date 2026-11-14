@@ -23,12 +23,14 @@ def bind_render_context(project,query,baseline,trial):
     from .query_render_source import parse_render_source
     if parse_render_request(query) is None:
         return baseline
-    h=trial.get('query_handoff')or{}
-    path=h.get('path_context')or{}
-    anchors=h.get('code_anchors')or[]
-    if (path.get('activated') or path.get('wrapped_log_evidence') or h.get('log_anchors')
-            or any(a.get('graph_neighbor') or a.get('graph_relation') or a.get('log_identity_match') for a in anchors)):
-        return baseline
+    for context in (baseline,trial):
+        h=context.get('query_handoff')or{}
+        path=h.get('path_context')or{}
+        anchors=h.get('code_anchors')or[]
+        if (path.get('activated') or path.get('wrapped_log_evidence') or h.get('log_anchors')
+                or any(a.get('graph_neighbor') or a.get('graph_relation') or a.get('log_identity_match')
+                       or a.get('identity_match') for a in anchors)):
+            return baseline
     paths=sorted({r.get('file_path')for r in trial.get('wiki_matches')or[] if isinstance(r.get('file_path'),str)})
     if not paths or len(paths)>12:
         return baseline

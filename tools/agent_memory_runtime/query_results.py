@@ -102,8 +102,10 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             trial = _context_pass(project, query, explicit_intent, allow_render_recall=True)
             from .query_render_selection import bind_render_context
             result = bind_render_context(project, query, baseline, trial)
-    record_context_use(project, result)
-    record_query_miss_if_empty(project, "context", query, result)
+    from .query_render_selection import render_context_view
+    adopted, _ = render_context_view(result)
+    record_context_use(project, adopted)
+    record_query_miss_if_empty(project, "context", query, adopted)
     return result
 
 
