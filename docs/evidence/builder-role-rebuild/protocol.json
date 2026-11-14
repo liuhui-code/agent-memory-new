@@ -1,0 +1,67 @@
+{
+  "classification": "Development; new execution after environment loss; reconstructed from retained conversation, not recovered old artifacts",
+  "base": "6371d430",
+  "role": "arkts_builder",
+  "sources": {
+    "Member.ets": "@Component\nexport struct CardParts {\n @Builder\n rowPart() {\n  Row() { Text('entry') }.height(24)\n }\n @Builder inlinePart() {\n  Text('inline')\n }\n ordinary() {\n  Text('ordinary')\n }\n @BuilderParam content: () => void\n}\n",
+    "Global.ets": "@Builder\nfunction globalPart() {\n Text('global')\n}\n@Builder function inlineGlobal() {\n Text('inline')\n}\n",
+    "Negative.ets": "@Component\nstruct Negative {\n // @Builder\n plain() { Text('plain') }\n @Builder(1)\n withArgs() { Text('args') }\n @Styles\n @Builder\n stacked() { Text('stacked') }\n text() { return '@Builder' }\n}\n",
+    "Unknown.ets": "const pattern = /x/\n@Component\nstruct Unknown {\n @Builder\n unknownPart() { Text('x') }\n}\n",
+    "Duplicate.ets": "@Component\nstruct Repeat {\n @Builder\n part() { Text('one') }\n @Builder\n part() { Text('two') }\n}\n",
+    "Other.ts": "class Other {\n @Builder\n part() { return 'not ArkTS' }\n}\n"
+  },
+  "expected": [
+    [
+      "Member.ets",
+      "CardParts.rowPart"
+    ],
+    [
+      "Member.ets",
+      "CardParts.inlinePart"
+    ],
+    [
+      "Global.ets",
+      "globalPart"
+    ],
+    [
+      "Global.ets",
+      "inlineGlobal"
+    ]
+  ],
+  "controls": {
+    "Param.ets": "@Component\nstruct Param {\n @BuilderParam\n content() { Text('x') }\n @Builder(1) inlineArgs() { Text('x') }\n @Builder  @Styles stacked() { Text('x') }\n}\n",
+    "Template.ets": "const s = `@Builder\n fake() { Text('x') }`\n@Component\nstruct Good {\n @Builder\n real() { Text('x') }\n}\n",
+    "Interpolation.ets": "const s = `${value}`\n@Component\nstruct Unknown {\n @Builder\n part() { Text('x') }\n}\n",
+    "Nested.ets": "function outer() {\n @Builder\n function inner() { Text('x') }\n}\n",
+    "Duplicates.ets": "@Component\nstruct Same {\n @Builder\n first() { Text('x') }\n}\n@Component\nstruct Same {\n @Builder\n second() { Text('y') }\n}\n",
+    "Shadow.ets": "const Builder = customDecorator\n@Component\nstruct Shadow {\n @Builder\n part() { Text('x') }\n}\n",
+    "Import.ets": "import { custom as Builder } from './other'\n@Component\nstruct Imported {\n @Builder\n part() { Text('x') }\n}\n",
+    "Gap.ets": "@Builder\nconst unrelated = 2\nfunction plain() { Text('x') }\n"
+  },
+  "controls_expected": [
+    [
+      "Template.ets",
+      "Good.real"
+    ]
+  ],
+  "stacked": {
+    "Stacked.ets": "@Component\nstruct Stacked {\n @Other(\n  1\n )\n @Builder\n part() { Text('x') }\n}\n"
+  },
+  "sha256": {
+    "Member.ets": "7040cfc902edd0bc49c8ebf488b564da585f37afd906827b9d6b4cd5c2682ea4",
+    "Global.ets": "7e073969cc082f540d429267e62a6dc77ba855dad3474c24db214e37397bba76",
+    "Negative.ets": "437aae85038a1a8e0166e8f6b426475bdf97a47634ee33890aa9f0cf4b80095f",
+    "Unknown.ets": "86e50b367cc5fe0d9e7c73629cfac42801bae557d4723056dafd391d67e553c0",
+    "Duplicate.ets": "cb662c5a93deaf9c854db76f95c4c64b7fc22ab958f4bd7e9e3d223c7748133d",
+    "Other.ts": "bd17e7e2bab981a76929c3cd1c1d6a439c755abc8af2c704d5553aece0e26dcb",
+    "Param.ets": "ee0ea18f5a7b4d12f54c587a352f5ea18e608db1e5605ff7c9190bd0baa75723",
+    "Template.ets": "cdea77b65b14cda98529a787d5329f5d10842a3670b20c6fa1fe3a4579ad102b",
+    "Interpolation.ets": "0ebc21d84a8f8a8b187ce6df66d51c66ff17c2fe1ce0fcd685ba795dc74ac28d",
+    "Nested.ets": "75386f83e600d46fd803ec0f072a9f5212692336e9674aea66dc5bc37842864a",
+    "Duplicates.ets": "02609de9da54ff85188227485205852c318c14037ba6c9e18d2710778f59db61",
+    "Shadow.ets": "58dd54b8b5720789a6111eaf719e3ba330a83b3f1c156d4621500b72b1e4d917",
+    "Import.ets": "23831c8b329173a215ae10b6e3eed884022fad04ca377f315df364ecc846ea15",
+    "Gap.ets": "6663c2731e0dfabe0af627533bad6d16d7a06b41f6ff557fff4010f410befa87",
+    "Stacked.ets": "a0c41e5cfc52bcfea5a9dba5f2111ba07cfdc96c7a93911338682717cc084a21"
+  }
+}
