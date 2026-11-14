@@ -12347,3 +12347,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve source/query hashes, public outputs and profiler; validate invariants.
   No runtime/tests changed, no full evaluation and cumulative repair count stays20.
   Details: docs/evidence/alternative-receipt-audit/README.md.
+
+## 2026-11-14 — Audit rendered-value contract without semantic authority expansion
+
+- Rechecked the unchanged independent render fixture: generic precision remains
+  red, three retention/literal/explicit controls pass; no original case rerun.
+- A predeclared discarded-return observation retains the same typed build→helper
+  call while not rendering its result. Matching source digests verify identity,
+  not return-to-render dependence. Existing relation was not lost in projection.
+- Preserve the schema-inspection correction and all public outputs. No runtime,
+  evaluator or query tuning; no new repair count, full gate or public upload.
+  See docs/evidence/render-value-contract/README.md.
