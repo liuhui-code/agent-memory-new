@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from .query_builder_request import recall_projection, projected_method_terms, score_projected_code
 from .experience_maturity import score_experience_maturity
 from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_by_type
 from .feedback_policy import candidate_ids
@@ -87,11 +88,12 @@ def collect_matches_with_audit(
     query: str,
     recall_port: CandidateRecallPort | None = None,
 ) -> CollectedMatches:
+    projection = recall_projection(query, recall_port)
     retrieval_query = positive_retrieval_query(query)
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
-    method_focus_terms = method_evidence_focus_terms(retrieval_query)
+    method_focus_terms = projected_method_terms(retrieval_query, projection)
     behavior_terms = behavior_marker_terms(retrieval_query)
     salient_terms = salient_query_tokens(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
@@ -104,7 +106,7 @@ def collect_matches_with_audit(
         "incident_trace_matches": [],
     }
     with connect(project) as conn:
-        recalled = (recall_port or SQLiteCandidateRecall()).recall(
+        recalled = (recall_port or SQLiteCandidateRecall(property_projection=projection)).recall(
             conn, project, retrieval_query
         )
         log_effects = collect_log_effect_matches(conn, project, retrieval_query)
@@ -313,8 +315,8 @@ def collect_matches_with_audit(
         method_coverage = method_evidence_term_coverage(
             row["method_evidence"] or "", method_focus_terms
         ) if "method_body_fts" in symbol_lanes else 0
-        score, reasons = score_weighted_fields(
-            retrieval_query,
+        score, reasons = score_projected_code(
+            projection, row, retrieval_query,
             tokens,
             expanded_terms,
             weighted_fields,

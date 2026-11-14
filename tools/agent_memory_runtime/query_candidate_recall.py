@@ -8,6 +8,7 @@ from typing import Any, Protocol
 from .models import Project, QUERY_FTS_RECALL_LIMITS
 from .index_freshness import filter_fresh_candidate_rows
 from .query_behavior_concepts import behavior_marker_terms
+from .query_builder_request import projected_method_terms, filter_projected_method_ids
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
 from .query_fielded_retrieval import candidate_refs
 from .query_fielded_serving import fielded_serving_candidates
@@ -122,7 +123,9 @@ class SQLiteCandidateRecall:
     def __init__(
         self,
         rank_fusion: RankFusionPort | None = None,
+        property_projection=None,
     ) -> None:
+        self.property_projection = property_projection
         self.rank_fusion = rank_fusion or ReciprocalRankFusion(
             channel_weights=CANDIDATE_CHANNEL_WEIGHTS
         )
@@ -135,7 +138,7 @@ class SQLiteCandidateRecall:
         table_audits: dict[str, dict[str, Any]] = {}
         for table_name, limit in QUERY_FTS_RECALL_LIMITS.items():
             recalled = recall_table_candidates(
-                conn, project, table_name, query, limit, self.rank_fusion,
+                conn, project, table_name, query, limit, self.rank_fusion, self.property_projection,
             )
             rows[table_name] = fetch_rows_by_ids(
                 conn,
@@ -237,6 +240,7 @@ def recall_table_candidates(
     query: str,
     limit: int,
     rank_fusion: RankFusionPort,
+    property_projection=None,
 ) -> TableCandidateRecall:
     lane_ids: dict[str, list[int]] = {}
     fielded_audit: dict[str, Any] = {}
@@ -285,7 +289,7 @@ def recall_table_candidates(
                 fts_expression([term], " OR "),
                 per_term_limit,
             )
-    method_terms = method_evidence_focus_terms(query)
+    method_terms = projected_method_terms(query, property_projection)
     behavior_terms = behavior_marker_terms(query)
     if table_name == "code_symbols" and len(method_terms) >= 2:
         method_ids = fts_table_ids(
@@ -293,8 +297,9 @@ def recall_table_candidates(
             fts_expression(method_terms, " OR "),
             METHOD_EVIDENCE_RECALL_LIMIT,
         )
-        lane_ids["method_body_fts"] = qualifying_method_evidence_ids(
-            conn, project, method_ids, method_terms
+        lane_ids["method_body_fts"] = filter_projected_method_ids(
+            conn, project, qualifying_method_evidence_ids(conn, project, method_ids, method_terms),
+            query, property_projection,
         )
     if table_name == "code_symbols" and behavior_terms:
         lane_ids["behavior_method_fts"] = fts_table_ids(

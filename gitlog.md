@@ -12526,3 +12526,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Stored method evidence already contains padding/backgroundcolor/width; no new producer or schema needed.
 - Freeze separate Phase R design: original full AST, bounded existing method lane and code scorer projection, marked lexical expansion only; no query rewrite or semantic/source authority.
 - Consumer remains stopped. No implementation or candidate run yet; original 24 sources/queries unchanged.
+
+## Implement Phase R candidate, not source selection
+
+- Parse the frozen complete Chinese request into an immutable local descriptor; two canonical requirements required before existing bounded method recall/code scoring uses marked property expansions.
+- Keep original queries, intent, global aliases, scoring coefficients, method coverage thresholds and English Builder source selector unchanged. Custom recall ports receive no projection.
+- Initial focused run 29 passed; parent found exact Card local exclusion omission outside that run. Preserve review history, fix whole-token local matching, and rerun the corrected 29 focused checks successfully.
+- No candidate public run yet; source witness/consumer remains unimplemented pending separate qualification.
