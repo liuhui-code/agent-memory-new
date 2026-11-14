@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-D=Path('/workspace/scratch/dcdb41e16594/build-marker-final-0fab179/docs/evidence/build-marker-boundary')
+D=Path(__file__).resolve().parent
 p=json.loads((D/'protocol.json').read_text()); b=json.loads((D/'before-fixed-public.json').read_text()); a=json.loads((D/'after-fixed-public.json').read_text());out=[]
 for x,y in zip(b,a):
  c=y['case']; h=y['compact']['query_handoff'];checks={}
