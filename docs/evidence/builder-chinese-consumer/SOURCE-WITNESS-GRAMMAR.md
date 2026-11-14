@@ -32,10 +32,10 @@ invent tokens or method boundaries. Empty bodies and chains lacking all requeste
 suffixes yield no positive witness. No concatenation across two chains.
 
 Reserved top-level head words are ECMAScript control/declaration/operator forms,
-including if/else/for/while/do/switch/case/default/try/catch/finally/with/function/
+exhaustively if/else/for/while/do/switch/case/default/try/catch/finally/with/function/
 class/return/throw/new/delete/void/typeof/instanceof/in/of/yield/await/import/export/
-const/let/var/break/continue/debugger/super/this. The final implementation must
-freeze the actual set before tests; no source/project/API name blacklist.
+const/let/var/break/continue/debugger/super/this. This is the frozen v1 set;
+there is no source/project/API name blacklist.
 
 All delimiters in arguments and the optional DSL body must balance. Their nested
 contents are opaque for this witness and cannot contribute modifiers. This is not
