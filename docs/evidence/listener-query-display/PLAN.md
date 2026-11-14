@@ -40,3 +40,11 @@ query/source/oracle to get desired results. Source checker proves supported
 slices, not independent full qualified-owner reparse; provider identity trust
 boundary remains explicit. This is real query diagnostic consumption, NOT
 compact improvement or established serving selector authority.
+
+Pre-run details: deterministic SQL ORDER BY id ASC LIMIT64. More than64 checked
+facts yields all-or-nothing unknown-cap (not first64 associations). Full raw diff
+records exact changed paths and values. Expected normal record-ID/timestamp
+changes are reported individually, never by excluding whole anchors/evidence.
+Any additional differences remain mismatches. A second baseline runtime query
+against the SAME post-merge SQLite snapshot directly tests all retrieval fields
+without requiring cross-generation ID suppression.

@@ -1,0 +1,75 @@
+{
+  "base": "71f71ed",
+  "fixed_protocol_sha256": "32dd8b7f7233e92a4fd90db613b0002bb8181aa1ea4f02b87b880b7df0e6d5c5",
+  "fixed_protocol_path": "docs/eval/native-listener-current-20261114/protocol.json",
+  "sources": {
+    "native": {
+      "id": "native",
+      "file_path": "native.ets",
+      "source": "export interface ResultListener {\n  onReady(surfaceId: string): void\n  onFailure(code: number, message: string): void\n}\n\nexport class NativeResultBoundary {\n  attach(runtime: NativeRuntime, listener: ResultListener): void {\n    runtime.setObserver({\n      onReady: (surfaceId: string) => {\n        listener.onReady(surfaceId)\n      },\n      onFailure: (code: number, message: string) => {\n        listener.onFailure(code, message)\n      }\n    })\n  }\n}\n",
+      "sha256": "465838a30364c57bcef82277aec58cc607e2cd24ca47a6f239cf21f478f81ebd",
+      "expected": [
+        [
+          "NativeResultBoundary.attach",
+          "ResultListener",
+          "onReady",
+          "onReady"
+        ],
+        [
+          "NativeResultBoundary.attach",
+          "ResultListener",
+          "onFailure",
+          "onFailure"
+        ]
+      ],
+      "reason": "Saved original source verbatim, no query selection test"
+    },
+    "multiple-forwarders": {
+      "id": "multiple-forwarders",
+      "file_path": "multiple-forwarders.ets",
+      "source": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\nexport class SecondRelay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+      "sha256": "6aea904b408c0512b798dc02cfe69fee77d634f0b1416d3332accd1e291539ae",
+      "expected": [
+        [
+          "Relay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ],
+        [
+          "SecondRelay.connect",
+          "DeliverySink",
+          "rejected",
+          "rejected"
+        ]
+      ],
+      "reason": "Both source identities retained, no uniqueness"
+    }
+  },
+  "query_controls": [
+    {
+      "id": "quoted",
+      "query": "Find the string literal 'DeliverySink rejected'.",
+      "expected": "unsupported-descriptor"
+    },
+    {
+      "id": "negative",
+      "query": "Find the callable that binds engine callbacks to not DeliverySink rejected contract.",
+      "expected": "unsupported-descriptor"
+    },
+    {
+      "id": "wrapper",
+      "query": "Find the wrapper that binds engine callbacks to DeliverySink rejected contract.",
+      "expected": "unsupported-descriptor"
+    },
+    {
+      "id": "multiple",
+      "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+      "expected": "exact-name:multiple-observed"
+    }
+  ],
+  "native_query": "Find the callable that binds native runtime observer callbacks to the host ResultListener failure contract.",
+  "sql": "ORDER BY id ASC LIMIT 64",
+  "overflow": "all-or-nothing unknown-cap,never truncate selected facts",
+  "raw_comparison": "full diff report; no newly ignored fields. IDs/timestamps allowed only reported by exact changed paths; all other changes kept as mismatches, not silently normalized"
+}
