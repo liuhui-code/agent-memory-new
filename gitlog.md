@@ -12390,3 +12390,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   No matching files/blobs, errors or exhausted scan limits; preserved scope limits.
 - No remote writes, public queries, production changes or fabricated replacement
   evidence. Report and machine-readable inventory appended to paired-role audit.
+
+## 2026-11-14 — Bound gesture consumption evidence without inventing state flow
+
+- Read saved original precision failure and unchanged sources; current offline
+  adapter retains callback and typed BoardEngine.shift arity, but no BoardEngine
+  implementation exists in the fixed tree. Do not claim known state mutation.
+- Locate parameter/argument representation boundaries and retain genuine competing
+  state writes. Keyboard's fixed generic is green; comparison's public red is a
+  different layer. No independent second defect class for a shared value model.
+- No query rerun, fixture manipulation, runtime/test changes or remote publication.
+  See docs/evidence/gesture-consumption-contract/README.md.

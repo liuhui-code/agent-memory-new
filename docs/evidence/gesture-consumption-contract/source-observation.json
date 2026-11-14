@@ -1,0 +1,506 @@
+{
+  "src/views/BoardGestureSurface.ets": {
+    "source": "@Component\nexport struct BoardGestureSurface {\n  private boardEngine: BoardEngine = new BoardEngine()\n\n  build() {\n    Stack() {}\n      .gesture(\n        PanGesture().onActionUpdate((event: GestureEvent) => {\n          this.boardEngine.shift(event.offsetX, event.offsetY)\n        })\n      )\n  }\n}\n",
+    "sha256": "510c55f0fa8e9aa361df67eb8896a25e3791596f75a86204d5af8837ccb2dc10",
+    "entities": [
+      {
+        "key": "symbol:39758ac2c637dc7c725f01ab",
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "name": "BoardGestureSurface",
+        "kind": "component",
+        "qualified_name": "BoardGestureSurface",
+        "signature": "struct BoardGestureSurface",
+        "start_line": 2,
+        "end_line": 13,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:b96c913674a22d711c949098",
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "BoardGestureSurface.build",
+        "signature": "build():unknown",
+        "start_line": 5,
+        "end_line": 12,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "BoardGestureSurface",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:fc39b9aeadd967bd1c0fd96b",
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "name": "onActionUpdate",
+        "kind": "function",
+        "qualified_name": "BoardGestureSurface.onActionUpdate@8",
+        "signature": "callback onActionUpdate@8",
+        "start_line": 8,
+        "end_line": 10,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "BoardGestureSurface",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "source_key": "file:src/views/BoardGestureSurface.ets",
+        "relation": "exposes_api",
+        "target_key": "symbol:39758ac2c637dc7c725f01ab",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 2,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "exported symbol"
+      },
+      {
+        "source_key": "file:src/views/BoardGestureSurface.ets",
+        "relation": "exposes_api",
+        "target_key": "symbol:b96c913674a22d711c949098",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 5,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "exported symbol"
+      },
+      {
+        "source_key": "symbol:fc39b9aeadd967bd1c0fd96b",
+        "relation": "calls",
+        "target_key": null,
+        "target_name": "shift",
+        "target_qualified_name": "BoardEngine.shift",
+        "target_file_path": null,
+        "line": 9,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "typed field call through boardEngine; arity=2"
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:b96c913674a22d711c949098",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "action",
+          "update"
+        ],
+        "line": 8,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onActionUpdate"
+      },
+      {
+        "source_key": "symbol:b96c913674a22d711c949098",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 9,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:boardengine.shift"
+      },
+      {
+        "source_key": "symbol:fc39b9aeadd967bd1c0fd96b",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "action",
+          "update"
+        ],
+        "line": 8,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onActionUpdate"
+      },
+      {
+        "source_key": "symbol:fc39b9aeadd967bd1c0fd96b",
+        "kind": "operation",
+        "terms": [
+          "operation",
+          "call"
+        ],
+        "line": 9,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "call:boardengine.shift"
+      }
+    ],
+    "gaps": [],
+    "balanced_calls": [
+      [
+        3,
+        "BoardEngine()"
+      ],
+      [
+        5,
+        "build()"
+      ],
+      [
+        6,
+        "Stack()"
+      ],
+      [
+        7,
+        "gesture(\n        PanGesture().onActionUpdate((event: GestureEvent) => {\n          this.boardEngine.shift(event.offsetX, event.offsetY)\n        })\n      )"
+      ],
+      [
+        8,
+        "PanGesture()"
+      ],
+      [
+        8,
+        "onActionUpdate((event: GestureEvent) => {\n          this.boardEngine.shift(event.offsetX, event.offsetY)\n        })"
+      ],
+      [
+        9,
+        "this.boardEngine.shift(event.offsetX, event.offsetY)"
+      ]
+    ]
+  },
+  "src/views/CanvasInteractionSurface.ets": {
+    "source": "@Component\nexport struct CanvasInteractionSurface {\n  @State activeHandle: number = -1\n\n  build() {\n    Stack() {\n      Canvas()\n    }\n    .gesture(\n      PanGesture()\n        .onActionStart((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })\n        .onActionUpdate((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })\n    )\n  }\n}\n",
+    "sha256": "b18f96ba2c53097b31bcfa882bb60c35ca961fcced2455121fc0dc5f9a58a27f",
+    "entities": [
+      {
+        "key": "symbol:d067c6ca3ac9f14e348caf4e",
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "name": "CanvasInteractionSurface",
+        "kind": "component",
+        "qualified_name": "CanvasInteractionSurface",
+        "signature": "struct CanvasInteractionSurface",
+        "start_line": 2,
+        "end_line": 19,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "component",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:d2b248aa22f6d603d749d73e",
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "name": "build",
+        "kind": "function",
+        "qualified_name": "CanvasInteractionSurface.build",
+        "signature": "build():unknown",
+        "start_line": 5,
+        "end_line": 18,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "CanvasInteractionSurface",
+        "owner_kind": "component",
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:d8a66dc3b42384448f19a000",
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "name": "activeHandle",
+        "kind": "state",
+        "qualified_name": "CanvasInteractionSurface.activeHandle",
+        "signature": "activeHandle",
+        "start_line": 3,
+        "end_line": 3,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:2ce94d01e57e8ad928bd287f",
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "name": "onActionStart",
+        "kind": "function",
+        "qualified_name": "CanvasInteractionSurface.onActionStart@11",
+        "signature": "callback onActionStart@11",
+        "start_line": 11,
+        "end_line": 13,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "CanvasInteractionSurface",
+        "owner_kind": "component",
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ]
+      },
+      {
+        "key": "symbol:cb816d10e4e42e2f1f188493",
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "name": "onActionUpdate",
+        "kind": "function",
+        "qualified_name": "CanvasInteractionSurface.onActionUpdate@14",
+        "signature": "callback onActionUpdate@14",
+        "start_line": 14,
+        "end_line": 16,
+        "exported": false,
+        "evidence_class": "static",
+        "owner_name": "CanvasInteractionSurface",
+        "owner_kind": "component",
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "source_key": "file:src/views/CanvasInteractionSurface.ets",
+        "relation": "exposes_api",
+        "target_key": "symbol:d067c6ca3ac9f14e348caf4e",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 2,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "exported symbol"
+      },
+      {
+        "source_key": "file:src/views/CanvasInteractionSurface.ets",
+        "relation": "exposes_api",
+        "target_key": "symbol:d2b248aa22f6d603d749d73e",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 5,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "exported symbol"
+      },
+      {
+        "source_key": "symbol:2ce94d01e57e8ad928bd287f",
+        "relation": "writes_state",
+        "target_key": "symbol:d8a66dc3b42384448f19a000",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 11,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "state assignment"
+      },
+      {
+        "source_key": "symbol:cb816d10e4e42e2f1f188493",
+        "relation": "writes_state",
+        "target_key": "symbol:d8a66dc3b42384448f19a000",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 14,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "state assignment"
+      }
+    ],
+    "mechanisms": [
+      {
+        "source_key": "symbol:d2b248aa22f6d603d749d73e",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "action",
+          "start"
+        ],
+        "line": 11,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onActionStart"
+      },
+      {
+        "source_key": "symbol:d2b248aa22f6d603d749d73e",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "action",
+          "update"
+        ],
+        "line": 14,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onActionUpdate"
+      },
+      {
+        "source_key": "symbol:2ce94d01e57e8ad928bd287f",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "action",
+          "start"
+        ],
+        "line": 11,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onActionStart"
+      },
+      {
+        "source_key": "symbol:cb816d10e4e42e2f1f188493",
+        "kind": "callback_binding",
+        "terms": [
+          "callback_binding",
+          "callbackbinding",
+          "callback",
+          "binding",
+          "event",
+          "on",
+          "action",
+          "update"
+        ],
+        "line": 14,
+        "confidence": 0.9,
+        "evidence_class": "static",
+        "detail": "callback:onActionUpdate"
+      }
+    ],
+    "gaps": [],
+    "balanced_calls": [
+      [
+        5,
+        "build()"
+      ],
+      [
+        6,
+        "Stack()"
+      ],
+      [
+        7,
+        "Canvas()"
+      ],
+      [
+        9,
+        "gesture(\n      PanGesture()\n        .onActionStart((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })\n        .onActionUpdate((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })\n    )"
+      ],
+      [
+        10,
+        "PanGesture()"
+      ],
+      [
+        11,
+        "onActionStart((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })"
+      ],
+      [
+        14,
+        "onActionUpdate((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })"
+      ]
+    ]
+  },
+  "src/models/InteractionState.ets": {
+    "source": "export class InteractionState {\n  activePointer: number = 0\n\n  selectPointer(index: number): void {\n    this.activePointer = index\n  }\n}\n",
+    "sha256": "c82fad798af2fe65bf6eef2c3e2c50069c7839c439d21cbab9742266f15a804e",
+    "entities": [
+      {
+        "key": "symbol:4e0676718d899f0522d5c2a3",
+        "file_path": "src/models/InteractionState.ets",
+        "name": "InteractionState",
+        "kind": "class",
+        "qualified_name": "InteractionState",
+        "signature": "class InteractionState",
+        "start_line": 1,
+        "end_line": 7,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "",
+        "owner_kind": "model",
+        "callable_roles": []
+      },
+      {
+        "key": "symbol:3cb563d7cd2afb80816cbe23",
+        "file_path": "src/models/InteractionState.ets",
+        "name": "selectPointer",
+        "kind": "function",
+        "qualified_name": "InteractionState.selectPointer",
+        "signature": "selectPointer(index: number):void",
+        "start_line": 4,
+        "end_line": 6,
+        "exported": true,
+        "evidence_class": "static",
+        "owner_name": "InteractionState",
+        "owner_kind": "model",
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "source_key": "file:src/models/InteractionState.ets",
+        "relation": "exposes_api",
+        "target_key": "symbol:4e0676718d899f0522d5c2a3",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 1,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "exported symbol"
+      },
+      {
+        "source_key": "file:src/models/InteractionState.ets",
+        "relation": "exposes_api",
+        "target_key": "symbol:3cb563d7cd2afb80816cbe23",
+        "target_name": null,
+        "target_qualified_name": null,
+        "target_file_path": null,
+        "line": 4,
+        "confidence": 0.95,
+        "evidence_class": "static",
+        "detail": "exported symbol"
+      }
+    ],
+    "mechanisms": [],
+    "gaps": [],
+    "balanced_calls": [
+      [
+        4,
+        "selectPointer(index: number)"
+      ]
+    ]
+  }
+}

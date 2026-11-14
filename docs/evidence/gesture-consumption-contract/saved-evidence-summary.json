@@ -1,0 +1,257 @@
+{
+  "classification": "read-only saved public output plus current offline parser observation; no new query",
+  "baseline": "6188afe",
+  "historical_public_base": "8d03c8a",
+  "case": {
+    "case_id": "context-gesture-state-owner::original",
+    "status": "fail",
+    "checks": {
+      "compact_schema_returned": true,
+      "context_within_budget": true,
+      "expected_anchors_within_top_k": true,
+      "minimum_anchor_precision_met": false,
+      "minimum_source_span_recall_met": true,
+      "expected_anchors_recalled": true,
+      "forbidden_anchors_absent": true,
+      "expected_source_excerpt_returned": true
+    },
+    "evidence_funnel": {
+      "schema_version": "agent-context-evidence-funnel/v1",
+      "stages": {
+        "candidate_file": true,
+        "localizer_file": true,
+        "callable": true,
+        "source_range": true,
+        "evidence_primary": true,
+        "compact_primary": true,
+        "compact_anchor": true
+      },
+      "first_loss": null,
+      "candidate_file_count": 10,
+      "localizer_file_count": 8,
+      "callable_count": 12,
+      "range_count": 8,
+      "evidence_certainty": "uncertain",
+      "primary_file_path": "src/views/BoardGestureSurface.ets"
+    },
+    "evidence_set": {
+      "observed": true,
+      "target_scope_expected": "single",
+      "target_scope_observed": "unknown",
+      "target_scope_match": false,
+      "member_recall": 1.0,
+      "primary_precision": 1.0,
+      "calibration_state": "insufficient",
+      "primary_support_kinds": [
+        "source_locatable"
+      ],
+      "calibration_state_match": null,
+      "forbidden_member_hits": [],
+      "guarded_exclusion_count": 0
+    },
+    "context_token_estimate": 1311
+  },
+  "raw_callable": {
+    "schema_version": "agent-callable-evidence/v1",
+    "certainty": "uncertain",
+    "primary": {
+      "file_path": "src/views/BoardGestureSurface.ets",
+      "symbol": "build",
+      "owner_name": "BoardGestureSurface",
+      "owner_kind": "component",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 24.5,
+      "evidence_score": 24.5,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 5,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "alternatives": [
+      {
+        "file_path": "src/models/InteractionState.ets",
+        "symbol": "selectPointer",
+        "owner_name": "InteractionState",
+        "owner_kind": "model",
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 23.645,
+        "evidence_score": 23.645,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 4,
+          "end_line": 6,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "owner_name": "CanvasInteractionSurface",
+        "owner_kind": "component",
+        "file_structural_coverage": 1,
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 18.47,
+        "evidence_score": 18.47,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 18,
+          "selection_reason": "callable_symbol_range"
+        }
+      }
+    ],
+    "boundary": "retrieval_evidence_not_root_cause",
+    "passage_portfolio": {
+      "schema_version": "agent-callable-passage-portfolio/v1",
+      "mode": "serving",
+      "state": "inactive",
+      "members": [],
+      "selection_basis": [
+        "target_scope_not_composite"
+      ],
+      "candidate_recall_changed": false,
+      "boundary": "source_passage_composition_not_diagnosis"
+    }
+  },
+  "compact_anchors": [
+    {
+      "file_path": "src/views/BoardGestureSurface.ets",
+      "symbol": "BoardGestureSurface",
+      "symbol_type": "component",
+      "record_ids": [
+        134
+      ],
+      "record_type": "code_file",
+      "source_ranges": [
+        {
+          "symbol": "BoardGestureSurface",
+          "start_line": 2,
+          "end_line": 13
+        }
+      ],
+      "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gest",
+      "read_window": {
+        "start_line": 2,
+        "end_line": 13
+      },
+      "role": "primary",
+      "source_excerpts": [
+        {
+          "symbol": "build",
+          "start_line": 5,
+          "end_line": 12,
+          "content": "  build() {\n    Stack() {}\n      .gesture(\n        PanGesture().onActionUpdate((event: GestureEvent) => {\n          this.boardEngine.shift(event.offsetX, event.offsetY)\n        })\n      )\n  }",
+          "source": "current_worktree",
+          "selection_reason": "callable_mechanism_window",
+          "focus_line": null,
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file_path": "src/views/CanvasInteractionSurface.ets",
+      "symbol": "CanvasInteractionSurface",
+      "symbol_type": "component",
+      "record_ids": [
+        135
+      ],
+      "record_type": "code_file",
+      "source_ranges": [
+        {
+          "symbol": "CanvasInteractionSurface",
+          "start_line": 2,
+          "end_line": 19
+        }
+      ],
+      "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavio",
+      "read_window": {
+        "start_line": 2,
+        "end_line": 19
+      },
+      "role": "primary",
+      "source_excerpts": [
+        {
+          "symbol": "build",
+          "start_line": 5,
+          "end_line": 18,
+          "content": "  build() {\n    Stack() {\n      Canvas()\n    }\n    .gesture(\n      PanGesture()\n        .onActionStart((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })\n        .onActionUpdate((event: GestureEvent) => {\n          this.activeHandle = event.fingerList[0].id\n        })\n    )\n  }",
+          "source": "current_worktree",
+          "selection_reason": "callable_mechanism_window",
+          "focus_line": null,
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file_path": "src/models/InteractionState.ets",
+      "symbol": "InteractionState",
+      "symbol_type": "class",
+      "record_ids": [
+        51
+      ],
+      "record_type": "code_file",
+      "source_ranges": [
+        {
+          "symbol": "InteractionState",
+          "start_line": 1,
+          "end_line": 7
+        }
+      ],
+      "summary": "ArkTS file with 6 non-empty lines; behavior: statewrite",
+      "read_window": {
+        "start_line": 1,
+        "end_line": 7
+      },
+      "role": "primary",
+      "source_excerpts": [
+        {
+          "symbol": "InteractionState",
+          "start_line": 1,
+          "end_line": 7,
+          "content": "export class InteractionState {\n  activePointer: number = 0\n\n  selectPointer(index: number): void {\n    this.activePointer = index\n  }\n}",
+          "source": "current_worktree",
+          "selection_reason": "query_term_window",
+          "focus_line": null,
+          "truncated": false
+        }
+      ]
+    }
+  ],
+  "compact_budget": {
+    "estimated_tokens": 1311,
+    "target_tokens": 1500,
+    "truncated": true
+  },
+  "source_hashes": {
+    "docs/evidence/commit-gesture-current/public.json": "e69966f78dea2e9069e4a8ec0f97f121faf60771fd60529bf6dd5c09dfdc5b2b",
+    "docs/evidence/commit-gesture-current/baseline.json": "d93f740b41d9a329615d21d00713b983a5fceb61d847ea99dd689841caddfed0",
+    "docs/eval/keyboard-fixed-evidence/README.md": "c6203e7e6d8b0b256e9a14c71bcd489fb98012cd7bd02201427475e2ba714cf3",
+    "docs/eval/comparison-state-audit/README.md": "846a38dbc69b0ac1b3e956d615bc62a8dd42bd10251a1538e423a2c05549bb70"
+  }
+}
