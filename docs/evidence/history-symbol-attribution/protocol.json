@@ -1,0 +1,84 @@
+{
+  "base": "cdb8f39",
+  "sources_from": "docs/evidence/history-action-before/source",
+  "source_sha256": {
+    "DocumentSession.ts": "4e803dbf1be0fcd15b9f3bec2bfae8bb1b2c343ffadb573fd987ec699233bfc3",
+    "ThumbnailLoader.ts": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849"
+  },
+  "queries": [
+    {
+      "id": "historical-action",
+      "query": "After an earlier load failed, replacing the document must reset its ready flag before opening the new document. Find the state owner.",
+      "required_path": "DocumentSession.ts",
+      "required_lines": [
+        5,
+        9
+      ],
+      "meaning": "Current replacement/reset owner, not an exclusive claim about every extra anchor."
+    },
+    {
+      "id": "actual-load",
+      "query": "Find the load method that fetches the thumbnail and reports a failure.",
+      "required_path": "ThumbnailLoader.ts",
+      "required_lines": [
+        2,
+        8
+      ],
+      "meaning": "Actual load request; preserve its implementation."
+    },
+    {
+      "id": "actual-literal",
+      "query": "Locate the code emitting the literal THUMBNAIL_READ_FAILED: load failed.",
+      "required_path": "ThumbnailLoader.ts",
+      "required_lines": [
+        6,
+        6
+      ],
+      "meaning": "Actual source-emitted literal; do not suppress as historical action."
+    },
+    {
+      "id": "historical-reference",
+      "query": "After an earlier load failed, replacing the document must reset its ready flag. Find the failed operation implementation.",
+      "required_path": "ThumbnailLoader.ts",
+      "keep_exact": true,
+      "kind": "negative/compatibility",
+      "meaning": "preserve old exact-symbol handling; path only enforced when actual current load requested, quoted literal no fabricated emission oracle"
+    },
+    {
+      "id": "current-load-after-history",
+      "query": "After an earlier load failed, replacing the document must reset its ready flag. Find the load method.",
+      "required_path": "ThumbnailLoader.ts",
+      "keep_exact": true,
+      "kind": "negative/compatibility",
+      "meaning": "preserve old exact-symbol handling; path only enforced when actual current load requested, quoted literal no fabricated emission oracle"
+    },
+    {
+      "id": "multiple-targets",
+      "query": "After an earlier load failed, replacing the document must reset its ready flag. Find both load and swapDocument.",
+      "required_path": "ThumbnailLoader.ts",
+      "keep_exact": true,
+      "kind": "negative/compatibility",
+      "meaning": "preserve old exact-symbol handling; path only enforced when actual current load requested, quoted literal no fabricated emission oracle"
+    },
+    {
+      "id": "reverse-current-load",
+      "query": "After an earlier swapDocument failed, loading the thumbnail must report a failure. Find the load method.",
+      "required_path": "ThumbnailLoader.ts",
+      "keep_exact": true,
+      "kind": "negative/compatibility",
+      "meaning": "preserve old exact-symbol handling; path only enforced when actual current load requested, quoted literal no fabricated emission oracle"
+    },
+    {
+      "id": "quoted-history",
+      "query": "Locate the code emitting the literal \"After an earlier load failed\".",
+      "required_path": "ThumbnailLoader.ts",
+      "keep_exact": true,
+      "kind": "negative/compatibility",
+      "meaning": "preserve old exact-symbol handling; path only enforced when actual current load requested, quoted literal no fabricated emission oracle"
+    }
+  ],
+  "candidate": "finite form is hypothesis, not established request attribution",
+  "historical_reference_oracle": "must not remove load exact_symbol even without spelling/pronoun in final request",
+  "original_scenario": "context-source-replacement-state-owner",
+  "stop": "one frozen trial; history-reference violation rejects candidate even if original score improves"
+}

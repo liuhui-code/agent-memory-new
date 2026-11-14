@@ -38,3 +38,13 @@ preservation both required. No oracle/source/noise tuning, no all-suite.
 Native listener experiment proved weak ranking alone not enough; this test must
 not borrow its facts or treat initial focus as ground truth. It changes solely
 whether an exact current identifier feature has appropriate query provenance.
+
+## Pre-execution reviewer counterexample and rejection gate
+
+The two forms are NOT proven sufficient: `After an earlier load failed,
+replacing the document must reset its ready flag. Find the failed operation
+implementation.` refers back to load without naming it or a pronoun. Freeze it
+as must-preserve-old-exact and actual-load body negative control. Do not add
+failed/origin keywords to rescue the hypothesis. An optional one-trial experiment
+can falsify this attribution rule; if it violates the control, reject even if
+original source-replacement becomes green. No claimed safe grammar approval.
