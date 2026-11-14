@@ -12358,3 +12358,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve the schema-inspection correction and all public outputs. No runtime,
   evaluator or query tuning; no new repair count, full gate or public upload.
   See docs/evidence/render-value-contract/README.md.
+
+## 2026-11-14 — Audit paired role permission without widening scope
+
+- Read current named/certified portfolio guards and saved fallback actual traces.
+  No issued role-pair certificate was found dropped; multiple remains cardinality.
+- Recorded that the three external category06 raw/protocol artifacts are absent in
+  the current workspace; did not substitute old summaries for read-back evidence.
+- Distinguished the source-level query/page call from fallback's unconnected roles.
+  No new architecture, source/query edits, tests, public queries or score claims.
+- Evidence: docs/evidence/paired-role-contract-audit/README.md and sources.json.

@@ -1,0 +1,57 @@
+{
+  "audit_base": "6188afebf3031b6fa6c1591273b2decc4fa8dfc7",
+  "mode": "read_only_saved_evidence_and_current_source",
+  "new_public_queries": 0,
+  "new_tests": 0,
+  "readable_sources": [
+    {
+      "path": "tools/agent_memory_runtime/context_callable_focus.py",
+      "sha256": "5d16b1d0b2501822f6ace6e17208bd40c0cf2442f7889d6ccf7c4d31ce8896eb"
+    },
+    {
+      "path": "tools/agent_memory_runtime/query_callable_passage_portfolio.py",
+      "sha256": "1ae233b18bbcef8e59601e9b97c484a52b594765db6200d346b9923d7cf07b1c"
+    },
+    {
+      "path": "tools/agent_memory_runtime/query_target_scope.py",
+      "sha256": "d0391fa1691d25ff3db2a532b8bf0b8ca50650995ee42aa2993b38cd16113471"
+    },
+    {
+      "path": "tools/agent_memory_runtime/query_explicit_owner_certificate.py",
+      "sha256": "69c63396ada5246582db88e57dc5c7def583e3e656c56ee6b2bc527443ea8381"
+    },
+    {
+      "path": "docs/evidence/fallback-consumer-current/public.json",
+      "sha256": "5dd1cef93b7d05c17380639c18be9b2928445a84ff2b224cfee139ab509f6aaf"
+    },
+    {
+      "path": "docs/evidence/fallback-consumer-current/summary.json",
+      "sha256": "0e6f9f5edb8c47733cee0141c5710baa3aca5f9f2d57321b7b05284b86298b1d"
+    },
+    {
+      "path": "docs/evidence/fallback-consumer-current/target-edges.json",
+      "sha256": "7d40e066046c852bed750199d572356d357c65b2f0ee818c4810042a9eeee22b"
+    },
+    {
+      "path": "docs/evidence/fallback-consumer-current/portfolio-internal-replay.json",
+      "sha256": "eef819d98c09d446804492b4d44e1197957a5f477da403033beb77706d931458"
+    },
+    {
+      "path": "docs/eval/system-capability-cases.json",
+      "sha256": "8af1074414c3db63e164145ad8b9a1fcaf8dee69120ebe4d22876a15d8bb801e"
+    },
+    {
+      "path": "docs/eval/fixtures/system-capability/src/services/ProductSearchService.ets",
+      "sha256": "9f7b569a9f718a74845d7719373511b18b62ee62043a91703d0e02c70846f050"
+    },
+    {
+      "path": "docs/eval/fixtures/system-capability/src/pages/ProductSearchPage.ets",
+      "sha256": "e54219d01a84c937ffe1d4570039c0ad5227c8eec0296c50a10a5f5eac1362c5"
+    }
+  ],
+  "missing_historical_sources": [
+    "@recovery-current/owner-consumer-evidence/current-owner.json",
+    "@recovery-current/owner-consumer-evidence/role-protocol.json",
+    "@recovery-current/owner-consumer-evidence/role-competition-before.json"
+  ]
+}
