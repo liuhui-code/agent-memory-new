@@ -12277,3 +12277,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   only40checked facts. Retained branch-not-covered result; no input resizing.
 - Corrected only internal attribution from capped DESC list diagnostic to source
   checks on saved ASC rows; no repeated public query. See CAPACITY-RESULTS.md.
+
+## 2026-11-14 - Review raw diagnostic capacity addendum
+
+- Verified saved envelope saturation success and separately uncovered fact-count
+  branch; preserved initial attribution mistake and corrected saved-row analysis.
+- No reruns, new fixtures or quality/oracle changes; no original gain claimed.
