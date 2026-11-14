@@ -124,7 +124,8 @@ def bind_from_rows(project, query, handoff, rows, files):
     result = RecoveryHandoff(handoff)
     result._query = query
     result._receipts = tuple(receipts[p] for p in selected_paths)
-    result._binding = (query, snapshot(anchors), snapshot(result._receipts))
+    result._root = str(root)
+    result._binding = (query, snapshot(anchors), snapshot(result._receipts), result._root)
     return result
 
 
@@ -132,7 +133,7 @@ def valid(handoff, anchors, query, path=None):
     if not isinstance(handoff, RecoveryHandoff) or not recovery_request(query) or protected(handoff, path):
         return False
     try:
-        return ((query, snapshot(anchors), snapshot(handoff._receipts)) == handoff._binding
+        return ((query, snapshot(anchors), snapshot(handoff._receipts), handoff._root) == handoff._binding
                 and query == handoff._query and isinstance(handoff._receipts, tuple)
                 and 1 <= len(handoff._receipts) <= 2)
     except (AttributeError, TypeError, ValueError):
@@ -151,7 +152,24 @@ def preserve_recovery_pair(handoff, anchors, focused, query, path):
     return result
 
 
+def current_sources(handoff):
+    try:
+        root = Path(handoff._root).resolve()
+        for receipt in handoff._receipts:
+            file = (root / receipt['anchor']['file_path']).resolve()
+            if not file.is_relative_to(root) or file.suffix != '.ets' or file.stat().st_size > 2 * 1024 * 1024:
+                return False
+            raw = file.read_bytes()
+            if len(raw) > 2 * 1024 * 1024 or hashlib.sha256(raw).hexdigest() != receipt['digest']:
+                return False
+        return True
+    except (AttributeError, OSError, KeyError, TypeError, ValueError):
+        return False
+
+
 def accepted_output(handoff, baseline, candidate):
+    if not current_sources(handoff):
+        return False
     old, new = baseline['query_handoff'], candidate['query_handoff']
     if any(old.get(k) != new.get(k) for k in ('log_keywords', 'log_anchors', 'path_context', 'relation_hints')):
         return False

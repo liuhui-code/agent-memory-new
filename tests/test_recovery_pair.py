@@ -6,7 +6,7 @@ import tempfile
 from types import SimpleNamespace
 import unittest
 from tools.agent_memory_runtime.query_recovery_pair import (
-    bind_from_rows, recovery_request, valid, preserve_recovery_pair, accepted_output,
+    bind_from_rows, recovery_request, valid, preserve_recovery_pair, accepted_output, current_sources,
 )
 
 D = Path(__file__).resolve().parents[1] / 'docs/evidence/recovery-role-feasibility'
@@ -76,6 +76,14 @@ class RecoveryPairTests(unittest.TestCase):
             self.assertIs(self.bound(handoff=handoff), handoff)
         handoff = copy.deepcopy(self.handoff); handoff['code_anchors'][1]['start_line'] += 1
         self.assertIs(self.bound(handoff=handoff), handoff)
+
+    def test_whole_file_drift_after_binding(self):
+        bound = self.bound()
+        self.assertTrue(current_sources(bound))
+        path = self.root / 'src/stores/SessionSyncStore.ets'
+        path.write_text(path.read_text() + 'class Shadow {}\n')
+        self.assertFalse(current_sources(bound))
+        self.assertFalse(accepted_output(bound, self.before['compact'], self.before['compact']))
 
     def test_no_new_ranges_and_budget_guard(self):
         bound = self.bound()
