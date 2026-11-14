@@ -178,6 +178,31 @@
       "id": "duplicate-interface",
       "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\nexport interface TimedValue { timestamp:number; payload:string }\n",
       "positive": false
+    },
+    {
+      "id": "comments-and-semicolons",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    /* current write */ this.values.set(token, { timestamp: Date.now(), payload: text });\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey;\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": true
+    },
+    {
+      "id": "clock-shadowed",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\nconst Date = { now: () => 0 }\n",
+      "positive": false
+    },
+    {
+      "id": "selected-minimum-alias",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let minimum: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        minimum = entryKey\n      }\n    }\n    if (minimum !== undefined) { this.values.delete(minimum) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "wrong-minimum-update",
+      "source": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = 0\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+      "positive": false
+    },
+    {
+      "id": "literal-template",
+      "source": "export class TemplateText { render(): string { return \"export interface TimedValue {\\n  timestamp: number\\n  payload: string\\n}\\nexport class WindowCache {\\n  private values: Map<string, TimedValue> = new Map()\\n  constructor(private limit: number) {}\\n  store(token: string, text: string): void {\\n    this.values.set(token, { timestamp: Date.now(), payload: text })\\n    if (this.values.size <= this.limit) { return }\\n    let selected: string | undefined = undefined\\n    let minimum: number = Number.MAX_SAFE_INTEGER\\n    for (const [entryKey, entryValue] of this.values) {\\n      if (entryValue.timestamp < minimum) {\\n        minimum = entryValue.timestamp\\n        selected = entryKey\\n      }\\n    }\\n    if (selected !== undefined) { this.values.delete(selected) }\\n  }\\n}\\n\" } }\n",
+      "positive": false
     }
   ],
   "stop": "No implementation if no independent actual public same-layer red or target current full identity is absent. No source/query/noise change after baseline."
