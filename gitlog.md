@@ -12309,3 +12309,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
  11 competition controls contain one genuine qualifier-priority failure.
 - Preserved single-candidate stop: no weight/keyword/exclusive refinement and no
  original gain. Next investigation is existing source-replacement attribution.
+
+## 2026-11-14 - Reject history-only identity attribution trial
+
+- Read original candidate3/3 but preserved failing historical-reference exact-feature
+ safety control; actual load body remains, so no false body-loss claim.
+- Recommended bounded shared-aggregation source-budget audit as next investigation,
+ not another semantic exception or a claim all remaining work is blocked.
