@@ -12216,3 +12216,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   compatibility experiment from untested batch cap/duplicate/callable-kind limits.
 - Proposed a separate finite exact-member descriptor experiment, keeping natural
   failure/onFailure mapping unsupported and production consumer unapproved.
+
+## Offline listener descriptor/name association stage
+
+- Freeze35 synthetic controls and six unchanged saved query observations before
+  one docs-only execution.35 controls match; observations have no pass oracle.
+- Separate exact-name and weak raw-segment association from full request meaning.
+  Source/host qualifiers stay unresolved; eligibility/satisfaction/uniqueness false.
+  Dual callback-property constraint is an explicit extra hypothesis, not inferred
+  intent. No selector/ranking/public-query rerun or original failure gain.
+- Evidence: docs/evidence/listener-request-association; production untouched.

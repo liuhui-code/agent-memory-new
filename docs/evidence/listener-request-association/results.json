@@ -1,0 +1,2338 @@
+[
+  {
+    "id": "exact",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "exact-name:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "exact-onFailure",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink onFailure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "onFailure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "exact-name:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "failure-segment",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "failure-collision",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "collision-unknown",
+        "collision_spellings": [
+          "failureCount",
+          "onFailure",
+          "retryFailure"
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "collision-unknown",
+        "collision_spellings": [
+          [
+            "failureCount",
+            "failureCount"
+          ],
+          [
+            "onFailure",
+            "onFailure"
+          ],
+          [
+            "retryFailure",
+            "retryFailure"
+          ]
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "collision-unknown",
+      "dual_name_hypothesis": "collision-unknown"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "single-failureCount",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "failureCount",
+            "member": "failureCount"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "failureCount",
+            "member": "failureCount"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "single-retryFailure",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "retryFailure",
+            "member": "retryFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "retryFailure",
+            "member": "retryFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "case-exact-priority",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink onFailure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "onFailure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "exact-name:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "case-weak",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink ONFAILURE contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "ONFAILURE",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onfailure",
+            "member": "onfailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onfailure",
+            "member": "onfailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "case-collision",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink FAILURE contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "FAILURE",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "collision-unknown",
+        "collision_spellings": [
+          "Failure",
+          "failure"
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "collision-unknown",
+        "collision_spellings": [
+          [
+            "Failure",
+            "Failure"
+          ],
+          [
+            "failure",
+            "failure"
+          ]
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "collision-unknown",
+      "dual_name_hypothesis": "collision-unknown"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "http-acronym",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink HTTPFailure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "HTTPFailure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onHTTPFailure",
+            "member": "onHTTPFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onHTTPFailure",
+            "member": "onHTTPFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "http-segment",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink HTTP contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "HTTP",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onHTTPFailure",
+            "member": "onHTTPFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onHTTPFailure",
+            "member": "onHTTPFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "snake",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "on_failure",
+            "member": "on_failure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "on_failure",
+            "member": "on_failure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "snake-exact",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink on_failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "on_failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "on_failure",
+            "member": "on_failure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "on_failure",
+            "member": "on_failure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "exact-name:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "property-mismatch",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "accepted",
+            "member": "rejected"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "no-name-association"
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "no-name-association"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "property-segment-only",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "failureCount",
+            "member": "onFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "failureCount",
+            "member": "onFailure"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "segment-uncertain:one-observed",
+      "dual_name_hypothesis": "segment-uncertain:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "two-forwarders",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A",
+          "synthetic:B"
+        ],
+        "status": "exact-name:multiple-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          },
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A",
+          "synthetic:B"
+        ],
+        "status": "exact-name:multiple-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          },
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:multiple-observed",
+      "dual_name_hypothesis": "exact-name:multiple-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "partial",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "partial",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "partial",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "exact-name:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "capped",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "capped",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "domain-unknown"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "capped",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "domain-unknown"
+      }
+    },
+    "expected": {
+      "target_member": "domain-unknown",
+      "dual_name_hypothesis": "domain-unknown"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "old-index",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "old-index",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "domain-unknown"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "old-index",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "domain-unknown"
+      }
+    },
+    "expected": {
+      "target_member": "domain-unknown",
+      "dual_name_hypothesis": "domain-unknown"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "type-case",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "no-name-association"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [],
+        "status": "no-name-association"
+      }
+    },
+    "expected": {
+      "target_member": "no-name-association",
+      "dual_name_hypothesis": "no-name-association"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "long-source-qualifier",
+    "cohort": "controls",
+    "query": "Locate the callable that binds the remote asynchronous application notification observer callbacks to the host DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "the remote asynchronous application notification observer",
+        "target_noun_phrase_prefix": "the host"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "the remote asynchronous application notification observer",
+          "target_noun_phrase_prefix": "the host"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "the remote asynchronous application notification observer",
+          "target_noun_phrase_prefix": "the host"
+        },
+        "matched_identities": [
+          "synthetic:A"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "target_member": "exact-name:one-observed",
+      "dual_name_hypothesis": "exact-name:one-observed"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "quoted",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink 'rejected' contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "negated",
+    "cohort": "controls",
+    "query": "Find the callable that does not bind engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "negated-source",
+    "cohort": "controls",
+    "query": "Find the callable that binds not engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "caller",
+    "cohort": "controls",
+    "query": "Find the caller that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "wrapper",
+    "cohort": "controls",
+    "query": "Find the wrapper that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "return",
+    "cohort": "controls",
+    "query": "Find the callable that returns engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "declaration",
+    "cohort": "controls",
+    "query": "Find the DeliverySink declaration.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "two-types",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink OtherSink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "two-members",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected and accepted contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "extra-command",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract. Then show the caller.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "embedded-command",
+    "cohort": "controls",
+    "query": "Find the callable that binds engine then list services observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "unknown-relation",
+    "cohort": "controls",
+    "query": "Find the callable that routes engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "literal",
+    "cohort": "controls",
+    "query": "Find the string literal 'DeliverySink rejected contract'.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "accepts",
+    "cohort": "controls",
+    "query": "Find the callable that accepts DeliverySink.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "complete-fixture",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": {
+      "target_member": "unsupported-descriptor",
+      "dual_name_hypothesis": "unsupported-descriptor"
+    },
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": true
+  },
+  {
+    "id": "saved-independent-0",
+    "cohort": "observations",
+    "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "DeliverySink",
+      "target_member": "rejected",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "engine observer",
+        "target_noun_phrase_prefix": "the"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "symbol:74e040c92fbcc12cc58d8a25"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "engine observer",
+          "target_noun_phrase_prefix": "the"
+        },
+        "matched_identities": [
+          "symbol:74e040c92fbcc12cc58d8a25"
+        ],
+        "status": "exact-name:one-observed",
+        "observed_names": [
+          {
+            "property": "rejected",
+            "member": "rejected"
+          }
+        ]
+      }
+    },
+    "expected": null,
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": null
+  },
+  {
+    "id": "saved-independent-1",
+    "cohort": "observations",
+    "query": "Find Relay.connect.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": null,
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": null
+  },
+  {
+    "id": "saved-independent-2",
+    "cohort": "observations",
+    "query": "Find the callable that accepts DeliverySink.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": null,
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": null
+  },
+  {
+    "id": "saved-independent-3",
+    "cohort": "observations",
+    "query": "Find Recovery.retryRejectedDelivery.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": null,
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": null
+  },
+  {
+    "id": "saved-independent-4",
+    "cohort": "observations",
+    "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+    "descriptor": null,
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {},
+        "matched_identities": [],
+        "status": "unsupported-descriptor"
+      }
+    },
+    "expected": null,
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": null
+  },
+  {
+    "id": "saved-native-contract",
+    "cohort": "observations",
+    "query": "Find the callable that binds native runtime observer callbacks to the host ResultListener failure contract.",
+    "descriptor": {
+      "relation": "callback-to-typed-parameter-member-name-association",
+      "type": "ResultListener",
+      "target_member": "failure",
+      "unresolved_qualifiers": {
+        "source_noun_phrase": "native runtime observer",
+        "target_noun_phrase_prefix": "the host"
+      },
+      "relation_satisfied": false,
+      "eligible_for_ranking": false,
+      "relation_attachment_unresolved": true
+    },
+    "lanes": {
+      "target_member": {
+        "property_selector_assumed": false,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "native runtime observer",
+          "target_noun_phrase_prefix": "the host"
+        },
+        "matched_identities": [
+          "symbol:ecba392ecdb216614254f298"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      },
+      "dual_name_hypothesis": {
+        "property_selector_assumed": true,
+        "relation_attachment_unresolved": true,
+        "relation_satisfied": false,
+        "eligible_for_ranking": false,
+        "global_uniqueness_claim": false,
+        "coverage": "saved-fixture-partial",
+        "unresolved_qualifiers": {
+          "source_noun_phrase": "native runtime observer",
+          "target_noun_phrase_prefix": "the host"
+        },
+        "matched_identities": [
+          "symbol:ecba392ecdb216614254f298"
+        ],
+        "status": "segment-uncertain:one-observed",
+        "observed_names": [
+          {
+            "property": "onFailure",
+            "member": "onFailure"
+          }
+        ]
+      }
+    },
+    "expected": null,
+    "safety_assertions": {
+      "never_satisfied": true,
+      "never_ranking_eligible": true,
+      "never_unique": true
+    },
+    "pass": null
+  }
+]
