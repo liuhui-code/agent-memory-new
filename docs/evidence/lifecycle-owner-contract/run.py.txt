@@ -1,0 +1,19 @@
+import json,pathlib,subprocess,tempfile,sqlite3,hashlib
+repo=pathlib.Path('/workspace/scratch/dcdb41e16594/lifecycle-contract'); out=repo/'docs/evidence/lifecycle-owner-contract'
+cases=[c for c in json.loads((repo/'docs/eval/semantic-focus-contract/protocol.json').read_text())['cases'] if c['id'] in ['lifecycle-0','lifecycle-1','lifecycle-2','lifecycle-3']]
+root=pathlib.Path(tempfile.mkdtemp(prefix='lifecycle-contract-')); project=root/'source';project.mkdir(); memory=root/'memory'
+for name,content in cases[0]['sources'].items():(project/name).write_text(content)
+results=[]
+def run(args):
+ cmd=['python',str(repo/'tools/agent_memory.py'),*args,'--project',str(project),'--memory-home',str(memory)]
+ p=subprocess.run(cmd,cwd=repo,text=True,capture_output=True); r={'args':args,'returncode':p.returncode,'stdout':p.stdout,'stderr':p.stderr}; assert p.returncode==0,r;return r
+setup=[run(['init']),run(['learn-path','--path','.','--json'])]
+(out/'setup.json').write_text(json.dumps(setup,indent=2))
+for c in cases:
+ raw=run(['context','--query',c['query'],'--json']); compact=run(['context','--query',c['query'],'--compact','--json']);payload=json.loads(compact['stdout']); results.append({'id':c['id'],'query':c['query'],'required':c['required'],'forbidden':c.get('forbidden',[]),'raw':raw,'compact':compact})
+(out/'public.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
+dbs=list(memory.rglob('*.db'))+list(memory.rglob('*.sqlite3'))+list(memory.rglob('*.sqlite'))
+print(root);print(dbs)
+for db in dbs:
+ conn=sqlite3.connect(db);schema=conn.execute("select name,sql from sqlite_master where type='table'").fetchall();(out/'schema.json').write_text(json.dumps(schema,indent=2));print([x[0] for x in schema]);
+(out/'freeze.json').write_text(json.dumps({'base':'6188afe','protocol_sha256':hashlib.sha256((out/'PROTOCOL.md').read_bytes()).hexdigest(),'sources':{n:hashlib.sha256(s.encode()).hexdigest() for n,s in cases[0]['sources'].items()},'root':str(root)},indent=2))

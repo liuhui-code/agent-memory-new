@@ -1,0 +1,55 @@
+{
+  "cases": [
+    {
+      "id": "lifecycle-0",
+      "paths": [
+        "BufferSession.ets"
+      ],
+      "pass": true,
+      "budget": {
+        "estimated_tokens": 1163,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "lifecycle-1",
+      "paths": [
+        "PendingQueue.ets"
+      ],
+      "pass": false,
+      "budget": {
+        "estimated_tokens": 1082,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "lifecycle-2",
+      "paths": [
+        "PendingQueue.ets"
+      ],
+      "pass": true,
+      "budget": {
+        "estimated_tokens": 967,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    },
+    {
+      "id": "lifecycle-3",
+      "paths": [
+        "BufferSession.ets",
+        "PendingQueue.ets",
+        "WriteQueue.ets"
+      ],
+      "pass": true,
+      "budget": {
+        "estimated_tokens": 1421,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  ],
+  "traced_raw_anchors_equal": true
+}

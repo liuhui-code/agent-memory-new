@@ -12368,3 +12368,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Distinguished the source-level query/page call from fallback's unconnected roles.
   No new architecture, source/query edits, tests, public queries or score claims.
 - Evidence: docs/evidence/paired-role-contract-audit/README.md and sources.json.
+
+## 2026-11-14 - Audit current lifecycle owner aggregation boundary
+
+- Reused four frozen independent Development queries unchanged through public
+  init/learn/context. Three path checks pass; Chinese composite remains red.
+- Corrected an omitted trace transparently with one extra unchanged raw query;
+  observed focus first loss and clean/traced anchor equality.
+- Read SQLite identities/edges: hook->reload is present, commit is disconnected,
+  plain private fields have no typed state edges, and hook role is not lifecyclesync.
+  No pre-existing owner aggregation certificate was silently discarded.
+- No runtime/test change, full gate, original-count gain or public upload.
+  Details: docs/evidence/lifecycle-owner-contract/README.md.

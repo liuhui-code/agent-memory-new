@@ -1,0 +1,390 @@
+[
+  [
+    "projects",
+    "CREATE TABLE projects (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT UNIQUE NOT NULL,\n          project_path TEXT NOT NULL,\n          project_name TEXT NOT NULL,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "sqlite_sequence",
+    "CREATE TABLE sqlite_sequence(name,seq)"
+  ],
+  [
+    "episodes",
+    "CREATE TABLE episodes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          task TEXT NOT NULL,\n          summary TEXT NOT NULL,\n          outcome TEXT,\n          files_touched TEXT,\n          commands_run TEXT,\n          created_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', importance REAL DEFAULT 0.5, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, derived_facts TEXT, derived_reflections TEXT)"
+  ],
+  [
+    "semantic_facts",
+    "CREATE TABLE semantic_facts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          fact TEXT NOT NULL,\n          source TEXT NOT NULL,\n          confidence REAL DEFAULT 0.8,\n          is_stale INTEGER DEFAULT 0,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', category TEXT, scope TEXT, evidence TEXT, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, merged_into_id INTEGER, stale_reason TEXT)"
+  ],
+  [
+    "reflections",
+    "CREATE TABLE reflections (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          task TEXT NOT NULL,\n          summary TEXT,\n          mistake TEXT,\n          lesson TEXT NOT NULL,\n          future_rule TEXT,\n          is_stale INTEGER DEFAULT 0,\n          created_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', experience_type TEXT, task_type TEXT, outcome TEXT, problem TEXT, reasoning_summary TEXT, context_used TEXT, what_worked TEXT, what_failed TEXT, hidden_assumptions TEXT, negative_preconditions TEXT, query_rounds INTEGER, trajectory_summary TEXT, useful_followup_focus TEXT, useful_followup_terms TEXT, misleading_followup_terms TEXT, inspection_targets TEXT, final_verification_path TEXT, related_cases TEXT, verification_method TEXT, reuse_feedback TEXT, source_cases TEXT, skill_candidate TEXT, scope TEXT, confidence REAL DEFAULT 0.8, evidence TEXT, trigger_condition TEXT, anti_pattern TEXT, repair_action TEXT, applies_to TEXT, does_not_apply_to TEXT, anchor_type TEXT, anchor_key TEXT, semantic_field TEXT, existing_value TEXT, proposed_value TEXT, patch_reason TEXT, applies_to_current_code INTEGER DEFAULT 0, superseded_by INTEGER, misleading_score REAL DEFAULT 0.0, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, merged_into_id INTEGER, stale_reason TEXT, last_applied_at TEXT, applied_count INTEGER DEFAULT 0, last_outcome TEXT)"
+  ],
+  [
+    "code_files",
+    "CREATE TABLE code_files (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          summary TEXT,\n          language TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "code_symbols",
+    "CREATE TABLE code_symbols (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          symbol TEXT NOT NULL,\n          symbol_type TEXT,\n          summary TEXT,\n          calls TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          symbol_key TEXT,\n          qualified_name TEXT,\n          signature TEXT,\n          start_line INTEGER,\n          end_line INTEGER,\n          semantic_adapter TEXT,\n          source_digest TEXT,\n          evidence_class TEXT,\n          method_evidence TEXT,\n          string_evidence TEXT,\n          mechanism_evidence TEXT,\n          owner_name TEXT,\n          owner_kind TEXT,\n          callable_roles TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "code_log_statements",
+    "CREATE TABLE code_log_statements (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          line INTEGER,\n          function TEXT,\n          level TEXT,\n          logger TEXT,\n          message_template TEXT NOT NULL,\n          raw_statement TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          business_event TEXT,\n          trigger_stage TEXT,\n          symptom_terms TEXT,\n          likely_causes TEXT,\n          process_hint TEXT,\n          neighbor_terms TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "code_log_effects",
+    "CREATE TABLE code_log_effects (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          line INTEGER NOT NULL,\n          function TEXT NOT NULL,\n          wrapper_symbol TEXT NOT NULL,\n          sink_log_id INTEGER NOT NULL,\n          level TEXT,\n          logger TEXT,\n          message_template TEXT NOT NULL,\n          evidence_class TEXT NOT NULL,\n          wrapper_depth INTEGER NOT NULL DEFAULT 1,\n          truncated INTEGER NOT NULL DEFAULT 0,\n          call_path TEXT NOT NULL,\n          call_path_locations TEXT NOT NULL DEFAULT '[]',\n          raw_call TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "memory_edges",
+    "CREATE TABLE memory_edges (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_type TEXT NOT NULL,\n          source_id INTEGER NOT NULL,\n          relation TEXT NOT NULL,\n          target_type TEXT NOT NULL,\n          target_id INTEGER NOT NULL,\n          evidence TEXT,\n          confidence REAL DEFAULT 0.8,\n          source_revision TEXT,\n          extractor_version TEXT NOT NULL DEFAULT 'legacy',\n          valid_from TEXT,\n          valid_to TEXT,\n          evidence_kind TEXT NOT NULL DEFAULT 'legacy',\n          last_verified_at TEXT,\n          created_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "graph_runtime_state",
+    "CREATE TABLE graph_runtime_state (\n          project_id TEXT PRIMARY KEY,\n          graph_revision INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "code_index_state",
+    "CREATE TABLE code_index_state (\n          project_id TEXT PRIMARY KEY,\n          generation INTEGER NOT NULL DEFAULT 0,\n          source_revision TEXT NOT NULL DEFAULT 'unversioned',\n          extractor_version TEXT NOT NULL,\n          status TEXT NOT NULL DEFAULT 'active',\n          indexed_file_count INTEGER NOT NULL DEFAULT 0,\n          retired_file_count INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "impact_feedback",
+    "CREATE TABLE impact_feedback (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          change_fingerprint TEXT NOT NULL,\n          changed_files TEXT NOT NULL,\n          recommended_tests TEXT,\n          executed_tests TEXT,\n          outcome TEXT NOT NULL,\n          failed_tests TEXT,\n          flaky_tests TEXT,\n          missed_targets TEXT,\n          note TEXT,\n          created_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "design_outcomes",
+    "CREATE TABLE design_outcomes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          candidate_id TEXT NOT NULL,\n          contract_id TEXT NOT NULL,\n          verification_status TEXT NOT NULL,\n          outcome TEXT NOT NULL,\n          baseline_revision INTEGER NOT NULL DEFAULT 0,\n          current_revision INTEGER NOT NULL DEFAULT 0,\n          planned_file_recall REAL NOT NULL DEFAULT 0,\n          unplanned_file_ratio REAL NOT NULL DEFAULT 0,\n          planned_symbol_recall REAL NOT NULL DEFAULT 0,\n          scenario_verification_rate REAL NOT NULL DEFAULT 0,\n          failed_test_count INTEGER NOT NULL DEFAULT 0,\n          replan_count INTEGER NOT NULL DEFAULT 0,\n          archetype TEXT NOT NULL DEFAULT 'general',\n          change_size_bucket TEXT NOT NULL DEFAULT 'small',\n          risk_count INTEGER NOT NULL DEFAULT 0,\n          api_change_count INTEGER NOT NULL DEFAULT 0,\n          graph_delta_count INTEGER NOT NULL DEFAULT 0,\n          created_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "learn_scopes",
+    "CREATE TABLE learn_scopes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          scope_key TEXT NOT NULL,\n          scope_type TEXT NOT NULL,\n          source_root TEXT NOT NULL,\n          target_path TEXT,\n          entry_path TEXT,\n          depth INTEGER,\n          mode TEXT NOT NULL,\n          file_snapshot TEXT NOT NULL,\n          file_count INTEGER NOT NULL DEFAULT 0,\n          status TEXT NOT NULL DEFAULT 'active',\n          baseline_revision TEXT,\n          last_checked_revision TEXT,\n          change_provider TEXT NOT NULL DEFAULT 'snapshot/v1',\n          refresh_state TEXT NOT NULL DEFAULT 'current',\n          last_refresh_summary TEXT,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          last_refreshed_at TEXT\n        )"
+  ],
+  [
+    "scope_boundary_dependencies",
+    "CREATE TABLE scope_boundary_dependencies (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          scope_id INTEGER NOT NULL,\n          consumer_path TEXT NOT NULL,\n          dependency_path TEXT NOT NULL,\n          dependency_kind TEXT NOT NULL DEFAULT 'import',\n          source_digest TEXT,\n          surface_digest TEXT,\n          status TEXT NOT NULL DEFAULT 'active',\n          last_observed_at TEXT,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, scope_id, consumer_path, dependency_path, dependency_kind)\n        )"
+  ],
+  [
+    "query_misses",
+    "CREATE TABLE query_misses (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT,\n          source TEXT DEFAULT 'context',\n          result_counts TEXT,\n          created_at TEXT NOT NULL,\n          last_seen_at TEXT,\n          miss_count INTEGER DEFAULT 1,\n          reviewed_at TEXT,\n          status TEXT DEFAULT 'open',\n          resolution TEXT\n        )"
+  ],
+  [
+    "reflection_reuse_events",
+    "CREATE TABLE reflection_reuse_events (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          reused_reflection_id INTEGER NOT NULL,\n          applying_reflection_id INTEGER NOT NULL,\n          outcome TEXT NOT NULL,\n          task TEXT,\n          created_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "experience_usage_events",
+    "CREATE TABLE experience_usage_events (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT NOT NULL,\n          record_type TEXT NOT NULL,\n          record_id INTEGER NOT NULL,\n          outcome TEXT NOT NULL,\n          note TEXT,\n          evidence TEXT,\n          task_id TEXT,\n          query_id TEXT,\n          event_key TEXT,\n          verified INTEGER NOT NULL DEFAULT 0,\n          created_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "semantic_conflicts",
+    "CREATE TABLE semantic_conflicts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          entity_type TEXT NOT NULL DEFAULT 'code_file',\n          target TEXT NOT NULL,\n          field TEXT NOT NULL,\n          existing TEXT,\n          incoming TEXT,\n          resolution TEXT,\n          decision_note TEXT,\n          replacement_source TEXT,\n          source_command TEXT NOT NULL,\n          observed_at TEXT NOT NULL,\n          status TEXT DEFAULT 'open',\n          reviewed_at TEXT\n        )"
+  ],
+  [
+    "retrieval_feedback",
+    "CREATE TABLE retrieval_feedback (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT NOT NULL,\n          record_type TEXT NOT NULL,\n          record_id INTEGER NOT NULL,\n          reason TEXT NOT NULL,\n          replacement_type TEXT,\n          replacement_id INTEGER,\n          note TEXT,\n          status TEXT NOT NULL DEFAULT 'open',\n          task_id TEXT,\n          query_id TEXT,\n          event_key TEXT,\n          verified INTEGER NOT NULL DEFAULT 0,\n          resolution TEXT,\n          created_at TEXT NOT NULL,\n          reviewed_at TEXT\n        )"
+  ],
+  [
+    "incident_traces",
+    "CREATE TABLE incident_traces (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          trace_key TEXT NOT NULL,\n          status TEXT NOT NULL DEFAULT 'open',\n          symptom TEXT NOT NULL,\n          goal TEXT,\n          arkts_scene TEXT NOT NULL DEFAULT 'unknown',\n          time_window TEXT,\n          entry_log_text TEXT,\n          normalized_error TEXT,\n          dominant_log_events TEXT,\n          diagnosis_summary TEXT,\n          suspected_chain TEXT,\n          causal_chain TEXT,\n          span_graph TEXT,\n          root_cause_hypothesis TEXT,\n          intervention TEXT,\n          verification_evidence TEXT,\n          resolution TEXT,\n          confidence REAL DEFAULT 0.7,\n          source TEXT DEFAULT 'incident-trace',\n          capture_mode TEXT NOT NULL DEFAULT 'legacy_runtime_derived',\n          evidence_state TEXT NOT NULL DEFAULT 'legacy_unverified',\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "incident_trace_links",
+    "CREATE TABLE incident_trace_links (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          trace_id INTEGER NOT NULL,\n          target_type TEXT NOT NULL,\n          target_id INTEGER,\n          target_key TEXT,\n          relation TEXT NOT NULL,\n          score REAL DEFAULT 0.0,\n          evidence TEXT,\n          created_at TEXT NOT NULL\n        )"
+  ],
+  [
+    "incident_trace_fts",
+    "CREATE VIRTUAL TABLE incident_trace_fts USING fts5(\n          project_id UNINDEXED,\n          symptom,\n          goal,\n          arkts_scene,\n          entry_log_text,\n          normalized_error,\n          dominant_log_events,\n          diagnosis_summary,\n          suspected_chain,\n          root_cause_hypothesis,\n          resolution\n        )"
+  ],
+  [
+    "incident_trace_fts_data",
+    "CREATE TABLE 'incident_trace_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "incident_trace_fts_idx",
+    "CREATE TABLE 'incident_trace_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "incident_trace_fts_content",
+    "CREATE TABLE 'incident_trace_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+  ],
+  [
+    "incident_trace_fts_docsize",
+    "CREATE TABLE 'incident_trace_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "incident_trace_fts_config",
+    "CREATE TABLE 'incident_trace_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "evaluation_runs",
+    "CREATE TABLE evaluation_runs (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          run_kind TEXT NOT NULL CHECK(run_kind IN ('context_capability', 'agent_benchmark')),\n          seal_digest TEXT NOT NULL,\n          case_file TEXT NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('running', 'completed', 'failed')),\n          gate_status TEXT,\n          result_digest TEXT,\n          error_class TEXT,\n          started_at TEXT NOT NULL,\n          finished_at TEXT,\n          UNIQUE(project_id, run_kind, seal_digest)\n        )"
+  ],
+  [
+    "prospective_cohorts",
+    "CREATE TABLE prospective_cohorts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          cohort_id TEXT NOT NULL,\n          protocol_json TEXT NOT NULL,\n          protocol_digest TEXT NOT NULL,\n          task_type TEXT NOT NULL CHECK(task_type = 'diagnosis'),\n          target_presented_tasks INTEGER NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('registered', 'running', 'completed')),\n          presented_count INTEGER NOT NULL DEFAULT 0,\n          eligible_count INTEGER NOT NULL DEFAULT 0,\n          excluded_count INTEGER NOT NULL DEFAULT 0,\n          chain_head_digest TEXT NOT NULL,\n          registered_at TEXT NOT NULL,\n          started_at TEXT,\n          finalized_at TEXT,\n          report_json TEXT,\n          report_digest TEXT,\n          UNIQUE(project_id, cohort_id)\n        )"
+  ],
+  [
+    "prospective_cohort_tasks",
+    "CREATE TABLE prospective_cohort_tasks (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          cohort_pk INTEGER NOT NULL,\n          sequence_no INTEGER NOT NULL,\n          task_id TEXT NOT NULL,\n          task_digest TEXT NOT NULL,\n          eligibility TEXT NOT NULL CHECK(eligibility IN ('eligible', 'excluded')),\n          exclusion_reason TEXT,\n          opportunity TEXT NOT NULL CHECK(opportunity IN ('present', 'absent', 'unknown')),\n          evidence_refs_json TEXT NOT NULL,\n          memory_available_at TEXT NOT NULL,\n          memory_manifest_json TEXT NOT NULL,\n          memory_manifest_digest TEXT NOT NULL,\n          source_snapshot_json TEXT NOT NULL,\n          paired_replay_json TEXT NOT NULL DEFAULT '{}',\n          replay_eligible INTEGER NOT NULL DEFAULT 0,\n          previous_entry_digest TEXT NOT NULL,\n          entry_digest TEXT NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('active', 'completed', 'excluded')),\n          usage_sample_id TEXT,\n          outcome TEXT,\n          verification TEXT,\n          usage_metrics_json TEXT,\n          benchmark_metrics_json TEXT,\n          result_digest TEXT,\n          enrolled_at TEXT NOT NULL,\n          completed_at TEXT,\n          UNIQUE(cohort_pk, sequence_no),\n          UNIQUE(cohort_pk, task_id)\n        )"
+  ],
+  [
+    "normative_documents",
+    "CREATE TABLE normative_documents (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_root TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          document_id TEXT NOT NULL,\n          kind TEXT NOT NULL,\n          title TEXT NOT NULL,\n          status TEXT NOT NULL,\n          scopes TEXT NOT NULL DEFAULT '[]',\n          approval TEXT NOT NULL DEFAULT '{}',\n          supersedes TEXT NOT NULL DEFAULT '',\n          superseded_by TEXT NOT NULL DEFAULT '',\n          body TEXT NOT NULL,\n          body_start_line INTEGER NOT NULL,\n          search_terms TEXT NOT NULL,\n          source_digest TEXT NOT NULL,\n          source_revision TEXT,\n          index_generation INTEGER NOT NULL,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, source_root, file_path)\n        )"
+  ],
+  [
+    "normative_document_fts",
+    "CREATE VIRTUAL TABLE normative_document_fts USING fts5(\n          project_id UNINDEXED, search_terms, tokenize='unicode61'\n        )"
+  ],
+  [
+    "normative_document_fts_data",
+    "CREATE TABLE 'normative_document_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "normative_document_fts_idx",
+    "CREATE TABLE 'normative_document_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "normative_document_fts_content",
+    "CREATE TABLE 'normative_document_fts_content'(id INTEGER PRIMARY KEY, c0, c1)"
+  ],
+  [
+    "normative_document_fts_docsize",
+    "CREATE TABLE 'normative_document_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "normative_document_fts_config",
+    "CREATE TABLE 'normative_document_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "runtime_schema_versions",
+    "CREATE TABLE runtime_schema_versions(\n          component TEXT PRIMARY KEY,\n          version TEXT NOT NULL\n        )"
+  ],
+  [
+    "project_counters",
+    "CREATE TABLE project_counters (\n          project_id TEXT NOT NULL,\n          counter_name TEXT NOT NULL,\n          value INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL,\n          PRIMARY KEY(project_id, counter_name)\n        )"
+  ],
+  [
+    "code_passages",
+    "CREATE TABLE code_passages (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_type TEXT NOT NULL,\n          source_id INTEGER NOT NULL,\n          passage_kind TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          symbol TEXT,\n          identity_terms TEXT NOT NULL DEFAULT '',\n          semantic_terms TEXT NOT NULL DEFAULT '',\n          body_terms TEXT NOT NULL DEFAULT '',\n          string_terms TEXT NOT NULL DEFAULT '',\n          mechanism_terms TEXT NOT NULL DEFAULT '',\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          start_line INTEGER,\n          end_line INTEGER,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, source_type, source_id, passage_kind)\n        )"
+  ],
+  [
+    "code_passage_fts",
+    "CREATE VIRTUAL TABLE code_passage_fts USING fts5(\n          project_id UNINDEXED,\n          source_type UNINDEXED,\n          passage_kind UNINDEXED,\n          source_id UNINDEXED,\n          file_path,\n          symbol,\n          identity_terms,\n          semantic_terms,\n          body_terms,\n          string_terms,\n          mechanism_terms\n        )"
+  ],
+  [
+    "code_passage_fts_data",
+    "CREATE TABLE 'code_passage_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "code_passage_fts_idx",
+    "CREATE TABLE 'code_passage_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "code_passage_fts_content",
+    "CREATE TABLE 'code_passage_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+  ],
+  [
+    "code_passage_fts_docsize",
+    "CREATE TABLE 'code_passage_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "code_passage_fts_config",
+    "CREATE TABLE 'code_passage_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "semantic_fact_fts",
+    "CREATE VIRTUAL TABLE semantic_fact_fts USING fts5(\n          project_id UNINDEXED,\n          fact,\n          source,\n          category,\n          scope,\n          evidence\n        )"
+  ],
+  [
+    "semantic_fact_fts_data",
+    "CREATE TABLE 'semantic_fact_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "semantic_fact_fts_idx",
+    "CREATE TABLE 'semantic_fact_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "semantic_fact_fts_content",
+    "CREATE TABLE 'semantic_fact_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+  ],
+  [
+    "semantic_fact_fts_docsize",
+    "CREATE TABLE 'semantic_fact_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "semantic_fact_fts_config",
+    "CREATE TABLE 'semantic_fact_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "reflection_fts",
+    "CREATE VIRTUAL TABLE reflection_fts USING fts5(\n          project_id UNINDEXED,\n          task,\n          summary,\n          mistake,\n          lesson,\n          future_rule,\n          task_type,\n          outcome,\n          problem,\n          reasoning_summary,\n          context_used,\n          what_worked,\n          what_failed,\n          hidden_assumptions,\n          negative_preconditions,\n          useful_followup_focus,\n          useful_followup_terms,\n          misleading_followup_terms,\n          inspection_targets,\n          final_verification_path,\n          related_cases,\n          verification_method,\n          reuse_feedback,\n          source_cases,\n          skill_candidate,\n          trigger_condition,\n          anti_pattern,\n          repair_action,\n          evidence\n        )"
+  ],
+  [
+    "reflection_fts_data",
+    "CREATE TABLE 'reflection_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "reflection_fts_idx",
+    "CREATE TABLE 'reflection_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "reflection_fts_content",
+    "CREATE TABLE 'reflection_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28)"
+  ],
+  [
+    "reflection_fts_docsize",
+    "CREATE TABLE 'reflection_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "reflection_fts_config",
+    "CREATE TABLE 'reflection_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "episode_fts",
+    "CREATE VIRTUAL TABLE episode_fts USING fts5(\n          project_id UNINDEXED,\n          task,\n          summary,\n          outcome,\n          files_touched,\n          commands_run\n        )"
+  ],
+  [
+    "episode_fts_data",
+    "CREATE TABLE 'episode_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "episode_fts_idx",
+    "CREATE TABLE 'episode_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "episode_fts_content",
+    "CREATE TABLE 'episode_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+  ],
+  [
+    "episode_fts_docsize",
+    "CREATE TABLE 'episode_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "episode_fts_config",
+    "CREATE TABLE 'episode_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "code_file_fts",
+    "CREATE VIRTUAL TABLE code_file_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          summary,\n          language,\n          business_summary,\n          business_terms\n        )"
+  ],
+  [
+    "code_file_fts_data",
+    "CREATE TABLE 'code_file_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "code_file_fts_idx",
+    "CREATE TABLE 'code_file_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "code_file_fts_content",
+    "CREATE TABLE 'code_file_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+  ],
+  [
+    "code_file_fts_docsize",
+    "CREATE TABLE 'code_file_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "code_file_fts_config",
+    "CREATE TABLE 'code_file_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "code_symbol_fts",
+    "CREATE VIRTUAL TABLE code_symbol_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          symbol,\n          symbol_type,\n          summary,\n          business_summary,\n          business_terms\n        )"
+  ],
+  [
+    "code_symbol_fts_data",
+    "CREATE TABLE 'code_symbol_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "code_symbol_fts_idx",
+    "CREATE TABLE 'code_symbol_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "code_symbol_fts_content",
+    "CREATE TABLE 'code_symbol_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6)"
+  ],
+  [
+    "code_symbol_fts_docsize",
+    "CREATE TABLE 'code_symbol_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "code_symbol_fts_config",
+    "CREATE TABLE 'code_symbol_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "code_method_fts",
+    "CREATE VIRTUAL TABLE code_method_fts USING fts5(\n          project_id UNINDEXED,\n          method_evidence\n        )"
+  ],
+  [
+    "code_method_fts_data",
+    "CREATE TABLE 'code_method_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "code_method_fts_idx",
+    "CREATE TABLE 'code_method_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "code_method_fts_content",
+    "CREATE TABLE 'code_method_fts_content'(id INTEGER PRIMARY KEY, c0, c1)"
+  ],
+  [
+    "code_method_fts_docsize",
+    "CREATE TABLE 'code_method_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "code_method_fts_config",
+    "CREATE TABLE 'code_method_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "code_log_fts",
+    "CREATE VIRTUAL TABLE code_log_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          function,\n          level,\n          logger,\n          message_template,\n          raw_statement,\n          business_summary,\n          business_terms,\n          business_event,\n          trigger_stage,\n          symptom_terms,\n          likely_causes,\n          process_hint,\n          neighbor_terms\n        )"
+  ],
+  [
+    "code_log_fts_data",
+    "CREATE TABLE 'code_log_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "code_log_fts_idx",
+    "CREATE TABLE 'code_log_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "code_log_fts_content",
+    "CREATE TABLE 'code_log_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14)"
+  ],
+  [
+    "code_log_fts_docsize",
+    "CREATE TABLE 'code_log_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "code_log_fts_config",
+    "CREATE TABLE 'code_log_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "code_log_effect_fts",
+    "CREATE VIRTUAL TABLE code_log_effect_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          function,\n          wrapper_symbol,\n          level,\n          logger,\n          message_template,\n          evidence_class,\n          call_path,\n          call_path_locations,\n          raw_call\n        )"
+  ],
+  [
+    "code_log_effect_fts_data",
+    "CREATE TABLE 'code_log_effect_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+  ],
+  [
+    "code_log_effect_fts_idx",
+    "CREATE TABLE 'code_log_effect_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+  ],
+  [
+    "code_log_effect_fts_content",
+    "CREATE TABLE 'code_log_effect_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+  ],
+  [
+    "code_log_effect_fts_docsize",
+    "CREATE TABLE 'code_log_effect_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+  ],
+  [
+    "code_log_effect_fts_config",
+    "CREATE TABLE 'code_log_effect_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+  ],
+  [
+    "sqlite_stat1",
+    "CREATE TABLE sqlite_stat1(tbl,idx,stat)"
+  ]
+]
