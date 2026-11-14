@@ -1,0 +1,56 @@
+{
+  "consumed": {
+    "body": "  build() {\n    Column() { Text(this.plainBody()) }\n  }",
+    "local_scanner": [
+      [
+        2,
+        "this.plainBody()"
+      ]
+    ],
+    "generic_scanner": [
+      [
+        1,
+        "build()"
+      ],
+      [
+        2,
+        "Column()"
+      ],
+      [
+        2,
+        "Text(this.plainBody())"
+      ],
+      [
+        2,
+        "plainBody()"
+      ]
+    ]
+  },
+  "discarded": {
+    "body": "  build() {\n    this.plainBody(); Column() { Text(this.content) }\n  }",
+    "local_scanner": [
+      [
+        2,
+        "this.plainBody()"
+      ]
+    ],
+    "generic_scanner": [
+      [
+        1,
+        "build()"
+      ],
+      [
+        2,
+        "plainBody()"
+      ],
+      [
+        2,
+        "Column()"
+      ],
+      [
+        2,
+        "Text(this.content)"
+      ]
+    ]
+  }
+}

@@ -54,3 +54,36 @@ correct tables; **no context query was repeated**. These independently relearned
 index snapshots are not misrepresented as the original query archive. Their
 source digests match the saved source bytes. All ten public context invocations
 (raw + compact for four consumed queries and one discarded query) completed.
+
+## Exact callsite / first representation boundary
+
+Both snapshots resolve caller key `symbol:d2bedc4f31b6507a297acf86` to
+callee key `symbol:73641c995d5defc479e3a4d6`. Persisted edge is code_symbol 7→8,
+relation calls, line 5, detail local method call; consumed digest is
+`174e218a0947b6208e88914c989572a0ef5c85bfcfedd0c144ed814949a20e90`, discarded
+`05ec60ccd34bfcd0cfb48319d2ca206fed4557b9dfec7be25493ba645b126342`.
+No persisted `callee_source_key`, receiver field, argument spans, column, parent
+call ID, returned-expression ID or argument-position field exists on this edge.
+The callee identity is carried by target ID/key, not absent altogether.
+
+Read-only `scanner-observation.json` runs existing scan_calls_masked on the exact
+saved build slices. Local scanning returns `(2, 'this.plainBody()')` for BOTH;
+it has already discarded the containing expression before local-call relation
+construction. Generic scanning can still return `Text(this.plainBody())` versus
+`Text(this.content)` as separate balanced call strings, but supplies no nesting
+relationship or offsets beyond line. Those Text calls are not imported declarations,
+so the imported-call branch does not emit a semantic relation for them. Thus the
+first confirmed missing *relationship representation* is source-call scanning/
+relation construction, not a later SQLite or compact projection erasure. Source
+text itself is not erased: it remains separately available.
+
+In both actual compact outputs the MessageSurface anchor (component ID6,
+source_range/read_window 2–10) already contains the complete current-worktree
+excerpt 1–10, `truncated=false`, query_term_window_within_anchor. The local Agent
+can legally inspect these already provided bytes and distinguish the expression
+without more reads. The read window and returned decorator prefix differ by one
+line, but the complete expression and helper are present. A future bounded
+analyzer could inspect this slice with freshness, exact lexical identity and
+ambiguity checks; existing evidence does NOT authorize treating the generic
+call edge as the resulting proof or Runtime exclusion authority. No claim that
+all value-flow information is globally absent is made.
