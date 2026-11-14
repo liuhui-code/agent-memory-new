@@ -12424,3 +12424,19 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   selection, so they cannot justify a same-layer compound supplementation repair.
 - Twenty existing related tests pass; no runtime/test change, full run, original
   count gain or public upload. See compound-prefix-contract evidence report.
+
+## 2026-11-14 — Preserve already admitted requested callers through display diversity
+
+- Current independent public both-target request lost one true caller to textual
+  similarity after caller focus. Return-only trace confirms both source identities
+  were admitted first; explicit member direction/edge filters were already correct.
+- Keep distinct fully indexed callers only for the same multiple request and the
+  exact recognized target IDs used by SQL. Do not expand caller discovery, limits,
+  scores, generic scope, source reads, or remove callee/log context.
+- Carry a query-bound identity set locally around intent's dict projection; no
+  private authority is published to JSON. Missing, conflicting, legacy or projected
+  identities and unknown/partial target grammar retain old behavior.
+- Nine focused tests plus32 existing related tests pass (one existing expected
+  failure). Independent both now retains2/2 callers; strict caller-only equality
+  remains false because callee context remains. Original42 remains1/3; no count
+  gain, no aggregate or remote publication. See caller-direction-current evidence.

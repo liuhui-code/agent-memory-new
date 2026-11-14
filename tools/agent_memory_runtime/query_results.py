@@ -8,6 +8,7 @@ from typing import Any
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT
 from .memory_calibration import calibrate_payload
 from .models import Project
+from .query_caller_ownership import requested_caller_identities
 from .query_code_selection import diverse_code_matches
 from .query_collect import collect_matches_with_audit
 from .query_edges import network_limits
@@ -47,6 +48,7 @@ def limited_matches(
     matches: dict[str, list[dict[str, Any]]],
     limits: dict[str, int],
     query: str = "",
+    caller_identities=None,
 ) -> dict[str, list[dict[str, Any]]]:
     bounded = {
         key: value[: limits.get(key, len(value))]
@@ -57,6 +59,7 @@ def limited_matches(
         matches.get("wiki_matches", []),
         wiki_limit,
         query=query,
+        caller_identities=caller_identities,
     )
     log_limit = limits.get("code_log_matches", len(matches.get("code_log_matches", [])))
     bounded["code_log_matches"] = diverse_log_matches(
@@ -97,7 +100,8 @@ def limited_context(
     collection = collect_matches_with_audit(project, query)
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches, explicit_intent)
-    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query)
+    caller_ids = requested_caller_identities(matches.get("wiki_matches") or [], query)
+    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query, caller_ids)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
         for item in bounded["code_log_matches"]

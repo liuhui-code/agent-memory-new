@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from .query_caller_ownership import caller_source_identity, requested_caller_identities
 from .query_behavior_concepts import behavior_marker_terms
 from .query_salient_source_retention import redundant_source_supplement
 from .query_code_focus import attach_file_source_locations, focus_code_candidates
@@ -55,6 +56,7 @@ def diverse_code_matches(
     limit: int,
     max_per_file: int = 2,
     query: str = "",
+    caller_identities=None,
 ) -> list[dict[str, Any]]:
     explicit_paths = protected_explicit_paths(items, query)
     attach_file_source_locations(items)
@@ -77,6 +79,12 @@ def diverse_code_matches(
                 items, recalled_items, query,
             )
             items = preserve_salient_evidence_candidates(items, recalled_items, query=query)
+    if caller_identities is None:
+        caller_identities = requested_caller_identities(items, query)
+    caller_identities = (caller_identities[1] if isinstance(caller_identities, tuple)
+                         and len(caller_identities) == 2 and caller_identities[0] == query
+                         and isinstance(caller_identities[1], frozenset) else frozenset())
+    selected_source_identities = set()
     selected: list[dict[str, Any]] = []
     deferred: list[dict[str, Any]] = []
     file_counts: dict[str, int] = {}
@@ -96,6 +104,11 @@ def diverse_code_matches(
             or is_structural_boundary_neighbor(item)
         )
         explicit_target = file_path in explicit_paths
+        source_identity = caller_source_identity(item)
+        distinct_requested_caller = (source_identity in caller_identities
+                                     and source_identity not in selected_source_identities
+                                     and {"caller_owner", "graph_relation:caller_owner"}
+                                     <= set(item.get("match_reasons") or []))
         weak_graph_neighbor = (
             limit <= 5
             and is_graph_neighbor(item)
@@ -112,7 +125,7 @@ def diverse_code_matches(
         if (
             file_path and file_counts.get(file_path, 0) >= max_per_file
         ) or (
-            not reserved_graph_lane and not explicit_target
+            not reserved_graph_lane and not explicit_target and not distinct_requested_caller
             and any(
                 code_candidate_similarity(terms, other) >= CODE_DIVERSITY_THRESHOLD
                 for other in selected_terms
@@ -121,6 +134,7 @@ def diverse_code_matches(
             deferred.append(item)
             continue
         selected.append(item)
+        selected_source_identities.add(source_identity)
         selected_terms.append(terms)
         if file_path:
             file_counts[file_path] = file_counts.get(file_path, 0) + 1

@@ -8,6 +8,7 @@ from typing import Any
 from .models import Project
 from .records import row_dict
 from .query_language import positive_retrieval_query
+from .query_target_scope import classify_target_scope
 from .storage import connect
 from .text import code_search_terms, json_list
 
@@ -23,6 +24,14 @@ CALLER_QUERY_MARKERS = (
 CALLER_RELATIONS = ("calls", "awaits", "registers_callback")
 MAX_SEED_PATHS = 4
 MAX_CALLER_OWNERS = 2
+
+
+class ResolvedCallerItem(dict):
+    """Ephemeral query binding; dict/JSON projection deliberately loses it."""
+
+    def __init__(self, item, query, targets):
+        super().__init__(item)
+        self.request_binding = (query, tuple(targets), caller_source_identity(self))
 
 
 def collect_bounded_caller_owners(
@@ -61,6 +70,8 @@ def collect_bounded_caller_owners(
         if target_ids is not None:
             target_filter = " AND targets.id IN (" + ",".join("?" for _ in target_ids) + ")"
             target_params = target_ids
+        complete_targets = (explicit_caller_target_ids(targets, query, resolve_member, require_complete=True)
+                            if target_ids and classify_target_scope(query).get("kind") == "multiple" else [])
         rows = conn.execute(
             f"""
             SELECT callers.*, files.summary AS caller_file_summary,
@@ -91,7 +102,11 @@ def collect_bounded_caller_owners(
             """,
             (project.project_id, *paths, *CALLER_RELATIONS, *target_params),
         ).fetchall()
-    return caller_items(rows, seed_scores)
+    selected = caller_items(rows, seed_scores)
+    # Query-time provenance only; no new index fact or caller discovery.
+    if complete_targets and complete_targets == target_ids:
+        selected = [ResolvedCallerItem(item, query, complete_targets) for item in selected]
+    return selected
 
 
 def caller_owner_query(query: str) -> bool:
@@ -144,7 +159,7 @@ def caller_items(
     return selected
 
 
-def explicit_caller_target_ids(targets, query, resolve_member=None):
+def explicit_caller_target_ids(targets, query, resolve_member=None, *, require_complete=False):
     """Bind a qualified caller-of target to symbol IDs, not its whole file.
 
     Only an explicit English caller-of/for target clause is resolved here; generic
@@ -164,10 +179,14 @@ def explicit_caller_target_ids(targets, query, resolve_member=None):
         while True:
             token = target_token.match(positive, cursor)
             if token is None:
+                if require_complete:
+                    return []
                 break
             references.add(token.group(1))
             separator = re.match(r"\s*(?:,|and)\s+", positive[token.end():])
             if separator is None:
+                if require_complete and not re.fullmatch(r"\s*[.!?]?\s*", positive[token.end():]):
+                    return []
                 break
             cursor = token.end() + separator.end()
     if not references:
@@ -183,4 +202,47 @@ def explicit_caller_target_ids(targets, query, resolve_member=None):
                     f'{row["owner_name"]}.{row["symbol"]}' == reference])
         if len(matches) == 1:
             selected.add(int(matches[0]["id"]))
+        elif require_complete:
+            return []
     return sorted(selected)
+
+
+def caller_source_identity(item):
+    """A complete indexed source identity, not a presentation similarity key."""
+    record_id, start, end = (item.get(k) for k in ("id", "start_line", "end_line"))
+    path, key, digest = (item.get(k) for k in ("file_path", "symbol_key", "source_digest"))
+    if (item.get("kind") != "symbol" or type(record_id) is not int or record_id <= 0
+            or type(start) is not int or type(end) is not int or not 0 < start <= end
+            or not isinstance(path, str) or not path.strip()
+            or not isinstance(key, str) or not key.startswith("symbol:")
+            or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)):
+        return None
+    return record_id, path, key, start, end, digest
+
+
+def requested_caller_identities(items, query):
+    """Keep an already selected plural caller set distinct during display diversity.
+
+    This does not discover callers, certify completeness or override capacity.
+    Unknown/legacy identities and generic request scope retain the old policy.
+    """
+    if classify_target_scope(query).get("kind") != "multiple":
+        return None
+    by_id = {}
+    for item in items:
+        record_id = item.get("id")
+        if item.get("kind") == "symbol" and type(record_id) is int:
+            by_id.setdefault(record_id, set()).add(caller_source_identity(item))
+    eligible = set()
+    for item in items:
+        identity = caller_source_identity(item)
+        reasons = set(item.get("match_reasons") or [])
+        binding = item.request_binding if isinstance(item, ResolvedCallerItem) else None
+        complete_targets = (binding is not None and binding[0] == query
+                            and binding[2] == identity and bool(binding[1])
+                            and all(type(i) is int and i > 0 for i in binding[1]))
+        if (complete_targets and identity is not None and len(by_id[identity[0]]) == 1
+                and {"caller_owner", "graph_relation:caller_owner"} <= reasons
+                and set(item.get("caller_relations") or []) & set(CALLER_RELATIONS)):
+            eligible.add(identity)
+    return (query, frozenset(eligible)) if len(eligible) >= 2 else None
