@@ -66,3 +66,12 @@ already becomes correct, do not claim a consumer defect remains. If head-only st
 fails to recall the required current source identities, stop R rather than lower
 coverage or add fixture-specific words. Only after R acceptance and review can a
 remaining source-selection red justify reconsidering the separate consumer.
+
+## Pre-implementation clarification after resumed priority
+
+Column+Row without Text also satisfies the unchanged >=2 lexical gate. It may be
+recalled and carries no claim to contain a Text render. No hidden Text requirement
+will be added. Original 13 target criteria remain final criteria; R candidate-pool
+success is a prerequisite result only, never substituted for compact acceptance.
+A local dispatcher will preserve all Builder functions unchanged and separately
+handle RenderRecall; it will not reuse Builder source/role authority.
