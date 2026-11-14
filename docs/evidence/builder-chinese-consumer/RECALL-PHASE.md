@@ -32,6 +32,9 @@ built-in construction may take an optional descriptor without changing that port
 Pass only derived terms through optional internal parameters needed by
 recall_table_candidates. Default None keeps ordinary helper calls unchanged.
 
+Only descriptors with at least TWO DISTINCT canonical attribute requirements enable
+this phase. Single-attribute requests remain on the exact old output path even
+though the grammar can parse them; do not count builder as a second attribute.
 Reuse method_body_fts: existing method focus terms plus distinct projected terms,
 under the existing 16-term cap, existing >=2 term admission and >=2 evidence
 coverage, existing recall limit and same RRF coefficient. Do not add a lane, index,
