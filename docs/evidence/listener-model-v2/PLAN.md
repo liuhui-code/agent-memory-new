@@ -45,3 +45,13 @@ adapter/model protocol is not automatically broad architecture; feasibility and
 compatibility do not authorize production. Full source parsing/encoding/semantic
 binding beyond the original bounded grammar remains unsupported. Reviewer sees
 frozen controls before execution; all failures retained. No rank/selector changes.
+
+Pre-execution clarification: legacy typed-field presence rejects even when null,
+empty array or empty object; no unknown-field laundering. Combined budget is the
+sum of UTF-8 byte lengths of the two stored JSON column values, including each
+array's brackets, separators and quoting. There is no extra JSON envelope; SQL
+NULL side column contributes zero JSON payload bytes. Empty side [] costs2 bytes
+and is used only if it fits; otherwise side is SQL NULL. Existing legacy prefix
+is generated once by the unchanged4096 cap and is never edited to create space.
+No fact-order tuning. Capacity omission of an otherwise valid witness is explicitly
+expected unknown in boundary controls, not a reason to change the acceptance oracle.
