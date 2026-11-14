@@ -1,0 +1,219 @@
+{
+  "fixed_protocol_sha256": "bdd129728a17ef7f99e7a24d36bfd068d9fd5bc98dd9f8004f3014e87c0b7f70",
+  "new_invariant": "both admitted true callers survive textual diversity; not caller-only precision",
+  "cases": [
+    {
+      "name": "finish",
+      "before_paths": [
+        "ConfirmPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "after_paths": [
+        "ConfirmPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "strict_legacy_pass": false,
+      "before_budget": {
+        "estimated_tokens": 1316,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1316,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "excerpts": [
+        {
+          "path": "ConfirmPanel.ets",
+          "ranges": [
+            [
+              1,
+              10,
+              false
+            ]
+          ]
+        },
+        {
+          "path": "ModalBridge.ets",
+          "ranges": [
+            [
+              1,
+              4,
+              false
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reset",
+      "before_paths": [
+        "ResetPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "after_paths": [
+        "ResetPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "strict_legacy_pass": false,
+      "before_budget": {
+        "estimated_tokens": 1317,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1317,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "excerpts": [
+        {
+          "path": "ResetPanel.ets",
+          "ranges": [
+            [
+              1,
+              10,
+              false
+            ]
+          ]
+        },
+        {
+          "path": "ModalBridge.ets",
+          "ranges": [
+            [
+              1,
+              4,
+              false
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "both",
+      "before_paths": [
+        "ResetPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "after_paths": [
+        "ResetPanel.ets",
+        "ConfirmPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "strict_legacy_pass": false,
+      "before_budget": {
+        "estimated_tokens": 1337,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1458,
+        "target_tokens": 1500,
+        "truncated": true
+      },
+      "excerpts": [
+        {
+          "path": "ResetPanel.ets",
+          "ranges": [
+            [
+              1,
+              10,
+              false
+            ]
+          ]
+        },
+        {
+          "path": "ConfirmPanel.ets",
+          "ranges": [
+            [
+              1,
+              10,
+              false
+            ]
+          ]
+        },
+        {
+          "path": "ModalBridge.ets",
+          "ranges": [
+            [
+              1,
+              4,
+              false
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "broad",
+      "before_paths": [
+        "ResetPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "after_paths": [
+        "ResetPanel.ets",
+        "ModalBridge.ets"
+      ],
+      "strict_legacy_pass": false,
+      "before_budget": {
+        "estimated_tokens": 1305,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "after_budget": {
+        "estimated_tokens": 1305,
+        "target_tokens": 1500,
+        "truncated": false
+      },
+      "excerpts": [
+        {
+          "path": "ResetPanel.ets",
+          "ranges": [
+            [
+              1,
+              10,
+              false
+            ]
+          ]
+        },
+        {
+          "path": "ModalBridge.ets",
+          "ranges": [
+            [
+              1,
+              4,
+              false
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "original_before": {
+    "case_count": 3,
+    "passed_case_count": 1,
+    "failed_case_count": 2,
+    "scenario_count": 1,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.3333,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1400.0,
+    "average_memory_prepare_ms": 2065.3333,
+    "average_query_elapsed_ms": 636.3333
+  },
+  "original_after": {
+    "case_count": 3,
+    "passed_case_count": 1,
+    "failed_case_count": 2,
+    "scenario_count": 1,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.3333,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1400.0,
+    "average_memory_prepare_ms": 1979.0,
+    "average_query_elapsed_ms": 634.6667
+  }
+}

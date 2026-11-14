@@ -74,7 +74,7 @@ Controls include single/generic/ordinary graph policy, source/ID conflicts,
 projection/query mismatch, total/per-file caps, duplicates, unknown/ambiguous and
 partial target grammar, exact SQL-target equality, one caller for two methods,
 real log output and project-wide callee ambiguity. Fingerprint1 pass, changed files
-compile and diff-check clean; runtime files remain251/479/457 lines (≤500).
+compile and diff-check clean; runtime files remain248/479/457 lines (≤500).
 
 ## Retained development corrections
 
@@ -92,3 +92,7 @@ compile and diff-check clean; runtime files remain251/479/457 lines (≤500).
 Source commit013ef95; preceding freeze af0f529 and public red4cc4a4a. Final evidence
 is accepted-public.json, accepted-original.json and accepted-related.txt; earlier
 candidate outputs are retained under their original filenames, not overwritten.
+
+Independent review of immutable source013ef95 reran22 focused/related tests, all
+passed with unchanged source before/after. No remaining concrete blocker reported.
+The source code in the final documentation commits is identical to013ef95.
