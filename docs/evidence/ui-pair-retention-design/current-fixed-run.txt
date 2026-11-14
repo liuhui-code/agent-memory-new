@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/probe-current.py", line 15, in <module>
+    cli('init');cli('learn-path','--path','.','--json');result=cli('context','--query',q,'--compact','--json',trace=True)
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/probe-current.py", line 13, in cli
+    (D/'current-fixed-error.txt').write_text(r.stderr);r.check_returncode()
+                                                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 502, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python', '/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/trace-current-cli.py', '/workspace/scratch/dcdb41e16594/remaining-after-builder/docs/evidence/ui-pair-retention-design/current-fixed-original-trace.json', '/workspace/scratch/dcdb41e16594/remaining-after-builder/tools/agent_memory.py', 'context', '--query', 'Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts.', '--compact', '--json', '--project', '/tmp/agent-memory-benchmark-jnmlawks/workspace', '--memory-home', '/tmp/pair-current-7yvpf2r4/memory']' returned non-zero exit status 1.
