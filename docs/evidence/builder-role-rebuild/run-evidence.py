@@ -9,11 +9,11 @@ work.mkdir(exist_ok=True)
 def run(root, *args):
     cmd=[sys.executable,str(REPO/'tools/agent_memory.py'),*args,'--project',str(root),'--memory-home',str(work/(root.name+'-memory'))]
     p=subprocess.run(cmd,capture_output=True,text=True,check=True)
-    return json.loads(p.stdout)
+    return json.loads(p.stdout) if '--json' in args else p.stdout
 def prepare(root,sources):
     root.mkdir(exist_ok=True)
     for name,text in sources.items():(root/name).write_text(text)
-    run(root,'init','--json');run(root,'learn-path','--path','.','--json')
+    run(root,'init');run(root,'learn-path','--path','.','--json')
 p=json.loads((D/'protocol.json').read_text());root=work/'activation'
 if phase=='before':prepare(root,p['sources'])
 if phase=='merged':run(root,'learn-path','--path','.','--json')

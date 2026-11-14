@@ -1,0 +1,30 @@
+.FF
+======================================================================
+FAIL: test_public_declaration_roles (tests.test_builder_declaration_role.BuilderDeclarationRoleTests.test_public_declaration_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/builder-role-rebuild/tests/test_builder_declaration_role.py", line 23, in test_public_declaration_roles
+    self.check_sources(p['sources'], p['expected'])
+  File "/workspace/scratch/dcdb41e16594/builder-role-rebuild/tests/test_builder_declaration_role.py", line 19, in check_sources
+    self.assertEqual({tuple(x) for x in expected}, actual)
+AssertionError: Items in the first set but not the second:
+('Member.ets', 'CardParts.rowPart')
+('Global.ets', 'inlineGlobal')
+('Global.ets', 'globalPart')
+('Member.ets', 'CardParts.inlinePart')
+
+======================================================================
+FAIL: test_unsupported_binding_and_known_neighbors (tests.test_builder_declaration_role.BuilderDeclarationRoleTests.test_unsupported_binding_and_known_neighbors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/builder-role-rebuild/tests/test_builder_declaration_role.py", line 27, in test_unsupported_binding_and_known_neighbors
+    self.check_sources(p['controls'], p['controls_expected'])
+  File "/workspace/scratch/dcdb41e16594/builder-role-rebuild/tests/test_builder_declaration_role.py", line 19, in check_sources
+    self.assertEqual({tuple(x) for x in expected}, actual)
+AssertionError: Items in the first set but not the second:
+('Template.ets', 'Good.real')
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.496s
+
+FAILED (failures=2)
