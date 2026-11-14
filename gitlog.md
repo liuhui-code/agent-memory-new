@@ -12303,3 +12303,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Rejected despite score improvement. No keyword exceptions or additional trial,
   no production integration and no original repaired-count increment.
 - Full before/after/source verification at docs/evidence/history-symbol-attribution.
+## 2026-11-14 - Reject tested weak listener relevance candidate
+
+- Read real original2/3 unchanged and independent generic precision failure;
+ 11 competition controls contain one genuine qualifier-priority failure.
+- Preserved single-candidate stop: no weight/keyword/exclusive refinement and no
+ original gain. Next investigation is existing source-replacement attribution.
