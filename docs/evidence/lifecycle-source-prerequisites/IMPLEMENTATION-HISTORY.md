@@ -48,3 +48,17 @@ whole-category completion or an inferred full-gate total.
 Both evaluation commands succeeded and wrote separate reports. The shell's final
 `tail -3` glob display command failed with an argument error; reading the saved
 files confirmed completion. Neither evaluation was rerun for that display error.
+
+## Independent final review
+
+Reviewer verified 807489f against 7db0cee (no runtime/test difference) and approved
+this limited stage for parent-controlled integration. The fresh Chinese variant
+alone improves; the two other variants remain unchanged failures. Raw baseline
+mapping and its evidence_set diagnostics remain old: scope mismatch / raw recall
+zero can remain even when the specialized compact source selection passes. This
+is not all-diagnostic success, framework lifecycle execution proof, or verified
+runtime persistence. Static unresolved receiver limitations remain in force.
+
+The ten changed runtime/test files pass fingerprint and 500-line checks; both
+new lifecycle modules compile. Complete Git history bundle was created and
+verified. No remote write, full suite, or implicit main integration occurred.
