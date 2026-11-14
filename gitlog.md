@@ -12489,3 +12489,9 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Seven fixed public requests completed after observer tuple-key serialization correction; source/query/oracles unchanged.
 - Two main requests have actual precision reds and preserve snapshots prove imports Palette added back to two focused method sources. Bare-declared never calls this predicate; its unchanged criterion remains fixed.
 - Preserve first setup log and explicit missing-stderr limitation plus typed-key reproduction. Reviewer approved only frozen build-word/component implementation, no graph-policy change.
+
+## Implement only build marker word/component boundary
+
+- Preserve all non-build structural markers and existing positive-query cleanup/fallback. Recognize only pre-frozen build morphology, numeric suffix and explicit identifier components.
+- Builder/bodybuilder no longer request build boundaries; actual BuildCache/build_cache/path and native/build positives retained. No graph guard, R/S, ranking or API change.
+- Five new focused tests plus existing structural-exclusion/English consumer tests pass; awaiting fixed public seven-case verification.

@@ -14,7 +14,7 @@ from .source_path_policy import (
     filter_explicit_language_candidates,
     filter_generated_candidates,
 )
-from .text import english_query_variants, identifier_tokens, tokenize
+from .text import english_query_variants, identifier_tokens, identifier_parts, tokenize
 
 
 CODE_DIVERSITY_THRESHOLD = 0.3
@@ -415,8 +415,18 @@ def preserve_structural_boundary_neighbors(
 
 
 def structural_boundary_query(query: str) -> bool:
-    lowered = positive_retrieval_query(query).casefold()
-    return any(marker in lowered for marker in STRUCTURAL_BOUNDARY_QUERY_MARKERS)
+    positive = positive_retrieval_query(query)
+    lowered = positive.casefold()
+    # Only build changes: other structural markers retain their old semantics.
+    return any(marker in lowered for marker in STRUCTURAL_BOUNDARY_QUERY_MARKERS
+               if marker != "build") or build_word_or_component(positive)
+
+
+def build_word_or_component(query: str) -> bool:
+    forms = r"(?:build(?:s|ing|[0-9]+)?|rebuild(?:s|ing)?)"
+    return any(re.fullmatch(forms, part) is not None
+               for token in re.findall(r"[A-Za-z_$][A-Za-z0-9_$]*", query)
+               for part in [token.casefold(), *identifier_parts(token)])
 
 
 def preserve_salient_evidence_candidates(
