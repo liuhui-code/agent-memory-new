@@ -24,13 +24,14 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
     certainty_value = certainty(primary, certainty_alternatives(candidates, prepared))
     if primary.get("typed_contract_match") and sum(bool(item.get("typed_contract_match")) for item in prepared) > 1:
         certainty_value = "uncertain"
-    return {
+    from .query_builder_selection import project_builder_evidence
+    return project_builder_evidence(localization, {
         "schema_version": "agent-callable-evidence/v1",
         "certainty": certainty_value,
         "primary": primary,
         "alternatives": alternatives,
         "boundary": "retrieval_evidence_not_root_cause",
-    }
+    })
 
 
 def certainty_alternatives(candidates: list[dict[str, Any]], prepared: list[dict[str, Any]]) -> list[dict[str, Any]]:

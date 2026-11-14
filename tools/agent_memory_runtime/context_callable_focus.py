@@ -28,6 +28,10 @@ def focus_callable_anchors(
         return anchors
     if not isinstance(evidence, dict):
         return anchors
+    from .query_builder_selection import builder_anchors
+    builder = builder_anchors(anchors, evidence, activated, query)
+    if builder is not None:
+        return builder
     primary = evidence.get("primary")
     portfolio = evidence.get("passage_portfolio")
     if not isinstance(primary, dict):

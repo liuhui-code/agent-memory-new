@@ -10,6 +10,7 @@ from .models import Project
 from .query_behavior_concepts import behavior_marker_terms
 from .query_typed_contract import classify_contract, match_candidate
 from .query_definition_identity import explicit_owner_identity_match
+from .query_builder_selection import bind_localization
 from .query_artifact_roles import (
     annotate_artifact_roles,
     artifact_role_rank_score,
@@ -84,7 +85,7 @@ class SQLiteHierarchicalLocalizer:
         ranked = rank_callables([*candidates, *owners], ranking_query, use_direct_score)
         selected = select_diverse_callables(ranked, MAX_CALLABLES)
         ranges = valid_source_ranges(selected, ranking_query)
-        return {
+        return bind_localization(project, query, ranked, selected, {
             **localization_contract(),
             "limits": localization_limits(),
             "stage_counts": {
@@ -100,8 +101,7 @@ class SQLiteHierarchicalLocalizer:
             "graph_owner_candidates": [compact_callable(item) for item in owners],
             "callable_candidates": [compact_callable(item) for item in selected],
             "source_ranges": ranges,
-        }
-
+        })
 def empty_localization() -> dict[str, Any]:
     return {
         **localization_contract(),
