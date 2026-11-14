@@ -1,0 +1,161 @@
+{
+  "base": "87c167d",
+  "classification": "prospective independent Development; no runtime changes",
+  "families": [
+    {
+      "id": "upload-pair",
+      "sources": {
+        "PackageTransport.ets": "export class PackageTransport {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n}\n",
+        "PackageUploadPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageUploadPage {\n private transport: PackageTransport = new PackageTransport()\n @Builder\n private UploadButton() {\n  Button('Package upload').onClick(async () => {\n   const result = await this.transport.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('Package uploaded')\n   } else {\n    this.showStatus(`Package failed: ${result}`)\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n",
+        "PackageRetryPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageRetryPage {\n @State banner: string = ''\n private transport: PackageTransport = new PackageTransport()\n async retryUpload(): Promise<void> {\n  try {\n   await this.transport.submit('retry')\n   this.banner = 'Package upload retried'\n  } catch (error) {\n   this.banner = `Package upload failed: ${error}`\n  }\n }\n build() { Text(this.banner) }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "context-pair",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+          "required": [
+            "PackageTransport.ets",
+            "PackageUploadPage.ets"
+          ],
+          "criterion": "retain-pair-normal-extras-allowed"
+        },
+        {
+          "id": "return-pair",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Return both the service return boundary and the UI failure presentation contract.",
+          "required": [
+            "PackageTransport.ets",
+            "PackageUploadPage.ets"
+          ],
+          "criterion": "retain-pair-normal-extras-allowed"
+        },
+        {
+          "id": "head-only",
+          "query": "Locate both the service return boundary and the UI failure presentation contract.",
+          "criterion": "no-recall-promise-if-pair-not-admitted"
+        },
+        {
+          "id": "explicit-retry",
+          "query": "Find PackageRetryPage.retryUpload source.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "literal",
+          "query": "Find the literal Package upload failed.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "single",
+          "query": "Find PackageTransport.submit source.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted-head",
+          "query": "Find the literal \"Locate both the service return boundary and the UI failure presentation contract\".",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "mixed",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract and the retry policy.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "negative",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract, but exclude PackageUploadPage.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "discard-result",
+      "sources": {
+        "PackageTransport.ets": "export class PackageTransport {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n}\n",
+        "PackageUploadPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageUploadPage {\n private transport: PackageTransport = new PackageTransport()\n @Builder\n private UploadButton() {\n  Button('Package upload').onClick(async () => {\n   const result = await this.transport.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('Package uploaded')\n   } else {\n    this.showStatus('Package failed')\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n",
+        "PackageRetryPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageRetryPage {\n @State banner: string = ''\n private transport: PackageTransport = new PackageTransport()\n async retryUpload(): Promise<void> {\n  try {\n   await this.transport.submit('retry')\n   this.banner = 'Package upload retried'\n  } catch (error) {\n   this.banner = `Package upload failed: ${error}`\n  }\n }\n build() { Text(this.banner) }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "discard-result",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "other-result",
+      "sources": {
+        "PackageTransport.ets": "export class PackageTransport {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n}\n",
+        "PackageUploadPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageUploadPage {\n @State banner: string = ''\n private transport: PackageTransport = new PackageTransport()\n @Builder\n private UploadButton() {\n  Button('Package upload').onClick(async () => {\n   const result = await this.transport.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('Package uploaded')\n   } else {\n    this.showStatus(`Package failed: ${this.banner}`)\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n",
+        "PackageRetryPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageRetryPage {\n @State banner: string = ''\n private transport: PackageTransport = new PackageTransport()\n async retryUpload(): Promise<void> {\n  try {\n   await this.transport.submit('retry')\n   this.banner = 'Package upload retried'\n  } catch (error) {\n   this.banner = `Package upload failed: ${error}`\n  }\n }\n build() { Text(this.banner) }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "other-result",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "different-receiver",
+      "sources": {
+        "PackageTransport.ets": "export class PackageTransport {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n}\n",
+        "PackageUploadPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageUploadPage {\n private transport: PackageTransport = new PackageTransport()\n @Builder\n private UploadButton() {\n  Button('Package upload').onClick(async () => {\n   const result = await unknownTransport.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('Package uploaded')\n   } else {\n    this.showStatus(`Package failed: ${result}`)\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n",
+        "PackageRetryPage.ets": "import { PackageTransport } from './PackageTransport'\n@Component\nexport struct PackageRetryPage {\n @State banner: string = ''\n private transport: PackageTransport = new PackageTransport()\n async retryUpload(): Promise<void> {\n  try {\n   await this.transport.submit('retry')\n   this.banner = 'Package upload retried'\n  } catch (error) {\n   this.banner = `Package upload failed: ${error}`\n  }\n }\n build() { Text(this.banner) }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "different-receiver",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+          "criterion": "unchanged"
+        }
+      ]
+    },
+    {
+      "id": "same-owner",
+      "sources": {
+        "PackageCombinedPage.ets": "@Component\nexport struct PackageCombinedPage {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n\n @Builder\n private UploadButton() {\n  Button('Package upload').onClick(async () => {\n   const result = await this.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('Package uploaded')\n   } else {\n    this.showStatus(`Package failed: ${result}`)\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "same-owner",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+          "required": [
+            "PackageCombinedPage.ets"
+          ],
+          "criterion": "same-owner-not-two-files"
+        }
+      ]
+    },
+    {
+      "id": "two-pairs",
+      "sources": {
+        "PackageATransport.ets": "export class PackageATransport {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n}\n",
+        "PackageAUploadPage.ets": "import { PackageATransport } from './PackageATransport'\n@Component\nexport struct PackageAUploadPage {\n private transport: PackageATransport = new PackageATransport()\n @Builder\n private UploadButton() {\n  Button('PackageA upload').onClick(async () => {\n   const result = await this.transport.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('PackageA uploaded')\n   } else {\n    this.showStatus(`PackageA failed: ${result}`)\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n",
+        "PackageBTransport.ets": "export class PackageBTransport {\n private channel: { send: (payload: string) => Promise<void> }\n async submit(payload: string): Promise<boolean | string> {\n  try {\n   await this.channel.send(payload)\n   return true\n  } catch (error) {\n   Logger.error(`package upload failed: ${error}`)\n   return `${error}`\n  }\n }\n}\n",
+        "PackageBUploadPage.ets": "import { PackageBTransport } from './PackageBTransport'\n@Component\nexport struct PackageBUploadPage {\n private transport: PackageBTransport = new PackageBTransport()\n @Builder\n private UploadButton() {\n  Button('PackageB upload').onClick(async () => {\n   const result = await this.transport.submit('weekly')\n   if (typeof result === 'boolean') {\n    this.showStatus('PackageB uploaded')\n   } else {\n    this.showStatus(`PackageB failed: ${result}`)\n   }\n  })\n }\n private showStatus(_message: string): void {}\n build() { this.UploadButton() }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "two-pairs",
+          "query": "A failed package upload reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+          "criterion": "unchanged-if-two-admitted-positive-pairs"
+        }
+      ]
+    }
+  ],
+  "mandatory_source_controls": [
+    "exact catch binding returned versus different binding",
+    "same callback awaited variable consumed versus reassignment/discard/different variable",
+    "same owner direct this.submit two roles not forced two files",
+    "two positive pairs ambiguous fallback",
+    "stale edge evidence source_digest or missing extractor kind/version fallback",
+    "duplicate method or field declaration/unknown lexical scope fallback",
+    "template has exactly one identifier interpolation, nested expression unknown",
+    "complete method/async callback boundaries and ASI returns",
+    "all normal focused sources kept; identity exact symbol+path+range",
+    "all log/path fields restored exactly after existing metadata reductions; capacity failure old output"
+  ],
+  "stop": "Need actual raw both current typed endpoints and compact loss, with existing typed call+await/source digest. If absent, no implementation or input/noise edits. Head-only has no new recall guarantee.",
+  "budget_guard": "Preserve all normalcompact anchors, actual excerpts and order; exact log_keywords/log_anchors/path_context/relation_hints. May reduce optional callable_evidence alternatives/summary/reason metadata via existing reducer only; report this as lossy metadata tradeoff. Final exact snapshot and1500 or whole baseline. Audit method intervals not oracle whole-span proof.",
+  "status": "frozen before one prospective public attempt; no runtime implementation"
+}
