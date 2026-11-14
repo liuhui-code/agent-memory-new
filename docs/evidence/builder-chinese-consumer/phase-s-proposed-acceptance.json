@@ -1,0 +1,240 @@
+{
+  "status": "frozen approved one local trial before implementation",
+  "original_queries_or_sources_changed": false,
+  "cases": [
+    {
+      "family": "two-builder-competition",
+      "case": "direct-pair",
+      "authority": true,
+      "expected": [
+        "SurfacePalette.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "adjacent-pair",
+      "authority": true,
+      "expected": [
+        "SurfaceSizing.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "passive-observation",
+      "authority": true,
+      "expected": [
+        "SurfacePalette.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "supported-negative",
+      "authority": true,
+      "expected": [
+        "SurfacePalette.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "generated-head",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "wrapper-head",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "literal-head",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "quoted-request",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "negative-builder",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "mixed-output",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "unknown-exclusion",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "attribute-or",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "duplicate-alias",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "negative-attribute",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "explicit-other",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "unknown-prefix",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "prefix-generated",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-builder-competition",
+      "case": "negative-symptom",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "two-positive",
+      "case": "two-positive",
+      "authority": true,
+      "expected": [
+        "SurfacePalette.ets",
+        "SurfaceSizing.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "same-file-two-positive",
+      "case": "same-file-two-positive",
+      "authority": true,
+      "expected": [
+        "SurfacePalette.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "cross-chain-only",
+      "case": "cross-chain-only",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "unknown-only",
+      "case": "unknown-only",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "ordinary-only",
+      "case": "ordinary-only",
+      "authority": false,
+      "expected": [],
+      "acceptance": "unchanged_code_primary_logs_paths",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "control; not new gain"
+    },
+    {
+      "family": "known-plus-unknown",
+      "case": "known-plus-unknown",
+      "authority": true,
+      "expected": [
+        "SurfacePalette.ets"
+      ],
+      "acceptance": "positive_full_method_sources",
+      "comparison_baseline": "phase-r-after",
+      "gain_claim": "known-plus-unknown precision only"
+    }
+  ],
+  "source_controls": "the existing13 frozen source controls, not tuned from after",
+  "source_contract": "SOURCE-WITNESS-GRAMMAR.md",
+  "historical_before_preserved": true
+}
