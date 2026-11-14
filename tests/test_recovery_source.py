@@ -82,6 +82,10 @@ class RecoverySourceTests(unittest.TestCase):
         self.assertIsNone(parse_recovery_source(REGISTRY.replace('new NetworkSessionRepository()', '/regex/')))
         self.assertIsNone(parse_recovery_source('/* unterminated' + STORE))
 
+    def test_async_header_is_one_physical_line(self):
+        self.assertIsNone(parse_recovery_source(STORE.replace('async syncSessions', 'async\nsyncSessions')))
+        self.assertTrue(parse_recovery_source(STORE.replace('async syncSessions', 'async /* same line */ syncSessions')))
+
     def test_bounds_and_keywords(self):
         self.assertIsNone(parse_recovery_source(' ' * (2 * 1024 * 1024) + STORE))
         self.assertIsNone(parse_recovery_source(STORE.replace('const loaded', ' ' * 32769 + 'const loaded')))

@@ -156,7 +156,10 @@ class RecoveryParser(TokenParser):
 
     def synchronization(self):
         first = self.take('async')
-        name = self.identifier().value
+        name_token = self.identifier()
+        name = name_token.value
+        if name_token.line != first.line:
+            raise Unknown()
         self.declare(name)
         self.take('('); self.take(')'); self.take(':'); self.take('Promise')
         self.take('<'); self.take('void'); self.take('>'); self.take('{')
@@ -231,7 +234,7 @@ class RecoveryParser(TokenParser):
                     raise Unknown()
                 if 'store' in components(owner):
                     roles.append('store')
-        if constructors & (methods | set(fields) | bindings | {owner}):
+        if constructors & methods:
             raise Unknown()
         if not roles:
             raise Unknown()

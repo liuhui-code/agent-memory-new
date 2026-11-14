@@ -1,0 +1,16 @@
+...........................E.............
+======================================================================
+ERROR: test_builder_declaration_consumer (unittest.loader._FailedTest.test_builder_declaration_consumer)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_builder_declaration_consumer
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'test_builder_declaration_consumer'
+
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.174s
+
+FAILED (errors=1)
