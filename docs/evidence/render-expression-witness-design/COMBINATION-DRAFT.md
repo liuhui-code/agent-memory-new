@@ -68,3 +68,13 @@ The 19 frozen source controls remain unchanged; add explicit closed-file import/
 field duplicates and legal @ComponentV2/Param controls before implementation.
 Whole old-handoff fallback must be verified with the original thirteen baselines.
 Only independent combined acceptance and review can authorize original05 measurement.
+
+Review clarification before implementation: fallback atomically discards the entire
+speculative collection, gated and bounded objects, caller identities, edges, audit,
+followup, feedback and localization. Rebuild all from the original no-Render path;
+never replace only wiki. Maximum one explicit fallback, no recursion. With an
+exclusion the old path can additionally recollect its positive query, so total can
+be three collections, not merely two. Freeze tests for actual collect-call counts,
+one record_context_use/miss action, latency, unknown/custom/old-index/no-positive
+and guard-induced fallback as well as a positive no-fallback case. Preserve initial
+whole handoff comparisons rather than comparing against speculative R outputs.
