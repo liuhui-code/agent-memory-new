@@ -1,0 +1,240 @@
+[
+  {
+    "function": "focus_callable_anchors",
+    "query": "Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts.",
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 486,
+        "record_type": "code_symbol",
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "text",
+        "symbol_type": "state",
+        "summary": "state text in src/views/QuotedMessagePreview.ets",
+        "start_line": 3,
+        "end_line": 3,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 484,
+        "record_type": "code_symbol",
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "symbol_type": "component",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "start_line": 2,
+        "end_line": 13,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 479,
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "symbol_type": "state",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "start_line": 6,
+        "end_line": 6,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 477,
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "start_line": 8,
+        "end_line": 16,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "owner_name": "MessageRow",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 37.0,
+        "evidence_score": 37.0,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "semantic_mechanism"
+        ],
+        "source_range": {
+          "start_line": 10,
+          "end_line": 14,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "build",
+          "owner_name": "QuotedMessagePreview",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 28.0,
+          "evidence_score": 28.0,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": "replaceSource",
+          "owner_name": "SourceSwapCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 18.48,
+          "evidence_score": 18.48,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 17,
+            "end_line": 21,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "composed",
+        "target_scope": "multiple",
+        "members": [
+          {
+            "file_path": "src/views/MessageRow.ets",
+            "symbol": "build",
+            "owner_name": "MessageRow",
+            "source_range": {
+              "start_line": 10,
+              "end_line": 14,
+              "selection_reason": "semantic_mechanism_window",
+              "mechanism_kind": "resource_bound",
+              "mechanism_terms": [
+                "quoted",
+                "size",
+                "text"
+              ]
+            },
+            "support_reasons": [
+              "multi_term_method_evidence",
+              "semantic_mechanism"
+            ]
+          },
+          {
+            "file_path": "src/views/QuotedMessagePreview.ets",
+            "symbol": "build",
+            "owner_name": "QuotedMessagePreview",
+            "source_range": {
+              "start_line": 5,
+              "end_line": 12,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "multi_term_method_evidence"
+            ]
+          },
+          {
+            "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+            "symbol": "replaceSource",
+            "owner_name": "SourceSwapCoordinator",
+            "source_range": {
+              "start_line": 17,
+              "end_line": 21,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "salient_query_evidence"
+            ]
+          }
+        ],
+        "selection_basis": [
+          "existing_localization",
+          "same_owner_scope",
+          "explicit_cross_file_targets",
+          "bounded_passage_diversity"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_activated": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {},
+      "wrapped_log_evidence": false
+    },
+    "returned": [
+      {
+        "source": "wiki",
+        "record_id": 479,
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "symbol_type": "state",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "start_line": 6,
+        "end_line": 6,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 477,
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "start_line": 8,
+        "end_line": 16,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "return_line": 97
+  }
+]
