@@ -34,7 +34,7 @@ def validate(w,entity,digests):
         if previous and not previous[0]<=bounds[0]<bounds[1]<=previous[1]:raise ValueError('containment')
         previous=bounds
 
-def extract(text,path,entities,digest):
+def _extract(text,path,entities,digest):
     from .listener_experiment_prototype import extract as prototype,validate_witness
     facts,_=prototype(text,path);bykey={e.key:e for e in entities};out=[]
     for w in facts:
@@ -66,3 +66,11 @@ def legacy_guard(value):
         elif isinstance(x,list):
             for v in x:visit(v)
     visit(value)
+
+
+def extract(text,path,entities,digest):
+    # Optional experimental facts never abort legacy semantic indexing.
+    try:
+        return _extract(text,path,entities,digest)
+    except (ValueError, TypeError, KeyError, AssertionError):
+        return []

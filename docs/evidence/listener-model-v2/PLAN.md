@@ -55,3 +55,12 @@ and is used only if it fits; otherwise side is SQL NULL. Existing legacy prefix
 is generated once by the unchanged4096 cap and is never edited to create space.
 No fact-order tuning. Capacity omission of an otherwise valid witness is explicitly
 expected unknown in boundary controls, not a reason to change the acceptance oracle.
+
+Execution has not started. Additional frozen length control: same exact collision
+source after a33000-character block comment, expected optional unknown and old
+semantic entities/mechanisms preserved. The underlying prototype rejects inputs
+above32768 UTF8 bytes before facts; wrapper also catches bounded validation failure
+as no optional facts, so unsupported evidence cannot abort legacy indexing.
+No general encoding claim: original-byte digest must equal the text-reencoded
+snapshot used by the experiment; mismatches yield no new facts. Arbitrary invalid
+UTF8/CRLF support is not established by this run.
