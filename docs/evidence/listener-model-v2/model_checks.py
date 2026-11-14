@@ -85,4 +85,31 @@ def caps():
     retained,_=mechanism_evidence_payload(mechanisms);assert retained==old
     (D/'cap-observation.json').write_text(json.dumps({'legacy_bytes':len(old.encode()),'side_bytes':len(side.encode())if side else 0,'terms':terms,'legacy_unchanged':True},indent=2))
 check('4096-whole-side-omission-legacy-preserved',caps)
+def actual_capacity():
+    from tools.agent_memory_runtime.listener_experiment_support import extract
+    case=json.loads((D/'capacity-control.json').read_text())
+    controls=json.loads((D/'indexed-controls.json').read_text())
+    rows_after=next(v['rows'] for v in controls if v['id']=='actual-near-cap')
+    rows_before=json.loads((D/'actual-near-cap-baseline.json').read_text())
+    old_by_key={r['symbol_key']:r for r in rows_before}
+    observed=[]
+    for r in rows_after:
+        old=old_by_key[r['symbol_key']]
+        assert r['mechanism_evidence']==old['mechanism_evidence']
+        assert mechanism_search_terms(r['mechanism_evidence'])==mechanism_search_terms(old['mechanism_evidence'])
+        side=r.get('typed_invocation_witnesses');legacy=r['mechanism_evidence']
+        assert len(legacy.encode())+(len(side.encode())if side is not None else 0)<=4096
+        if r['qualified_name']=='CapacityRelay.connect':
+            entity=SemanticEntity(key=r['symbol_key'],file_path=r['file_path'],name=r['symbol'],kind=r['symbol_type'],qualified_name=r['qualified_name'],signature=r['signature'],start_line=r['start_line'],end_line=r['end_line'])
+            facts=extract(case['source'],case['file_path'],[entity],r['source_digest']);assert len(facts)==16
+            expected=[]
+            for fact in facts:
+                trial=json.dumps(expected+[fact],ensure_ascii=False,separators=(',',':'),sort_keys=True)
+                if len(trial.encode())+len(legacy.encode())>4096:break
+                expected.append(fact)
+            assert json.loads(side or '[]')==expected
+            observed.append({'legacy_bytes':len(legacy.encode()),'legacy_records':len(json.loads(legacy)),'produced_facts':len(facts),'retained_facts':len(expected),'side_bytes':len(side.encode())if side is not None else 0})
+    assert len(observed)==1
+    (D/'actual-capacity-observation.json').write_text(json.dumps(observed,indent=2))
+check('actual-CLI-capacity-prefix-terms-and-whole-fact-packing',actual_capacity)
 (D/'model-results.json').write_text(json.dumps(results,indent=2));print(json.dumps({'total':len(results),'passed':sum(r['pass']for r in results),'failures':[r for r in results if not r['pass']]}))
