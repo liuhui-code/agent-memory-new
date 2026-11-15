@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from .query_render_recall import recall_projection, projected_method_terms, score_projected_code
+from .query_render_recall import recall_projection, projected_method_terms, score_projected_code, projected_behavior_terms
 from .experience_maturity import score_experience_maturity
 from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_by_type
 from .feedback_policy import candidate_ids
@@ -19,7 +19,6 @@ from .models import Project
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .query_edges import collect_related_edge_candidates
 from .query_code_focus import score_file_behavior_match
-from .query_behavior_concepts import behavior_marker_terms
 from .query_code_ranking import score_query_focus_coverage
 from .query_candidate_recall import (
     CandidateRecallBatch,
@@ -94,7 +93,7 @@ def collect_matches_with_audit(
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
-    behavior_terms = behavior_marker_terms(retrieval_query)
+    behavior_terms = projected_behavior_terms(retrieval_query, projection, query)
     salient_terms = salient_query_tokens(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],

@@ -81,3 +81,17 @@ class VisualAlternativeLexicalBoundaryTests(unittest.TestCase):
  def test_strict_callback_bindings_unknown(self):
   for name in ['enum','package','eval','arguments','implements','interface','private','protected','public','static','let','yield','await']:
    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+
+class VisualAlternativeRecallTests(unittest.TestCase):
+ def test_only_authorized_visual_trial_uses_existing_or_lane(self):
+  from dataclasses import replace
+  from tools.agent_memory_runtime.query_render_recall import projected_behavior_terms
+  from tools.agent_memory_runtime.query_behavior_concepts import behavior_marker_terms
+  p=recall_projection(Q,allow_render_recall=True)
+  self.assertEqual(projected_behavior_terms(Q,p,Q),['stack','backgroundcolor'])
+  for bad in [None,copy(p),deepcopy(p),replace(p,issuer=object()),replace(p,terms=('stack',)),recall_projection(Q),recall_projection(Q,custom_port=object(),allow_render_recall=True)]:
+   self.assertEqual(projected_behavior_terms(Q,bad,Q),behavior_marker_terms(Q))
+  self.assertEqual(projected_behavior_terms(Q,p,Q+' extra'),behavior_marker_terms(Q))
+  for query in ['Return the UI rendering cleanup owner.','请定位负责层叠背景的 ArkTS 视图。','Find any Stack source.']:
+   old=behavior_marker_terms(query);projection=recall_projection(query,allow_render_recall=True)
+   self.assertEqual(projected_behavior_terms(query,projection,query),old)

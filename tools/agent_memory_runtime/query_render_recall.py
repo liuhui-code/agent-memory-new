@@ -121,3 +121,18 @@ def filter_projected_method_ids(conn,project,ids,query,projection,original_query
     keep={row['id']for row in rows if not projection.excludes(row)
           or (len(old)>=2 and method_evidence_term_coverage(row['method_evidence']or'',old)>=2)}
     return [i for i in ids if i in keep]
+
+
+def projected_behavior_terms(query, projection, original_query=None):
+    """Use the existing finite-marker OR lane only in the authorized trial.
+
+    This changes trial recall/scoring inputs, not lane weights or qualification
+    thresholds. Source markers remain candidates, never source certificates.
+    """
+    from .query_behavior_concepts import behavior_marker_terms
+    old = behavior_marker_terms(query)
+    if (not isinstance(projection, RenderRecall)
+            or projection.request.capability != 'visual_alternative'
+            or not projection.valid_for(query, original_query)):
+        return old
+    return unique_list([*old, *projection.terms])
