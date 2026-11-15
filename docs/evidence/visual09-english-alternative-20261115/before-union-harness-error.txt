@@ -1,0 +1,4 @@
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/docs/evidence/visual09-english-alternative-20261115/run-union.py", line 18
+    complete={a['file_path'] for a in anchors for e in a.get('source_excerpts',[]) if not e.get('truncated') and e.get('content')==expected_bodies.get(a['file_path'])}}
+                                                                                                                                                                       ^
+SyntaxError: unmatched '}'
