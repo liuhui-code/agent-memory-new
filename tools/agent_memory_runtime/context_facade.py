@@ -63,6 +63,17 @@ class ContextFacade:
                 record_context_use(self.project, adopted)
                 record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
+        from .query_command_selection import CommandContext, enrich_command_context, command_context_view
+        if isinstance(result, CommandContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
+            result = enrich_command_context(result, query, path_payload, freshness)
+            if pending:
+                adopted, _ = command_context_view(result)
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, adopted)
+                record_query_miss_if_empty(self.project, "context", query, adopted)
+            return result
         result["source_freshness"] = freshness
         handoff = result.setdefault("query_handoff", {})
         handoff["path_context"] = path_payload

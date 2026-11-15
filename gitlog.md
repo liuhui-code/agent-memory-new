@@ -12638,3 +12638,18 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   green3/3;48 focused and related checks pass. Preserve initial test-setup error.
 - Evidence: docs/evidence/callback-offset-redo-20261115. No original failure count
   increase, full gate, runtime causality claim or remote publication.
+
+## 2026-11-15 — Rebuild command binding with complete static UI wiring
+
+- New reconstruction from fced64c4/066cc1a, not recovery of old55 commits.
+- Reject scalar/callback-only selection and its apparent gains. After independent
+  review, require a complete direct-array-field + build ForEach/Button/onClick
+  template, exact same-object label/callback, current indexed owner identity,
+  unknown-competitor fallback and complete same-read snapshot within1500 tokens.
+- Fresh independent v2 public2 red→2 green; raw handoffs unchanged. Seven public
+  negative families unchanged;85 focused/related tests pass. Retain rejected
+  candidates, review corrections and test/hash metadata setup mistakes explicitly.
+- Original37 three fixed Development variants: baseline1/3, callback-only1/3,
+  final2/3. Original wording newly passes; English paraphrase remains red.
+- Evidence: docs/evidence/command-binding-redo-20261115. No full gate or remote
+  publication. This is static wiring, not runtime cause or full-project uniqueness.

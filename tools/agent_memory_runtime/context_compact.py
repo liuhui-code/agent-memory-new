@@ -41,6 +41,10 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 
 
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
+    from .query_command_selection import command_context_view
+    data, command_receipts = command_context_view(data)
+    if command_receipts:
+        return _compact_context(data, command_receipts=command_receipts)
     from .query_render_selection import render_context_view, attach_render_excerpts
     data, render_receipts = render_context_view(data)
     from .query_lifecycle_selection import lifecycle_context_view
@@ -60,14 +64,9 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     return _compact_context(data, render_receipts)
 
 
-def _compact_context(data: dict[str, Any], render_receipts=None, lifecycle_receipts=None, output_loop_receipts=None) -> dict[str, Any]:
-    from .query_render_selection import attach_render_excerpts
-    from .query_lifecycle_selection import attach_lifecycle_excerpts
-    from .query_output_loop_selection import attach_output_loop_excerpts
-    receipts = output_loop_receipts or lifecycle_receipts or render_receipts
-    attach_snapshots = attach_lifecycle_excerpts if lifecycle_receipts else attach_render_excerpts
-    if output_loop_receipts:
-        attach_snapshots = attach_output_loop_excerpts
+def _compact_context(data: dict[str, Any], render_receipts=None, lifecycle_receipts=None, output_loop_receipts=None, command_receipts=None) -> dict[str, Any]:
+    from .context_snapshot_dispatch import snapshot_attachment
+    receipts, attach_snapshots = snapshot_attachment(render_receipts, lifecycle_receipts, output_loop_receipts, command_receipts)
     handoff = data.get("query_handoff") if isinstance(data.get("query_handoff"), dict) else {}
     protected_paths = projected_guards(handoff)
     compact = compact_handoff(handoff, data)

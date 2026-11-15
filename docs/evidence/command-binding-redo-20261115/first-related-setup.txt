@@ -1,0 +1,14 @@
+..........F..............................
+======================================================================
+FAIL: test_mutation_legal_query_and_members_failclosed (tests.test_command_selection_redo.CommandSelectionRedo.test_mutation_legal_query_and_members_failclosed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/rebuild37-20261115/tests/test_command_selection_redo.py", line 32, in test_mutation_legal_query_and_members_failclosed
+    r=self.bind();mutation(r);self.assertIsNone(command_context_view(r)[1])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (('SyncMenu.ets', 'dfcf01569629e7698f68b25d59bf8d9891f06a4ded9e53a299b45dca6b2abc43', ('@Component', 'export struct SyncMenu {', '  private actions = [', '    {', "      caption: 'Restart sync',", '      run: () => {', '        this.worker.stopSync()', '      }', '    },', '    {', "      caption: 'Stop sync',", '      run: () => {', '        this.worker.stopSync()', '      }', '    }', '  ]', '  build() { Column() {} }', '}'), (('SyncMenu', 2, 18),)),) is not None
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.625s
+
+FAILED (failures=1)
