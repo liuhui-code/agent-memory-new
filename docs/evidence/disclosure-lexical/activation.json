@@ -1,0 +1,1319 @@
+{
+  "installed-no-relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/memory"
+    ],
+    "output": [
+      {
+        "id": 6,
+        "project_id": "f073493d15711753",
+        "file_path": "Unknown.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "185bf29cfc02d34cba7ef3324f9019fa065d45146932a5d761cf40033b7318f8",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:49:04+00:00"
+      },
+      {
+        "id": 5,
+        "project_id": "f073493d15711753",
+        "file_path": "Quoted.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "18d611990bd2d98a1668e4da6e45eed8e0583fbff571d516476c90cfbad4d2e9",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:49:04+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "f073493d15711753",
+        "file_path": "OnlyText.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:49:04+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "f073493d15711753",
+        "file_path": "Mixed.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: Mixed; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "580d6fd15ff45185c4f8c04061e6a0d294be29d1da1c911712c1407095eb836f",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:49:04+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "f073493d15711753",
+        "file_path": "Different.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: Different; operations: rotate; behavior: callbackboundary, statewrite, uicallbackbinding",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "405569f6a562c06c45dc66c30f797253703425c29746873b5fce67877c2d373b",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:49:04+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "f073493d15711753",
+        "file_path": "Actual.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: Actual; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "a3aec99608dc5b2bb5c9654b8e258e8b7c3d1246f2f8b403b04c3708c7674dda",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:49:04+00:00"
+      }
+    ]
+  },
+  "relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical/tools/agent_memory.py",
+      "learn-path",
+      "--path",
+      ".",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/memory"
+    ],
+    "output": {
+      "source": "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/project",
+      "path": ".",
+      "scope_id": 1,
+      "mode": "merge",
+      "files": [
+        "Actual.ets",
+        "Different.ets",
+        "Mixed.ets",
+        "OnlyText.ets",
+        "Quoted.ets",
+        "Unknown.ets"
+      ],
+      "count": 6,
+      "summary": "Merged 6 files from .",
+      "parse_stats": {
+        "files_indexed": 6,
+        "skipped_by_reason": {},
+        "languages": {
+          "ArkTS": 6
+        },
+        "symbols_total": 22,
+        "symbols_by_type": {
+          "class": 3,
+          "component": 3,
+          "function": 12,
+          "state": 4
+        },
+        "code_logs_total": 0,
+        "code_logs_by_level": {},
+        "business_semantics_restored": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "semantic_index": {
+          "schema_version": "semantic-index/v1",
+          "adapters": [
+            {
+              "id": "arkts-static",
+              "version": "1.2",
+              "language": "ArkTS"
+            }
+          ],
+          "capabilities": [
+            "api_boundaries",
+            "async_flow",
+            "callbacks",
+            "calls",
+            "definitions",
+            "inheritance",
+            "mechanisms",
+            "references",
+            "state_flow",
+            "types"
+          ],
+          "files_indexed": 6,
+          "entities": 22,
+          "relations_extracted": 27,
+          "mechanisms_extracted": 9,
+          "relations_emitted": 27,
+          "unresolved_relations": 0,
+          "method_summaries_enriched": 12,
+          "gaps": [
+            {
+              "kind": "operation_syntax_unverified_template",
+              "file_path": "OnlyText.ets",
+              "symbol": "OnlyText.text",
+              "start_line": "2",
+              "end_line": "2"
+            },
+            {
+              "kind": "operation_syntax_unverified_template",
+              "file_path": "Unknown.ets",
+              "symbol": "Unknown.text",
+              "start_line": "2",
+              "end_line": "2"
+            }
+          ],
+          "adapter_errors": [],
+          "provider_runs": [
+            {
+              "language": "ArkTS",
+              "mode": "auto",
+              "status": "static",
+              "selected": "static",
+              "provider_configured": false,
+              "duration_ms": 0.0,
+              "output_bytes": 0,
+              "batch": 1,
+              "batch_files": 6
+            }
+          ],
+          "log_effects": {
+            "schema_version": "log-effect/v1",
+            "wrappers_resolved": 0,
+            "effects_emitted": 0,
+            "truncated": false,
+            "max_wrapper_depth": 0
+          },
+          "graph_candidate_resolution": {
+            "provider": "scoped-unique-symbols/v1",
+            "local_symbol_count": 22,
+            "reference_name_count": 8,
+            "resolved_external_symbol_count": 0,
+            "candidate_symbol_count": 22
+          }
+        },
+        "passage_index": {
+          "schema_version": "code-passages-v2",
+          "files_written": 6,
+          "symbols_written": 22,
+          "passages_written": 28
+        },
+        "normative_index": {
+          "schema_version": "normative-index/v1",
+          "source_root": "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/project",
+          "documents_indexed": 0,
+          "documents_added": 0,
+          "documents_updated": 0,
+          "documents_unchanged": 0,
+          "documents_retired": 0,
+          "retirement_counts": {},
+          "retirement_sample": [],
+          "retirement_sample_truncated": false,
+          "indexed_sample": [],
+          "indexed_sample_truncated": false,
+          "documents_requiring_metadata_review": 0,
+          "metadata_issues": [],
+          "metadata_issue_count": 0,
+          "metadata_issues_truncated": false,
+          "read_issues": [],
+          "read_issue_count": 0,
+          "read_issues_truncated": false,
+          "next_action": "no_normative_change",
+          "approval_inferred": false
+        },
+        "reverse_dependents_reindexed": [
+          "Actual.ets",
+          "Different.ets",
+          "Mixed.ets",
+          "OnlyText.ets",
+          "Quoted.ets",
+          "Unknown.ets"
+        ],
+        "dispatch_dependents_reindexed": [],
+        "edge_rebuild": {
+          "mode": "merge",
+          "scope_file_count": 6,
+          "scope_files": [
+            "Actual.ets",
+            "Different.ets",
+            "Mixed.ets",
+            "OnlyText.ets",
+            "Quoted.ets",
+            "Unknown.ets"
+          ],
+          "before": {
+            "node_counts": {
+              "code_file": 6,
+              "code_log_statement": 0,
+              "code_symbol": 22
+            },
+            "edge_count": 63,
+            "relation_counts": {
+              "calls": 6,
+              "contains": 22,
+              "defines_state": 4,
+              "exposes_api": 15,
+              "reads_state": 10,
+              "writes_state": 6
+            }
+          },
+          "after": {
+            "node_counts": {
+              "code_file": 6,
+              "code_log_statement": 0,
+              "code_symbol": 22
+            },
+            "edge_count": 63,
+            "relation_counts": {
+              "calls": 6,
+              "contains": 22,
+              "defines_state": 4,
+              "exposes_api": 15,
+              "reads_state": 10,
+              "writes_state": 6
+            }
+          },
+          "edges_deleted_estimate": 63,
+          "edges_inserted_estimate": 63,
+          "edge_delta": 0
+        },
+        "phase_ms": {
+          "extract": 7.833,
+          "load_scope": 5.532,
+          "invalidate": 1.167,
+          "prepare_rows": 6.788,
+          "insert_rows": 1.01,
+          "restore_business": 0.07,
+          "rebuild_graph": 39.882,
+          "summarize": 0.345,
+          "commit": 0.353,
+          "total": 62.998
+        },
+        "memory_edges_total": 69,
+        "memory_edges_total_provider": "project-counter/v1",
+        "index_generation": 2,
+        "source_revision": "unversioned"
+      },
+      "semantic_followup": {
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "workflow_steps": [
+          "Read the listed files, symbols, and logs in current source.",
+          "Fill missing business_summary and business_terms in followup_payload_template.",
+          "Write the completed payload with learn-business.",
+          "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+        ],
+        "recommended_next_action": "run_learn_business_now",
+        "truncated": true,
+        "returned_counts": {
+          "files": 5,
+          "symbols": 19,
+          "logs": 0
+        },
+        "remaining_counts": {
+          "files": 1,
+          "symbols": 1,
+          "logs": 0
+        },
+        "followup_payload_template": {
+          "files": [
+            {
+              "file_path": "Mixed.ets",
+              "summary": "ArkTS file with 14 non-empty lines; components: Mixed; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "renderDetails",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method renderDetails in Mixed.ets; identifier terms: render details",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "renderdetails",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "render",
+                    "details",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "renderDetails",
+                    "function",
+                    "ArkTS function or lifecycle method renderDetails in Mixed.ets; identifier terms: render details"
+                  ]
+                },
+                {
+                  "symbol": "onClick",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onClick in Mixed.ets; identifier terms: on click",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "onclick",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "click",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "onClick",
+                    "function",
+                    "ArkTS function or lifecycle method onClick in Mixed.ets; identifier terms: on click"
+                  ]
+                },
+                {
+                  "symbol": "build",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method build in Mixed.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "build",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "build",
+                    "function",
+                    "ArkTS function or lifecycle method build in Mixed.ets"
+                  ]
+                },
+                {
+                  "symbol": "expanded",
+                  "symbol_type": "state",
+                  "summary": "state expanded in Mixed.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "expanded",
+                    "state",
+                    "in"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "expanded",
+                    "state",
+                    "state expanded in Mixed.ets"
+                  ]
+                },
+                {
+                  "symbol": "Mixed",
+                  "symbol_type": "component",
+                  "summary": "ArkTS component Mixed declared in Mixed.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "component",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "Mixed",
+                    "component",
+                    "ArkTS component Mixed declared in Mixed.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 120,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "mixed",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "14",
+                "non",
+                "empty",
+                "lines",
+                "components",
+                "operations",
+                "rotate",
+                "behavior",
+                "callbackboundary",
+                "disclosurestate",
+                "statewrite",
+                "uicallbackbinding",
+                "renderdetails",
+                "onclick",
+                "build",
+                "expanded",
+                "ark",
+                "ts",
+                "render",
+                "details",
+                "on",
+                "click"
+              ],
+              "hint_context": [
+                "Mixed.ets",
+                "ArkTS file with 14 non-empty lines; components: Mixed; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+                "renderDetails onClick build expanded Mixed"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "Different.ets",
+              "summary": "ArkTS file with 14 non-empty lines; components: Different; operations: rotate; behavior: callbackboundary, statewrite, uicallbackbinding",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "renderDetails",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method renderDetails in Different.ets; identifier terms: render details",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "different",
+                    "ets",
+                    "renderdetails",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "render",
+                    "details",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Different.ets",
+                    "renderDetails",
+                    "function",
+                    "ArkTS function or lifecycle method renderDetails in Different.ets; identifier terms: render details"
+                  ]
+                },
+                {
+                  "symbol": "onClick",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onClick in Different.ets; identifier terms: on click",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "different",
+                    "ets",
+                    "onclick",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "click",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Different.ets",
+                    "onClick",
+                    "function",
+                    "ArkTS function or lifecycle method onClick in Different.ets; identifier terms: on click"
+                  ]
+                },
+                {
+                  "symbol": "build",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method build in Different.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "different",
+                    "ets",
+                    "build",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Different.ets",
+                    "build",
+                    "function",
+                    "ArkTS function or lifecycle method build in Different.ets"
+                  ]
+                },
+                {
+                  "symbol": "selected",
+                  "symbol_type": "state",
+                  "summary": "state selected in Different.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "different",
+                    "ets",
+                    "selected",
+                    "state",
+                    "in"
+                  ],
+                  "hint_context": [
+                    "Different.ets",
+                    "selected",
+                    "state",
+                    "state selected in Different.ets"
+                  ]
+                },
+                {
+                  "symbol": "displayed",
+                  "symbol_type": "state",
+                  "summary": "state displayed in Different.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "different",
+                    "ets",
+                    "displayed",
+                    "state",
+                    "in"
+                  ],
+                  "hint_context": [
+                    "Different.ets",
+                    "displayed",
+                    "state",
+                    "state displayed in Different.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 120,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "different",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "14",
+                "non",
+                "empty",
+                "lines",
+                "components",
+                "operations",
+                "rotate",
+                "behavior",
+                "callbackboundary",
+                "statewrite",
+                "uicallbackbinding",
+                "renderdetails",
+                "onclick",
+                "build",
+                "selected",
+                "displayed",
+                "ark",
+                "ts",
+                "render",
+                "details",
+                "on",
+                "click"
+              ],
+              "hint_context": [
+                "Different.ets",
+                "ArkTS file with 14 non-empty lines; components: Different; operations: rotate; behavior: callbackboundary, statewrite, uicallbackbinding",
+                "renderDetails onClick build selected displayed"
+              ],
+              "truncated_counts": {
+                "symbols": 1,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "Actual.ets",
+              "summary": "ArkTS file with 13 non-empty lines; components: Actual; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "renderDetails",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method renderDetails in Actual.ets; identifier terms: render details",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "actual",
+                    "ets",
+                    "renderdetails",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "render",
+                    "details",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Actual.ets",
+                    "renderDetails",
+                    "function",
+                    "ArkTS function or lifecycle method renderDetails in Actual.ets; identifier terms: render details"
+                  ]
+                },
+                {
+                  "symbol": "onClick",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onClick in Actual.ets; identifier terms: on click",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "actual",
+                    "ets",
+                    "onclick",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "click",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Actual.ets",
+                    "onClick",
+                    "function",
+                    "ArkTS function or lifecycle method onClick in Actual.ets; identifier terms: on click"
+                  ]
+                },
+                {
+                  "symbol": "build",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method build in Actual.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "actual",
+                    "ets",
+                    "build",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Actual.ets",
+                    "build",
+                    "function",
+                    "ArkTS function or lifecycle method build in Actual.ets"
+                  ]
+                },
+                {
+                  "symbol": "expanded",
+                  "symbol_type": "state",
+                  "summary": "state expanded in Actual.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "actual",
+                    "ets",
+                    "expanded",
+                    "state",
+                    "in"
+                  ],
+                  "hint_context": [
+                    "Actual.ets",
+                    "expanded",
+                    "state",
+                    "state expanded in Actual.ets"
+                  ]
+                },
+                {
+                  "symbol": "Actual",
+                  "symbol_type": "component",
+                  "summary": "ArkTS component Actual declared in Actual.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "actual",
+                    "ets",
+                    "component",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Actual.ets",
+                    "Actual",
+                    "component",
+                    "ArkTS component Actual declared in Actual.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 120,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "actual",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "13",
+                "non",
+                "empty",
+                "lines",
+                "components",
+                "operations",
+                "rotate",
+                "behavior",
+                "callbackboundary",
+                "disclosurestate",
+                "statewrite",
+                "uicallbackbinding",
+                "renderdetails",
+                "onclick",
+                "build",
+                "expanded",
+                "ark",
+                "ts",
+                "render",
+                "details",
+                "on",
+                "click"
+              ],
+              "hint_context": [
+                "Actual.ets",
+                "ArkTS file with 13 non-empty lines; components: Actual; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+                "renderDetails onClick build expanded Actual"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "Unknown.ets",
+              "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "text",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method text in Unknown.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "unknown",
+                    "ets",
+                    "text",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Unknown.ets",
+                    "text",
+                    "function",
+                    "ArkTS function or lifecycle method text in Unknown.ets"
+                  ]
+                },
+                {
+                  "symbol": "Unknown",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class Unknown declared in Unknown.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "unknown",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Unknown.ets",
+                    "Unknown",
+                    "class",
+                    "ArkTS class Unknown declared in Unknown.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "unknown",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "3",
+                "non",
+                "empty",
+                "lines",
+                "operations",
+                "rotate",
+                "behavior",
+                "disclosurestate",
+                "statewrite",
+                "text",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "Unknown.ets",
+                "ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite",
+                "text Unknown"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "Quoted.ets",
+              "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "text",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method text in Quoted.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "quoted",
+                    "ets",
+                    "text",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Quoted.ets",
+                    "text",
+                    "function",
+                    "ArkTS function or lifecycle method text in Quoted.ets"
+                  ]
+                },
+                {
+                  "symbol": "Quoted",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class Quoted declared in Quoted.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "quoted",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Quoted.ets",
+                    "Quoted",
+                    "class",
+                    "ArkTS class Quoted declared in Quoted.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "quoted",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "3",
+                "non",
+                "empty",
+                "lines",
+                "operations",
+                "rotate",
+                "behavior",
+                "statewrite",
+                "text",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "Quoted.ets",
+                "ArkTS file with 3 non-empty lines; operations: rotate; behavior: statewrite",
+                "text Quoted"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "after-relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/disclosure-lexical-controls-before/memory"
+    ],
+    "output": [
+      {
+        "id": 12,
+        "project_id": "f073493d15711753",
+        "file_path": "Unknown.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "185bf29cfc02d34cba7ef3324f9019fa065d45146932a5d761cf40033b7318f8",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T14:49:58+00:00"
+      },
+      {
+        "id": 11,
+        "project_id": "f073493d15711753",
+        "file_path": "Quoted.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "18d611990bd2d98a1668e4da6e45eed8e0583fbff571d516476c90cfbad4d2e9",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T14:49:58+00:00"
+      },
+      {
+        "id": 10,
+        "project_id": "f073493d15711753",
+        "file_path": "OnlyText.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T14:49:58+00:00"
+      },
+      {
+        "id": 9,
+        "project_id": "f073493d15711753",
+        "file_path": "Mixed.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: Mixed; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "580d6fd15ff45185c4f8c04061e6a0d294be29d1da1c911712c1407095eb836f",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T14:49:58+00:00"
+      },
+      {
+        "id": 8,
+        "project_id": "f073493d15711753",
+        "file_path": "Different.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: Different; operations: rotate; behavior: callbackboundary, statewrite, uicallbackbinding",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "405569f6a562c06c45dc66c30f797253703425c29746873b5fce67877c2d373b",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T14:49:58+00:00"
+      },
+      {
+        "id": 7,
+        "project_id": "f073493d15711753",
+        "file_path": "Actual.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: Actual; operations: rotate; behavior: callbackboundary, disclosurestate, statewrite, uicallbackbinding",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "a3aec99608dc5b2bb5c9654b8e258e8b7c3d1246f2f8b403b04c3708c7674dda",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T14:49:58+00:00"
+      }
+    ]
+  },
+  "same_source_identity": {
+    "Unknown.ets": {
+      "id": false,
+      "file_path": true,
+      "source_digest": true
+    },
+    "Quoted.ets": {
+      "id": false,
+      "file_path": true,
+      "source_digest": true
+    },
+    "OnlyText.ets": {
+      "id": false,
+      "file_path": true,
+      "source_digest": true
+    },
+    "Mixed.ets": {
+      "id": false,
+      "file_path": true,
+      "source_digest": true
+    },
+    "Different.ets": {
+      "id": false,
+      "file_path": true,
+      "source_digest": true
+    },
+    "Actual.ets": {
+      "id": false,
+      "file_path": true,
+      "source_digest": true
+    }
+  }
+}
