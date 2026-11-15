@@ -1,0 +1,185 @@
+FFFFFFFFFFFFFFFFFFFF
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='enum', source="@Component\nexport struct enum {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'enum', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='enum', source="@Component\nexport struct enum {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'enum', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='package', source="@Component\nexport struct package {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'package', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='package', source="@Component\nexport struct package {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'package', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='eval', source="@Component\nexport struct eval {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'eval', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='eval', source="@Component\nexport struct eval {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'eval', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='arguments', source="@Component\nexport struct arguments {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'arguments', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='arguments', source="@Component\nexport struct arguments {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'arguments', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='implements', source="@Component\nexport struct implements {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'implements', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='implements', source="@Component\nexport struct implements {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'implements', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='interface', source="@Component\nexport struct interface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'interface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='interface', source="@Component\nexport struct interface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'interface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='private', source="@Component\nexport struct private {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'private', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='private', source="@Component\nexport struct private {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'private', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='protected', source="@Component\nexport struct protected {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'protected', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='protected', source="@Component\nexport struct protected {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'protected', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='public', source="@Component\nexport struct public {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'public', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='public', source="@Component\nexport struct public {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'public', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='static', source="@Component\nexport struct static {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'static', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_owner_binding_is_not_property_name (test_visual_alternative.VisualAlternativeOwnerBindingTests.test_strict_owner_binding_is_not_property_name) (name='static', source="@Component\nexport struct static {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 104, in test_strict_owner_binding_is_not_property_name
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'static', 'build_start': 3, 'build_end': 6} is not None
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=20)

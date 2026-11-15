@@ -95,3 +95,13 @@ class VisualAlternativeRecallTests(unittest.TestCase):
   for query in ['Return the UI rendering cleanup owner.','请定位负责层叠背景的 ArkTS 视图。','Find any Stack source.']:
    old=behavior_marker_terms(query);projection=recall_projection(query,allow_render_recall=True)
    self.assertEqual(projected_behavior_terms(query,projection,query),old)
+
+class VisualAlternativeOwnerBindingTests(unittest.TestCase):
+ def test_strict_owner_binding_is_not_property_name(self):
+  bg=P['cases'][0]['sources']['TintSurface.ets']
+  for name in ['enum','package','eval','arguments','implements','interface','private','protected','public','static']:
+   for source in [STACK.replace('LayerSurface',name),bg.replace('TintSurface',name)]:
+    with self.subTest(name=name,source=source):self.assertIsNone(parse_visual_alternative_source(source))
+  # These are properties, not the newly guarded declaration binding.
+  self.assertIsNotNone(parse_visual_alternative_source(STACK.replace(' build()', ' enum: number = 0\n build()')))
+  self.assertIsNotNone(parse_visual_alternative_source(bg))
