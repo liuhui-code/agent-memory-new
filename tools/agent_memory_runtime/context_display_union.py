@@ -29,8 +29,11 @@ def union_primary_display(payload, project_path, token_budget, *, source_rows=()
     """Any failed qualification returns the exact baseline object, without mutation."""
     h = payload.get('query_handoff', {})
     fresh = payload.get('source_freshness', {})
-    primary = h.get('callable_evidence', {}).get('primary', {})
-    bounds = primary.get('source_range', {})
+    evidence = h.get('callable_evidence')
+    primary = evidence.get('primary') if isinstance(evidence, dict) else None
+    if not isinstance(primary, dict) or not isinstance(primary.get('source_range'), dict):
+        return payload
+    bounds = primary['source_range']
     anchors = h.get('code_anchors', [])
     matches = [(i, a) for i, a in enumerate(anchors) if a.get('role') == 'primary'
                and a.get('file_path') == primary.get('file_path')]

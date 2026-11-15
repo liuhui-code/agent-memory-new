@@ -89,6 +89,32 @@ class DisplayUnionTests(unittest.TestCase):
         path.write_text(path.read_text()+'// changed tail\n')
         self.assertIs(self.run_union(),self.p)
 
+    def test_different_owner_adjacent_windows_are_not_owner_union(self):
+        source = "class First {\n  a() {}\n}\nclass Second {\n  b() {}\n}\nclass BufferSession {\n  text = ''\n  commit() {\n    cache.save(this.text)\n  }\n}\n"
+        (self.root/'BufferSession.ets').write_text(source)
+        row = next(r for r in self.rows if r['id'] == 4)
+        row['source_digest'] = hashlib.sha256(source.encode()).hexdigest()
+        es = self.p['query_handoff']['code_anchors'][0]['source_excerpts']
+        for e, name, start, end in zip(es, ['Second.b', 'First.a'], [4,1], [6,3]):
+            e.update(symbol=name,start_line=start,end_line=end,content='\n'.join(source.splitlines()[start-1:end]))
+        result = self.run_union()
+        union = result['query_handoff']['code_anchors'][0]['source_excerpts'][0]
+        self.assertIsNot(result,self.p)
+        self.assertIsNone(union['symbol'])
+        self.assertEqual([m['symbol'] for m in union['constituent_ranges']], ['Second.b','First.a'])
+        self.assertNotIn('owner_name', union)
+
+    def test_missing_freshness_and_already_covered(self):
+        baseline = copy.deepcopy(self.p)
+        for fresh in [{}, {'status':'stale','generation':1}, {'status':'current'}]:
+            self.p = copy.deepcopy(baseline)
+            self.p['source_freshness'] = fresh
+            self.assertIs(self.run_union(),self.p)
+        self.p = copy.deepcopy(baseline)
+        old = self.p['query_handoff']['code_anchors'][0]['source_excerpts'][0]
+        old.update(symbol='commit',start_line=9,end_line=11,content='\n'.join(self.protocol['sources']['BufferSession.ets'].splitlines()[8:11]))
+        self.assertIs(self.run_union(),self.p)
+
     def test_redaction_and_untrusted_nested_content(self):
         out = self.run_union()
         clean = redact_source_excerpt_bodies(out)

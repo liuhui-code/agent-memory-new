@@ -118,11 +118,9 @@ def _compact_context(data: dict[str, Any], render_receipts=None, lifecycle_recei
     if receipts:
         return payload
     from .context_source_recovery import recover_partial_primary
-    payload = recover_partial_primary(payload, data.get('project_path'), COMPACT_TOKEN_BUDGET,
-                                      source_rows=data.get('wiki_matches') or [])
+    payload = recover_partial_primary(payload, data.get('project_path'), COMPACT_TOKEN_BUDGET, source_rows=data.get('wiki_matches') or [])
     from .context_display_union import union_primary_display
-    return union_primary_display(payload, data.get('project_path'), COMPACT_TOKEN_BUDGET,
-                                 source_rows=data.get('wiki_matches') or [])
+    return union_primary_display(payload, data.get('project_path'), COMPACT_TOKEN_BUDGET, source_rows=data.get('wiki_matches') or [])
 
 
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
