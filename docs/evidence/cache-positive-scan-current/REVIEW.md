@@ -34,3 +34,9 @@ requires both complete positive bodies. A future third recall causes the test to
 fail for review rather than silently accepting arbitrary output. Three positives
 in the unit input pool still test consumer completeness, not public recall. No
 product, original oracle, ranking, budget or query changes were made for this result.
+
+Final independent review passed for this frozen narrow contract: the parent read
+source/selection/transport/public integration and tests, rechecked the qualified-name
+counterexample now refuses, and independently reran all 21 new tests successfully.
+The broader 79 related/performance tests were run by the implementing task, not the
+independent reviewer. No remaining blocker was reported within this contract.
