@@ -475,7 +475,7 @@ def redact_source_excerpt_bodies(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def excerpt_metadata(item: dict[str, Any]) -> dict[str, Any]:
-    return {
+    result = {
         key: item[key]
         for key in (
             "symbol", "start_line", "end_line", "focus_line", "source",
@@ -483,6 +483,15 @@ def excerpt_metadata(item: dict[str, Any]) -> dict[str, Any]:
         )
         if item.get(key) not in (None, "")
     }
+
+    members = item.get("constituent_ranges")
+    if isinstance(members, list) and len(members) == 2:
+        from .context_display_union import member_metadata
+        bounded = [member_metadata(member) for member in members]
+        if all(member is not None for member in bounded):
+            result["constituent_ranges"] = bounded
+    return result
+
 
 
 def read_binding_excerpt(path: Path, source_range: dict[str, Any], char_budget: int) -> dict[str, Any] | None:
