@@ -1,0 +1,15 @@
+import argparse,json,subprocess,tempfile
+from pathlib import Path
+ap=argparse.ArgumentParser();ap.add_argument('--entry',required=True);ap.add_argument('--label',required=True);args=ap.parse_args()
+D=Path('docs/evidence/render05-zh-request');p=json.loads((D/'near-name-protocol.json').read_text())
+with tempfile.TemporaryDirectory()as d:
+ root=Path(d)/'source';root.mkdir()
+ for f,s in p['sources'].items():(root/f).write_text(s)
+ def run(*a):
+  r=subprocess.run(['python',args.entry,*a,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True)
+  return json.loads(r.stdout)if'--json'in a else r.stdout
+ run('init');run('learn-path','--path',str(root))
+ out={m:run('context','--query',p['query'],*flags,'--json')for m,flags in [('raw',[]),('compact',['--compact'])]}
+ (D/(args.label+'.json')).write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+ print([a['file_path']for a in out['compact']['query_handoff'].get('code_anchors',[])])
+ print(out['compact']['query_handoff'].get('callable_evidence',{}).get('boundary'))

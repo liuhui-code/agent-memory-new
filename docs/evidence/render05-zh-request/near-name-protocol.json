@@ -1,0 +1,12 @@
+{
+  "classification": "frozen adversarial negative-scope compatibility control, not a new positive oracle",
+  "sources": {
+    "MessageSurface.ets": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "MessageRecord.ets": "export class MessageRecord {\n  content: string = ''\n  title: string = ''\n}\n",
+    "DetailPanel.ets": "@Component\nexport struct DetailPanel {\n  build() {\n    Column() { Text('Message details') }\n  }\n}\n",
+    "DisplaySettings.ets": "export class DisplaySettings {\n  displayName: string = ''\n  saveName(): void {\n    this.displayName = this.displayName.trim()\n  }\n}\n",
+    "MessageRecordPreview.ets": "@Component\nexport struct MessageRecordPreview {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n"
+  },
+  "query": "消息详情仍显示 HTML 标签，请查找负责清洗并渲染正文的 view，不要返回 MessageRecord 数据类。",
+  "required": "No new render authority may be granted when existing negative matcher also matches another real cleanup UI whose name is not the excluded identifier; retain complete baseline regardless of preexisting legacy behavior."
+}

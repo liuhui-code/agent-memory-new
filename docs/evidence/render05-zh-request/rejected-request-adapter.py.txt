@@ -1,0 +1,30 @@
+# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+"""Finite Chinese adapter to the existing cleanup/UI source request contract."""
+import re
+from .query_language import NAMED_IDENTIFIER_RE, excluded_result_identifiers
+
+_PATTERN = re.compile(
+    r'(?:(?P<observation>[\u4e00-\u9fff]{1,20})仍显示 HTML 标签，)?'
+    r'(?:请)?(?:定位|查找|返回)(?:负责)?清洗并渲染(?:正文|文本)的'
+    r'(?:[ \t]*(?:view|UI[ \t]*源码)|视图源码)'
+    r'(?:，不要返回[ \t]+(?P<exclusion>[A-Z][A-Za-z0-9]{1,63})[ \t]+数据类)?[。.]?')
+_OBSERVATION_RESERVED = ('不', '无', '勿', '别', '非', '仅', '只', '除', '或', '和', '与', '及',
+                         '定位', '查找', '返回', '请', '引用', '示例', '日志', '字符串')
+
+
+def chinese_cleanup_request(query):
+    if not isinstance(query, str) or len(query) > 400:
+        return None
+    match = _PATTERN.fullmatch(query)
+    if match is None:
+        return None
+    observation = match['observation'] or ''
+    if any(word in observation for word in _OBSERVATION_RESERVED):
+        return None
+    exclusion = match['exclusion'] or ''
+    # Do not merely consume a negative phrase. The unchanged downstream exclusion
+    # matcher must recognize this exact identifier; unsupported names fall back.
+    if exclusion and (NAMED_IDENTIFIER_RE.fullmatch(exclusion) is None
+                      or exclusion.casefold() not in excluded_result_identifiers(query)):
+        return None
+    return observation, exclusion

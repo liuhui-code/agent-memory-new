@@ -1,5 +1,18 @@
 # Local Development Log
 
+## 2026-11-15 — Bounded affirmative Chinese cleanup request coverage
+
+- Reuse the existing cleanup render-source certificate for closed affirmative
+  Chinese source requests; two frozen independent public expressions now return
+  MessageSurface instead of no compact anchors. All 10 raw handoffs are unchanged.
+- Reject every Chinese result-exclusion clause. Withdraw the intermediate broad
+  prefix/negative adapter after command-prefix and near-name scope review; preserve
+  counterexamples and exact compatibility comparisons without changing English.
+- 52 related tests pass. Fresh original05 remains 1/3 before and after; this does not
+  reduce the original failure count. No full suite. See
+  docs/evidence/render05-zh-request/RESULT.md. Raw duplicate evidence is privately
+  retained with hashes rather than repeated in public Git.
+
 ## 2026-11-15 — Reimplement explicit background-view source witness after workspace loss
 
 - Fresh implementation from published fced64c4/066cc1a; not recovery of the lost

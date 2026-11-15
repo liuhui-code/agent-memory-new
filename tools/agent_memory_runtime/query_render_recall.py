@@ -34,6 +34,10 @@ class RenderRequest:
 def parse_render_request(query):
     if not isinstance(query,str) or len(query)>400:
         return None
+    from .query_render_request_zh import chinese_cleanup_request
+    chinese = chinese_cleanup_request(query)
+    if chinese is not None:
+        return RenderRequest(query, chinese[0], chinese[1], "cleanup")
     if _BACKGROUND.fullmatch(query) and not any(word in (query.split("，")[0] if "，" in query else "") for word in _BACKGROUND_RESERVED):
         return RenderRequest(query,"","","background")
     match=_PATTERN.fullmatch(query)
