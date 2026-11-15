@@ -12735,3 +12735,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   not substitutes for the preregistered gate. No wording/noise/source tuning.
 - Full before evidence retained; no full suite, original repair credit or remote.
   Details:docs/evidence/lifecycle-english/RESULT.md.
+
+## 2026-11-15 visual09 English alternative feasibility protocol
+
+Frozen independent Development controls before public execution for the remaining
+09 English alternative request. `or` requires retaining positive stacking and
+background sources, with multi-owner, unknown, negation, quotation and conjunction
+controls. No production/evaluator/original query edits, full suite or remote write.
