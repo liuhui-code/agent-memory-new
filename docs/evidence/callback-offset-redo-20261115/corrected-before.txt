@@ -1,0 +1,74 @@
+test_excerpt_range_extractor_keeps_real_callback_body (frozen_callback_red.CallbackLineTerminatorContract.test_excerpt_range_extractor_keeps_real_callback_body) ... FAIL
+test_member_coordinates_ignore_line_terminators (frozen_callback_red.CallbackLineTerminatorContract.test_member_coordinates_ignore_line_terminators) ... FAIL
+test_property_coordinates_ignore_line_terminators (frozen_callback_red.CallbackLineTerminatorContract.test_property_coordinates_ignore_line_terminators) ... FAIL
+
+======================================================================
+FAIL: test_excerpt_range_extractor_keeps_real_callback_body (frozen_callback_red.CallbackLineTerminatorContract.test_excerpt_range_extractor_keeps_real_callback_body)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<string>", line 30, in test_excerpt_range_extractor_keeps_real_callback_body
+AssertionError: Tuples differ: (3, 5) != (5, 9)
+
+First differing element 0:
+3
+5
+
+- (3, 5)
++ (5, 9)
+
+======================================================================
+FAIL: test_member_coordinates_ignore_line_terminators (frozen_callback_red.CallbackLineTerminatorContract.test_member_coordinates_ignore_line_terminators)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<string>", line 23, in test_member_coordinates_ignore_line_terminators
+AssertionError: Lists differ: [{'sy[27 chars]ne': 3, 'end_line': 5, 'selection_reason': 'ar[21 chars]ow'}] != [{'sy[27 chars]ne': 5, 'end_line': 9, 'selection_reason': 'ar[21 chars]ow'}]
+
+First differing element 0:
+{'sym[26 chars]ne': 3, 'end_line': 5, 'selection_reason': 'ar[20 chars]dow'}
+{'sym[26 chars]ne': 5, 'end_line': 9, 'selection_reason': 'ar[20 chars]dow'}
+
+- [{'end_line': 5,
+?               ^
+
++ [{'end_line': 9,
+?               ^
+
+    'selection_reason': 'arkts_dsl_callback_window',
+-   'start_line': 3,
+?                 ^
+
++   'start_line': 5,
+?                 ^
+
+    'symbol': 'onClick'}]
+
+======================================================================
+FAIL: test_property_coordinates_ignore_line_terminators (frozen_callback_red.CallbackLineTerminatorContract.test_property_coordinates_ignore_line_terminators)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<string>", line 16, in test_property_coordinates_ignore_line_terminators
+AssertionError: Lists differ: [{'sy[27 chars]ne': 3, 'end_line': 5, 'selection_reason': 'ec[25 chars]ow'}] != [{'sy[27 chars]ne': 5, 'end_line': 9, 'selection_reason': 'ec[25 chars]ow'}]
+
+First differing element 0:
+{'sym[26 chars]ne': 3, 'end_line': 5, 'selection_reason': 'ec[24 chars]dow'}
+{'sym[26 chars]ne': 5, 'end_line': 9, 'selection_reason': 'ec[24 chars]dow'}
+
+- [{'end_line': 5,
+?               ^
+
++ [{'end_line': 9,
+?               ^
+
+    'selection_reason': 'ecma_property_callback_window',
+-   'start_line': 3,
+?                 ^
+
++   'start_line': 5,
+?                 ^
+
+    'symbol': 'execute'}]
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=3)

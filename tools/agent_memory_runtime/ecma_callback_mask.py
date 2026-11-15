@@ -47,7 +47,9 @@ def template_end(text, start, stop):
 
 
 def callback_mask_lines(lines):
-    text = '\n'.join(lines)
+    # Both semantic splitlines() and excerpt readlines() supply one item per
+    # physical line. Do not introduce an extra line for retained terminators.
+    text = '\n'.join(line.rstrip('\r\n') for line in lines)
     masked = list(text)
     index = 0
     while index < len(text):

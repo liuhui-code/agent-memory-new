@@ -1,0 +1,13 @@
+..F.............................................
+======================================================================
+FAIL: test_public_excerpt_mechanism_keeps_real_callback_body (tests.test_callback_line_terminator_contract.CallbackLineTerminatorContract.test_public_excerpt_mechanism_keeps_real_callback_body)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/rebuild37-20261115/tests/test_callback_line_terminator_contract.py", line 29, in test_public_excerpt_mechanism_keeps_real_callback_body
+    self.assertEqual(1,len(selected))
+AssertionError: 1 != 0
+
+----------------------------------------------------------------------
+Ran 48 tests in 7.614s
+
+FAILED (failures=1)

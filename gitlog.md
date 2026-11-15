@@ -12629,3 +12629,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   2/3, original30 stays 3/3. Independent source controls retain documented bounds.
 - No full/holdout, aggregate score, main change or remote write. Details:
   docs/evidence/rebuild-visual09-20261115/INTEGRATION.md.
+
+## 2026-11-15 — Reimplement callback physical-line contract after loss
+
+- New redo from published fced64c4 via 066cc1a, not recovered old history.
+- Normalize retained line endings before callback masking so excerpt readlines
+  and semantic splitlines share coordinates. Corrected independent red3/3 then
+  green3/3;48 focused and related checks pass. Preserve initial test-setup error.
+- Evidence: docs/evidence/callback-offset-redo-20261115. No original failure count
+  increase, full gate, runtime causality claim or remote publication.
