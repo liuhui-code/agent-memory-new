@@ -40,9 +40,8 @@ class RebuiltSinkLiteralTests(AgentMemoryTestBase):
                                    if a.get('function') == 'run'
                                    and a.get('evidence_class') == 'static_wrapped']
                         self.assertEqual(1, len(wrapped))
-                        # Preserve and report this separate unresolved binding defect.
-                        expected = ('east-region' if case['id'] == 'second_message_parameter'
-                                    else case['expected_effect_static_template'])
+                        # The frozen source oracle now also holds for ordinal binding.
+                        expected = case['expected_effect_static_template']
                         self.assertEqual(expected, wrapped[0]['message_template'])
                         self.assertEqual(case['expected_static_call_path'], wrapped[0]['call_path'])
                         self.assertEqual(1, wrapped[0]['wrapper_depth'])

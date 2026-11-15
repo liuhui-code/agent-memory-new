@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .required_source_reads import read_source_text
+from .direct_sink_binding import direct_message_binding, source_snapshot
 
 import json
 import re
@@ -38,12 +39,18 @@ def rebuild_log_effects(
     rows = []
     source_cache: dict[str, list[str]] = {}
     literal_sinks: dict[int, bool] = {}
+    binding_cache: dict = {}
     for item in candidates:
-        message, raw_call = call_message(project.root, item, source_cache)
+        message, raw_call = call_message(project.root, item, source_cache, binding_cache)
         sink_id = int(item["sink_log_id"])
         if sink_id not in literal_sinks:
             literal_sinks[sink_id] = has_source_literal_message(item)
-        message = item["sink_template"] if literal_sinks[sink_id] else message or item["sink_template"]
+        if literal_sinks[sink_id]:
+            message = item["sink_template"]
+        else:
+            bound = direct_message_binding(conn, project.project_id, project.root,
+                                           item, raw_call, binding_cache)
+            message = bound if bound is not None else message or item["sink_template"]
         rows.append((
             project.project_id, item["file_path"], item["line"], item["caller"],
             item["wrapper"], item["sink_log_id"], item["level"], item["logger"],
@@ -353,11 +360,16 @@ def complete_message_literal(expression: str) -> bool:
 
 def call_message(
     root: Path, item: dict[str, Any], source_cache: dict[str, list[str]],
+    binding_cache: dict | None = None,
 ) -> tuple[str, str]:
     file_path = str(item["file_path"])
     if file_path not in source_cache:
         try:
-            source_cache[file_path] = read_source_text(root / file_path).splitlines(keepends=True)
+            if binding_cache is None:
+                source_cache[file_path] = read_source_text(root / file_path).splitlines(keepends=True)
+            else:
+                snapshot = source_snapshot(root, file_path, binding_cache)
+                source_cache[file_path] = snapshot[1].splitlines(keepends=True) if snapshot else []
         except OSError:
             source_cache[file_path] = []
     line = int(item["line"])

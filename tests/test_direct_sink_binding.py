@@ -41,7 +41,7 @@ class DirectSinkBindingTests(AgentMemoryTestBase):
             with self.subTest(label=label):
                 for anchors in self.public_case(text):
                     self.assertEqual(1,len(anchors))
-                    self.assertEqual(expected,anchors[0]['message_template'])
+                    self.assertEqual(expected,anchors[0].get('message_template', ''))
                     self.assertEqual(['run','emit','logger.info'],anchors[0]['call_path'])
                     self.assertEqual(1,anchors[0]['wrapper_depth'])
 

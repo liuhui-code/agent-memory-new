@@ -12667,3 +12667,20 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   pass with documented30 explicit-name method limitation; no full/holdout gate.
 - Evidence:docs/evidence/rebuild-command37-integration. Complete local ancestry
   bundle for private persistence; no remote write, main change or07 repair claim.
+
+## 2026-11-15 — Bind direct sink parameters by source ordinal
+
+- Independent frozen second_message_parameter source executes catalog refreshed;
+  current raw/compact instead report unrelated east-region. Preserve source,
+  manifest, query, oracle and before evidence, no original231 credit.
+- Add finite static same-owner/depth1 full-method receipt: typed caller/wrapper/sink,
+  exact same-read digest/generation and existing calls/emits_log, unique declaration,
+  explicit message parameter to same ordinal complete simple literal argument.
+  Unknown direct parameter binding returns symbolic sink template rather than
+  guessed business text; scope-external legacy behavior is not certified.
+- Bound per-file source reads to2MiB and share one snapshot per rebuild with caller
+  extraction. Existing sink classification is reused, not newly proven API behavior.
+- Preserve first failed test logs and explicit corrections (compact empty key,
+  missing :void syntax, replacing known-bug expectation with unchanged oracle).
+  14 selected tests pass; candidate awaits immutable public and independent review.
+- No full evaluation, remote write or original failure-count increment.

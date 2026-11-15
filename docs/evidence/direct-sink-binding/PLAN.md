@@ -45,3 +45,24 @@ separate-owner same-name method; aliased/external receiver; multi-hop; two sinks
 comments/regex/generic call arguments; changed/missing digest/generation/IDs.
 Original five fixtures and their manifest/oracle remain byte-identical. Correct
 only the regression's explicit known-bug expectation when its public red is fixed.
+
+Implementation boundaries: source at most2MiB, method at most201 physical lines,
+parameters at most8. At most one bounded byte read per file per rebuild shared
+with call_message; cached identity rows. Existing sink classification is reused,
+NOT newly certified runtime API identity. Positive binding requires its real
+emits_log edge and matching exact statement/line/digest/generation, full wrapper
+and caller source, same declared owner and no parameter/local/field receiver
+shadow. Top-level Logger shim in frozen source remains permitted and Node-proven.
+
+Initial controls run: 3 tests, empty-message subcase error. Compact intentionally
+omits empty message_template keys; test now reads missing key as empty (raw retains
+empty), without changing its expected message. Original immutable fixture and
+manifest are untouched. Initial log retained in delivery archive; no all-green claim.
+
+First related run: 11 tests, two failures. One is the deliberately retained
+known-bug expectation (east-region), now corrected to the unchanged manifest's
+catalog refreshed. The other exposes an omitted-return-annotation syntax
+compatibility gap: direct emit(message:string) and run() have no explicit :void.
+The full-body grammar now accepts omitted or explicit void return annotations;
+it still rejects all additional statements/aliases. This is preservation of a
+true first-parameter control, not relaxation of source identity or message oracle.
