@@ -12742,3 +12742,15 @@ Frozen independent Development controls before public execution for the remainin
 09 English alternative request. `or` requires retaining positive stacking and
 background sources, with multi-owner, unknown, negation, quotation and conjunction
 controls. No production/evaluator/original query edits, full suite or remote write.
+
+## 2026-11-15 visual09 alternative feasibility: stop without serving edit
+
+Current original09 remains 2/3: English paraphrase already includes complete
+required source but fails precision with three files. Ten frozen independent
+public controls produced seven positive-source failures and three limited
+non-authorization passes; distinct first-loss layers are explicitly separated.
+Independent review rejected directly mapping OR to background-only projection,
+which lacks Stack certification and unknown preservation. No production candidate,
+original oracle, threshold, budget or main change; zero new repairs. Twelve
+existing background contract tests pass; one initial nonexistent-module error is
+retained. See docs/evidence/visual09-english-alternative-20261115/README.md.
