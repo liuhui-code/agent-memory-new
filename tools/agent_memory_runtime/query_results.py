@@ -72,7 +72,7 @@ def limited_matches(
 
 from .query_result_limits import diverse_log_matches
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
@@ -91,17 +91,21 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
         result = bind_output_loop_context(query, baseline, trial)
     from .query_command_selection import bind_command_context, CommandContext, command_context_view
     result = bind_command_context(project, query, result, baseline)
+    from .query_cache_scan_selection import bind_cache_scan_context, CacheScanContext, cache_scan_context_view
+    result = bind_cache_scan_context(project, query, result)
     from .query_render_selection import RenderContext, render_context_view
     if ((isinstance(result, RenderContext) and defer_render_accounting)
             or (isinstance(result, LifecycleContext) and defer_lifecycle_accounting)
             or (isinstance(result, OutputLoopContext) and defer_output_loop_accounting)
-            or (isinstance(result, CommandContext) and defer_command_accounting)):
+            or (isinstance(result, CommandContext) and defer_command_accounting)
+            or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)):
         result._pending_accounting = True
     else:
         adopted, _ = render_context_view(result)
         adopted, _ = lifecycle_context_view(adopted)
         adopted, _ = output_loop_context_view(adopted)
         adopted, _ = command_context_view(adopted)
+        adopted, _ = cache_scan_context_view(adopted)
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
     return result

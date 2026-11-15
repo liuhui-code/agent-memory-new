@@ -26,6 +26,6 @@ def build_context_facade(
     )
     return ContextFacade(
         project,
-        partial(limited_context, defer_render_accounting=True, defer_lifecycle_accounting=True, defer_output_loop_accounting=True, defer_command_accounting=True),
+        partial(limited_context, defer_render_accounting=True, defer_lifecycle_accounting=True, defer_output_loop_accounting=True, defer_command_accounting=True, defer_cache_scan_accounting=True),
         path_context,
     )

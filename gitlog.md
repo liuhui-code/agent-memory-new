@@ -12801,3 +12801,9 @@ not an aggregate total claim. All failed intermediate commands remain documented
 ## 2026-11-15 cache positive scan revisit
 - Frozen actual public before on 02171fe for the unchanged independent cache fixture: both old executable/timestamp requests remain red, FIFO/text controls pass.
 - Recorded a pending bounded positive syntax contract for the executable scan request only. Timestamp provenance remains unknown; no runtime change or repair claim.
+
+## 2026-11-15 cache positive scan candidate
+- Added reviewed finite request/source syntax and existing private view/receipt transport; no recall, marker authority, scoring, oracle or budget change.
+- Original independent executable-scan public red now returns complete ExpiryStore.trim; timestamp/FIFO/text controls retain exact callable and anchor output.
+- Independent review found owner qualified-name hole; fixed identity conflicts and added negative controls. Focused/related/tiny-performance 78 tests and 500-line gate passed at this checkpoint.
+- Additional three-source public probe exposed an expectation beyond the frozen recalled-pool contract: only two scan methods are in baseline wiki_matches and both return. Its initial all-three assertion is currently failed/pending review; no claim of exhaustive recall or original-group repair. Original bounded-cache group remains 2/3.
