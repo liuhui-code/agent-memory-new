@@ -12684,3 +12684,19 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   missing :void syntax, replacing known-bug expectation with unchanged oracle).
   14 selected tests pass; candidate awaits immutable public and independent review.
 - No full evaluation, remote write or original failure-count increment.
+
+## 2026-11-15 — Finish bounded direct sink message repair
+
+- Immutable final runtimeafc3d6d fixes frozen second-message-parameter public red
+  in raw/compact; Node and unchanged oracle agree. Other handoff fields exact;
+  storage paths/raw-call/digest/generation metadata exact across fresh archives.
+- Reject and retain broad symbolic fallback regressions for unrelated owner members
+  and complex non-message arguments. Unknown proof scope now preserves legacy;
+  only fully parsed/proven nonliteral target gets symbolic. Out-of-scope old
+  errors remain explicitly unresolved, not falsely certified.
+-79 selected relevant tests pass; one learned two-class control confirms one file
+  read/split and two correct bindings. Touched runtime401/255lines, diff check OK.
+- Fingerprint single check has15 pre-existing byte-identical missing headers; no
+  new missing header. Preserve all runner/test/review failures, no blanket all-green.
+- Independent Development bug only, no original231 gain/full/holdout/remote write.
+  Final report:docs/evidence/direct-sink-binding/RESULT.md.

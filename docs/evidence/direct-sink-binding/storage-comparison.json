@@ -1,0 +1,33 @@
+{
+  "compared_revisions": [
+    "8b5275a",
+    "afc3d6d"
+  ],
+  "same_effect_fields": {
+    "id": true,
+    "file_path": true,
+    "line": true,
+    "function": true,
+    "wrapper_symbol": true,
+    "sink_log_id": true,
+    "level": true,
+    "logger": true,
+    "evidence_class": true,
+    "wrapper_depth": true,
+    "truncated": true,
+    "call_path": true,
+    "call_path_locations": true,
+    "raw_call": true,
+    "source_digest": true,
+    "index_generation": true
+  },
+  "ignored_archive_identity_and_time": [
+    "project_id",
+    "updated_at"
+  ],
+  "base_message": "east-region",
+  "candidate_message": "catalog refreshed",
+  "source_digest": "6d2204546f60089e13b07860954a050e7bdb106f13876dbe9ac11c1c930daca7",
+  "index_generation": 1,
+  "raw_call": "this.refresh('east-region', 'catalog refreshed')"
+}
