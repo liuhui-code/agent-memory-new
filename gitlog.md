@@ -12588,3 +12588,17 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   original history. No old local acceptance is carried forward without fresh tests.
 - Focused-first acceptance, unchanged main and staged persistence remain required.
 - Plan and evidence boundary: docs/evidence/rebuild-after-loss-20261115/README.md.
+
+## 2026-11-15 — Fresh rebuild of direct output-read-loop qualification
+
+- New reimplementation from public fced64c4/provenance 066cc1a; unavailable 55-commit
+  history was not recovered. Freeze independent public red and original30 baseline
+  before runtime edits; retain intermediate failures and review corrections.
+- Add independently bound finite same-local direct loop source qualification and
+  explicit conjunctive output request grammar. Preserve unknown/copy/drift/log/path/
+  graph fallback, multiple witnesses, current SQLite identities, 2 MiB source and
+  complete 1500-token snapshot bounds. No score, oracle or global unique gate change.
+- Fresh original Development output-read-loop group 2/3 -> 3/3; independent generic
+  query now returns complete collect method. Explicit-name independent queries still
+  return class anchors and are not claimed fully repaired. No full gate/holdout run.
+- Details and focused evidence: docs/evidence/rebuild-output30/RESULT.md.

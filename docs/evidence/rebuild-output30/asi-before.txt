@@ -1,0 +1,28 @@
+test_direct_and_renamed (test_output_loop_source_rebuild.OutputLoopSourceTests.test_direct_and_renamed) ... ok
+test_duplicate_member_unknown (test_output_loop_source_rebuild.OutputLoopSourceTests.test_duplicate_member_unknown) ... ok
+test_nonwitness_or_unknown_stays_unknown (test_output_loop_source_rebuild.OutputLoopSourceTests.test_nonwitness_or_unknown_stays_unknown) ... 
+  test_nonwitness_or_unknown_stays_unknown (test_output_loop_source_rebuild.OutputLoopSourceTests.test_nonwitness_or_unknown_stays_unknown) (source="export class PacketCollector {\n  collect(feed: PacketFeed): string {\n    const pieces: string[] = []\n    let item = feed.readLine()\n    while (item !== null) {\n      pieces.push(item)\n      item = feed.readLine()\n    }\n    return\npieces.join(' ')\n  }\n  label(): string {\n    return 'output iteration accumulation'\n  }\n}\n") ... FAIL
+  test_nonwitness_or_unknown_stays_unknown (test_output_loop_source_rebuild.OutputLoopSourceTests.test_nonwitness_or_unknown_stays_unknown) (source="export class PacketCollector {\n  collect(feed: PacketFeed): string {\n    const pieces: string[] = []\n    let item = feed.readLine()\n    while (item !== null) {\n      pieces.push(item)\n      item = feed.readLine()\n    }\n    return /*\n*/ pieces.join(' ')\n  }\n  label(): string {\n    return 'output iteration accumulation'\n  }\n}\n") ... FAIL
+
+======================================================================
+FAIL: test_nonwitness_or_unknown_stays_unknown (test_output_loop_source_rebuild.OutputLoopSourceTests.test_nonwitness_or_unknown_stays_unknown) (source="export class PacketCollector {\n  collect(feed: PacketFeed): string {\n    const pieces: string[] = []\n    let item = feed.readLine()\n    while (item !== null) {\n      pieces.push(item)\n      item = feed.readLine()\n    }\n    return\npieces.join(' ')\n  }\n  label(): string {\n    return 'output iteration accumulation'\n  }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/rebuild30-20261115/tests/test_output_loop_source_rebuild.py", line 51, in test_nonwitness_or_unknown_stays_unknown
+    with self.subTest(source=source):self.assertIsNone(parse_output_loop_source(source))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'PacketCollector', 'class_start': 1, 'class_end': 15, 'methods': [{'name': 'collect', 'start_line': 2, 'end_line': 11, 'start_offset': 33, 'end_offset': 250}]} is not None
+
+======================================================================
+FAIL: test_nonwitness_or_unknown_stays_unknown (test_output_loop_source_rebuild.OutputLoopSourceTests.test_nonwitness_or_unknown_stays_unknown) (source="export class PacketCollector {\n  collect(feed: PacketFeed): string {\n    const pieces: string[] = []\n    let item = feed.readLine()\n    while (item !== null) {\n      pieces.push(item)\n      item = feed.readLine()\n    }\n    return /*\n*/ pieces.join(' ')\n  }\n  label(): string {\n    return 'output iteration accumulation'\n  }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/rebuild30-20261115/tests/test_output_loop_source_rebuild.py", line 51, in test_nonwitness_or_unknown_stays_unknown
+    with self.subTest(source=source):self.assertIsNone(parse_output_loop_source(source))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'PacketCollector', 'class_start': 1, 'class_end': 15, 'methods': [{'name': 'collect', 'start_line': 2, 'end_line': 11, 'start_offset': 33, 'end_offset': 256}]} is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.003s
+
+FAILED (failures=2)

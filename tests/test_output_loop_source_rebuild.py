@@ -37,6 +37,9 @@ class OutputLoopSourceTests(unittest.TestCase):
           SOURCE.replace('      item = feed.readLine()\n',''),
           SOURCE.replace("return pieces.join(' ')","return other.join(' ')"),
           SOURCE.replace('const pieces','let pieces'),
+          SOURCE.replace("return pieces.join","return\npieces.join"),
+          SOURCE.replace("return pieces.join","return /*\n*/ pieces.join"),
+          SOURCE.replace('!==','! = ='),
           SOURCE.replace('let item','let feed'),
           SOURCE.replace('    while', '    audit(item)\n    while'),
           SOURCE.replace("return 'output iteration accumulation'",'return dangerous()'),
@@ -46,6 +49,14 @@ class OutputLoopSourceTests(unittest.TestCase):
         ]
         for source in variants:
             with self.subTest(source=source):self.assertIsNone(parse_output_loop_source(source))
+    def test_non_crlf_separators_unknown_everywhere(self):
+        for sep in '\v\f\x1c\x1d\x1e\x85\u2028\u2029':
+            for source in (SOURCE.replace('return pieces','return /*'+sep+'*/ pieces'),SOURCE.replace("join(' ')","join('"+sep+"')")):
+                self.assertIsNone(parse_output_loop_source(source))
+    def test_strict_reserved_bindings_unknown(self):
+        for name in ('enum','package','eval','arguments'):
+            for old in ('feed','pieces','item'):
+                self.assertIsNone(parse_output_loop_source(SOURCE.replace(old,name)))
     def test_duplicate_member_unknown(self):
         self.assertIsNone(parse_output_loop_source(SOURCE.replace('label():','collect():')))
 

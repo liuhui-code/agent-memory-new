@@ -47,6 +47,10 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     data, lifecycle_receipts = lifecycle_context_view(data)
     if lifecycle_receipts:
         return _compact_context(data, lifecycle_receipts=lifecycle_receipts)
+    from .query_output_loop_selection import output_loop_context_view
+    data, output_loop_receipts = output_loop_context_view(data)
+    if output_loop_receipts:
+        return _compact_context(data, output_loop_receipts=output_loop_receipts)
     from .query_recovery_pair import valid, accepted_output, complete_added_snapshots
     handoff = data.get("query_handoff") or {}
     if not render_receipts and valid(handoff, handoff.get("code_anchors") or [], data.get("query")):
@@ -56,11 +60,14 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     return _compact_context(data, render_receipts)
 
 
-def _compact_context(data: dict[str, Any], render_receipts=None, lifecycle_receipts=None) -> dict[str, Any]:
+def _compact_context(data: dict[str, Any], render_receipts=None, lifecycle_receipts=None, output_loop_receipts=None) -> dict[str, Any]:
     from .query_render_selection import attach_render_excerpts
     from .query_lifecycle_selection import attach_lifecycle_excerpts
-    receipts = lifecycle_receipts or render_receipts
+    from .query_output_loop_selection import attach_output_loop_excerpts
+    receipts = output_loop_receipts or lifecycle_receipts or render_receipts
     attach_snapshots = attach_lifecycle_excerpts if lifecycle_receipts else attach_render_excerpts
+    if output_loop_receipts:
+        attach_snapshots = attach_output_loop_excerpts
     handoff = data.get("query_handoff") if isinstance(data.get("query_handoff"), dict) else {}
     protected_paths = projected_guards(handoff)
     compact = compact_handoff(handoff, data)

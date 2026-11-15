@@ -95,7 +95,7 @@ def diverse_log_matches(
     return sorted(selected, key=lambda item: positions.get(id(item), len(values)))
 
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
@@ -108,13 +108,19 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     if lifecycle_request(query):
         trial = _context_pass(project, query, explicit_intent, allow_lifecycle=True)
         result = bind_lifecycle_context(query, baseline, trial)
+    from .query_output_loop_selection import output_loop_request, bind_output_loop_context, OutputLoopContext, output_loop_context_view
+    if output_loop_request(query):
+        trial = _context_pass(project, query, explicit_intent, allow_output_loop=True)
+        result = bind_output_loop_context(query, baseline, trial)
     from .query_render_selection import RenderContext, render_context_view
     if ((isinstance(result, RenderContext) and defer_render_accounting)
-            or (isinstance(result, LifecycleContext) and defer_lifecycle_accounting)):
+            or (isinstance(result, LifecycleContext) and defer_lifecycle_accounting)
+            or (isinstance(result, OutputLoopContext) and defer_output_loop_accounting)):
         result._pending_accounting = True
     else:
         adopted, _ = render_context_view(result)
         adopted, _ = lifecycle_context_view(adopted)
+        adopted, _ = output_loop_context_view(adopted)
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
     return result
@@ -124,7 +130,7 @@ def _context_pass(
     project: Project,
     query: str,
     explicit_intent: str | None = None,
-    *, allow_render_recall: bool = False, allow_lifecycle: bool = False,
+    *, allow_render_recall: bool = False, allow_lifecycle: bool = False, allow_output_loop: bool = False,
 ) -> dict[str, Any]:
     collection = collect_matches_with_audit(project, query, allow_render_recall=allow_render_recall)
     matches = collection.matches
@@ -134,6 +140,14 @@ def _context_pass(
     if allow_lifecycle:
         from .query_lifecycle_selection import qualify_lifecycle
         authority = qualify_lifecycle(project, query, gated["matches"].get("wiki_matches") or [])
+    output_authority = None
+    if allow_output_loop:
+        from .query_output_loop_selection import qualify_output_loop, output_loop_focus
+        items = gated['matches'].get('wiki_matches') or []
+        output_authority = qualify_output_loop(project, query, items)
+        focused = output_loop_focus(output_authority, query, items)
+        if focused is not None:
+            gated = {**gated, 'matches': {**gated['matches'], 'wiki_matches': focused}}
     bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query, caller_ids, authority)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
@@ -208,6 +222,10 @@ def _context_pass(
         from .query_lifecycle_selection import LifecycleTrial
         context = LifecycleTrial(context)
         context._lifecycle_authority = authority
+    if output_authority is not None:
+        from .query_output_loop_selection import OutputLoopTrial
+        context = OutputLoopTrial(context)
+        context._output_loop_authority = output_authority
     return context
 
 
