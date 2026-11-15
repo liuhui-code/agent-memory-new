@@ -68,3 +68,16 @@ class VisualAlternativeSelectionTests(BackgroundSelectionTests):
  def test_union_large_positive_cannot_be_partially_dropped(self):
   self.add_stack(source=STACK.replace('Summary','x'*7000));baseline,trial=self.union_trial()
   self.assertIs(self.bind_union(baseline,trial),baseline)
+
+class VisualAlternativeLexicalBoundaryTests(unittest.TestCase):
+ def test_arrow_no_line_terminator(self):
+  for gap in ['\n','\r\n','/*\n*/','/*\r\n*/','// note\n']:
+   with self.subTest(gap=gap):
+    self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','()'+gap+'=>')))
+ def test_splitlines_extra_separators_unknown(self):
+  for separator in ['\v','\f','\x1c','\x1d','\x1e','\x85','\u2028','\u2029']:
+   for source in [CALLBACK.replace('Stack()', '/*'+separator+'*/Stack()'),STACK.replace('Summary','a'+separator+'b')]:
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+ def test_strict_callback_bindings_unknown(self):
+  for name in ['enum','package','eval','arguments','implements','interface','private','protected','public','static','let','yield','await']:
+   with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))

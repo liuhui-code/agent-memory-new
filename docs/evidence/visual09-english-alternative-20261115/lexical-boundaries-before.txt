@@ -1,0 +1,243 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFF
+======================================================================
+FAIL: test_arrow_no_line_terminator (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_arrow_no_line_terminator) (gap='\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 76, in test_arrow_no_line_terminator
+    self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','()'+gap+'=>')))
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 7} is not None
+
+======================================================================
+FAIL: test_arrow_no_line_terminator (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_arrow_no_line_terminator) (gap='\r\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 76, in test_arrow_no_line_terminator
+    self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','()'+gap+'=>')))
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 7} is not None
+
+======================================================================
+FAIL: test_arrow_no_line_terminator (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_arrow_no_line_terminator) (gap='/*\n*/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 76, in test_arrow_no_line_terminator
+    self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','()'+gap+'=>')))
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 7} is not None
+
+======================================================================
+FAIL: test_arrow_no_line_terminator (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_arrow_no_line_terminator) (gap='/*\r\n*/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 76, in test_arrow_no_line_terminator
+    self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','()'+gap+'=>')))
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 7} is not None
+
+======================================================================
+FAIL: test_arrow_no_line_terminator (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_arrow_no_line_terminator) (gap='// note\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 76, in test_arrow_no_line_terminator
+    self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','()'+gap+'=>')))
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 7} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x0b', source='@Component\nexport struct GestureSurface {\n build() {\n  /*\x0b*/Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x0b', source="@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('a\x0bb') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'LayerSurface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x0c', source='@Component\nexport struct GestureSurface {\n build() {\n  /*\x0c*/Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x0c', source="@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('a\x0cb') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'LayerSurface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x1c', source='@Component\nexport struct GestureSurface {\n build() {\n  /*\x1c*/Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x1c', source="@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('a\x1cb') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'LayerSurface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x1d', source='@Component\nexport struct GestureSurface {\n build() {\n  /*\x1d*/Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x1d', source="@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('a\x1db') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'LayerSurface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x1e', source='@Component\nexport struct GestureSurface {\n build() {\n  /*\x1e*/Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x1e', source="@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('a\x1eb') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'LayerSurface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x85', source='@Component\nexport struct GestureSurface {\n build() {\n  /*\x85*/Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_splitlines_extra_separators_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_splitlines_extra_separators_unknown) (separator='\x85', source="@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('a\x85b') }\n }\n}\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 80, in test_splitlines_extra_separators_unknown
+    with self.subTest(separator=separator,source=source):self.assertIsNone(parse_stacking_source(source))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'LayerSurface', 'build_start': 3, 'build_end': 5} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='enum')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='package')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='eval')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='arguments')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='implements')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='interface')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+======================================================================
+FAIL: test_strict_callback_bindings_unknown (test_visual_alternative.VisualAlternativeLexicalBoundaryTests.test_strict_callback_bindings_unknown) (name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_visual_alternative.py", line 83, in test_strict_callback_bindings_unknown
+    with self.subTest(name=name):self.assertIsNone(parse_stacking_source(CALLBACK.replace('() =>','('+name+') =>')))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'owner': 'GestureSurface', 'build_start': 3, 'build_end': 6} is not None
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.004s
+
+FAILED (failures=27)
