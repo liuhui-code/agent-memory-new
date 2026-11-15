@@ -1,3 +1,5 @@
+> Historical first-stage assessment. The unknown-retention interpretation was corrected; see [FINAL.md](FINAL.md) for the accepted union candidate and complete results.
+
 # Visual09 English alternative request: bounded feasibility stop
 
 Classification: independent synthetic Development. Not holdout, external gate,

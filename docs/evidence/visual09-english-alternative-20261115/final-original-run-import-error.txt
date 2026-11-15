@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/docs/evidence/rebuild-visual09-20261115/run.py", line 15, in <module>
+    raw=json.loads(b.run_memory(project,'context','--query',q,'--json').stdout)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/agent_memory_test_base.py", line 48, in run_memory
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python', '/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory.py', 'context', '--query', '分类选择区遮挡金额输入控件，请定位负责层叠背景的 ArkTS 视图。', '--json', '--project', '/tmp/rebuild09-independent-y1q9mprg/source', '--memory-home', '/tmp/rebuild09-independent-y1q9mprg/memory-home-source']' returned non-zero exit status 1.

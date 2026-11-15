@@ -1,3 +1,5 @@
+> Historical first-stage assessment. The unknown-retention interpretation was corrected; see [FINAL.md](FINAL.md) for the accepted union candidate and complete results.
+
 # Independent read-only review
 
 Reviewer inspected the frozen protocol, complete public before, original rerun,
@@ -20,3 +22,19 @@ Review recommendation: stop the adapter shortcut, no incidental parser changes.
 A future design must separately establish bounded direct Stack evidence, OR union
 candidate/consumer semantics, and unknown handling with query relevance and
 budget feasibility. This rejects one shortcut, not every future solution.
+
+## Corrected final review
+
+The reviewer explicitly withdrew the blanket unknown-retention requirement.
+It approved the bounded direct Stack + background positive union design and the
+explicit opt-in reuse of the existing behavior OR recall lane, then reviewed the
+implementation and read the 15/15 public results. It found no blocking issues in
+source witness, authority binding, complete snapshots or full fallback. Unit tests
+were reported by the implementer, not independently rerun by the reviewer.
+The owner-binding addition was submitted for final follow-up review separately.
+
+Final follow-up passed: both new entry points guard owner binding, including the
+OR background branch; declaration bindings and property names remain distinct.
+Old background contract is unchanged. The reviewer explicitly corrected its
+unused-import suggestion: structural recall still requires that import. The
+restored-import final rerun, not the interrupted run, is the acceptance evidence.

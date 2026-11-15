@@ -1,0 +1,119 @@
+......................................................................E..EEEEEE............................
+======================================================================
+ERROR: test_context_audit_exposes_retrieval_stage_boundaries (test_query_candidate_recall.QueryCandidateRecallTests.test_context_audit_exposes_retrieval_stage_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_query_candidate_recall.py", line 430, in test_context_audit_exposes_retrieval_stage_boundaries
+    context = limited_context(
+              ^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_results.py", line 76, in limited_context
+    baseline = _context_pass(project, query, explicit_intent)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_results.py", line 115, in _context_pass
+    collection = collect_matches_with_audit(project, query, allow_render_recall=allow_render_recall)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_collect.py", line 108, in collect_matches_with_audit
+    recalled = (recall_port or SQLiteCandidateRecall(property_projection=projection, original_query=query)).recall(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 140, in recall
+    recalled = recall_table_candidates(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+======================================================================
+ERROR: test_recall_port_can_be_replaced_without_changing_collection_contract (test_query_candidate_recall.QueryCandidateRecallTests.test_recall_port_can_be_replaced_without_changing_collection_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_query_candidate_recall.py", line 470, in test_recall_port_can_be_replaced_without_changing_collection_contract
+    batch = port.recall(conn, self.runtime_project, "no matching evidence")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 140, in recall
+    recalled = recall_table_candidates(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+======================================================================
+ERROR: test_structural_lane_keeps_reserved_recall_when_broad_fts_saturates (test_query_candidate_recall.QueryCandidateRecallTests.test_structural_lane_keeps_reserved_recall_when_broad_fts_saturates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_query_candidate_recall.py", line 365, in test_structural_lane_keeps_reserved_recall_when_broad_fts_saturates
+    ids, lanes, audit = recall_candidate_ids_with_lanes(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 225, in recall_candidate_ids_with_lanes
+    result = recall_table_candidates(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+======================================================================
+ERROR: test_structural_lane_recalls_complementary_lifecycle_owners (test_query_candidate_recall.QueryCandidateRecallTests.test_structural_lane_recalls_complementary_lifecycle_owners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_query_candidate_recall.py", line 288, in test_structural_lane_recalls_complementary_lifecycle_owners
+    ids, lanes, audit = recall_candidate_ids_with_lanes(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 225, in recall_candidate_ids_with_lanes
+    result = recall_table_candidates(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+======================================================================
+ERROR: test_structural_lane_recalls_owners_without_literal_query_terms (test_query_candidate_recall.QueryCandidateRecallTests.test_structural_lane_recalls_owners_without_literal_query_terms)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_query_candidate_recall.py", line 332, in test_structural_lane_recalls_owners_without_literal_query_terms
+    ids, lanes, audit = recall_candidate_ids_with_lanes(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 225, in recall_candidate_ids_with_lanes
+    result = recall_table_candidates(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+======================================================================
+ERROR: test_term_lanes_recall_complementary_owners_under_broad_noise (test_query_candidate_recall.QueryCandidateRecallTests.test_term_lanes_recall_complementary_owners_under_broad_noise)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_query_candidate_recall.py", line 397, in test_term_lanes_recall_complementary_owners_under_broad_noise
+    ids, lanes, audit = recall_candidate_ids_with_lanes(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 225, in recall_candidate_ids_with_lanes
+    result = recall_table_candidates(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+======================================================================
+ERROR: test_candidate_audit_supports_serving_recall_at_twenty (test_fielded_passage_retrieval.FieldedPassageRetrievalTests.test_candidate_audit_supports_serving_recall_at_twenty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tests/test_fielded_passage_retrieval.py", line 96, in test_candidate_audit_supports_serving_recall_at_twenty
+    recalled = SQLiteCandidateRecall().recall(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 140, in recall
+    recalled = recall_table_candidates(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/visual09-en-alternatives-20261115/tools/agent_memory_runtime/query_candidate_recall.py", line 249, in recall_table_candidates
+    behavior_marker_terms(query)
+    ^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'behavior_marker_terms' is not defined
+
+----------------------------------------------------------------------
+Ran 107 tests in 1.223s
+
+FAILED (errors=7)

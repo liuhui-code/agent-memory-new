@@ -12762,3 +12762,25 @@ without absence/exhaustiveness claims. Earlier evidence remains untouched, but i
 blanket unknown-preservation requirement is not a valid inherited rule. Freeze a
 separate positive-set protocol and bounded Stack+background OR proposal, pending
 independent review before implementation. No production change yet.
+
+## 2026-11-15 visual09 English OR union candidate accepted in Development
+
+Independent review corrected blanket unknown-retention to the existing positive-set
+contract. Added bounded direct Stack source witness (finite onTouch arrow syntax,
+no callback or overlap inference) and explicit English OR union request. Preserves
+all certified positives in the bounded pool or full fallback. First WIP passed
+original09 but failed independent Stack recall; not accepted. Final uses the
+existing behavior_method_fts OR lane under valid opt-in query-bound RenderRecall,
+changing trial recall/scoring inputs without weights/thresholds/budget changes.
+Frozen union public controls 6/15 -> 15/15; original09 2/3 -> 3/3, newly fixing only
+the English paraphrase while retaining both InventoryOverlayPanel and TouchOverlay.
+Independent final review found no blocking authority/source-range issue. Required
+lexical counterexamples and earlier failures retained. No full suite or aggregate
+score. Final evidence: docs/evidence/visual09-english-alternative-20261115/FINAL.md.
+
+Final09 verification after owner-binding correction and restored required import:
+108 focused/necessary-related tests pass, frozen union public controls 15/15,
+original09 3/3, old independent09 4/4. Final independent follow-up review passed.
+Changed production files <=500 lines and retain fingerprints; diff check clean.
+No full gate or remote operation. One original repair is eligible for integration,
+not an aggregate total claim. All failed intermediate commands remain documented.
