@@ -1,0 +1,9 @@
+{
+  "base": "36dbc90",
+  "classification": "independent Development readonly public marker correctness",
+  "sources": {
+    "OnlyText.ets": "export class OnlyText {\n text(): string { return `SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded;`; }\n}\n"
+  },
+  "query": "Locate rotation and toggle source.",
+  "expected": "OnlyText has no executable rotation/toggle: public indexed summary must not synthesize disclosurestate. Literal source content remains retrievable; no owner oracle or exclusion claim."
+}
