@@ -14,17 +14,28 @@ _PATTERN=re.compile(r'(?:(?P<observation>'+_NP+r') details still display markup 
 _RESERVED=set('and or not only except exclude return find locate source code render generate caller wrapper'.split())
 _TERMS=('column','row','text')
 _ISSUER=object()
+# The optional prefix is an observation, never a target identity or an extra request.
+_BACKGROUND=re.compile(r'(?:[\u4e00-\u9fff]{1,20}(?:遮挡|覆盖)[\u4e00-\u9fff]{1,20}，)?请定位负责层叠背景的 ArkTS 视图。')
+_BACKGROUND_RESERVED=('不','勿','别','非','无','仅','只','除','或者','以及','同时','并且','定位','返回','请')
+
+
+def request_terms(request):
+    return ('backgroundcolor',) if request.capability=='background' else _TERMS
+
 
 @dataclass(frozen=True)
 class RenderRequest:
     original: str
     observation: str
     exclusion: str
+    capability: str = "cleanup"
 
 
 def parse_render_request(query):
     if not isinstance(query,str) or len(query)>400:
         return None
+    if _BACKGROUND.fullmatch(query) and not any(word in (query.split("，")[0] if "，" in query else "") for word in _BACKGROUND_RESERVED):
+        return RenderRequest(query,"","","background")
     match=_PATTERN.fullmatch(query)
     if match is None:
         return None
@@ -43,7 +54,7 @@ class RenderRecall:
         return (self.issuer is _ISSUER and original_query==self.request.original
                 and parse_render_request(original_query)==self.request
                 and self.retrieval==query==positive_retrieval_query(original_query)
-                and self.terms==_TERMS)
+                and self.terms==request_terms(self.request))
 
     def excludes(self,row):
         return excluded_code_candidate(self.request.original,dict(row))
@@ -63,9 +74,10 @@ def recall_projection(query,custom_port=None,allow_render_recall=False):
     if request is None:
         return None
     retrieval=positive_retrieval_query(query)
-    if len(unique_list([*method_evidence_focus_terms(retrieval),*_TERMS]))>METHOD_EVIDENCE_QUERY_TERM_LIMIT:
+    terms=request_terms(request)
+    if len(unique_list([*method_evidence_focus_terms(retrieval),*terms]))>METHOD_EVIDENCE_QUERY_TERM_LIMIT:
         return None
-    return RenderRecall(request,retrieval,_TERMS,_ISSUER)
+    return RenderRecall(request,retrieval,terms,_ISSUER)
 
 
 def projected_method_terms(query,projection,original_query=None,row=None):

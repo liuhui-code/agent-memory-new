@@ -19,10 +19,46 @@ class RenderContext(dict):
         return deepcopy(dict(self),memo)
 
 
+class RenderTrial(dict):
+    def __copy__(self):
+        return dict(self)
+    def __deepcopy__(self,memo):
+        return deepcopy(dict(self),memo)
+
+
+def retain_background_candidates(query,context,items):
+    request = parse_render_request(query)
+    if request is None or request.capability != 'background':
+        return context
+    paths = {r.get('file_path') for r in items if r.get('kind') == 'symbol'
+             and 'backgroundcolor' in (r.get('method_evidence') or '').split()}
+    if not paths or len(paths) > 12:
+        return context
+    pool = deepcopy([r for r in items if r.get('file_path') in paths])
+    result = RenderTrial(context); result._pool = pool
+    result._binding = (query, snapshot(context), snapshot(pool))
+    return result
+
+
+def background_candidates(query,trial):
+    if not isinstance(trial, RenderTrial):
+        return None
+    try:
+        if trial._binding == (query, snapshot(dict(trial)), snapshot(trial._pool)):
+            return trial._pool
+    except (AttributeError, TypeError, ValueError):
+        pass
+    return None
+
+
 def bind_render_context(project,query,baseline,trial):
     from .query_render_source import parse_render_source
-    if parse_render_request(query) is None:
+    request = parse_render_request(query)
+    if request is None:
         return baseline
+    if request.capability == "background":
+        from .query_background_source import parse_background_source
+        parse_render_source = parse_background_source
     for context in (baseline,trial):
         h=context.get('query_handoff')or{}
         path=h.get('path_context')or{}
@@ -31,7 +67,12 @@ def bind_render_context(project,query,baseline,trial):
                 or any(a.get('graph_neighbor') or a.get('graph_relation') or a.get('log_identity_match')
                        or a.get('identity_match') for a in anchors)):
             return baseline
-    paths=sorted({r.get('file_path')for r in trial.get('wiki_matches')or[] if isinstance(r.get('file_path'),str)})
+    pool = trial.get('wiki_matches') or []
+    if request.capability == 'background':
+        pool = background_candidates(query, trial)
+        if pool is None:
+            return baseline
+    paths=sorted({r.get('file_path')for r in pool if isinstance(r.get('file_path'),str)})
     if not paths or len(paths)>12:
         return baseline
     with connect(project)as conn:
@@ -63,8 +104,10 @@ def bind_render_context(project,query,baseline,trial):
         if excluded_code_candidate(query,owner):
             continue
         members=[]
-        for method,start,end in [('build',parsed['build_start'],parsed['build_end']),
-                                 (parsed['helper'],parsed['helper_start'],parsed['helper_end'])]:
+        spans = [('build', parsed['build_start'], parsed['build_end'])]
+        if request.capability == 'cleanup':
+            spans.append((parsed['helper'], parsed['helper_start'], parsed['helper_end']))
+        for method,start,end in spans:
             matching=[r for r in local if r['symbol']==method and r['qualified_name']==owner['symbol']+'.'+method
                       and r['owner_name']==owner['symbol'] and r['owner_kind']=='component'
                       and r['symbol_type']in {'method','function'} and r['start_line']==start and r['end_line']==end]
@@ -75,13 +118,20 @@ def bind_render_context(project,query,baseline,trial):
                     or row['index_generation']!=owner['index_generation']
                     or not owner['start_line']<=start<=end<=owner['end_line']):
                 return baseline
+            if request.capability == 'background' and not any(
+                    x.get('kind') == 'symbol' and all(x.get(k) == row[k] for k in
+                    ('id', 'symbol_key', 'file_path', 'source_digest', 'index_generation')) for x in pool):
+                return baseline
             members.append(row)
         selected.extend(dict(source='wiki',record_id=r['id'],record_type='code_symbol',file_path=name,
             symbol=r['symbol'],symbol_type=r['symbol_type'],start_line=r['start_line'],end_line=r['end_line'])for r in members)
         receipts.append((name,digest,tuple(source.splitlines()),tuple((r['symbol'],r['start_line'],r['end_line'])for r in members)))
     if not receipts or len(receipts)>3:
         return baseline
-    view=deepcopy(trial);view['query_handoff']['code_anchors']=selected
+    view=deepcopy(dict(trial));view['query_handoff']['code_anchors']=selected
+    if request.capability == 'background':
+        ids = {a['record_id'] for a in selected}
+        view['wiki_matches'] = deepcopy([r for r in pool if r.get('kind') == 'symbol' and r.get('id') in ids])
     view['query_handoff']['callable_evidence']={'schema_version':'agent-callable-evidence/v1','certainty':'uncertain',
         'primary':None,'alternatives':[],'boundary':'positive_static_expression_template_not_runtime_proof'}
     from .context_compact import _compact_context

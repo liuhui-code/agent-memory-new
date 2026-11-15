@@ -34,7 +34,6 @@ SEARCH_RESULT_LIMITS = {
     "incident_trace_matches": 10,
 }
 
-
 CONTEXT_RESULT_LIMITS = {
     "semantic_facts": 3,
     "reflections": 3,
@@ -94,7 +93,6 @@ def diverse_log_matches(
     positions = {id(item): index for index, item in enumerate(values)}
     return sorted(selected, key=lambda item: positions.get(id(item), len(values)))
 
-
 def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
@@ -124,7 +122,6 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
     return result
-
 
 def _context_pass(
     project: Project,
@@ -218,6 +215,9 @@ def _context_pass(
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
     from .query_recovery_pair import bind_recovery_pair
     context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
+    if allow_render_recall:
+        from .query_render_selection import retain_background_candidates
+        context = retain_background_candidates(query, context, gated["matches"].get("wiki_matches") or [])
     if authority is not None:
         from .query_lifecycle_selection import LifecycleTrial
         context = LifecycleTrial(context)

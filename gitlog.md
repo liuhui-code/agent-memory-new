@@ -1,5 +1,20 @@
 # Local Development Log
 
+## 2026-11-15 — Reimplement explicit background-view source witness after workspace loss
+
+- Fresh implementation from published fced64c4/066cc1a; not recovery of the lost
+  55 commits. Freeze independent protocol before actual public baseline/code.
+- Preserve an explicit background request's already-retrieved method candidates
+  through the opt-in render trial, then bind finite direct UI background source,
+  exact indexed identity/digest/generation/range and same-read snapshot display.
+  Unknown is not absence or exclusive owner proof. Keep global focus and 1500.
+- Independent checks 3/4 -> 4/4, original09 1/3 -> 2/3 (Chinese only new pass);
+  English paraphrase remains red. Four additional public controls pass.
+- 43 focused and 39 related tests pass. Keep first no-original-gain candidate and
+  corrected nonexistent-test-module attempt. Fingerprint gate still has 14
+  inherited omissions verified against base, none new. No full/holdout run.
+- Evidence and scope: docs/evidence/rebuild-visual09-20261115/README.md.
+
 ## 2026-11-14 — Review bounded Builder declaration role and existing adapter mapping
 
 - Read existing Builder public competition and generic decorator/header mapping. No produced Builder-specific role is currently dropped; component mapping is coarse by design.
