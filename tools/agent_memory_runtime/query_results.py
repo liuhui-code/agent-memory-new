@@ -133,18 +133,9 @@ def _context_pass(
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches, explicit_intent)
     caller_ids = requested_caller_identities(matches.get("wiki_matches") or [], query)
-    authority = None
-    if allow_lifecycle:
-        from .query_lifecycle_selection import qualify_lifecycle
-        authority = qualify_lifecycle(project, query, gated["matches"].get("wiki_matches") or [])
-    output_authority = None
-    if allow_output_loop:
-        from .query_output_loop_selection import qualify_output_loop, output_loop_focus
-        items = gated['matches'].get('wiki_matches') or []
-        output_authority = qualify_output_loop(project, query, items)
-        focused = output_loop_focus(output_authority, query, items)
-        if focused is not None:
-            gated = {**gated, 'matches': {**gated['matches'], 'wiki_matches': focused}}
+    from .query_context_trials import qualify_context_trials, bind_context_trials
+    gated, authority, output_authority = qualify_context_trials(
+        project, query, gated, allow_lifecycle=allow_lifecycle, allow_output_loop=allow_output_loop)
     bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query, caller_ids, authority)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
@@ -215,18 +206,9 @@ def _context_pass(
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
     from .query_recovery_pair import bind_recovery_pair
     context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
-    if allow_render_recall:
-        from .query_render_selection import retain_background_candidates
-        context = retain_background_candidates(query, context, gated["matches"].get("wiki_matches") or [])
-    if authority is not None:
-        from .query_lifecycle_selection import LifecycleTrial
-        context = LifecycleTrial(context)
-        context._lifecycle_authority = authority
-    if output_authority is not None:
-        from .query_output_loop_selection import OutputLoopTrial
-        context = OutputLoopTrial(context)
-        context._output_loop_authority = output_authority
-    return context
+    return bind_context_trials(query, context, gated["matches"].get("wiki_matches") or [],
+                               allow_render_recall=allow_render_recall,
+                               authority=authority, output_authority=output_authority)
 
 
 def localization_input(

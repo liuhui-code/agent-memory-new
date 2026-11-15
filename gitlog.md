@@ -12617,3 +12617,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   query now returns complete collect method. Explicit-name independent queries still
   return class anchors and are not claimed fully repaired. No full gate/holdout run.
 - Details and focused evidence: docs/evidence/rebuild-output30/RESULT.md.
+
+## 2026-11-15 — Integrate reimplemented visual09 with output30
+
+- Retain both stages and all prior logs. Resolve only limited_context signature
+  conflict by keeping output30 deferred accounting and visual09's retained pool.
+- Mechanically extract existing qualification/wrapping orchestration with the
+  same call order, flags, rules and public API. Actual query_results counts are
+  518 before/after merge, 500 after extraction (not earlier estimated 520).
+- Joint relevant tests 100 before and 104 after extraction pass. Original09 stays
+  2/3, original30 stays 3/3. Independent source controls retain documented bounds.
+- No full/holdout, aggregate score, main change or remote write. Details:
+  docs/evidence/rebuild-visual09-20261115/INTEGRATION.md.
