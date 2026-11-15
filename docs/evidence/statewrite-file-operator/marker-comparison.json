@@ -1,0 +1,92 @@
+{
+  "Equality.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": []
+  },
+  "Loose.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": []
+  },
+  "Assign.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": [
+      "statewrite"
+    ]
+  },
+  "Add.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": [
+      "statewrite"
+    ]
+  },
+  "Subtract.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": [
+      "statewrite"
+    ]
+  },
+  "Increment.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": [
+      "statewrite"
+    ]
+  },
+  "Decrement.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": [
+      "statewrite"
+    ]
+  },
+  "NotEqual.ets": {
+    "before": [],
+    "after": []
+  },
+  "StrictNotEqual.ets": {
+    "before": [],
+    "after": []
+  },
+  "Less.ets": {
+    "before": [],
+    "after": []
+  },
+  "Greater.ets": {
+    "before": [],
+    "after": []
+  },
+  "ArrowValue.ets": {
+    "before": [
+      "statewrite"
+    ],
+    "after": [
+      "statewrite"
+    ]
+  },
+  "Mixed.ets": {
+    "before": [
+      "conditionalbranch",
+      "statewrite"
+    ],
+    "after": [
+      "conditionalbranch",
+      "statewrite"
+    ]
+  },
+  "OnlyText.ets": {
+    "before": [],
+    "after": []
+  }
+}

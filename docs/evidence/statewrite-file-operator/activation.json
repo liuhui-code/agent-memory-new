@@ -1,0 +1,1427 @@
+{
+  "installed-no-relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/statewrite-operator/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/memory"
+    ],
+    "output": [
+      {
+        "id": 14,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Subtract.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "135a85137b5835e2a2fb49d8dbeca1182e1692746d670ca2c6c8b1230ac6d6ae",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 13,
+        "project_id": "4d012e24b6953166",
+        "file_path": "StrictNotEqual.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "9443cf7d9c7a666039537dc017c58edd16cfcbe2eec3c8ff4702c12047d136f7",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 12,
+        "project_id": "4d012e24b6953166",
+        "file_path": "OnlyText.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 11,
+        "project_id": "4d012e24b6953166",
+        "file_path": "NotEqual.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "1f1451026cabd9ea88141eac1f32f0fe0063f230ba6cba7c8200b9a883e02251",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 10,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Mixed.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: conditionalbranch, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "891601e547ab50f39e9c062bc0c2da6c57833e0bffdd974447ccae57ae0e17c4",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 9,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Loose.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "9758eb19dd21c5796ddb815f2e1b0b09f31efe6ecdc0724ba675029c9e86be99",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 8,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Less.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "7c1593a28ab8edcad0bd43e7d6286f43c95bf5445737674266e311600ecdc999",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 7,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Increment.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "0cf3862a5a1c0ef83182de5214c5a82e26f35d55fcef328c8613e217f221bd25",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 6,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Greater.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "b6832cc116137e03d890304de78bb534c031a3d1f90bdc1b4a7126b777a32831",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 5,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Equality.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Decrement.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "b7de6e5db3ea1181595686316a67570573047a026dac5c6dac7a708ec62735dc",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Assign.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "91f37069f83b4b4c36c20aefdc489c816fb6199a11f2976944f55f92b19f7d80",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "4d012e24b6953166",
+        "file_path": "ArrowValue.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "280a607f9d70bbac8413a4523c53ccc6a2ec4cf5d65b981ef53516610404ab5a",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Add.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "8648b33074c41b1ec9bea6dd796bdfc6ae71c13b81d3c6d642086385a01f0f9e",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T15:05:28+00:00"
+      }
+    ]
+  },
+  "relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/statewrite-operator/tools/agent_memory.py",
+      "learn-path",
+      "--path",
+      ".",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/memory"
+    ],
+    "output": {
+      "source": "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/project",
+      "path": ".",
+      "scope_id": 1,
+      "mode": "merge",
+      "files": [
+        "Add.ets",
+        "ArrowValue.ets",
+        "Assign.ets",
+        "Decrement.ets",
+        "Equality.ets",
+        "Greater.ets",
+        "Increment.ets",
+        "Less.ets",
+        "Loose.ets",
+        "Mixed.ets",
+        "NotEqual.ets",
+        "OnlyText.ets",
+        "StrictNotEqual.ets",
+        "Subtract.ets"
+      ],
+      "count": 14,
+      "summary": "Merged 14 files from .",
+      "parse_stats": {
+        "files_indexed": 14,
+        "skipped_by_reason": {},
+        "languages": {
+          "ArkTS": 14
+        },
+        "symbols_total": 28,
+        "symbols_by_type": {
+          "class": 14,
+          "function": 14
+        },
+        "code_logs_total": 0,
+        "code_logs_by_level": {},
+        "business_semantics_restored": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "semantic_index": {
+          "schema_version": "semantic-index/v1",
+          "adapters": [
+            {
+              "id": "arkts-static",
+              "version": "1.2",
+              "language": "ArkTS"
+            }
+          ],
+          "capabilities": [
+            "api_boundaries",
+            "async_flow",
+            "callbacks",
+            "calls",
+            "definitions",
+            "inheritance",
+            "mechanisms",
+            "references",
+            "state_flow",
+            "types"
+          ],
+          "files_indexed": 14,
+          "entities": 28,
+          "relations_extracted": 28,
+          "mechanisms_extracted": 2,
+          "relations_emitted": 28,
+          "unresolved_relations": 0,
+          "method_summaries_enriched": 14,
+          "gaps": [
+            {
+              "kind": "operation_syntax_unverified_template",
+              "file_path": "OnlyText.ets",
+              "symbol": "OnlyText.text",
+              "start_line": "2",
+              "end_line": "2"
+            }
+          ],
+          "adapter_errors": [],
+          "provider_runs": [
+            {
+              "language": "ArkTS",
+              "mode": "auto",
+              "status": "static",
+              "selected": "static",
+              "provider_configured": false,
+              "duration_ms": 0.0,
+              "output_bytes": 0,
+              "batch": 1,
+              "batch_files": 14
+            }
+          ],
+          "log_effects": {
+            "schema_version": "log-effect/v1",
+            "wrappers_resolved": 0,
+            "effects_emitted": 0,
+            "truncated": false,
+            "max_wrapper_depth": 0
+          },
+          "graph_candidate_resolution": {
+            "provider": "scoped-unique-symbols/v1",
+            "local_symbol_count": 28,
+            "reference_name_count": 14,
+            "resolved_external_symbol_count": 0,
+            "candidate_symbol_count": 28
+          }
+        },
+        "passage_index": {
+          "schema_version": "code-passages-v2",
+          "files_written": 14,
+          "symbols_written": 28,
+          "passages_written": 42
+        },
+        "normative_index": {
+          "schema_version": "normative-index/v1",
+          "source_root": "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/project",
+          "documents_indexed": 0,
+          "documents_added": 0,
+          "documents_updated": 0,
+          "documents_unchanged": 0,
+          "documents_retired": 0,
+          "retirement_counts": {},
+          "retirement_sample": [],
+          "retirement_sample_truncated": false,
+          "indexed_sample": [],
+          "indexed_sample_truncated": false,
+          "documents_requiring_metadata_review": 0,
+          "metadata_issues": [],
+          "metadata_issue_count": 0,
+          "metadata_issues_truncated": false,
+          "read_issues": [],
+          "read_issue_count": 0,
+          "read_issues_truncated": false,
+          "next_action": "no_normative_change",
+          "approval_inferred": false
+        },
+        "reverse_dependents_reindexed": [
+          "Add.ets",
+          "ArrowValue.ets",
+          "Assign.ets",
+          "Decrement.ets",
+          "Equality.ets",
+          "Greater.ets",
+          "Increment.ets",
+          "Less.ets",
+          "Loose.ets",
+          "Mixed.ets",
+          "NotEqual.ets",
+          "OnlyText.ets",
+          "StrictNotEqual.ets",
+          "Subtract.ets"
+        ],
+        "dispatch_dependents_reindexed": [],
+        "edge_rebuild": {
+          "mode": "merge",
+          "scope_file_count": 14,
+          "scope_files": [
+            "Add.ets",
+            "ArrowValue.ets",
+            "Assign.ets",
+            "Decrement.ets",
+            "Equality.ets",
+            "Greater.ets",
+            "Increment.ets",
+            "Less.ets",
+            "Loose.ets",
+            "Mixed.ets",
+            "NotEqual.ets",
+            "OnlyText.ets",
+            "StrictNotEqual.ets",
+            "Subtract.ets"
+          ],
+          "before": {
+            "node_counts": {
+              "code_file": 14,
+              "code_log_statement": 0,
+              "code_symbol": 28
+            },
+            "edge_count": 56,
+            "relation_counts": {
+              "contains": 28,
+              "exposes_api": 28
+            }
+          },
+          "after": {
+            "node_counts": {
+              "code_file": 14,
+              "code_log_statement": 0,
+              "code_symbol": 28
+            },
+            "edge_count": 56,
+            "relation_counts": {
+              "contains": 28,
+              "exposes_api": 28
+            }
+          },
+          "edges_deleted_estimate": 56,
+          "edges_inserted_estimate": 56,
+          "edge_delta": 0
+        },
+        "phase_ms": {
+          "extract": 8.65,
+          "load_scope": 6.572,
+          "invalidate": 1.114,
+          "prepare_rows": 6.471,
+          "insert_rows": 1.089,
+          "restore_business": 0.076,
+          "rebuild_graph": 49.868,
+          "summarize": 0.286,
+          "commit": 1.318,
+          "total": 75.465
+        },
+        "memory_edges_total": 70,
+        "memory_edges_total_provider": "project-counter/v1",
+        "index_generation": 2,
+        "source_revision": "unversioned"
+      },
+      "semantic_followup": {
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "workflow_steps": [
+          "Read the listed files, symbols, and logs in current source.",
+          "Fill missing business_summary and business_terms in followup_payload_template.",
+          "Write the completed payload with learn-business.",
+          "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+        ],
+        "recommended_next_action": "run_learn_business_now",
+        "truncated": true,
+        "returned_counts": {
+          "files": 5,
+          "symbols": 10,
+          "logs": 0
+        },
+        "remaining_counts": {
+          "files": 9,
+          "symbols": 0,
+          "logs": 0
+        },
+        "followup_payload_template": {
+          "files": [
+            {
+              "file_path": "Subtract.ets",
+              "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "test",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method test in Subtract.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "subtract",
+                    "ets",
+                    "test",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Subtract.ets",
+                    "test",
+                    "function",
+                    "ArkTS function or lifecycle method test in Subtract.ets"
+                  ]
+                },
+                {
+                  "symbol": "Subtract",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class Subtract declared in Subtract.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "subtract",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Subtract.ets",
+                    "Subtract",
+                    "class",
+                    "ArkTS class Subtract declared in Subtract.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "subtract",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "4",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "statewrite",
+                "test",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "Subtract.ets",
+                "ArkTS file with 4 non-empty lines; behavior: statewrite",
+                "test Subtract"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "StrictNotEqual.ets",
+              "summary": "ArkTS file with 4 non-empty lines",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "test",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method test in StrictNotEqual.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "strictnotequal",
+                    "ets",
+                    "test",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "strict",
+                    "not",
+                    "equal",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "StrictNotEqual.ets",
+                    "test",
+                    "function",
+                    "ArkTS function or lifecycle method test in StrictNotEqual.ets"
+                  ]
+                },
+                {
+                  "symbol": "StrictNotEqual",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class StrictNotEqual declared in StrictNotEqual.ets; identifier terms: strict not equal",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "strictnotequal",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "strict",
+                    "not",
+                    "equal",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "StrictNotEqual.ets",
+                    "StrictNotEqual",
+                    "class",
+                    "ArkTS class StrictNotEqual declared in StrictNotEqual.ets; identifier terms: strict not equal"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "strictnotequal",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "4",
+                "non",
+                "empty",
+                "lines",
+                "test",
+                "strict",
+                "not",
+                "equal",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "StrictNotEqual.ets",
+                "ArkTS file with 4 non-empty lines",
+                "test StrictNotEqual"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "OnlyText.ets",
+              "summary": "ArkTS file with 3 non-empty lines; operations: rotate",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "text",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method text in OnlyText.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "onlytext",
+                    "ets",
+                    "text",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "only",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "OnlyText.ets",
+                    "text",
+                    "function",
+                    "ArkTS function or lifecycle method text in OnlyText.ets"
+                  ]
+                },
+                {
+                  "symbol": "OnlyText",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class OnlyText declared in OnlyText.ets; identifier terms: only text",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "onlytext",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "only",
+                    "text",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "OnlyText.ets",
+                    "OnlyText",
+                    "class",
+                    "ArkTS class OnlyText declared in OnlyText.ets; identifier terms: only text"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "onlytext",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "3",
+                "non",
+                "empty",
+                "lines",
+                "operations",
+                "rotate",
+                "text",
+                "only",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "OnlyText.ets",
+                "ArkTS file with 3 non-empty lines; operations: rotate",
+                "text OnlyText"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "NotEqual.ets",
+              "summary": "ArkTS file with 4 non-empty lines",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "test",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method test in NotEqual.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "notequal",
+                    "ets",
+                    "test",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "not",
+                    "equal",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "NotEqual.ets",
+                    "test",
+                    "function",
+                    "ArkTS function or lifecycle method test in NotEqual.ets"
+                  ]
+                },
+                {
+                  "symbol": "NotEqual",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class NotEqual declared in NotEqual.ets; identifier terms: not equal",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "notequal",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "not",
+                    "equal",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "NotEqual.ets",
+                    "NotEqual",
+                    "class",
+                    "ArkTS class NotEqual declared in NotEqual.ets; identifier terms: not equal"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "notequal",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "4",
+                "non",
+                "empty",
+                "lines",
+                "test",
+                "not",
+                "equal",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "NotEqual.ets",
+                "ArkTS file with 4 non-empty lines",
+                "test NotEqual"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "Mixed.ets",
+              "summary": "ArkTS file with 4 non-empty lines; behavior: conditionalbranch, statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "set",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method set in Mixed.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "set",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "set",
+                    "function",
+                    "ArkTS function or lifecycle method set in Mixed.ets"
+                  ]
+                },
+                {
+                  "symbol": "Mixed",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class Mixed declared in Mixed.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixed",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Mixed.ets",
+                    "Mixed",
+                    "class",
+                    "ArkTS class Mixed declared in Mixed.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "mixed",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "4",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "conditionalbranch",
+                "statewrite",
+                "set",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "Mixed.ets",
+                "ArkTS file with 4 non-empty lines; behavior: conditionalbranch, statewrite",
+                "set Mixed"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "after-relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/statewrite-operator/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-operator-before/memory"
+    ],
+    "output": [
+      {
+        "id": 28,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Subtract.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "135a85137b5835e2a2fb49d8dbeca1182e1692746d670ca2c6c8b1230ac6d6ae",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 27,
+        "project_id": "4d012e24b6953166",
+        "file_path": "StrictNotEqual.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "9443cf7d9c7a666039537dc017c58edd16cfcbe2eec3c8ff4702c12047d136f7",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 26,
+        "project_id": "4d012e24b6953166",
+        "file_path": "OnlyText.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 25,
+        "project_id": "4d012e24b6953166",
+        "file_path": "NotEqual.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "1f1451026cabd9ea88141eac1f32f0fe0063f230ba6cba7c8200b9a883e02251",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 24,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Mixed.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: conditionalbranch, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "891601e547ab50f39e9c062bc0c2da6c57833e0bffdd974447ccae57ae0e17c4",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 23,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Loose.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "9758eb19dd21c5796ddb815f2e1b0b09f31efe6ecdc0724ba675029c9e86be99",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 22,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Less.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "7c1593a28ab8edcad0bd43e7d6286f43c95bf5445737674266e311600ecdc999",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 21,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Increment.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "0cf3862a5a1c0ef83182de5214c5a82e26f35d55fcef328c8613e217f221bd25",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 20,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Greater.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "b6832cc116137e03d890304de78bb534c031a3d1f90bdc1b4a7126b777a32831",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 19,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Equality.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 18,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Decrement.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "b7de6e5db3ea1181595686316a67570573047a026dac5c6dac7a708ec62735dc",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 17,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Assign.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "91f37069f83b4b4c36c20aefdc489c816fb6199a11f2976944f55f92b19f7d80",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 16,
+        "project_id": "4d012e24b6953166",
+        "file_path": "ArrowValue.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "280a607f9d70bbac8413a4523c53ccc6a2ec4cf5d65b981ef53516610404ab5a",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      },
+      {
+        "id": 15,
+        "project_id": "4d012e24b6953166",
+        "file_path": "Add.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "8648b33074c41b1ec9bea6dd796bdfc6ae71c13b81d3c6d642086385a01f0f9e",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:07:12+00:00"
+      }
+    ]
+  },
+  "identity_changes": {
+    "Subtract.ets": {
+      "id": [
+        14,
+        28
+      ],
+      "file_path": [
+        "Subtract.ets",
+        "Subtract.ets"
+      ],
+      "source_digest": [
+        "135a85137b5835e2a2fb49d8dbeca1182e1692746d670ca2c6c8b1230ac6d6ae",
+        "135a85137b5835e2a2fb49d8dbeca1182e1692746d670ca2c6c8b1230ac6d6ae"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "StrictNotEqual.ets": {
+      "id": [
+        13,
+        27
+      ],
+      "file_path": [
+        "StrictNotEqual.ets",
+        "StrictNotEqual.ets"
+      ],
+      "source_digest": [
+        "9443cf7d9c7a666039537dc017c58edd16cfcbe2eec3c8ff4702c12047d136f7",
+        "9443cf7d9c7a666039537dc017c58edd16cfcbe2eec3c8ff4702c12047d136f7"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "OnlyText.ets": {
+      "id": [
+        12,
+        26
+      ],
+      "file_path": [
+        "OnlyText.ets",
+        "OnlyText.ets"
+      ],
+      "source_digest": [
+        "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "NotEqual.ets": {
+      "id": [
+        11,
+        25
+      ],
+      "file_path": [
+        "NotEqual.ets",
+        "NotEqual.ets"
+      ],
+      "source_digest": [
+        "1f1451026cabd9ea88141eac1f32f0fe0063f230ba6cba7c8200b9a883e02251",
+        "1f1451026cabd9ea88141eac1f32f0fe0063f230ba6cba7c8200b9a883e02251"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Mixed.ets": {
+      "id": [
+        10,
+        24
+      ],
+      "file_path": [
+        "Mixed.ets",
+        "Mixed.ets"
+      ],
+      "source_digest": [
+        "891601e547ab50f39e9c062bc0c2da6c57833e0bffdd974447ccae57ae0e17c4",
+        "891601e547ab50f39e9c062bc0c2da6c57833e0bffdd974447ccae57ae0e17c4"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Loose.ets": {
+      "id": [
+        9,
+        23
+      ],
+      "file_path": [
+        "Loose.ets",
+        "Loose.ets"
+      ],
+      "source_digest": [
+        "9758eb19dd21c5796ddb815f2e1b0b09f31efe6ecdc0724ba675029c9e86be99",
+        "9758eb19dd21c5796ddb815f2e1b0b09f31efe6ecdc0724ba675029c9e86be99"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Less.ets": {
+      "id": [
+        8,
+        22
+      ],
+      "file_path": [
+        "Less.ets",
+        "Less.ets"
+      ],
+      "source_digest": [
+        "7c1593a28ab8edcad0bd43e7d6286f43c95bf5445737674266e311600ecdc999",
+        "7c1593a28ab8edcad0bd43e7d6286f43c95bf5445737674266e311600ecdc999"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Increment.ets": {
+      "id": [
+        7,
+        21
+      ],
+      "file_path": [
+        "Increment.ets",
+        "Increment.ets"
+      ],
+      "source_digest": [
+        "0cf3862a5a1c0ef83182de5214c5a82e26f35d55fcef328c8613e217f221bd25",
+        "0cf3862a5a1c0ef83182de5214c5a82e26f35d55fcef328c8613e217f221bd25"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Greater.ets": {
+      "id": [
+        6,
+        20
+      ],
+      "file_path": [
+        "Greater.ets",
+        "Greater.ets"
+      ],
+      "source_digest": [
+        "b6832cc116137e03d890304de78bb534c031a3d1f90bdc1b4a7126b777a32831",
+        "b6832cc116137e03d890304de78bb534c031a3d1f90bdc1b4a7126b777a32831"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Equality.ets": {
+      "id": [
+        5,
+        19
+      ],
+      "file_path": [
+        "Equality.ets",
+        "Equality.ets"
+      ],
+      "source_digest": [
+        "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7",
+        "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Decrement.ets": {
+      "id": [
+        4,
+        18
+      ],
+      "file_path": [
+        "Decrement.ets",
+        "Decrement.ets"
+      ],
+      "source_digest": [
+        "b7de6e5db3ea1181595686316a67570573047a026dac5c6dac7a708ec62735dc",
+        "b7de6e5db3ea1181595686316a67570573047a026dac5c6dac7a708ec62735dc"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Assign.ets": {
+      "id": [
+        3,
+        17
+      ],
+      "file_path": [
+        "Assign.ets",
+        "Assign.ets"
+      ],
+      "source_digest": [
+        "91f37069f83b4b4c36c20aefdc489c816fb6199a11f2976944f55f92b19f7d80",
+        "91f37069f83b4b4c36c20aefdc489c816fb6199a11f2976944f55f92b19f7d80"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "ArrowValue.ets": {
+      "id": [
+        2,
+        16
+      ],
+      "file_path": [
+        "ArrowValue.ets",
+        "ArrowValue.ets"
+      ],
+      "source_digest": [
+        "280a607f9d70bbac8413a4523c53ccc6a2ec4cf5d65b981ef53516610404ab5a",
+        "280a607f9d70bbac8413a4523c53ccc6a2ec4cf5d65b981ef53516610404ab5a"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Add.ets": {
+      "id": [
+        1,
+        15
+      ],
+      "file_path": [
+        "Add.ets",
+        "Add.ets"
+      ],
+      "source_digest": [
+        "8648b33074c41b1ec9bea6dd796bdfc6ae71c13b81d3c6d642086385a01f0f9e",
+        "8648b33074c41b1ec9bea6dd796bdfc6ae71c13b81d3c6d642086385a01f0f9e"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    }
+  }
+}
