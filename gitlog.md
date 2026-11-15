@@ -12653,3 +12653,17 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   final2/3. Original wording newly passes; English paraphrase remains red.
 - Evidence: docs/evidence/command-binding-redo-20261115. No full gate or remote
   publication. This is static wiring, not runtime cause or full-project uniqueness.
+
+## 2026-11-15 — Verify joint09/30/37 reconstruction integration
+
+- Integrate reviewed37 and callback stages onto clean195e3ce, preserving all09/30
+  production modules and prior log text. Keep all four explicit defer flags and
+  final per-type usage once; do not treat private authorities as composable.
+- Mechanically extract snapshot attachment dispatch and unchanged log truncation
+  helper; coordinator reviewed, existing output/lifecycle/render priority retained.
+  Shared modules remain483/495lines, under500 without deleting comments.
+- 181 selected related tests pass; retain initial missing-PYTHONPATH import failure.
+  Final unchanged Development09/30/37 groups remain2/3,3/3,2/3. Frozen public controls
+  pass with documented30 explicit-name method limitation; no full/holdout gate.
+- Evidence:docs/evidence/rebuild-command37-integration. Complete local ancestry
+  bundle for private persistence; no remote write, main change or07 repair claim.

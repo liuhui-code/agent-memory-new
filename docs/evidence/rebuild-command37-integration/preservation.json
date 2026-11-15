@@ -1,0 +1,25 @@
+{
+  "09_30_nonshared_production": {
+    "tools/agent_memory_runtime/query_background_source.py": true,
+    "tools/agent_memory_runtime/query_context_trials.py": true,
+    "tools/agent_memory_runtime/query_output_loop_selection.py": true,
+    "tools/agent_memory_runtime/query_output_loop_source.py": true,
+    "tools/agent_memory_runtime/query_render_recall.py": true,
+    "tools/agent_memory_runtime/query_render_selection.py": true
+  },
+  "command_nonshared_production": {
+    "tools/agent_memory_runtime/query_command_source.py": true,
+    "tools/agent_memory_runtime/query_command_selection.py": true,
+    "tools/agent_memory_runtime/ecma_callback_mask.py": true
+  },
+  "gitlog_previous_text_prefix_exact": true,
+  "line_counts": {
+    "tools/agent_memory_runtime/context_compact.py": 495,
+    "tools/agent_memory_runtime/context_composition.py": 31,
+    "tools/agent_memory_runtime/context_facade.py": 80,
+    "tools/agent_memory_runtime/query_results.py": 483,
+    "tools/agent_memory_runtime/query_result_limits.py": 28,
+    "tools/agent_memory_runtime/context_snapshot_dispatch.py": 16
+  },
+  "git_diff_check": true
+}
