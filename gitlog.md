@@ -12722,3 +12722,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Freeze queries/sources and negative/discard compatibility controls before changes.
   Semantic review requires conjunction, non-authoritative observation and enforced
   existing CamelCase exclusion. No serving change or original gain at this stage.
+
+## 2026-11-15 — Stop English lifecycle owner-loss extension at before gate
+
+- Read-only current original18 English remains raw/compact target-missing, with
+  source identities/typed hook edge and existing source grammar intact; English
+  complete-request permission is absent. No new group score inferred.
+- Independent semantic review preceded frozen25-request actual before. Three new
+  English single-owner requests recover BufferSession before final compact, so
+  matching public owner-loss red is absent. No matcher/runtime edit is authorized.
+- Preserve separate missingcommit-body and pair-observed downstream-loss findings,
+  not substitutes for the preregistered gate. No wording/noise/source tuning.
+- Full before evidence retained; no full suite, original repair credit or remote.
+  Details:docs/evidence/lifecycle-english/RESULT.md.

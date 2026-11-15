@@ -1,0 +1,1368 @@
+[
+  {
+    "family": "original-four",
+    "id": "english-head",
+    "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1155,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-observed",
+    "query": "Restart loses the saved scratch buffer; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1171,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-other-observation",
+    "query": "Restart loses the saved written notes; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1171,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "lifecycle-0",
+    "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "TextPanel.ets",
+      "BufferSession.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1163,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "lifecycle-1",
+    "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+    "raw_paths": [
+      "PendingQueue.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 789,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "BufferSession",
+            "start_line": 1,
+            "end_line": 12,
+            "content": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}",
+            "source": "validated_request_snapshot",
+            "selection_reason": "finite_same_owner_source_shape",
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "lifecycle-2",
+    "query": "Find PendingQueue.append.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "WriteQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 112,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ],
+        [
+          "PendingQueue.ets",
+          "PendingQueue"
+        ],
+        [
+          "PendingQueue.ets",
+          "PendingQueue"
+        ],
+        [
+          "WriteQueue.ets",
+          "WriteQueue"
+        ],
+        [
+          "WriteQueue.ets",
+          "commit"
+        ],
+        [
+          "WriteQueue.ets",
+          "WriteQueue"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 967,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 1,
+            "end_line": 8,
+            "content": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "lifecycle-3",
+    "query": "Find both BufferSession and PendingQueue source.",
+    "raw_paths": [
+      "BufferSession.ets",
+      "PendingQueue.ets",
+      "PendingQueue.ets",
+      "WriteQueue.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets",
+      "PendingQueue.ets",
+      "WriteQueue.ets"
+    ],
+    "first_focus": {
+      "line": 112,
+      "selected": [
+        [
+          "BufferSession.ets",
+          "BufferSession"
+        ],
+        [
+          "PendingQueue.ets",
+          "PendingQueue"
+        ],
+        [
+          "BufferSession.ets",
+          "BufferSession"
+        ],
+        [
+          "BufferSession.ets",
+          "onMount"
+        ],
+        [
+          "BufferSession.ets",
+          "reload"
+        ],
+        [
+          "BufferSession.ets",
+          "commit"
+        ],
+        [
+          "PendingQueue.ets",
+          "append"
+        ],
+        [
+          "PendingQueue.ets",
+          "PendingQueue"
+        ],
+        [
+          "WriteQueue.ets",
+          "WriteQueue"
+        ],
+        [
+          "WriteQueue.ets",
+          "commit"
+        ],
+        [
+          "WriteQueue.ets",
+          "WriteQueue"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1421,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "BufferSession",
+            "start_line": 1,
+            "end_line": 12,
+            "content": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 1,
+            "end_line": 8,
+            "content": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "WriteQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "WriteQueue",
+            "start_line": 1,
+            "end_line": 5,
+            "content": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "unknown-0",
+    "query": "请定位同时负责生命周期恢复、状态更新和持久化的源码，并解释日志。",
+    "raw_paths": [
+      "PendingQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1082,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "unknown-1",
+    "query": "请不要返回同时负责生命周期恢复、状态更新和持久化的源码。",
+    "raw_paths": [],
+    "compact_paths": [],
+    "first_focus": {
+      "line": 115,
+      "selected": []
+    },
+    "budget": {
+      "estimated_tokens": 566,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": []
+  },
+  {
+    "family": "original-four",
+    "id": "unknown-2",
+    "query": "请生成同时负责生命周期恢复、状态更新和持久化的源码。",
+    "raw_paths": [
+      "PendingQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1079,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "unknown-3",
+    "query": "“重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。”",
+    "raw_paths": [
+      "PendingQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1083,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "unknown-4",
+    "query": "重启后恢复任意资料，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+    "raw_paths": [
+      "PendingQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1094,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "unknown-5",
+    "query": "请定位两个分别负责生命周期恢复、状态更新和持久化的源码。",
+    "raw_paths": [
+      "PendingQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1080,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-0",
+    "query": "\"Return the coordinator owning restore lifecycle, current state, and storage commit.\"",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1156,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-1",
+    "query": "Generate the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1156,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-2",
+    "query": "Return both coordinators owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1157,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-3",
+    "query": "Return the coordinator owning restore lifecycle, current state, and storage commit. Also show PendingQueue.append.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "WriteQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ],
+        [
+          "WriteQueue.ets",
+          "commit"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1126,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-4",
+    "query": "Return the coordinator owning restore lifecycle, current state, and storage commit except WriteQueue.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "WriteQueue.ets",
+      "BufferSession.ets"
+    ],
+    "compact_paths": [
+      "WriteQueue.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1136,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "WriteQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "WriteQueue",
+            "start_line": 1,
+            "end_line": 5,
+            "content": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-5",
+    "query": "Return the coordinator owning restore lifecycle and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1328,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 3,
+            "end_line": 7,
+            "content": "  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-6",
+    "query": "Other observation; Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1165,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-7",
+    "query": "Restart loses the saved code; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "SplitRoles.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 94,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1168,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "original-four",
+    "id": "english-unsupported-8",
+    "query": "Restart loses the saved scratch buffer; return PendingQueue.append.",
+    "raw_paths": [
+      "PendingQueue.ets",
+      "BufferSession.ets",
+      "WriteQueue.ets"
+    ],
+    "compact_paths": [
+      "PendingQueue.ets"
+    ],
+    "first_focus": {
+      "line": 112,
+      "selected": [
+        [
+          "PendingQueue.ets",
+          "append"
+        ],
+        [
+          "PendingQueue.ets",
+          "PendingQueue"
+        ],
+        [
+          "PendingQueue.ets",
+          "PendingQueue"
+        ],
+        [
+          "BufferSession.ets",
+          "BufferSession"
+        ],
+        [
+          "WriteQueue.ets",
+          "WriteQueue"
+        ],
+        [
+          "BufferSession.ets",
+          "BufferSession"
+        ],
+        [
+          "BufferSession.ets",
+          "onMount"
+        ],
+        [
+          "BufferSession.ets",
+          "reload"
+        ],
+        [
+          "BufferSession.ets",
+          "commit"
+        ],
+        [
+          "WriteQueue.ets",
+          "commit"
+        ],
+        [
+          "WriteQueue.ets",
+          "WriteQueue"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1094,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "PendingQueue.ets",
+        "source_excerpts": [
+          {
+            "symbol": "append",
+            "start_line": 1,
+            "end_line": 8,
+            "content": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "two-complete-owners",
+    "id": "two-complete-owners",
+    "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+    "raw_paths": [
+      "BufferSession.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets",
+      "EditorSession.ets"
+    ],
+    "first_focus": {
+      "line": 100,
+      "selected": [
+        [
+          "BufferSession.ets",
+          "reload"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 977,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "BufferSession",
+            "start_line": 1,
+            "end_line": 12,
+            "content": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}",
+            "source": "validated_request_snapshot",
+            "selection_reason": "finite_same_owner_source_shape",
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "EditorSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "EditorSession",
+            "start_line": 1,
+            "end_line": 12,
+            "content": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}",
+            "source": "validated_request_snapshot",
+            "selection_reason": "finite_same_owner_source_shape",
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "two-complete-owners",
+    "id": "pair-english-head",
+    "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "BufferSession.ets",
+      "EditorSession.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets",
+      "EditorSession.ets"
+    ],
+    "first_focus": {
+      "line": 100,
+      "selected": [
+        [
+          "BufferSession.ets",
+          "onMount"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1274,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "EditorSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "family": "two-complete-owners",
+    "id": "pair-english-observed",
+    "query": "Restart loses the saved scratch buffer; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "raw_paths": [
+      "BufferSession.ets",
+      "EditorSession.ets"
+    ],
+    "compact_paths": [
+      "BufferSession.ets"
+    ],
+    "first_focus": {
+      "line": 100,
+      "selected": [
+        [
+          "BufferSession.ets",
+          "BufferSession"
+        ]
+      ]
+    },
+    "budget": {
+      "estimated_tokens": 1096,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "file_path": "BufferSession.ets",
+        "source_excerpts": [
+          {
+            "symbol": "reload",
+            "start_line": 6,
+            "end_line": 8,
+            "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          },
+          {
+            "symbol": "onMount",
+            "start_line": 3,
+            "end_line": 5,
+            "content": "  onMount(): void {\n    this.reload()\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  }
+]
