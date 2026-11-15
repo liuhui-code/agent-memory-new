@@ -12784,3 +12784,16 @@ original09 3/3, old independent09 4/4. Final independent follow-up review passed
 Changed production files <=500 lines and retain fingerprints; diff check clean.
 No full gate or remote operation. One original repair is eligible for integration,
 not an aggregate total claim. All failed intermediate commands remain documented.
+
+## 2026-11-15 — Integrate reviewed visual OR source union
+
+- Fast-forward reviewed320f3e5 onto published-db4 baseline, no extra runtime edits.
+  Complete positive Stack/background union preserves real TouchOverlay rather
+  than using background-only exclusion. Trial recall/scoring inputs change only
+  under explicit validated OR authority; existing thresholds/weights/caps remain.
+- 123 selected compatibility tests pass; independent union15/15 and prior09 4/4.
+  Original09 single group3/3, one newly repaired English variant; local cumulative
+  original repair ledger28, not an aggregate score. No full/holdout run.
+- Preserve all prior WIP, harness and lexical/import failures with final corrections.
+  Gesture16/archive25 diagnostic branches not merged. No GitHub write in this step.
+  Integration evidence:docs/evidence/visual09-or-integration/RESULT.md.
