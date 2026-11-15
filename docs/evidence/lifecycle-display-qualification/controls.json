@@ -1,0 +1,16 @@
+{
+  "classification": "frozen unit/transport controls derived from the actual qualification payload; not additional public query evidence",
+  "baseline": "before.json after qualification only; original file/query unchanged",
+  "positive": [
+    {"id":"reversed_priority", "case":"original reload6-8,onMount3-5", "expect":"union3-8 physical bytes; original member order reversible; primary9-11 as second; all unrelated payload unchanged"},
+    {"id":"forward_priority", "case":"same complete excerpt records in source order", "expect":"same physical union; member order follows input"},
+    {"id":"adjacent_distinct_owners", "case":"legitimate adjacent selected windows whose independent method records belong to different owners", "expect":"neutral physical window only; preserve both member identities; no synthesized owner relation or changed anchors"}
+  ],
+  "exact_baseline_fallback": [
+    "nonadjacent gap", "overlap", "duplicate ranges", "different file or source kind", "changed prefix", "changed tail with identical prefix", "stale generation", "missing primary source row", "ambiguous or conflicting primary source rows", "primary id/kind/path/symbol/qualified_name/bounds mismatch", "digest mismatch", "missing freshness", "old truncated excerpt", "missing required old metadata", "unrecognized extra member metadata", "already grouped nested members", "selected_log_event_owner or private receipt reason", "primary body already present", "line cap", "per-anchor character cap", "total character cap", "token cap including all member metadata", "unrelated payload cannot fit without deletion"
+  ],
+  "transport": [
+    "JSON round trip preserves neutral range and each original member metadata/order", "redaction preserves exactly two flat member ranges and excludes content from all depths", "forged nested or content member keys cannot leak", "grouped window is never later trimmed with stale member mappings", "repeat application idempotent", "source read/hash same bytes, no reread race", "existing Render/Builder/lifecycle/output/command/cache receipt paths unchanged", "public final usage accounting remains once"
+  ],
+  "non_goals": ["no common-owner proof", "no old whole-class promise", "no original18 owner-loss claim", "no cap or scoring change"]
+}
