@@ -1,0 +1,112 @@
+.FFFFFFFFF..FFF
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='==', space='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='==', space=' ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='==', space='\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='===', space='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='===', space=' ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='===', space='\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='=>', space='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='=>', space=' ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_and_arrow_token_boundaries (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_comparison_and_arrow_token_boundaries) (op='=>', space='\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 25, in test_comparison_and_arrow_token_boundaries
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',extract_arkts_behavior_markers('return this.count'+space+op+'2;'))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_unknown_raw_text_uses_corrected_operator_without_lexical_proof (tests.test_file_statewrite_operator.FileStatewriteOperatorBoundaries.test_unknown_raw_text_uses_corrected_operator_without_lexical_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 31, in test_unknown_raw_text_uses_corrected_operator_without_lexical_proof
+    self.assertNotIn('statewrite',extract_arkts_behavior_markers(expr))
+AssertionError: 'statewrite' unexpectedly found in ['statewrite']
+
+======================================================================
+FAIL: test_comparison_only_file_is_not_marked_write (tests.test_file_statewrite_operator.FileStatewriteOperatorPublic.test_comparison_only_file_is_not_marked_write) (file='Equality.ets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 16, in test_comparison_only_file_is_not_marked_write
+    with self.subTest(file=n):self.assertNotIn('statewrite',rows[n]['summary'])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in 'ArkTS file with 4 non-empty lines; behavior: statewrite'
+
+======================================================================
+FAIL: test_comparison_only_file_is_not_marked_write (tests.test_file_statewrite_operator.FileStatewriteOperatorPublic.test_comparison_only_file_is_not_marked_write) (file='Loose.ets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/statewrite-operator/tests/test_file_statewrite_operator.py", line 16, in test_comparison_only_file_is_not_marked_write
+    with self.subTest(file=n):self.assertNotIn('statewrite',rows[n]['summary'])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in 'ArkTS file with 4 non-empty lines; behavior: statewrite'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.965s
+
+FAILED (failures=12)
