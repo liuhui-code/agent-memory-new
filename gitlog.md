@@ -12825,3 +12825,5 @@ File statewrite result: known noncode fake assignments removed from two public s
 
 ## File statewrite operator investigation
 Basee545aea. Independent fixed Equality/Loose public summary red and true-write controls frozen. Dedicated final predicate proposed, preserving shared regex and ASCII/operator family; lexical unknown remains raw with corrected token classification.
+
+File operator result: public Equality/Loose false statewrite removed;7 real writes and3 named context targets preserved.15 focused and83 related tests pass (final code rerun). Shared regex/statehandoff, field/operator domain unchanged; unknown raw uses corrected operator. Old lexical Equality expectations explicitly migrated without changing frozen history.
