@@ -12797,3 +12797,7 @@ not an aggregate total claim. All failed intermediate commands remain documented
 - Preserve all prior WIP, harness and lexical/import failures with final corrections.
   Gesture16/archive25 diagnostic branches not merged. No GitHub write in this step.
   Integration evidence:docs/evidence/visual09-or-integration/RESULT.md.
+
+## 2026-11-15 cache positive scan revisit
+- Frozen actual public before on 02171fe for the unchanged independent cache fixture: both old executable/timestamp requests remain red, FIFO/text controls pass.
+- Recorded a pending bounded positive syntax contract for the executable scan request only. Timestamp provenance remains unknown; no runtime change or repair claim.
