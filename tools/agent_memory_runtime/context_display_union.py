@@ -119,3 +119,24 @@ def union_primary_display(payload, project_path, token_budget, *, source_rows=()
     if budget['estimated_tokens'] > min(token_budget, budget.get('target_tokens', token_budget)):
         return payload
     return candidate
+
+
+def display_excerpt_metadata(item):
+    result = {
+        key: item[key]
+        for key in (
+            "symbol", "start_line", "end_line", "focus_line", "source",
+            "selection_reason", "truncated",
+        )
+        if item.get(key) not in (None, "")
+    }
+
+    members = item.get("constituent_ranges")
+    if (item.get("selection_reason") == "adjacent_display_union" and item.get("symbol") is None
+            and isinstance(members, list) and len(members) == 2):
+        bounded = [member_metadata(member) for member in members]
+        if all(member is not None for member in bounded):
+            result["constituent_ranges"] = bounded
+    return result
+
+

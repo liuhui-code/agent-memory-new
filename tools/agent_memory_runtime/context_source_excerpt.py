@@ -475,23 +475,8 @@ def redact_source_excerpt_bodies(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def excerpt_metadata(item: dict[str, Any]) -> dict[str, Any]:
-    result = {
-        key: item[key]
-        for key in (
-            "symbol", "start_line", "end_line", "focus_line", "source",
-            "selection_reason", "truncated",
-        )
-        if item.get(key) not in (None, "")
-    }
-
-    members = item.get("constituent_ranges")
-    if (item.get("selection_reason") == "adjacent_display_union" and item.get("symbol") is None
-            and isinstance(members, list) and len(members) == 2):
-        from .context_display_union import member_metadata
-        bounded = [member_metadata(member) for member in members]
-        if all(member is not None for member in bounded):
-            result["constituent_ranges"] = bounded
-    return result
+    from .context_display_union import display_excerpt_metadata
+    return display_excerpt_metadata(item)
 
 
 
