@@ -15,7 +15,7 @@ for c in json.loads((D/'union-protocol.json').read_text())['cases']:
   compact=json.loads(b.run_memory(project,'context','--query',c['query'],'--compact','--json').stdout)
   anchors=compact['query_handoff']['code_anchors'];paths={a['file_path'] for a in anchors}
   expected_bodies={n:'\n'.join(s.splitlines()[2:-1]) for n,s in c['sources'].items() if ' build() {' in s}
-  complete={a['file_path'] for a in anchors for e in a.get('source_excerpts',[]) if not e.get('truncated') and e.get('content')==expected_bodies.get(a['file_path'])}}
+  complete={a['file_path'] for a in anchors for e in a.get('source_excerpts',[]) if not e.get('truncated') and e.get('content')==expected_bodies.get(a['file_path'])}
   authorized=parse_render_request(c['query']) is not None
   passed=(not authorized) if c['mode']=='no-alternative-authority' else (set(c['required'])<=paths and set(c['required'])<=complete and not set(c['forbidden'])&paths)
   r=dict(name=c['name'],passed=passed,paths=sorted(paths),complete_build_paths=sorted(complete),render_request_recognized=authorized,background_witness={n:parse_background_source(s) for n,s in c['sources'].items()},raw=raw,compact=compact)
