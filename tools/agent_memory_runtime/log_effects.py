@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .required_source_reads import read_source_text
-from .direct_sink_binding import direct_message_binding, source_snapshot
+from .direct_sink_binding import direct_message_binding, legacy_source_text
 
 import json
 import re
@@ -368,8 +368,7 @@ def call_message(
             if binding_cache is None:
                 source_cache[file_path] = read_source_text(root / file_path).splitlines(keepends=True)
             else:
-                snapshot = source_snapshot(root, file_path, binding_cache)
-                source_cache[file_path] = snapshot[1].splitlines(keepends=True) if snapshot else []
+                source_cache[file_path] = legacy_source_text(root, file_path, binding_cache).splitlines(keepends=True)
         except OSError:
             source_cache[file_path] = []
     line = int(item["line"])

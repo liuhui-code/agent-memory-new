@@ -72,12 +72,17 @@ class DirectSinkBindingTests(AgentMemoryTestBase):
                 self.run_memory(project,'init');self.run_memory(project,'wiki-index')
                 with sqlite3.connect(self.project_memory_dir(project)/'memory.db') as conn:
                     conn.row_factory=sqlite3.Row
+                    seen = 0
                     for item in wrapper_call_candidates(conn,self.project_id(project),None):
                         if item['caller']!='run': continue
+                        seen += 1
                         _, raw=call_message(project,item,{})
                         result=direct_message_binding(conn,self.project_id(project),project,item,raw,{})
                         self.assertNotEqual('real message',result)
                         self.assertNotEqual('business value',result)
+                    print('negative control', label, 'actual binding candidates', seen)
+                    if label in {'alias','two_sinks','arity','escaped','template','regex','comment_argument','generic_argument','local_shadow'}:
+                        self.assertGreater(seen, 0, label)
 
     def test_identity_and_source_mutations_refuse(self):
         from tools.agent_memory_runtime.direct_sink_binding import direct_message_binding
@@ -93,7 +98,7 @@ class DirectSinkBindingTests(AgentMemoryTestBase):
                 for key,value in [('caller_id',0),('wrapper_id',0),('source_digest',''),('index_generation',0),('wrapper_depth',2),('evidence_class','inferred_wrapped')]:
                     with self.subTest(key=key):
                         self.assertNotEqual('real message',direct_message_binding(conn,self.project_id(project),project,{**item,key:value},raw,{}))
-                for sql in ["UPDATE code_symbols SET source_digest = '' WHERE symbol='emit'", "UPDATE code_symbols SET index_generation=99 WHERE symbol='emit'", "UPDATE code_symbols SET owner_name='Other' WHERE symbol='emit'", "UPDATE code_symbols SET qualified_name='Other.emit' WHERE symbol='emit'"]:
+                for sql in ["UPDATE code_symbols SET source_digest = '' WHERE symbol='emit'", "UPDATE code_symbols SET index_generation=99 WHERE symbol='emit'", "UPDATE code_symbols SET owner_name='Other' WHERE symbol='emit'", "UPDATE code_symbols SET qualified_name='Other.emit' WHERE symbol='emit'", "UPDATE code_symbols SET source_digest='' WHERE symbol_type='class'", "UPDATE code_symbols SET index_generation=99 WHERE symbol_type='class'", "UPDATE code_symbols SET symbol_type='constructor' WHERE symbol='emit'"]:
                     conn.execute('SAVEPOINT guard');conn.execute(sql)
                     self.assertNotEqual('real message',direct_message_binding(conn,self.project_id(project),project,item,raw,{}))
                     conn.execute('ROLLBACK TO guard');conn.execute('RELEASE guard')

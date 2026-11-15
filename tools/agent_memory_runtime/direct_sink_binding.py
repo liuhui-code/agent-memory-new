@@ -11,7 +11,7 @@ from typing import Any
 from .log_api_catalog import ECMA_LANGUAGES, parse_log_api_call
 from .code_wiki_extractors import language_for
 from .required_source_reads import (
-    RequiredSourceReadError, source_expectation, source_read_failed,
+    RequiredSourceReadError, source_expectation, source_read_failed, read_source_bytes,
 )
 
 MAX_SOURCE_BYTES = 2 * 1024 * 1024
@@ -20,8 +20,13 @@ _LITERAL = r'''(?:'[^'\\\r\n]*'|"[^"\\\r\n]*")'''
 _SIMPLE = rf'(?:{_LITERAL}|{_IDENTIFIER}|[+-]?(?:\d+(?:\.\d*)?|\.\d+))'
 _HEADER = rf'(?:public\s+|private\s+|protected\s+)?(?P<name>{_IDENTIFIER})\s*\((?P<params>[^()]*)\)\s*(?::\s*void\s*)?\{{(?P<body>[\s\S]*)\}}'
 _PARAM = re.compile(rf'({_IDENTIFIER})\s*:\s*(string|number|boolean)')
-_RESERVED = {'this', 'super', 'arguments', 'eval', 'void', 'class', 'function',
-             'let', 'const', 'var', 'return', 'new', 'yield', 'await'}
+_RESERVED = set("""break case catch class const continue debugger default delete do
+else enum export extends false finally for function if import in instanceof new
+null return super switch this throw true try typeof var void while with yield
+await implements interface let package private protected public static arguments
+eval constructor get set async abstract as asserts any boolean declare is keyof
+module namespace never readonly require number object string symbol type undefined
+unique unknown from of global infer intrinsic out override satisfies using""".split())
 
 
 def source_snapshot(root: Path, relative: str, cache: dict) -> tuple[str, str] | None:
@@ -41,8 +46,6 @@ def source_snapshot(root: Path, relative: str, cache: dict) -> tuple[str, str] |
             return None
         source_expectation(path)
         if len(raw) > MAX_SOURCE_BYTES:
-            if expected is not None:
-                raise RequiredSourceReadError(f'required log binding source exceeds bound: {path}')
             return None
         digest = hashlib.sha256(raw).hexdigest()
         if expected is not None and (not expected[0] or digest != expected[0]):
@@ -52,6 +55,24 @@ def source_snapshot(root: Path, relative: str, cache: dict) -> tuple[str, str] |
         except UnicodeDecodeError:
             return None
         cache[key] = (digest, text)
+    return cache[key]
+
+
+def legacy_source_text(root: Path, relative: str, cache: dict) -> str:
+    """Reuse the existing caller read, without imposing new bounds on legacy output."""
+    key = ('legacy_source', relative)
+    if key not in cache:
+        raw = read_source_bytes(root / relative)
+        text = raw.decode('utf-8', errors='ignore').replace('\r\n', '\n').replace('\r', '\n')
+        cache[key] = text
+        proof = None
+        if len(raw) <= MAX_SOURCE_BYTES and (root / relative).resolve().is_relative_to(root.resolve()):
+            try:
+                strict = raw.decode('utf-8').replace('\r\n', '\n').replace('\r', '\n')
+                proof = (hashlib.sha256(raw).hexdigest(), strict)
+            except UnicodeDecodeError:
+                pass
+        cache[('source', relative)] = proof
     return cache[key]
 
 
@@ -120,8 +141,11 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
     sink = _row(conn, project_id, 'code_log_statements', int(item.get('sink_log_id') or 0), cache)
     if not caller or not wrapper or not sink:
         return fallback
+    if any(r.get('symbol_type') not in {'function', 'method'}
+           or r.get('symbol') in _RESERVED for r in (caller, wrapper)):
+        return fallback
     owner = wrapper.get('owner_name')
-    if not owner or caller.get('owner_name') != owner:
+    if not owner or not re.fullmatch(_IDENTIFIER, owner) or owner in _RESERVED or caller.get('owner_name') != owner:
         return fallback
     snapshot = source_snapshot(root, str(item['file_path']), cache)
     if not snapshot:
@@ -173,27 +197,33 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
     receiver = str(item['sink_statement']).strip().split('.')[0]
     if receiver in names:
         return fallback
-    classes = conn.execute('''SELECT start_line,end_line FROM code_symbols
+    classes = conn.execute('''SELECT * FROM code_symbols
         WHERE project_id=? AND file_path=? AND symbol=? AND symbol_type='class' ''',
         (project_id, item['file_path'], owner)).fetchall()
     if len(classes) != 1:
         return fallback
-    class_start, class_end = classes[0]['start_line'], classes[0]['end_line']
+    owner_row = dict(classes[0])
+    if (owner_row.get('source_digest') != digest or owner_row.get('index_generation') != generation
+            or not owner_row.get('symbol_key') or owner_row.get('qualified_name') != owner):
+        return fallback
+    class_start, class_end = owner_row['start_line'], owner_row['end_line']
     lines = text.splitlines()
     if not (0 < class_start <= wrapper['start_line'] <= wrapper['end_line'] <= class_end <= len(lines)
             and class_start <= caller['start_line'] <= caller['end_line'] <= class_end):
         return fallback
     owner_body = '\n'.join(lines[class_start-1:class_end])
-    if re.search(rf'(?m)^\s*(?:(?:public|private|protected|static|readonly)\s+)*{re.escape(receiver)}\s*[:=]', owner_body):
+    if re.search(rf'(?:^|[{{;\n])\s*(?:(?:public|private|protected|static|readonly)\s+)*{re.escape(receiver)}\s*[:=]', owner_body):
         return fallback
     call_line = int(item.get('line') or 0)
     if not (caller['start_line'] <= call_line <= caller['end_line']) or lines[call_line-1].strip().rstrip(';') != raw_call.strip():
         return fallback
     body = wm['body'].strip()
-    prefix = re.match(rf'(?:(?:void\s+{_IDENTIFIER})\s*;?\s*)*', body)[0]
-    if any(name not in names for name in re.findall(rf'void\s+({_IDENTIFIER})', prefix)):
-        return fallback
-    if body[len(prefix):].strip().rstrip(';').strip() != str(item['sink_statement']).strip().rstrip(';'):
+    while body.startswith('void'):
+        noop = re.match(rf'void[ \t]+({_IDENTIFIER})[ \t]*(?:;[ \t]*|\n[ \t]*)', body)
+        if not noop or noop[1] not in names:
+            return fallback
+        body = body[noop.end():].lstrip()
+    if not re.fullmatch(re.escape(str(item['sink_statement']).strip().rstrip(';')) + r'\s*;?', body.strip()):
         return fallback
     sink_line = int(sink.get('line') or 0)
     lines = text.splitlines()

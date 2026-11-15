@@ -66,3 +66,26 @@ compatibility gap: direct emit(message:string) and run() have no explicit :void.
 The full-body grammar now accepts omitted or explicit void return annotations;
 it still rejects all additional statements/aliases. This is preservation of a
 true first-parameter control, not relaxation of source identity or message oracle.
+
+## Independent review corrections, before final acceptance
+
+The initial candidate's shared bounded reader broadened the new2MiB/UTF8 refusal
+to old raw_call extraction. Review rejected that: legacy caller reading now keeps
+its existing whole-file read/ignore-decode contract; the same bytes are reused for
+new proof only if <=2MiB and strict UTF8. One existing read/file is shared; no extra
+new-proof read occurs. Large/invalid legacy raw_call controls compare exactly to
+the original call_message route. This is a bound on the NEW binding authority,
+not a newly imposed global file-reading limit. New proof-only reads stay bounded.
+
+Review also added class digest/generation/qualified identity checks, same-line
+field receiver shadow refusal, ordinary method types, conservative reserved words,
+and an actual semicolon/newline requirement for void PARAM no-ops. Unsupported
+syntax does not prove a literal binding. Binding reuses existing sink classification;
+it does not establish arbitrary Logger implementation behavior.
+
+Supplemental distinct-owner/same-name source first expected one usable positive
+edge, but the actual producer supplies zero edges. Preserve the failed run and
+correct the control to require that existing ambiguity refusal; do not claim a
+positive binding or tune the source to manufacture it. Negative controls now log
+actual candidate counts and assert nonempty for the expected binding-level cases.
+Zero-producer cases are explicitly not evidence that the helper rejected a receipt.

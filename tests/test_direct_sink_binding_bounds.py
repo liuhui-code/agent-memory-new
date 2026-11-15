@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 from tests.agent_memory_test_base import AgentMemoryTestBase
 from tests.test_direct_sink_binding import source
-from tools.agent_memory_runtime.direct_sink_binding import direct_message_binding, source_snapshot, MAX_SOURCE_BYTES
+from tools.agent_memory_runtime.direct_sink_binding import direct_message_binding, source_snapshot, legacy_source_text, MAX_SOURCE_BYTES
 from tools.agent_memory_runtime.log_effects import wrapper_call_candidates, call_message
 
 
@@ -19,6 +19,11 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
                 reads.append(path);return original(path,*args,**kwargs)
             with patch.object(Path,'open',counted):
                 self.assertEqual(source_snapshot(root,'x.ts',cache),source_snapshot(root,'x.ts',cache))
+            self.assertEqual([path],reads)
+            reads.clear(); cache={}
+            with patch.object(Path,'open',counted):
+                self.assertEqual('source',legacy_source_text(root,'x.ts',cache))
+                self.assertIsNotNone(source_snapshot(root,'x.ts',cache))
             self.assertEqual([path],reads)
             path.write_bytes(b'x'*(MAX_SOURCE_BYTES+1))
             self.assertIsNone(source_snapshot(root,'x.ts',{}))
@@ -39,23 +44,41 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
                     records.append(direct_message_binding(conn,self.project_id(project),project,item,raw,{}))
                 return records
 
-    def test_distinct_owner_same_name_does_not_redirect(self):
+    def test_distinct_owner_same_name_producer_refuses_ambiguity(self):
         text=source()+'''export class Another {
   emit(text: string): void {
     Logger.info(text)
   }
 }
 '''
-        self.assertEqual(['real message'],self.binding(text))
+        # Existing producer emits no call edge for these same-file names.
+        # This is a producer refusal control, not a successful binding receipt.
+        self.assertEqual([],self.binding(text))
 
     def test_shadow_and_multihop_never_gain_concrete_receipt(self):
         controls=[
             source(parameters='Logger: string, text: string',body='Logger.info(text)'),
             source().replace('export class Courier {','export class Courier {\n  private Logger: Object'),
+            source().replace('export class Courier {','export class Courier { private Logger: Object;'),
             source().replace('export class Courier {','export class Courier {\n  relay(a: string, b: string): void { this.emit(a,b) }').replace("this.emit('business value'", "this.relay('business value'"),
             source(parameters='{business}: Object, text: string'),
             source(parameters='business: string, text?: string'),
+            source(body='void business Logger.info(text)'),
+            source(parameters='while: string, text: string',body='Logger.info(text)'),
+            source(parameters='package: string, text: string',body='Logger.info(text)'),
         ]
         for text in controls:
             with self.subTest(text=text):
                 self.assertTrue(all(x not in ('real message','business value') for x in self.binding(text)))
+
+    def test_legacy_large_and_invalid_bytes_keep_raw_call(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);path=root/'Courier.ts'
+            call="this.emit('business', 'real message')"
+            item={'file_path':'Courier.ts','line':1,'wrapper':'emit'}
+            for data in [(call+'\n'+' '*(MAX_SOURCE_BYTES+1)).encode(),call.encode()+b'\n\xff']:
+                path.write_bytes(data)
+                legacy=call_message(root,item,{})
+                cache={}
+                self.assertEqual(legacy,call_message(root,item,{},cache))
+                self.assertIsNone(source_snapshot(root,'Courier.ts',cache))
