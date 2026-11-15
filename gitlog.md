@@ -12820,3 +12820,5 @@ Disclosure lexical result: known noncode rotate/toggle pair no longer synthesize
 
 ## File statewrite lexical investigation
 Base3e0ed25. Frozen independent public code-file summaries synthesize statewrite from OnlyText/QuotedWrite noncode.4 tests have5 before failures, controls preserve real assignments/unknown/equality. No production change yet; escaped quote unit spelling corrected before implementation with both results retained.
+
+File statewrite result: known noncode fake assignments removed from two public summaries; all real/unknown/equality controls preserved.13 focused and71 necessary related tests pass; independent4new tests plus marker/anchor/excerpt/activation audit accepted. No original38 claim; ID/generation rebuild documented.
