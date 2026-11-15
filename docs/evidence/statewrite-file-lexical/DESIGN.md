@@ -1,0 +1,9 @@
+# File statewrite known-code boundary
+
+Separate from disclosure source-owner scope and Chinese request hints. Base3e0ed25; frozen source file OnlyText is unchanged from prior public protocols and still has synthetic statewrite in its summary. Existing test_gesture_callback_is_normalized_without_inventing_state_write and callable/state-edge lexical repairs establish that operation hints must not invent assignments from verified noncode. This is a file-marker boundary, not a claim that every marker is executable authority.
+
+Candidate only changes final `if STATE_WRITE_RE.search(source)` used to emit statewrite. It does not change the earlier statehandoff predicate using the same regex, collection writes, regex equality handling, generic operations rotate or any other marker. A small function applies the existing callback_mask_lines; known mask supplies operation text, None keeps full legacy input. No new lexer, field/scope binding, weights or query language.
+
+All frozen markers besides statewrite must match for these fixtures; removing an item from a capped marker list can admit a formerly truncated tail on other inputs, so no universal unchanged-list claim. True string-value assignment/compound assignment, mixed simple templates with true writes, unknown interpolation and equality legacy behavior retained. Additional unit controls cover comments, empty text, strings with escaped quotes, slash/unclosed fallback, real cross-owner writes and multiple marker truncation behavior. Public named text queries remain available; strings are not deleted from index.
+
+Code install alone does not update stored file summaries. Verify ordinary merge learn-path activation; file IDs may change and generation advances. Preserve paths/digests and raw literal text, not record-ID stability. No full gate or original38 rerun.
