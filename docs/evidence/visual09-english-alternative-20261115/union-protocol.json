@@ -141,6 +141,75 @@
       ],
       "forbidden": [],
       "mode": "positive-source"
+    },
+    {
+      "name": "multi-stack",
+      "sources": {
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n",
+        "SecondLayer.ets": "@Component\nexport struct SecondLayer {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n",
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "LayerSurface.ets",
+        "SecondLayer.ets",
+        "TintSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
+    },
+    {
+      "name": "typed-callback",
+      "sources": {
+        "EventLayer.ets": "@Component\nexport struct EventLayer {\n build() {\n  Stack() {}\n   .onTouch((input: TouchEvent) => { this.openPanel() })\n }\n}\n",
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "EventLayer.ets",
+        "TintSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
+    },
+    {
+      "name": "unsupported-callback",
+      "sources": {
+        "GestureSurface.ets": "@Component\nexport struct GestureSurface {\n build() {\n  Stack() {}\n   .onTouch(() => { if (this.ready) { this.openPanel() } })\n }\n}\n",
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
+    },
+    {
+      "name": "shadowed-constructor",
+      "sources": {
+        "Stack.ets": "@Component\nexport struct Stack {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n",
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
+    },
+    {
+      "name": "literal-stack",
+      "sources": {
+        "LiteralSurface.ets": "@Component\nexport struct LiteralSurface {\n build() {\n  Column() { Text('Stack() {}') }\n }\n}\n",
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
     }
   ],
   "contract_document": "UNION-DESIGN.md"
