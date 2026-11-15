@@ -485,7 +485,8 @@ def excerpt_metadata(item: dict[str, Any]) -> dict[str, Any]:
     }
 
     members = item.get("constituent_ranges")
-    if isinstance(members, list) and len(members) == 2:
+    if (item.get("selection_reason") == "adjacent_display_union" and item.get("symbol") is None
+            and isinstance(members, list) and len(members) == 2):
         from .context_display_union import member_metadata
         bounded = [member_metadata(member) for member in members]
         if all(member is not None for member in bounded):

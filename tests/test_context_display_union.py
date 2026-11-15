@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from agent_memory_runtime.context_display_union import union_primary_display
@@ -113,6 +114,21 @@ class DisplayUnionTests(unittest.TestCase):
         self.p = copy.deepcopy(baseline)
         old = self.p['query_handoff']['code_anchors'][0]['source_excerpts'][0]
         old.update(symbol='commit',start_line=9,end_line=11,content='\n'.join(self.protocol['sources']['BufferSession.ets'].splitlines()[8:11]))
+        self.assertIs(self.run_union(),self.p)
+
+    def test_single_snapshot_and_changed_prefix(self):
+        original_open = Path.open
+        reads = []
+        def counted(path, *args, **kwargs):
+            if path.name == 'BufferSession.ets':
+                reads.append((args,kwargs))
+            return original_open(path,*args,**kwargs)
+        with patch.object(Path, 'open', counted):
+            result = self.run_union()
+        self.assertIsNot(result,self.p)
+        self.assertEqual(len(reads),1)
+        path = self.root/'BufferSession.ets'
+        path.write_text('// changed prefix\n'+path.read_text())
         self.assertIs(self.run_union(),self.p)
 
     def test_redaction_and_untrusted_nested_content(self):
