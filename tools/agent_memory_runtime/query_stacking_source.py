@@ -3,6 +3,10 @@
 from .query_background_source import BackgroundParser, UI
 from .query_render_source import lex, Unknown
 
+STRICT_BINDING_RESERVED = set(
+    "enum implements interface package private protected public static eval arguments".split())
+EXTRA_LINE_SEPARATORS = "\v\f\x1c\x1d\x1e\x85\u2028\u2029"
+
 
 class StackingParser(BackgroundParser):
     def __init__(self, source):
@@ -26,11 +30,15 @@ class StackingParser(BackgroundParser):
         self.take('(')
         if not self.peek(')'):
             param = self.identifier().value
-            if param in UI | {'Color', 'build'}:
+            if param in UI | {'Color', 'build'} | STRICT_BINDING_RESERVED:
                 raise Unknown()
             if self.optional(':'):
                 self.identifier()
-        self.take(')'); self.take('=>'); self.take('{')
+        parameter_end = self.take(')')
+        arrow = self.take('=>')
+        if '\n' in self.source[parameter_end.end:arrow.start]:
+            raise Unknown()
+        self.take('{')
         count = 0
         while not self.peek('}'):
             count += 1
@@ -49,7 +57,7 @@ class StackingParser(BackgroundParser):
 
 
 def parse_stacking_source(source):
-    if not isinstance(source, str) or '\u2028' in source or '\u2029' in source:
+    if not isinstance(source, str) or any(char in source for char in EXTRA_LINE_SEPARATORS):
         return None
     try:
         if len(source.encode('utf-8')) > 2 * 1024 * 1024:
@@ -61,4 +69,6 @@ def parse_stacking_source(source):
 
 def parse_visual_alternative_source(source):
     from .query_background_source import parse_background_source
+    if not isinstance(source, str) or any(char in source for char in EXTRA_LINE_SEPARATORS):
+        return None
     return parse_background_source(source) or parse_stacking_source(source)
