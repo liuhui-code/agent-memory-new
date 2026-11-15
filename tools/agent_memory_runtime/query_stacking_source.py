@@ -62,7 +62,8 @@ def parse_stacking_source(source):
     try:
         if len(source.encode('utf-8')) > 2 * 1024 * 1024:
             return None
-        return StackingParser(source.replace('\r\n', '\n').replace('\r', '\n')).parse()
+        parsed = StackingParser(source.replace('\r\n', '\n').replace('\r', '\n')).parse()
+        return parsed if parsed['owner'] not in STRICT_BINDING_RESERVED else None
     except (Unknown, UnicodeError, IndexError, RecursionError):
         return None
 
@@ -71,4 +72,5 @@ def parse_visual_alternative_source(source):
     from .query_background_source import parse_background_source
     if not isinstance(source, str) or any(char in source for char in EXTRA_LINE_SEPARATORS):
         return None
-    return parse_background_source(source) or parse_stacking_source(source)
+    parsed = parse_background_source(source) or parse_stacking_source(source)
+    return parsed if parsed and parsed['owner'] not in STRICT_BINDING_RESERVED else None

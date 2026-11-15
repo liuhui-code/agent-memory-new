@@ -7,6 +7,7 @@ from typing import Any, Protocol
 
 from .models import Project, QUERY_FTS_RECALL_LIMITS
 from .index_freshness import filter_fresh_candidate_rows
+from .query_behavior_concepts import behavior_marker_terms
 from .query_render_recall import projected_method_terms, filter_projected_method_ids, projected_behavior_terms
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
 from .query_fielded_retrieval import candidate_refs
