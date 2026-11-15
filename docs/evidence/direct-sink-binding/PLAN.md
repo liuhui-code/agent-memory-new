@@ -125,3 +125,12 @@ The nonliteral actual under a fully proven wrapper remains symbolic.
 
 The original frozen second_message_parameter source still must independently
 produce catalog refreshed in both public modes. No original231 gain is claimed.
+
+Further fixed compatibility review: a complex NON-message second argument
+computeBusiness() also caused a correct first-literal legacy message to become
+symbolic. Probe3851c46 froze and observed this. Parsing failure or arity mismatch
+now preserves legacy, not symbolic. Symbolic is limited to a fully parsed list,
+exact arity, fully proven source, and an explicitly nonliteral target argument.
+No positive binding grammar was expanded. Retain77-test intermediate pass as stage
+only, not final acceptance. Legacy source text is returned into the original line
+cache, not retained again unbounded; only <=2MiB proof text is retained additionally.

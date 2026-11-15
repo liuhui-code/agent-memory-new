@@ -60,20 +60,21 @@ def source_snapshot(root: Path, relative: str, cache: dict) -> tuple[str, str] |
 
 def legacy_source_text(root: Path, relative: str, cache: dict) -> str:
     """Reuse the existing caller read, without imposing new bounds on legacy output."""
-    key = ('legacy_source', relative)
-    if key not in cache:
-        raw = read_source_bytes(root / relative)
-        text = raw.decode('utf-8', errors='ignore').replace('\r\n', '\n').replace('\r', '\n')
-        cache[key] = text
-        proof = None
-        if len(raw) <= MAX_SOURCE_BYTES and (root / relative).resolve().is_relative_to(root.resolve()):
-            try:
-                strict = raw.decode('utf-8').replace('\r\n', '\n').replace('\r', '\n')
-                proof = (hashlib.sha256(raw).hexdigest(), strict)
-            except UnicodeDecodeError:
-                pass
-        cache[('source', relative)] = proof
-    return cache[key]
+    # call_message's existing line cache calls this once per file. Do not retain
+    # a second whole legacy text (especially for proof-ineligible large files).
+    raw = read_source_bytes(root / relative)
+    try:
+        text = raw.decode('utf-8')
+        strict = True
+    except UnicodeDecodeError:
+        text = raw.decode('utf-8', errors='ignore')
+        strict = False
+    text = text.replace('\r\n', '\n').replace('\r', '\n')
+    proof = None
+    if strict and len(raw) <= MAX_SOURCE_BYTES and (root / relative).resolve().is_relative_to(root.resolve()):
+        proof = (hashlib.sha256(raw).hexdigest(), text)
+    cache[('source', relative)] = proof
+    return text
 
 
 def _row(conn: sqlite3.Connection, project_id: str, table: str, identity: int, cache: dict):
@@ -246,7 +247,7 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
         return None
     args = _arguments(raw_call)
     if args is None or len(args) != len(names):
-        return fallback
+        return None
     actual = args[names.index(parameter)]
     if not re.fullmatch(_LITERAL, actual):
         return fallback

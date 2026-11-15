@@ -1,0 +1,62 @@
+{
+  "harness": "globalThis.Logger={info:message=>process.stdout.write(message+'\\n')}; const {Courier}=await import(process.argv[1]); new Courier().run();",
+  "note": "Execute exact frozen source bytes with external Logger stdout shim and exported class invocation; no source edit.",
+  "cases": {
+    "extra_method": {
+      "source_sha256": "256d8311ad0b5ebf1d5a3fcfa9225058fe0a8a679c066f00ca34e977439cd768",
+      "node_stdout": "real message\n",
+      "base8b": [
+        [
+          "real message"
+        ],
+        [
+          "real message"
+        ]
+      ],
+      "rejected_e5": [
+        [
+          "{text}"
+        ],
+        [
+          "{text}"
+        ]
+      ],
+      "fixed576": [
+        [
+          "real message"
+        ],
+        [
+          "real message"
+        ]
+      ]
+    },
+    "extra_field": {
+      "source_sha256": "30851fd4d700fb517e0306f746687f0a382a91ee1a7324505463b74dc7bdd2c2",
+      "node_stdout": "real message\n",
+      "base8b": [
+        [
+          "real message"
+        ],
+        [
+          "real message"
+        ]
+      ],
+      "rejected_e5": [
+        [
+          "{text}"
+        ],
+        [
+          "{text}"
+        ]
+      ],
+      "fixed576": [
+        [
+          "real message"
+        ],
+        [
+          "real message"
+        ]
+      ]
+    }
+  }
+}

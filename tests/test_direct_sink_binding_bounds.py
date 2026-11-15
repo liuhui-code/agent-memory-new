@@ -89,6 +89,7 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
                 cache={}
                 self.assertEqual(legacy,call_message(root,item,{},cache))
                 self.assertIsNone(source_snapshot(root,'Courier.ts',cache))
+                self.assertFalse(any(key[0]=='legacy_source' for key in cache))
 
     def test_arguments_reject_bare_keywords(self):
         from tools.agent_memory_runtime.direct_sink_binding import _arguments
@@ -105,3 +106,9 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
                 text=base.replace('export class Courier {','export class Courier {'+addition)
                 for anchors in DirectSinkBindingTests().public_case(text):
                     self.assertEqual(['real message'],[a.get('message_template') for a in anchors])
+
+    def test_complex_non_message_argument_preserves_public_message(self):
+        from tests.test_direct_sink_binding import DirectSinkBindingTests
+        text=source('text: string, business: string','void business\n    Logger.info(text)',"'real message', computeBusiness()")
+        for anchors in DirectSinkBindingTests().public_case(text):
+            self.assertEqual(['real message'],[a.get('message_template') for a in anchors])
