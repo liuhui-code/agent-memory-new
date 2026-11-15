@@ -1,0 +1,41 @@
+.FFFF
+======================================================================
+FAIL: test_quotes_templates_and_comments (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_quotes_templates_and_comments) (source='return "SymbolGlyph(\'arrow\').rotate({ angle: this.opened ? 0 : 180 }); this.opened = !this.opened;";')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/disclosure-lexical/tests/test_disclosure_marker_lexical.py", line 26, in test_quotes_templates_and_comments
+    with self.subTest(source=s):self.assertNotIn('disclosurestate',extract_arkts_behavior_markers(s))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'disclosurestate' unexpectedly found in ['disclosurestate', 'statewrite']
+
+======================================================================
+FAIL: test_quotes_templates_and_comments (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_quotes_templates_and_comments) (source="return `SymbolGlyph('arrow').rotate({ angle: this.opened ? 0 : 180 }); this.opened = !this.opened;`;")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/disclosure-lexical/tests/test_disclosure_marker_lexical.py", line 26, in test_quotes_templates_and_comments
+    with self.subTest(source=s):self.assertNotIn('disclosurestate',extract_arkts_behavior_markers(s))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'disclosurestate' unexpectedly found in ['disclosurestate', 'statewrite']
+
+======================================================================
+FAIL: test_public_summary_noncode_not_disclosure (tests.test_disclosure_marker_lexical.DisclosureMarkerPublic.test_public_summary_noncode_not_disclosure) (file='OnlyText.ets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/disclosure-lexical/tests/test_disclosure_marker_lexical.py", line 18, in test_public_summary_noncode_not_disclosure
+    with self.subTest(file=f):self.assertNotIn('disclosurestate',actual[f])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'disclosurestate' unexpectedly found in 'ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite'
+
+======================================================================
+FAIL: test_public_summary_noncode_not_disclosure (tests.test_disclosure_marker_lexical.DisclosureMarkerPublic.test_public_summary_noncode_not_disclosure) (file='Quoted.ets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/disclosure-lexical/tests/test_disclosure_marker_lexical.py", line 18, in test_public_summary_noncode_not_disclosure
+    with self.subTest(file=f):self.assertNotIn('disclosurestate',actual[f])
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'disclosurestate' unexpectedly found in 'ArkTS file with 3 non-empty lines; operations: rotate; behavior: disclosurestate, statewrite'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.959s
+
+FAILED (failures=4)
