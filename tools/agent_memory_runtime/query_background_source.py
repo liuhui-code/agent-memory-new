@@ -61,17 +61,23 @@ class BackgroundParser(Parser):
         while self.optional('.'):
             prop = self.take(kind='ident').value
             self.take('(')
-            if prop == 'backgroundColor':
-                if self.optional('Color'):
-                    self.take('.'); self.identifier()
-                else:
-                    self.literal()
-                self.backgrounds += 1
-            elif prop == 'shadow':
-                self.literal()
-            else:
-                raise Unknown()
+            self.modifier(prop)
             self.take(')')
+
+    def modifier(self, prop):
+        if prop == 'backgroundColor':
+            if self.optional('Color'):
+                self.take('.'); self.identifier()
+            else:
+                self.literal()
+            self.backgrounds += 1
+        elif prop == 'shadow':
+            self.literal()
+        else:
+            raise Unknown()
+
+    def has_witness(self):
+        return bool(self.backgrounds)
 
     def parse(self):
         self.take('@'); self.take('Component')
@@ -100,7 +106,7 @@ class BackgroundParser(Parser):
         self.ui(); self.optional(';')
         end = self.take('}').line
         self.take('}')
-        if self.tokens[self.pos].kind != 'eof' or not self.backgrounds:
+        if self.tokens[self.pos].kind != 'eof' or not self.has_witness():
             raise Unknown()
         return {'owner': owner, 'build_start': start, 'build_end': end}
 

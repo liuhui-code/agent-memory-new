@@ -23,7 +23,7 @@ class Token:
     line: int
 
 
-def lex(source):
+def lex(source, *, allow_arrow=False):
     tokens = []
     pos = 0
     line = 1
@@ -73,6 +73,8 @@ def lex(source):
                 value = match.group(); pos = match.end(); kind = 'ident'
             elif number:
                 value = number.group(); pos = number.end(); kind = 'number'
+            elif allow_arrow and source.startswith('=>', pos):
+                value = '=>'; pos += 2; kind = 'punct'
             elif char in '@{}().,:;=-':
                 value = char; pos += 1; kind = 'punct'
             else:

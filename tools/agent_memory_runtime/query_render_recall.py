@@ -20,6 +20,8 @@ _BACKGROUND_RESERVED=('不','勿','别','非','无','仅','只','除','或者','
 
 
 def request_terms(request):
+    if request.capability == 'visual_alternative':
+        return ('stack', 'backgroundcolor')
     return ('backgroundcolor',) if request.capability=='background' else _TERMS
 
 
@@ -34,6 +36,9 @@ class RenderRequest:
 def parse_render_request(query):
     if not isinstance(query,str) or len(query)>400:
         return None
+    from .query_visual_request import visual_alternative_request
+    if visual_alternative_request(query):
+        return RenderRequest(query, '', '', 'visual_alternative')
     from .query_render_request_zh import chinese_cleanup_request
     chinese = chinese_cleanup_request(query)
     if chinese is not None:

@@ -4,7 +4,7 @@ from copy import deepcopy
 import hashlib,json
 from pathlib import Path
 from .storage import connect
-from .query_render_recall import parse_render_request
+from .query_render_recall import parse_render_request, request_terms
 from .query_language import excluded_code_candidate
 from .query_ui_pair import valid_row
 
@@ -28,10 +28,10 @@ class RenderTrial(dict):
 
 def retain_background_candidates(query,context,items):
     request = parse_render_request(query)
-    if request is None or request.capability != 'background':
+    if request is None or request.capability not in {'background', 'visual_alternative'}:
         return context
     paths = {r.get('file_path') for r in items if r.get('kind') == 'symbol'
-             and 'backgroundcolor' in (r.get('method_evidence') or '').split()}
+             and set(request_terms(request)) & set((r.get('method_evidence') or '').split())}
     if not paths or len(paths) > 12:
         return context
     pool = deepcopy([r for r in items if r.get('file_path') in paths])
@@ -59,6 +59,9 @@ def bind_render_context(project,query,baseline,trial):
     if request.capability == "background":
         from .query_background_source import parse_background_source
         parse_render_source = parse_background_source
+    elif request.capability == 'visual_alternative':
+        from .query_stacking_source import parse_visual_alternative_source
+        parse_render_source = parse_visual_alternative_source
     for context in (baseline,trial):
         h=context.get('query_handoff')or{}
         path=h.get('path_context')or{}
@@ -68,7 +71,7 @@ def bind_render_context(project,query,baseline,trial):
                        or a.get('identity_match') for a in anchors)):
             return baseline
     pool = trial.get('wiki_matches') or []
-    if request.capability == 'background':
+    if request.capability in {'background', 'visual_alternative'}:
         pool = background_candidates(query, trial)
         if pool is None:
             return baseline
@@ -118,7 +121,7 @@ def bind_render_context(project,query,baseline,trial):
                     or row['index_generation']!=owner['index_generation']
                     or not owner['start_line']<=start<=end<=owner['end_line']):
                 return baseline
-            if request.capability == 'background' and not any(
+            if request.capability in {'background', 'visual_alternative'} and not any(
                     x.get('kind') == 'symbol' and all(x.get(k) == row[k] for k in
                     ('id', 'symbol_key', 'file_path', 'source_digest', 'index_generation')) for x in pool):
                 return baseline
@@ -129,7 +132,7 @@ def bind_render_context(project,query,baseline,trial):
     if not receipts or len(receipts)>3:
         return baseline
     view=deepcopy(dict(trial));view['query_handoff']['code_anchors']=selected
-    if request.capability == 'background':
+    if request.capability in {'background', 'visual_alternative'}:
         ids = {a['record_id'] for a in selected}
         view['wiki_matches'] = deepcopy([r for r in pool if r.get('kind') == 'symbol' and r.get('id') in ids])
     view['query_handoff']['callable_evidence']={'schema_version':'agent-callable-evidence/v1','certainty':'uncertain',
