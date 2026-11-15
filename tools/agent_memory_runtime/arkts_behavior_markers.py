@@ -406,9 +406,14 @@ def validation_guard_present(source: str) -> bool:
 def disclosure_state_present(source: str) -> bool:
     if not DISCLOSURE_SYMBOL_RE.search(source):
         return False
-    for match in DISCLOSURE_ROTATION_RE.finditer(source):
+    # Glyph names legitimately live in strings; operation syntax must be code.
+    # Unsupported lexical input retains the complete previous hint behavior.
+    from .ecma_callback_mask import callback_mask_lines
+    masked = callback_mask_lines(source.splitlines())
+    operations = "\n".join(masked) if masked is not None else source
+    for match in DISCLOSURE_ROTATION_RE.finditer(operations):
         state = re.escape(match.group(1))
-        if re.search(rf"\bthis\.{state}\s*=\s*!\s*this\.{state}\b", source):
+        if re.search(rf"\bthis\.{state}\s*=\s*!\s*this\.{state}\b", operations):
             return True
     return False
 
