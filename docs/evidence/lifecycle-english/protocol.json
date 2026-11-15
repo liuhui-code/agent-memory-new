@@ -1,0 +1,237 @@
+{
+  "classification": "independent Development; frozen before implementation",
+  "base": "7daadb0",
+  "source_provenance": "Exact previously frozen lifecycle-source-prerequisites protocol families; no source edits or added noise",
+  "interpretation": "Finite positive source presentation. Observation NP supplies no source identity, field, uniqueness, stored-NP satisfaction or runtime cause.",
+  "gate": "At least one new English single-owner positive must actually lose BufferSession at early focus despite current source/typed identity/edge in the original pool, and not be protected by logs/graph/path. Otherwise STOP with no query/source adjustment.",
+  "families": [
+    {
+      "id": "original-four",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "english-head",
+          "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "exact_paths": [
+            "BufferSession.ets"
+          ],
+          "complete_classes": true
+        },
+        {
+          "id": "english-observed",
+          "query": "Restart loses the saved scratch buffer; return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "exact_paths": [
+            "BufferSession.ets"
+          ],
+          "complete_classes": true
+        },
+        {
+          "id": "english-other-observation",
+          "query": "Restart loses the saved written notes; return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "exact_paths": [
+            "BufferSession.ets"
+          ],
+          "complete_classes": true
+        },
+        {
+          "id": "lifecycle-0",
+          "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "forbidden": [
+            "WriteQueue.ets",
+            "TextPanel.ets"
+          ],
+          "criterion": "old frozen required/forbidden",
+          "unchanged": true
+        },
+        {
+          "id": "lifecycle-1",
+          "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "forbidden": [
+            "WriteQueue.ets",
+            "TextPanel.ets"
+          ],
+          "criterion": "old frozen required/forbidden",
+          "unchanged": true
+        },
+        {
+          "id": "lifecycle-2",
+          "query": "Find PendingQueue.append.",
+          "required": [
+            "PendingQueue.ets"
+          ],
+          "forbidden": [],
+          "criterion": "old frozen required/forbidden",
+          "unchanged": true
+        },
+        {
+          "id": "lifecycle-3",
+          "query": "Find both BufferSession and PendingQueue source.",
+          "required": [
+            "BufferSession.ets",
+            "PendingQueue.ets"
+          ],
+          "forbidden": [],
+          "criterion": "old frozen required/forbidden",
+          "unchanged": true
+        },
+        {
+          "id": "unknown-0",
+          "query": "请定位同时负责生命周期恢复、状态更新和持久化的源码，并解释日志。",
+          "criterion": "unchanged",
+          "unchanged": true
+        },
+        {
+          "id": "unknown-1",
+          "query": "请不要返回同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged",
+          "unchanged": true
+        },
+        {
+          "id": "unknown-2",
+          "query": "请生成同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged",
+          "unchanged": true
+        },
+        {
+          "id": "unknown-3",
+          "query": "“重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。”",
+          "criterion": "unchanged",
+          "unchanged": true
+        },
+        {
+          "id": "unknown-4",
+          "query": "重启后恢复任意资料，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged",
+          "unchanged": true
+        },
+        {
+          "id": "unknown-5",
+          "query": "请定位两个分别负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "unchanged",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-0",
+          "query": "\"Return the coordinator owning restore lifecycle, current state, and storage commit.\"",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-1",
+          "query": "Generate the coordinator owning restore lifecycle, current state, and storage commit.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-2",
+          "query": "Return both coordinators owning restore lifecycle, current state, and storage commit.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-3",
+          "query": "Return the coordinator owning restore lifecycle, current state, and storage commit. Also show PendingQueue.append.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-4",
+          "query": "Return the coordinator owning restore lifecycle, current state, and storage commit except WriteQueue.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-5",
+          "query": "Return the coordinator owning restore lifecycle and storage commit.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-6",
+          "query": "Other observation; Return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-7",
+          "query": "Restart loses the saved code; return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "unchanged": true
+        },
+        {
+          "id": "english-unsupported-8",
+          "query": "Restart loses the saved scratch buffer; return PendingQueue.append.",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "id": "two-complete-owners",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "EditorSession.ets": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "two-complete-owners",
+          "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+          "criterion": "both complete positive owners if all fit; otherwise complete baseline, never partial positive permission",
+          "unchanged": true
+        },
+        {
+          "id": "pair-english-head",
+          "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "exact_paths": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_classes": true
+        },
+        {
+          "id": "pair-english-observed",
+          "query": "Restart loses the saved scratch buffer; return the coordinator owning restore lifecycle, current state, and storage commit.",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "exact_paths": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_classes": true
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "original-four": {
+      "BufferSession.ets": "f0f4a6b216fa4030929a5bf0134a2fdefd99544da99cd47f2c2069fc53d9e3a8",
+      "WriteQueue.ets": "c65323ca6083a6ad16ff10e87896b8d71e7202e884efa0cc731f319467b99f38",
+      "TextPanel.ets": "65d9a270259b2b58d701adb400101c9f5890b26b52b933e278c9d75c3cd4ab74",
+      "SplitRoles.ets": "b3f567a9beee95595bba36437ceb1ed2914a1e17e329ba91ea814e9b03dfce29",
+      "PendingQueue.ets": "9ce18d14d473f19df39b655a6474a1510656ce7155b648c9a41d66270126b030"
+    },
+    "two-complete-owners": {
+      "BufferSession.ets": "f0f4a6b216fa4030929a5bf0134a2fdefd99544da99cd47f2c2069fc53d9e3a8",
+      "EditorSession.ets": "04afe202f5a79bd805f0ade7cd8a32ec6b1f230ea811fcd87619aff8aaf560a9"
+    }
+  },
+  "acceptance": "Every new positive preserves complete qualified class set under1500; every unchanged compact handoff exact; all raw handoffs exact. Source grammar/index/ranking/budgets/guards unchanged. Independent result first; original18 separately after review."
+}

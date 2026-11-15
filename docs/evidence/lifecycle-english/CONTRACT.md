@@ -68,3 +68,13 @@ If safety conditions cannot interpret the role bundle without selecting by fixtu
 names or symptom text, reject this request contract. A before red is not permission
 to weaken any protection or budget. Original18 is measured separately only after
 independent public after and code review; never infer a group total from history.
+
+## Independent semantic review disposition
+
+Review permits freezing the before experiment: the role bundle can refer to the
+existing finite source witness without inferring storage/runtime causality. This
+is positive source presentation, not proof that arbitrary saved-NP content was
+restored. Add a different observation NP with identical head and both-owner cases;
+they must not choose by NP. Protocol freezes three new single-owner positives,
+two pair positives, all ten previous controls and nine English refusal controls.
+At least one actual same-layer new English red remains mandatory before any edit.
