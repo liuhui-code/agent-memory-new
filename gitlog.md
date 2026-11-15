@@ -12754,3 +12754,11 @@ which lacks Stack certification and unknown preservation. No production candidat
 original oracle, threshold, budget or main change; zero new repairs. Twelve
 existing background contract tests pass; one initial nonexistent-module error is
 retained. See docs/evidence/visual09-english-alternative-20261115/README.md.
+
+## 2026-11-15 visual09 positive-set contract correction and next design
+
+Coordinator clarified that existing09 positive projections may skip unknowns
+without absence/exhaustiveness claims. Earlier evidence remains untouched, but its
+blanket unknown-preservation requirement is not a valid inherited rule. Freeze a
+separate positive-set protocol and bounded Stack+background OR proposal, pending
+independent review before implementation. No production change yet.

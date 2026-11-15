@@ -1,0 +1,147 @@
+{
+  "classification": "independent synthetic Development, not holdout or causal evidence",
+  "base": "256a5e934a9430ff8039e4ed72be48145cdf8e9f",
+  "purpose": "Corrected positive-set contract, prospective V2: both positive alternatives retained; unknown may be skipped without absence/exhaustiveness claim. V1 remains immutable.",
+  "expectations": "Required positive paths with exact complete build excerpts; forbidden literal-only notes; no unsupported request projection. Unknown-helper has no direct background certificate; known direct Stack must remain.",
+  "stop": "No direct background-only adaptation. Run all controls; unsupported extra source/unsafe authority means reject candidate. No original oracle or budget change.",
+  "cases": [
+    {
+      "name": "alternative-pair",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n",
+        "StylingNotes.ets": "export class StylingNotes {\n describe(): string { return 'stacking background styling source'; }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets",
+        "LayerSurface.ets"
+      ],
+      "forbidden": [
+        "StylingNotes.ets"
+      ],
+      "mode": "positive-source"
+    },
+    {
+      "name": "background-only",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "StylingNotes.ets": "export class StylingNotes {\n describe(): string { return 'stacking background styling source'; }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets"
+      ],
+      "forbidden": [
+        "StylingNotes.ets"
+      ],
+      "mode": "positive-source"
+    },
+    {
+      "name": "stack-only",
+      "sources": {
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n",
+        "StylingNotes.ets": "export class StylingNotes {\n describe(): string { return 'stacking background styling source'; }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "LayerSurface.ets"
+      ],
+      "forbidden": [
+        "StylingNotes.ets"
+      ],
+      "mode": "positive-source"
+    },
+    {
+      "name": "multi-background",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "SecondSurface.ets": "@Component\nexport struct SecondSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets",
+        "SecondSurface.ets",
+        "LayerSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
+    },
+    {
+      "name": "unknown-callback",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "GestureSurface.ets": "@Component\nexport struct GestureSurface {\n build() {\n  Stack() {}\n   .onTouch(() => { this.openPanel() })\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets",
+        "GestureSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "direct-stack-with-bounded-event-syntax"
+    },
+    {
+      "name": "unknown-helper",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(this.tint())\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n"
+      },
+      "query": "Return the stacking or background styling source.",
+      "required": [
+        "LayerSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-set-unknown-not-absence"
+    },
+    {
+      "name": "negation",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n"
+      },
+      "query": "Do not return the stacking or background styling source.",
+      "required": [],
+      "forbidden": [],
+      "mode": "no-alternative-authority"
+    },
+    {
+      "name": "quotation",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n"
+      },
+      "query": "The report says \"Return the stacking or background styling source.\"",
+      "required": [],
+      "forbidden": [],
+      "mode": "no-alternative-authority"
+    },
+    {
+      "name": "conjunction",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n"
+      },
+      "query": "Return the stacking and background styling source.",
+      "required": [],
+      "forbidden": [],
+      "mode": "no-alternative-authority"
+    },
+    {
+      "name": "observation-renamed",
+      "sources": {
+        "TintSurface.ets": "@Component\nexport struct TintSurface {\n build() {\n  Column() { Text('Summary') }\n   .backgroundColor(Color.White)\n }\n}\n",
+        "LayerSurface.ets": "@Component\nexport struct LayerSurface {\n build() {\n  Stack() { Text('Summary') }\n }\n}\n"
+      },
+      "query": "The toolbar covers the footer. Return the stacking or background styling source.",
+      "required": [
+        "TintSurface.ets",
+        "LayerSurface.ets"
+      ],
+      "forbidden": [],
+      "mode": "positive-source"
+    }
+  ],
+  "contract_document": "UNION-DESIGN.md"
+}
