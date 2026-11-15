@@ -14,7 +14,10 @@ class FileStatewritePublic(AgentMemoryTestBase):
    rows=json.loads(self.run_memory(root,'list','--type','code-file','--limit','100','--json').stdout);rows={r['file_path']:r for r in rows}
    for n in p['absent']:
     with self.subTest(file=n):self.assertNotIn('statewrite',rows[n]['summary'])
-   for n in p['present']:
+   # Equality was intentionally legacy-positive only at the lexical stage.
+   # The independently frozen file operator repair now removes that false hint.
+   self.assertNotIn('statewrite',rows['Equality.ets']['summary'])
+   for n in [name for name in p['present'] if name != 'Equality.ets']:
     with self.subTest(file=n):self.assertIn('statewrite',rows[n]['summary'])
 
 class FileStatewriteBoundaries(unittest.TestCase):
@@ -23,8 +26,8 @@ class FileStatewriteBoundaries(unittest.TestCase):
    with self.subTest(source=s):self.assertNotIn('statewrite',extract_arkts_behavior_markers(s))
   for s in ["this.name = 'ready';",'this.count+=1;', 'const note=`this.fake=3`;this.count=2;',"class A {m(){this.count=2;}} class B {m(){this.count=3;}}"]:
    with self.subTest(source=s):self.assertIn('statewrite',extract_arkts_behavior_markers(s))
- def test_unknown_and_equality_keep_legacy(self):
-  for s in ['return `this.count=2 ${value}`;', 'const x=/a/; return "this.count=2";', 'return "this.count=2;', 'return this.count===2;']:
+ def test_unknown_lexical_assignment_keeps_legacy(self):
+  for s in ['return `this.count=2 ${value}`;', 'const x=/a/; return "this.count=2";', 'return "this.count=2;']:
    with self.subTest(source=s):self.assertIn('statewrite',extract_arkts_behavior_markers(s))
  def test_original_marker_contract_is_not_broadened(self):
   self.assertNotIn('statewrite',extract_arkts_behavior_markers('const count=2;'))
