@@ -17,6 +17,7 @@ test_same_read_snapshot_not_late_source (tests.test_cache_scan_selection.CacheSc
 test_semantic_identity_and_conflicting_aliases (tests.test_cache_scan_selection.CacheScanSelectionTests.test_semantic_identity_and_conflicting_aliases) ... ok
 test_unknown_competitor_not_absence_and_stale_positive (tests.test_cache_scan_selection.CacheScanSelectionTests.test_unknown_competitor_not_absence_and_stale_positive) ... ok
 test_unsupported_requests_no_source_work (tests.test_cache_scan_selection.CacheScanSelectionTests.test_unsupported_requests_no_source_work) ... ok
+test_public_multiple_positive_scan_bodies (tests.test_cache_scan_public.CacheScanPublicTests.test_public_multiple_positive_scan_bodies) ... ok
 test_unchanged_public_red_and_three_controls (tests.test_cache_scan_public.CacheScanPublicTests.test_unchanged_public_red_and_three_controls) ... ok
 test_composition_only_explicitly_defers (tests.test_render_selection.RenderSelectionTests.test_composition_only_explicitly_defers) ... ok
 test_default_disabled_and_single_records (tests.test_render_selection.RenderSelectionTests.test_default_disabled_and_single_records) ... ok
@@ -78,6 +79,6 @@ test_reverse_order_and_unique_range_evidence_are_preserved (tests.test_lossless_
 test_tiny_profile_passes_latency_and_query_plan_gates (tests.test_scale_benchmark.ScaleBenchmarkTests.test_tiny_profile_passes_latency_and_query_plan_gates) ... ok
 
 ----------------------------------------------------------------------
-Ran 78 tests in 13.649s
+Ran 79 tests in 14.825s
 
 OK

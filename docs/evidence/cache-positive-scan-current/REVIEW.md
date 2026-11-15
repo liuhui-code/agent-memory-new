@@ -22,3 +22,15 @@ composition-kwargs expectation missing the newly required defer flag and an old 
 module import requiring PYTHONPATH=.:tests. The expectation now covers the new explicit
 accounting flag; no capability oracle/threshold/budget changed. Final results are
 recorded separately, not substituted for the original run.
+
+The additional public three-source test initially expected all source files, which
+exceeded the frozen non-exhaustive baseline-pool contract. Its exact test and failed
+run are preserved in multi-initial-tests.py.txt and multi-initial-failure.txt.
+Multi-public.json proves the baseline pool has ExpiryStore.trim and SecondStore.trim
+plus genuine FIFO and descriptive candidates, but no ThirdStore row. The parent
+reviewer approved correcting this controlled integration test: it now explicitly
+asserts that exact upstream two-scan pool and third-not-recalled boundary, then
+requires both complete positive bodies. A future third recall causes the test to
+fail for review rather than silently accepting arbitrary output. Three positives
+in the unit input pool still test consumer completeness, not public recall. No
+product, original oracle, ranking, budget or query changes were made for this result.

@@ -1,0 +1,15 @@
+test_public_multiple_positive_scan_bodies (tests.test_cache_scan_public.CacheScanPublicTests.test_public_multiple_positive_scan_bodies) ... FAIL
+
+======================================================================
+FAIL: test_public_multiple_positive_scan_bodies (tests.test_cache_scan_public.CacheScanPublicTests.test_public_multiple_positive_scan_bodies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cache24/tests/test_cache_scan_public.py", line 43, in test_public_multiple_positive_scan_bodies
+    self.assertEqual({a['file_path'] for a in anchors},{name+'.ts' for name in names})
+AssertionError: Items in the second set but not the first:
+'ThirdStore.ts'
+
+----------------------------------------------------------------------
+Ran 1 test in 1.047s
+
+FAILED (failures=1)

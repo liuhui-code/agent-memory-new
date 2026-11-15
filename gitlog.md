@@ -12807,3 +12807,8 @@ not an aggregate total claim. All failed intermediate commands remain documented
 - Original independent executable-scan public red now returns complete ExpiryStore.trim; timestamp/FIFO/text controls retain exact callable and anchor output.
 - Independent review found owner qualified-name hole; fixed identity conflicts and added negative controls. Focused/related/tiny-performance 78 tests and 500-line gate passed at this checkpoint.
 - Additional three-source public probe exposed an expectation beyond the frozen recalled-pool contract: only two scan methods are in baseline wiki_matches and both return. Its initial all-three assertion is currently failed/pending review; no claim of exhaustive recall or original-group repair. Original bounded-cache group remains 2/3.
+
+## 2026-11-15 cache positive scan final focused acceptance
+- Final 79 focused/related/tiny-performance tests pass; all Python files <=500 lines. Exact query2/FIFO/text public anchors and callable evidence unchanged.
+- Archived the exploratory all-project three-source failed expectation; independent review approved the fixed baseline-pool contract test, which explicitly freezes the unrecalled third-source boundary. No retrieval/oracle/budget adjustment.
+- Original bounded-cache three-variant group remains 2/3. This repairs one independent public executable-scan red only, not the original scenario or timestamp contract; no original repair count increment.

@@ -38,9 +38,15 @@ class CacheScanPublicTests(AgentMemoryTestBase):
             (root/'ArrivalPool.ts').write_text(P['sources']['ArrivalPool.ts'])
             (root/'CacheMonitor.ts').write_text(P['sources']['CacheMonitor.ts'])
             self.run_memory(root,'init'); self.run_memory(root,'learn-path','--path','.')
+            raw=json.loads(self.run_memory(root,'context','--query',P['queries'][0]['query'],'--json').stdout)
+            recalled={r['file_path'] for r in raw['wiki_matches'] if r.get('kind')=='symbol' and r.get('symbol')=='trim'}
+            # Freeze this upstream non-exhaustive boundary, rather than silently
+            # changing an all-project expectation to whatever the consumer returns.
+            self.assertEqual(recalled,{'ExpiryStore.ts','SecondStore.ts','ArrivalPool.ts'})
+            self.assertNotIn('ThirdStore.ts',{r['file_path'] for r in raw['wiki_matches']})
             out=json.loads(self.run_memory(root,'context','--query',P['queries'][0]['query'],'--compact','--json').stdout)
             anchors=out['query_handoff']['code_anchors']
-            self.assertEqual({a['file_path'] for a in anchors},{name+'.ts' for name in names})
+            self.assertEqual({a['file_path'] for a in anchors},{'ExpiryStore.ts','SecondStore.ts'})
             self.assertTrue(all(any(e['start_line']==3 and e['end_line']==14 and not e['truncated']
                                    for e in a.get('source_excerpts',[])) for a in anchors))
             self.assertLessEqual(out['output_budget']['estimated_tokens'],1500)
