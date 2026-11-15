@@ -12700,3 +12700,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   new missing header. Preserve all runner/test/review failures, no blanket all-green.
 - Independent Development bug only, no original231 gain/full/holdout/remote write.
   Final report:docs/evidence/direct-sink-binding/RESULT.md.
+## 2026-11-15 - Freeze Chinese cleanup request adapter Development before
+
+- Actual public independent before: two explicit Chinese cleanup/UI requests return
+  no anchors; observation variant retains a non-cleanup panel. English and named
+  helper controls already succeed. No log/path protection; existing source witness
+  admits the true consumer. Missing request admission is the first boundary.
+- Freeze queries/sources and negative/discard compatibility controls before changes.
+  Semantic review requires conjunction, non-authoritative observation and enforced
+  existing CamelCase exclusion. No serving change or original gain at this stage.

@@ -1,0 +1,90 @@
+{
+  "classification": "prospective independent Development of language adapter to existing cleanup request/source contract; no production change yet",
+  "base": "8b5275a901d4f2c2183346aa7c73e879605d5337",
+  "sources": {
+    "MessageSurface.ets": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "MessageRecord.ets": "export class MessageRecord {\n  content: string = ''\n  title: string = ''\n}\n",
+    "DetailPanel.ets": "@Component\nexport struct DetailPanel {\n  build() {\n    Column() { Text('Message details') }\n  }\n}\n",
+    "DisplaySettings.ets": "export class DisplaySettings {\n  displayName: string = ''\n  saveName(): void {\n    this.displayName = this.displayName.trim()\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "zh-head",
+      "query": "请定位清洗并渲染文本的视图源码。",
+      "semantic_cleanup_request": true,
+      "criterion": "positive_source"
+    },
+    {
+      "id": "zh-observation",
+      "query": "消息详情仍显示 HTML 标签，请查找负责清洗并渲染正文的 view，不要返回 MessageRecord 数据类。",
+      "semantic_cleanup_request": true,
+      "criterion": "positive_source"
+    },
+    {
+      "id": "zh-source",
+      "query": "请返回负责清洗并渲染正文的 UI 源码。",
+      "semantic_cleanup_request": true,
+      "criterion": "positive_source"
+    },
+    {
+      "id": "en-head",
+      "query": "Return the UI rendering cleanup owner.",
+      "semantic_cleanup_request": true,
+      "criterion": "positive_source"
+    },
+    {
+      "id": "explicit",
+      "query": "Locate MessageSurface.plainBody source.",
+      "semantic_cleanup_request": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "data-only",
+      "query": "请返回 MessageRecord 数据类。",
+      "semantic_cleanup_request": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "negated",
+      "query": "不要定位清洗并渲染文本的视图源码。",
+      "semantic_cleanup_request": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "quoted",
+      "query": "查找字符串“请定位清洗并渲染文本的视图源码”。",
+      "semantic_cleanup_request": false,
+      "criterion": "unchanged"
+    },
+    {
+      "id": "multi",
+      "query": "请定位清洗并渲染文本的视图源码，同时返回 MessageRecord 数据类。",
+      "semantic_cleanup_request": false,
+      "criterion": "unchanged"
+    }
+  ],
+  "discarded_sources": {
+    "MessageSurface.ets": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    this.plainBody(); Column() { Text(this.content) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "MessageRecord.ets": "export class MessageRecord {\n  content: string = ''\n  title: string = ''\n}\n",
+    "DetailPanel.ets": "@Component\nexport struct DetailPanel {\n  build() {\n    Column() { Text('Message details') }\n  }\n}\n",
+    "DisplaySettings.ets": "export class DisplaySettings {\n  displayName: string = ''\n  saveName(): void {\n    this.displayName = this.displayName.trim()\n  }\n}\n"
+  },
+  "negative_request_controls": [
+    "请定位不负责清洗并渲染正文的 view。",
+    "请定位清洗正文但不渲染正文的 view。",
+    "不要清洗正文，请定位渲染正文的 view。",
+    "请定位清洗并渲染正文的 view，而不是只负责清洗的view。",
+    "消息详情仍显示 HTML 标签，请定位负责清洗并渲染正文的 view，不要返回 MessageSurface 数据类。",
+    "同时查找清洗并渲染文本的视图源码。",
+    "请定位清洗并渲染正文的 view。然后返回数据类。",
+    "请解释清洗并渲染正文的 view。"
+  ],
+  "invariants": [
+    "English contracts unchanged",
+    "unsupported Chinese unchanged",
+    "observation never target identity",
+    "negative dataclass identifier exclusion must be enforced, even if it names the positive component",
+    "existing protected log/path guard unchanged",
+    "existing private snapshot/1500 budget/source contract unchanged"
+  ]
+}
