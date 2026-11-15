@@ -26,6 +26,14 @@ class DisclosureMarkerCompatibility(unittest.TestCase):
    with self.subTest(source=s):self.assertNotIn('disclosurestate',extract_arkts_behavior_markers(s))
   self.assertIn('disclosurestate',extract_arkts_behavior_markers(op))
   self.assertIn('disclosurestate',extract_arkts_behavior_markers('const note = `'+op+'`;\n'+op))
+ def test_one_fake_operation_cannot_complete_pair(self):
+  rotation="SymbolGlyph('arrow').rotate({angle:this.a?0:180});"
+  toggle="this.a=!this.a;"
+  for source in [rotation+' return "'+toggle+'";', 'const note="'+rotation+'"; '+toggle]:
+   with self.subTest(source=source):self.assertNotIn('disclosurestate',extract_arkts_behavior_markers(source))
+ def test_cross_owner_legacy_scope_not_strengthened(self):
+  source="class Read { m(){ SymbolGlyph('arrow').rotate({angle:this.a?0:180}); }} class Write { m(){this.a=!this.a;} }"
+  self.assertIn('disclosurestate',extract_arkts_behavior_markers(source))
  def test_other_markers_and_unknown_equal_legacy(self):
   # A wrapper around mask helper is introduced by the tiny candidate; patch the
   # existing helper module so this test is valid before and after production edit.
