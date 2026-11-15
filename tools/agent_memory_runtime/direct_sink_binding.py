@@ -120,7 +120,7 @@ def _arguments(raw: str) -> list[str] | None:
 
 def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path,
                            item: dict[str, Any], raw_call: str, cache: dict) -> str | None:
-    """None means legacy scope. Symbolic template means direct binding unproved."""
+    """None preserves legacy; symbolic means proven wrapper, unknown actual value."""
     language = language_for(Path(str(item.get('sink_file_path', ''))))
     parsed = parse_log_api_call(str(item.get('sink_statement') or ''), language)
     if (language not in ECMA_LANGUAGES or not parsed or item.get('wrapper_depth') != 1
@@ -142,23 +142,23 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
     wrapper = _row(conn, project_id, 'code_symbols', int(item.get('wrapper_id') or 0), cache)
     sink = _row(conn, project_id, 'code_log_statements', int(item.get('sink_log_id') or 0), cache)
     if not caller or not wrapper or not sink:
-        return fallback
+        return None
     if any(r.get('symbol_type') not in {'function', 'method'}
            or r.get('symbol') in _RESERVED for r in (caller, wrapper)):
-        return fallback
+        return None
     owner = wrapper.get('owner_name')
     if not owner or not re.fullmatch(_IDENTIFIER, owner) or owner in _RESERVED or caller.get('owner_name') != owner:
-        return fallback
+        return None
     snapshot = source_snapshot(root, str(item['file_path']), cache)
     if not snapshot:
-        return fallback
+        return None
     digest, text = snapshot
     generation = item.get('index_generation')
     if (not isinstance(generation, int) or generation <= 0
             or item.get('source_digest') != digest
             or any(r.get('source_digest') != digest or r.get('index_generation') != generation
                    or r.get('file_path') != item['file_path'] for r in (caller, wrapper, sink))):
-        return fallback
+        return None
     if (caller.get('symbol') != item.get('caller') or wrapper.get('symbol') != item.get('wrapper')
             or any(not r.get('symbol_key') or r.get('qualified_name') != f"{owner}.{r['symbol']}"
                    for r in (caller, wrapper))
@@ -166,7 +166,7 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
             or sink.get('raw_statement') != item.get('sink_statement')
             or sink.get('message_template') != fallback
             or sink.get('logger') != parsed.logger or sink.get('level') != parsed.level):
-        return fallback
+        return None
     # A typed edge already identifies this sink. Verify it, not its spelling alone.
     edges = conn.execute('''SELECT relation FROM memory_edges WHERE project_id=?
         AND valid_to IS NULL AND ((source_type='code_symbol' AND source_id=?
@@ -175,75 +175,75 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
         AND target_id=? AND relation='emits_log'))''',
         (project_id, caller['id'], wrapper['id'], wrapper['id'], sink['id'])).fetchall()
     if {r['relation'] for r in edges} != {'calls', 'emits_log'}:
-        return fallback
+        return None
     uniqueness = conn.execute('''SELECT count(*) FROM code_symbols WHERE project_id=?
         AND file_path=? AND owner_name=? AND symbol=?''',
         (project_id, item['file_path'], owner, wrapper['symbol'])).fetchone()[0]
     if uniqueness != 1:
-        return fallback
+        return None
     wm, cm = _method(wrapper, text), _method(caller, text)
     if not wm or not cm or cm['params'].strip():
-        return fallback
+        return None
     if not re.fullmatch(re.escape(raw_call) + r'\s*;?', cm['body'].strip()):
-        return fallback
+        return None
     if not raw_call.startswith('this.' + wrapper['symbol'] + '('):
-        return fallback
+        return None
     names = []
     for spec in wm['params'].split(','):
         match = _PARAM.fullmatch(spec.strip())
         if not match or match[1] in _RESERVED:
-            return fallback
+            return None
         names.append(match[1])
     if not names or len(names) > 8 or len(set(names)) != len(names) or parameter not in names:
-        return fallback
+        return None
     receiver = str(item['sink_statement']).strip().split('.')[0]
     if receiver in names:
-        return fallback
+        return None
     classes = conn.execute('''SELECT * FROM code_symbols
         WHERE project_id=? AND file_path=? AND symbol=? AND symbol_type='class' ''',
         (project_id, item['file_path'], owner)).fetchall()
     if len(classes) != 1:
-        return fallback
+        return None
     owner_row = dict(classes[0])
     if (owner_row.get('source_digest') != digest or owner_row.get('index_generation') != generation
             or not owner_row.get('symbol_key') or owner_row.get('qualified_name') != owner):
-        return fallback
+        return None
     class_start, class_end = owner_row['start_line'], owner_row['end_line']
     lines = text.splitlines()
     if not (0 < class_start <= wrapper['start_line'] <= wrapper['end_line'] <= class_end <= len(lines)
             and class_start <= caller['start_line'] <= caller['end_line'] <= class_end):
-        return fallback
+        return None
     # Closed finite owner: no constructor, accessor, field/initializer, inheritance,
     # extra method or static block can overwrite the declared callee in this owner.
     # This is still a static receipt, not proof against external prototype mutation.
     if not re.fullmatch(rf'(?:export\s+)?class\s+{re.escape(owner)}\s*\{{', lines[class_start-1].strip()) or lines[class_end-1].strip() != '}':
-        return fallback
+        return None
     covered = set()
     for row in (caller, wrapper):
         selected = set(range(row['start_line'], row['end_line'] + 1))
         if covered & selected or class_start in selected or class_end in selected:
-            return fallback
+            return None
         covered.update(selected)
     if any(lines[line-1].strip() for line in range(class_start+1, class_end) if line not in covered):
-        return fallback
+        return None
     owner_body = '\n'.join(lines[class_start-1:class_end])
     if re.search(rf'(?:^|[{{;\n])\s*(?:(?:public|private|protected|static|readonly)\s+)*{re.escape(receiver)}\s*[:=]', owner_body):
-        return fallback
+        return None
     call_line = int(item.get('line') or 0)
     if not (caller['start_line'] <= call_line <= caller['end_line']) or lines[call_line-1].strip().rstrip(';') != raw_call.strip():
-        return fallback
+        return None
     body = wm['body'].strip()
     while body.startswith('void'):
         noop = re.match(rf'void[ \t]+({_IDENTIFIER})[ \t]*(?:;[ \t]*|\n[ \t]*)', body)
         if not noop or noop[1] not in names:
-            return fallback
+            return None
         body = body[noop.end():].lstrip()
     if not re.fullmatch(re.escape(str(item['sink_statement']).strip().rstrip(';')) + r'\s*;?', body.strip()):
-        return fallback
+        return None
     sink_line = int(sink.get('line') or 0)
     lines = text.splitlines()
     if not (wrapper['start_line'] <= sink_line <= wrapper['end_line']) or lines[sink_line-1].strip().rstrip(';') != str(item['sink_statement']).strip().rstrip(';'):
-        return fallback
+        return None
     args = _arguments(raw_call)
     if args is None or len(args) != len(names):
         return fallback

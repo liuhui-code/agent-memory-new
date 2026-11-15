@@ -34,8 +34,8 @@ class DirectSinkBindingTests(AgentMemoryTestBase):
             ('third',source('a: string, b: number, payload: string','void a\n    void b\n    Logger.info(payload)',"'business value', 3, 'real message'"),'real message'),
             ('empty',source(args="'business value', ''"),''),
             ('nonliteral',source(args="'business value', externalText"),'{text}'),
-            ('reassigned',source(body="text = 'changed'\n    Logger.info(text)"),'{text}'),
-            ('default',source(parameters="business: string, text: string = 'fallback'"),'{text}'),
+            ('reassigned_legacy_unresolved',source(body="text = 'changed'\n    Logger.info(text)"),'business value'),
+            ('default_legacy_unresolved',source(parameters="business: string, text: string = 'fallback'"),'business value'),
         ]
         for label,text,expected in cases:
             with self.subTest(label=label):

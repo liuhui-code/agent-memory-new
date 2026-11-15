@@ -96,3 +96,12 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
             with self.subTest(word=word):
                 self.assertIsNone(_arguments("this.emit("+word+", 'real message')"))
         self.assertEqual(['business', "'real message'"], _arguments("this.emit(business, 'real message')"))
+
+    def test_unrelated_owner_members_preserve_public_first_parameter(self):
+        from tests.test_direct_sink_binding import DirectSinkBindingTests
+        base=source('text: string, business: string','void business\n    Logger.info(text)',"'real message', 'business value'")
+        for addition in ['\n  unrelated(): void {}', '\n  private counter: number = 0']:
+            with self.subTest(addition=addition):
+                text=base.replace('export class Courier {','export class Courier {'+addition)
+                for anchors in DirectSinkBindingTests().public_case(text):
+                    self.assertEqual(['real message'],[a.get('message_template') for a in anchors])

@@ -104,3 +104,24 @@ identity or source return symbolic templates as conservative correction too.
 This is not a promise of byte-identical legacy behavior for those unknown cases.
 Fixed literal sinks and unsupported non-direct/cross-file/multi-hop classification
 retain their prior message route. No new concrete literal is minted on refusal.
+
+## Compatibility finding and superseding fallback contract
+
+Owner review required two fixed public first-parameter controls: adding an unrelated
+third method or ordinary field. Frozen5d8d78f probes confirmed e5's broad symbolic
+fallback regressed both from real message to {text}. Do not accept that candidate
+on the basis of76 selected passes; retain its failure and raw evidence.
+
+Superseding rule: only after the complete current class/caller/wrapper/parameter
+source contract succeeds may unsafe actual arguments return symbolic. Every
+unproved identity/owner/method/parameter/body condition returns None and follows
+the old message route unchanged. This deliberately retains legacy mistakes outside
+scope; it does not invent a new source-backed claim. Reassignment/default-parameter
+public cases remain old business value (wrong, NOT newly repaired), while their
+helper tests ensure no new direct-binding receipt. Their earlier symbolic
+expectations are explicitly revised for this narrower compatibility contract,
+not counted as source correctness or used to alter any original fixture/oracle.
+The nonliteral actual under a fully proven wrapper remains symbolic.
+
+The original frozen second_message_parameter source still must independently
+produce catalog refreshed in both public modes. No original231 gain is claimed.

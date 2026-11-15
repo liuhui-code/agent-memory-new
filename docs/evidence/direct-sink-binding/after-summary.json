@@ -1,0 +1,59 @@
+{
+  "actual_stdout": "catalog refreshed\n",
+  "raw": [
+    {
+      "log_id": 1,
+      "effect_id": 1,
+      "message_template": "catalog refreshed",
+      "logger": "logger",
+      "business_event": "",
+      "trigger_stage": "",
+      "symptom_terms": [],
+      "process_hint": "",
+      "file_path": "CatalogService.ts",
+      "function": "run",
+      "line": 14,
+      "evidence_class": "static_wrapped",
+      "wrapper_symbol": "refresh",
+      "wrapper_depth": 1,
+      "truncated": false,
+      "call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "call_path_locations": [
+        "CatalogService.ts#run",
+        "CatalogService.ts#refresh",
+        "CatalogService.ts#logger.info"
+      ]
+    }
+  ],
+  "compact": [
+    {
+      "log_id": 1,
+      "message_template": "catalog refreshed",
+      "logger": "logger",
+      "file_path": "CatalogService.ts",
+      "function": "run",
+      "line": 14,
+      "effect_id": 1,
+      "evidence_class": "static_wrapped",
+      "wrapper_symbol": "refresh",
+      "wrapper_depth": 1,
+      "call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "call_path_locations": [
+        "CatalogService.ts#run",
+        "CatalogService.ts#refresh",
+        "CatalogService.ts#logger.info"
+      ],
+      "truncated": false
+    }
+  ],
+  "source_sha256": "6d2204546f60089e13b07860954a050e7bdb106f13876dbe9ac11c1c930daca7",
+  "expected": "catalog refreshed"
+}
