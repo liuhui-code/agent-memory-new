@@ -9,7 +9,7 @@ _FILE_STATE_WRITE_RE = re.compile(
 
 def state_write_source(source: str) -> str:
     masked = callback_mask_lines(source.splitlines())
-    # Unknown lexical input preserves the complete legacy marker behavior.
+    # Unknown lexical input keeps raw text; the caller still checks its operator.
     return '\n'.join(masked) if masked is not None else source
 
 
