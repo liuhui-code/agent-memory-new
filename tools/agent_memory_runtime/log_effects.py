@@ -369,6 +369,8 @@ def call_message(
                 source_cache[file_path] = read_source_text(root / file_path).splitlines(keepends=True)
             else:
                 source_cache[file_path] = legacy_source_text(root, file_path, binding_cache).splitlines(keepends=True)
+                if binding_cache.get(('source', file_path)) is not None:
+                    binding_cache[('lines', file_path)] = source_cache[file_path]
         except OSError:
             source_cache[file_path] = []
     line = int(item["line"])

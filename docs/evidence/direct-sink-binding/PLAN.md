@@ -134,3 +134,9 @@ exact arity, fully proven source, and an explicitly nonliteral target argument.
 No positive binding grammar was expanded. Retain77-test intermediate pass as stage
 only, not final acceptance. Legacy source text is returned into the original line
 cache, not retained again unbounded; only <=2MiB proof text is retained additionally.
+
+Bounded overhead follow-up: all candidates in one source now share the existing
+caller line list with binding checks; _method no longer splitlines the entire
+file per caller/wrapper. A two-class, two-direct-caller learned-source control
+asserts both messages and exactly one file open/line split, with shared list
+identity. This is a bounded overhead regression check, not a scale benchmark.

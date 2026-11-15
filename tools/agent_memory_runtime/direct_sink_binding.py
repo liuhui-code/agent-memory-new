@@ -86,12 +86,11 @@ def _row(conn: sqlite3.Connection, project_id: str, table: str, identity: int, c
     return cache[key]
 
 
-def _method(row: dict, text: str):
-    lines = text.splitlines()
+def _method(row: dict, lines: list[str]):
     start, end = int(row.get('start_line') or 0), int(row.get('end_line') or 0)
     if not 0 < start <= end <= len(lines) or end - start > 200:
         return None
-    match = re.fullmatch(_HEADER, '\n'.join(lines[start-1:end]).strip())
+    match = re.fullmatch(_HEADER, ''.join(lines[start-1:end]).strip())
     if not match or match['name'] != row.get('symbol'):
         return None
     return match
@@ -154,6 +153,10 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
     if not snapshot:
         return None
     digest, text = snapshot
+    line_key = ('lines', item['file_path'])
+    if line_key not in cache:
+        cache[line_key] = text.splitlines(keepends=True)
+    lines = cache[line_key]
     generation = item.get('index_generation')
     if (not isinstance(generation, int) or generation <= 0
             or item.get('source_digest') != digest
@@ -182,7 +185,7 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
         (project_id, item['file_path'], owner, wrapper['symbol'])).fetchone()[0]
     if uniqueness != 1:
         return None
-    wm, cm = _method(wrapper, text), _method(caller, text)
+    wm, cm = _method(wrapper, lines), _method(caller, lines)
     if not wm or not cm or cm['params'].strip():
         return None
     if not re.fullmatch(re.escape(raw_call) + r'\s*;?', cm['body'].strip()):
@@ -210,7 +213,6 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
             or not owner_row.get('symbol_key') or owner_row.get('qualified_name') != owner):
         return None
     class_start, class_end = owner_row['start_line'], owner_row['end_line']
-    lines = text.splitlines()
     if not (0 < class_start <= wrapper['start_line'] <= wrapper['end_line'] <= class_end <= len(lines)
             and class_start <= caller['start_line'] <= caller['end_line'] <= class_end):
         return None
@@ -227,7 +229,7 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
         covered.update(selected)
     if any(lines[line-1].strip() for line in range(class_start+1, class_end) if line not in covered):
         return None
-    owner_body = '\n'.join(lines[class_start-1:class_end])
+    owner_body = ''.join(lines[class_start-1:class_end])
     if re.search(rf'(?:^|[{{;\n])\s*(?:(?:public|private|protected|static|readonly)\s+)*{re.escape(receiver)}\s*[:=]', owner_body):
         return None
     call_line = int(item.get('line') or 0)
@@ -242,7 +244,6 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
     if not re.fullmatch(re.escape(str(item['sink_statement']).strip().rstrip(';')) + r'\s*;?', body.strip()):
         return None
     sink_line = int(sink.get('line') or 0)
-    lines = text.splitlines()
     if not (wrapper['start_line'] <= sink_line <= wrapper['end_line']) or lines[sink_line-1].strip().rstrip(';') != str(item['sink_statement']).strip().rstrip(';'):
         return None
     args = _arguments(raw_call)

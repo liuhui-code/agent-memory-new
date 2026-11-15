@@ -1,0 +1,29 @@
+{
+  "source_sha256": "9e58361bedfa2e3b16d59bb580850ae4166f65c40406c6cb1a099e06718ff3a9",
+  "node_harness": "globalThis.Logger={info:message=>process.stdout.write(message+'\\n')};globalThis.computeBusiness=()=> 'business value';const {Courier}=await import(process.argv[1]);new Courier().run();",
+  "node_stdout": "real message\n",
+  "base8b": [
+    [
+      "real message"
+    ],
+    [
+      "real message"
+    ]
+  ],
+  "rejected576": [
+    [
+      "{text}"
+    ],
+    [
+      "{text}"
+    ]
+  ],
+  "fixedb5": [
+    [
+      "real message"
+    ],
+    [
+      "real message"
+    ]
+  ]
+}

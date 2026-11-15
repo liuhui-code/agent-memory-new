@@ -112,3 +112,31 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
         text=source('text: string, business: string','void business\n    Logger.info(text)',"'real message', computeBusiness()")
         for anchors in DirectSinkBindingTests().public_case(text):
             self.assertEqual(['real message'],[a.get('message_template') for a in anchors])
+
+    def test_same_file_candidates_share_one_read_and_line_split(self):
+        from tools.agent_memory_runtime import log_effects
+        text=source().replace('emit','emitOne').replace('run','runOne')
+        text+=source().replace('Courier','Parcel').replace('emit','emitTwo').replace('run','runTwo')
+        with tempfile.TemporaryDirectory() as temporary:
+            project=Path(temporary)/'project';project.mkdir();path=project/'Courier.ts';path.write_text(text)
+            self.run_memory(project,'init');self.run_memory(project,'wiki-index')
+            with sqlite3.connect(self.project_memory_dir(project)/'memory.db') as conn:
+                conn.row_factory=sqlite3.Row
+                items=wrapper_call_candidates(conn,self.project_id(project),None)
+                self.assertEqual({'runOne','runTwo'},{i['caller'] for i in items})
+                reads=[];splits=[];original_open=Path.open;original_text=log_effects.legacy_source_text
+                class CountedText(str):
+                    def splitlines(self,*args,**kwargs):
+                        splits.append(1);return super().splitlines(*args,**kwargs)
+                def counted_open(path,*args,**kwargs):
+                    reads.append(path);return original_open(path,*args,**kwargs)
+                def counted_text(*args,**kwargs):
+                    return CountedText(original_text(*args,**kwargs))
+                line_cache={};cache={}
+                with patch.object(Path,'open',counted_open),patch.object(log_effects,'legacy_source_text',counted_text):
+                    for item in items:
+                        _,raw=call_message(project,item,line_cache,cache)
+                        self.assertEqual('real message',direct_message_binding(conn,self.project_id(project),project,item,raw,cache))
+                self.assertEqual([path],reads)
+                self.assertEqual([1],splits)
+                self.assertIs(cache[('lines','Courier.ts')],line_cache['Courier.ts'])
