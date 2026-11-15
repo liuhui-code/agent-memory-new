@@ -1,0 +1,28 @@
+{
+  "sources": {
+    "OnlyText.ets": "export class OnlyText {\n text(): string { return `SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded;`; }\n}\n",
+    "Actual.ets": "@Component\nexport struct Actual {\n  @State expanded: boolean = false;\n  @Builder\n  renderDetails() {\n    Row() {\n      SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 });\n    }.onClick(() => {\n      this.expanded = !this.expanded;\n    });\n  }\n  build() { this.renderDetails(); }\n}\n",
+    "Different.ets": "@Component\nexport struct Different {\n  @State displayed: boolean = false;\n  @State selected: boolean = false;\n  @Builder\n  renderDetails() {\n    Row() {\n      SymbolGlyph('arrow').rotate({ angle: this.displayed ? 0 : 180 });\n    }.onClick(() => {\n      this.selected = !this.selected;\n    });\n  }\n  build() { this.renderDetails(); }\n}\n",
+    "Quoted.ets": "export class Quoted {\n text(): string { return \"SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded;\"; }\n}\n",
+    "Mixed.ets": "@Component\nexport struct Mixed {\n  @State expanded: boolean = false;\n  note: string = `SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded;`;\n  @Builder\n  renderDetails() {\n    Row() {\n      SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 });\n    }.onClick(() => {\n      this.expanded = !this.expanded;\n    });\n  }\n  build() { this.renderDetails(); }\n}\n",
+    "Unknown.ets": "export class Unknown {\n text(): string { return `SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded; ${value}`; }\n}\n"
+  },
+  "absent": [
+    "OnlyText.ets",
+    "Quoted.ets",
+    "Different.ets"
+  ],
+  "present": [
+    "Actual.ets",
+    "Mixed.ets",
+    "Unknown.ets"
+  ],
+  "queries": [
+    "Locate rotation and toggle source.",
+    "Find OnlyText.text source.",
+    "Find Actual.renderDetails source.",
+    "Find Different.renderDetails source.",
+    "Find Quoted.text source."
+  ],
+  "rule": "Only disclosurestate changes for verified noncode. Unknown retains legacy. Raw text preserved. Cross-owner untouched."
+}

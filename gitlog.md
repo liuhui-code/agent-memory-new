@@ -12812,3 +12812,6 @@ not an aggregate total claim. All failed intermediate commands remain documented
 - Final 79 focused/related/tiny-performance tests pass; all Python files <=500 lines. Exact query2/FIFO/text public anchors and callable evidence unchanged.
 - Archived the exploratory all-project three-source failed expectation; independent review approved the fixed baseline-pool contract test, which explicitly freezes the unrecalled third-source boundary. No retrieval/oracle/budget adjustment.
 - Original bounded-cache three-variant group remains 2/3. This repairs one independent public executable-scan red only, not the original scenario or timestamp contract; no original repair count increment.
+
+## Disclosure lexical producer
+Actual public OnlyText template source generates disclosurestate in raw file summary via existing English concept. Separate narrow known-code matching design and compatibility controls frozen; no production change yet.
