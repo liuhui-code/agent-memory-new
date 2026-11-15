@@ -12580,3 +12580,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   full source identities remain valid but complete output falls back atomically.
 - Nine focused selection tests pass. Candidate remains isolated pending public
   fixed-input acceptance; no original failure claim or full-suite run.
+
+## 2026-11-15 — Start explicit reimplementation from published base
+
+- Fresh clone verified fced64c4; the frozen local 55-commit workspace is unavailable.
+- Mark new 09/07/30/37 and callback-offset work as reimplementation, not recovered
+  original history. No old local acceptance is carried forward without fresh tests.
+- Focused-first acceptance, unchanged main and staged persistence remain required.
+- Plan and evidence boundary: docs/evidence/rebuild-after-loss-20261115/README.md.
