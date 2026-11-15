@@ -79,3 +79,9 @@ open and one line split, not a scale-performance claim.
 Full raw outputs and every failed/stage/final log are kept in the private delivery
 archive, not duplicated across repository JSON. Original source fixtures and
 historical unsuccessful evidence were not removed or rewritten.
+
+Finalafc3d6d shared-line delta also passed independent read-only review: cache
+lifetime is one rebuild and no authority expansion was found. Joining original
+keepends lines preserves unusual separators rather than normalizing them again;
+those unusual forms may conservatively fall back, not a promise of equivalence
+for every malformed/exotic source text.
