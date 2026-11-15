@@ -1,0 +1,28 @@
+{
+  "base": "3e0ed25",
+  "classification": "independent Development public file marker correctness",
+  "sources": {
+    "OnlyText.ets": "export class OnlyText {\n text(): string { return `SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded;`; }\n}\n",
+    "Assignments.ets": "export class Assignments {\n value: string = '';\n count: number = 0;\n set(): void { this.value = 'ready'; this.count += 1; }\n}\n",
+    "QuotedWrite.ets": "export class QuotedWrite {\n text(): string { return \"this.count = 2\"; }\n}\n",
+    "MixedWrite.ets": "export class MixedWrite {\n count: number = 0;\n set(): void { const note = `this.fake = 3`; this.count = 1; }\n}\n",
+    "UnknownWrite.ets": "export class UnknownWrite {\n text(): string { return `this.count = 2 ${value}`; }\n}\n",
+    "Equality.ets": "export class Equality {\n count: number = 0;\n check(): boolean { return this.count === 2; }\n}\n"
+  },
+  "absent": [
+    "OnlyText.ets",
+    "QuotedWrite.ets"
+  ],
+  "present": [
+    "Assignments.ets",
+    "MixedWrite.ets",
+    "UnknownWrite.ets",
+    "Equality.ets"
+  ],
+  "note": "Equality is existing misclassification intentionally unchanged; only known noncode exclusion. Not operations rotate or scope repair.",
+  "queries": [
+    "Find OnlyText.text source.",
+    "Find Assignments.set source.",
+    "Find QuotedWrite.text source."
+  ]
+}
