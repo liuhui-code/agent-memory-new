@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 
 from .code_wiki_component_flow import mask_comments
+from .arkts_state_write_source import state_write_source
 
 
 MAX_BEHAVIOR_MARKERS = 56
@@ -383,7 +384,7 @@ def extract_arkts_behavior_markers(text: str) -> list[str]:
         markers.add("verticalaxis")
     if ASYNC_ORDER_GUARD_RE.search(source) and re.search(r"\basync\b|\bawait\b", source):
         markers.add("orderingguard")
-    if STATE_WRITE_RE.search(source):
+    if STATE_WRITE_RE.search(state_write_source(source)):
         markers.add("statewrite")
     if re.search(r"\basync\b|\bawait\b", source):
         markers.add("asyncboundary")
