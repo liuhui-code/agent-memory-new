@@ -1,0 +1,44 @@
+{
+  "base": "e545aea",
+  "classification": "independent Development file statewrite operator correctness",
+  "sources": {
+    "Equality.ets": "export class Equality {\n count: number = 0;\n check(): boolean { return this.count === 2; }\n}\n",
+    "Loose.ets": "export class Loose {\n count: number = 0;\n test(): void { this.count==2; }\n}\n",
+    "Assign.ets": "export class Assign {\n count: number = 0;\n test(): void { this.count=2; }\n}\n",
+    "Add.ets": "export class Add {\n count: number = 0;\n test(): void { this.count+=2; }\n}\n",
+    "Subtract.ets": "export class Subtract {\n count: number = 0;\n test(): void { this.count-=2; }\n}\n",
+    "Increment.ets": "export class Increment {\n count: number = 0;\n test(): void { this.count++; }\n}\n",
+    "Decrement.ets": "export class Decrement {\n count: number = 0;\n test(): void { this.count--; }\n}\n",
+    "NotEqual.ets": "export class NotEqual {\n count: number = 0;\n test(): void { this.count!=2; }\n}\n",
+    "StrictNotEqual.ets": "export class StrictNotEqual {\n count: number = 0;\n test(): void { this.count!==2; }\n}\n",
+    "Less.ets": "export class Less {\n count: number = 0;\n test(): void { this.count<=2; }\n}\n",
+    "Greater.ets": "export class Greater {\n count: number = 0;\n test(): void { this.count>=2; }\n}\n",
+    "ArrowValue.ets": "export class ArrowValue {\n callback: () => void;\n set(): void { this.callback = () => run(); }\n}\n",
+    "Mixed.ets": "export class Mixed {\n count: number = 0;\n set(): void { if(this.count===2){this.count=3;} }\n}\n",
+    "OnlyText.ets": "export class OnlyText {\n text(): string { return `SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); this.expanded = !this.expanded;`; }\n}\n"
+  },
+  "absent": [
+    "Equality.ets",
+    "Loose.ets",
+    "NotEqual.ets",
+    "StrictNotEqual.ets",
+    "Less.ets",
+    "Greater.ets",
+    "OnlyText.ets"
+  ],
+  "present": [
+    "Assign.ets",
+    "Add.ets",
+    "Subtract.ets",
+    "Increment.ets",
+    "Decrement.ets",
+    "ArrowValue.ets",
+    "Mixed.ets"
+  ],
+  "queries": [
+    "Find Equality.check source.",
+    "Find Assign.test source.",
+    "Find ArrowValue.set source."
+  ],
+  "note": "Original Equality source unchanged. Only final file statewrite predicate, same ASCII field and = += -= ++ -- domain; bare = excludes = or >. Shared statehandoff regex unchanged."
+}
