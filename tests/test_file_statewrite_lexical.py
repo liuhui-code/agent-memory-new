@@ -19,7 +19,7 @@ class FileStatewritePublic(AgentMemoryTestBase):
 
 class FileStatewriteBoundaries(unittest.TestCase):
  def test_known_literals_and_real_writes(self):
-  for s in ['return "this.count = 3";', 'return `this.count += 2`;', '// this.count++;', '/* this.count = 3 */', 'return "say \\"this.count = 2\\"";']:
+  for s in ['return "this.count = 3";','return `this.count += 2`;','// this.count++;','/* this.count = 3 */','return "say \\"this.count = 2\\"";']:
    with self.subTest(source=s):self.assertNotIn('statewrite',extract_arkts_behavior_markers(s))
   for s in ["this.name = 'ready';",'this.count+=1;', 'const note=`this.fake=3`;this.count=2;',"class A {m(){this.count=2;}} class B {m(){this.count=3;}}"]:
    with self.subTest(source=s):self.assertIn('statewrite',extract_arkts_behavior_markers(s))
