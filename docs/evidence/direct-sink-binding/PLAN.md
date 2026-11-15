@@ -89,3 +89,18 @@ correct the control to require that existing ambiguity refusal; do not claim a
 positive binding or tune the source to manufacture it. Negative controls now log
 actual candidate counts and assert nonempty for the expected binding-level cases.
 Zero-producer cases are explicitly not evidence that the helper rejected a receipt.
+
+Final review tightening: reject bare reserved-keyword actual/sink arguments, not
+just parameter declarations. The accepted owner is now closed: a plain class
+containing only the two complete selected methods and whitespace, with standalone
+class braces. Inheritance, field initializers, constructors, accessors, static
+blocks, other methods or duplicate/overlap declarations refuse new concrete
+bindings. Thus obvious owner-local this.method replacement cannot acquire a
+receipt. External prototype mutations/dynamic dispatch are NOT proven absent;
+this remains a bounded static message binding over the existing call/sink graph.
+
+Scope precision: same-file static depth1 simple-parameter sinks with unknown owner,
+identity or source return symbolic templates as conservative correction too.
+This is not a promise of byte-identical legacy behavior for those unknown cases.
+Fixed literal sinks and unsupported non-direct/cross-file/multi-hop classification
+retain their prior message route. No new concrete literal is minted on refusal.

@@ -66,6 +66,13 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
             source(body='void business Logger.info(text)'),
             source(parameters='while: string, text: string',body='Logger.info(text)'),
             source(parameters='package: string, text: string',body='Logger.info(text)'),
+            source(args="new, 'real message'"),
+            source(args="throw, 'real message'"),
+            source().replace('export class Courier {', 'export class Courier {\n  constructor() { this.emit = () => {} }'),
+            source().replace('export class Courier {', 'export class Courier {\n  emit = () => {}'),
+            source().replace('export class Courier {', 'export class Courier {\n  get emit() { return () => {} }'),
+            source().replace('export class Courier {', 'export class Courier extends Base {'),
+            source().replace('export class Courier {', 'export class Courier {\n  reset() { this.emit = other }'),
         ]
         for text in controls:
             with self.subTest(text=text):
@@ -82,3 +89,10 @@ class DirectSinkBindingBoundsTests(AgentMemoryTestBase):
                 cache={}
                 self.assertEqual(legacy,call_message(root,item,{},cache))
                 self.assertIsNone(source_snapshot(root,'Courier.ts',cache))
+
+    def test_arguments_reject_bare_keywords(self):
+        from tools.agent_memory_runtime.direct_sink_binding import _arguments
+        for word in ('new', 'return', 'throw', 'if', 'while', 'package'):
+            with self.subTest(word=word):
+                self.assertIsNone(_arguments("this.emit("+word+", 'real message')"))
+        self.assertEqual(['business', "'real message'"], _arguments("this.emit(business, 'real message')"))

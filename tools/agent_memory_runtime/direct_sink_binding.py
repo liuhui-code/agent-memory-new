@@ -107,6 +107,8 @@ def _arguments(raw: str) -> list[str] | None:
         part = re.match(_SIMPLE, text)
         if not part:
             return None
+        if re.fullmatch(_IDENTIFIER, part[0]) and part[0] in _RESERVED:
+            return None
         result.append(part[0])
         text = text[part.end():].lstrip()
         if text:
@@ -210,6 +212,19 @@ def direct_message_binding(conn: sqlite3.Connection, project_id: str, root: Path
     lines = text.splitlines()
     if not (0 < class_start <= wrapper['start_line'] <= wrapper['end_line'] <= class_end <= len(lines)
             and class_start <= caller['start_line'] <= caller['end_line'] <= class_end):
+        return fallback
+    # Closed finite owner: no constructor, accessor, field/initializer, inheritance,
+    # extra method or static block can overwrite the declared callee in this owner.
+    # This is still a static receipt, not proof against external prototype mutation.
+    if not re.fullmatch(rf'(?:export\s+)?class\s+{re.escape(owner)}\s*\{{', lines[class_start-1].strip()) or lines[class_end-1].strip() != '}':
+        return fallback
+    covered = set()
+    for row in (caller, wrapper):
+        selected = set(range(row['start_line'], row['end_line'] + 1))
+        if covered & selected or class_start in selected or class_end in selected:
+            return fallback
+        covered.update(selected)
+    if any(lines[line-1].strip() for line in range(class_start+1, class_end) if line not in covered):
         return fallback
     owner_body = '\n'.join(lines[class_start-1:class_end])
     if re.search(rf'(?:^|[{{;\n])\s*(?:(?:public|private|protected|static|readonly)\s+)*{re.escape(receiver)}\s*[:=]', owner_body):
