@@ -1,0 +1,37 @@
+{
+  "classification": "independent Development, new redo not restoration",
+  "sources": {
+    "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() { Column() {} }\n}\n",
+    "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+    "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Choosing Restart sync starts shutdown instead of restarting. Locate the menu command binding owner, not transport infrastructure or its row view.",
+      "expected": [
+        "SyncMenu.ets"
+      ]
+    },
+    {
+      "query": "Locate the menu command binding owner for Stop sync.",
+      "expected": [
+        "SyncMenu.ets"
+      ]
+    }
+  ],
+  "negative_contracts": [
+    "duplicate matching owner: unchanged",
+    "label in adjacent object without callback: unchanged",
+    "unknown template interpolation or slash: unchanged",
+    "stale digest: unchanged",
+    "missing/duplicate callback identity: unchanged",
+    "copy/serialize/mutated receipt: unchanged",
+    "path/log obligations: unchanged",
+    "incomplete snapshot/1500 budget: unchanged"
+  ],
+  "hashes": {
+    "SyncMenu.ets": "dfcf01569629e7698f68b25d59bf8d9891f06a4ded9e53a299b45dca6b2abc43",
+    "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+    "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0"
+  }
+}
