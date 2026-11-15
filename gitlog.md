@@ -12827,3 +12827,21 @@ File statewrite result: known noncode fake assignments removed from two public s
 Basee545aea. Independent fixed Equality/Loose public summary red and true-write controls frozen. Dedicated final predicate proposed, preserving shared regex and ASCII/operator family; lexical unknown remains raw with corrected token classification.
 
 File operator result: public Equality/Loose false statewrite removed;7 real writes and3 named context targets preserved.15 focused and83 related tests pass (final code rerun). Shared regex/statehandoff, field/operator domain unchanged; unknown raw uses corrected operator. Old lexical Equality expectations explicitly migrated without changing frozen history.
+
+## 2026-11-16 — Preserve adjacent display windows and the existing primary body
+
+- Add a final transactional, neutral same-file display union. Two complete adjacent
+  existing windows retain their exact content and flat origin metadata; only an
+  already-selected primary range with matching row identity, generation and one
+  current source snapshot can supply additional body text. This is not same-owner
+  certification, a new source selection or a change to the two-window/1500 budget.
+- The unchanged independent public input improves from 1155 to 1265 tokens while
+  retaining the old two bodies and displaying commit lines 9–11. Restoring only
+  excerpts, excerpt policy and budget reconstructs the complete baseline payload.
+- Any identity, source, representation or cap failure returns the baseline object.
+  Sanitized transport preserves only the bounded member metadata, never nested
+  body content. Private source-view receipt branches remain unchanged.
+- 87 necessary related tests pass; independent and integrated runs of the 8 new
+  tests pass. The temporary 509-line module was mechanically split to meet the
+  500-line limit. No full gate and no original18 owner-failure credit. Details:
+  docs/evidence/lifecycle-display-qualification/{RESULT,REVIEW}.md.
