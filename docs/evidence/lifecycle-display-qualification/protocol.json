@@ -1,0 +1,27 @@
+{
+  "base": "d825151",
+  "classification": "separate independent Development display qualification; no old owner-gate reuse",
+  "sources": {
+    "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+    "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+    "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+    "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+    "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+  },
+  "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+  "expected_path": "BufferSession.ets",
+  "expected_primary": {
+    "symbol": "commit",
+    "start_line": 9,
+    "end_line": 11
+  },
+  "gate": "Actual current compact has same selected primary code_symbol and raw row identity/digest; exactly two complete same-file adjacent old windows omit primary body; every old source byte matches same hashed snapshot; copy-only lossless union+primary fits unchanged 2window,line,char,token caps. Otherwise stop, no source/query/noise change.",
+  "source_hashes": {
+    "BufferSession.ets": "f0f4a6b216fa4030929a5bf0134a2fdefd99544da99cd47f2c2069fc53d9e3a8",
+    "WriteQueue.ets": "c65323ca6083a6ad16ff10e87896b8d71e7202e884efa0cc731f319467b99f38",
+    "TextPanel.ets": "65d9a270259b2b58d701adb400101c9f5890b26b52b933e278c9d75c3cd4ab74",
+    "SplitRoles.ets": "b3f567a9beee95595bba36437ceb1ed2914a1e17e329ba91ea814e9b03dfce29",
+    "PendingQueue.ets": "9ce18d14d473f19df39b655a6474a1510656ce7155b648c9a41d66270126b030"
+  },
+  "old_gate_unchanged": "This does not claim lost owner or complete class."
+}
