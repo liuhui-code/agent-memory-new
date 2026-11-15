@@ -12817,3 +12817,6 @@ not an aggregate total claim. All failed intermediate commands remain documented
 Actual public OnlyText template source generates disclosurestate in raw file summary via existing English concept. Separate narrow known-code matching design and compatibility controls frozen; no production change yet.
 
 Disclosure lexical result: known noncode rotate/toggle pair no longer synthesizes disclosurestate; true glyph literal and unknown/other markers preserved.64 focused related tests pass. Same-memory merge changes IDs/generation normally; path/digest stable. Original38 and Chinese request routes not repaired.
+
+## File statewrite lexical investigation
+Base3e0ed25. Frozen independent public code-file summaries synthesize statewrite from OnlyText/QuotedWrite noncode.4 tests have5 before failures, controls preserve real assignments/unknown/equality. No production change yet; escaped quote unit spelling corrected before implementation with both results retained.
