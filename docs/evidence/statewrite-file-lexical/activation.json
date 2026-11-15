@@ -1,0 +1,1087 @@
+{
+  "installed-no-relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/statewrite-lexical/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/memory"
+    ],
+    "output": [
+      {
+        "id": 6,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "UnknownWrite.ets",
+        "summary": "ArkTS file with 3 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "fcf1060da63f4be1e9d0093a7b82827279ed5a78d0d0be646b3cd5fede34047d",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:56:46+00:00"
+      },
+      {
+        "id": 5,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "QuotedWrite.ets",
+        "summary": "ArkTS file with 3 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "c7e2a3a98cce266d866b476aca2455c75e681c3ea144732a0aec2b2a5b0e927b",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:56:46+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "OnlyText.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:56:46+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "MixedWrite.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "65f86bbff322dc87eb7b202073194382044d425ecfb1119da78f230534402d8d",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:56:46+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "Equality.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:56:46+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "Assignments.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "be13fc52da82c1362cc9e650bb342f1ca9ab176d889af59796ff364725e96af9",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T14:56:46+00:00"
+      }
+    ]
+  },
+  "relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/statewrite-lexical/tools/agent_memory.py",
+      "learn-path",
+      "--path",
+      ".",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/memory"
+    ],
+    "output": {
+      "source": "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/project",
+      "path": ".",
+      "scope_id": 1,
+      "mode": "merge",
+      "files": [
+        "Assignments.ets",
+        "Equality.ets",
+        "MixedWrite.ets",
+        "OnlyText.ets",
+        "QuotedWrite.ets",
+        "UnknownWrite.ets"
+      ],
+      "count": 6,
+      "summary": "Merged 6 files from .",
+      "parse_stats": {
+        "files_indexed": 6,
+        "skipped_by_reason": {},
+        "languages": {
+          "ArkTS": 6
+        },
+        "symbols_total": 12,
+        "symbols_by_type": {
+          "class": 6,
+          "function": 6
+        },
+        "code_logs_total": 0,
+        "code_logs_by_level": {},
+        "business_semantics_restored": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "semantic_index": {
+          "schema_version": "semantic-index/v1",
+          "adapters": [
+            {
+              "id": "arkts-static",
+              "version": "1.2",
+              "language": "ArkTS"
+            }
+          ],
+          "capabilities": [
+            "api_boundaries",
+            "async_flow",
+            "callbacks",
+            "calls",
+            "definitions",
+            "inheritance",
+            "mechanisms",
+            "references",
+            "state_flow",
+            "types"
+          ],
+          "files_indexed": 6,
+          "entities": 12,
+          "relations_extracted": 12,
+          "mechanisms_extracted": 0,
+          "relations_emitted": 12,
+          "unresolved_relations": 0,
+          "method_summaries_enriched": 6,
+          "gaps": [
+            {
+              "kind": "operation_syntax_unverified_template",
+              "file_path": "MixedWrite.ets",
+              "symbol": "MixedWrite.set",
+              "start_line": "3",
+              "end_line": "3"
+            },
+            {
+              "kind": "operation_syntax_unverified_template",
+              "file_path": "OnlyText.ets",
+              "symbol": "OnlyText.text",
+              "start_line": "2",
+              "end_line": "2"
+            },
+            {
+              "kind": "operation_syntax_unverified_template",
+              "file_path": "UnknownWrite.ets",
+              "symbol": "UnknownWrite.text",
+              "start_line": "2",
+              "end_line": "2"
+            }
+          ],
+          "adapter_errors": [],
+          "provider_runs": [
+            {
+              "language": "ArkTS",
+              "mode": "auto",
+              "status": "static",
+              "selected": "static",
+              "provider_configured": false,
+              "duration_ms": 0.0,
+              "output_bytes": 0,
+              "batch": 1,
+              "batch_files": 6
+            }
+          ],
+          "log_effects": {
+            "schema_version": "log-effect/v1",
+            "wrappers_resolved": 0,
+            "effects_emitted": 0,
+            "truncated": false,
+            "max_wrapper_depth": 0
+          },
+          "graph_candidate_resolution": {
+            "provider": "scoped-unique-symbols/v1",
+            "local_symbol_count": 12,
+            "reference_name_count": 6,
+            "resolved_external_symbol_count": 0,
+            "candidate_symbol_count": 12
+          }
+        },
+        "passage_index": {
+          "schema_version": "code-passages-v2",
+          "files_written": 6,
+          "symbols_written": 12,
+          "passages_written": 18
+        },
+        "normative_index": {
+          "schema_version": "normative-index/v1",
+          "source_root": "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/project",
+          "documents_indexed": 0,
+          "documents_added": 0,
+          "documents_updated": 0,
+          "documents_unchanged": 0,
+          "documents_retired": 0,
+          "retirement_counts": {},
+          "retirement_sample": [],
+          "retirement_sample_truncated": false,
+          "indexed_sample": [],
+          "indexed_sample_truncated": false,
+          "documents_requiring_metadata_review": 0,
+          "metadata_issues": [],
+          "metadata_issue_count": 0,
+          "metadata_issues_truncated": false,
+          "read_issues": [],
+          "read_issue_count": 0,
+          "read_issues_truncated": false,
+          "next_action": "no_normative_change",
+          "approval_inferred": false
+        },
+        "reverse_dependents_reindexed": [
+          "Assignments.ets",
+          "Equality.ets",
+          "MixedWrite.ets",
+          "OnlyText.ets",
+          "QuotedWrite.ets",
+          "UnknownWrite.ets"
+        ],
+        "dispatch_dependents_reindexed": [],
+        "edge_rebuild": {
+          "mode": "merge",
+          "scope_file_count": 6,
+          "scope_files": [
+            "Assignments.ets",
+            "Equality.ets",
+            "MixedWrite.ets",
+            "OnlyText.ets",
+            "QuotedWrite.ets",
+            "UnknownWrite.ets"
+          ],
+          "before": {
+            "node_counts": {
+              "code_file": 6,
+              "code_log_statement": 0,
+              "code_symbol": 12
+            },
+            "edge_count": 24,
+            "relation_counts": {
+              "contains": 12,
+              "exposes_api": 12
+            }
+          },
+          "after": {
+            "node_counts": {
+              "code_file": 6,
+              "code_log_statement": 0,
+              "code_symbol": 12
+            },
+            "edge_count": 24,
+            "relation_counts": {
+              "contains": 12,
+              "exposes_api": 12
+            }
+          },
+          "edges_deleted_estimate": 24,
+          "edges_inserted_estimate": 24,
+          "edge_delta": 0
+        },
+        "phase_ms": {
+          "extract": 5.657,
+          "load_scope": 5.885,
+          "invalidate": 0.889,
+          "prepare_rows": 3.186,
+          "insert_rows": 0.513,
+          "restore_business": 0.094,
+          "rebuild_graph": 25.069,
+          "summarize": 0.248,
+          "commit": 0.224,
+          "total": 41.782
+        },
+        "memory_edges_total": 30,
+        "memory_edges_total_provider": "project-counter/v1",
+        "index_generation": 2,
+        "source_revision": "unversioned"
+      },
+      "semantic_followup": {
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "workflow_steps": [
+          "Read the listed files, symbols, and logs in current source.",
+          "Fill missing business_summary and business_terms in followup_payload_template.",
+          "Write the completed payload with learn-business.",
+          "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+        ],
+        "recommended_next_action": "run_learn_business_now",
+        "truncated": true,
+        "returned_counts": {
+          "files": 5,
+          "symbols": 10,
+          "logs": 0
+        },
+        "remaining_counts": {
+          "files": 1,
+          "symbols": 0,
+          "logs": 0
+        },
+        "followup_payload_template": {
+          "files": [
+            {
+              "file_path": "UnknownWrite.ets",
+              "summary": "ArkTS file with 3 non-empty lines; behavior: statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "text",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method text in UnknownWrite.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "unknownwrite",
+                    "ets",
+                    "text",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "unknown",
+                    "write",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "UnknownWrite.ets",
+                    "text",
+                    "function",
+                    "ArkTS function or lifecycle method text in UnknownWrite.ets"
+                  ]
+                },
+                {
+                  "symbol": "UnknownWrite",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class UnknownWrite declared in UnknownWrite.ets; identifier terms: unknown write",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "unknownwrite",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "unknown",
+                    "write",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "UnknownWrite.ets",
+                    "UnknownWrite",
+                    "class",
+                    "ArkTS class UnknownWrite declared in UnknownWrite.ets; identifier terms: unknown write"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "unknownwrite",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "3",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "statewrite",
+                "text",
+                "unknown",
+                "write",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "UnknownWrite.ets",
+                "ArkTS file with 3 non-empty lines; behavior: statewrite",
+                "text UnknownWrite"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "QuotedWrite.ets",
+              "summary": "ArkTS file with 3 non-empty lines",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "text",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method text in QuotedWrite.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "quotedwrite",
+                    "ets",
+                    "text",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "quoted",
+                    "write",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "QuotedWrite.ets",
+                    "text",
+                    "function",
+                    "ArkTS function or lifecycle method text in QuotedWrite.ets"
+                  ]
+                },
+                {
+                  "symbol": "QuotedWrite",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class QuotedWrite declared in QuotedWrite.ets; identifier terms: quoted write",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "quotedwrite",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "quoted",
+                    "write",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "QuotedWrite.ets",
+                    "QuotedWrite",
+                    "class",
+                    "ArkTS class QuotedWrite declared in QuotedWrite.ets; identifier terms: quoted write"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "quotedwrite",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "3",
+                "non",
+                "empty",
+                "lines",
+                "text",
+                "quoted",
+                "write",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "QuotedWrite.ets",
+                "ArkTS file with 3 non-empty lines",
+                "text QuotedWrite"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "OnlyText.ets",
+              "summary": "ArkTS file with 3 non-empty lines; operations: rotate",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "text",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method text in OnlyText.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "onlytext",
+                    "ets",
+                    "text",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "only",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "OnlyText.ets",
+                    "text",
+                    "function",
+                    "ArkTS function or lifecycle method text in OnlyText.ets"
+                  ]
+                },
+                {
+                  "symbol": "OnlyText",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class OnlyText declared in OnlyText.ets; identifier terms: only text",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "onlytext",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "only",
+                    "text",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "OnlyText.ets",
+                    "OnlyText",
+                    "class",
+                    "ArkTS class OnlyText declared in OnlyText.ets; identifier terms: only text"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "onlytext",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "3",
+                "non",
+                "empty",
+                "lines",
+                "operations",
+                "rotate",
+                "text",
+                "only",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "OnlyText.ets",
+                "ArkTS file with 3 non-empty lines; operations: rotate",
+                "text OnlyText"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "MixedWrite.ets",
+              "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "set",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method set in MixedWrite.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixedwrite",
+                    "ets",
+                    "set",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "mixed",
+                    "write",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "MixedWrite.ets",
+                    "set",
+                    "function",
+                    "ArkTS function or lifecycle method set in MixedWrite.ets"
+                  ]
+                },
+                {
+                  "symbol": "MixedWrite",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class MixedWrite declared in MixedWrite.ets; identifier terms: mixed write",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "mixedwrite",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "mixed",
+                    "write",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "MixedWrite.ets",
+                    "MixedWrite",
+                    "class",
+                    "ArkTS class MixedWrite declared in MixedWrite.ets; identifier terms: mixed write"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "mixedwrite",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "4",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "statewrite",
+                "set",
+                "mixed",
+                "write",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "MixedWrite.ets",
+                "ArkTS file with 4 non-empty lines; behavior: statewrite",
+                "set MixedWrite"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "Equality.ets",
+              "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "check",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method check in Equality.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "equality",
+                    "ets",
+                    "check",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Equality.ets",
+                    "check",
+                    "function",
+                    "ArkTS function or lifecycle method check in Equality.ets"
+                  ]
+                },
+                {
+                  "symbol": "Equality",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class Equality declared in Equality.ets",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "equality",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "Equality.ets",
+                    "Equality",
+                    "class",
+                    "ArkTS class Equality declared in Equality.ets"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "equality",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "4",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "statewrite",
+                "check",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "Equality.ets",
+                "ArkTS file with 4 non-empty lines; behavior: statewrite",
+                "check Equality"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "after-relearn": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/statewrite-lexical/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/project",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/statewrite-file-lexical-before/memory"
+    ],
+    "output": [
+      {
+        "id": 12,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "UnknownWrite.ets",
+        "summary": "ArkTS file with 3 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "fcf1060da63f4be1e9d0093a7b82827279ed5a78d0d0be646b3cd5fede34047d",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:01:33+00:00"
+      },
+      {
+        "id": 11,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "QuotedWrite.ets",
+        "summary": "ArkTS file with 3 non-empty lines",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "c7e2a3a98cce266d866b476aca2455c75e681c3ea144732a0aec2b2a5b0e927b",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:01:33+00:00"
+      },
+      {
+        "id": 10,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "OnlyText.ets",
+        "summary": "ArkTS file with 3 non-empty lines; operations: rotate",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:01:33+00:00"
+      },
+      {
+        "id": 9,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "MixedWrite.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "65f86bbff322dc87eb7b202073194382044d425ecfb1119da78f230534402d8d",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:01:33+00:00"
+      },
+      {
+        "id": 8,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "Equality.ets",
+        "summary": "ArkTS file with 4 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:01:33+00:00"
+      },
+      {
+        "id": 7,
+        "project_id": "7eeb751a32f1ec9a",
+        "file_path": "Assignments.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "be13fc52da82c1362cc9e650bb342f1ca9ab176d889af59796ff364725e96af9",
+        "index_generation": 2,
+        "updated_at": "2026-11-15T15:01:33+00:00"
+      }
+    ]
+  },
+  "identity_changes": {
+    "UnknownWrite.ets": {
+      "id": [
+        6,
+        12
+      ],
+      "file_path": [
+        "UnknownWrite.ets",
+        "UnknownWrite.ets"
+      ],
+      "source_digest": [
+        "fcf1060da63f4be1e9d0093a7b82827279ed5a78d0d0be646b3cd5fede34047d",
+        "fcf1060da63f4be1e9d0093a7b82827279ed5a78d0d0be646b3cd5fede34047d"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "QuotedWrite.ets": {
+      "id": [
+        5,
+        11
+      ],
+      "file_path": [
+        "QuotedWrite.ets",
+        "QuotedWrite.ets"
+      ],
+      "source_digest": [
+        "c7e2a3a98cce266d866b476aca2455c75e681c3ea144732a0aec2b2a5b0e927b",
+        "c7e2a3a98cce266d866b476aca2455c75e681c3ea144732a0aec2b2a5b0e927b"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "OnlyText.ets": {
+      "id": [
+        4,
+        10
+      ],
+      "file_path": [
+        "OnlyText.ets",
+        "OnlyText.ets"
+      ],
+      "source_digest": [
+        "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58",
+        "822c0ef0d749c1cea2917c706c8faa36ac0795100f8a2afa07d8cd3a5af53b58"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "MixedWrite.ets": {
+      "id": [
+        3,
+        9
+      ],
+      "file_path": [
+        "MixedWrite.ets",
+        "MixedWrite.ets"
+      ],
+      "source_digest": [
+        "65f86bbff322dc87eb7b202073194382044d425ecfb1119da78f230534402d8d",
+        "65f86bbff322dc87eb7b202073194382044d425ecfb1119da78f230534402d8d"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Equality.ets": {
+      "id": [
+        2,
+        8
+      ],
+      "file_path": [
+        "Equality.ets",
+        "Equality.ets"
+      ],
+      "source_digest": [
+        "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7",
+        "189c93307fad38a1290a3697984ca0f40cfd8e0ec1fa2550c2dccfc799e2ccd7"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    },
+    "Assignments.ets": {
+      "id": [
+        1,
+        7
+      ],
+      "file_path": [
+        "Assignments.ets",
+        "Assignments.ets"
+      ],
+      "source_digest": [
+        "be13fc52da82c1362cc9e650bb342f1ca9ab176d889af59796ff364725e96af9",
+        "be13fc52da82c1362cc9e650bb342f1ca9ab176d889af59796ff364725e96af9"
+      ],
+      "index_generation": [
+        1,
+        2
+      ]
+    }
+  }
+}
