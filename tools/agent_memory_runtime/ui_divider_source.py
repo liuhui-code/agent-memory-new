@@ -72,7 +72,7 @@ def quoted(source, start):
     raise Unknown('unclosed string')
 
 
-def tokenize(source):
+def tokenize(source, *, declaration_inventory=False):
     if re.search(r'\r(?!\n)', source) or any(c in source for c in ('\u2028', '\u2029')):
         raise Unknown('unsupported physical line separator')
     tokens = []
@@ -114,7 +114,7 @@ def tokenize(source):
         elif source.startswith('=>', i):
             end = i + 2
             tokens.append(Token('punct', '=>', i, end, line))
-        elif c in '{}()[]@,:;.=':
+        elif c in '{}()[]@,:;.=' or (declaration_inventory is True and c in '<>!'):
             end = i + 1
             tokens.append(Token('punct', c, i, end, line))
         else:

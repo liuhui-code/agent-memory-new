@@ -8,6 +8,8 @@ from .query_output_loop_selection import snapshot
 from .query_ui_divider_guard import protected_divider
 from .query_ui_divider_request import divider_request, qualifier_matches
 from .query_ui_divider_scope import divider_frames
+from .query_ui_divider_multilingual_request import MultilingualDividerRequest
+from .query_ui_divider_negative import negative_log_conflict
 
 
 class DividerContext(dict):
@@ -20,6 +22,9 @@ def qualified_divider(project, query, pool):
     qualifier = divider_request(query)
     if qualifier is None:
         return None
+    if isinstance(qualifier, MultilingualDividerRequest):
+        from .query_ui_divider_multilingual_selection import qualified_multilingual_divider
+        return qualified_multilingual_divider(project, qualifier, pool)
     frames = divider_frames(project, pool, qualifier)
     if frames is None:
         return None
@@ -65,7 +70,16 @@ def qualified_divider(project, query, pool):
 
 def binding(data):
     return (data.get('query'), snapshot(dict(data)), snapshot(data._anchors), snapshot(data._members),
-            snapshot(data._pool), str(data._root), data._files, data._frames)
+            snapshot(data._pool), str(data._root), data._files, data._frames, data._log_provenance)
+
+
+def log_provenance(project, baseline, frames):
+    # Preserve the old direct/ordinary contract. Only the explicit-negative
+    # source receipt can request the independent bounded wrapped witness.
+    if not negative_log_conflict(baseline, frames):
+        return ""
+    from .query_ui_divider_wrapped_provenance import wrapped_negative_provenance
+    return wrapped_negative_provenance(project, baseline, frames)
 
 
 def bind_divider_context(project, query, baseline, pool):
@@ -80,7 +94,14 @@ def bind_divider_context(project, query, baseline, pool):
     if result is None:
         return baseline
     anchors, members, files, frames = result
+    try:
+        provenance = log_provenance(project, baseline, frames)
+    except (KeyError, TypeError, ValueError, OverflowError, OSError, UnicodeError, sqlite3.Error):
+        return baseline
+    if provenance is None:
+        return baseline
     data = DividerContext(baseline)
+    data._log_provenance = provenance
     data._anchors = anchors; data._members = members; data._files = files; data._frames = frames
     data._pool = deepcopy(pool); data._root = Path(project.root).resolve(); data._project = project
     data._binding = binding(data)
@@ -101,6 +122,8 @@ def divider_receipt(data, *, pending=False):
         if result is None:
             return None
         anchors, members, files, frames = result
+        if log_provenance(data._project, data, frames) != data._log_provenance:
+            return None
         if (snapshot(anchors), snapshot(members), files, frames) != (
                 snapshot(data._anchors), snapshot(data._members), data._files, data._frames):
             return None
@@ -139,7 +162,7 @@ def enrich_divider(data, query, path, freshness):
     result = DividerContext(baseline)
     for field in ('_anchors', '_members', '_pool'):
         setattr(result, field, deepcopy(getattr(data, field)))
-    for field in ('_root', '_files', '_frames', '_project'):
+    for field in ('_root', '_files', '_frames', '_project', '_log_provenance'):
         setattr(result, field, getattr(data, field))
     result._binding = binding(result)
     return result

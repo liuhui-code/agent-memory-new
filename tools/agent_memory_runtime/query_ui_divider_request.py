@@ -11,6 +11,10 @@ RESERVED = set('and or not only both except exclude instead without return find 
 def divider_request(query):
     if not isinstance(query, str) or len(query) > 240:
         return None
+    from .query_ui_divider_multilingual_request import parse_multilingual_divider_request
+    multilingual = parse_multilingual_divider_request(query)
+    if multilingual is not None:
+        return multilingual
     match = FORM.fullmatch(query) or CONTEXT_FORM.fullmatch(query)
     if match is None or match[1] in RESERVED:
         return None
@@ -26,6 +30,10 @@ def qualifier_matches(qualifier, owner):
 
 def divider_identity_query(query):
     """Name-check projection only; never use this text for retrieval or logs."""
+    from .query_ui_divider_multilingual_request import parse_multilingual_divider_request, project_negative_names
+    multilingual = parse_multilingual_divider_request(query)
+    if multilingual is not None:
+        return project_negative_names(query, multilingual)
     if divider_request(query) is None:
         return query
     match = CONTEXT_FORM.fullmatch(query)

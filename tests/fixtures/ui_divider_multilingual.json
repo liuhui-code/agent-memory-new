@@ -1,0 +1,153 @@
+{
+  "sources": {
+    "core-three_large": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel0.ets": "@Component\nexport struct GlyphPanel0 {\n build() {\n  List() {\n   ListItem() { Text('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel1.ets": "@Component\nexport struct GlyphPanel1 {\n build() {\n  List() {\n   ListItem() { Text('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel2.ets": "@Component\nexport struct GlyphPanel2 {\n build() {\n  List() {\n   ListItem() { Text('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel3.ets": "@Component\nexport struct GlyphPanel3 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "core-glyph": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "core-duplicate": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "other/GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "core-field_collision": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphRows.ets": "@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphRecord.ts": "export class GlyphRecord {\n value: string = \"\"\n}\n",
+      "GlyphItem.ets": "@Component\nexport struct GlyphItem {\n build() {\n  Text(\"sample\")\n }\n}\n",
+      "GlyphHolder.ts": "export class GlyphHolder {\n GlyphRows: number = 0\n}\n"
+    },
+    "core-same_file": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "core-account": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "AccountCards.ets": "@Component\nexport struct AccountCards {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "core-union_thirteen": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "InventoryPanel0.ets": "@Component\nexport struct InventoryPanel0 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "InventoryPanel1.ets": "@Component\nexport struct InventoryPanel1 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "InventoryPanel2.ets": "@Component\nexport struct InventoryPanel2 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "InventoryPanel3.ets": "@Component\nexport struct InventoryPanel3 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "InventoryPanel4.ets": "@Component\nexport struct InventoryPanel4 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "InventoryPanel5.ets": "@Component\nexport struct InventoryPanel5 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "InventoryPanel6.ets": "@Component\nexport struct InventoryPanel6 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "StockPanel0.ets": "@Component\nexport struct StockPanel0 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "StockPanel1.ets": "@Component\nexport struct StockPanel1 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "StockPanel2.ets": "@Component\nexport struct StockPanel2 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "StockPanel3.ets": "@Component\nexport struct StockPanel3 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "StockPanel4.ets": "@Component\nexport struct StockPanel4 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "StockPanel5.ets": "@Component\nexport struct StockPanel5 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "core-four_after_exclusion": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel0.ets": "@Component\nexport struct GlyphPanel0 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel1.ets": "@Component\nexport struct GlyphPanel1 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel2.ets": "@Component\nexport struct GlyphPanel2 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel3.ets": "@Component\nexport struct GlyphPanel3 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphPanel4.ets": "@Component\nexport struct GlyphPanel4 {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "supp-noop": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphModel.ts": "export class GlyphModel {\n value: string = \"\"\n}\n",
+      "GlyphLabel.ets": "@Component\nexport struct GlyphLabel {\n build() {\n  Text(\"divider\")\n }\n}\n"
+    },
+    "supp-log": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphLogOwner.ts": "export class GlyphLogOwner {\n report(): void {\n  console.error(\"GlyphLogOwner\")\n }\n}\n"
+    }
+  },
+  "cases": [
+    {
+      "id": "core-glyph-map",
+      "cohort": "core-glyph",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码。"
+    },
+    {
+      "id": "core-account-map",
+      "cohort": "core-account",
+      "query": "账户列表分隔线粗细错误，请定位 divider 的源码。"
+    },
+    {
+      "id": "core-same_file",
+      "cohort": "core-same_file",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphRows。"
+    },
+    {
+      "id": "core-duplicate",
+      "cohort": "core-duplicate",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphList。"
+    },
+    {
+      "id": "core-field_collision",
+      "cohort": "core-field_collision",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphRows。"
+    },
+    {
+      "id": "core-union_thirteen",
+      "cohort": "core-union_thirteen",
+      "query": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 StockPanel0。"
+    },
+    {
+      "id": "core-four_after_exclusion",
+      "cohort": "core-four_after_exclusion",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphPanel0。"
+    },
+    {
+      "id": "core-three_large",
+      "cohort": "core-three_large",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphPanel3。"
+    },
+    {
+      "id": "supp-noop-model",
+      "cohort": "supp-noop",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphModel。"
+    },
+    {
+      "id": "supp-noop-label",
+      "cohort": "supp-noop",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphLabel。"
+    },
+    {
+      "id": "supp-noop-absent",
+      "cohort": "supp-noop",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphAbsent。"
+    },
+    {
+      "id": "supp-noop-control",
+      "cohort": "supp-noop",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码。"
+    },
+    {
+      "id": "supp-negative-log",
+      "cohort": "supp-log",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphLogOwner。"
+    },
+    {
+      "id": "supp-incidental-log-control",
+      "cohort": "supp-log",
+      "query": "字形列表分隔线粗细错误，请定位 divider 的源码。"
+    }
+  ]
+}

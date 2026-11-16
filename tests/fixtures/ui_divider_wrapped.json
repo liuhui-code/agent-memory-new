@@ -1,0 +1,28 @@
+{
+  "sources": {
+    "static": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphModel.ts": "export class GlyphModel {\n value: string = \"\"\n}\n",
+      "GlyphLabel.ets": "@Component\nexport struct GlyphLabel {\n build() {\n  Text(\"divider\")\n }\n}\n",
+      "audit/GlyphNoticeSink.ets": "export class GlyphNoticeSink {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "audit/GlyphNoticeService.ets": "import { GlyphNoticeSink } from './GlyphNoticeSink'\nexport class GlyphNoticeService {\n private sink: GlyphNoticeSink = new GlyphNoticeSink()\n render(): void {\n  this.sink.report('glyph divider render failed')\n }\n}\n"
+    },
+    "inferred": {
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphPanel.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('sample') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphModel.ts": "export class GlyphModel {\n value: string = \"\"\n}\n",
+      "GlyphLabel.ets": "@Component\nexport struct GlyphLabel {\n build() {\n  Text(\"divider\")\n }\n}\n",
+      "audit/GlyphNoticePort.ets": "export interface GlyphNoticePort {\n report(message: string): void\n}\n",
+      "audit/GlyphNoticeService.ets": "import { GlyphNoticePort } from './GlyphNoticePort'\nexport class GlyphNoticeService {\n private sink: GlyphNoticePort\n render(): void {\n  this.sink.report('glyph divider render failed')\n }\n}\n",
+      "audit/GlyphConsoleNotice.ets": "import { GlyphNoticePort } from './GlyphNoticePort'\nexport class GlyphConsoleNotice implements GlyphNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "audit/GlyphFileNotice.ets": "import { GlyphNoticePort } from './GlyphNoticePort'\nexport class GlyphFileNotice implements GlyphNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n"
+    }
+  },
+  "queries": {
+    "static": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphModel。",
+    "inferred": "字形列表分隔线粗细错误，请定位 divider 的源码，不要返回 GlyphModel。"
+  }
+}
