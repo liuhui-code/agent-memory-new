@@ -101,6 +101,28 @@
           "id": "named-unknown",
           "query": "Locate DeferredAssembly.schedule implementation.",
           "exact_baseline_required": true
+        },
+        {
+          "id": "contextual-accumulator",
+          "query": "A sequence of message fragments retains only the final item; return the item iteration and accumulator implementation rather than the display panel.",
+          "required": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ],
+          "allowed_positive_only": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ]
+        },
+        {
+          "id": "bare-accumulator",
+          "query": "Locate the record iteration and accumulator implementation.",
+          "required": [
+            "ChunkAssembler.ts"
+          ],
+          "allowed_positive_only": [
+            "ChunkAssembler.ts"
+          ]
         }
       ]
     }
@@ -123,5 +145,7 @@
     "No generic aggregation/Chinese authorization",
     "No original26 benefit assumed",
     "No unknown-to-absent or negative parser"
-  ]
+  ],
+  "context_provenance": "All new contextual request sentences are reviewed-synthetic inputs, not observed executions or verified symptoms. Existing append-only source is not claimed to actually retain only the final item.",
+  "independent_review": "continue_archive25 approves contextual accumulator as requested local result-slot role including overwrite, not proof of symptom causality; bare accumulator remains append-only. Once frozen, no grammar/source/query changes after before."
 }
