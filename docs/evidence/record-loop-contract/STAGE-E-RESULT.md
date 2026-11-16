@@ -7,3 +7,7 @@ Final four qualified relationship cases now return the full requested positive s
 The two bare accumulator cases remain red, visibly preserved. B pool failure and D any-log guard failure are not rewritten. C is still a prerequisite to E, not an independent accepted benefit. No original26 acceptance has been run yet. No claim of runtime causality, absence of omitted unknowns, or unique repository owner.
 
 69 relevant tests pass, including25 new source/selection/transaction checks and existing cache/lifecycle/output/display integrations. Final independent review still required before original26 single-group evaluation. No full suite or sealed material used. No remote writes.
+
+## Actual read cost
+
+Internal two-positive helper sequence recorded in stage-e-read-count.json: qualification reads3 pool files in binary; enrichment, accounting and final compact each recheck2 positive source digests, for9 bounded binary opens total. Accounting and compact also each perform4 existing baseline text-window reads in this sample. This is not single-read/zero-overhead. Qualification has at most12 paths, every binary read capped2MiB+1; each receipt check is bounded by qualified paths (at most12, success ultimately at most3anchors). No global scan or relaxed freshness. Counts are internal sequence instrumentation, not a public latency benchmark.
