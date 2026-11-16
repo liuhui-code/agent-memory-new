@@ -30,4 +30,3 @@ def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str
         candidate = complete_added_snapshots(handoff, baseline, _compact_context(data))
         return candidate if accepted_output(handoff, baseline, candidate) else baseline
     return _compact_context(data, render_receipts)
-
