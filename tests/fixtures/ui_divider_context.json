@@ -1,0 +1,123 @@
+{
+  "sources": {
+    "current_collision": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "ClockState.ets": "export class ClockState {\n  @State current: number = 0\n  tick(): void {\n    this.current += 1\n  }\n}\n"
+    },
+    "current_collision_two": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphRows.ets": "@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('alternate glyph') }\n  }.divider({ strokeWidth: 3 })\n }\n}\n",
+      "ClockState.ets": "export class ClockState {\n  @State current: number = 0\n  tick(): void {\n    this.current += 1\n  }\n}\n"
+    },
+    "current_collision_unknown": {
+      "GlyphList.ets": "function List(): Object { return {} }\n@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "ClockState.ets": "export class ClockState {\n  @State current: number = 0\n  tick(): void {\n    this.current += 1\n  }\n}\n"
+    },
+    "domain_current": {
+      "CurrentList.ets": "@Component\nexport struct current {\n build() {\n  List() {\n   ListItem() { Text('current') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ClockState.ets": "export class ClockState {\n  @State current: number = 0\n  tick(): void {\n    this.current += 1\n  }\n}\n"
+    },
+    "other_name_collision": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "ClockState.ets": "export class ClockState {\n  @State current: number = 0\n  tick(): void {\n    this.current += 1\n  }\n}\n",
+      "ViewportState.ets": "export class ViewportState {\n  @State window: number = 0\n}\n"
+    },
+    "domain_event": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "ClockState.ets": "export class ClockState {\n  @State current: number = 0\n  tick(): void {\n    this.current += 1\n  }\n}\n",
+      "GlyphNotes.ts": "export class GlyphNotes {\n report(): void {\n  console.error('current source window')\n }\n}\n"
+    }
+  },
+  "cases": [
+    {
+      "id": "current-qualified",
+      "cohort": "current_collision",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and current source window.",
+      "proposed_owners": [
+        "GlyphList"
+      ]
+    },
+    {
+      "id": "current-two-qualified",
+      "cohort": "current_collision_two",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and current source window.",
+      "proposed_owners": [
+        "GlyphList",
+        "GlyphRows"
+      ]
+    },
+    {
+      "id": "current-unknown",
+      "cohort": "current_collision_unknown",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and current source window.",
+      "proposed_owners": null
+    },
+    {
+      "id": "domain-current-protected",
+      "cohort": "domain_current",
+      "query": "The current list separator has the wrong thickness. Return the ArkTS behavior owner and current source window.",
+      "proposed_owners": null
+    },
+    {
+      "id": "other-name-still-protected",
+      "cohort": "other_name_collision",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and current source window.",
+      "proposed_owners": null
+    },
+    {
+      "id": "explicit-current",
+      "cohort": "current_collision",
+      "query": "Find ClockState.current source.",
+      "proposed_owners": null
+    },
+    {
+      "id": "quoted-current",
+      "cohort": "current_collision",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and \"current\" source window.",
+      "proposed_owners": null
+    },
+    {
+      "id": "backtick-current",
+      "cohort": "current_collision",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and `current` source window.",
+      "proposed_owners": null
+    },
+    {
+      "id": "appended-current",
+      "cohort": "current_collision",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and current source window. Include ClockState.current.",
+      "proposed_owners": null
+    },
+    {
+      "id": "old-english-current-compatibility",
+      "cohort": "current_collision",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "proposed_owners": null
+    },
+    {
+      "id": "complete-event",
+      "cohort": "domain_event",
+      "query": "The glyph list separator has the wrong thickness. Return the ArkTS behavior owner and current source window."
+    },
+    {
+      "id": "old-english",
+      "cohort": "domain_event",
+      "query": "Locate the ArkTS glyph divider stroke width implementation."
+    },
+    {
+      "id": "explicit-log",
+      "cohort": "domain_event",
+      "query": "Find the log current source window."
+    }
+  ]
+}

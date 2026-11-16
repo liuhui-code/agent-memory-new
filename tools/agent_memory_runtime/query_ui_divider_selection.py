@@ -5,7 +5,7 @@ import hashlib
 from pathlib import Path
 import sqlite3
 from .query_output_loop_selection import snapshot
-from .query_record_loop_selection import protected_record_loop
+from .query_ui_divider_guard import protected_divider
 from .query_ui_divider_request import divider_request, qualifier_matches
 from .query_ui_divider_scope import divider_frames
 
@@ -71,7 +71,7 @@ def binding(data):
 def bind_divider_context(project, query, baseline, pool):
     if divider_request(query) is None or type(pool) is not list or any(type(r) is not dict for r in pool):
         return baseline
-    if protected_record_loop(baseline, query, pool, pending=True):
+    if protected_divider(baseline, query, pool, pending=True):
         return baseline
     try:
         result = qualified_divider(project, query, pool)
@@ -92,7 +92,7 @@ def divider_receipt(data, *, pending=False):
         return None
     try:
         if (data._binding != binding(data) or divider_request(data.get('query')) is None
-                or protected_record_loop(data, data['query'], data._pool, pending=pending)
+                or protected_divider(data, data['query'], data._pool, pending=pending)
                 or Path(data._project.root).resolve() != data._root):
             return None
         # Revalidate current DB identity/generation AND every examined source file,
@@ -134,7 +134,7 @@ def enrich_divider(data, query, path, freshness):
     baseline.setdefault('query_handoff', {})['path_context'] = path
     if (divider_receipt(data, pending=True) is None or query != data.get('query')
             or snapshot(freshness) != snapshot(data.get('source_freshness'))
-            or protected_record_loop(baseline, query, data._pool)):
+            or protected_divider(baseline, query, data._pool)):
         return baseline
     result = DividerContext(baseline)
     for field in ('_anchors', '_members', '_pool'):
