@@ -32,6 +32,10 @@ def bind_context_trials(query, context, items, *, allow_render_recall=False,
         from .query_lifecycle_selection import LifecycleTrial
         context = LifecycleTrial(context)
         context._lifecycle_authority = authority
+        from copy import deepcopy
+        context._lifecycle_pool = deepcopy(items)
+        from .query_lifecycle_selection import snapshot
+        context._lifecycle_pool_binding = snapshot(items)
     if output_authority is not None:
         from .query_output_loop_selection import OutputLoopTrial
         context = OutputLoopTrial(context)

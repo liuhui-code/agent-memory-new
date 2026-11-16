@@ -1,0 +1,107 @@
+[
+  {
+    "id": "original-four/relative-head",
+    "query": "Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "original-four/new-observation-old-head",
+    "query": "A saved scratch buffer resets after relaunch. Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "original-four/joint-relative",
+    "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "original-four/joint-other-observation",
+    "query": "The saved working copy is cleared after restart. Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "original-four/existing-english-head",
+    "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "original-four/existing-english-observed",
+    "query": "Restart loses the saved scratch buffer; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "original-four/quoted",
+    "query": "\"A saved scratch buffer resets after relaunch. Return the coordinator that combines restore lifecycle, current state, and storage commit.\"",
+    "accepted": false
+  },
+  {
+    "id": "original-four/negative",
+    "query": "A saved scratch buffer resets after relaunch. Do not return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/generated",
+    "query": "A saved scratch buffer resets after relaunch. Generate the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/multi",
+    "query": "Return both coordinators that combine restore lifecycle, current state, and storage commit.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/partial",
+    "query": "Return the coordinator that combines restore lifecycle and storage commit.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/mixed",
+    "query": "Return the coordinator that combines restore lifecycle, current state, and storage commit. Also show PendingQueue.append.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/named-head",
+    "query": "A saved scratch buffer resets after relaunch. Return PendingQueue.append.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/named-np",
+    "query": "A saved BufferSession resets after relaunch. Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": false
+  },
+  {
+    "id": "original-four/extra-tail",
+    "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines restore lifecycle, current state, and storage commit except WriteQueue.",
+    "accepted": false
+  },
+  {
+    "id": "two-complete-owners/relative-head",
+    "query": "Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "two-complete-owners/new-observation-old-head",
+    "query": "A saved scratch buffer resets after relaunch. Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "two-complete-owners/joint-relative",
+    "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "two-complete-owners/joint-other-observation",
+    "query": "The saved working copy is cleared after restart. Return the coordinator that combines restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "two-complete-owners/existing-pair-english-head",
+    "query": "Return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  },
+  {
+    "id": "two-complete-owners/existing-pair-english-observed",
+    "query": "Restart loses the saved scratch buffer; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "accepted": true
+  }
+]

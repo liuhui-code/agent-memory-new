@@ -82,9 +82,12 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             from .query_render_selection import bind_render_context
             result = bind_render_context(project, query, baseline, trial)
     from .query_lifecycle_selection import lifecycle_request, bind_lifecycle_context, LifecycleContext, lifecycle_context_view
+    from .query_lifecycle_log_context import LifecycleLogContext, bind_lifecycle_log_context
     if lifecycle_request(query):
         trial = _context_pass(project, query, explicit_intent, allow_lifecycle=True)
         result = bind_lifecycle_context(query, baseline, trial)
+        if result is baseline:
+            result = bind_lifecycle_log_context(query, baseline, trial)
     from .query_output_loop_selection import output_loop_request, bind_output_loop_context, OutputLoopContext, output_loop_context_view
     if output_loop_request(query):
         trial = _context_pass(project, query, explicit_intent, allow_output_loop=True)
@@ -98,7 +101,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     from .query_archive_create_write_selection import ArchiveCreateWriteContext, accounting_archive_create_write
     from .query_render_selection import RenderContext, render_context_view
     if ((isinstance(result, RenderContext) and defer_render_accounting)
-            or (isinstance(result, LifecycleContext) and defer_lifecycle_accounting)
+            or (isinstance(result, (LifecycleContext, LifecycleLogContext)) and defer_lifecycle_accounting)
             or (isinstance(result, OutputLoopContext) and defer_output_loop_accounting)
             or (isinstance(result, CommandContext) and defer_command_accounting)
             or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)

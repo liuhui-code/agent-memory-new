@@ -1,0 +1,353 @@
+{
+  "families": [
+    {
+      "id": "original-four-incidental",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n",
+        "StatusTelemetry.ets": "export function publishStatus(): void {\n  console.info('state update batch queued')\n}\nexport function flushStatus(): void {\n  publishStatus()\n}\n"
+      },
+      "queries": [
+        {
+          "id": "incidental-observation",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "eligible",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "incidental-head",
+          "query": "Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "eligible",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "named-owner",
+          "query": "A saved StatusTelemetry resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "explicit-log",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence. Also locate the state update batch queued log.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "quoted",
+          "query": "\"A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.\"",
+          "kind": "unsupported"
+        },
+        {
+          "id": "negative",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence. Exclude the writer.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "chinese-compatibility",
+          "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+          "kind": "unsupported-new-capability"
+        },
+        {
+          "id": "named-log-function",
+          "query": "A saved publishStatus resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "precise-log",
+          "query": "state update batch queued",
+          "kind": "unsupported"
+        }
+      ]
+    },
+    {
+      "id": "two-complete-owners-incidental",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "EditorSession.ets": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "StatusTelemetry.ets": "export function publishStatus(): void {\n  console.info('state update batch queued')\n}\nexport function flushStatus(): void {\n  publishStatus()\n}\n"
+      },
+      "queries": [
+        {
+          "id": "incidental-observation",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "eligible",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ],
+            "EditorSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "incidental-head",
+          "query": "Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "eligible",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ],
+            "EditorSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "named-owner",
+          "query": "A saved StatusTelemetry resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "explicit-log",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence. Also locate the state update batch queued log.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "quoted",
+          "query": "\"A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.\"",
+          "kind": "unsupported"
+        },
+        {
+          "id": "negative",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence. Exclude the writer.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "chinese-compatibility",
+          "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+          "kind": "unsupported-new-capability"
+        },
+        {
+          "id": "named-log-function",
+          "query": "A saved publishStatus resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "precise-log",
+          "query": "state update batch queued",
+          "kind": "unsupported"
+        }
+      ]
+    },
+    {
+      "id": "literal-event",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n",
+        "SnapshotTelemetry.ets": "export class SnapshotTelemetry {\n  report(): void {\n    console.info('scratch buffer')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "event-in-background",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        }
+      ]
+    },
+    {
+      "id": "no-complete-owner",
+      "sources": {
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n",
+        "StatusTelemetry.ets": "export class StatusTelemetry {\n  report(): void {\n    console.info('state update batch queued')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "no-authority",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        }
+      ]
+    },
+    {
+      "id": "original-four-no-log",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "incidental-observation",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "compatibility-no-log",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "incidental-head",
+          "query": "Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "compatibility-no-log",
+          "required": [
+            "BufferSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-complete-owners-no-log",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "EditorSession.ets": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "incidental-observation",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "compatibility-no-log",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ],
+            "EditorSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "incidental-head",
+          "query": "Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "compatibility-no-log",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ],
+            "EditorSession.ets": [
+              1,
+              12
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "np-owner-collision",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n",
+        "scratch.ets": "export class scratch {\n  report(): void {\n    console.info('state update batch queued')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "named-lowercase-owner",
+          "query": "A saved scratch buffer resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        }
+      ]
+    },
+    {
+      "id": "two-owner-cross-file-log",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "EditorSession.ets": "export class EditorSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "CheckpointTelemetry.ets": "export class CheckpointTelemetry {\n  publish(label: string): void {\n    console.info(`checkpoint update queued ${label}`)\n  }\n}\n",
+        "CheckpointRelay.ets": "import { CheckpointTelemetry } from './CheckpointTelemetry'\nexport class CheckpointRelay {\n  private sink: CheckpointTelemetry = new CheckpointTelemetry()\n  flush(label: string): void {\n    this.sink.publish(label)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "incidental-head",
+          "query": "Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "preservation",
+          "required": [
+            "BufferSession.ets",
+            "EditorSession.ets"
+          ],
+          "complete_class_ranges": {
+            "BufferSession.ets": [
+              1,
+              12
+            ],
+            "EditorSession.ets": [
+              1,
+              12
+            ]
+          }
+        },
+        {
+          "id": "literal-event",
+          "query": "checkpoint update queued",
+          "kind": "unsupported"
+        },
+        {
+          "id": "named-log-owner",
+          "query": "Locate CheckpointTelemetry.publish",
+          "kind": "unsupported"
+        },
+        {
+          "id": "event-in-grammatical-background",
+          "query": "A saved checkpoint update queued resets after relaunch. Return the coordinator that combines lifecycle restore, state update, and persistence.",
+          "kind": "unsupported"
+        },
+        {
+          "id": "chinese-compatibility",
+          "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+          "kind": "unsupported-new-capability"
+        }
+      ]
+    }
+  ]
+}

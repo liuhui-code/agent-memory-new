@@ -41,6 +41,16 @@ class ContextFacade:
                 record_context_use(self.project, adopted)
                 record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
+        from .query_lifecycle_log_context import LifecycleLogContext, enrich_lifecycle_log_context
+        if isinstance(result, LifecycleLogContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
+            result = enrich_lifecycle_log_context(result, query, path_payload, freshness)
+            if pending:
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, dict(result))
+                record_query_miss_if_empty(self.project, 'context', query, dict(result))
+            return result
         from .query_lifecycle_selection import LifecycleContext, enrich_lifecycle_context, lifecycle_context_view
         if isinstance(result, LifecycleContext):
             pending = getattr(result, '_pending_accounting', False) is True
