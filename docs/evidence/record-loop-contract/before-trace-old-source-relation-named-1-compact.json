@@ -1,0 +1,962 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "query": "Locate ChunkAssembler.assemble implementation.",
+    "anchors": null,
+    "items": [
+      {
+        "id": 3,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "symbol_type": "class",
+        "summary": "class ChunkAssembler in ChunkAssembler.ts; identifier terms: chunk assembler",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:7a29041de387c9c95fb5dca5",
+        "qualified_name": "ChunkAssembler",
+        "signature": "class ChunkAssembler",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05590957,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 110.0,
+        "search_terms": [
+          "chunkassembler.ts",
+          "class chunkassembler in chunkassembler.ts; identifier terms: chunk assembler",
+          "chunkassembler",
+          "class",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "chunk",
+          "assembler"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05629297,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 94.0,
+        "search_terms": [
+          "chunkassembler.ts",
+          "function assemble in chunkassembler.ts",
+          "assemble",
+          "function",
+          "chunkassembler",
+          "ts",
+          "in",
+          "chunk",
+          "assembler"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 79.2,
+        "search_terms": [
+          "chunkassembler.ts",
+          "typescript",
+          "typescript file with 9 non-empty lines",
+          "chunkassembler",
+          "ts",
+          "file",
+          "with",
+          "9",
+          "non",
+          "empty",
+          "lines",
+          "chunk",
+          "assembler",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "ChunkAssembler",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 9
+      }
+    ],
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      [
+        {
+          "id": 3,
+          "project_id": "a0c9f520df5bd78a",
+          "file_path": "ChunkAssembler.ts",
+          "symbol": "ChunkAssembler",
+          "symbol_type": "class",
+          "summary": "class ChunkAssembler in ChunkAssembler.ts; identifier terms: chunk assembler",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:7a29041de387c9c95fb5dca5",
+          "qualified_name": "ChunkAssembler",
+          "signature": "class ChunkAssembler",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:43+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05590957,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 110.0,
+          "search_terms": [
+            "chunkassembler.ts",
+            "class chunkassembler in chunkassembler.ts; identifier terms: chunk assembler",
+            "chunkassembler",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "chunk",
+            "assembler"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 4,
+          "project_id": "a0c9f520df5bd78a",
+          "file_path": "ChunkAssembler.ts",
+          "symbol": "assemble",
+          "symbol_type": "function",
+          "summary": "function assemble in ChunkAssembler.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+          "qualified_name": "ChunkAssembler.assemble",
+          "signature": "assemble(chunks: string[]):string",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "ChunkAssembler",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:43+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 94.0,
+          "search_terms": [
+            "chunkassembler.ts",
+            "function assemble in chunkassembler.ts",
+            "assemble",
+            "function",
+            "chunkassembler",
+            "ts",
+            "in",
+            "chunk",
+            "assembler"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "a0c9f520df5bd78a",
+          "file_path": "ChunkAssembler.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:43+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 79.2,
+          "search_terms": [
+            "chunkassembler.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "chunkassembler",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "chunk",
+            "assembler",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ChunkAssembler",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      false
+    ],
+    "return_line": 115
+  },
+  {
+    "function": "rank_callables",
+    "query": "Locate ChunkAssembler.assemble implementation.",
+    "anchors": null,
+    "items": [
+      {
+        "id": 4,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 94.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 39.5,
+        "evidence_score": 39.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage"
+        ],
+        "mechanism_hits": []
+      }
+    ],
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      {
+        "id": 4,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 94.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 39.5,
+        "evidence_score": 39.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "chunkassembler",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "return_line": 349
+  },
+  {
+    "function": "rank_callables",
+    "query": "Locate ChunkAssembler.assemble implementation.",
+    "anchors": null,
+    "items": [
+      {
+        "id": 4,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 94.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 39.5,
+        "evidence_score": 39.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage"
+        ],
+        "mechanism_hits": []
+      }
+    ],
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      {
+        "id": 4,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 94.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 39.5,
+        "evidence_score": 39.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "chunkassembler",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "return_line": 349
+  },
+  {
+    "function": "focus_callable_anchors",
+    "query": "Locate ChunkAssembler.assemble implementation.",
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 3,
+        "record_type": "code_symbol",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "symbol_type": "class",
+        "summary": "class ChunkAssembler in ChunkAssembler.ts; identifier terms: chunk assembler",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 4,
+        "record_type": "code_symbol",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "start_line": 2,
+        "end_line": 8,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "items": null,
+    "evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 39.5,
+        "evidence_score": 39.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_activated": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {},
+      "wrapped_log_evidence": false
+    },
+    "returned": [
+      {
+        "source": "wiki",
+        "record_id": 3,
+        "record_type": "code_symbol",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "symbol_type": "class",
+        "summary": "class ChunkAssembler in ChunkAssembler.ts; identifier terms: chunk assembler",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 4,
+        "record_type": "code_symbol",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "start_line": 2,
+        "end_line": 8,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "return_line": 97
+  }
+]

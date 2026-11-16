@@ -1,0 +1,990 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "query": "Locate DeferredAssembly.schedule implementation.",
+    "anchors": null,
+    "items": [
+      {
+        "id": 6,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.08278689,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 104.0,
+        "search_terms": [
+          "deferredassembly.ts",
+          "function schedule in deferredassembly.ts",
+          "schedule",
+          "function",
+          "deferredassembly",
+          "ts",
+          "in",
+          "deferred",
+          "assembly"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 5,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "symbol_type": "class",
+        "summary": "class DeferredAssembly in DeferredAssembly.ts; identifier terms: deferred assembly",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e8efbe306d538ec9f24c04ea",
+        "qualified_name": "DeferredAssembly",
+        "signature": "class DeferredAssembly",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05564516,
+          "best_rank": 2,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 81.5,
+        "search_terms": [
+          "deferredassembly.ts",
+          "class deferredassembly in deferredassembly.ts; identifier terms: deferred assembly",
+          "deferredassembly",
+          "class",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "deferred",
+          "assembly"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 55.4,
+        "search_terms": [
+          "deferredassembly.ts",
+          "typescript",
+          "typescript file with 9 non-empty lines",
+          "deferredassembly",
+          "ts",
+          "file",
+          "with",
+          "9",
+          "non",
+          "empty",
+          "lines",
+          "deferred",
+          "assembly",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "DeferredAssembly",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 9
+      }
+    ],
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      [
+        {
+          "id": 6,
+          "project_id": "3b25363a9ece081e",
+          "file_path": "DeferredAssembly.ts",
+          "symbol": "schedule",
+          "symbol_type": "function",
+          "summary": "function schedule in DeferredAssembly.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+          "qualified_name": "DeferredAssembly.schedule",
+          "signature": "schedule(chunks: string[]):string",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+          "evidence_class": "static",
+          "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "DeferredAssembly",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.08278689,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 104.0,
+          "search_terms": [
+            "deferredassembly.ts",
+            "function schedule in deferredassembly.ts",
+            "schedule",
+            "function",
+            "deferredassembly",
+            "ts",
+            "in",
+            "deferred",
+            "assembly"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 5,
+          "project_id": "3b25363a9ece081e",
+          "file_path": "DeferredAssembly.ts",
+          "symbol": "DeferredAssembly",
+          "symbol_type": "class",
+          "summary": "class DeferredAssembly in DeferredAssembly.ts; identifier terms: deferred assembly",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:e8efbe306d538ec9f24c04ea",
+          "qualified_name": "DeferredAssembly",
+          "signature": "class DeferredAssembly",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 81.5,
+          "search_terms": [
+            "deferredassembly.ts",
+            "class deferredassembly in deferredassembly.ts; identifier terms: deferred assembly",
+            "deferredassembly",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "deferred",
+            "assembly"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 3,
+          "project_id": "3b25363a9ece081e",
+          "file_path": "DeferredAssembly.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 55.4,
+          "search_terms": [
+            "deferredassembly.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "deferredassembly",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "deferred",
+            "assembly",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "DeferredAssembly",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      false
+    ],
+    "return_line": 115
+  },
+  {
+    "function": "rank_callables",
+    "query": "Locate DeferredAssembly.schedule implementation.",
+    "anchors": null,
+    "items": [
+      {
+        "id": 6,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 104.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 43.5,
+        "evidence_score": 43.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": []
+      }
+    ],
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      {
+        "id": 6,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 104.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 43.5,
+        "evidence_score": 43.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "deferredassembly",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "return_line": 349
+  },
+  {
+    "function": "rank_callables",
+    "query": "Locate DeferredAssembly.schedule implementation.",
+    "anchors": null,
+    "items": [
+      {
+        "id": 6,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 104.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 43.5,
+        "evidence_score": 43.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": []
+      }
+    ],
+    "evidence": null,
+    "path_activated": null,
+    "returned": [
+      {
+        "id": 6,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 104.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 43.5,
+        "evidence_score": 43.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "deferredassembly",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ],
+    "return_line": 349
+  },
+  {
+    "function": "focus_callable_anchors",
+    "query": "Locate DeferredAssembly.schedule implementation.",
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 6,
+        "record_type": "code_symbol",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "start_line": 2,
+        "end_line": 8,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 5,
+        "record_type": "code_symbol",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "symbol_type": "class",
+        "summary": "class DeferredAssembly in DeferredAssembly.ts; identifier terms: deferred assembly",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "items": null,
+    "evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 43.5,
+        "evidence_score": 43.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_activated": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {},
+      "wrapped_log_evidence": false
+    },
+    "returned": [
+      {
+        "source": "wiki",
+        "record_id": 6,
+        "record_type": "code_symbol",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "start_line": 2,
+        "end_line": 8,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 5,
+        "record_type": "code_symbol",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "symbol_type": "class",
+        "summary": "class DeferredAssembly in DeferredAssembly.ts; identifier terms: deferred assembly",
+        "start_line": 1,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "return_line": 97
+  }
+]

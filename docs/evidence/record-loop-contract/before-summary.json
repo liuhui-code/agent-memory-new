@@ -1,0 +1,226 @@
+[
+  {
+    "cohort": "old-source-relation",
+    "id": "existing-natural-accumulator",
+    "query": "Locate the record iteration and accumulator implementation.",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "missing_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "budget": {
+      "estimated_tokens": 941,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "contextual-result",
+    "query": "A sequence of message fragments retains only the final item; return the item iteration and result implementation rather than the display panel.",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "missing_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "budget": {
+      "estimated_tokens": 958,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "named-1",
+    "query": "Locate ChunkAssembler.assemble implementation.",
+    "paths": [
+      "ChunkAssembler.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 874,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "named-2",
+    "query": "Locate AfterIteration.summarize implementation.",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 934,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "named-3",
+    "query": "Locate DeferredAssembly.schedule implementation.",
+    "paths": [
+      "DeferredAssembly.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 882,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "quoted",
+    "query": "Locate the text \"record iteration and accumulator implementation\".",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 945,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "negative",
+    "query": "Do not locate the record iteration and accumulator implementation; return AfterIteration.summarize.",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 959,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "old-source-relation",
+    "id": "multiple-named",
+    "query": "Find both ChunkAssembler.assemble and DeferredAssembly.schedule source.",
+    "paths": [
+      "ChunkAssembler.ts",
+      "DeferredAssembly.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 1179,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "direct-result",
+    "query": "Locate the collection iteration and result implementation.",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": [
+      "ChunkAssembler.ts",
+      "FragmentSelector.ts"
+    ],
+    "missing_positive": [
+      "ChunkAssembler.ts",
+      "FragmentSelector.ts"
+    ],
+    "budget": {
+      "estimated_tokens": 940,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "contextual-result",
+    "query": "A sequence of message fragments retains only the final item; return the item iteration and result implementation rather than the display panel.",
+    "paths": [
+      "FragmentSelector.ts"
+    ],
+    "required_positive": [
+      "ChunkAssembler.ts",
+      "FragmentSelector.ts"
+    ],
+    "missing_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "budget": {
+      "estimated_tokens": 999,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "named-unknown",
+    "query": "Locate DeferredAssembly.schedule implementation.",
+    "paths": [
+      "DeferredAssembly.ts"
+    ],
+    "required_positive": null,
+    "missing_positive": [],
+    "budget": {
+      "estimated_tokens": 882,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "contextual-accumulator",
+    "query": "A sequence of message fragments retains only the final item; return the item iteration and accumulator implementation rather than the display panel.",
+    "paths": [
+      "FragmentSelector.ts"
+    ],
+    "required_positive": [
+      "ChunkAssembler.ts",
+      "FragmentSelector.ts"
+    ],
+    "missing_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "budget": {
+      "estimated_tokens": 1001,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "bare-accumulator",
+    "query": "Locate the record iteration and accumulator implementation.",
+    "paths": [
+      "AfterIteration.ts"
+    ],
+    "required_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "missing_positive": [
+      "ChunkAssembler.ts"
+    ],
+    "budget": {
+      "estimated_tokens": 941,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+]
