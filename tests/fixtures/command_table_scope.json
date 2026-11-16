@@ -1,0 +1,233 @@
+{
+  "cohorts": {
+    "base": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0"
+      }
+    },
+    "role": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n",
+        "SelectedEntryView.ets": "@Component\nexport struct SelectedEntryView {\n  @State entry: string = 'Idle'\n  build() {\n    Text(this.entry)\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0",
+        "SelectedEntryView.ets": "b6a7cbc2b73b18c2d5d2748603ec9b71d703c80bfdaa69b805b89ec037ffa6d2"
+      }
+    },
+    "scope_index": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n",
+        "GesturePad.ets": "@Component\nexport struct GesturePad {\n  @State offset: number = 0\n  build() {\n    Stack() { Text('Slide') }\n    .gesture(\n      PanGesture()\n        .onActionUpdate((event: GestureEvent) => {\n          this.offset = event.fingerList[0].localX\n        })\n    )\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0",
+        "GesturePad.ets": "df095a855baafb5be94f9fc235f41c82ef595652375ac9605214a68fbe029c55"
+      }
+    },
+    "scope_outside_unknown": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  @State status: string = 'Idle'\n  build() {\n    Text(`Restart sync command output ${this.status}`)\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "23de51414cff3e0c4b366c0c7d89e457abac02df184d75e54921e0e6257f5a19"
+      }
+    },
+    "inside_unknown": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n",
+        "OpaqueMenu.ets": "const text = `${dynamic()}`;\n@Component\nexport struct OpaqueMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0",
+        "OpaqueMenu.ets": "d7fbab5502b5c95f5dc3fc053d5e0ae9e4783c30a8ce7747ec192fe098112a82"
+      }
+    },
+    "two": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n",
+        "SecondMenu.ets": "@Component\nexport struct SecondMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0",
+        "SecondMenu.ets": "b3fa8879ebd702ba10b51ed81a6e27308ebfa322e05011b8cce0022b704eda43"
+      }
+    },
+    "two_budget": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/ Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n",
+        "SecondMenu.ets": "@Component\nexport struct SecondMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "840b139d190fb98e8b8ded830f84ef94c817ff5bae41ee7d183aacad7bacc2c9",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0",
+        "SecondMenu.ets": "b3fa8879ebd702ba10b51ed81a6e27308ebfa322e05011b8cce0022b704eda43"
+      }
+    },
+    "logs": {
+      "sources": {
+        "SyncMenu.ets": "@Component\nexport struct SyncMenu {\n  private actions = [\n    {\n      caption: 'Restart sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    },\n    {\n      caption: 'Stop sync',\n      run: () => {\n        this.worker.stopSync()\n      }\n    }\n  ]\n  build() {\n    Column() {\n      ForEach(this.actions, (action: Action) => {\n        Button(action.caption).onClick(action.run)\n      })\n    }\n  }\n}\n",
+        "SyncWorker.ets": "export class SyncWorker {\n  restartSync(): void {\n    this.transport.startSync()\n  }\n  stopSync(): void {\n    this.transport.stopSync()\n  }\n}\n",
+        "CommandOutput.ets": "@Component\nexport struct CommandOutput {\n  build() { Text('Restart sync command output') }\n}\n",
+        "StatusRecorder.ets": "export class StatusRecorder {\n  report(): void {\n    console.info('DISPATCH_NOTICE_71A UI action dispatch table loaded')\n  }\n}\n"
+      },
+      "sha256": {
+        "SyncMenu.ets": "38fe493d4dc7d92a668c0e9f8ad0d830d025a46bf67841f9d27558525b88b3a1",
+        "SyncWorker.ets": "16fc8a31d6bcbc882aaa736f3fc66e0fe51f17c0aba395023fbb875549b19723",
+        "CommandOutput.ets": "94445f296e4eb2d2fcfc18a2e6b11c080c7d0634aab22901f6247c4f748627f0",
+        "StatusRecorder.ets": "e8a923d667e6e4c3f80fd0b749501d6a613576069b5b465950839a916b043094"
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "base_head",
+      "cohort": "base",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "existing positive control, no new gain"
+    },
+    {
+      "id": "role_bare",
+      "cohort": "role",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "no fixed entry in request; same source control"
+    },
+    {
+      "id": "role_fixed_entry",
+      "cohort": "role",
+      "query": "The restart menu entry invokes the stop workflow; return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "isolate fixed entry token collision, <=12 known paths"
+    },
+    {
+      "id": "role_free_np_entry",
+      "cohort": "role",
+      "query": "The entry menu entry invokes the stop workflow; return the UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "free NP entry still a protected named symbol"
+    },
+    {
+      "id": "role_free_np_owner",
+      "cohort": "role",
+      "query": "The SelectedEntryView menu entry invokes the stop workflow; return the UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "free NP owner remains protected"
+    },
+    {
+      "id": "role_named_head",
+      "cohort": "role",
+      "query": "Return SelectedEntryView UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "explicit named head unsupported"
+    },
+    {
+      "id": "scope_index_head",
+      "cohort": "scope_index",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "isolate known lexical indexing/gesture frame without ForEach; no entry background"
+    },
+    {
+      "id": "scope_outside_unknown_head",
+      "cohort": "scope_outside_unknown",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "isolate truly unverified non-frame display source, no entry background"
+    },
+    {
+      "id": "scope_inside_unknown_head",
+      "cohort": "inside_unknown",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "qualifying unknown frame remains whole fallback"
+    },
+    {
+      "id": "two_certified",
+      "cohort": "two",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "all positives, no unique ownership"
+    },
+    {
+      "id": "two_budget",
+      "cohort": "two_budget",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "any full snapshot overflow aborts all, no one-table choice"
+    },
+    {
+      "id": "incidental_log",
+      "cohort": "logs",
+      "query": "Return the UI action-to-method dispatch table.",
+      "proposed_authority": true,
+      "purpose": "noncode log unchanged"
+    },
+    {
+      "id": "explicit_log",
+      "cohort": "logs",
+      "query": "Return the UI action-to-method dispatch table for DISPATCH_NOTICE_71A.",
+      "proposed_authority": false,
+      "purpose": "literal/path protection unchanged"
+    },
+    {
+      "id": "negated",
+      "cohort": "base",
+      "query": "Do not return the UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "no certification authority"
+    },
+    {
+      "id": "quoted",
+      "cohort": "base",
+      "query": "The phrase \"return the UI action-to-method dispatch table\" is quoted, not requested.",
+      "proposed_authority": false,
+      "purpose": "no certification authority"
+    },
+    {
+      "id": "exhaustive",
+      "cohort": "base",
+      "query": "Return all UI action-to-method dispatch tables.",
+      "proposed_authority": false,
+      "purpose": "no certification authority"
+    },
+    {
+      "id": "unique",
+      "cohort": "base",
+      "query": "Return the unique UI action-to-method dispatch table.",
+      "proposed_authority": false,
+      "purpose": "no certification authority"
+    }
+  ]
+}

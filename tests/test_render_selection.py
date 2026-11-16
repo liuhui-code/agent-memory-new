@@ -112,7 +112,7 @@ class RenderSelectionTests(unittest.TestCase):
   from tools.agent_memory_runtime.context_composition import build_context_facade
   from tools.agent_memory_runtime.query_results import limited_context
   facade=build_context_facade(self.project)
-  self.assertEqual(facade.base_context.keywords,{'defer_render_accounting':True,'defer_lifecycle_accounting':True,'defer_output_loop_accounting':True,'defer_command_accounting':True,'defer_cache_scan_accounting':True,'defer_record_loop_accounting':True,'defer_archive_create_write_accounting':True})
+  self.assertEqual(facade.base_context.keywords,{'defer_render_accounting':True,'defer_lifecycle_accounting':True,'defer_output_loop_accounting':True,'defer_command_accounting':True,'defer_cache_scan_accounting':True,'defer_record_loop_accounting':True,'defer_archive_create_write_accounting':True,'defer_command_table_accounting':True})
   receipt=self.bind()
   with patch('tools.agent_memory_runtime.query_results._context_pass',side_effect=[self.baseline,self.trial]),patch('tools.agent_memory_runtime.query_render_selection.bind_render_context',return_value=receipt),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
    result=limited_context(self.project,Q,defer_render_accounting=True)

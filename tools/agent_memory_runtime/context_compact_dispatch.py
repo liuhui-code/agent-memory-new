@@ -2,6 +2,9 @@
 from typing import Any
 
 def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str, Any]:
+    from .query_command_table_selection import CommandTableContext, compact_command_table
+    if isinstance(data, CommandTableContext):
+        return compact_command_table(data, _compact_context(dict(data)))
     from .query_archive_create_write_selection import ArchiveCreateWriteContext, compact_archive_create_write
     if isinstance(data, ArchiveCreateWriteContext):
         return compact_archive_create_write(data, _compact_context(dict(data)))
