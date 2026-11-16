@@ -1,10 +1,10 @@
 {
-  "classification": "new Development positive-preservation contract qualification, old exploratory result not reclassified",
+  "classification": "reviewed synthetic Development positive-preservation qualification; no public runtime proof",
   "base": "a012737",
   "old_protocol_path": "docs/evidence/shared-record-current/independent-protocol.json",
   "old_protocol_sha256": "2401ab1c8f581f865f222e2801ee38073ef975d5850e82953f7e63fe6e1b5254",
   "runtime_changes_permitted": false,
-  "qualification": "At least one admitted natural relation request must actually omit a proven positive from final public anchors. Existing extra/unknown anchors are NOT failure or removal permission. All old baseline evidence must be preserved in any future additive candidate; fit or exact fallback.",
+  "qualification": "Only a proved positive missing from final public anchors qualifies. Presence of extra/nonrequested/unknown sources is not a failure or deletion authority.",
   "cohorts": [
     {
       "id": "existing-direct-after-deferred",
@@ -87,5 +87,7 @@
     "DeferredAssembly.ts": "unknown nested callback, retain baseline"
   },
   "not_architecture_evidence": "two positive update forms are grammar controls, not two independent defect classes",
-  "stop": "If no missing positive, or remaining fits only after deleting baseline evidence, stop without rewording, padding or new scoring."
+  "stop": "If no missing positive, or remaining fits only after deleting baseline evidence, stop without rewording, padding or new scoring.",
+  "request_grammar": "FROZEN-REQUEST-AND-LEXICAL.md",
+  "new_source_provenance": "FragmentSelector is newly reviewed synthetic Development source for overwrite syntax, not an existing production workload or second architectural defect class."
 }
