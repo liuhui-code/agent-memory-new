@@ -12866,3 +12866,8 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Keep original log/path guards untouched; new presentation retains log/path/other non-code objects, uses existing uncertain enum and full fallback on cap or binding failure.
 - Mechanically move existing compact dispatcher to a small module to keep context_compact under500 lines; existing receipts retain ordering.
 - Local20 source/selection/transaction checks are focused, not full-suite acceptance. Public after and final independent review pending.
+
+## Record loop original26 focused verification
+- After independent final E review, unchanged original Development group passes3/3, unique SharedRecordCollector at1211/795/928 tokens, zero forbidden hits. Exact253 source hashes/case/oracle retained.
+- Historical1/3→current3/3 is a state comparison, not same-base attribution for unsupported original/Chinese requests. Required-span metric is overlap, not independently retained full-body evidence.
+- No full suite or remote write. Independent13 remains11 satisfied/2bare misses, plus explicit nonempty-log fallback retained; bounded unknowns not declared absent.
