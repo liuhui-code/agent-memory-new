@@ -84,6 +84,10 @@ def summarize_file(path: Path, language: str) -> str:
         if behavior:
             parts.append("behavior: " + ", ".join(behavior))
         return "; ".join(parts)
+    if language == "TypeScript":
+        from .record_loop_source import parse_record_loop
+        if parse_record_loop(text, whole_class=True) is not None:
+            return f"TypeScript file with {len(lines)} non-empty lines; behavior: collectionfold"
     if language == "HarmonyOS Config":
         symbols = extract_symbols(path, language)
         grouped: dict[str, list[str]] = {}

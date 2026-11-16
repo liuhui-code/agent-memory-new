@@ -59,6 +59,10 @@ def callable_behavior_hints(entity: Any, source: str) -> list[str]:
         hints.extend(("asyncboundary", "async"))
     if EARLY_RETURN_GUARD_RE.search(operation_source):
         hints.extend(("guardreturn", "guard"))
+    if ecma_source:
+        from .record_loop_source import parse_record_loop
+        if parse_record_loop(source) is not None:
+            hints.append("collectionfold")
     hints.extend(event_collection_hints(entity, source))
     return list(dict.fromkeys(hints))
 

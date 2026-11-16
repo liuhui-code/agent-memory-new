@@ -12851,3 +12851,8 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Stage A additive draft never executed. Independently reviewed Stage B explicit lossy positive-only13-query protocol ran once atb97dc21, sources/queries unchanged; six natural requests miss ChunkAssembler.
 - Saved trace shows absence already at focus input; current index exists but TS summary has no ArkTS file hint, bare request lacks concept. Thus frozen bounded-pool view gate fails; no production candidate/after.
 - Separate Stage C design proposes only finite learned loop/result hints through existing file summary + callable evidence/FTS, with full source snapshot validation, old-index activation and compatibility gates. Await independent review; no suffix/query/noise or pool-cap change.
+
+## 2026-11-15 Finite record-loop producer candidate
+
+- Stage C producer-only candidate adds closed local loop/result recognition to existing method retrieval hints and only whole-class positive TypeScript file summaries. No new view/permission/query terms, scores, scope or cap.
+- Frozen source/unknown/ASI controls6 tests pass; old Stage B6 red cases retained. Same13 install-without-relearn and normal-merge observations follow, with actual qualification-hook identity snapshots. Candidate not yet accepted or credited to original26.
