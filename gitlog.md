@@ -12871,3 +12871,7 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - After independent final E review, unchanged original Development group passes3/3, unique SharedRecordCollector at1211/795/928 tokens, zero forbidden hits. Exact253 source hashes/case/oracle retained.
 - Historical1/3→current3/3 is a state comparison, not same-base attribution for unsupported original/Chinese requests. Required-span metric is overlap, not independently retained full-body evidence.
 - No full suite or remote write. Independent13 remains11 satisfied/2bare misses, plus explicit nonempty-log fallback retained; bounded unknowns not declared absent.
+
+## Post-hoc original26 exact-base attribution
+- Independently predeclared after candidate result, then ran clean detacheda012737 original26 once with same3 variants/case/253source hashes and fresh archive.
+- Base1/3 versus combined candidate3/3: original precision fail→pass, English precision+forbidden fail→pass, Chinese pass→pass. Supports2 net local variant improvements for combined candidate, not isolated C/E attribution or global generalization.

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "context-shared-record-aggregation-owner::original",
+    "base_status": "fail",
+    "candidate_status": "pass",
+    "base_failed_checks": [
+      "minimum_anchor_precision_met"
+    ],
+    "base_paths": [
+      "src/pages/CollectionPage.ets",
+      "src/sharing/SharedRecordCollector.ets",
+      "src/viewmodels/FolderCollectionLoader.ets"
+    ],
+    "candidate_paths": [
+      "src/sharing/SharedRecordCollector.ets"
+    ],
+    "base_tokens": 1283,
+    "candidate_tokens": 1211
+  },
+  {
+    "id": "context-shared-record-aggregation-owner::en-paraphrase",
+    "base_status": "fail",
+    "candidate_status": "pass",
+    "base_failed_checks": [
+      "minimum_anchor_precision_met",
+      "forbidden_anchors_absent"
+    ],
+    "base_paths": [
+      "src/components/RecordPreview.ets",
+      "src/coordinators/SessionUsageCoordinator.ets",
+      "src/sharing/SharedRecordCollector.ets"
+    ],
+    "candidate_paths": [
+      "src/sharing/SharedRecordCollector.ets"
+    ],
+    "base_tokens": 1421,
+    "candidate_tokens": 795
+  },
+  {
+    "id": "context-shared-record-aggregation-owner::zh-noise",
+    "base_status": "pass",
+    "candidate_status": "pass",
+    "base_failed_checks": [],
+    "base_paths": [
+      "src/sharing/SharedRecordCollector.ets"
+    ],
+    "candidate_paths": [
+      "src/sharing/SharedRecordCollector.ets"
+    ],
+    "base_tokens": 878,
+    "candidate_tokens": 928
+  }
+]
