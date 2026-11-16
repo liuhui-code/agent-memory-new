@@ -1,0 +1,91 @@
+{
+  "classification": "new Development positive-preservation contract qualification, old exploratory result not reclassified",
+  "base": "a012737",
+  "old_protocol_path": "docs/evidence/shared-record-current/independent-protocol.json",
+  "old_protocol_sha256": "2401ab1c8f581f865f222e2801ee38073ef975d5850e82953f7e63fe6e1b5254",
+  "runtime_changes_permitted": false,
+  "qualification": "At least one admitted natural relation request must actually omit a proven positive from final public anchors. Existing extra/unknown anchors are NOT failure or removal permission. All old baseline evidence must be preserved in any future additive candidate; fit or exact fallback.",
+  "cohorts": [
+    {
+      "id": "existing-direct-after-deferred",
+      "sources": {
+        "ChunkAssembler.ts": "export class ChunkAssembler {\n assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }\n}\n",
+        "AfterIteration.ts": "export class AfterIteration {\n summarize(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   console.log(chunk)\n  }\n  merged = 'finished'\n  return merged\n }\n}\n",
+        "DeferredAssembly.ts": "export class DeferredAssembly {\n schedule(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   queueMicrotask(() => { merged = chunk })\n  }\n  return merged\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "existing-natural-relation",
+          "query": "Locate the record iteration and accumulator implementation.",
+          "required_positive": [
+            "ChunkAssembler.ts"
+          ],
+          "baseline_preservation": true
+        },
+        {
+          "id": "named-1",
+          "query": "Locate ChunkAssembler.assemble implementation.",
+          "no_new_authority": true
+        },
+        {
+          "id": "named-2",
+          "query": "Locate AfterIteration.summarize implementation.",
+          "no_new_authority": true
+        },
+        {
+          "id": "named-3",
+          "query": "Locate DeferredAssembly.schedule implementation.",
+          "no_new_authority": true
+        },
+        {
+          "id": "quoted",
+          "query": "Locate the text \"record iteration and accumulator implementation\".",
+          "no_new_authority": true
+        },
+        {
+          "id": "negative",
+          "query": "Do not locate the record iteration and accumulator implementation; return AfterIteration.summarize.",
+          "no_new_authority": true
+        },
+        {
+          "id": "multiple-named",
+          "query": "Find both ChunkAssembler.assemble and DeferredAssembly.schedule source.",
+          "no_new_authority": true
+        }
+      ]
+    },
+    {
+      "id": "two-positive-nonexclusive",
+      "sources": {
+        "ChunkAssembler.ts": "export class ChunkAssembler {\n assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }\n}\n",
+        "AfterIteration.ts": "export class AfterIteration {\n summarize(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   console.log(chunk)\n  }\n  merged = 'finished'\n  return merged\n }\n}\n",
+        "DeferredAssembly.ts": "export class DeferredAssembly {\n schedule(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   queueMicrotask(() => { merged = chunk })\n  }\n  return merged\n }\n}\n",
+        "FragmentSelector.ts": "export class FragmentSelector {\n select(fragments: string[]): string {\n  let selected = ''\n  for (const fragment of fragments) {\n   selected = fragment\n  }\n  return selected\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "natural-relation",
+          "query": "Locate the record iteration and accumulator implementation.",
+          "required_positive": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ],
+          "baseline_preservation": true
+        },
+        {
+          "id": "named-selector",
+          "query": "Locate FragmentSelector.select implementation.",
+          "no_new_authority": true
+        }
+      ]
+    }
+  ],
+  "source_states": {
+    "ChunkAssembler.ts": "known-positive direct append assignment",
+    "FragmentSelector.ts": "known-positive direct overwrite assignment",
+    "AfterIteration.ts": "no direct loop update structurally observable; only complete grammar can certify negative, never removal permission here",
+    "DeferredAssembly.ts": "unknown nested callback, retain baseline"
+  },
+  "not_architecture_evidence": "two positive update forms are grammar controls, not two independent defect classes",
+  "stop": "If no missing positive, or remaining fits only after deleting baseline evidence, stop without rewording, padding or new scoring."
+}
