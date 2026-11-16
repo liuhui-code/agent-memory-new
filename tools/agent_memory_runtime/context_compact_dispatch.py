@@ -2,6 +2,9 @@
 from typing import Any
 
 def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str, Any]:
+    from .query_ui_gesture_selection import GestureContext, compact_gesture
+    if isinstance(data, GestureContext):
+        return compact_gesture(data, _compact_context(dict(data)))
     from .query_ui_divider_selection import DividerContext, compact_divider
     if isinstance(data, DividerContext):
         return compact_divider(data, _compact_context(dict(data)))

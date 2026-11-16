@@ -72,7 +72,7 @@ def limited_matches(
 
 from .query_result_limits import diverse_log_matches
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
@@ -97,6 +97,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     from .query_cache_scan_selection import bind_cache_scan_context, CacheScanContext, cache_scan_context_view
     result = bind_cache_scan_context(project, query, result)
     from .query_command_table_selection import CommandTableContext, accounting_command_table
+    from .query_ui_gesture_selection import GestureContext
     from .query_ui_divider_selection import DividerContext
     from .query_record_loop_selection import RecordLoopContext, accounting_record_loop
     from .query_archive_create_write_selection import ArchiveCreateWriteContext, accounting_archive_create_write
@@ -107,6 +108,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             or (isinstance(result, CommandContext) and defer_command_accounting)
             or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)
             or (isinstance(result, DividerContext) and defer_divider_accounting)
+            or (isinstance(result, GestureContext) and defer_gesture_accounting)
             or (isinstance(result, CommandTableContext) and defer_command_table_accounting)
             or (isinstance(result, RecordLoopContext) and defer_record_loop_accounting)
             or (isinstance(result, ArchiveCreateWriteContext) and defer_archive_create_write_accounting)):
