@@ -10,7 +10,9 @@ REQUEST=re.compile(r'(?:(?:重启后恢复(?:文本|草稿|编辑内容)|(?:文�
 
 
 def lifecycle_request(query):
-    return isinstance(query,str) and len(query)<=240 and REQUEST.fullmatch(query)is not None
+    from .query_lifecycle_english_request import english_lifecycle_request
+    return ((isinstance(query,str) and len(query)<=240 and REQUEST.fullmatch(query)is not None)
+            or english_lifecycle_request(query))
 
 
 def snapshot(value):
