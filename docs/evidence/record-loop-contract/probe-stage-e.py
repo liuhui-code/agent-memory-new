@@ -16,7 +16,7 @@ for r in rows:
   method=next(x for x in pool if x.get('file_path')==path and x.get('symbol_type') in ('function','method'))
   source=(Path(r['raw']['project_path'])/path).read_text();assert hashlib.sha256(source.encode()).hexdigest()==method['source_digest']
   lo,hi=method['start_line'],method['end_line'];span={'symbol':method['symbol'],'start_line':lo,'end_line':hi}
-  anchors.append({'file_path':path,'symbol':method['symbol'],'symbol_type':'method','record_ids':[method['id']], 'record_type':'code_symbol','source_ranges':[span], 'read_window':{'start_line':lo,'end_line':hi},'role':'primary','source_excerpts':[dict(span,content='\n'.join(source.splitlines()[lo-1:hi]),source='validated_request_snapshot',selection_reason='complete_direct_loop_result_method',focus_line=None,truncated=False)]})
+  anchors.append({'file_path':path,'symbol':method['symbol'],'symbol_type':method['symbol_type'],'record_ids':[method['id']], 'record_type':'code_symbol','source_ranges':[span], 'read_window':{'start_line':lo,'end_line':hi},'role':'primary','source_excerpts':[dict(span,content='\n'.join(source.splitlines()[lo-1:hi]),source='validated_request_snapshot',selection_reason='complete_direct_loop_result_method',focus_line=None,truncated=False)]})
  h['code_anchors']=anchors
  h['callable_evidence']={'schema_version':'agent-callable-evidence/v1','certainty':'non_exhaustive','primary':None,'alternatives':[], 'boundary':'positive_direct_syntax_not_unique_owner_or_runtime_causality'}
  h['source_excerpt_policy']={'source':'validated_request_snapshot','body_persisted':False,'excerpt_count':len(anchors),'excerpt_chars':sum(len(a['source_excerpts'][0]['content']) for a in anchors)}
