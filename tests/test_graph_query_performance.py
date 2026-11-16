@@ -144,11 +144,11 @@ class GraphQueryPerformanceTests(AgentMemoryTestBase):
             project = resolve_project(str(root), str(self.memory_home(root)))
 
             with patch(
-                "tools.agent_memory_runtime.semantic_ecma.container_fields",
+                "tools.agent_memory_runtime.semantic_ecma_context.collect_field_types",
                 wraps=__import__(
-                    "tools.agent_memory_runtime.semantic_ecma",
-                    fromlist=["container_fields"],
-                ).container_fields,
+                    "tools.agent_memory_runtime.semantic_ecma_context",
+                    fromlist=["collect_field_types"],
+                ).collect_field_types,
             ) as field_scan:
                 parsed = parse_file(project, source.resolve(), "ArkTS", True)
 
