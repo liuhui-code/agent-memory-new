@@ -1,0 +1,155 @@
+{
+  "cohorts": {
+    "single-positive": {
+      "sources": {
+        "PackageStager.ets": "import disk from '@ohos.file.fs'\nexport class PackageStager {\n  async store(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(destination, output);\n  }\n}\n",
+        "MediaInventory.ets": "interface MediaCatalog {\n  queryAssets(folder: string): void;\n}\nexport class MediaInventory {\n  list(library: MediaCatalog, folder: string): void {\n    library.queryAssets(folder);\n  }\n}\n",
+        "PackageNotice.ets": "@Component\nexport struct PackageNotice {\n  build() {\n    Text('Archive assets are available for inspection');\n  }\n}\n"
+      },
+      "positive_methods": [
+        {
+          "path": "PackageStager.ets",
+          "owner": "PackageStager",
+          "method": "store",
+          "start_line": 3,
+          "end_line": 8
+        }
+      ]
+    },
+    "two-positive": {
+      "sources": {
+        "PackageStager.ets": "import disk from '@ohos.file.fs'\nexport class PackageStager {\n  async store(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(destination, output);\n  }\n}\n",
+        "DeliveryBuffer.ets": "import storage from '@ohos.file.fs'\nexport class DeliveryBuffer {\n  async prepare(location: string, bytes: Uint8Array, target: string): Promise<void> {\n    const result = storage.openSync(location, storage.OpenMode.CREATE);\n    storage.writeSync(result.fd, bytes.buffer);\n    storage.closeSync(result);\n    await unzip(location, target);\n  }\n}\n",
+        "MediaInventory.ets": "interface MediaCatalog {\n  queryAssets(folder: string): void;\n}\nexport class MediaInventory {\n  list(library: MediaCatalog, folder: string): void {\n    library.queryAssets(folder);\n  }\n}\n",
+        "PackageNotice.ets": "@Component\nexport struct PackageNotice {\n  build() {\n    Text('Archive assets are available for inspection');\n  }\n}\n"
+      },
+      "positive_methods": [
+        {
+          "path": "PackageStager.ets",
+          "owner": "PackageStager",
+          "method": "store",
+          "start_line": 3,
+          "end_line": 8
+        },
+        {
+          "path": "DeliveryBuffer.ets",
+          "owner": "DeliveryBuffer",
+          "method": "prepare",
+          "start_line": 3,
+          "end_line": 8
+        }
+      ]
+    },
+    "unsupported-only": {
+      "sources": {
+        "ReplacePackage.ets": "import disk from '@ohos.file.fs'\nexport class ReplacePackage {\n  async save(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE | disk.OpenMode.TRUNC);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(destination, output);\n  }\n}\n",
+        "MediaInventory.ets": "interface MediaCatalog {\n  queryAssets(folder: string): void;\n}\nexport class MediaInventory {\n  list(library: MediaCatalog, folder: string): void {\n    library.queryAssets(folder);\n  }\n}\n",
+        "PackageNotice.ets": "@Component\nexport struct PackageNotice {\n  build() {\n    Text('Archive assets are available for inspection');\n  }\n}\n",
+        "PlainWriter.ets": "import disk from '@ohos.file.fs'\nexport class PlainWriter {\n  async store(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n  }\n}\n",
+        "OtherPathWriter.ets": "import disk from '@ohos.file.fs'\nexport class OtherPathWriter {\n  async store(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(output, destination);\n  }\n}\n",
+        "NoCreateWriter.ets": "import disk from '@ohos.file.fs'\nexport class NoCreateWriter {\n  async store(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.READ_ONLY);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(destination, output);\n  }\n}\n",
+        "DifferentHandleWriter.ets": "import disk from '@ohos.file.fs'\nexport class DifferentHandleWriter {\n  async store(destination: string, payload: Uint8Array, output: string): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE);\n    const alternate = disk.openSync(output, disk.OpenMode.CREATE);\n    disk.writeSync(alternate.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(destination, output);\n  }\n}\n",
+        "ShadowWriter.ets": "import disk from '@ohos.file.fs'\nexport class ShadowWriter {\n  async store(destination: string, payload: Uint8Array, output: string, disk: FilePort): Promise<void> {\n    const opened = disk.openSync(destination, disk.OpenMode.CREATE);\n    disk.writeSync(opened.fd, payload.buffer);\n    disk.closeSync(opened);\n    await unzip(destination, output);\n  }\n}\n"
+      },
+      "positive_methods": []
+    }
+  },
+  "cases": [
+    {
+      "id": "single-positive-head",
+      "cohort": "single-positive",
+      "query": "Locate temporary archive creation and write ownership.",
+      "proposed_authority": true
+    },
+    {
+      "id": "two-positive-head",
+      "cohort": "two-positive",
+      "query": "Locate temporary archive creation and write ownership.",
+      "proposed_authority": true
+    },
+    {
+      "id": "single-context-first",
+      "cohort": "single-positive",
+      "query": "A temporary archive remains available during resource extraction. Find archive creation and write source.",
+      "proposed_authority": true
+    },
+    {
+      "id": "single-context-second",
+      "cohort": "single-positive",
+      "query": "Bundle extraction reuses a temporary archive. Return the archive creation and write implementation.",
+      "proposed_authority": true
+    },
+    {
+      "id": "unsupported-head",
+      "cohort": "unsupported-only",
+      "query": "Locate temporary archive creation and write ownership.",
+      "proposed_authority": false
+    },
+    {
+      "id": "explicit",
+      "cohort": "single-positive",
+      "query": "Find PackageStager.store source.",
+      "proposed_authority": false
+    },
+    {
+      "id": "description",
+      "cohort": "single-positive",
+      "query": "Find PackageNotice.build source containing Archive assets.",
+      "proposed_authority": false
+    },
+    {
+      "id": "named-pair",
+      "cohort": "single-positive",
+      "query": "Find PackageStager.store and MediaInventory.list source.",
+      "proposed_authority": false
+    },
+    {
+      "id": "quoted",
+      "cohort": "single-positive",
+      "query": "Find the literal \"Locate temporary archive creation and write ownership.\".",
+      "proposed_authority": false
+    },
+    {
+      "id": "negated",
+      "cohort": "single-positive",
+      "query": "Do not locate archive creation and write ownership.",
+      "proposed_authority": false
+    },
+    {
+      "id": "disjunction",
+      "cohort": "single-positive",
+      "query": "Locate archive creation or write ownership.",
+      "proposed_authority": false
+    },
+    {
+      "id": "read-only",
+      "cohort": "single-positive",
+      "query": "Locate archive read ownership.",
+      "proposed_authority": false
+    },
+    {
+      "id": "log-request",
+      "cohort": "single-positive",
+      "query": "Locate archive creation and write ownership and the console log source.",
+      "proposed_authority": false
+    },
+    {
+      "id": "graph-request",
+      "cohort": "single-positive",
+      "query": "Find PackageStager.store and its imported module source.",
+      "proposed_authority": false
+    },
+    {
+      "id": "path-request",
+      "cohort": "single-positive",
+      "query": "Trace the execution path to PackageStager.store.",
+      "proposed_authority": false
+    },
+    {
+      "id": "extra-clause",
+      "cohort": "single-positive",
+      "query": "Locate archive creation and write ownership; return PackageNotice too.",
+      "proposed_authority": false
+    }
+  ]
+}
