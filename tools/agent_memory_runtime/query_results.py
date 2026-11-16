@@ -72,7 +72,7 @@ def limited_matches(
 
 from .query_result_limits import diverse_log_matches
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False) -> dict[str, Any]:
     baseline = _context_pass(project, query, explicit_intent)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
@@ -93,12 +93,14 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     result = bind_command_context(project, query, result, baseline)
     from .query_cache_scan_selection import bind_cache_scan_context, CacheScanContext, cache_scan_context_view
     result = bind_cache_scan_context(project, query, result)
+    from .query_record_loop_selection import RecordLoopContext, accounting_record_loop
     from .query_render_selection import RenderContext, render_context_view
     if ((isinstance(result, RenderContext) and defer_render_accounting)
             or (isinstance(result, LifecycleContext) and defer_lifecycle_accounting)
             or (isinstance(result, OutputLoopContext) and defer_output_loop_accounting)
             or (isinstance(result, CommandContext) and defer_command_accounting)
-            or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)):
+            or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)
+            or (isinstance(result, RecordLoopContext) and defer_record_loop_accounting)):
         result._pending_accounting = True
     else:
         adopted, _ = render_context_view(result)
@@ -106,6 +108,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
         adopted, _ = output_loop_context_view(adopted)
         adopted, _ = command_context_view(adopted)
         adopted, _ = cache_scan_context_view(adopted)
+        adopted = accounting_record_loop(adopted) if isinstance(adopted, RecordLoopContext) else adopted
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
     return result
@@ -193,6 +196,9 @@ def _context_pass(
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
     from .query_recovery_pair import bind_recovery_pair
     context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
+    from .query_record_loop_selection import bind_record_loop_context
+    if not (allow_render_recall or allow_lifecycle or allow_output_loop):
+        context = bind_record_loop_context(project, query, context, gated["matches"].get("wiki_matches") or [])
     return bind_context_trials(query, context, gated["matches"].get("wiki_matches") or [],
                                allow_render_recall=allow_render_recall,
                                authority=authority, output_authority=output_authority)

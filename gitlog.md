@@ -12860,3 +12860,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 ## Record loop Stage E design
 - Preserve failed B/D gates; propose a separate terminal code-only transaction with explicit non-code deep equality, exact fallback and unchanged 1500-token cap.
 - Freeze one existing-source explicit log fallback control and distinguish it from helper successful-transaction invariants. No runtime view implemented.
+
+## Record loop terminal transaction candidate
+- Add exact frozen request recognition, complete source/typed identity snapshot binding from original gated pool, and a private raw-preserving terminal compact transaction.
+- Keep original log/path guards untouched; new presentation retains log/path/other non-code objects, uses existing uncertain enum and full fallback on cap or binding failure.
+- Mechanically move existing compact dispatcher to a small module to keep context_compact under500 lines; existing receipts retain ordering.
+- Local20 source/selection/transaction checks are focused, not full-suite acceptance. Public after and final independent review pending.
