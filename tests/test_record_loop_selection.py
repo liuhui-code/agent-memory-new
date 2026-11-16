@@ -62,3 +62,11 @@ class RecordLoopSelectionTests(unittest.TestCase):
   self.assertEqual(dict(r),before);self.assertEqual(result['query_handoff']['log_anchors'],self.compact['query_handoff']['log_anchors'])
   self.assertEqual([a['file_path']for a in result['query_handoff']['code_anchors']],['ChunkAssembler.ts','FragmentSelector.ts'])
   self.assertIn('merged = merged + chunk',result['query_handoff']['code_anchors'][0]['source_excerpts'][0]['content'])
+
+ def test_recalled_file_identity(self):
+  original=deepcopy(self.pool)
+  for key,value in [('id',999),('project_id','other'),('source_digest','0'*64),('index_generation',99),('language','Java')]:
+   self.pool=deepcopy(original);next(r for r in self.pool if r.get('kind')=='file' and r['file_path']=='ChunkAssembler.ts')[key]=value
+   self.assertIs(self.bind(),self.base,key)
+  self.pool=deepcopy(original);bad=deepcopy(next(r for r in self.pool if r.get('kind')=='file' and r['file_path']=='ChunkAssembler.ts'));bad['source_digest']='0'*64;self.pool.append(bad)
+  self.assertIs(self.bind(),self.base)

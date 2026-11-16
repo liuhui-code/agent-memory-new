@@ -68,6 +68,12 @@ def qualified_anchors(project,query,pool):
         fs=[r for r in files if r['file_path']==name]
         if len(owners)!=1 or len(fs)!=1:return None
         owner=owners[0];f=fs[0]
+        file_fields=('id','project_id','file_path','language','source_digest','index_generation')
+        recalled_files=[r for r in pool if r.get('kind')=='file' and (r.get('file_path')==name or r.get('id')==f['id'])]
+        if (not recalled_files or type(f.get('id'))is not int or f['id']<=0
+            or f.get('project_id')!=project.project_id
+            or any(any(r.get(k)!=f.get(k)for k in file_fields)for r in recalled_files)):
+            return None
         if (not valid_row(owner,project) or owner['qualified_name']!=parsed['owner']
             or owner.get('owner_name')not in ('',None) or not owner.get('owner_kind')
             or owner['source_digest']!=digest or f.get('source_digest')!=digest
