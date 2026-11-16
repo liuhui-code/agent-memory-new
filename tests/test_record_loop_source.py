@@ -67,4 +67,23 @@ class RecordLoopSourceTests(unittest.TestCase):
     p=Path(temp)/name;p.write_text(source)
     self.assertEqual('collectionfold'in summarize_file(p,'TypeScript'),name in ['ChunkAssembler.ts','FragmentSelector.ts'])
 
+ def test_quoted_syntax_crlf_and_bare_cr(self):
+  for newline in ['\r\n','\r']:
+   self.assertIsNotNone(parse_record_loop(BODY.replace('\n',newline)))
+  for source in [BODY.replace('for (',"'for' ("),BODY.replace('return merged',"return 'merged'"),BODY.replace('merged = merged + chunk',"merged '+= ' chunk"),BODY.replace('of chunks',"of 'chunks'")]:
+   self.assertIsNone(parse_record_loop(source))
+  self.assertIsNone(parse_record_loop(BODY.replace("let merged = ''","let merged = 'for (const fake of chunks) { merged = fake }' ")+" trailing"))
+
+ def test_entity_source_span_and_method_name_alignment(self):
+  from tools.agent_memory_runtime.semantic_symbol_evidence import method_evidence_payload
+  lines=S['ChunkAssembler.ts'].splitlines()
+  entity=SimpleNamespace(name='assemble',file_path='ChunkAssembler.ts',kind='method',start_line=2,end_line=8)
+  self.assertIn('collectionfold',method_evidence_payload(entity,lines)[0])
+  entity.end_line=7
+  self.assertNotIn('collectionfold',method_evidence_payload(entity,lines)[0])
+  entity.end_line=8;entity.start_line=3
+  self.assertNotIn('collectionfold',method_evidence_payload(entity,lines)[0])
+  entity.start_line=2;entity.name='other'
+  self.assertNotIn('collectionfold',method_evidence_payload(entity,lines)[0])
+
 if __name__=='__main__':unittest.main()

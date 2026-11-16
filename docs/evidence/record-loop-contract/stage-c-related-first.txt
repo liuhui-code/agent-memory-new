@@ -1,0 +1,15 @@
+======================================================================
+ERROR: test_semantic_adapter (unittest.loader._FailedTest.test_semantic_adapter)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_semantic_adapter
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_semantic_adapter'
+
+
+----------------------------------------------------------------------
+Ran 50 tests in 10.363s
+
+FAILED (errors=1)

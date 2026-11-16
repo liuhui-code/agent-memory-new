@@ -61,7 +61,8 @@ def callable_behavior_hints(entity: Any, source: str) -> list[str]:
         hints.extend(("guardreturn", "guard"))
     if ecma_source:
         from .record_loop_source import parse_record_loop
-        if parse_record_loop(source) is not None:
+        relation = parse_record_loop(source)
+        if relation is not None and relation["name"] == str(getattr(entity, "name", "")):
             hints.append("collectionfold")
     hints.extend(event_collection_hints(entity, source))
     return list(dict.fromkeys(hints))

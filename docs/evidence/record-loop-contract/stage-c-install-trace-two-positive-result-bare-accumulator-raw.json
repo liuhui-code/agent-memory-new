@@ -1,0 +1,940 @@
+[
+  {
+    "event": "qualifier_entry",
+    "query": "Locate the record iteration and accumulator implementation.",
+    "gated": {
+      "matches": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [
+          {
+            "id": 1,
+            "project_id": "3b25363a9ece081e",
+            "task": "Learn path . from /workspace/scratch/dcdb41e16594/record-loop-fixed-before/two-positive-result/source",
+            "summary": "Merged 4 files from .",
+            "outcome": "learned",
+            "files_touched": null,
+            "commands_run": null,
+            "created_at": "2026-11-15T16:32:52+00:00",
+            "status": "active",
+            "importance": 0.5,
+            "last_used_at": "2026-11-15T16:40:59+00:00",
+            "use_count": 10,
+            "reviewed_at": null,
+            "derived_facts": null,
+            "derived_reflections": null,
+            "recall_lanes": [
+              "broad_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01639344,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                }
+              ]
+            },
+            "score": 0.8,
+            "match_reasons": [
+              "episode"
+            ],
+            "warning": null
+          }
+        ],
+        "wiki_matches": [
+          {
+            "id": 1,
+            "project_id": "3b25363a9ece081e",
+            "file_path": "AfterIteration.ts",
+            "symbol": "AfterIteration",
+            "symbol_type": "class",
+            "summary": "class AfterIteration in AfterIteration.ts; identifier terms: after iteration",
+            "calls": "",
+            "business_summary": null,
+            "business_terms": [],
+            "symbol_key": "symbol:78df9338ddb65667d7950b91",
+            "qualified_name": "AfterIteration",
+            "signature": "class AfterIteration",
+            "start_line": 1,
+            "end_line": 10,
+            "semantic_adapter": "typescript-static@1.2",
+            "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+            "evidence_class": "static",
+            "method_evidence": "",
+            "string_evidence": "",
+            "mechanism_evidence": "[]",
+            "owner_name": "",
+            "owner_kind": "class",
+            "callable_roles": "[]",
+            "index_generation": 1,
+            "updated_at": "2026-11-15T16:32:52+00:00",
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.05655738,
+              "best_rank": 1,
+              "channel_count": 3,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                }
+              ]
+            },
+            "method_evidence_coverage": 0,
+            "semantic_behavior_coverage": 0,
+            "kind": "symbol",
+            "score": 43.5,
+            "search_terms": [
+              "afteriteration.ts",
+              "class afteriteration in afteriteration.ts; identifier terms: after iteration",
+              "afteriteration",
+              "class",
+              "ts",
+              "in",
+              "identifier",
+              "terms",
+              "after",
+              "iteration"
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable"
+            ]
+          },
+          {
+            "id": 2,
+            "project_id": "3b25363a9ece081e",
+            "file_path": "AfterIteration.ts",
+            "symbol": "summarize",
+            "symbol_type": "function",
+            "summary": "function summarize in AfterIteration.ts",
+            "calls": "",
+            "business_summary": null,
+            "business_terms": [],
+            "symbol_key": "symbol:a5330929016c9077017b1247",
+            "qualified_name": "AfterIteration.summarize",
+            "signature": "summarize(chunks: string[]):string",
+            "start_line": 2,
+            "end_line": 9,
+            "semantic_adapter": "typescript-static@1.2",
+            "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+            "evidence_class": "static",
+            "method_evidence": "console log",
+            "string_evidence": "finished",
+            "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.log\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:a5330929016c9077017b1247\",\"terms\":[\"operation\",\"call\"]}]",
+            "owner_name": "AfterIteration",
+            "owner_kind": "class",
+            "callable_roles": "[\"source_operation_checked:v2.1\"]",
+            "index_generation": 1,
+            "updated_at": "2026-11-15T16:32:52+00:00",
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.03951613,
+              "best_rank": 2,
+              "channel_count": 2,
+              "contributions": [
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 2,
+                  "weight": 1.45,
+                  "score": 0.0233871
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                }
+              ]
+            },
+            "method_evidence_coverage": 0,
+            "semantic_behavior_coverage": 0,
+            "kind": "symbol",
+            "score": 37.5,
+            "search_terms": [
+              "afteriteration.ts",
+              "function summarize in afteriteration.ts",
+              "summarize",
+              "function",
+              "afteriteration",
+              "ts",
+              "in",
+              "after",
+              "iteration"
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable"
+            ]
+          },
+          {
+            "id": 1,
+            "project_id": "3b25363a9ece081e",
+            "file_path": "AfterIteration.ts",
+            "summary": "TypeScript file with 10 non-empty lines",
+            "language": "TypeScript",
+            "business_summary": null,
+            "business_terms": [],
+            "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+            "index_generation": 1,
+            "updated_at": "2026-11-15T16:32:52+00:00",
+            "recall_lanes": [
+              "file_identity_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.02213115,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "file_identity_fts",
+                  "rank": 1,
+                  "weight": 1.35,
+                  "score": 0.02213115
+                }
+              ]
+            },
+            "kind": "file",
+            "score": 34.8,
+            "search_terms": [
+              "afteriteration.ts",
+              "typescript",
+              "typescript file with 10 non-empty lines",
+              "afteriteration",
+              "ts",
+              "file",
+              "with",
+              "10",
+              "non",
+              "empty",
+              "lines",
+              "after",
+              "iteration",
+              "type",
+              "script"
+            ],
+            "match_reasons": [
+              "file_path",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ]
+          }
+        ],
+        "code_log_matches": [
+          {
+            "id": 1,
+            "project_id": "3b25363a9ece081e",
+            "file_path": "AfterIteration.ts",
+            "line": 5,
+            "function": "summarize",
+            "level": "log",
+            "logger": "console",
+            "message_template": "{chunk}",
+            "raw_statement": "console.log(chunk)",
+            "business_summary": null,
+            "business_terms": [],
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": null,
+            "likely_causes": null,
+            "process_hint": null,
+            "neighbor_terms": null,
+            "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+            "index_generation": 1,
+            "updated_at": "2026-11-15T16:32:52+00:00",
+            "start_line": 2,
+            "end_line": 9,
+            "recall_lanes": [
+              "like_fallback"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01147541,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "like_fallback",
+                  "rank": 1,
+                  "weight": 0.7,
+                  "score": 0.01147541
+                }
+              ]
+            },
+            "kind": "log_statement",
+            "score": 13.2,
+            "search_terms": [
+              "afteriteration.ts",
+              "log",
+              "console",
+              "{chunk}",
+              "summarize",
+              "afteriteration",
+              "ts",
+              "chunk",
+              "after",
+              "iteration",
+              "logger",
+              "hilog",
+              "debug",
+              "error",
+              "warning",
+              "failed",
+              "failure"
+            ],
+            "match_reasons": [
+              "log_context",
+              "search_terms",
+              "query_focus_coverage"
+            ],
+            "log_signal_score": 0.35,
+            "log_signal_band": "poor",
+            "present_signals": [
+              "level",
+              "logger",
+              "route_or_resource",
+              "entity_id_or_key",
+              "neighbor_context"
+            ],
+            "missing_signals": [
+              "timestamp",
+              "process",
+              "event_type",
+              "stage",
+              "business_event",
+              "error_code",
+              "reason",
+              "request_or_session_id",
+              "action_result"
+            ],
+            "suggested_log_fields": [
+              "timestamp",
+              "process",
+              "event_type",
+              "stage",
+              "business_event",
+              "error_code",
+              "reason",
+              "request_id",
+              "session_id",
+              "result"
+            ],
+            "observability_gaps": [
+              "missing_time",
+              "missing_process",
+              "missing_event_name",
+              "missing_stage",
+              "missing_reason",
+              "missing_correlation",
+              "missing_result"
+            ]
+          }
+        ],
+        "edge_matches": [
+          {
+            "id": 9,
+            "project_id": "3b25363a9ece081e",
+            "source_type": "code_file",
+            "source_id": 1,
+            "relation": "contains",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "evidence": "AfterIteration.ts:5",
+            "confidence": 0.9,
+            "source_revision": "unversioned",
+            "extractor_version": "code-wiki:v4",
+            "valid_from": "2026-11-15T16:32:52+00:00",
+            "valid_to": null,
+            "evidence_kind": "static_containment",
+            "last_verified_at": "2026-11-15T16:32:52+00:00",
+            "created_at": "2026-11-15T16:32:52+00:00"
+          },
+          {
+            "id": 2,
+            "project_id": "3b25363a9ece081e",
+            "source_type": "code_file",
+            "source_id": 1,
+            "relation": "contains",
+            "target_type": "code_symbol",
+            "target_id": 2,
+            "evidence": "AfterIteration.ts",
+            "confidence": 0.9,
+            "source_revision": "unversioned",
+            "extractor_version": "code-wiki:v4",
+            "valid_from": "2026-11-15T16:32:52+00:00",
+            "valid_to": null,
+            "evidence_kind": "static_containment",
+            "last_verified_at": "2026-11-15T16:32:52+00:00",
+            "created_at": "2026-11-15T16:32:52+00:00"
+          },
+          {
+            "id": 1,
+            "project_id": "3b25363a9ece081e",
+            "source_type": "code_file",
+            "source_id": 1,
+            "relation": "contains",
+            "target_type": "code_symbol",
+            "target_id": 1,
+            "evidence": "AfterIteration.ts",
+            "confidence": 0.9,
+            "source_revision": "unversioned",
+            "extractor_version": "code-wiki:v4",
+            "valid_from": "2026-11-15T16:32:52+00:00",
+            "valid_to": null,
+            "evidence_kind": "static_containment",
+            "last_verified_at": "2026-11-15T16:32:52+00:00",
+            "created_at": "2026-11-15T16:32:52+00:00"
+          },
+          {
+            "id": 10,
+            "project_id": "3b25363a9ece081e",
+            "source_type": "code_symbol",
+            "source_id": 2,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "evidence": "AfterIteration.ts:5",
+            "confidence": 0.8,
+            "source_revision": "unversioned",
+            "extractor_version": "code-wiki:v4",
+            "valid_from": "2026-11-15T16:32:52+00:00",
+            "valid_to": null,
+            "evidence_kind": "code_observability",
+            "last_verified_at": "2026-11-15T16:32:52+00:00",
+            "created_at": "2026-11-15T16:32:52+00:00"
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "memory_intent": "general_context",
+      "memory_intent_v2": "general_context",
+      "memory_intent_source": "inferred",
+      "retrieval_lanes": {
+        "counts": {
+          "main_reflections": 0,
+          "correction_guards": 0,
+          "semantic_patch_notes": 0,
+          "blocked_memory_notes": 0
+        },
+        "intent_profile": {
+          "intent": "general_context",
+          "intent_v2": "general_context",
+          "intent_source": "inferred",
+          "legacy_intent": "general_context",
+          "preferred_lanes": [
+            "semantic_facts",
+            "wiki_matches",
+            "reusable_procedure",
+            "historical_reflection"
+          ],
+          "interference_policy": "prefer source-backed and high-quality memories"
+        },
+        "lane_budgets": {
+          "main_reflections": 2,
+          "correction_guards": 4,
+          "semantic_patch_notes": 6,
+          "blocked_memory_notes": 8
+        },
+        "policy": {
+          "procedure_experience": "main context only when the query intent can reuse a procedure",
+          "correction_experience": "guardrail lane; not injected as the main task direction by default",
+          "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+        }
+      },
+      "memory_brief": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "main_reflection_count": 0,
+        "correction_guard_count": 0,
+        "semantic_patch_count": 0,
+        "blocked_count": 0,
+        "conflict_count": 0
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": []
+    }
+  },
+  {
+    "event": "focus_return",
+    "query": "Locate the record iteration and accumulator implementation.",
+    "items": [
+      {
+        "id": 1,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "AfterIteration.ts",
+        "symbol": "AfterIteration",
+        "symbol_type": "class",
+        "summary": "class AfterIteration in AfterIteration.ts; identifier terms: after iteration",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:78df9338ddb65667d7950b91",
+        "qualified_name": "AfterIteration",
+        "signature": "class AfterIteration",
+        "start_line": 1,
+        "end_line": 10,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05655738,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 43.5,
+        "search_terms": [
+          "afteriteration.ts",
+          "class afteriteration in afteriteration.ts; identifier terms: after iteration",
+          "afteriteration",
+          "class",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "after",
+          "iteration"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "AfterIteration.ts",
+        "symbol": "summarize",
+        "symbol_type": "function",
+        "summary": "function summarize in AfterIteration.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:a5330929016c9077017b1247",
+        "qualified_name": "AfterIteration.summarize",
+        "signature": "summarize(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "evidence_class": "static",
+        "method_evidence": "console log",
+        "string_evidence": "finished",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.log\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:a5330929016c9077017b1247\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "AfterIteration",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "recall_lanes": [
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.03951613,
+          "best_rank": 2,
+          "channel_count": 2,
+          "contributions": [
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 37.5,
+        "search_terms": [
+          "afteriteration.ts",
+          "function summarize in afteriteration.ts",
+          "summarize",
+          "function",
+          "afteriteration",
+          "ts",
+          "in",
+          "after",
+          "iteration"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "AfterIteration.ts",
+        "summary": "TypeScript file with 10 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00",
+        "recall_lanes": [
+          "file_identity_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.02213115,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 34.8,
+        "search_terms": [
+          "afteriteration.ts",
+          "typescript",
+          "typescript file with 10 non-empty lines",
+          "afteriteration",
+          "ts",
+          "file",
+          "with",
+          "10",
+          "non",
+          "empty",
+          "lines",
+          "after",
+          "iteration",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage"
+        ],
+        "symbol": "AfterIteration",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 10
+      }
+    ],
+    "returned": [
+      [
+        {
+          "id": 1,
+          "project_id": "3b25363a9ece081e",
+          "file_path": "AfterIteration.ts",
+          "symbol": "AfterIteration",
+          "symbol_type": "class",
+          "summary": "class AfterIteration in AfterIteration.ts; identifier terms: after iteration",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:78df9338ddb65667d7950b91",
+          "qualified_name": "AfterIteration",
+          "signature": "class AfterIteration",
+          "start_line": 1,
+          "end_line": 10,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:52+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05655738,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 43.5,
+          "search_terms": [
+            "afteriteration.ts",
+            "class afteriteration in afteriteration.ts; identifier terms: after iteration",
+            "afteriteration",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "after",
+            "iteration"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "3b25363a9ece081e",
+          "file_path": "AfterIteration.ts",
+          "symbol": "summarize",
+          "symbol_type": "function",
+          "summary": "function summarize in AfterIteration.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:a5330929016c9077017b1247",
+          "qualified_name": "AfterIteration.summarize",
+          "signature": "summarize(chunks: string[]):string",
+          "start_line": 2,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+          "evidence_class": "static",
+          "method_evidence": "console log",
+          "string_evidence": "finished",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.log\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:a5330929016c9077017b1247\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "AfterIteration",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:52+00:00",
+          "recall_lanes": [
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.03951613,
+            "best_rank": 2,
+            "channel_count": 2,
+            "contributions": [
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 37.5,
+          "search_terms": [
+            "afteriteration.ts",
+            "function summarize in afteriteration.ts",
+            "summarize",
+            "function",
+            "afteriteration",
+            "ts",
+            "in",
+            "after",
+            "iteration"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "3b25363a9ece081e",
+          "file_path": "AfterIteration.ts",
+          "summary": "TypeScript file with 10 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+          "index_generation": 1,
+          "updated_at": "2026-11-15T16:32:52+00:00",
+          "recall_lanes": [
+            "file_identity_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.02213115,
+            "best_rank": 1,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 34.8,
+          "search_terms": [
+            "afteriteration.ts",
+            "typescript",
+            "typescript file with 10 non-empty lines",
+            "afteriteration",
+            "ts",
+            "file",
+            "with",
+            "10",
+            "non",
+            "empty",
+            "lines",
+            "after",
+            "iteration",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "AfterIteration",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 10
+        }
+      ],
+      false
+    ]
+  }
+]

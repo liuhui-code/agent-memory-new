@@ -1,0 +1,154 @@
+[
+  {
+    "cohort": "old-source-relation",
+    "schema_equal": true,
+    "symbol_changes": [
+      {
+        "path": "AfterIteration.ts",
+        "symbol": "AfterIteration",
+        "before_id": 1,
+        "after_id": 7,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "AfterIteration.ts",
+        "symbol": "summarize",
+        "before_id": 2,
+        "after_id": 8,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "console log",
+        "new_method_evidence": "console log"
+      },
+      {
+        "path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "before_id": 3,
+        "after_id": 9,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "before_id": 4,
+        "after_id": 10,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": "collectionfold"
+      },
+      {
+        "path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "before_id": 5,
+        "after_id": 11,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "before_id": 6,
+        "after_id": 12,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "new_method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule"
+      }
+    ]
+  },
+  {
+    "cohort": "two-positive-result",
+    "schema_equal": true,
+    "symbol_changes": [
+      {
+        "path": "AfterIteration.ts",
+        "symbol": "AfterIteration",
+        "before_id": 1,
+        "after_id": 9,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "AfterIteration.ts",
+        "symbol": "summarize",
+        "before_id": 2,
+        "after_id": 10,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "console log",
+        "new_method_evidence": "console log"
+      },
+      {
+        "path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "before_id": 3,
+        "after_id": 11,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "before_id": 4,
+        "after_id": 12,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": "collectionfold"
+      },
+      {
+        "path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "before_id": 5,
+        "after_id": 13,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "before_id": 6,
+        "after_id": 14,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "new_method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule"
+      },
+      {
+        "path": "FragmentSelector.ts",
+        "symbol": "FragmentSelector",
+        "before_id": 7,
+        "after_id": 15,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": ""
+      },
+      {
+        "path": "FragmentSelector.ts",
+        "symbol": "select",
+        "before_id": 8,
+        "after_id": 16,
+        "before_generation": 1,
+        "after_generation": 2,
+        "old_method_evidence": "",
+        "new_method_evidence": "collectionfold"
+      }
+    ]
+  }
+]

@@ -1,0 +1,2352 @@
+[
+  {
+    "cohort": "old-source-relation",
+    "schema": [
+      [
+        "table",
+        "code_file_fts",
+        "CREATE VIRTUAL TABLE code_file_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          summary,\n          language,\n          business_summary,\n          business_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_file_fts_ad",
+        "CREATE TRIGGER code_file_fts_ad AFTER DELETE ON code_files BEGIN\n          DELETE FROM code_file_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_file_fts_ai",
+        "CREATE TRIGGER code_file_fts_ai AFTER INSERT ON code_files BEGIN\n          INSERT INTO code_file_fts(rowid, project_id, file_path, summary, language, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.summary, ''), COALESCE(new.language, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_file_fts_au",
+        "CREATE TRIGGER code_file_fts_au AFTER UPDATE ON code_files BEGIN\n          DELETE FROM code_file_fts WHERE rowid = old.id;\n          INSERT INTO code_file_fts(rowid, project_id, file_path, summary, language, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.summary, ''), COALESCE(new.language, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_file_fts_config",
+        "CREATE TABLE 'code_file_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_file_fts_content",
+        "CREATE TABLE 'code_file_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+      ],
+      [
+        "table",
+        "code_file_fts_data",
+        "CREATE TABLE 'code_file_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_file_fts_docsize",
+        "CREATE TABLE 'code_file_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_file_fts_idx",
+        "CREATE TABLE 'code_file_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_files",
+        "CREATE TABLE code_files (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          summary TEXT,\n          language TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_index_state",
+        "CREATE TABLE code_index_state (\n          project_id TEXT PRIMARY KEY,\n          generation INTEGER NOT NULL DEFAULT 0,\n          source_revision TEXT NOT NULL DEFAULT 'unversioned',\n          extractor_version TEXT NOT NULL,\n          status TEXT NOT NULL DEFAULT 'active',\n          indexed_file_count INTEGER NOT NULL DEFAULT 0,\n          retired_file_count INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_log_effect_fts",
+        "CREATE VIRTUAL TABLE code_log_effect_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          function,\n          wrapper_symbol,\n          level,\n          logger,\n          message_template,\n          evidence_class,\n          call_path,\n          call_path_locations,\n          raw_call\n        )"
+      ],
+      [
+        "trigger",
+        "code_log_effect_fts_ad",
+        "CREATE TRIGGER code_log_effect_fts_ad AFTER DELETE ON code_log_effects BEGIN\n          DELETE FROM code_log_effect_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_effect_fts_ai",
+        "CREATE TRIGGER code_log_effect_fts_ai AFTER INSERT ON code_log_effects BEGIN\n          INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)\n          VALUES (new.id, new.project_id, new.file_path, new.function, new.wrapper_symbol, COALESCE(new.level, ''), COALESCE(new.logger, ''), new.message_template, new.evidence_class, new.call_path, new.call_path_locations, COALESCE(new.raw_call, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_effect_fts_au",
+        "CREATE TRIGGER code_log_effect_fts_au AFTER UPDATE ON code_log_effects BEGIN\n          DELETE FROM code_log_effect_fts WHERE rowid = old.id;\n          INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)\n          VALUES (new.id, new.project_id, new.file_path, new.function, new.wrapper_symbol, COALESCE(new.level, ''), COALESCE(new.logger, ''), new.message_template, new.evidence_class, new.call_path, new.call_path_locations, COALESCE(new.raw_call, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_config",
+        "CREATE TABLE 'code_log_effect_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_content",
+        "CREATE TABLE 'code_log_effect_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_data",
+        "CREATE TABLE 'code_log_effect_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_docsize",
+        "CREATE TABLE 'code_log_effect_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_idx",
+        "CREATE TABLE 'code_log_effect_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_effects",
+        "CREATE TABLE code_log_effects (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          line INTEGER NOT NULL,\n          function TEXT NOT NULL,\n          wrapper_symbol TEXT NOT NULL,\n          sink_log_id INTEGER NOT NULL,\n          level TEXT,\n          logger TEXT,\n          message_template TEXT NOT NULL,\n          evidence_class TEXT NOT NULL,\n          wrapper_depth INTEGER NOT NULL DEFAULT 1,\n          truncated INTEGER NOT NULL DEFAULT 0,\n          call_path TEXT NOT NULL,\n          call_path_locations TEXT NOT NULL DEFAULT '[]',\n          raw_call TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_log_fts",
+        "CREATE VIRTUAL TABLE code_log_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          function,\n          level,\n          logger,\n          message_template,\n          raw_statement,\n          business_summary,\n          business_terms,\n          business_event,\n          trigger_stage,\n          symptom_terms,\n          likely_causes,\n          process_hint,\n          neighbor_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_log_fts_ad",
+        "CREATE TRIGGER code_log_fts_ad AFTER DELETE ON code_log_statements BEGIN\n          DELETE FROM code_log_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_fts_ai",
+        "CREATE TRIGGER code_log_fts_ai AFTER INSERT ON code_log_statements BEGIN\n          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_fts_au",
+        "CREATE TRIGGER code_log_fts_au AFTER UPDATE ON code_log_statements BEGIN\n          DELETE FROM code_log_fts WHERE rowid = old.id;\n          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_log_fts_config",
+        "CREATE TABLE 'code_log_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_fts_content",
+        "CREATE TABLE 'code_log_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14)"
+      ],
+      [
+        "table",
+        "code_log_fts_data",
+        "CREATE TABLE 'code_log_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_log_fts_docsize",
+        "CREATE TABLE 'code_log_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_log_fts_idx",
+        "CREATE TABLE 'code_log_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_statements",
+        "CREATE TABLE code_log_statements (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          line INTEGER,\n          function TEXT,\n          level TEXT,\n          logger TEXT,\n          message_template TEXT NOT NULL,\n          raw_statement TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          business_event TEXT,\n          trigger_stage TEXT,\n          symptom_terms TEXT,\n          likely_causes TEXT,\n          process_hint TEXT,\n          neighbor_terms TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_method_fts",
+        "CREATE VIRTUAL TABLE code_method_fts USING fts5(\n          project_id UNINDEXED,\n          method_evidence\n        )"
+      ],
+      [
+        "trigger",
+        "code_method_fts_ad",
+        "CREATE TRIGGER code_method_fts_ad AFTER DELETE ON code_symbols BEGIN\n          DELETE FROM code_method_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_method_fts_ai",
+        "CREATE TRIGGER code_method_fts_ai AFTER INSERT ON code_symbols BEGIN\n          INSERT INTO code_method_fts(rowid, project_id, method_evidence)\n          SELECT new.id, new.project_id, new.method_evidence\n          WHERE COALESCE(new.method_evidence, '') != '';\n        END"
+      ],
+      [
+        "trigger",
+        "code_method_fts_au",
+        "CREATE TRIGGER code_method_fts_au AFTER UPDATE ON code_symbols BEGIN\n          DELETE FROM code_method_fts WHERE rowid = old.id;\n          INSERT INTO code_method_fts(rowid, project_id, method_evidence)\n          SELECT new.id, new.project_id, new.method_evidence\n          WHERE COALESCE(new.method_evidence, '') != '';\n        END"
+      ],
+      [
+        "table",
+        "code_method_fts_config",
+        "CREATE TABLE 'code_method_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_method_fts_content",
+        "CREATE TABLE 'code_method_fts_content'(id INTEGER PRIMARY KEY, c0, c1)"
+      ],
+      [
+        "table",
+        "code_method_fts_data",
+        "CREATE TABLE 'code_method_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_method_fts_docsize",
+        "CREATE TABLE 'code_method_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_method_fts_idx",
+        "CREATE TABLE 'code_method_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_passage_fts",
+        "CREATE VIRTUAL TABLE code_passage_fts USING fts5(\n          project_id UNINDEXED,\n          source_type UNINDEXED,\n          passage_kind UNINDEXED,\n          source_id UNINDEXED,\n          file_path,\n          symbol,\n          identity_terms,\n          semantic_terms,\n          body_terms,\n          string_terms,\n          mechanism_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_passage_fts_ad",
+        "CREATE TRIGGER code_passage_fts_ad\n        AFTER DELETE ON code_passages BEGIN\n          DELETE FROM code_passage_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_passage_fts_ai",
+        "CREATE TRIGGER code_passage_fts_ai\n        AFTER INSERT ON code_passages BEGIN\n          INSERT INTO code_passage_fts(\n            rowid, project_id, source_type, passage_kind, source_id, file_path, symbol,\n            identity_terms, semantic_terms, body_terms, string_terms,\n            mechanism_terms\n          ) VALUES (\n            new.id, new.project_id, new.source_type, new.passage_kind,\n            new.source_id, new.file_path, COALESCE(new.symbol, ''), new.identity_terms,\n            new.semantic_terms, new.body_terms, new.string_terms,\n            new.mechanism_terms\n          );\n        END"
+      ],
+      [
+        "trigger",
+        "code_passage_fts_au",
+        "CREATE TRIGGER code_passage_fts_au\n        AFTER UPDATE ON code_passages BEGIN\n          DELETE FROM code_passage_fts WHERE rowid = old.id;\n          INSERT INTO code_passage_fts(\n            rowid, project_id, source_type, passage_kind, source_id, file_path, symbol,\n            identity_terms, semantic_terms, body_terms, string_terms,\n            mechanism_terms\n          ) VALUES (\n            new.id, new.project_id, new.source_type, new.passage_kind,\n            new.source_id, new.file_path, COALESCE(new.symbol, ''), new.identity_terms,\n            new.semantic_terms, new.body_terms, new.string_terms,\n            new.mechanism_terms\n          );\n        END"
+      ],
+      [
+        "table",
+        "code_passage_fts_config",
+        "CREATE TABLE 'code_passage_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_passage_fts_content",
+        "CREATE TABLE 'code_passage_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+      ],
+      [
+        "table",
+        "code_passage_fts_data",
+        "CREATE TABLE 'code_passage_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_passage_fts_docsize",
+        "CREATE TABLE 'code_passage_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_passage_fts_idx",
+        "CREATE TABLE 'code_passage_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_passages",
+        "CREATE TABLE code_passages (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_type TEXT NOT NULL,\n          source_id INTEGER NOT NULL,\n          passage_kind TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          symbol TEXT,\n          identity_terms TEXT NOT NULL DEFAULT '',\n          semantic_terms TEXT NOT NULL DEFAULT '',\n          body_terms TEXT NOT NULL DEFAULT '',\n          string_terms TEXT NOT NULL DEFAULT '',\n          mechanism_terms TEXT NOT NULL DEFAULT '',\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          start_line INTEGER,\n          end_line INTEGER,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, source_type, source_id, passage_kind)\n        )"
+      ],
+      [
+        "table",
+        "code_symbol_fts",
+        "CREATE VIRTUAL TABLE code_symbol_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          symbol,\n          symbol_type,\n          summary,\n          business_summary,\n          business_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_symbol_fts_ad",
+        "CREATE TRIGGER code_symbol_fts_ad AFTER DELETE ON code_symbols BEGIN\n          DELETE FROM code_symbol_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_symbol_fts_ai",
+        "CREATE TRIGGER code_symbol_fts_ai AFTER INSERT ON code_symbols BEGIN\n          INSERT INTO code_symbol_fts(rowid, project_id, file_path, symbol, symbol_type, summary, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.symbol, ''), COALESCE(new.symbol_type, ''), COALESCE(new.summary, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_symbol_fts_au",
+        "CREATE TRIGGER code_symbol_fts_au AFTER UPDATE ON code_symbols BEGIN\n          DELETE FROM code_symbol_fts WHERE rowid = old.id;\n          INSERT INTO code_symbol_fts(rowid, project_id, file_path, symbol, symbol_type, summary, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.symbol, ''), COALESCE(new.symbol_type, ''), COALESCE(new.summary, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_symbol_fts_config",
+        "CREATE TABLE 'code_symbol_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_symbol_fts_content",
+        "CREATE TABLE 'code_symbol_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6)"
+      ],
+      [
+        "table",
+        "code_symbol_fts_data",
+        "CREATE TABLE 'code_symbol_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_symbol_fts_docsize",
+        "CREATE TABLE 'code_symbol_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_symbol_fts_idx",
+        "CREATE TABLE 'code_symbol_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_symbols",
+        "CREATE TABLE code_symbols (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          symbol TEXT NOT NULL,\n          symbol_type TEXT,\n          summary TEXT,\n          calls TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          symbol_key TEXT,\n          qualified_name TEXT,\n          signature TEXT,\n          start_line INTEGER,\n          end_line INTEGER,\n          semantic_adapter TEXT,\n          source_digest TEXT,\n          evidence_class TEXT,\n          method_evidence TEXT,\n          string_evidence TEXT,\n          mechanism_evidence TEXT,\n          owner_name TEXT,\n          owner_kind TEXT,\n          callable_roles TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "design_outcomes",
+        "CREATE TABLE design_outcomes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          candidate_id TEXT NOT NULL,\n          contract_id TEXT NOT NULL,\n          verification_status TEXT NOT NULL,\n          outcome TEXT NOT NULL,\n          baseline_revision INTEGER NOT NULL DEFAULT 0,\n          current_revision INTEGER NOT NULL DEFAULT 0,\n          planned_file_recall REAL NOT NULL DEFAULT 0,\n          unplanned_file_ratio REAL NOT NULL DEFAULT 0,\n          planned_symbol_recall REAL NOT NULL DEFAULT 0,\n          scenario_verification_rate REAL NOT NULL DEFAULT 0,\n          failed_test_count INTEGER NOT NULL DEFAULT 0,\n          replan_count INTEGER NOT NULL DEFAULT 0,\n          archetype TEXT NOT NULL DEFAULT 'general',\n          change_size_bucket TEXT NOT NULL DEFAULT 'small',\n          risk_count INTEGER NOT NULL DEFAULT 0,\n          api_change_count INTEGER NOT NULL DEFAULT 0,\n          graph_delta_count INTEGER NOT NULL DEFAULT 0,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "episode_fts",
+        "CREATE VIRTUAL TABLE episode_fts USING fts5(\n          project_id UNINDEXED,\n          task,\n          summary,\n          outcome,\n          files_touched,\n          commands_run\n        )"
+      ],
+      [
+        "trigger",
+        "episode_fts_ad",
+        "CREATE TRIGGER episode_fts_ad AFTER DELETE ON episodes BEGIN\n          DELETE FROM episode_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "episode_fts_ai",
+        "CREATE TRIGGER episode_fts_ai AFTER INSERT ON episodes BEGIN\n          INSERT INTO episode_fts(rowid, project_id, task, summary, outcome, files_touched, commands_run)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.outcome, ''), COALESCE(new.files_touched, ''), COALESCE(new.commands_run, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "episode_fts_au",
+        "CREATE TRIGGER episode_fts_au AFTER UPDATE ON episodes BEGIN\n          DELETE FROM episode_fts WHERE rowid = old.id;\n          INSERT INTO episode_fts(rowid, project_id, task, summary, outcome, files_touched, commands_run)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.outcome, ''), COALESCE(new.files_touched, ''), COALESCE(new.commands_run, ''));\n        END"
+      ],
+      [
+        "table",
+        "episode_fts_config",
+        "CREATE TABLE 'episode_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "episode_fts_content",
+        "CREATE TABLE 'episode_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+      ],
+      [
+        "table",
+        "episode_fts_data",
+        "CREATE TABLE 'episode_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "episode_fts_docsize",
+        "CREATE TABLE 'episode_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "episode_fts_idx",
+        "CREATE TABLE 'episode_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "episodes",
+        "CREATE TABLE episodes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          task TEXT NOT NULL,\n          summary TEXT NOT NULL,\n          outcome TEXT,\n          files_touched TEXT,\n          commands_run TEXT,\n          created_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', importance REAL DEFAULT 0.5, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, derived_facts TEXT, derived_reflections TEXT)"
+      ],
+      [
+        "table",
+        "evaluation_runs",
+        "CREATE TABLE evaluation_runs (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          run_kind TEXT NOT NULL CHECK(run_kind IN ('context_capability', 'agent_benchmark')),\n          seal_digest TEXT NOT NULL,\n          case_file TEXT NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('running', 'completed', 'failed')),\n          gate_status TEXT,\n          result_digest TEXT,\n          error_class TEXT,\n          started_at TEXT NOT NULL,\n          finished_at TEXT,\n          UNIQUE(project_id, run_kind, seal_digest)\n        )"
+      ],
+      [
+        "table",
+        "experience_usage_events",
+        "CREATE TABLE experience_usage_events (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT NOT NULL,\n          record_type TEXT NOT NULL,\n          record_id INTEGER NOT NULL,\n          outcome TEXT NOT NULL,\n          note TEXT,\n          evidence TEXT,\n          task_id TEXT,\n          query_id TEXT,\n          event_key TEXT,\n          verified INTEGER NOT NULL DEFAULT 0,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "graph_runtime_state",
+        "CREATE TABLE graph_runtime_state (\n          project_id TEXT PRIMARY KEY,\n          graph_revision INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "index",
+        "idx_code_files_project_file",
+        "CREATE UNIQUE INDEX idx_code_files_project_file\n        ON code_files(project_id, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_files_project_generation",
+        "CREATE INDEX idx_code_files_project_generation\n        ON code_files(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_files_project_updated",
+        "CREATE INDEX idx_code_files_project_updated\n        ON code_files(project_id, updated_at)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_file",
+        "CREATE INDEX idx_code_logs_project_file\n        ON code_log_statements(project_id, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_function",
+        "CREATE INDEX idx_code_logs_project_function\n        ON code_log_statements(project_id, function)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_generation",
+        "CREATE INDEX idx_code_logs_project_generation\n        ON code_log_statements(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_message",
+        "CREATE INDEX idx_code_logs_project_message\n        ON code_log_statements(project_id, message_template)"
+      ],
+      [
+        "index",
+        "idx_code_passages_project_file",
+        "CREATE INDEX idx_code_passages_project_file\n        ON code_passages(project_id, file_path, passage_kind)"
+      ],
+      [
+        "index",
+        "idx_code_passages_project_generation",
+        "CREATE INDEX idx_code_passages_project_generation\n        ON code_passages(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_passages_project_source",
+        "CREATE INDEX idx_code_passages_project_source\n        ON code_passages(project_id, source_type, source_id)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_file",
+        "CREATE INDEX idx_code_symbols_project_file\n        ON code_symbols(project_id, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_generation",
+        "CREATE INDEX idx_code_symbols_project_generation\n        ON code_symbols(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_key",
+        "CREATE INDEX idx_code_symbols_project_key\n        ON code_symbols(project_id, symbol_key)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_owner_kind",
+        "CREATE INDEX idx_code_symbols_project_owner_kind\n        ON code_symbols(project_id, owner_kind, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_qualified",
+        "CREATE INDEX idx_code_symbols_project_qualified\n        ON code_symbols(project_id, file_path, qualified_name)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_qualified_lookup",
+        "CREATE INDEX idx_code_symbols_project_qualified_lookup\n        ON code_symbols(project_id, qualified_name)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_symbol",
+        "CREATE INDEX idx_code_symbols_project_symbol\n        ON code_symbols(project_id, symbol)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_type",
+        "CREATE INDEX idx_code_symbols_project_type\n        ON code_symbols(project_id, symbol_type)"
+      ],
+      [
+        "index",
+        "idx_design_outcomes_project_created",
+        "CREATE INDEX idx_design_outcomes_project_created\n        ON design_outcomes(project_id, created_at DESC)"
+      ],
+      [
+        "index",
+        "idx_design_outcomes_project_profile",
+        "CREATE INDEX idx_design_outcomes_project_profile\n        ON design_outcomes(project_id, archetype, change_size_bucket, id DESC)"
+      ],
+      [
+        "index",
+        "idx_evaluation_runs_project_status",
+        "CREATE INDEX idx_evaluation_runs_project_status\n        ON evaluation_runs(project_id, status, started_at)"
+      ],
+      [
+        "index",
+        "idx_experience_usage_event_key",
+        "CREATE UNIQUE INDEX idx_experience_usage_event_key\n        ON experience_usage_events(project_id, event_key)\n        WHERE event_key IS NOT NULL AND event_key != ''"
+      ],
+      [
+        "index",
+        "idx_experience_usage_project_query",
+        "CREATE INDEX idx_experience_usage_project_query\n        ON experience_usage_events(project_id, normalized_query, outcome, created_at)"
+      ],
+      [
+        "index",
+        "idx_experience_usage_project_record",
+        "CREATE INDEX idx_experience_usage_project_record\n        ON experience_usage_events(project_id, record_type, record_id, created_at)"
+      ],
+      [
+        "index",
+        "idx_experience_usage_project_type_recent",
+        "CREATE INDEX idx_experience_usage_project_type_recent\n        ON experience_usage_events(project_id, record_type, created_at DESC, id DESC)"
+      ],
+      [
+        "index",
+        "idx_impact_feedback_project_change",
+        "CREATE INDEX idx_impact_feedback_project_change\n        ON impact_feedback(project_id, change_fingerprint, created_at)"
+      ],
+      [
+        "index",
+        "idx_incident_trace_links_target",
+        "CREATE INDEX idx_incident_trace_links_target\n        ON incident_trace_links(project_id, target_type, target_id)"
+      ],
+      [
+        "index",
+        "idx_incident_trace_links_trace",
+        "CREATE INDEX idx_incident_trace_links_trace\n        ON incident_trace_links(project_id, trace_id)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_evidence",
+        "CREATE INDEX idx_incident_traces_project_evidence\n        ON incident_traces(project_id, capture_mode, evidence_state, status, updated_at)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_key",
+        "CREATE UNIQUE INDEX idx_incident_traces_project_key\n        ON incident_traces(project_id, trace_key)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_scene",
+        "CREATE INDEX idx_incident_traces_project_scene\n        ON incident_traces(project_id, arkts_scene, updated_at)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_status",
+        "CREATE INDEX idx_incident_traces_project_status\n        ON incident_traces(project_id, status, updated_at)"
+      ],
+      [
+        "index",
+        "idx_learn_scopes_project_scope_key",
+        "CREATE UNIQUE INDEX idx_learn_scopes_project_scope_key\n        ON learn_scopes(project_id, scope_key)"
+      ],
+      [
+        "index",
+        "idx_log_effects_project_file",
+        "CREATE INDEX idx_log_effects_project_file\n        ON code_log_effects(project_id, file_path, function)"
+      ],
+      [
+        "index",
+        "idx_log_effects_project_sink",
+        "CREATE INDEX idx_log_effects_project_sink\n        ON code_log_effects(project_id, sink_log_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_source",
+        "CREATE INDEX idx_memory_edges_project_source\n        ON memory_edges(project_id, source_type, source_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_target",
+        "CREATE INDEX idx_memory_edges_project_target\n        ON memory_edges(project_id, target_type, target_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_source",
+        "CREATE INDEX idx_memory_edges_project_valid_source\n        ON memory_edges(project_id, valid_to, source_type, source_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_source_relation",
+        "CREATE INDEX idx_memory_edges_project_valid_source_relation\n        ON memory_edges(project_id, valid_to, source_type, source_id, relation)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_target",
+        "CREATE INDEX idx_memory_edges_project_valid_target\n        ON memory_edges(project_id, valid_to, target_type, target_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_target_relation",
+        "CREATE INDEX idx_memory_edges_project_valid_target_relation\n        ON memory_edges(project_id, valid_to, target_type, target_id, relation)"
+      ],
+      [
+        "index",
+        "idx_normative_document_identity",
+        "CREATE INDEX idx_normative_document_identity\n          ON normative_documents(project_id, source_root, document_id)"
+      ],
+      [
+        "index",
+        "idx_normative_supersedes",
+        "CREATE INDEX idx_normative_supersedes\n          ON normative_documents(project_id, source_root, supersedes)"
+      ],
+      [
+        "index",
+        "idx_prospective_cohort_tasks_status",
+        "CREATE INDEX idx_prospective_cohort_tasks_status\n        ON prospective_cohort_tasks(cohort_pk, status, sequence_no)"
+      ],
+      [
+        "index",
+        "idx_prospective_cohorts_project_status",
+        "CREATE INDEX idx_prospective_cohorts_project_status\n        ON prospective_cohorts(project_id, status, registered_at)"
+      ],
+      [
+        "index",
+        "idx_query_misses_project_normalized",
+        "CREATE INDEX idx_query_misses_project_normalized\n        ON query_misses(project_id, source, normalized_query, status)"
+      ],
+      [
+        "index",
+        "idx_query_misses_project_status",
+        "CREATE INDEX idx_query_misses_project_status\n        ON query_misses(project_id, status)"
+      ],
+      [
+        "index",
+        "idx_reflection_reuse_project_reused",
+        "CREATE INDEX idx_reflection_reuse_project_reused\n        ON reflection_reuse_events(project_id, reused_reflection_id)"
+      ],
+      [
+        "index",
+        "idx_reflections_project_stale",
+        "CREATE INDEX idx_reflections_project_stale\n        ON reflections(project_id, is_stale)"
+      ],
+      [
+        "index",
+        "idx_reflections_project_status_stale",
+        "CREATE INDEX idx_reflections_project_status_stale\n        ON reflections(project_id, status, is_stale)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_candidate",
+        "CREATE INDEX idx_retrieval_feedback_candidate\n        ON retrieval_feedback(project_id, record_type, record_id, status, created_at DESC)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_event_key",
+        "CREATE UNIQUE INDEX idx_retrieval_feedback_event_key\n        ON retrieval_feedback(project_id, event_key)\n        WHERE event_key IS NOT NULL AND event_key != ''"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_project_record",
+        "CREATE INDEX idx_retrieval_feedback_project_record\n        ON retrieval_feedback(project_id, record_type, record_id, status)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_project_status",
+        "CREATE INDEX idx_retrieval_feedback_project_status\n        ON retrieval_feedback(project_id, status, created_at)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_project_type_recent",
+        "CREATE INDEX idx_retrieval_feedback_project_type_recent\n        ON retrieval_feedback(project_id, record_type, status, created_at DESC, id DESC)"
+      ],
+      [
+        "index",
+        "idx_scope_boundaries_scope_dependency",
+        "CREATE INDEX idx_scope_boundaries_scope_dependency\n        ON scope_boundary_dependencies(project_id, scope_id, dependency_path, status)"
+      ],
+      [
+        "index",
+        "idx_semantic_conflicts_project_status",
+        "CREATE INDEX idx_semantic_conflicts_project_status\n        ON semantic_conflicts(project_id, status, observed_at)"
+      ],
+      [
+        "index",
+        "idx_semantic_project_stale",
+        "CREATE INDEX idx_semantic_project_stale\n        ON semantic_facts(project_id, is_stale)"
+      ],
+      [
+        "index",
+        "idx_semantic_project_status_stale",
+        "CREATE INDEX idx_semantic_project_status_stale\n        ON semantic_facts(project_id, status, is_stale)"
+      ],
+      [
+        "table",
+        "impact_feedback",
+        "CREATE TABLE impact_feedback (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          change_fingerprint TEXT NOT NULL,\n          changed_files TEXT NOT NULL,\n          recommended_tests TEXT,\n          executed_tests TEXT,\n          outcome TEXT NOT NULL,\n          failed_tests TEXT,\n          flaky_tests TEXT,\n          missed_targets TEXT,\n          note TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "incident_trace_fts",
+        "CREATE VIRTUAL TABLE incident_trace_fts USING fts5(\n          project_id UNINDEXED,\n          symptom,\n          goal,\n          arkts_scene,\n          entry_log_text,\n          normalized_error,\n          dominant_log_events,\n          diagnosis_summary,\n          suspected_chain,\n          root_cause_hypothesis,\n          resolution\n        )"
+      ],
+      [
+        "trigger",
+        "incident_trace_fts_ad",
+        "CREATE TRIGGER incident_trace_fts_ad AFTER DELETE ON incident_traces BEGIN\n          DELETE FROM incident_trace_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "incident_trace_fts_ai",
+        "CREATE TRIGGER incident_trace_fts_ai AFTER INSERT ON incident_traces BEGIN\n          INSERT INTO incident_trace_fts(\n            rowid, project_id, symptom, goal, arkts_scene, entry_log_text,\n            normalized_error, dominant_log_events, diagnosis_summary,\n            suspected_chain, root_cause_hypothesis, resolution\n          )\n          VALUES (\n            new.id, new.project_id, new.symptom, new.goal, new.arkts_scene,\n            new.entry_log_text, new.normalized_error, new.dominant_log_events,\n            new.diagnosis_summary, new.suspected_chain,\n            new.root_cause_hypothesis, new.resolution\n          );\n        END"
+      ],
+      [
+        "trigger",
+        "incident_trace_fts_au",
+        "CREATE TRIGGER incident_trace_fts_au AFTER UPDATE ON incident_traces BEGIN\n          DELETE FROM incident_trace_fts WHERE rowid = old.id;\n          INSERT INTO incident_trace_fts(\n            rowid, project_id, symptom, goal, arkts_scene, entry_log_text,\n            normalized_error, dominant_log_events, diagnosis_summary,\n            suspected_chain, root_cause_hypothesis, resolution\n          )\n          VALUES (\n            new.id, new.project_id, new.symptom, new.goal, new.arkts_scene,\n            new.entry_log_text, new.normalized_error, new.dominant_log_events,\n            new.diagnosis_summary, new.suspected_chain,\n            new.root_cause_hypothesis, new.resolution\n          );\n        END"
+      ],
+      [
+        "table",
+        "incident_trace_fts_config",
+        "CREATE TABLE 'incident_trace_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "incident_trace_fts_content",
+        "CREATE TABLE 'incident_trace_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+      ],
+      [
+        "table",
+        "incident_trace_fts_data",
+        "CREATE TABLE 'incident_trace_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "incident_trace_fts_docsize",
+        "CREATE TABLE 'incident_trace_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "incident_trace_fts_idx",
+        "CREATE TABLE 'incident_trace_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "incident_trace_links",
+        "CREATE TABLE incident_trace_links (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          trace_id INTEGER NOT NULL,\n          target_type TEXT NOT NULL,\n          target_id INTEGER,\n          target_key TEXT,\n          relation TEXT NOT NULL,\n          score REAL DEFAULT 0.0,\n          evidence TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "incident_traces",
+        "CREATE TABLE incident_traces (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          trace_key TEXT NOT NULL,\n          status TEXT NOT NULL DEFAULT 'open',\n          symptom TEXT NOT NULL,\n          goal TEXT,\n          arkts_scene TEXT NOT NULL DEFAULT 'unknown',\n          time_window TEXT,\n          entry_log_text TEXT,\n          normalized_error TEXT,\n          dominant_log_events TEXT,\n          diagnosis_summary TEXT,\n          suspected_chain TEXT,\n          causal_chain TEXT,\n          span_graph TEXT,\n          root_cause_hypothesis TEXT,\n          intervention TEXT,\n          verification_evidence TEXT,\n          resolution TEXT,\n          confidence REAL DEFAULT 0.7,\n          source TEXT DEFAULT 'incident-trace',\n          capture_mode TEXT NOT NULL DEFAULT 'legacy_runtime_derived',\n          evidence_state TEXT NOT NULL DEFAULT 'legacy_unverified',\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "learn_scopes",
+        "CREATE TABLE learn_scopes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          scope_key TEXT NOT NULL,\n          scope_type TEXT NOT NULL,\n          source_root TEXT NOT NULL,\n          target_path TEXT,\n          entry_path TEXT,\n          depth INTEGER,\n          mode TEXT NOT NULL,\n          file_snapshot TEXT NOT NULL,\n          file_count INTEGER NOT NULL DEFAULT 0,\n          status TEXT NOT NULL DEFAULT 'active',\n          baseline_revision TEXT,\n          last_checked_revision TEXT,\n          change_provider TEXT NOT NULL DEFAULT 'snapshot/v1',\n          refresh_state TEXT NOT NULL DEFAULT 'current',\n          last_refresh_summary TEXT,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          last_refreshed_at TEXT\n        )"
+      ],
+      [
+        "table",
+        "memory_edges",
+        "CREATE TABLE memory_edges (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_type TEXT NOT NULL,\n          source_id INTEGER NOT NULL,\n          relation TEXT NOT NULL,\n          target_type TEXT NOT NULL,\n          target_id INTEGER NOT NULL,\n          evidence TEXT,\n          confidence REAL DEFAULT 0.8,\n          source_revision TEXT,\n          extractor_version TEXT NOT NULL DEFAULT 'legacy',\n          valid_from TEXT,\n          valid_to TEXT,\n          evidence_kind TEXT NOT NULL DEFAULT 'legacy',\n          last_verified_at TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "trigger",
+        "normative_document_delete",
+        "CREATE TRIGGER normative_document_delete\n          AFTER DELETE ON normative_documents BEGIN\n          DELETE FROM normative_document_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "table",
+        "normative_document_fts",
+        "CREATE VIRTUAL TABLE normative_document_fts USING fts5(\n          project_id UNINDEXED, search_terms, tokenize='unicode61'\n        )"
+      ],
+      [
+        "table",
+        "normative_document_fts_config",
+        "CREATE TABLE 'normative_document_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "normative_document_fts_content",
+        "CREATE TABLE 'normative_document_fts_content'(id INTEGER PRIMARY KEY, c0, c1)"
+      ],
+      [
+        "table",
+        "normative_document_fts_data",
+        "CREATE TABLE 'normative_document_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "normative_document_fts_docsize",
+        "CREATE TABLE 'normative_document_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "normative_document_fts_idx",
+        "CREATE TABLE 'normative_document_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "trigger",
+        "normative_document_insert",
+        "CREATE TRIGGER normative_document_insert\n          AFTER INSERT ON normative_documents BEGIN\n          INSERT INTO normative_document_fts(rowid, project_id, search_terms)\n            VALUES (new.id, new.project_id, new.search_terms);\n        END"
+      ],
+      [
+        "trigger",
+        "normative_document_update",
+        "CREATE TRIGGER normative_document_update\n          AFTER UPDATE ON normative_documents BEGIN\n          DELETE FROM normative_document_fts WHERE rowid = old.id;\n          INSERT INTO normative_document_fts(rowid, project_id, search_terms)\n            VALUES (new.id, new.project_id, new.search_terms);\n        END"
+      ],
+      [
+        "table",
+        "normative_documents",
+        "CREATE TABLE normative_documents (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_root TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          document_id TEXT NOT NULL,\n          kind TEXT NOT NULL,\n          title TEXT NOT NULL,\n          status TEXT NOT NULL,\n          scopes TEXT NOT NULL DEFAULT '[]',\n          approval TEXT NOT NULL DEFAULT '{}',\n          supersedes TEXT NOT NULL DEFAULT '',\n          superseded_by TEXT NOT NULL DEFAULT '',\n          body TEXT NOT NULL,\n          body_start_line INTEGER NOT NULL,\n          search_terms TEXT NOT NULL,\n          source_digest TEXT NOT NULL,\n          source_revision TEXT,\n          index_generation INTEGER NOT NULL,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, source_root, file_path)\n        )"
+      ],
+      [
+        "table",
+        "project_counters",
+        "CREATE TABLE project_counters (\n          project_id TEXT NOT NULL,\n          counter_name TEXT NOT NULL,\n          value INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL,\n          PRIMARY KEY(project_id, counter_name)\n        )"
+      ],
+      [
+        "table",
+        "projects",
+        "CREATE TABLE projects (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT UNIQUE NOT NULL,\n          project_path TEXT NOT NULL,\n          project_name TEXT NOT NULL,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "prospective_cohort_tasks",
+        "CREATE TABLE prospective_cohort_tasks (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          cohort_pk INTEGER NOT NULL,\n          sequence_no INTEGER NOT NULL,\n          task_id TEXT NOT NULL,\n          task_digest TEXT NOT NULL,\n          eligibility TEXT NOT NULL CHECK(eligibility IN ('eligible', 'excluded')),\n          exclusion_reason TEXT,\n          opportunity TEXT NOT NULL CHECK(opportunity IN ('present', 'absent', 'unknown')),\n          evidence_refs_json TEXT NOT NULL,\n          memory_available_at TEXT NOT NULL,\n          memory_manifest_json TEXT NOT NULL,\n          memory_manifest_digest TEXT NOT NULL,\n          source_snapshot_json TEXT NOT NULL,\n          paired_replay_json TEXT NOT NULL DEFAULT '{}',\n          replay_eligible INTEGER NOT NULL DEFAULT 0,\n          previous_entry_digest TEXT NOT NULL,\n          entry_digest TEXT NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('active', 'completed', 'excluded')),\n          usage_sample_id TEXT,\n          outcome TEXT,\n          verification TEXT,\n          usage_metrics_json TEXT,\n          benchmark_metrics_json TEXT,\n          result_digest TEXT,\n          enrolled_at TEXT NOT NULL,\n          completed_at TEXT,\n          UNIQUE(cohort_pk, sequence_no),\n          UNIQUE(cohort_pk, task_id)\n        )"
+      ],
+      [
+        "table",
+        "prospective_cohorts",
+        "CREATE TABLE prospective_cohorts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          cohort_id TEXT NOT NULL,\n          protocol_json TEXT NOT NULL,\n          protocol_digest TEXT NOT NULL,\n          task_type TEXT NOT NULL CHECK(task_type = 'diagnosis'),\n          target_presented_tasks INTEGER NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('registered', 'running', 'completed')),\n          presented_count INTEGER NOT NULL DEFAULT 0,\n          eligible_count INTEGER NOT NULL DEFAULT 0,\n          excluded_count INTEGER NOT NULL DEFAULT 0,\n          chain_head_digest TEXT NOT NULL,\n          registered_at TEXT NOT NULL,\n          started_at TEXT,\n          finalized_at TEXT,\n          report_json TEXT,\n          report_digest TEXT,\n          UNIQUE(project_id, cohort_id)\n        )"
+      ],
+      [
+        "table",
+        "query_misses",
+        "CREATE TABLE query_misses (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT,\n          source TEXT DEFAULT 'context',\n          result_counts TEXT,\n          created_at TEXT NOT NULL,\n          last_seen_at TEXT,\n          miss_count INTEGER DEFAULT 1,\n          reviewed_at TEXT,\n          status TEXT DEFAULT 'open',\n          resolution TEXT\n        )"
+      ],
+      [
+        "table",
+        "reflection_fts",
+        "CREATE VIRTUAL TABLE reflection_fts USING fts5(\n          project_id UNINDEXED,\n          task,\n          summary,\n          mistake,\n          lesson,\n          future_rule,\n          task_type,\n          outcome,\n          problem,\n          reasoning_summary,\n          context_used,\n          what_worked,\n          what_failed,\n          hidden_assumptions,\n          negative_preconditions,\n          useful_followup_focus,\n          useful_followup_terms,\n          misleading_followup_terms,\n          inspection_targets,\n          final_verification_path,\n          related_cases,\n          verification_method,\n          reuse_feedback,\n          source_cases,\n          skill_candidate,\n          trigger_condition,\n          anti_pattern,\n          repair_action,\n          evidence\n        )"
+      ],
+      [
+        "trigger",
+        "reflection_fts_ad",
+        "CREATE TRIGGER reflection_fts_ad AFTER DELETE ON reflections BEGIN\n          DELETE FROM reflection_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "reflection_fts_ai",
+        "CREATE TRIGGER reflection_fts_ai AFTER INSERT ON reflections BEGIN\n          INSERT INTO reflection_fts(rowid, project_id, task, summary, mistake, lesson, future_rule, task_type, outcome, problem, reasoning_summary, context_used, what_worked, what_failed, hidden_assumptions, negative_preconditions, useful_followup_focus, useful_followup_terms, misleading_followup_terms, inspection_targets, final_verification_path, related_cases, verification_method, reuse_feedback, source_cases, skill_candidate, trigger_condition, anti_pattern, repair_action, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.mistake, ''), COALESCE(new.lesson, ''), COALESCE(new.future_rule, ''), COALESCE(new.task_type, ''), COALESCE(new.outcome, ''), COALESCE(new.problem, ''), COALESCE(new.reasoning_summary, ''), COALESCE(new.context_used, ''), COALESCE(new.what_worked, ''), COALESCE(new.what_failed, ''), COALESCE(new.hidden_assumptions, ''), COALESCE(new.negative_preconditions, ''), COALESCE(new.useful_followup_focus, ''), COALESCE(new.useful_followup_terms, ''), COALESCE(new.misleading_followup_terms, ''), COALESCE(new.inspection_targets, ''), COALESCE(new.final_verification_path, ''), COALESCE(new.related_cases, ''), COALESCE(new.verification_method, ''), COALESCE(new.reuse_feedback, ''), COALESCE(new.source_cases, ''), COALESCE(new.skill_candidate, ''), COALESCE(new.trigger_condition, ''), COALESCE(new.anti_pattern, ''), COALESCE(new.repair_action, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "reflection_fts_au",
+        "CREATE TRIGGER reflection_fts_au AFTER UPDATE ON reflections BEGIN\n          DELETE FROM reflection_fts WHERE rowid = old.id;\n          INSERT INTO reflection_fts(rowid, project_id, task, summary, mistake, lesson, future_rule, task_type, outcome, problem, reasoning_summary, context_used, what_worked, what_failed, hidden_assumptions, negative_preconditions, useful_followup_focus, useful_followup_terms, misleading_followup_terms, inspection_targets, final_verification_path, related_cases, verification_method, reuse_feedback, source_cases, skill_candidate, trigger_condition, anti_pattern, repair_action, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.mistake, ''), COALESCE(new.lesson, ''), COALESCE(new.future_rule, ''), COALESCE(new.task_type, ''), COALESCE(new.outcome, ''), COALESCE(new.problem, ''), COALESCE(new.reasoning_summary, ''), COALESCE(new.context_used, ''), COALESCE(new.what_worked, ''), COALESCE(new.what_failed, ''), COALESCE(new.hidden_assumptions, ''), COALESCE(new.negative_preconditions, ''), COALESCE(new.useful_followup_focus, ''), COALESCE(new.useful_followup_terms, ''), COALESCE(new.misleading_followup_terms, ''), COALESCE(new.inspection_targets, ''), COALESCE(new.final_verification_path, ''), COALESCE(new.related_cases, ''), COALESCE(new.verification_method, ''), COALESCE(new.reuse_feedback, ''), COALESCE(new.source_cases, ''), COALESCE(new.skill_candidate, ''), COALESCE(new.trigger_condition, ''), COALESCE(new.anti_pattern, ''), COALESCE(new.repair_action, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "table",
+        "reflection_fts_config",
+        "CREATE TABLE 'reflection_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "reflection_fts_content",
+        "CREATE TABLE 'reflection_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28)"
+      ],
+      [
+        "table",
+        "reflection_fts_data",
+        "CREATE TABLE 'reflection_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "reflection_fts_docsize",
+        "CREATE TABLE 'reflection_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "reflection_fts_idx",
+        "CREATE TABLE 'reflection_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "reflection_reuse_events",
+        "CREATE TABLE reflection_reuse_events (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          reused_reflection_id INTEGER NOT NULL,\n          applying_reflection_id INTEGER NOT NULL,\n          outcome TEXT NOT NULL,\n          task TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "reflections",
+        "CREATE TABLE reflections (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          task TEXT NOT NULL,\n          summary TEXT,\n          mistake TEXT,\n          lesson TEXT NOT NULL,\n          future_rule TEXT,\n          is_stale INTEGER DEFAULT 0,\n          created_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', experience_type TEXT, task_type TEXT, outcome TEXT, problem TEXT, reasoning_summary TEXT, context_used TEXT, what_worked TEXT, what_failed TEXT, hidden_assumptions TEXT, negative_preconditions TEXT, query_rounds INTEGER, trajectory_summary TEXT, useful_followup_focus TEXT, useful_followup_terms TEXT, misleading_followup_terms TEXT, inspection_targets TEXT, final_verification_path TEXT, related_cases TEXT, verification_method TEXT, reuse_feedback TEXT, source_cases TEXT, skill_candidate TEXT, scope TEXT, confidence REAL DEFAULT 0.8, evidence TEXT, trigger_condition TEXT, anti_pattern TEXT, repair_action TEXT, applies_to TEXT, does_not_apply_to TEXT, anchor_type TEXT, anchor_key TEXT, semantic_field TEXT, existing_value TEXT, proposed_value TEXT, patch_reason TEXT, applies_to_current_code INTEGER DEFAULT 0, superseded_by INTEGER, misleading_score REAL DEFAULT 0.0, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, merged_into_id INTEGER, stale_reason TEXT, last_applied_at TEXT, applied_count INTEGER DEFAULT 0, last_outcome TEXT)"
+      ],
+      [
+        "table",
+        "retrieval_feedback",
+        "CREATE TABLE retrieval_feedback (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT NOT NULL,\n          record_type TEXT NOT NULL,\n          record_id INTEGER NOT NULL,\n          reason TEXT NOT NULL,\n          replacement_type TEXT,\n          replacement_id INTEGER,\n          note TEXT,\n          status TEXT NOT NULL DEFAULT 'open',\n          task_id TEXT,\n          query_id TEXT,\n          event_key TEXT,\n          verified INTEGER NOT NULL DEFAULT 0,\n          resolution TEXT,\n          created_at TEXT NOT NULL,\n          reviewed_at TEXT\n        )"
+      ],
+      [
+        "table",
+        "runtime_schema_versions",
+        "CREATE TABLE runtime_schema_versions(\n          component TEXT PRIMARY KEY,\n          version TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "scope_boundary_dependencies",
+        "CREATE TABLE scope_boundary_dependencies (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          scope_id INTEGER NOT NULL,\n          consumer_path TEXT NOT NULL,\n          dependency_path TEXT NOT NULL,\n          dependency_kind TEXT NOT NULL DEFAULT 'import',\n          source_digest TEXT,\n          surface_digest TEXT,\n          status TEXT NOT NULL DEFAULT 'active',\n          last_observed_at TEXT,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, scope_id, consumer_path, dependency_path, dependency_kind)\n        )"
+      ],
+      [
+        "table",
+        "semantic_conflicts",
+        "CREATE TABLE semantic_conflicts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          entity_type TEXT NOT NULL DEFAULT 'code_file',\n          target TEXT NOT NULL,\n          field TEXT NOT NULL,\n          existing TEXT,\n          incoming TEXT,\n          resolution TEXT,\n          decision_note TEXT,\n          replacement_source TEXT,\n          source_command TEXT NOT NULL,\n          observed_at TEXT NOT NULL,\n          status TEXT DEFAULT 'open',\n          reviewed_at TEXT\n        )"
+      ],
+      [
+        "table",
+        "semantic_fact_fts",
+        "CREATE VIRTUAL TABLE semantic_fact_fts USING fts5(\n          project_id UNINDEXED,\n          fact,\n          source,\n          category,\n          scope,\n          evidence\n        )"
+      ],
+      [
+        "trigger",
+        "semantic_fact_fts_ad",
+        "CREATE TRIGGER semantic_fact_fts_ad AFTER DELETE ON semantic_facts BEGIN\n          DELETE FROM semantic_fact_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "semantic_fact_fts_ai",
+        "CREATE TRIGGER semantic_fact_fts_ai AFTER INSERT ON semantic_facts BEGIN\n          INSERT INTO semantic_fact_fts(rowid, project_id, fact, source, category, scope, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.fact, ''), COALESCE(new.source, ''), COALESCE(new.category, ''), COALESCE(new.scope, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "semantic_fact_fts_au",
+        "CREATE TRIGGER semantic_fact_fts_au AFTER UPDATE ON semantic_facts BEGIN\n          DELETE FROM semantic_fact_fts WHERE rowid = old.id;\n          INSERT INTO semantic_fact_fts(rowid, project_id, fact, source, category, scope, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.fact, ''), COALESCE(new.source, ''), COALESCE(new.category, ''), COALESCE(new.scope, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_config",
+        "CREATE TABLE 'semantic_fact_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_content",
+        "CREATE TABLE 'semantic_fact_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_data",
+        "CREATE TABLE 'semantic_fact_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_docsize",
+        "CREATE TABLE 'semantic_fact_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_idx",
+        "CREATE TABLE 'semantic_fact_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "semantic_facts",
+        "CREATE TABLE semantic_facts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          fact TEXT NOT NULL,\n          source TEXT NOT NULL,\n          confidence REAL DEFAULT 0.8,\n          is_stale INTEGER DEFAULT 0,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', category TEXT, scope TEXT, evidence TEXT, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, merged_into_id INTEGER, stale_reason TEXT)"
+      ]
+    ],
+    "files": [
+      {
+        "id": 1,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "AfterIteration.ts",
+        "summary": "TypeScript file with 10 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "DeferredAssembly.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      }
+    ],
+    "symbols": [
+      {
+        "id": 1,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "AfterIteration.ts",
+        "symbol": "AfterIteration",
+        "symbol_type": "class",
+        "summary": "class AfterIteration in AfterIteration.ts; identifier terms: after iteration",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:78df9338ddb65667d7950b91",
+        "qualified_name": "AfterIteration",
+        "signature": "class AfterIteration",
+        "start_line": 1,
+        "end_line": 10,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "AfterIteration.ts",
+        "symbol": "summarize",
+        "symbol_type": "function",
+        "summary": "function summarize in AfterIteration.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:a5330929016c9077017b1247",
+        "qualified_name": "AfterIteration.summarize",
+        "signature": "summarize(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "evidence_class": "static",
+        "method_evidence": "console log",
+        "string_evidence": "finished",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.log\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:a5330929016c9077017b1247\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "AfterIteration",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "symbol_type": "class",
+        "summary": "class ChunkAssembler in ChunkAssembler.ts; identifier terms: chunk assembler",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:7a29041de387c9c95fb5dca5",
+        "qualified_name": "ChunkAssembler",
+        "signature": "class ChunkAssembler",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 5,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "symbol_type": "class",
+        "summary": "class DeferredAssembly in DeferredAssembly.ts; identifier terms: deferred assembly",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:e8efbe306d538ec9f24c04ea",
+        "qualified_name": "DeferredAssembly",
+        "signature": "class DeferredAssembly",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      },
+      {
+        "id": 6,
+        "project_id": "a0c9f520df5bd78a",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:43+00:00"
+      }
+    ]
+  },
+  {
+    "cohort": "two-positive-result",
+    "schema": [
+      [
+        "table",
+        "code_file_fts",
+        "CREATE VIRTUAL TABLE code_file_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          summary,\n          language,\n          business_summary,\n          business_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_file_fts_ad",
+        "CREATE TRIGGER code_file_fts_ad AFTER DELETE ON code_files BEGIN\n          DELETE FROM code_file_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_file_fts_ai",
+        "CREATE TRIGGER code_file_fts_ai AFTER INSERT ON code_files BEGIN\n          INSERT INTO code_file_fts(rowid, project_id, file_path, summary, language, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.summary, ''), COALESCE(new.language, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_file_fts_au",
+        "CREATE TRIGGER code_file_fts_au AFTER UPDATE ON code_files BEGIN\n          DELETE FROM code_file_fts WHERE rowid = old.id;\n          INSERT INTO code_file_fts(rowid, project_id, file_path, summary, language, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.summary, ''), COALESCE(new.language, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_file_fts_config",
+        "CREATE TABLE 'code_file_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_file_fts_content",
+        "CREATE TABLE 'code_file_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+      ],
+      [
+        "table",
+        "code_file_fts_data",
+        "CREATE TABLE 'code_file_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_file_fts_docsize",
+        "CREATE TABLE 'code_file_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_file_fts_idx",
+        "CREATE TABLE 'code_file_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_files",
+        "CREATE TABLE code_files (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          summary TEXT,\n          language TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_index_state",
+        "CREATE TABLE code_index_state (\n          project_id TEXT PRIMARY KEY,\n          generation INTEGER NOT NULL DEFAULT 0,\n          source_revision TEXT NOT NULL DEFAULT 'unversioned',\n          extractor_version TEXT NOT NULL,\n          status TEXT NOT NULL DEFAULT 'active',\n          indexed_file_count INTEGER NOT NULL DEFAULT 0,\n          retired_file_count INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_log_effect_fts",
+        "CREATE VIRTUAL TABLE code_log_effect_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          function,\n          wrapper_symbol,\n          level,\n          logger,\n          message_template,\n          evidence_class,\n          call_path,\n          call_path_locations,\n          raw_call\n        )"
+      ],
+      [
+        "trigger",
+        "code_log_effect_fts_ad",
+        "CREATE TRIGGER code_log_effect_fts_ad AFTER DELETE ON code_log_effects BEGIN\n          DELETE FROM code_log_effect_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_effect_fts_ai",
+        "CREATE TRIGGER code_log_effect_fts_ai AFTER INSERT ON code_log_effects BEGIN\n          INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)\n          VALUES (new.id, new.project_id, new.file_path, new.function, new.wrapper_symbol, COALESCE(new.level, ''), COALESCE(new.logger, ''), new.message_template, new.evidence_class, new.call_path, new.call_path_locations, COALESCE(new.raw_call, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_effect_fts_au",
+        "CREATE TRIGGER code_log_effect_fts_au AFTER UPDATE ON code_log_effects BEGIN\n          DELETE FROM code_log_effect_fts WHERE rowid = old.id;\n          INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)\n          VALUES (new.id, new.project_id, new.file_path, new.function, new.wrapper_symbol, COALESCE(new.level, ''), COALESCE(new.logger, ''), new.message_template, new.evidence_class, new.call_path, new.call_path_locations, COALESCE(new.raw_call, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_config",
+        "CREATE TABLE 'code_log_effect_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_content",
+        "CREATE TABLE 'code_log_effect_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_data",
+        "CREATE TABLE 'code_log_effect_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_docsize",
+        "CREATE TABLE 'code_log_effect_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_log_effect_fts_idx",
+        "CREATE TABLE 'code_log_effect_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_effects",
+        "CREATE TABLE code_log_effects (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          line INTEGER NOT NULL,\n          function TEXT NOT NULL,\n          wrapper_symbol TEXT NOT NULL,\n          sink_log_id INTEGER NOT NULL,\n          level TEXT,\n          logger TEXT,\n          message_template TEXT NOT NULL,\n          evidence_class TEXT NOT NULL,\n          wrapper_depth INTEGER NOT NULL DEFAULT 1,\n          truncated INTEGER NOT NULL DEFAULT 0,\n          call_path TEXT NOT NULL,\n          call_path_locations TEXT NOT NULL DEFAULT '[]',\n          raw_call TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_log_fts",
+        "CREATE VIRTUAL TABLE code_log_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          function,\n          level,\n          logger,\n          message_template,\n          raw_statement,\n          business_summary,\n          business_terms,\n          business_event,\n          trigger_stage,\n          symptom_terms,\n          likely_causes,\n          process_hint,\n          neighbor_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_log_fts_ad",
+        "CREATE TRIGGER code_log_fts_ad AFTER DELETE ON code_log_statements BEGIN\n          DELETE FROM code_log_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_fts_ai",
+        "CREATE TRIGGER code_log_fts_ai AFTER INSERT ON code_log_statements BEGIN\n          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_log_fts_au",
+        "CREATE TRIGGER code_log_fts_au AFTER UPDATE ON code_log_statements BEGIN\n          DELETE FROM code_log_fts WHERE rowid = old.id;\n          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_log_fts_config",
+        "CREATE TABLE 'code_log_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_fts_content",
+        "CREATE TABLE 'code_log_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14)"
+      ],
+      [
+        "table",
+        "code_log_fts_data",
+        "CREATE TABLE 'code_log_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_log_fts_docsize",
+        "CREATE TABLE 'code_log_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_log_fts_idx",
+        "CREATE TABLE 'code_log_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_log_statements",
+        "CREATE TABLE code_log_statements (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          line INTEGER,\n          function TEXT,\n          level TEXT,\n          logger TEXT,\n          message_template TEXT NOT NULL,\n          raw_statement TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          business_event TEXT,\n          trigger_stage TEXT,\n          symptom_terms TEXT,\n          likely_causes TEXT,\n          process_hint TEXT,\n          neighbor_terms TEXT,\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "code_method_fts",
+        "CREATE VIRTUAL TABLE code_method_fts USING fts5(\n          project_id UNINDEXED,\n          method_evidence\n        )"
+      ],
+      [
+        "trigger",
+        "code_method_fts_ad",
+        "CREATE TRIGGER code_method_fts_ad AFTER DELETE ON code_symbols BEGIN\n          DELETE FROM code_method_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_method_fts_ai",
+        "CREATE TRIGGER code_method_fts_ai AFTER INSERT ON code_symbols BEGIN\n          INSERT INTO code_method_fts(rowid, project_id, method_evidence)\n          SELECT new.id, new.project_id, new.method_evidence\n          WHERE COALESCE(new.method_evidence, '') != '';\n        END"
+      ],
+      [
+        "trigger",
+        "code_method_fts_au",
+        "CREATE TRIGGER code_method_fts_au AFTER UPDATE ON code_symbols BEGIN\n          DELETE FROM code_method_fts WHERE rowid = old.id;\n          INSERT INTO code_method_fts(rowid, project_id, method_evidence)\n          SELECT new.id, new.project_id, new.method_evidence\n          WHERE COALESCE(new.method_evidence, '') != '';\n        END"
+      ],
+      [
+        "table",
+        "code_method_fts_config",
+        "CREATE TABLE 'code_method_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_method_fts_content",
+        "CREATE TABLE 'code_method_fts_content'(id INTEGER PRIMARY KEY, c0, c1)"
+      ],
+      [
+        "table",
+        "code_method_fts_data",
+        "CREATE TABLE 'code_method_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_method_fts_docsize",
+        "CREATE TABLE 'code_method_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_method_fts_idx",
+        "CREATE TABLE 'code_method_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_passage_fts",
+        "CREATE VIRTUAL TABLE code_passage_fts USING fts5(\n          project_id UNINDEXED,\n          source_type UNINDEXED,\n          passage_kind UNINDEXED,\n          source_id UNINDEXED,\n          file_path,\n          symbol,\n          identity_terms,\n          semantic_terms,\n          body_terms,\n          string_terms,\n          mechanism_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_passage_fts_ad",
+        "CREATE TRIGGER code_passage_fts_ad\n        AFTER DELETE ON code_passages BEGIN\n          DELETE FROM code_passage_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_passage_fts_ai",
+        "CREATE TRIGGER code_passage_fts_ai\n        AFTER INSERT ON code_passages BEGIN\n          INSERT INTO code_passage_fts(\n            rowid, project_id, source_type, passage_kind, source_id, file_path, symbol,\n            identity_terms, semantic_terms, body_terms, string_terms,\n            mechanism_terms\n          ) VALUES (\n            new.id, new.project_id, new.source_type, new.passage_kind,\n            new.source_id, new.file_path, COALESCE(new.symbol, ''), new.identity_terms,\n            new.semantic_terms, new.body_terms, new.string_terms,\n            new.mechanism_terms\n          );\n        END"
+      ],
+      [
+        "trigger",
+        "code_passage_fts_au",
+        "CREATE TRIGGER code_passage_fts_au\n        AFTER UPDATE ON code_passages BEGIN\n          DELETE FROM code_passage_fts WHERE rowid = old.id;\n          INSERT INTO code_passage_fts(\n            rowid, project_id, source_type, passage_kind, source_id, file_path, symbol,\n            identity_terms, semantic_terms, body_terms, string_terms,\n            mechanism_terms\n          ) VALUES (\n            new.id, new.project_id, new.source_type, new.passage_kind,\n            new.source_id, new.file_path, COALESCE(new.symbol, ''), new.identity_terms,\n            new.semantic_terms, new.body_terms, new.string_terms,\n            new.mechanism_terms\n          );\n        END"
+      ],
+      [
+        "table",
+        "code_passage_fts_config",
+        "CREATE TABLE 'code_passage_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_passage_fts_content",
+        "CREATE TABLE 'code_passage_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+      ],
+      [
+        "table",
+        "code_passage_fts_data",
+        "CREATE TABLE 'code_passage_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_passage_fts_docsize",
+        "CREATE TABLE 'code_passage_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_passage_fts_idx",
+        "CREATE TABLE 'code_passage_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_passages",
+        "CREATE TABLE code_passages (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_type TEXT NOT NULL,\n          source_id INTEGER NOT NULL,\n          passage_kind TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          symbol TEXT,\n          identity_terms TEXT NOT NULL DEFAULT '',\n          semantic_terms TEXT NOT NULL DEFAULT '',\n          body_terms TEXT NOT NULL DEFAULT '',\n          string_terms TEXT NOT NULL DEFAULT '',\n          mechanism_terms TEXT NOT NULL DEFAULT '',\n          source_digest TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          start_line INTEGER,\n          end_line INTEGER,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, source_type, source_id, passage_kind)\n        )"
+      ],
+      [
+        "table",
+        "code_symbol_fts",
+        "CREATE VIRTUAL TABLE code_symbol_fts USING fts5(\n          project_id UNINDEXED,\n          file_path,\n          symbol,\n          symbol_type,\n          summary,\n          business_summary,\n          business_terms\n        )"
+      ],
+      [
+        "trigger",
+        "code_symbol_fts_ad",
+        "CREATE TRIGGER code_symbol_fts_ad AFTER DELETE ON code_symbols BEGIN\n          DELETE FROM code_symbol_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "code_symbol_fts_ai",
+        "CREATE TRIGGER code_symbol_fts_ai AFTER INSERT ON code_symbols BEGIN\n          INSERT INTO code_symbol_fts(rowid, project_id, file_path, symbol, symbol_type, summary, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.symbol, ''), COALESCE(new.symbol_type, ''), COALESCE(new.summary, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "code_symbol_fts_au",
+        "CREATE TRIGGER code_symbol_fts_au AFTER UPDATE ON code_symbols BEGIN\n          DELETE FROM code_symbol_fts WHERE rowid = old.id;\n          INSERT INTO code_symbol_fts(rowid, project_id, file_path, symbol, symbol_type, summary, business_summary, business_terms)\n          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.symbol, ''), COALESCE(new.symbol_type, ''), COALESCE(new.summary, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));\n        END"
+      ],
+      [
+        "table",
+        "code_symbol_fts_config",
+        "CREATE TABLE 'code_symbol_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_symbol_fts_content",
+        "CREATE TABLE 'code_symbol_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6)"
+      ],
+      [
+        "table",
+        "code_symbol_fts_data",
+        "CREATE TABLE 'code_symbol_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "code_symbol_fts_docsize",
+        "CREATE TABLE 'code_symbol_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "code_symbol_fts_idx",
+        "CREATE TABLE 'code_symbol_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "code_symbols",
+        "CREATE TABLE code_symbols (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          symbol TEXT NOT NULL,\n          symbol_type TEXT,\n          summary TEXT,\n          calls TEXT,\n          business_summary TEXT,\n          business_terms TEXT,\n          symbol_key TEXT,\n          qualified_name TEXT,\n          signature TEXT,\n          start_line INTEGER,\n          end_line INTEGER,\n          semantic_adapter TEXT,\n          source_digest TEXT,\n          evidence_class TEXT,\n          method_evidence TEXT,\n          string_evidence TEXT,\n          mechanism_evidence TEXT,\n          owner_name TEXT,\n          owner_kind TEXT,\n          callable_roles TEXT,\n          index_generation INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "design_outcomes",
+        "CREATE TABLE design_outcomes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          candidate_id TEXT NOT NULL,\n          contract_id TEXT NOT NULL,\n          verification_status TEXT NOT NULL,\n          outcome TEXT NOT NULL,\n          baseline_revision INTEGER NOT NULL DEFAULT 0,\n          current_revision INTEGER NOT NULL DEFAULT 0,\n          planned_file_recall REAL NOT NULL DEFAULT 0,\n          unplanned_file_ratio REAL NOT NULL DEFAULT 0,\n          planned_symbol_recall REAL NOT NULL DEFAULT 0,\n          scenario_verification_rate REAL NOT NULL DEFAULT 0,\n          failed_test_count INTEGER NOT NULL DEFAULT 0,\n          replan_count INTEGER NOT NULL DEFAULT 0,\n          archetype TEXT NOT NULL DEFAULT 'general',\n          change_size_bucket TEXT NOT NULL DEFAULT 'small',\n          risk_count INTEGER NOT NULL DEFAULT 0,\n          api_change_count INTEGER NOT NULL DEFAULT 0,\n          graph_delta_count INTEGER NOT NULL DEFAULT 0,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "episode_fts",
+        "CREATE VIRTUAL TABLE episode_fts USING fts5(\n          project_id UNINDEXED,\n          task,\n          summary,\n          outcome,\n          files_touched,\n          commands_run\n        )"
+      ],
+      [
+        "trigger",
+        "episode_fts_ad",
+        "CREATE TRIGGER episode_fts_ad AFTER DELETE ON episodes BEGIN\n          DELETE FROM episode_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "episode_fts_ai",
+        "CREATE TRIGGER episode_fts_ai AFTER INSERT ON episodes BEGIN\n          INSERT INTO episode_fts(rowid, project_id, task, summary, outcome, files_touched, commands_run)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.outcome, ''), COALESCE(new.files_touched, ''), COALESCE(new.commands_run, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "episode_fts_au",
+        "CREATE TRIGGER episode_fts_au AFTER UPDATE ON episodes BEGIN\n          DELETE FROM episode_fts WHERE rowid = old.id;\n          INSERT INTO episode_fts(rowid, project_id, task, summary, outcome, files_touched, commands_run)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.outcome, ''), COALESCE(new.files_touched, ''), COALESCE(new.commands_run, ''));\n        END"
+      ],
+      [
+        "table",
+        "episode_fts_config",
+        "CREATE TABLE 'episode_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "episode_fts_content",
+        "CREATE TABLE 'episode_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+      ],
+      [
+        "table",
+        "episode_fts_data",
+        "CREATE TABLE 'episode_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "episode_fts_docsize",
+        "CREATE TABLE 'episode_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "episode_fts_idx",
+        "CREATE TABLE 'episode_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "episodes",
+        "CREATE TABLE episodes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          task TEXT NOT NULL,\n          summary TEXT NOT NULL,\n          outcome TEXT,\n          files_touched TEXT,\n          commands_run TEXT,\n          created_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', importance REAL DEFAULT 0.5, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, derived_facts TEXT, derived_reflections TEXT)"
+      ],
+      [
+        "table",
+        "evaluation_runs",
+        "CREATE TABLE evaluation_runs (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          run_kind TEXT NOT NULL CHECK(run_kind IN ('context_capability', 'agent_benchmark')),\n          seal_digest TEXT NOT NULL,\n          case_file TEXT NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('running', 'completed', 'failed')),\n          gate_status TEXT,\n          result_digest TEXT,\n          error_class TEXT,\n          started_at TEXT NOT NULL,\n          finished_at TEXT,\n          UNIQUE(project_id, run_kind, seal_digest)\n        )"
+      ],
+      [
+        "table",
+        "experience_usage_events",
+        "CREATE TABLE experience_usage_events (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT NOT NULL,\n          record_type TEXT NOT NULL,\n          record_id INTEGER NOT NULL,\n          outcome TEXT NOT NULL,\n          note TEXT,\n          evidence TEXT,\n          task_id TEXT,\n          query_id TEXT,\n          event_key TEXT,\n          verified INTEGER NOT NULL DEFAULT 0,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "graph_runtime_state",
+        "CREATE TABLE graph_runtime_state (\n          project_id TEXT PRIMARY KEY,\n          graph_revision INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "index",
+        "idx_code_files_project_file",
+        "CREATE UNIQUE INDEX idx_code_files_project_file\n        ON code_files(project_id, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_files_project_generation",
+        "CREATE INDEX idx_code_files_project_generation\n        ON code_files(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_files_project_updated",
+        "CREATE INDEX idx_code_files_project_updated\n        ON code_files(project_id, updated_at)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_file",
+        "CREATE INDEX idx_code_logs_project_file\n        ON code_log_statements(project_id, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_function",
+        "CREATE INDEX idx_code_logs_project_function\n        ON code_log_statements(project_id, function)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_generation",
+        "CREATE INDEX idx_code_logs_project_generation\n        ON code_log_statements(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_logs_project_message",
+        "CREATE INDEX idx_code_logs_project_message\n        ON code_log_statements(project_id, message_template)"
+      ],
+      [
+        "index",
+        "idx_code_passages_project_file",
+        "CREATE INDEX idx_code_passages_project_file\n        ON code_passages(project_id, file_path, passage_kind)"
+      ],
+      [
+        "index",
+        "idx_code_passages_project_generation",
+        "CREATE INDEX idx_code_passages_project_generation\n        ON code_passages(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_passages_project_source",
+        "CREATE INDEX idx_code_passages_project_source\n        ON code_passages(project_id, source_type, source_id)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_file",
+        "CREATE INDEX idx_code_symbols_project_file\n        ON code_symbols(project_id, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_generation",
+        "CREATE INDEX idx_code_symbols_project_generation\n        ON code_symbols(project_id, index_generation, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_key",
+        "CREATE INDEX idx_code_symbols_project_key\n        ON code_symbols(project_id, symbol_key)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_owner_kind",
+        "CREATE INDEX idx_code_symbols_project_owner_kind\n        ON code_symbols(project_id, owner_kind, file_path)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_qualified",
+        "CREATE INDEX idx_code_symbols_project_qualified\n        ON code_symbols(project_id, file_path, qualified_name)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_qualified_lookup",
+        "CREATE INDEX idx_code_symbols_project_qualified_lookup\n        ON code_symbols(project_id, qualified_name)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_symbol",
+        "CREATE INDEX idx_code_symbols_project_symbol\n        ON code_symbols(project_id, symbol)"
+      ],
+      [
+        "index",
+        "idx_code_symbols_project_type",
+        "CREATE INDEX idx_code_symbols_project_type\n        ON code_symbols(project_id, symbol_type)"
+      ],
+      [
+        "index",
+        "idx_design_outcomes_project_created",
+        "CREATE INDEX idx_design_outcomes_project_created\n        ON design_outcomes(project_id, created_at DESC)"
+      ],
+      [
+        "index",
+        "idx_design_outcomes_project_profile",
+        "CREATE INDEX idx_design_outcomes_project_profile\n        ON design_outcomes(project_id, archetype, change_size_bucket, id DESC)"
+      ],
+      [
+        "index",
+        "idx_evaluation_runs_project_status",
+        "CREATE INDEX idx_evaluation_runs_project_status\n        ON evaluation_runs(project_id, status, started_at)"
+      ],
+      [
+        "index",
+        "idx_experience_usage_event_key",
+        "CREATE UNIQUE INDEX idx_experience_usage_event_key\n        ON experience_usage_events(project_id, event_key)\n        WHERE event_key IS NOT NULL AND event_key != ''"
+      ],
+      [
+        "index",
+        "idx_experience_usage_project_query",
+        "CREATE INDEX idx_experience_usage_project_query\n        ON experience_usage_events(project_id, normalized_query, outcome, created_at)"
+      ],
+      [
+        "index",
+        "idx_experience_usage_project_record",
+        "CREATE INDEX idx_experience_usage_project_record\n        ON experience_usage_events(project_id, record_type, record_id, created_at)"
+      ],
+      [
+        "index",
+        "idx_experience_usage_project_type_recent",
+        "CREATE INDEX idx_experience_usage_project_type_recent\n        ON experience_usage_events(project_id, record_type, created_at DESC, id DESC)"
+      ],
+      [
+        "index",
+        "idx_impact_feedback_project_change",
+        "CREATE INDEX idx_impact_feedback_project_change\n        ON impact_feedback(project_id, change_fingerprint, created_at)"
+      ],
+      [
+        "index",
+        "idx_incident_trace_links_target",
+        "CREATE INDEX idx_incident_trace_links_target\n        ON incident_trace_links(project_id, target_type, target_id)"
+      ],
+      [
+        "index",
+        "idx_incident_trace_links_trace",
+        "CREATE INDEX idx_incident_trace_links_trace\n        ON incident_trace_links(project_id, trace_id)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_evidence",
+        "CREATE INDEX idx_incident_traces_project_evidence\n        ON incident_traces(project_id, capture_mode, evidence_state, status, updated_at)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_key",
+        "CREATE UNIQUE INDEX idx_incident_traces_project_key\n        ON incident_traces(project_id, trace_key)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_scene",
+        "CREATE INDEX idx_incident_traces_project_scene\n        ON incident_traces(project_id, arkts_scene, updated_at)"
+      ],
+      [
+        "index",
+        "idx_incident_traces_project_status",
+        "CREATE INDEX idx_incident_traces_project_status\n        ON incident_traces(project_id, status, updated_at)"
+      ],
+      [
+        "index",
+        "idx_learn_scopes_project_scope_key",
+        "CREATE UNIQUE INDEX idx_learn_scopes_project_scope_key\n        ON learn_scopes(project_id, scope_key)"
+      ],
+      [
+        "index",
+        "idx_log_effects_project_file",
+        "CREATE INDEX idx_log_effects_project_file\n        ON code_log_effects(project_id, file_path, function)"
+      ],
+      [
+        "index",
+        "idx_log_effects_project_sink",
+        "CREATE INDEX idx_log_effects_project_sink\n        ON code_log_effects(project_id, sink_log_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_source",
+        "CREATE INDEX idx_memory_edges_project_source\n        ON memory_edges(project_id, source_type, source_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_target",
+        "CREATE INDEX idx_memory_edges_project_target\n        ON memory_edges(project_id, target_type, target_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_source",
+        "CREATE INDEX idx_memory_edges_project_valid_source\n        ON memory_edges(project_id, valid_to, source_type, source_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_source_relation",
+        "CREATE INDEX idx_memory_edges_project_valid_source_relation\n        ON memory_edges(project_id, valid_to, source_type, source_id, relation)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_target",
+        "CREATE INDEX idx_memory_edges_project_valid_target\n        ON memory_edges(project_id, valid_to, target_type, target_id)"
+      ],
+      [
+        "index",
+        "idx_memory_edges_project_valid_target_relation",
+        "CREATE INDEX idx_memory_edges_project_valid_target_relation\n        ON memory_edges(project_id, valid_to, target_type, target_id, relation)"
+      ],
+      [
+        "index",
+        "idx_normative_document_identity",
+        "CREATE INDEX idx_normative_document_identity\n          ON normative_documents(project_id, source_root, document_id)"
+      ],
+      [
+        "index",
+        "idx_normative_supersedes",
+        "CREATE INDEX idx_normative_supersedes\n          ON normative_documents(project_id, source_root, supersedes)"
+      ],
+      [
+        "index",
+        "idx_prospective_cohort_tasks_status",
+        "CREATE INDEX idx_prospective_cohort_tasks_status\n        ON prospective_cohort_tasks(cohort_pk, status, sequence_no)"
+      ],
+      [
+        "index",
+        "idx_prospective_cohorts_project_status",
+        "CREATE INDEX idx_prospective_cohorts_project_status\n        ON prospective_cohorts(project_id, status, registered_at)"
+      ],
+      [
+        "index",
+        "idx_query_misses_project_normalized",
+        "CREATE INDEX idx_query_misses_project_normalized\n        ON query_misses(project_id, source, normalized_query, status)"
+      ],
+      [
+        "index",
+        "idx_query_misses_project_status",
+        "CREATE INDEX idx_query_misses_project_status\n        ON query_misses(project_id, status)"
+      ],
+      [
+        "index",
+        "idx_reflection_reuse_project_reused",
+        "CREATE INDEX idx_reflection_reuse_project_reused\n        ON reflection_reuse_events(project_id, reused_reflection_id)"
+      ],
+      [
+        "index",
+        "idx_reflections_project_stale",
+        "CREATE INDEX idx_reflections_project_stale\n        ON reflections(project_id, is_stale)"
+      ],
+      [
+        "index",
+        "idx_reflections_project_status_stale",
+        "CREATE INDEX idx_reflections_project_status_stale\n        ON reflections(project_id, status, is_stale)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_candidate",
+        "CREATE INDEX idx_retrieval_feedback_candidate\n        ON retrieval_feedback(project_id, record_type, record_id, status, created_at DESC)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_event_key",
+        "CREATE UNIQUE INDEX idx_retrieval_feedback_event_key\n        ON retrieval_feedback(project_id, event_key)\n        WHERE event_key IS NOT NULL AND event_key != ''"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_project_record",
+        "CREATE INDEX idx_retrieval_feedback_project_record\n        ON retrieval_feedback(project_id, record_type, record_id, status)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_project_status",
+        "CREATE INDEX idx_retrieval_feedback_project_status\n        ON retrieval_feedback(project_id, status, created_at)"
+      ],
+      [
+        "index",
+        "idx_retrieval_feedback_project_type_recent",
+        "CREATE INDEX idx_retrieval_feedback_project_type_recent\n        ON retrieval_feedback(project_id, record_type, status, created_at DESC, id DESC)"
+      ],
+      [
+        "index",
+        "idx_scope_boundaries_scope_dependency",
+        "CREATE INDEX idx_scope_boundaries_scope_dependency\n        ON scope_boundary_dependencies(project_id, scope_id, dependency_path, status)"
+      ],
+      [
+        "index",
+        "idx_semantic_conflicts_project_status",
+        "CREATE INDEX idx_semantic_conflicts_project_status\n        ON semantic_conflicts(project_id, status, observed_at)"
+      ],
+      [
+        "index",
+        "idx_semantic_project_stale",
+        "CREATE INDEX idx_semantic_project_stale\n        ON semantic_facts(project_id, is_stale)"
+      ],
+      [
+        "index",
+        "idx_semantic_project_status_stale",
+        "CREATE INDEX idx_semantic_project_status_stale\n        ON semantic_facts(project_id, status, is_stale)"
+      ],
+      [
+        "table",
+        "impact_feedback",
+        "CREATE TABLE impact_feedback (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          change_fingerprint TEXT NOT NULL,\n          changed_files TEXT NOT NULL,\n          recommended_tests TEXT,\n          executed_tests TEXT,\n          outcome TEXT NOT NULL,\n          failed_tests TEXT,\n          flaky_tests TEXT,\n          missed_targets TEXT,\n          note TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "incident_trace_fts",
+        "CREATE VIRTUAL TABLE incident_trace_fts USING fts5(\n          project_id UNINDEXED,\n          symptom,\n          goal,\n          arkts_scene,\n          entry_log_text,\n          normalized_error,\n          dominant_log_events,\n          diagnosis_summary,\n          suspected_chain,\n          root_cause_hypothesis,\n          resolution\n        )"
+      ],
+      [
+        "trigger",
+        "incident_trace_fts_ad",
+        "CREATE TRIGGER incident_trace_fts_ad AFTER DELETE ON incident_traces BEGIN\n          DELETE FROM incident_trace_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "incident_trace_fts_ai",
+        "CREATE TRIGGER incident_trace_fts_ai AFTER INSERT ON incident_traces BEGIN\n          INSERT INTO incident_trace_fts(\n            rowid, project_id, symptom, goal, arkts_scene, entry_log_text,\n            normalized_error, dominant_log_events, diagnosis_summary,\n            suspected_chain, root_cause_hypothesis, resolution\n          )\n          VALUES (\n            new.id, new.project_id, new.symptom, new.goal, new.arkts_scene,\n            new.entry_log_text, new.normalized_error, new.dominant_log_events,\n            new.diagnosis_summary, new.suspected_chain,\n            new.root_cause_hypothesis, new.resolution\n          );\n        END"
+      ],
+      [
+        "trigger",
+        "incident_trace_fts_au",
+        "CREATE TRIGGER incident_trace_fts_au AFTER UPDATE ON incident_traces BEGIN\n          DELETE FROM incident_trace_fts WHERE rowid = old.id;\n          INSERT INTO incident_trace_fts(\n            rowid, project_id, symptom, goal, arkts_scene, entry_log_text,\n            normalized_error, dominant_log_events, diagnosis_summary,\n            suspected_chain, root_cause_hypothesis, resolution\n          )\n          VALUES (\n            new.id, new.project_id, new.symptom, new.goal, new.arkts_scene,\n            new.entry_log_text, new.normalized_error, new.dominant_log_events,\n            new.diagnosis_summary, new.suspected_chain,\n            new.root_cause_hypothesis, new.resolution\n          );\n        END"
+      ],
+      [
+        "table",
+        "incident_trace_fts_config",
+        "CREATE TABLE 'incident_trace_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "incident_trace_fts_content",
+        "CREATE TABLE 'incident_trace_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)"
+      ],
+      [
+        "table",
+        "incident_trace_fts_data",
+        "CREATE TABLE 'incident_trace_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "incident_trace_fts_docsize",
+        "CREATE TABLE 'incident_trace_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "incident_trace_fts_idx",
+        "CREATE TABLE 'incident_trace_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "incident_trace_links",
+        "CREATE TABLE incident_trace_links (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          trace_id INTEGER NOT NULL,\n          target_type TEXT NOT NULL,\n          target_id INTEGER,\n          target_key TEXT,\n          relation TEXT NOT NULL,\n          score REAL DEFAULT 0.0,\n          evidence TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "incident_traces",
+        "CREATE TABLE incident_traces (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          trace_key TEXT NOT NULL,\n          status TEXT NOT NULL DEFAULT 'open',\n          symptom TEXT NOT NULL,\n          goal TEXT,\n          arkts_scene TEXT NOT NULL DEFAULT 'unknown',\n          time_window TEXT,\n          entry_log_text TEXT,\n          normalized_error TEXT,\n          dominant_log_events TEXT,\n          diagnosis_summary TEXT,\n          suspected_chain TEXT,\n          causal_chain TEXT,\n          span_graph TEXT,\n          root_cause_hypothesis TEXT,\n          intervention TEXT,\n          verification_evidence TEXT,\n          resolution TEXT,\n          confidence REAL DEFAULT 0.7,\n          source TEXT DEFAULT 'incident-trace',\n          capture_mode TEXT NOT NULL DEFAULT 'legacy_runtime_derived',\n          evidence_state TEXT NOT NULL DEFAULT 'legacy_unverified',\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "learn_scopes",
+        "CREATE TABLE learn_scopes (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          scope_key TEXT NOT NULL,\n          scope_type TEXT NOT NULL,\n          source_root TEXT NOT NULL,\n          target_path TEXT,\n          entry_path TEXT,\n          depth INTEGER,\n          mode TEXT NOT NULL,\n          file_snapshot TEXT NOT NULL,\n          file_count INTEGER NOT NULL DEFAULT 0,\n          status TEXT NOT NULL DEFAULT 'active',\n          baseline_revision TEXT,\n          last_checked_revision TEXT,\n          change_provider TEXT NOT NULL DEFAULT 'snapshot/v1',\n          refresh_state TEXT NOT NULL DEFAULT 'current',\n          last_refresh_summary TEXT,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          last_refreshed_at TEXT\n        )"
+      ],
+      [
+        "table",
+        "memory_edges",
+        "CREATE TABLE memory_edges (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_type TEXT NOT NULL,\n          source_id INTEGER NOT NULL,\n          relation TEXT NOT NULL,\n          target_type TEXT NOT NULL,\n          target_id INTEGER NOT NULL,\n          evidence TEXT,\n          confidence REAL DEFAULT 0.8,\n          source_revision TEXT,\n          extractor_version TEXT NOT NULL DEFAULT 'legacy',\n          valid_from TEXT,\n          valid_to TEXT,\n          evidence_kind TEXT NOT NULL DEFAULT 'legacy',\n          last_verified_at TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "trigger",
+        "normative_document_delete",
+        "CREATE TRIGGER normative_document_delete\n          AFTER DELETE ON normative_documents BEGIN\n          DELETE FROM normative_document_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "table",
+        "normative_document_fts",
+        "CREATE VIRTUAL TABLE normative_document_fts USING fts5(\n          project_id UNINDEXED, search_terms, tokenize='unicode61'\n        )"
+      ],
+      [
+        "table",
+        "normative_document_fts_config",
+        "CREATE TABLE 'normative_document_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "normative_document_fts_content",
+        "CREATE TABLE 'normative_document_fts_content'(id INTEGER PRIMARY KEY, c0, c1)"
+      ],
+      [
+        "table",
+        "normative_document_fts_data",
+        "CREATE TABLE 'normative_document_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "normative_document_fts_docsize",
+        "CREATE TABLE 'normative_document_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "normative_document_fts_idx",
+        "CREATE TABLE 'normative_document_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "trigger",
+        "normative_document_insert",
+        "CREATE TRIGGER normative_document_insert\n          AFTER INSERT ON normative_documents BEGIN\n          INSERT INTO normative_document_fts(rowid, project_id, search_terms)\n            VALUES (new.id, new.project_id, new.search_terms);\n        END"
+      ],
+      [
+        "trigger",
+        "normative_document_update",
+        "CREATE TRIGGER normative_document_update\n          AFTER UPDATE ON normative_documents BEGIN\n          DELETE FROM normative_document_fts WHERE rowid = old.id;\n          INSERT INTO normative_document_fts(rowid, project_id, search_terms)\n            VALUES (new.id, new.project_id, new.search_terms);\n        END"
+      ],
+      [
+        "table",
+        "normative_documents",
+        "CREATE TABLE normative_documents (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          source_root TEXT NOT NULL,\n          file_path TEXT NOT NULL,\n          document_id TEXT NOT NULL,\n          kind TEXT NOT NULL,\n          title TEXT NOT NULL,\n          status TEXT NOT NULL,\n          scopes TEXT NOT NULL DEFAULT '[]',\n          approval TEXT NOT NULL DEFAULT '{}',\n          supersedes TEXT NOT NULL DEFAULT '',\n          superseded_by TEXT NOT NULL DEFAULT '',\n          body TEXT NOT NULL,\n          body_start_line INTEGER NOT NULL,\n          search_terms TEXT NOT NULL,\n          source_digest TEXT NOT NULL,\n          source_revision TEXT,\n          index_generation INTEGER NOT NULL,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, source_root, file_path)\n        )"
+      ],
+      [
+        "table",
+        "project_counters",
+        "CREATE TABLE project_counters (\n          project_id TEXT NOT NULL,\n          counter_name TEXT NOT NULL,\n          value INTEGER NOT NULL DEFAULT 0,\n          updated_at TEXT NOT NULL,\n          PRIMARY KEY(project_id, counter_name)\n        )"
+      ],
+      [
+        "table",
+        "projects",
+        "CREATE TABLE projects (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT UNIQUE NOT NULL,\n          project_path TEXT NOT NULL,\n          project_name TEXT NOT NULL,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "prospective_cohort_tasks",
+        "CREATE TABLE prospective_cohort_tasks (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          cohort_pk INTEGER NOT NULL,\n          sequence_no INTEGER NOT NULL,\n          task_id TEXT NOT NULL,\n          task_digest TEXT NOT NULL,\n          eligibility TEXT NOT NULL CHECK(eligibility IN ('eligible', 'excluded')),\n          exclusion_reason TEXT,\n          opportunity TEXT NOT NULL CHECK(opportunity IN ('present', 'absent', 'unknown')),\n          evidence_refs_json TEXT NOT NULL,\n          memory_available_at TEXT NOT NULL,\n          memory_manifest_json TEXT NOT NULL,\n          memory_manifest_digest TEXT NOT NULL,\n          source_snapshot_json TEXT NOT NULL,\n          paired_replay_json TEXT NOT NULL DEFAULT '{}',\n          replay_eligible INTEGER NOT NULL DEFAULT 0,\n          previous_entry_digest TEXT NOT NULL,\n          entry_digest TEXT NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('active', 'completed', 'excluded')),\n          usage_sample_id TEXT,\n          outcome TEXT,\n          verification TEXT,\n          usage_metrics_json TEXT,\n          benchmark_metrics_json TEXT,\n          result_digest TEXT,\n          enrolled_at TEXT NOT NULL,\n          completed_at TEXT,\n          UNIQUE(cohort_pk, sequence_no),\n          UNIQUE(cohort_pk, task_id)\n        )"
+      ],
+      [
+        "table",
+        "prospective_cohorts",
+        "CREATE TABLE prospective_cohorts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          cohort_id TEXT NOT NULL,\n          protocol_json TEXT NOT NULL,\n          protocol_digest TEXT NOT NULL,\n          task_type TEXT NOT NULL CHECK(task_type = 'diagnosis'),\n          target_presented_tasks INTEGER NOT NULL,\n          status TEXT NOT NULL CHECK(status IN ('registered', 'running', 'completed')),\n          presented_count INTEGER NOT NULL DEFAULT 0,\n          eligible_count INTEGER NOT NULL DEFAULT 0,\n          excluded_count INTEGER NOT NULL DEFAULT 0,\n          chain_head_digest TEXT NOT NULL,\n          registered_at TEXT NOT NULL,\n          started_at TEXT,\n          finalized_at TEXT,\n          report_json TEXT,\n          report_digest TEXT,\n          UNIQUE(project_id, cohort_id)\n        )"
+      ],
+      [
+        "table",
+        "query_misses",
+        "CREATE TABLE query_misses (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT,\n          source TEXT DEFAULT 'context',\n          result_counts TEXT,\n          created_at TEXT NOT NULL,\n          last_seen_at TEXT,\n          miss_count INTEGER DEFAULT 1,\n          reviewed_at TEXT,\n          status TEXT DEFAULT 'open',\n          resolution TEXT\n        )"
+      ],
+      [
+        "table",
+        "reflection_fts",
+        "CREATE VIRTUAL TABLE reflection_fts USING fts5(\n          project_id UNINDEXED,\n          task,\n          summary,\n          mistake,\n          lesson,\n          future_rule,\n          task_type,\n          outcome,\n          problem,\n          reasoning_summary,\n          context_used,\n          what_worked,\n          what_failed,\n          hidden_assumptions,\n          negative_preconditions,\n          useful_followup_focus,\n          useful_followup_terms,\n          misleading_followup_terms,\n          inspection_targets,\n          final_verification_path,\n          related_cases,\n          verification_method,\n          reuse_feedback,\n          source_cases,\n          skill_candidate,\n          trigger_condition,\n          anti_pattern,\n          repair_action,\n          evidence\n        )"
+      ],
+      [
+        "trigger",
+        "reflection_fts_ad",
+        "CREATE TRIGGER reflection_fts_ad AFTER DELETE ON reflections BEGIN\n          DELETE FROM reflection_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "reflection_fts_ai",
+        "CREATE TRIGGER reflection_fts_ai AFTER INSERT ON reflections BEGIN\n          INSERT INTO reflection_fts(rowid, project_id, task, summary, mistake, lesson, future_rule, task_type, outcome, problem, reasoning_summary, context_used, what_worked, what_failed, hidden_assumptions, negative_preconditions, useful_followup_focus, useful_followup_terms, misleading_followup_terms, inspection_targets, final_verification_path, related_cases, verification_method, reuse_feedback, source_cases, skill_candidate, trigger_condition, anti_pattern, repair_action, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.mistake, ''), COALESCE(new.lesson, ''), COALESCE(new.future_rule, ''), COALESCE(new.task_type, ''), COALESCE(new.outcome, ''), COALESCE(new.problem, ''), COALESCE(new.reasoning_summary, ''), COALESCE(new.context_used, ''), COALESCE(new.what_worked, ''), COALESCE(new.what_failed, ''), COALESCE(new.hidden_assumptions, ''), COALESCE(new.negative_preconditions, ''), COALESCE(new.useful_followup_focus, ''), COALESCE(new.useful_followup_terms, ''), COALESCE(new.misleading_followup_terms, ''), COALESCE(new.inspection_targets, ''), COALESCE(new.final_verification_path, ''), COALESCE(new.related_cases, ''), COALESCE(new.verification_method, ''), COALESCE(new.reuse_feedback, ''), COALESCE(new.source_cases, ''), COALESCE(new.skill_candidate, ''), COALESCE(new.trigger_condition, ''), COALESCE(new.anti_pattern, ''), COALESCE(new.repair_action, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "reflection_fts_au",
+        "CREATE TRIGGER reflection_fts_au AFTER UPDATE ON reflections BEGIN\n          DELETE FROM reflection_fts WHERE rowid = old.id;\n          INSERT INTO reflection_fts(rowid, project_id, task, summary, mistake, lesson, future_rule, task_type, outcome, problem, reasoning_summary, context_used, what_worked, what_failed, hidden_assumptions, negative_preconditions, useful_followup_focus, useful_followup_terms, misleading_followup_terms, inspection_targets, final_verification_path, related_cases, verification_method, reuse_feedback, source_cases, skill_candidate, trigger_condition, anti_pattern, repair_action, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.task, ''), COALESCE(new.summary, ''), COALESCE(new.mistake, ''), COALESCE(new.lesson, ''), COALESCE(new.future_rule, ''), COALESCE(new.task_type, ''), COALESCE(new.outcome, ''), COALESCE(new.problem, ''), COALESCE(new.reasoning_summary, ''), COALESCE(new.context_used, ''), COALESCE(new.what_worked, ''), COALESCE(new.what_failed, ''), COALESCE(new.hidden_assumptions, ''), COALESCE(new.negative_preconditions, ''), COALESCE(new.useful_followup_focus, ''), COALESCE(new.useful_followup_terms, ''), COALESCE(new.misleading_followup_terms, ''), COALESCE(new.inspection_targets, ''), COALESCE(new.final_verification_path, ''), COALESCE(new.related_cases, ''), COALESCE(new.verification_method, ''), COALESCE(new.reuse_feedback, ''), COALESCE(new.source_cases, ''), COALESCE(new.skill_candidate, ''), COALESCE(new.trigger_condition, ''), COALESCE(new.anti_pattern, ''), COALESCE(new.repair_action, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "table",
+        "reflection_fts_config",
+        "CREATE TABLE 'reflection_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "reflection_fts_content",
+        "CREATE TABLE 'reflection_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28)"
+      ],
+      [
+        "table",
+        "reflection_fts_data",
+        "CREATE TABLE 'reflection_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "reflection_fts_docsize",
+        "CREATE TABLE 'reflection_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "reflection_fts_idx",
+        "CREATE TABLE 'reflection_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "reflection_reuse_events",
+        "CREATE TABLE reflection_reuse_events (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          reused_reflection_id INTEGER NOT NULL,\n          applying_reflection_id INTEGER NOT NULL,\n          outcome TEXT NOT NULL,\n          task TEXT,\n          created_at TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "reflections",
+        "CREATE TABLE reflections (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          task TEXT NOT NULL,\n          summary TEXT,\n          mistake TEXT,\n          lesson TEXT NOT NULL,\n          future_rule TEXT,\n          is_stale INTEGER DEFAULT 0,\n          created_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', experience_type TEXT, task_type TEXT, outcome TEXT, problem TEXT, reasoning_summary TEXT, context_used TEXT, what_worked TEXT, what_failed TEXT, hidden_assumptions TEXT, negative_preconditions TEXT, query_rounds INTEGER, trajectory_summary TEXT, useful_followup_focus TEXT, useful_followup_terms TEXT, misleading_followup_terms TEXT, inspection_targets TEXT, final_verification_path TEXT, related_cases TEXT, verification_method TEXT, reuse_feedback TEXT, source_cases TEXT, skill_candidate TEXT, scope TEXT, confidence REAL DEFAULT 0.8, evidence TEXT, trigger_condition TEXT, anti_pattern TEXT, repair_action TEXT, applies_to TEXT, does_not_apply_to TEXT, anchor_type TEXT, anchor_key TEXT, semantic_field TEXT, existing_value TEXT, proposed_value TEXT, patch_reason TEXT, applies_to_current_code INTEGER DEFAULT 0, superseded_by INTEGER, misleading_score REAL DEFAULT 0.0, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, merged_into_id INTEGER, stale_reason TEXT, last_applied_at TEXT, applied_count INTEGER DEFAULT 0, last_outcome TEXT)"
+      ],
+      [
+        "table",
+        "retrieval_feedback",
+        "CREATE TABLE retrieval_feedback (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          query TEXT NOT NULL,\n          normalized_query TEXT NOT NULL,\n          record_type TEXT NOT NULL,\n          record_id INTEGER NOT NULL,\n          reason TEXT NOT NULL,\n          replacement_type TEXT,\n          replacement_id INTEGER,\n          note TEXT,\n          status TEXT NOT NULL DEFAULT 'open',\n          task_id TEXT,\n          query_id TEXT,\n          event_key TEXT,\n          verified INTEGER NOT NULL DEFAULT 0,\n          resolution TEXT,\n          created_at TEXT NOT NULL,\n          reviewed_at TEXT\n        )"
+      ],
+      [
+        "table",
+        "runtime_schema_versions",
+        "CREATE TABLE runtime_schema_versions(\n          component TEXT PRIMARY KEY,\n          version TEXT NOT NULL\n        )"
+      ],
+      [
+        "table",
+        "scope_boundary_dependencies",
+        "CREATE TABLE scope_boundary_dependencies (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          scope_id INTEGER NOT NULL,\n          consumer_path TEXT NOT NULL,\n          dependency_path TEXT NOT NULL,\n          dependency_kind TEXT NOT NULL DEFAULT 'import',\n          source_digest TEXT,\n          surface_digest TEXT,\n          status TEXT NOT NULL DEFAULT 'active',\n          last_observed_at TEXT,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL,\n          UNIQUE(project_id, scope_id, consumer_path, dependency_path, dependency_kind)\n        )"
+      ],
+      [
+        "table",
+        "semantic_conflicts",
+        "CREATE TABLE semantic_conflicts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          entity_type TEXT NOT NULL DEFAULT 'code_file',\n          target TEXT NOT NULL,\n          field TEXT NOT NULL,\n          existing TEXT,\n          incoming TEXT,\n          resolution TEXT,\n          decision_note TEXT,\n          replacement_source TEXT,\n          source_command TEXT NOT NULL,\n          observed_at TEXT NOT NULL,\n          status TEXT DEFAULT 'open',\n          reviewed_at TEXT\n        )"
+      ],
+      [
+        "table",
+        "semantic_fact_fts",
+        "CREATE VIRTUAL TABLE semantic_fact_fts USING fts5(\n          project_id UNINDEXED,\n          fact,\n          source,\n          category,\n          scope,\n          evidence\n        )"
+      ],
+      [
+        "trigger",
+        "semantic_fact_fts_ad",
+        "CREATE TRIGGER semantic_fact_fts_ad AFTER DELETE ON semantic_facts BEGIN\n          DELETE FROM semantic_fact_fts WHERE rowid = old.id;\n        END"
+      ],
+      [
+        "trigger",
+        "semantic_fact_fts_ai",
+        "CREATE TRIGGER semantic_fact_fts_ai AFTER INSERT ON semantic_facts BEGIN\n          INSERT INTO semantic_fact_fts(rowid, project_id, fact, source, category, scope, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.fact, ''), COALESCE(new.source, ''), COALESCE(new.category, ''), COALESCE(new.scope, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "trigger",
+        "semantic_fact_fts_au",
+        "CREATE TRIGGER semantic_fact_fts_au AFTER UPDATE ON semantic_facts BEGIN\n          DELETE FROM semantic_fact_fts WHERE rowid = old.id;\n          INSERT INTO semantic_fact_fts(rowid, project_id, fact, source, category, scope, evidence)\n          VALUES (new.id, new.project_id, COALESCE(new.fact, ''), COALESCE(new.source, ''), COALESCE(new.category, ''), COALESCE(new.scope, ''), COALESCE(new.evidence, ''));\n        END"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_config",
+        "CREATE TABLE 'semantic_fact_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_content",
+        "CREATE TABLE 'semantic_fact_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3, c4, c5)"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_data",
+        "CREATE TABLE 'semantic_fact_fts_data'(id INTEGER PRIMARY KEY, block BLOB)"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_docsize",
+        "CREATE TABLE 'semantic_fact_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)"
+      ],
+      [
+        "table",
+        "semantic_fact_fts_idx",
+        "CREATE TABLE 'semantic_fact_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID"
+      ],
+      [
+        "table",
+        "semantic_facts",
+        "CREATE TABLE semantic_facts (\n          id INTEGER PRIMARY KEY AUTOINCREMENT,\n          project_id TEXT NOT NULL,\n          fact TEXT NOT NULL,\n          source TEXT NOT NULL,\n          confidence REAL DEFAULT 0.8,\n          is_stale INTEGER DEFAULT 0,\n          created_at TEXT NOT NULL,\n          updated_at TEXT NOT NULL\n        , status TEXT DEFAULT 'active', category TEXT, scope TEXT, evidence TEXT, last_used_at TEXT, use_count INTEGER DEFAULT 0, reviewed_at TEXT, merged_into_id INTEGER, stale_reason TEXT)"
+      ]
+    ],
+    "files": [
+      {
+        "id": 1,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "AfterIteration.ts",
+        "summary": "TypeScript file with 10 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "ChunkAssembler.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "FragmentSelector.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": null,
+        "source_digest": "6d8e5e17a8c573215166d2d67c66d684205d541ebaee1d6103bf59fd6ca2942e",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      }
+    ],
+    "symbols": [
+      {
+        "id": 1,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "AfterIteration.ts",
+        "symbol": "AfterIteration",
+        "symbol_type": "class",
+        "summary": "class AfterIteration in AfterIteration.ts; identifier terms: after iteration",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:78df9338ddb65667d7950b91",
+        "qualified_name": "AfterIteration",
+        "signature": "class AfterIteration",
+        "start_line": 1,
+        "end_line": 10,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "AfterIteration.ts",
+        "symbol": "summarize",
+        "symbol_type": "function",
+        "summary": "function summarize in AfterIteration.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:a5330929016c9077017b1247",
+        "qualified_name": "AfterIteration.summarize",
+        "signature": "summarize(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+        "evidence_class": "static",
+        "method_evidence": "console log",
+        "string_evidence": "finished",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.log\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:a5330929016c9077017b1247\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "AfterIteration",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "ChunkAssembler",
+        "symbol_type": "class",
+        "summary": "class ChunkAssembler in ChunkAssembler.ts; identifier terms: chunk assembler",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:7a29041de387c9c95fb5dca5",
+        "qualified_name": "ChunkAssembler",
+        "signature": "class ChunkAssembler",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "ChunkAssembler.ts",
+        "symbol": "assemble",
+        "symbol_type": "function",
+        "summary": "function assemble in ChunkAssembler.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:b77c26f6afca72e1583b3fee",
+        "qualified_name": "ChunkAssembler.assemble",
+        "signature": "assemble(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ChunkAssembler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 5,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "DeferredAssembly",
+        "symbol_type": "class",
+        "summary": "class DeferredAssembly in DeferredAssembly.ts; identifier terms: deferred assembly",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:e8efbe306d538ec9f24c04ea",
+        "qualified_name": "DeferredAssembly",
+        "signature": "class DeferredAssembly",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 6,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "DeferredAssembly.ts",
+        "symbol": "schedule",
+        "symbol_type": "function",
+        "summary": "function schedule in DeferredAssembly.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:f74addc5ba89dd8e87b70a4d",
+        "qualified_name": "DeferredAssembly.schedule",
+        "signature": "schedule(chunks: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+        "evidence_class": "static",
+        "method_evidence": "queuemicrotask queue microtask deferredexecution deferred schedule",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DeferredAssembly",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 7,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "FragmentSelector.ts",
+        "symbol": "FragmentSelector",
+        "symbol_type": "class",
+        "summary": "class FragmentSelector in FragmentSelector.ts; identifier terms: fragment selector",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:a4b11e41dcfafd82a4a06763",
+        "qualified_name": "FragmentSelector",
+        "signature": "class FragmentSelector",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "6d8e5e17a8c573215166d2d67c66d684205d541ebaee1d6103bf59fd6ca2942e",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      },
+      {
+        "id": 8,
+        "project_id": "3b25363a9ece081e",
+        "file_path": "FragmentSelector.ts",
+        "symbol": "select",
+        "symbol_type": "function",
+        "summary": "function select in FragmentSelector.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:7753c944ec4b929c6ab5355e",
+        "qualified_name": "FragmentSelector.select",
+        "signature": "select(fragments: string[]):string",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "6d8e5e17a8c573215166d2d67c66d684205d541ebaee1d6103bf59fd6ca2942e",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "FragmentSelector",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-15T16:32:52+00:00"
+      }
+    ]
+  }
+]
