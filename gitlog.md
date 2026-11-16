@@ -12856,3 +12856,7 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 
 - Stage C producer-only candidate adds closed local loop/result recognition to existing method retrieval hints and only whole-class positive TypeScript file summaries. No new view/permission/query terms, scores, scope or cap.
 - Frozen source/unknown/ASI controls6 tests pass; old Stage B6 red cases retained. Same13 install-without-relearn and normal-merge observations follow, with actual qualification-hook identity snapshots. Candidate not yet accepted or credited to original26.
+
+## Record loop Stage E design
+- Preserve failed B/D gates; propose a separate terminal code-only transaction with explicit non-code deep equality, exact fallback and unchanged 1500-token cap.
+- Freeze one existing-source explicit log fallback control and distinguish it from helper successful-transaction invariants. No runtime view implemented.
