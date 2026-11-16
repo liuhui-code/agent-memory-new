@@ -12875,3 +12875,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 ## Post-hoc original26 exact-base attribution
 - Independently predeclared after candidate result, then ran clean detacheda012737 original26 once with same3 variants/case/253source hashes and fresh archive.
 - Base1/3 versus combined candidate3/3: original precision fail→pass, English precision+forbidden fail→pass, Chinese pass→pass. Supports2 net local variant improvements for combined candidate, not isolated C/E attribution or global generalization.
+
+## Record-loop integration and original26 verification
+
+- Fast-forward the reviewed f743838 record-loop candidate; rerun 25 focused tests in the integration checkout, all pass. Changed Python files compile and remain within 500 lines; diff whitespace check passes.
+- Preserve the post-hoc clean-a012737 original26 comparison: 1/3 to 3/3, two net improvements for the combined candidate, not a fresh aggregate score. Two independent bare requests remain failed.
+- Keep all earlier rejected gates and source/path/identity corrections. New public history remains unapproved; no main change. Details: docs/evidence/record-loop-contract/INTEGRATION.md.
