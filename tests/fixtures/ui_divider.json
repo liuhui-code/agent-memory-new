@@ -1,0 +1,232 @@
+{
+  "sources": {
+    "base": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "local_shadow": {
+      "GlyphList.ets": "function List(): Object { return {} }\n@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "import_shadow": {
+      "GlyphList.ets": "import { List } from './CustomList'\n@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "CustomList.ts": "export function List(): Object { return {} }\n"
+    },
+    "literal_only": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  Text('List() { }.divider({ strokeWidth: 2 })')\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "two_chains": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphRows.ets": "@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('alternate glyph') }\n  }.divider({ strokeWidth: 3 })\n }\n}\n"
+    },
+    "nested_wrong_receiver": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() {\n    Text('glyph').divider({ strokeWidth: 2 })\n   }\n  }\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "direct_dependency": {
+      "GlyphList.ets": "import { GlyphStyle } from './GlyphStyle'\n@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: GlyphStyle.width })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphStyle.ts": "export class GlyphStyle { static width: number = 2 }\n"
+    },
+    "named_log": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphStatus.ts": "export class GlyphStatus {\n report() { console.error('glyph divider width unavailable') }\n}\n"
+    },
+    "four_chains": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n",
+      "GlyphRows.ets": "@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphMenu.ets": "@Component\nexport struct GlyphMenu {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "GlyphTable.ets": "@Component\nexport struct GlyphTable {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n"
+    },
+    "domain_mismatch": {
+      "GlyphList.ets": "@Component\nexport struct HieroglyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "same_file_two": {
+      "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n\n@Component\nexport struct GlyphRows {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "qualifier_string_only": {
+      "GlyphList.ets": "@Component\nexport struct SymbolRows {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    },
+    "qualifier_named_collision": {
+      "GlyphList.ets": "@Component\nexport struct glyph {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+      "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+      "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+    }
+  },
+  "cases": [
+    {
+      "id": "explicit_property",
+      "cohort": "base",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": [
+        "GlyphList"
+      ]
+    },
+    {
+      "id": "plain_property",
+      "cohort": "base",
+      "query": "Locate the glyph divider stroke width implementation.",
+      "expected_owners": [
+        "GlyphList"
+      ]
+    },
+    {
+      "id": "legacy_ui",
+      "cohort": "base",
+      "query": "Find the ArkTS glyph divider implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "named_method",
+      "cohort": "base",
+      "query": "Find EntryAbility.onWindowStageCreate source.",
+      "expected_owners": null
+    },
+    {
+      "id": "multiple",
+      "cohort": "base",
+      "query": "Find both GlyphList and EntryAbility source.",
+      "expected_owners": null
+    },
+    {
+      "id": "literal",
+      "cohort": "base",
+      "query": "Find the literal 'glyph'.",
+      "expected_owners": null
+    },
+    {
+      "id": "startup_0",
+      "cohort": "base",
+      "query": "Find the ArkTS application startup implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "startup_1",
+      "cohort": "base",
+      "query": "Find the ets application initialization code.",
+      "expected_owners": null
+    },
+    {
+      "id": "startup_2",
+      "cohort": "base",
+      "query": "ArkTS\u5e94\u7528\u542f\u52a8\u6e90\u7801\u5728\u54ea\u91cc\uff1f",
+      "expected_owners": null
+    },
+    {
+      "id": "startup_3",
+      "cohort": "base",
+      "query": "\u67e5\u627eets\u5e94\u7528\u521d\u59cb\u5316\u5b9e\u73b0\u3002",
+      "expected_owners": null
+    },
+    {
+      "id": "local_shadow",
+      "cohort": "local_shadow",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "import_shadow",
+      "cohort": "import_shadow",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "literal_only",
+      "cohort": "literal_only",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "nested_wrong_receiver",
+      "cohort": "nested_wrong_receiver",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "domain_mismatch",
+      "cohort": "domain_mismatch",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "two_chains",
+      "cohort": "two_chains",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": [
+        "GlyphList",
+        "GlyphRows"
+      ]
+    },
+    {
+      "id": "same_file_two",
+      "cohort": "same_file_two",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": [
+        "GlyphList",
+        "GlyphRows"
+      ]
+    },
+    {
+      "id": "four_chains",
+      "cohort": "four_chains",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "named_dependency",
+      "cohort": "direct_dependency",
+      "query": "Find GlyphList and GlyphStyle import boundary.",
+      "expected_owners": null
+    },
+    {
+      "id": "incidental_dependency",
+      "cohort": "direct_dependency",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "named_log",
+      "cohort": "named_log",
+      "query": "Find the log 'glyph divider width unavailable'.",
+      "expected_owners": null
+    },
+    {
+      "id": "qualifier_absent",
+      "cohort": "base",
+      "query": "Locate the ArkTS rune divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "qualifier_string_only",
+      "cohort": "qualifier_string_only",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    },
+    {
+      "id": "qualifier_named_collision",
+      "cohort": "qualifier_named_collision",
+      "query": "Locate the ArkTS glyph divider stroke width implementation.",
+      "expected_owners": null
+    }
+  ]
+}

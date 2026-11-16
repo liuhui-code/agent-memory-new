@@ -41,3 +41,15 @@ def bind_context_trials(query, context, items, *, allow_render_recall=False,
         context = OutputLoopTrial(context)
         context._output_loop_authority = output_authority
     return context
+
+
+def bind_source_views(project, query, context, items):
+    """Existing terminal view order, then the opt-in static UI property view."""
+    from .query_record_loop_selection import bind_record_loop_context
+    from .query_archive_create_write_selection import bind_archive_create_write_context
+    from .query_command_table_selection import bind_command_table_context
+    from .query_ui_divider_selection import bind_divider_context
+    context = bind_record_loop_context(project, query, context, items)
+    context = bind_archive_create_write_context(project, query, context, items)
+    context = bind_command_table_context(project, query, context, items)
+    return bind_divider_context(project, query, context, items)

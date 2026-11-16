@@ -2,6 +2,9 @@
 from typing import Any
 
 def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str, Any]:
+    from .query_ui_divider_selection import DividerContext, compact_divider
+    if isinstance(data, DividerContext):
+        return compact_divider(data, _compact_context(dict(data)))
     from .query_command_table_selection import CommandTableContext, compact_command_table
     if isinstance(data, CommandTableContext):
         return compact_command_table(data, _compact_context(dict(data)))
