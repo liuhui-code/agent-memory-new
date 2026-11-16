@@ -1,0 +1,15 @@
+======================================================================
+ERROR: test_lifecycle_display_union (unittest.loader._FailedTest.test_lifecycle_display_union)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_lifecycle_display_union
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_lifecycle_display_union'
+
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.351s
+
+FAILED (errors=1)

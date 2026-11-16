@@ -57,7 +57,7 @@ class RecordLoopSelectionTests(unittest.TestCase):
   stale=dict(self.base['source_freshness'],status='stale')
   self.assertNotIsInstance(enrich_record_loop(r,self.query,self.base['query_handoff']['path_context'],stale),RecordLoopContext)
  def test_snapshot_and_log_preserving_transaction(self):
-  r=self.bind();before=deepcopy(dict(r));(self.root/'ChunkAssembler.ts').write_text('later change')
+  r=self.bind();before=deepcopy(dict(r))
   result=compact_record_loop(r,self.compact)
   self.assertEqual(dict(r),before);self.assertEqual(result['query_handoff']['log_anchors'],self.compact['query_handoff']['log_anchors'])
   self.assertEqual([a['file_path']for a in result['query_handoff']['code_anchors']],['ChunkAssembler.ts','FragmentSelector.ts'])
@@ -70,3 +70,34 @@ class RecordLoopSelectionTests(unittest.TestCase):
    self.assertIs(self.bind(),self.base,key)
   self.pool=deepcopy(original);bad=deepcopy(next(r for r in self.pool if r.get('kind')=='file' and r['file_path']=='ChunkAssembler.ts'));bad['source_digest']='0'*64;self.pool.append(bad)
   self.assertIs(self.bind(),self.base)
+
+ def test_pool_graph_protected_even_when_not_final_anchor(self):
+  original=deepcopy(self.pool)
+  for key in ('graph_neighbor','graph_relation','identity_match','log_identity_match'):
+   self.pool=deepcopy(original);self.pool[0][key]=True
+   self.assertIs(self.bind(),self.base,key)
+
+ def test_change_after_binding_and_missing_final_path(self):
+  r=self.bind();(self.root/'ChunkAssembler.ts').write_text('changed after binding')
+  self.assertIs(compact_record_loop(r,self.compact),self.compact)
+  self.base['query_handoff'].pop('path_context',None)
+  for malformed in [{}, {'activated':'false','path_candidates':[]}]:
+   self.base['query_handoff']['path_context']=malformed
+   self.assertIs(self.bind(),self.base)
+
+ def test_pending_carrier_cannot_compact_or_adopt(self):
+  from tools.agent_memory_runtime.query_record_loop_selection import accounting_record_loop
+  self.base['query_handoff'].pop('path_context',None)
+  r=self.bind();self.assertIsInstance(r,RecordLoopContext)
+  self.assertIs(compact_record_loop(r,self.compact),self.compact)
+  self.assertIs(accounting_record_loop(r),r)
+ def test_facade_once_success_and_fallback(self):
+  from tools.agent_memory_runtime.context_facade import ContextFacade
+  for path in [dict(activated=False,path_candidates=[]),dict(activated=True,path_candidates=[])]:
+   result=self.bind();result._pending_accounting=True
+   facade=ContextFacade(self.project,lambda *args:result,SimpleNamespace(build=lambda query:path))
+   with patch('tools.agent_memory_runtime.context_facade.filter_fresh_path_context',return_value=(path,result['source_freshness'])),patch('tools.agent_memory_runtime.query_results.record_context_use')as record,patch('tools.agent_memory_runtime.query_results.record_query_miss_if_empty')as miss:
+    enriched=facade.execute(self.query);record.assert_called_once();miss.assert_called_once()
+    self.assertEqual(isinstance(enriched,RecordLoopContext),not path['activated'])
+    self.assertEqual(dict(enriched)['query_handoff']['log_anchors'],self.base['query_handoff']['log_anchors'])
+    if not path['activated']:self.assertEqual({x['file_path']for x in record.call_args.args[1]['wiki_matches']},{'ChunkAssembler.ts','FragmentSelector.ts'})

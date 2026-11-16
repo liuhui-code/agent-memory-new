@@ -17,11 +17,13 @@ class RecordLoopContext(dict):
     def __deepcopy__(self,memo): return deepcopy(dict(self),memo)
 
 
-def protected_record_loop(data,query,pool):
+def protected_record_loop(data,query,pool, *, pending=False):
     from .log_event_identity import event_match
     from .query_log_owner_admission import independently_named_log_owner
-    handoff=data.get('query_handoff');path=handoff.get('path_context',{}) if isinstance(handoff,dict) else None
-    if not isinstance(path,dict): return True
+    handoff=data.get('query_handoff');path=handoff.get('path_context') if isinstance(handoff,dict) else None
+    if pending and path is None:path={'activated':False,'path_candidates':[]}
+    if (not isinstance(path,dict) or type(path.get('activated'))is not bool
+        or not isinstance(path.get('path_candidates'),list)): return True
     if any(path.get(k) for k in ('activated','wrapped_log_evidence','path_candidates','seeds')): return True
     for key in ('code_anchors','log_anchors'):
         if not isinstance(handoff.get(key),list): return True
@@ -31,6 +33,7 @@ def protected_record_loop(data,query,pool):
     for log in handoff['log_anchors']:
         if event_match(log,query)['priority']>0 or independently_named_log_owner(log,query): return True
     for row in pool:
+        if any(row.get(k) for k in ('identity_match','log_identity_match','graph_neighbor','graph_relation')): return True
         for key in ('file_path','symbol','qualified_name','owner_name'):
             value=row.get(key)
             if isinstance(value,str) and value and re.search(r'(?<![\w$])'+re.escape(value)+r'(?![\w$])',query,re.I): return True
@@ -102,38 +105,47 @@ def qualified_anchors(project,query,pool):
 
 
 def bind_record_loop_context(project,query,baseline,pool):
-    if record_loop_request(query)is None or protected_record_loop(baseline,query,pool):return baseline
+    if record_loop_request(query)is None or protected_record_loop(baseline,query,pool,pending=True):return baseline
     result=qualified_anchors(project,query,pool)
     if result is None:return baseline
     anchors,members=result
     context=RecordLoopContext(baseline);context._anchors=anchors;context._members=members;context._pool=deepcopy(pool)
-    context._binding=(query,snapshot(dict(context)),snapshot(anchors),snapshot(members),snapshot(pool))
+    context._root=Path(project.root).resolve()
+    context._binding=(query,snapshot(dict(context)),snapshot(anchors),snapshot(members),snapshot(pool),str(context._root))
     return context
 
 
-def record_loop_receipt(data):
+def record_loop_receipt(data, *, pending=False):
     if not isinstance(data,RecordLoopContext):return None
     try:
-        if (data._binding!=(data.get('query'),snapshot(dict(data)),snapshot(data._anchors),snapshot(data._members),snapshot(data._pool))
-            or record_loop_request(data.get('query'))is None or protected_record_loop(data,data['query'],data._pool)):return None
+        if (data._binding!=(data.get('query'),snapshot(dict(data)),snapshot(data._anchors),snapshot(data._members),snapshot(data._pool),str(data._root))
+            or record_loop_request(data.get('query'))is None or protected_record_loop(data,data['query'],data._pool,pending=pending)):return None
+        for name,digest in {(r['file_path'],r['source_digest'])for r in data._members}:
+            file=(data._root/name).resolve()
+            if not file.is_relative_to(data._root):return None
+            with file.open('rb')as stream:raw=stream.read(2*1024*1024+1)
+            if hashlib.sha256(raw).hexdigest()!=digest:return None
         return data._anchors
-    except (AttributeError,TypeError,ValueError):return None
+    except (AttributeError,TypeError,ValueError,OSError):return None
 
 
 def compact_record_loop(data,baseline):
     from .context_record_loop_transaction import apply_record_loop_transaction
     anchors=record_loop_receipt(data)
-    if anchors is None or data.get('source_freshness',{}).get('status')!='current':return baseline
+    freshness=data.get('source_freshness',{})
+    if (anchors is None or freshness.get('status')!='current'
+        or any(r['index_generation']!=freshness.get('generation')for r in data._members)):return baseline
     return apply_record_loop_transaction(baseline,anchors)
 
 
 def enrich_record_loop(data,query,path,freshness):
     baseline=deepcopy(dict(data));baseline['source_freshness']=freshness
     baseline.setdefault('query_handoff',{})['path_context']=path
-    if (record_loop_receipt(data)is None or query!=data.get('query') or freshness!=data.get('source_freshness')
+    if (record_loop_receipt(data,pending=True)is None or query!=data.get('query') or freshness!=data.get('source_freshness')
         or protected_record_loop(baseline,query,data._pool)):return baseline
     result=RecordLoopContext(baseline);result._anchors=deepcopy(data._anchors);result._members=deepcopy(data._members);result._pool=deepcopy(data._pool)
-    result._binding=(query,snapshot(dict(result)),snapshot(result._anchors),snapshot(result._members),snapshot(result._pool))
+    result._root=data._root
+    result._binding=(query,snapshot(dict(result)),snapshot(result._anchors),snapshot(result._members),snapshot(result._pool),str(result._root))
     return result
 
 
