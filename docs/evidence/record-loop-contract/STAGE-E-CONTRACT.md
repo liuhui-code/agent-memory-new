@@ -9,8 +9,8 @@ Obtain the ordinary fully compacted baseline first. Raw context remains byte/obj
 Allowed paths, and no others:
 - query_handoff.code_anchors: complete typed positive methods and full snapshot bodies, existing limits.
 - query_handoff.callable_evidence: code-only retrieval evidence; must not contain or overwrite log/path evidence. Certainty is non-exhaustive, not unique.
-- query_handoff.source_excerpt_policy: count/limits for the new code windows.
-- evidence_gaps: only remove `no_code_anchor` once complete source anchors exist; preserve every other string and ordering.
+- query_handoff.source_excerpt_policy: existing policy shape with source snapshot label, body_persisted=false, excerpt_count/excerpt_chars; no limit increases.
+- evidence_gaps: recompute only `no_code_anchor` and `limited_code_anchor_diversity` using existing code file-count rules; preserve other strings and their relative ordering.
 - sufficiency.status, next_action, reason_codes, coverage.source_locatable_code_anchor: recompute with existing diagnosis_sufficiency on the resulting handoff, unchanged freshness and resulting gaps. All remaining sufficiency fields, including log/path counts, must equal baseline.
 - output_budget.estimated_tokens: existing estimate fixed point; target_tokens and truncated retain baseline values.
 
@@ -20,7 +20,7 @@ Every other nested value is deep-equal, notably log_anchors, path_context, log_k
 
 Use the previously reviewed source digest/generation/typed method and owner row checks, full source parser and same-request private capability; copied/raw/serialized/mutated payloads cannot grant authority. Initial bounded pool only, no second recall. Named source in either original context or head remains protected, case-insensitively, using existing exact identity evidence. Source-name WORD slots are not a bypass. All qualified positives must fit.
 
-Active or wrapped path, graph-associated candidate, explicit log/event intent or matched log/event identity, or uncertainty about those protections gives whole baseline. Nonempty raw/compact logs alone do not prohibit E, because both entire log objects are independently preserved. Never infer that empty compact logs mean raw logs were absent. Old D protected() remains unchanged. The implementation review must confirm exact existing identity predicates before code adoption; no weakening by score/threshold or by declaring a log weak.
+Active or wrapped path, graph-associated candidate, explicit log/event intent or matched log/event identity, or uncertainty about those protections gives whole baseline. Nonempty raw/compact logs alone do not prohibit E, because both entire log objects are independently preserved. Never infer that empty compact logs mean raw logs were absent. Old D protected() remains unchanged. Exact proposed identity predicates: any event_match(log, original_query).priority > 0, independently_named_log_owner(log, original_query), or identity_match/log_identity_match/graph_neighbor/graph_relation on any baseline source anchor forces fallback. Query-to-source explicit matching additionally checks path, symbol and qualified_name case-insensitively across the original bounded pool, including context WORD slots. Raw path activated/wrapped_log_evidence or nonempty path_candidates/seeds forces fallback. Missing/malformed protection inputs fail closed. No score thresholds change, and no log is reclassified weak.
 
 ## Preimplementation checks
 

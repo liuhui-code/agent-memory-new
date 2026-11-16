@@ -1,0 +1,712 @@
+[
+  {
+    "cohort": "old-source-relation",
+    "id": "contextual-result",
+    "kind": "hypothetical_saved_payload_capacity_not_public_after",
+    "baseline_tokens": 806,
+    "hypothetical_tokens": 807,
+    "fits_1500": true,
+    "non_code_objects_equal": true,
+    "raw_log_count": 1,
+    "compact_log_count": 0,
+    "hypothetical_payload": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "a0c9f520df5bd78a",
+      "query": "A sequence of message fragments retains only the final item; return the item iteration and result implementation rather than the display panel.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "sequence",
+          "message",
+          "fragments",
+          "retains",
+          "only",
+          "final",
+          "item",
+          "return",
+          "iteration",
+          "result",
+          "implementation",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "ChunkAssembler.ts",
+            "symbol": "assemble",
+            "symbol_type": "method",
+            "record_ids": [
+              10
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "non_exhaustive",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "positive_direct_syntax_not_unique_owner_or_runtime_causality"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "validated_request_snapshot",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 137
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 807,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "direct-result",
+    "kind": "hypothetical_saved_payload_capacity_not_public_after",
+    "baseline_tokens": 1151,
+    "hypothetical_tokens": 987,
+    "fits_1500": true,
+    "non_code_objects_equal": true,
+    "raw_log_count": 1,
+    "compact_log_count": 0,
+    "hypothetical_payload": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3b25363a9ece081e",
+      "query": "Locate the collection iteration and result implementation.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "locate",
+          "collection",
+          "iteration",
+          "result",
+          "implementation",
+          "console",
+          "summarize",
+          "chunk",
+          "log"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "ChunkAssembler.ts",
+            "symbol": "assemble",
+            "symbol_type": "method",
+            "record_ids": [
+              12
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "FragmentSelector.ts",
+            "symbol": "select",
+            "symbol_type": "method",
+            "record_ids": [
+              16
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "select",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "select",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " select(fragments: string[]): string {\n  let selected = ''\n  for (const fragment of fragments) {\n   selected = fragment\n  }\n  return selected\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "non_exhaustive",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "positive_direct_syntax_not_unique_owner_or_runtime_causality"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 10,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 2,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "validated_request_snapshot",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 281
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 987,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "contextual-result",
+    "kind": "hypothetical_saved_payload_capacity_not_public_after",
+    "baseline_tokens": 1129,
+    "hypothetical_tokens": 970,
+    "fits_1500": true,
+    "non_code_objects_equal": true,
+    "raw_log_count": 1,
+    "compact_log_count": 0,
+    "hypothetical_payload": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3b25363a9ece081e",
+      "query": "A sequence of message fragments retains only the final item; return the item iteration and result implementation rather than the display panel.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "sequence",
+          "message",
+          "fragments",
+          "retains",
+          "only",
+          "final",
+          "item",
+          "return",
+          "iteration",
+          "result",
+          "implementation",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "ChunkAssembler.ts",
+            "symbol": "assemble",
+            "symbol_type": "method",
+            "record_ids": [
+              12
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "FragmentSelector.ts",
+            "symbol": "select",
+            "symbol_type": "method",
+            "record_ids": [
+              16
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "select",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "select",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " select(fragments: string[]): string {\n  let selected = ''\n  for (const fragment of fragments) {\n   selected = fragment\n  }\n  return selected\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "non_exhaustive",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "positive_direct_syntax_not_unique_owner_or_runtime_causality"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "validated_request_snapshot",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 281
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 970,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "cohort": "two-positive-result",
+    "id": "contextual-accumulator",
+    "kind": "hypothetical_saved_payload_capacity_not_public_after",
+    "baseline_tokens": 1131,
+    "hypothetical_tokens": 972,
+    "fits_1500": true,
+    "non_code_objects_equal": true,
+    "raw_log_count": 1,
+    "compact_log_count": 0,
+    "hypothetical_payload": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3b25363a9ece081e",
+      "query": "A sequence of message fragments retains only the final item; return the item iteration and accumulator implementation rather than the display panel.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "sequence",
+          "message",
+          "fragments",
+          "retains",
+          "only",
+          "final",
+          "item",
+          "return",
+          "iteration",
+          "accumulator",
+          "implementation",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "ChunkAssembler.ts",
+            "symbol": "assemble",
+            "symbol_type": "method",
+            "record_ids": [
+              12
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "assemble",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "FragmentSelector.ts",
+            "symbol": "select",
+            "symbol_type": "method",
+            "record_ids": [
+              16
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "select",
+                "start_line": 2,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "select",
+                "start_line": 2,
+                "end_line": 8,
+                "content": " select(fragments: string[]): string {\n  let selected = ''\n  for (const fragment of fragments) {\n   selected = fragment\n  }\n  return selected\n }",
+                "source": "validated_request_snapshot",
+                "selection_reason": "complete_direct_loop_result_method",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "non_exhaustive",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "positive_direct_syntax_not_unique_owner_or_runtime_causality"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "validated_request_snapshot",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 281
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 972,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]
