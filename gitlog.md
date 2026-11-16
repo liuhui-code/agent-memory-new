@@ -12845,3 +12845,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
   tests pass. The temporary 509-line module was mechanically split to meet the
   500-line limit. No full gate and no original18 owner-failure credit. Details:
   docs/evidence/lifecycle-display-qualification/{RESULT,REVIEW}.md.
+
+## 2026-11-15 Record-loop relation fixed before and recall boundary
+
+- Stage A additive draft never executed. Independently reviewed Stage B explicit lossy positive-only13-query protocol ran once atb97dc21, sources/queries unchanged; six natural requests miss ChunkAssembler.
+- Saved trace shows absence already at focus input; current index exists but TS summary has no ArkTS file hint, bare request lacks concept. Thus frozen bounded-pool view gate fails; no production candidate/after.
+- Separate Stage C design proposes only finite learned loop/result hints through existing file summary + callable evidence/FTS, with full source snapshot validation, old-index activation and compatibility gates. Await independent review; no suffix/query/noise or pool-cap change.
