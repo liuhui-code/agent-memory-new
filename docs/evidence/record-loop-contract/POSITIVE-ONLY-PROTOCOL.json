@@ -1,0 +1,127 @@
+{
+  "classification": "Stage B reviewed synthetic Development qualification, new explicitly lossy positive-only contract; no run yet",
+  "base": "a012737",
+  "contract": "POSITIVE-ONLY-CONTRACT.md",
+  "old_additive": "Stage A files and commits preserved, zero before executions",
+  "cohorts": [
+    {
+      "id": "old-source-relation",
+      "sources": {
+        "ChunkAssembler.ts": "export class ChunkAssembler {\n assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }\n}\n",
+        "AfterIteration.ts": "export class AfterIteration {\n summarize(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   console.log(chunk)\n  }\n  merged = 'finished'\n  return merged\n }\n}\n",
+        "DeferredAssembly.ts": "export class DeferredAssembly {\n schedule(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   queueMicrotask(() => { merged = chunk })\n  }\n  return merged\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "existing-natural-accumulator",
+          "query": "Locate the record iteration and accumulator implementation.",
+          "required": [
+            "ChunkAssembler.ts"
+          ],
+          "allowed_positive_only": [
+            "ChunkAssembler.ts"
+          ]
+        },
+        {
+          "id": "contextual-result",
+          "query": "A sequence of message fragments retains only the final item; return the item iteration and result implementation rather than the display panel.",
+          "required": [
+            "ChunkAssembler.ts"
+          ],
+          "allowed_positive_only": [
+            "ChunkAssembler.ts"
+          ]
+        },
+        {
+          "id": "named-1",
+          "query": "Locate ChunkAssembler.assemble implementation.",
+          "exact_baseline_required": true
+        },
+        {
+          "id": "named-2",
+          "query": "Locate AfterIteration.summarize implementation.",
+          "exact_baseline_required": true
+        },
+        {
+          "id": "named-3",
+          "query": "Locate DeferredAssembly.schedule implementation.",
+          "exact_baseline_required": true
+        },
+        {
+          "id": "quoted",
+          "query": "Locate the text \"record iteration and accumulator implementation\".",
+          "exact_baseline_required": true
+        },
+        {
+          "id": "negative",
+          "query": "Do not locate the record iteration and accumulator implementation; return AfterIteration.summarize.",
+          "exact_baseline_required": true
+        },
+        {
+          "id": "multiple-named",
+          "query": "Find both ChunkAssembler.assemble and DeferredAssembly.schedule source.",
+          "exact_baseline_required": true
+        }
+      ]
+    },
+    {
+      "id": "two-positive-result",
+      "sources": {
+        "ChunkAssembler.ts": "export class ChunkAssembler {\n assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }\n}\n",
+        "AfterIteration.ts": "export class AfterIteration {\n summarize(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   console.log(chunk)\n  }\n  merged = 'finished'\n  return merged\n }\n}\n",
+        "DeferredAssembly.ts": "export class DeferredAssembly {\n schedule(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   queueMicrotask(() => { merged = chunk })\n  }\n  return merged\n }\n}\n",
+        "FragmentSelector.ts": "export class FragmentSelector {\n select(fragments: string[]): string {\n  let selected = ''\n  for (const fragment of fragments) {\n   selected = fragment\n  }\n  return selected\n }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "direct-result",
+          "query": "Locate the collection iteration and result implementation.",
+          "required": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ],
+          "allowed_positive_only": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ]
+        },
+        {
+          "id": "contextual-result",
+          "query": "A sequence of message fragments retains only the final item; return the item iteration and result implementation rather than the display panel.",
+          "required": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ],
+          "allowed_positive_only": [
+            "ChunkAssembler.ts",
+            "FragmentSelector.ts"
+          ]
+        },
+        {
+          "id": "named-unknown",
+          "query": "Locate DeferredAssembly.schedule implementation.",
+          "exact_baseline_required": true
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "old-source-relation": {
+      "ChunkAssembler.ts": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+      "AfterIteration.ts": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+      "DeferredAssembly.ts": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed"
+    },
+    "two-positive-result": {
+      "ChunkAssembler.ts": "0c34ca5d15c352e7205e3501cb90b3b5e7c3ac0e59f3c08bba5af7a371892a80",
+      "AfterIteration.ts": "0e9352c7106cd27bcbd96dc45fad1af628682c5624a71eadf10a6db5a3290cfa",
+      "DeferredAssembly.ts": "64225aad10f875ec4a47a0e021b265b95deddced0453b2b401aa1fcf71012bed",
+      "FragmentSelector.ts": "6d8e5e17a8c573215166d2d67c66d684205d541ebaee1d6103bf59fd6ca2942e"
+    }
+  },
+  "non_goals": [
+    "No two similar syntax forms treated as two architecture defects",
+    "No generic aggregation/Chinese authorization",
+    "No original26 benefit assumed",
+    "No unknown-to-absent or negative parser"
+  ]
+}
