@@ -1,0 +1,9 @@
+# Stage E candidate result, final review pending
+
+The first 14-run runtime was 126a333 plus the pending pool-graph protection change; it lacked final source digest revalidation and pending-path fail-closed checks. It is preserved as stage-e-public.json and is not attributed to final code. Runtime fixes and first results were committed as84653f2 before repeating the exact14 Development inputs. Final run uses84653f2 runtime; runner-only output prefix separates artifacts. No relearn/source/query/oracle/budget changes.
+
+Final four qualified relationship cases now return the full requested positive set: one ChunkAssembler or both ChunkAssembler+FragmentSelector, with exact complete method source bytes. Final tokens806/987/969/972, cap1500. All14 raw query_handoff objects equal C baseline (the extra log control equals its own baseline). All non-code compact objects are unchanged after restoring the explicit whitelist. Every displayed excerpt matches its source line interval. Seven old no-authority controls, two still-ineligible bare queries, and the explicit log control have whole compact payload equality. The explicit log control retains its real nonempty compact log by fallback; successful nonempty-log commit is helper invariant coverage only.
+
+The two bare accumulator cases remain red, visibly preserved. B pool failure and D any-log guard failure are not rewritten. C is still a prerequisite to E, not an independent accepted benefit. No original26 acceptance has been run yet. No claim of runtime causality, absence of omitted unknowns, or unique repository owner.
+
+69 relevant tests pass, including25 new source/selection/transaction checks and existing cache/lifecycle/output/display integrations. Final independent review still required before original26 single-group evaluation. No full suite or sealed material used. No remote writes.
