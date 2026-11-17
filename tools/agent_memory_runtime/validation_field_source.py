@@ -1,7 +1,8 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 """Closed local validation-source grammar, not runtime flow or serving authority."""
 import re
-from .ui_divider_source import tokenize, Unknown, RESERVED
+from .ui_divider_source import Unknown, RESERVED
+from .validation_field_lexical import tokenize_validation, template
 
 FORBIDDEN = {'promptAction', 'trim', 'length', 'console', 'Promise'}
 
@@ -10,13 +11,13 @@ def parts(name):
 
 class Parser:
     def __init__(self, source):
-        self.t, self.pairs = tokenize(source, declaration_inventory=True)
+        self.t, self.pairs = tokenize_validation(source)
         self.i = 0
         self.decls = {}
         self.imports = set()
 
     def at(self, value):
-        return self.i < len(self.t) and self.t[self.i].value == value and self.t[self.i].kind != 'string'
+        return self.i < len(self.t) and self.t[self.i].value == value and self.t[self.i].kind not in {'string', 'template'}
 
     def eat(self, value):
         if not self.at(value): raise Unknown('expected ' + value)
@@ -44,6 +45,7 @@ class Parser:
     def primitive(self):
         if self.i >= len(self.t): raise Unknown('literal')
         t = self.t[self.i]
+        if t.kind == 'template': raise Unknown('template primitive position')
         if t.kind not in {'string','number'} and t.value not in {'true','false','null'}: raise Unknown('literal')
         self.i += 1
 
@@ -64,7 +66,7 @@ class Parser:
             if len(decorators) != len(set(decorators)) or any(n not in {'Component','Entry'} for n in decorators): raise Unknown('decorator')
             self.opt('export')
             start = self.i
-            if self.i >= len(self.t) or self.t[self.i].value not in {'interface','class','struct'}: raise Unknown('declaration')
+            if self.i >= len(self.t) or self.t[self.i].kind == 'template' or self.t[self.i].value not in {'interface','class','struct'}: raise Unknown('declaration')
             kind = self.t[self.i].value; self.i += 1; owner = self.name()
             if owner in self.decls or owner in self.imports: raise Unknown('duplicate declaration')
             if decorators and kind != 'struct': raise Unknown('component kind')
@@ -202,6 +204,7 @@ class Parser:
         finally: self.t,self.i = saved
 
     def call(self,d,m,bound):
+        call_line = self.t[self.i].line if self.i < len(self.t) else None
         if self.opt('await') and not m['async_']: raise Unknown('await')
         if self.opt('this'):
             self.eat('.'); first=self.name()
@@ -224,6 +227,18 @@ class Parser:
             target='console'
         else: raise Unknown('call receiver')
         self.eat('('); arg=None; count=0
+        if self.i < len(self.t) and self.t[self.i].kind == 'template':
+            token = self.t[self.i]
+            if bound is not None or target != 'console': raise Unknown('template call position')
+            _, parameter = template(token.value, 0)
+            if parameter in RESERVED | FORBIDDEN or m['params'].get(parameter) != 'string':
+                raise Unknown('template string parameter')
+            self.i += 1
+            closing = self.eat(')')  # Sole argument; comma/second argument is rejected.
+            if closing.line != call_line or token.line != call_line:
+                raise Unknown('multiline template console call')
+            self.end_statement()
+            return target, arg
         while not self.at(')'):
             count+=1
             if bound:

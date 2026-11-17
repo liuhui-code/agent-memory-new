@@ -1,0 +1,142 @@
+{
+  "decision": "ACCEPT_FINITE_TEMPLATE_DEVELOPMENT_REPAIR",
+  "results": [
+    {
+      "form": "raw",
+      "checks": {
+        "authority": {
+          "original_pool_rows": 13,
+          "scope_files": 4,
+          "method_ids": [
+            2,
+            13
+          ],
+          "scope_checks": 3
+        },
+        "public": true,
+        "capture": true,
+        "database": {
+          "all_tables_checked": 97,
+          "uses": 1,
+          "misses": 1
+        },
+        "sidecars": {
+          "usage_saves": 1,
+          "task_saves": 1,
+          "performance_appends": 1,
+          "sidefiles_exact_except_recorded_writes": true,
+          "read_routes_checked": true
+        },
+        "meaning": "Draft mechanical gates; independent source identity/pool/guard review still required"
+      },
+      "actual_events": {
+        "validation_field_scope": 3,
+        "verify_validation_logs": 3,
+        "validation_field_receipt": 2,
+        "complete_candidate_rejections": 4,
+        "accounting_validation_field": 1,
+        "record_context_use": 1,
+        "record_query_miss_if_empty": 1
+      }
+    },
+    {
+      "form": "compact",
+      "checks": {
+        "authority": {
+          "original_pool_rows": 13,
+          "scope_files": 4,
+          "method_ids": [
+            2,
+            13
+          ],
+          "scope_checks": 4
+        },
+        "public": true,
+        "capture": true,
+        "database": {
+          "all_tables_checked": 97,
+          "uses": 1,
+          "misses": 1
+        },
+        "sidecars": {
+          "usage_saves": 1,
+          "task_saves": 1,
+          "performance_appends": 1,
+          "sidefiles_exact_except_recorded_writes": true,
+          "read_routes_checked": true
+        },
+        "meaning": "Draft mechanical gates; independent source identity/pool/guard review still required"
+      },
+      "actual_events": {
+        "validation_field_scope": 4,
+        "verify_validation_logs": 4,
+        "validation_field_receipt": 3,
+        "complete_candidate_rejections": 5,
+        "accounting_validation_field": 1,
+        "record_context_use": 1,
+        "record_query_miss_if_empty": 1
+      },
+      "budget": {
+        "estimated_tokens": 1090,
+        "target_tokens": 1500,
+        "truncated": true
+      },
+      "anchors": [
+        {
+          "file": "AccountDraftPanel.ts",
+          "ids": [
+            2
+          ],
+          "ranges": [
+            {
+              "symbol": "submitDraft",
+              "start_line": 3,
+              "end_line": 9
+            }
+          ],
+          "excerpts": [
+            {
+              "symbol": "submitDraft",
+              "start_line": 3,
+              "end_line": 9,
+              "content": "  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }",
+              "truncated": false,
+              "source": "validated_request_snapshot"
+            }
+          ]
+        },
+        {
+          "file": "MemberDraftPanel.ts",
+          "ids": [
+            13
+          ],
+          "ranges": [
+            {
+              "symbol": "submitAccount",
+              "start_line": 3,
+              "end_line": 9
+            }
+          ],
+          "excerpts": [
+            {
+              "symbol": "submitAccount",
+              "start_line": 3,
+              "end_line": 9,
+              "content": "  submitAccount(input: MemberDraft): void {\n    if (input.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchMember(input)\n  }",
+              "truncated": false,
+              "source": "validated_request_snapshot"
+            }
+          ]
+        }
+      ],
+      "log_count": 2
+    }
+  ],
+  "campaign_calls": 4,
+  "retrospective_controls": 2,
+  "prospective_main": 2,
+  "review_product_calls": 0,
+  "all_pins_and_evidence_unchanged": true,
+  "original_STOP_preserved": true,
+  "original13_closed": false
+}

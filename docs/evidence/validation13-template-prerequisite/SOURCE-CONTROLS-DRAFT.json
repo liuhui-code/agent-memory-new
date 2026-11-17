@@ -1,0 +1,344 @@
+{
+  "status": "DRAFT_NOT_FROZEN_NOT_EXECUTED",
+  "api": "parse_validation_field_file(source)",
+  "expectation_phase": "proposed finite extension, not current baseline",
+  "semantics": "None is unknown; fact list is complete source validation facts; auxiliary templates add no facts",
+  "cases": [
+    {
+      "id": "ordinary-control",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('Account draft dispatched', value)\n  }\n}\n",
+      "source_sha256": "a81eb276b20edf6159134c2d6e943161c2152520306f6cdc62573c96fa1512b9",
+      "expected": [
+        {
+          "owner": "AccountDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "customerCode",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "Existing ordinary console arguments unchanged"
+    },
+    {
+      "id": "parameter-template",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Account draft dispatched ${value}`)\n  }\n}\n",
+      "source_sha256": "9998f7f585ff8c0f213f6cb52a3b547c184e3632186128778e9c704c97eae010",
+      "expected": [
+        {
+          "owner": "AccountDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "customerCode",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "Exact finite template console argument"
+    },
+    {
+      "id": "suffix-template",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value} complete`)\n  }\n}\n",
+      "source_sha256": "dbbdb4aa42775a1243cb680010771db49b9ffce0c98f4109257d766f921e26dc",
+      "expected": [
+        {
+          "owner": "AccountDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "customerCode",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "Literal suffix allowed; no expression evaluation"
+    },
+    {
+      "id": "other-identifiers-level",
+      "source": "export class ArchiveDraftPanel {\n  archiveKey: string = ''\n  submitArchive(): void {\n    if (this.archiveKey.trim().length === 0) {\n      promptAction.showToast({ message: 'A key is required' })\n      return\n    }\n    this.dispatchArchive(this.archiveKey)\n  }\n  private dispatchArchive(key: string): void {\n    console.warn(`Archive submitted ${key}`)\n  }\n}\n",
+      "source_sha256": "d8b4b6d7db39b8b15410dd906e3bb16c74e2d30b33f47b97387f0f8a18a2f049",
+      "expected": [
+        {
+          "owner": "ArchiveDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitArchive",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "archiveKey",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "No business owner or parameter-name special case"
+    },
+    {
+      "id": "unknown-name",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${unknown}`)\n  }\n}\n",
+      "source_sha256": "e00ae2d7c1e7073e4e1b5ddaa4ae33950f361c79dffb36c9a5406d73de817d7b",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "property",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value.length}`)\n  }\n}\n",
+      "source_sha256": "6234dfbcdc6fe2c74b97b431b6bc815e88b8f5659fe22b33960c450211fca7ef",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "call",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${String(value)}`)\n  }\n}\n",
+      "source_sha256": "05c2265261e24f31a149c43cfeb5c4e45bc623b27e6533ae8b20899baa7d5d3e",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "assignment",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value = other}`)\n  }\n}\n",
+      "source_sha256": "0f399dce8c4676472e9f2e49e81e6d2d684ccde69d168d736f1f69edbd00b946",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "operator",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value + value}`)\n  }\n}\n",
+      "source_sha256": "592fd79b3ca49ba73c45e788423ad781bc88a244f27f21b8f15bcd20bb0a2fb1",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "nested",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${`nested`}`)\n  }\n}\n",
+      "source_sha256": "33d96e26652a95569723a852e185819882284d1a5ad726ec556c52c24a33e7eb",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "tagged",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(tag`Dispatch ${value}`)\n  }\n}\n",
+      "source_sha256": "dce818ec122578bf2eea5f3566224aa90ae9abf4d465da9da46d0ab7b8f2cdc9",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "repeated",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value} ${value}`)\n  }\n}\n",
+      "source_sha256": "ad526fea171be30a3635dfb395ec0519c7bd9181db026e928aa7d4366282c2a2",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "no-interpolation",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch completed`)\n  }\n}\n",
+      "source_sha256": "56fd0b96812b880e2a58449998bf821975f999202626e9abc34c1a936b6c80f7",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "multiline",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch\n${value}`)\n  }\n}\n",
+      "source_sha256": "1270b0acc8a812ccc54d32f56e96beb1989f02b63503d4c371dcd289833bf947",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "escape",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch \\n${value}`)\n  }\n}\n",
+      "source_sha256": "a007eab542ce3a090b482df25c6daa5d39b5ca771415b7e0fc5f3d7dc8a39472",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "unclosed",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value})\n  }\n}\n",
+      "source_sha256": "9ab6bededb158106332a95a105b9e7583b31291aae7b80995aff8125db515650",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "unclosed-interpolation",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value`)\n  }\n}\n",
+      "source_sha256": "74545783593706d270c82b2019f173b216d70572e0e00f450e38ee01306dc4b8",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "computed",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value[0]}`)\n  }\n}\n",
+      "source_sha256": "c02bad8e435393fd0b76758806c9cf1b41e1c6601f36358db641beae23477597",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "own-field",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${this.customerCode}`)\n  }\n}\n",
+      "source_sha256": "5ab65c171449d8625a39fec42b64fe5502b73bcf7e9c60171066069f756099af",
+      "expected": null,
+      "reason": "Unsupported template expression/lexical form rejects whole source, not partial facts"
+    },
+    {
+      "id": "non-string-param",
+      "source": "export interface MemberDraft { customerCode: string }\nexport class MemberDraftPanel {\n  submitAccount(input: MemberDraft): void {\n    if (input.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchMember(input)\n  }\n  private dispatchMember(input: MemberDraft): void {\n    console.info(`Dispatch ${input}`)\n  }\n}\n",
+      "source_sha256": "837053962fb129e025caf0b4eef7a80645bb0454b8b537f4b0e567707460d958",
+      "expected": null,
+      "reason": "Valid declared interface and matching object dispatch argument; object template interpolation alone is outside finite string-parameter authority"
+    },
+    {
+      "id": "wrong-target",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    this.dispatchDraft(`Dispatch ${value}`)\n  }\n}\n",
+      "source_sha256": "0d32c7303bdf2facd8b18af971500d28a033c40bcfeb48e1310265d33338bfe4",
+      "expected": null,
+      "reason": "Template accepted only as auxiliary console argument"
+    },
+    {
+      "id": "bound-dispatch-argument",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(`Dispatch ${this.customerCode}`)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('Account draft dispatched', value)\n  }\n}\n",
+      "source_sha256": "5c16bc4a1967e88f4b7701eb81ff02a8e4c28c1aeb825c7182bc2a3429ba4fcb",
+      "expected": null,
+      "reason": "No new field-binding authority"
+    },
+    {
+      "id": "guard-message",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: `Value ${this.customerCode}` })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('Account draft dispatched', value)\n  }\n}\n",
+      "source_sha256": "02bed48152fe48ea282922815d98ce3447b1f49f16f3b9ffd38901385c6333aa",
+      "expected": null,
+      "reason": "No template in validation guard"
+    },
+    {
+      "id": "shadow-field",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  value: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Account draft dispatched ${value}`)\n  }\n}\n",
+      "source_sha256": "88b698551056a415f4258b400f8bd071709af3c71dd7574bed50420b0f189f55",
+      "expected": null,
+      "reason": "Parameter shadows field: unknown"
+    },
+    {
+      "id": "duplicate-aux",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Account draft dispatched ${value}`)\n  }\n  private dispatchDraft(value: string): void {}\n}\n",
+      "source_sha256": "c2ca24ae3d8d65aa8db719559aa69117b54e56e264878ae451162ef0addeeb94",
+      "expected": null,
+      "reason": "Duplicate declarations rejected"
+    },
+    {
+      "id": "active-suffix",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Account draft dispatched ${value}`) unexpected()\n  }\n}\n",
+      "source_sha256": "e3048fc777d028355ca38d82a1e8d656334ecdfe1ee4a981699f9e1a72a519ec",
+      "expected": null,
+      "reason": "No ignored active suffix"
+    },
+    {
+      "id": "template-return",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    return `Dispatch ${value}`\n  }\n}\n",
+      "source_sha256": "98f09d71f4db39f7ba4b2efdeb0594143dab8f26f388314a705ecd662126c5be",
+      "expected": null,
+      "reason": "No template return behavior extension"
+    },
+    {
+      "id": "literal-comment-markers",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch /* ${value} */`)\n  }\n}\n",
+      "source_sha256": "604108b1a38d704230f3a219348d428744f8fdc9a1b0a6d441b7989ac0b29e1a",
+      "expected": [
+        {
+          "owner": "AccountDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "customerCode",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "Comment markers inside template chunks are literal bytes, not lexical comments"
+    },
+    {
+      "id": "quoted-template-lookalike",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('`Dispatch ${unknown}`')\n  }\n}\n",
+      "source_sha256": "9433fc62ce3651af2fa4aeac01500b9d61bef0b869b8ef4088bba9042b2d128b",
+      "expected": [
+        {
+          "owner": "AccountDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "customerCode",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "Ordinary quoted string content is not executable interpolation"
+    },
+    {
+      "id": "comment-template-lookalike",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('Account draft dispatched', value) /* console.info(`Bad ${unknown.call()} */\n  }\n}\n",
+      "source_sha256": "dd70f63837a640ec7d05ee472f3b23b2a9f0db43326a06ed53b3a758815c09f2",
+      "expected": [
+        {
+          "owner": "AccountDraftPanel",
+          "owner_start": 1,
+          "owner_end": 13,
+          "kind": "class",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9,
+          "field": "customerCode",
+          "root": "this",
+          "dispatch_argument": "scalar"
+        }
+      ],
+      "reason": "Closed ordinary comment with unmatched template delimiters must remain a comment"
+    },
+    {
+      "id": "literal-dollar",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch $ ${value}`)\n  }\n}\n",
+      "source_sha256": "bac1f5b43f9f183506b18ccfd0c422a3ce40b3f6d0186df18a0211b23d4e5ac6",
+      "expected": null,
+      "reason": "Outside finite literal chunk grammar"
+    },
+    {
+      "id": "literal-brace",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch { ${value}`)\n  }\n}\n",
+      "source_sha256": "6180fbb9a915fe69cc6711f10be8e6fb1171beb35e6b02d91db4d32078d4e021",
+      "expected": null,
+      "reason": "Outside finite literal chunk grammar"
+    },
+    {
+      "id": "unicode-line-separator",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value}`)\n  }\n}\n",
+      "source_sha256": "75b9b6a63c62a43f69f88eb613d103e911e088467c08eb19afb8921ab194f9bc",
+      "expected": null,
+      "reason": "Outside finite literal chunk grammar"
+    },
+    {
+      "id": "template-extra-argument",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info(`Dispatch ${value}`, value)\n  }\n}\n",
+      "source_sha256": "006755550d40d439fda04caae624a6434298a4f3785f3e8f2e6eecac028089b2",
+      "expected": null,
+      "reason": "A supported template must be the sole console argument; ordinary existing non-template arities unchanged"
+    },
+    {
+      "id": "template-second-argument",
+      "source": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('Dispatch', `Value ${value}`)\n  }\n}\n",
+      "source_sha256": "d3f530668b8726309e6c0e01334c0e4980e14facd0aeebff5436ecb575b3d8a5",
+      "expected": null,
+      "reason": "A supported template must be the sole console argument; ordinary existing non-template arities unchanged"
+    }
+  ]
+}

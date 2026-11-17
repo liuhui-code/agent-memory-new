@@ -1,3 +1,10 @@
+## 2026-11-18 — Finite auxiliary console template source repair
+
+- Preserve original lexical offsets; admit only one safe string-parameter template in a sole auxiliary console argument. Shared tokenizer, caps, logs and authority rules unchanged.
+- Preserve rejected initial candidate findings; add forbidden-position/token-kind controls without altering the frozen 35 cells.
+- Final candidate and clean source tree each pass 74 focused test methods. Public acceptance is two retrospectively rechecked controls plus two prospectively frozen main contexts; original checker STOP retained, no repeated controls.
+- Main returns both original full methods at 1090/1500 tokens, preserving logs/non-code and historical truncated=true. Original case 13 remains open. See docs/releases/validation13-template-20261118/README.md.
+
 ## 2026-11-18 - Verify clean dispatch-log release controls
 
 - Source/test commit d505eb1 passed all 71 fixed focused workers: private 14, integrated 10, late-fallback 3, primitive group 42, resource 1 method/51 subcontrols, budget V2 1. Independent review accepted saved results without rerunning controls.
