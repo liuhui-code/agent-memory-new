@@ -1,0 +1,25 @@
+{
+  "status": "FROZEN_CONTROLS_NOT_EXECUTION_AUTHORIZATION",
+  "cases": [
+    "before_enrich",
+    "before_accounting",
+    "before_terminal_compact"
+  ],
+  "calls_per_case": "one fresh logged factory setup facade plus one actual context handler; twin ordinary/adopted DBs each one actual use/miss pair",
+  "sha256": {
+    "validation_log_latefallback_v2_draft.py": "d65499febdfa40fdfe0fc8f5554bdb59bd2a45333fd664f651412c298c1757a0",
+    "validation_log_fixture_draft.py": "d0b979d9c32ac088fc635b31a5fa343fc7632e78ad88a8f44e273172f9a398ed",
+    "BEFORE-INPUT-DRAFT.json": "56fa59bdefe0402a1f102129137f0b3a0c5017a7a86cf1853f45883703071401",
+    "LATEFALLBACK-V2-REVIEW-POINTS.md": "583b24f4e4e1fbbd634e9fc6852671965d036f6c51030539029c66de11369bb9",
+    "LATEFALLBACK-V2-FREEZE-REVIEW.md": "6a52731df084ad7985e075e3736333007a4a5a2129cff3f3a97e6677ac117343"
+  },
+  "execution_requirements": [
+    "reviewed real nonempty serving integration",
+    "new directories",
+    "isolated nonexistent pycache prefix before runtime imports",
+    "candidate exact hash before and after",
+    "missing integration NOT_IMPLEMENTED not semantic red",
+    "retain all outcomes and source/DB/WAL/SHM/sidecars"
+  ],
+  "not_approved": "historical CLI/before rerun; original13 closure; full suite"
+}

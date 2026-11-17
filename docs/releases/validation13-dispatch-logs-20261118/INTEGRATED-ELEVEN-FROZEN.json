@@ -1,0 +1,26 @@
+{
+  "status": "FROZEN_CONTROLS_NOT_EXECUTION_AUTHORIZATION",
+  "cases": [
+    "noncode-change",
+    "over-output-budget",
+    "raw-full-compact-omitted-empty",
+    "renderer-reorder",
+    "compact-filled-empty",
+    "compact-wrong-order",
+    "compact-field-tamper",
+    "huge-audit-small-logs",
+    "huge-pool-small-logs",
+    "mutated-binding-input",
+    "bounded-read-dedup"
+  ],
+  "sha256": {
+    "log_witness_dispatcher_draft.py": "d1b0d889b585c8075087ace0072c80d479c3a5afea7dab39fe3c41237e882f89",
+    "validation_log_fixture_draft.py": "d0b979d9c32ac088fc635b31a5fa343fc7632e78ad88a8f44e273172f9a398ed",
+    "INTEGRATED-ELEVEN-FREEZE-REVIEW.md": "2509d9c4235135adf9142c18c120ea888f97db51d39f53eab47bd8b4425809a7"
+  },
+  "limits": [
+    "noncode-change and compact-field-tamper are identical path_context mutation, not independent defect mechanisms",
+    "spies cover selection deepcopy/snapshot only; new helper copy points need code review and dedicated controls",
+    "requires actual approved integration; missing API not semantic red"
+  ]
+}

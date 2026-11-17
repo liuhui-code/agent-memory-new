@@ -1,0 +1,323 @@
+{
+  "status": "RECONSTRUCTED_UNEXECUTED_NOT_FROZEN",
+  "controls": [
+    {
+      "id": "direct-complete",
+      "fixture": "D",
+      "operation": "none",
+      "expect": "eligible"
+    },
+    {
+      "id": "effect-static",
+      "fixture": "W",
+      "operation": "depth1 static_wrapped only, actual typed call and emits edges",
+      "expect": "eligible"
+    },
+    {
+      "id": "effect-inferred",
+      "fixture": "I",
+      "operation": "inferred_wrapped always unsupported first version",
+      "expect": "fallback"
+    },
+    {
+      "id": "hidden-benign",
+      "fixture": "H",
+      "operation": "none",
+      "expect": "eligible"
+    },
+    {
+      "id": "id-namespace",
+      "fixture": "N",
+      "operation": "same numeric id7 in direct/effects, keep distinct keys",
+      "expect": "eligible"
+    },
+    {
+      "id": "no-log-preserved",
+      "fixture": "E",
+      "operation": "use unchanged NoLog API",
+      "expect": "old_absence_receipt"
+    },
+    {
+      "id": "unissued",
+      "fixture": "D",
+      "operation": "copy/construct capture dict without registry",
+      "expect": "fallback"
+    },
+    {
+      "id": "collection-swap",
+      "fixture": "D",
+      "operation": "same rows new CollectedMatches object",
+      "expect": "fallback"
+    },
+    {
+      "id": "cross-pass",
+      "fixture": "D",
+      "operation": "reuse capture with different collection/pass",
+      "expect": "fallback"
+    },
+    {
+      "id": "cross-query",
+      "fixture": "D",
+      "operation": "append original query character after issue",
+      "expect": "fallback"
+    },
+    {
+      "id": "cross-project",
+      "fixture": "D",
+      "operation": "second project with identical numeric ids",
+      "expect": "fallback"
+    },
+    {
+      "id": "recapture",
+      "fixture": "D",
+      "operation": "recapture same collection then check old seal",
+      "expect": "fallback"
+    },
+    {
+      "id": "direct-crop",
+      "fixture": "H",
+      "operation": "After authentic capture, mutate only caller local detached lane list/copy as named by case; verify still equals full pre-mutation proof, including every original hidden candidate. Do not mutate actual collection/raw/DB.",
+      "expect": "eligible_detached_original_inventory_unchanged"
+    },
+    {
+      "id": "effect-crop",
+      "fixture": "W",
+      "operation": "After authentic capture, mutate only caller local detached lane list/copy as named by case; verify still equals full pre-mutation proof, including every original hidden candidate. Do not mutate actual collection/raw/DB.",
+      "expect": "eligible_detached_original_inventory_unchanged"
+    },
+    {
+      "id": "lane-move",
+      "fixture": "N",
+      "operation": "move direct7 into effects7",
+      "expect": "fallback"
+    },
+    {
+      "id": "duplicate",
+      "fixture": "D",
+      "operation": "duplicate direct row7 in lane",
+      "expect": "fallback"
+    },
+    {
+      "id": "mutate-row",
+      "fixture": "D",
+      "operation": "After authentic capture, mutate only caller local detached lane list/copy as named by case; verify still equals full pre-mutation proof, including every original hidden candidate. Do not mutate actual collection/raw/DB.",
+      "expect": "eligible_detached_original_inventory_unchanged"
+    },
+    {
+      "id": "mutate-visible",
+      "fixture": "D",
+      "operation": "change raw visible message_template",
+      "expect": "fallback"
+    },
+    {
+      "id": "unknown-visible",
+      "fixture": "D",
+      "operation": "raw visible log_id999 not captured",
+      "expect": "fallback"
+    },
+    {
+      "id": "duplicate-visible",
+      "fixture": "D",
+      "operation": "duplicate raw visible direct7",
+      "expect": "fallback"
+    },
+    {
+      "id": "effect-as-direct",
+      "fixture": "W",
+      "operation": "remove effect_id and claim direct",
+      "expect": "fallback"
+    },
+    {
+      "id": "hidden-event",
+      "fixture": "H",
+      "operation": "original query explicitly names hidden event literal; capture same query",
+      "expect": "fallback"
+    },
+    {
+      "id": "hidden-owner",
+      "fixture": "H",
+      "operation": "original query explicitly names hidden owner; capture same query",
+      "expect": "fallback"
+    },
+    {
+      "id": "hidden-path",
+      "fixture": "W",
+      "operation": "original query explicitly names hidden sink path",
+      "expect": "fallback"
+    },
+    {
+      "id": "hidden-effect-event",
+      "fixture": "W",
+      "operation": "original query names hidden depth1 static effect event; protection rejects",
+      "expect": "fallback"
+    },
+    {
+      "id": "stale-source",
+      "fixture": "H",
+      "operation": "edit hidden dependency source after issuance",
+      "expect": "fallback"
+    },
+    {
+      "id": "stale-db",
+      "fixture": "D",
+      "operation": "change current generation/source revision",
+      "expect": "fallback"
+    },
+    {
+      "id": "stale-edge",
+      "fixture": "W",
+      "operation": "expire/remove typed calls edge",
+      "expect": "fallback"
+    },
+    {
+      "id": "wrong-sink",
+      "fixture": "W",
+      "operation": "replace sink_log_id with unrelated valid direct row",
+      "expect": "fallback"
+    },
+    {
+      "id": "unsupported-effect",
+      "fixture": "W",
+      "operation": "depth2/depth3 or inferred or truncated independently all reject",
+      "expect": "fallback"
+    },
+    {
+      "id": "outside-scope",
+      "fixture": "W",
+      "operation": "sink/intermediate file absent from original pool paths",
+      "expect": "fallback"
+    },
+    {
+      "id": "unknown-path",
+      "fixture": "D",
+      "operation": "absolute/traversal/symlink escape dependency, independently",
+      "expect": "fallback"
+    },
+    {
+      "id": "oversize-source",
+      "fixture": "D",
+      "operation": "dependency2MiB+1 bytes",
+      "expect": "fallback"
+    },
+    {
+      "id": "candidate-overflow",
+      "fixture": "H",
+      "operation": "65 authenticated candidate rows, do not truncate",
+      "expect": "fallback"
+    },
+    {
+      "id": "noncode-change",
+      "fixture": "D",
+      "operation": "change compact path_context or log anchor",
+      "expect": "fallback"
+    },
+    {
+      "id": "over-output-budget",
+      "fixture": "D",
+      "operation": "source anchors cause estimate>min(1500,target)",
+      "expect": "fallback"
+    },
+    {
+      "id": "no-issued-old-API",
+      "fixture": "D",
+      "operation": "call old validation_no_logs on genuine nonempty collection",
+      "expect": "fallback"
+    },
+    {
+      "id": "unknown-proof",
+      "fixture": "W",
+      "operation": "remove required edge/source/row identity field",
+      "expect": "fallback"
+    },
+    {
+      "id": "raw-full-compact-omitted-empty",
+      "fixture": "N",
+      "operation": "actual renderer omits empty direct fields",
+      "expect": "eligible"
+    },
+    {
+      "id": "renderer-reorder",
+      "fixture": "N",
+      "operation": "actual renderer reorders wrapped/direct",
+      "expect": "eligible"
+    },
+    {
+      "id": "compact-filled-empty",
+      "fixture": "N",
+      "operation": "insert omitted call_path=[] in compact",
+      "expect": "fallback"
+    },
+    {
+      "id": "compact-wrong-order",
+      "fixture": "N",
+      "operation": "force compact into raw ordering",
+      "expect": "fallback"
+    },
+    {
+      "id": "compact-field-tamper",
+      "fixture": "N",
+      "operation": "delete/add/change renderer noncode field",
+      "expect": "fallback"
+    },
+    {
+      "id": "raw-mutation-after-issue",
+      "fixture": "N",
+      "operation": "mutate sealed raw log after issuance",
+      "expect": "fallback"
+    },
+    {
+      "id": "repeat-validation-idempotent",
+      "fixture": "N",
+      "operation": "repeat unchanged check9times, per-call rereads bounded",
+      "expect": "eligible_no_consumption"
+    },
+    {
+      "id": "bounded-read-dedup",
+      "fixture": "W",
+      "operation": "multiple candidates share dependency file",
+      "expect": "eligible_read_each_path_once_per_check"
+    }
+  ],
+  "oracle": {
+    "eligible": "new private witness valid only with all validation/root/protection gates; exact renderer log/noncode preserved",
+    "fallback": "no valid new receipt; compact baseline exact; no extra accounting write",
+    "unavailable_api": "report NOT_IMPLEMENTED, never count import error as semantic red"
+  },
+  "supplemental_boundary_controls": [
+    {
+      "id": "actual-sqlite-row",
+      "fixture": "D",
+      "operation": "actual SELECT direct sqlite3.Row from genuine collector entry",
+      "expect": "eligible after bounded explicit conversion"
+    },
+    {
+      "id": "custom-mapping",
+      "fixture": "D",
+      "operation": "replace direct row with user-defined Mapping or dict subclass",
+      "expect": "fallback before iteration/conversion of arbitrary object"
+    },
+    {
+      "id": "oversize-row-shape",
+      "fixture": "D",
+      "operation": "Row>128columns or key>128bytes or oversize scalar; independently",
+      "expect": "fallback before deepcopy"
+    }
+  ],
+  "supplemental_binding_controls": [
+    {
+      "id": "huge-audit-small-logs",
+      "operation": "recall_audit and data.query_audit scalar exceeds total byte ceiling with one valid direct log",
+      "expect": "fallback before binding snapshot/deepcopy"
+    },
+    {
+      "id": "huge-pool-small-logs",
+      "operation": "repeated pool occurrence exceeds aggregate node ceiling",
+      "expect": "fallback before copy"
+    },
+    {
+      "id": "mutated-binding-input",
+      "operation": "after valid issue replace collection.matches/audit with overdepth/cyclic values",
+      "expect": "receipt rejection before resnapshot; no recursion error or writer"
+    }
+  ]
+}

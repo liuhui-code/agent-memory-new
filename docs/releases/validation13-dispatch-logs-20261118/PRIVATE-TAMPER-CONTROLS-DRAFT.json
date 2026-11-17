@@ -1,0 +1,34 @@
+{
+  "status": "UNEXECUTED_INTEGRATION_REVIEW_REQUIRED",
+  "private_field_contract": [
+    "_log_capture",
+    "_log_proof",
+    "_files",
+    "_state",
+    "_collection",
+    "_pool",
+    "query"
+  ],
+  "cases": [
+    "forged-files",
+    "forged-state",
+    "forged-proof",
+    "copied-log-capture",
+    "copied-collection",
+    "reordered-pool",
+    "other-valid-query",
+    "shallow-copy",
+    "deep-copy",
+    "json-dict",
+    "logged-capture-once",
+    "empty-old-lane",
+    "logged-add-no-logs",
+    "empty-add-log-fields"
+  ],
+  "precondition": "Each independent fresh logged fixture must yield actual issued_raw exact ValidationContext and a valid receipt before mutation, never a dict snapshot or manual issue. Actual new and old capture entry spies each exactly once with same collection and complete equal original lanes.",
+  "rejection": "After mutation receipt None; compact_validation_field(candidate, actual _compact_context(dict(candidate))) returns that exact baseline object. Legal query check remains true for other-valid-query. Forged files/state/proof must pass bounded_binding_parts yet fail actual receipt.",
+  "empty": "Actual empty fixture retains old NoLog identity receipt and complete method source lines3\u20139; new capture entry has zero calls. Old entry called once with empty complete lanes.",
+  "execution": "Only after independent freeze and wiring implementation, no CLI/full suite. Each case has fresh project, no retries, assertions preserve failures. Missing wiring is NOT_IMPLEMENTED, not a claimed semantic before red.",
+  "collector_rule": "New capture called exactly once iff actual full direct/effects union is nonempty, not based on visible selected logs. Empty union calls old once and new zero.",
+  "mixed_lane": "A genuine logged issued context with added _no_logs, or genuine empty issued context with added _log_capture/_log_proof, cannot switch registry lane. Both reject receipt and return actual baseline same object."
+}

@@ -1,3 +1,15 @@
+## 2026-11-18 - Verify clean dispatch-log release controls
+
+- Source/test commit d505eb1 passed all 71 fixed focused workers: private 14, integrated 10, late-fallback 3, primitive group 42, resource 1 method/51 subcontrols, budget V2 1. Independent review accepted saved results without rerunning controls.
+- All 432 runtime files and execution inputs stayed unchanged. This follow-up changes only documentation and result records; it is not a new tested source tree or full-suite claim.
+- Preserve excluded original budget harness failure, qualified 1 retrospective + 3 prospective AFTER evidence, and original case 13 open status. See release PORTABLE-RESULT.md.
+
+## 2026-11-18 - Limited complete dispatch-log validation view release preparation
+
+- Add authenticated complete direct/depth-1 static-wrapped log provenance and bounded binding resources; preserve old NoLog and existing scope/budget limits.
+- Candidate evidence: 14 private controls, 10 integrated controls with the original budget harness failure retained, 3 late-fallback controls and separate budget V2; old-route components 64 + 82 passed. AFTER separates 1 retrospectively reviewed result from 3 prospectively frozen executions.
+- Original case 13 remains open. No full-suite or original-project rerun; no aggregate score claim. Clean release focused execution is still pending. See docs/releases/validation13-dispatch-logs-20261118/SUMMARY.md.
+
 ## 2026-11-17 — Release-only fingerprint metadata
 
 - 仅本次新增 5 runtime/5 tests 补标准注释；无行为修改，784 runtime/tests AST 全等。

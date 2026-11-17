@@ -1,0 +1,81 @@
+{
+  "status": "DRAFT_NO_EXECUTION",
+  "base_commit": "fe1f2f6fc6b5d9634dc04e40f567d496c3ff7122",
+  "max_context_calls": 4,
+  "max_total_commands": 8,
+  "order": [
+    "control raw",
+    "control compact",
+    "main raw",
+    "main compact"
+  ],
+  "worlds": [
+    {
+      "id": "empty-dispatch-control",
+      "query": "Locate the account validation-stop and dispatch source.",
+      "sources": {
+        "AccountDraftPanel.ts": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {}\n}\n",
+        "MemberDraftPanel.ts": "export interface MemberDraft { customerCode: string }\nexport class MemberDraftPanel {\n  submitAccount(input: MemberDraft): void {\n    if (input.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchMember(input)\n  }\n  private dispatchMember(input: MemberDraft): void {}\n}\n",
+        "BillingDraftPanel.ts": "export class BillingDraftPanel {\n  customerCode: string = ''\n  submitBilling(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchBilling(this.customerCode)\n  }\n  private dispatchBilling(value: string): void {}\n  reviewAccount(): void {}\n}\n",
+        "AccountingDraftPanel.ts": "export class AccountingDraftPanel {\n  customerCode: string = ''\n  submitLedger(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchLedger(this.customerCode)\n  }\n  private dispatchLedger(value: string): void {}\n}\n"
+      },
+      "source_sha256": {
+        "AccountDraftPanel.ts": "60a8aa4cd2130c3e063995b5eb726e3bdd9fe2c6ca337284a6358cf4f70c7b4b",
+        "MemberDraftPanel.ts": "6aa44c0d9702d7a63ebfb998c2fb68b128d0e7e24fe4c8bfb754aa551f5ec056",
+        "BillingDraftPanel.ts": "910e5775fa9f3cbdeab8eb5166b5dd6bdd5f0cd5f554bd91e29db0b8ff2e3a64",
+        "AccountingDraftPanel.ts": "c520dee3d1a6194f10f452d5ffd8661ccfc064572cb590ff62931fbe917ed1b1"
+      },
+      "expected_methods": [
+        {
+          "file": "AccountDraftPanel.ts",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9
+        },
+        {
+          "file": "MemberDraftPanel.ts",
+          "method": "submitAccount",
+          "start_line": 3,
+          "end_line": 9
+        }
+      ],
+      "query_sha256": "78f3c337db6b39d487138d5cb29d2e5c6d4c18db2e10b6e6400d87149c7049d9"
+    },
+    {
+      "id": "logged-dispatch-main",
+      "query": "Locate the account validation-stop and dispatch source.",
+      "sources": {
+        "AccountDraftPanel.ts": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {\n    console.info('Account draft dispatched', value)\n  }\n}\n",
+        "MemberDraftPanel.ts": "export interface MemberDraft { customerCode: string }\nexport class MemberDraftPanel {\n  submitAccount(input: MemberDraft): void {\n    if (input.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchMember(input)\n  }\n  private dispatchMember(input: MemberDraft): void {}\n}\n",
+        "BillingDraftPanel.ts": "export class BillingDraftPanel {\n  customerCode: string = ''\n  submitBilling(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchBilling(this.customerCode)\n  }\n  private dispatchBilling(value: string): void {}\n  reviewAccount(): void {}\n}\n",
+        "AccountingDraftPanel.ts": "export class AccountingDraftPanel {\n  customerCode: string = ''\n  submitLedger(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchLedger(this.customerCode)\n  }\n  private dispatchLedger(value: string): void {}\n}\n"
+      },
+      "source_sha256": {
+        "AccountDraftPanel.ts": "a81eb276b20edf6159134c2d6e943161c2152520306f6cdc62573c96fa1512b9",
+        "MemberDraftPanel.ts": "6aa44c0d9702d7a63ebfb998c2fb68b128d0e7e24fe4c8bfb754aa551f5ec056",
+        "BillingDraftPanel.ts": "910e5775fa9f3cbdeab8eb5166b5dd6bdd5f0cd5f554bd91e29db0b8ff2e3a64",
+        "AccountingDraftPanel.ts": "c520dee3d1a6194f10f452d5ffd8661ccfc064572cb590ff62931fbe917ed1b1"
+      },
+      "expected_methods": [
+        {
+          "file": "AccountDraftPanel.ts",
+          "method": "submitDraft",
+          "start_line": 3,
+          "end_line": 9
+        },
+        {
+          "file": "MemberDraftPanel.ts",
+          "method": "submitAccount",
+          "start_line": 3,
+          "end_line": 9
+        }
+      ],
+      "query_sha256": "78f3c337db6b39d487138d5cb29d2e5c6d4c18db2e10b6e6400d87149c7049d9"
+    }
+  ],
+  "purpose": "Prospective natural same-business dispatch log witness; not retry or reclassification of prior STOP.",
+  "main_log_semantics": "AccountDraftPanel.submitDraft validation success forwards customerCode to its declared dispatchDraft; its body emits ordinary console info with message and forwarded argument. No assertion of execution, runtime incident or causal diagnosis.",
+  "required_main_visible_log_count": ">=1 compact log anchor from actual collector with exact current provenance",
+  "required_control": "complete two target methods",
+  "stop": "main already complete, compact logs empty, missing original roots, unsupported source/provenance, protected identity/event/path, scope or budget-only failure => STOP, no sample/query changes"
+}

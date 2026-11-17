@@ -437,7 +437,6 @@ def collect_matches_with_audit(
         results["wiki_matches"].extend(
             collect_result_graph_neighbors(project, results, retrieval_query)
         )
-
     results, source_freshness = filter_scored_derived_matches(
         project,
         results,
@@ -451,9 +450,10 @@ def collect_matches_with_audit(
     collection = CollectedMatches(results, recalled.audit, capture_log_candidates(project, query, retrieval_query, recalled.rows['code_log_statements'], log_effects))
     from .query_validation_no_logs import capture_validation_no_logs
     capture_validation_no_logs(project, query, retrieval_query, collection, recalled.rows['code_log_statements'], log_effects)
+    if recalled.rows['code_log_statements'] or log_effects:
+        from .query_validation_log_capture import capture_validation_logs
+        capture_validation_logs(project, query, retrieval_query, collection, recalled.rows['code_log_statements'], log_effects)
     return collection
-
-
 def score_symbol_behavior_match(
     evidence: str,
     expected: list[str],

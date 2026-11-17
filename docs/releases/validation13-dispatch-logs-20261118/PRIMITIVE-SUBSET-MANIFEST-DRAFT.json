@@ -1,0 +1,75 @@
+{
+  "status": "DRAFT_SUBSET_AWAITING_INDEPENDENT_FREEZE",
+  "scope": "non-wired capture/provenance only; no binder/serving modifications",
+  "factory_variant": "logged, second logged for cross-project; actual factory newer version needs distinct review",
+  "dispatcher_cases": [
+    "effect-static",
+    "effect-inferred",
+    "actual-sqlite-row",
+    "custom-mapping",
+    "oversize-row-shape",
+    "duplicate",
+    "lane-move",
+    "unknown-proof",
+    "unissued",
+    "collection-swap",
+    "cross-pass",
+    "cross-query",
+    "cross-project",
+    "recapture",
+    "mutate-visible",
+    "unknown-visible",
+    "duplicate-visible",
+    "effect-as-direct",
+    "stale-source",
+    "stale-db",
+    "stale-edge",
+    "outside-scope",
+    "unknown-path",
+    "oversize-source",
+    "unsupported-effect",
+    "repeat-validation-idempotent",
+    "effect-crop",
+    "mutate-row"
+  ],
+  "primitive_cases": [
+    "primitive-cycle",
+    "primitive-depth12",
+    "primitive-depth13",
+    "primitive-nodes16384",
+    "primitive-nodes16385",
+    "primitive-int64",
+    "primitive-int65",
+    "primitive-bytes1048576",
+    "primitive-bytes1048577",
+    "primitive-scalar16384",
+    "primitive-scalar16385",
+    "primitive-custom-dict",
+    "primitive-nan"
+  ],
+  "exact_current_operation_labels": {
+    "unknown-path": "append ../outside.ts to supplied scope list only; not symlink/absolute coverage",
+    "oversize-row-shape": "actual sqlite3.Row with129columns only; not long-key/value coverage",
+    "unsupported-effect": "depth2 DB+candidate mutation only; not all effect classes",
+    "effect-inferred": "inferred class DB+candidate mutation; rejection not support"
+  },
+  "excluded": [
+    "4 hidden original-query protection cases",
+    "direct/hidden/64/65 new fixture-dependent cases pending independent variant qualification",
+    "renderer/budget/binding integrated tests",
+    "late invalidation persistent effects",
+    "readspy consumer integration",
+    "all other cases not listed explicitly"
+  ],
+  "api": [
+    "capture_validation_logs(project,query,retrieval,collection,direct,effects)",
+    "validation_logs(project,query,collection)",
+    "verify_validation_logs(project,capture,raw_logs,scope_paths)",
+    "bounded_metadata(value)->exact bool"
+  ],
+  "no_claim": "module/symbol missing => NOT_IMPLEMENTED, not semantic red; retained reviewed CLI before is prior semantic defect evidence",
+  "reader_cases": [
+    "reader-limit-direct"
+  ],
+  "detached_capture_contract": "Local copied lane mutation leaves complete frozen proof intact. Actual query/project/collection/raw/DB or recapture checks are independent."
+}

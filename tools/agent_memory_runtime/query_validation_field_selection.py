@@ -30,6 +30,9 @@ def protected(data, query, pool, *, pending=False):
 
 
 def binding(data):
+    if hasattr(data, '_log_capture') or hasattr(data, '_log_proof'):
+        from .query_validation_field_logs import log_binding
+        return log_binding(data)
     return (snapshot(dict(data)), snapshot(data._anchors), snapshot(data._members),
             snapshot(data._pool), str(data._root), data._project.project_id, data._files, data._state, id(data._collection), id(data._no_logs),
             snapshot(data._collection.matches), snapshot(data._collection.recall_audit))
@@ -53,7 +56,8 @@ def bind_validation_field_context(project, query, data, items, collection=None):
         permission = validation_field_request(query)
         no_logs = validation_no_logs(project, query, collection)
         if no_logs is None:
-            return data
+            from .query_validation_field_logs import bind_logs
+            return bind_logs(project, query, data, items, collection)
         if (permission is None or data.get('query') != query
                 or data.get('project_id') != project.project_id
                 or not isinstance(data.get('project_path'), str)
@@ -79,6 +83,9 @@ def validation_field_receipt(data, *, pending=False):
     if type(data) is not ValidationContext or entry is None or entry[0]() is not data:
         return None
     try:
+        if hasattr(data, '_log_capture') or hasattr(data, '_log_proof'):
+            from .query_validation_field_logs import log_receipt
+            return log_receipt(data, entry, pending=pending)
         if not check_validation_no_logs(data._project, data.get('query'), data._collection, data._no_logs):
             return None
         permission = validation_field_request(data.get('query'))
@@ -124,6 +131,14 @@ def compact_validation_field(data, baseline):
 
 
 def enrich_validation_field(data, query, path, freshness):
+    if hasattr(data, '_log_capture') or hasattr(data, '_log_proof'):
+        try:
+            from .query_validation_field_logs import enrich_logs, ordinary_enriched
+            result = enrich_logs(data, query, path, freshness)
+            if result is not None:
+                return result
+        except _ERRORS:
+            return ordinary_enriched(data, path, freshness)
     baseline = deepcopy(dict(data)); baseline['source_freshness'] = freshness
     baseline.setdefault('query_handoff', {})['path_context'] = path
     try:

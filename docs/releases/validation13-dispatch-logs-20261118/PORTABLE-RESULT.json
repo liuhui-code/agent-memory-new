@@ -1,0 +1,36 @@
+{
+  "status": "ACCEPT_FOCUSED_PORTABLE_RUN",
+  "tested_commit": "d505eb1fb1864aaa04f084efb6b7162c4a0fb8bc",
+  "tested_tree": "96068ed6d8a346ac579d71e7709da47fc521d618",
+  "workers": 71,
+  "groups": {
+    "private": 14,
+    "integrated": 10,
+    "latefallback": 3,
+    "primitive": 42,
+    "resource": 1,
+    "budget": 1
+  },
+  "resource_unittest_methods": 1,
+  "resource_subcontrols": 51,
+  "obligations_not_unittest_count": 121,
+  "runtime_files": 432,
+  "runtime_and_inputs_unchanged": true,
+  "cache_absent": true,
+  "saved_results_unchanged_by_review": true,
+  "review_product_calls": 0,
+  "original_budget_harness_case_excluded_and_retained": true,
+  "original13_closed": false,
+  "full_suite": false,
+  "manifest_sha256": "1eb08ff66651f328bea6bb558dec3eec4482f2f9731f96880d302444532ad3d7",
+  "runner_sha256": "10812f9bce121e629c1061ac5492376be0f2430817241d4b4cda111fbfa14398",
+  "saved_parent_result_sha256": "81123d70177d90375890af2db9f66833b97f16d2f8a1e4126f677aa8772eed7e",
+  "latefallback_actual_sidefiles_equal_recorded": true,
+  "primitive_breakdown": {
+    "dispatcher": 28,
+    "primitive": 13,
+    "reader": 1
+  },
+  "budget_scope": "shared terminal transaction only, not outer budget configuration",
+  "portable_wrapper_scope": "No new production-function replacements; original frozen observation and failure-injection controls retained."
+}
