@@ -11,7 +11,7 @@ RESERVED = frozenset('all any current code source owner layout vertical horizont
 FORMS = (
     re.compile(r'Locate the ([a-z]{2,24}) vertical layout source\.'),
     re.compile(r'([A-Z][a-z]{1,23}) records cannot scroll when their content fills the viewport\. Locate the vertical layout owner\.'),
-    re.compile(r'The viewport clips ([a-z]{2,24}) records and the vertical layout does not move\. Return the current code owner\.'),
+    re.compile(r'The viewport clips ([a-z]{2,24}) records and the vertical layout does not move\. Return the (?P<adjective>current) code owner\.'),
 )
 
 
@@ -24,3 +24,14 @@ def vertical_request(query):
             subject = match[1].lower()
             return None if subject in RESERVED else subject
     return None
+
+
+def vertical_identity_query(query):
+    """Name-check projection only; retrieval and log checks use original bytes."""
+    if vertical_request(query) is None:
+        return query
+    match = FORMS[2].fullmatch(query)
+    if match is None:
+        return query
+    start, end = match.span('adjective')
+    return query[:start] + ' ' * (end - start) + query[end:]

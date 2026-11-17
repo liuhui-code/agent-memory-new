@@ -5,7 +5,7 @@ from pathlib import Path
 import sqlite3
 import weakref
 from .query_output_loop_selection import snapshot
-from .query_record_loop_selection import protected_record_loop
+from .query_ui_vertical_guard import protected_vertical
 from .query_ui_vertical_request import vertical_request, qualifier_matches
 from .query_ui_vertical_scope import vertical_frames
 
@@ -50,7 +50,7 @@ def qualified_vertical(project, query, pool):
         names = {f['owner']['symbol'] for f in group}
         if metadata['source_digest'] != digest or any(f['file']['source_digest'] != digest for f in group):
             return None
-        inventory = inventory_vertical_file(source, allow_templates=True)
+        inventory = inventory_vertical_file(source, allow_templates=True, allow_literal_constants=True)
         if (inventory is None
                 or {entry.name for entry in inventory.declarations
                     if qualifier_matches(subject, entry.name)} != names
@@ -108,7 +108,7 @@ def bind_vertical_context(project, query, baseline, pool):
                 or baseline.get('project_id') != project.project_id
                 or not isinstance(baseline.get('project_path'), str)
                 or Path(baseline['project_path']).resolve() != Path(project.root).resolve()
-                or protected_record_loop(baseline, query, pool, pending=True)):
+                or protected_vertical(baseline, query, pool, pending=True)):
             return baseline
         result = qualified_vertical(project, query, pool)
         if result is None:
@@ -129,7 +129,7 @@ def vertical_receipt(data, *, pending=False):
     try:
         if (snapshot(data._binding) != entry[1] or snapshot(binding(data)) != entry[1]
                 or vertical_request(data.get('query')) is None
-                or protected_record_loop(data, data['query'], data._pool, pending=pending)
+                or protected_vertical(data, data['query'], data._pool, pending=pending)
                 or Path(data._project.root).resolve() != data._root):
             return None
         result = qualified_vertical(data._project, data['query'], data._pool)
@@ -172,7 +172,7 @@ def enrich_vertical(data, query, path, freshness):
     baseline.setdefault('query_handoff', {})['path_context'] = path
     if (vertical_receipt(data, pending=True) is None or query != data.get('query')
             or snapshot(freshness) != snapshot(data.get('source_freshness'))
-            or protected_record_loop(baseline, query, data._pool)):
+            or protected_vertical(baseline, query, data._pool)):
         return baseline
     result = VerticalContext(baseline)
     for field in ('_anchors', '_members', '_pool'):

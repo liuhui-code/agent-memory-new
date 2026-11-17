@@ -98,8 +98,8 @@ def lex(source, *, allow_templates=False):
     return tokens,pairs
 
 class Walker:
-    def __init__(self,tokens,pairs):
-        self.t=tokens;self.pairs=pairs;self.i=0;self.names=set();self.declarations=[];self.imports=[]
+    def __init__(self,tokens,pairs, *, allow_literal_constants=False):
+        self.t=tokens;self.pairs=pairs;self.i=0;self.names=set();self.declarations=[];self.imports=[];self.allow_literal_constants=allow_literal_constants
 
     def at(self,value):
         return self.i<len(self.t) and self.t[self.i].kind!='string' and self.t[self.i].value==value
@@ -146,7 +146,7 @@ class Walker:
         if self.opt(';'):last=self.t[self.i-1]
         elif self.i<len(self.t):
             following=self.t[self.i]
-            if following.line<=last.line or not (self.at('@') or following.kind=='name' and following.value in {'export','class','struct','interface','import'}):raise Unknown('import termination')
+            if following.line<=last.line or not (self.at('@') or following.kind=='name' and following.value in ({'export','class','struct','interface','import'} | ({'const'} if self.allow_literal_constants else set()))):raise Unknown('import termination')
         for local,remote in bindings:
             if local in CRITICAL:raise Unknown('critical import binding')
             self.add_name(local)
@@ -162,11 +162,37 @@ class Walker:
                 if i+2<end and self.t[i+2].value in {'.','(','?.'} and self.t[i+2].kind=='punct':raise Unknown('body decorator payload')
             i+=1
 
+    def literal_constant(self):
+        first=self.eat('const');name=self.name()
+        if name in CRITICAL:raise Unknown('critical constant binding')
+        self.add_name(name);self.eat('=');opening=self.eat('{');keys=set()
+        if not self.at('}'):
+            while True:
+                key=self.name()
+                if key=='__proto__' or key in keys:raise Unknown('constant property collision')
+                keys.add(key);self.eat(':')
+                if self.i>=len(self.t):raise Unknown('constant literal')
+                value=self.t[self.i]
+                if not (value.kind in {'string','number'} or value.kind=='name' and value.value in {'true','false','null'}):raise Unknown('nonliteral value')
+                self.i+=1
+                if not self.opt(',') or self.at('}'):break
+        closing=self.eat('}')
+        if not self.opt(';') and self.i<len(self.t):
+            following=self.t[self.i]
+            starters={'export','class','struct','interface','import','const'}
+            if following.line<=closing.line or not (self.at('@') or following.kind=='name' and following.value in starters):raise Unknown('constant termination')
+        self.declarations.append(Declaration(name,'literal_const',first.line,closing.line,
+                                            first.start,closing.end,opening.start,closing.end))
+
     def run(self):
         while self.i<len(self.t):
             if self.at('import'):self.import_header();continue
-            while self.at('@'):self.decorator()
+            decorated=False
+            while self.at('@'):self.decorator();decorated=True
             self.opt('export')
+            if self.at('const'):
+                if not self.allow_literal_constants or decorated:raise Unknown('constant unsupported')
+                self.literal_constant();continue
             if self.i>=len(self.t):raise Unknown('declaration')
             first=self.t[self.i]
             if first.kind!='name' or first.value not in {'class','struct','interface'}:raise Unknown('unsupported declaration')
@@ -177,11 +203,11 @@ class Walker:
         return tuple(self.declarations),tuple(self.imports)
 
 
-def inventory_vertical_file(source, *, allow_templates=False):
+def inventory_vertical_file(source, *, allow_templates=False, allow_literal_constants=False):
     try:
-        if type(source)is not str or type(allow_templates)is not bool:return None
+        if type(source)is not str or type(allow_templates)is not bool or type(allow_literal_constants)is not bool:return None
         raw=source.encode('utf-8')
         if len(raw)>MAX_BYTES:return None
-        tokens,pairs=lex(source,allow_templates=allow_templates);declarations,imports=Walker(tokens,pairs).run()
+        tokens,pairs=lex(source,allow_templates=allow_templates);declarations,imports=Walker(tokens,pairs,allow_literal_constants=allow_literal_constants).run()
         return Inventory(declarations,imports,hashlib.sha256(raw).hexdigest(),len(raw),len(tokens))
     except (Unknown,ValueError,TypeError,IndexError,KeyError,UnicodeError,RecursionError):return None
