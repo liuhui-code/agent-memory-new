@@ -1,0 +1,294 @@
+{
+  "sources": {
+    "no-log-two": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n"
+    },
+    "one-direct": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "notice/PointerNoticeWriter.ets": "export class PointerNoticeWriter {\n report(): void {\n  Logger.error('touch contact state unavailable')\n }\n}\n"
+    },
+    "one-depth1": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "notice/PointerNoticeSink.ets": "export class PointerNoticeSink {\n emit(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/PointerNoticeWorker.ets": "import { PointerNoticeSink } from './PointerNoticeSink'\nexport class PointerNoticeWorker {\n private sink: PointerNoticeSink = new PointerNoticeSink()\n run(): void {\n  this.sink.emit('touch contact state unavailable')\n }\n}\n"
+    },
+    "one-depth2": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "notice/PointerNoticeSink.ets": "export class PointerNoticeSink {\n emit(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/PointerNoticeRelay.ets": "import { PointerNoticeSink } from './PointerNoticeSink'\nexport class PointerNoticeRelay {\n private sink: PointerNoticeSink = new PointerNoticeSink()\n report(message: string): void {\n  this.sink.emit(message)\n }\n}\n",
+      "notice/PointerNoticeWorker.ets": "import { PointerNoticeRelay } from './PointerNoticeRelay'\nexport class PointerNoticeWorker {\n private relay: PointerNoticeRelay = new PointerNoticeRelay()\n run(): void {\n  this.relay.report('touch contact state unavailable')\n }\n}\n"
+    },
+    "two-depth2": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/PointerNoticeSink.ets": "export class PointerNoticeSink {\n emit(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/PointerNoticeRelay.ets": "import { PointerNoticeSink } from './PointerNoticeSink'\nexport class PointerNoticeRelay {\n private sink: PointerNoticeSink = new PointerNoticeSink()\n report(message: string): void {\n  this.sink.emit(message)\n }\n}\n",
+      "notice/PointerNoticeWorker.ets": "import { PointerNoticeRelay } from './PointerNoticeRelay'\nexport class PointerNoticeWorker {\n private relay: PointerNoticeRelay = new PointerNoticeRelay()\n run(): void {\n  this.relay.report('touch contact state unavailable')\n }\n}\n"
+    },
+    "strong-observation-event": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/PointerObservationWriter.ets": "export class PointerObservationWriter {\n report(): void {\n  Logger.error('触摸输入没有首个触点时界面操作异常')\n }\n}\n"
+    }
+  },
+  "cases": [
+    {
+      "id": "no-log-two-observed-indexed",
+      "cohort": "no-log-two",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        },
+        {
+          "owner": "TimelineTouchPanel",
+          "file": "TimelineTouchPanel.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "previous-no-log-parity"
+    },
+    {
+      "id": "no-log-two-direct-indexed",
+      "cohort": "no-log-two",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        },
+        {
+          "owner": "TimelineTouchPanel",
+          "file": "TimelineTouchPanel.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "previous-no-log-parity"
+    },
+    {
+      "id": "one-direct-observed-indexed",
+      "cohort": "one-direct",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "one-direct-direct-indexed",
+      "cohort": "one-direct",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "one-depth1-observed-indexed",
+      "cohort": "one-depth1",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "one-depth1-direct-indexed",
+      "cohort": "one-depth1",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "one-depth2-observed-indexed",
+      "cohort": "one-depth2",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "one-depth2-direct-indexed",
+      "cohort": "one-depth2",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "two-depth2-observed-indexed",
+      "cohort": "two-depth2",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        },
+        {
+          "owner": "TimelineTouchPanel",
+          "file": "TimelineTouchPanel.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "two-depth2-direct-indexed",
+      "cohort": "two-depth2",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        },
+        {
+          "owner": "TimelineTouchPanel",
+          "file": "TimelineTouchPanel.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "strong-observation-event-observed-indexed",
+      "cohort": "strong-observation-event",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        },
+        {
+          "owner": "TimelineTouchPanel",
+          "file": "TimelineTouchPanel.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "strong-full-query-event-guard"
+    },
+    {
+      "id": "strong-observation-event-direct-indexed",
+      "cohort": "strong-observation-event",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [
+        {
+          "owner": "CanvasTouchPane",
+          "file": "CanvasTouchPane.ets",
+          "start_line": 5,
+          "end_line": 8
+        },
+        {
+          "owner": "TimelineTouchPanel",
+          "file": "TimelineTouchPanel.ets",
+          "start_line": 5,
+          "end_line": 8
+        }
+      ],
+      "mode": "conditional-log-coexistence-probe"
+    },
+    {
+      "id": "unsupported-explicit-owner",
+      "cohort": "two-depth2",
+      "query": "请定位 PointerNoticeWorker 的触摸回调和索引读取所在源码。",
+      "source_positive_owners": [
+        "CanvasTouchPane",
+        "TimelineTouchPanel"
+      ],
+      "expected_callbacks": [],
+      "mode": "request-rejection-only"
+    }
+  ]
+}

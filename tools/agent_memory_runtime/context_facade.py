@@ -128,6 +128,17 @@ class ContextFacade:
                 record_context_use(self.project, adopted)
                 record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
+        from .query_touch_index_selection import TouchIndexContext, enrich_touch_index, accounting_touch_index
+        if isinstance(result, TouchIndexContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
+            result = enrich_touch_index(result, query, path_payload, freshness)
+            if pending:
+                adopted = dict(result)
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, adopted)
+                record_query_miss_if_empty(self.project, "context", query, adopted)
+            return result
         from .query_ui_gesture_selection import GestureContext, enrich_gesture, accounting_gesture
         if isinstance(result, GestureContext):
             pending = getattr(result, '_pending_accounting', False) is True

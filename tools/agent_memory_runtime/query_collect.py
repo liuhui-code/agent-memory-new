@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from .query_render_recall import recall_projection, projected_method_terms, score_projected_code, projected_behavior_terms
+from .query_touch_index_recall import recall_projection, projected_method_terms, score_projected_code, projected_behavior_terms, TouchRecall
 from .experience_maturity import score_experience_maturity
 from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_by_type
 from .feedback_policy import candidate_ids
@@ -51,6 +51,7 @@ from .text import (
 class CollectedMatches:
     matches: dict[str, list[dict[str, Any]]]
     recall_audit: dict[str, Any]
+    _private_log_capture: object = None
 
 
 
@@ -86,10 +87,11 @@ def collect_matches_with_audit(
     project: Project,
     query: str,
     recall_port: CandidateRecallPort | None = None,
-    *, allow_render_recall: bool = False,
+    *, allow_render_recall: bool = False, allow_touch_recall: bool = False,
 ) -> CollectedMatches:
-    projection = recall_projection(query, recall_port, allow_render_recall)
+    projection = recall_projection(query, recall_port, allow_render_recall, allow_touch_recall=allow_touch_recall)
     retrieval_query = positive_retrieval_query(query)
+    candidate_query = projection.retrieval if isinstance(projection, TouchRecall) else retrieval_query
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
@@ -106,7 +108,7 @@ def collect_matches_with_audit(
     }
     with connect(project) as conn:
         recalled = (recall_port or SQLiteCandidateRecall(property_projection=projection, original_query=query)).recall(
-            conn, project, retrieval_query
+            conn, project, candidate_query
         )
         log_effects = collect_log_effect_matches(conn, project, retrieval_query)
         logs = attach_log_owner_ranges(
@@ -241,8 +243,8 @@ def collect_matches_with_audit(
     for row in files:
         search_terms = code_search_terms("file", row)
         file_lanes = recalled.lanes_by_id.get("code_files", {}).get(int(row["id"]), [])
-        score, reasons = score_weighted_fields(
-            retrieval_query,
+        score, reasons = score_projected_code(
+            projection if isinstance(projection, TouchRecall) else None, row, query, candidate_query,
             tokens,
             expanded_terms,
             [
@@ -312,10 +314,10 @@ def collect_matches_with_audit(
                 ("mechanism_evidence", row["mechanism_evidence"] or "", 2.5)
             )
         method_coverage = method_evidence_term_coverage(
-            row["method_evidence"] or "", projected_method_terms(retrieval_query, projection, query, row)
+            row["method_evidence"] or "", projected_method_terms(candidate_query, projection, query, row)
         ) if "method_body_fts" in symbol_lanes else 0
         score, reasons = score_projected_code(
-            projection, row, query, retrieval_query,
+            projection, row, query, candidate_query,
             tokens,
             expanded_terms,
             weighted_fields,
@@ -447,7 +449,8 @@ def collect_matches_with_audit(
 
     for key in results:
         results[key].sort(key=lambda item: (item.get("rerank_score", item.get("score", 0)), item.get("created_at", "")), reverse=True)
-    return CollectedMatches(results, recalled.audit)
+    from .query_touch_index_trial import capture_log_candidates
+    return CollectedMatches(results, recalled.audit, capture_log_candidates(project, query, retrieval_query, recalled.rows['code_log_statements'], log_effects))
 
 
 def score_symbol_behavior_match(

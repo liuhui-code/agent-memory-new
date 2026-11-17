@@ -1,0 +1,120 @@
+{
+  "sources": {
+    "original-two-positive": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n"
+    },
+    "original-one-positive": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n"
+    },
+    "original-length-only": {
+      "CountTouchPane.ets": "@Component\nexport struct CountTouchPane {\n count: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   this.count = sample.touches.length\n  })\n }\n}\n"
+    },
+    "original-quoted-read": {
+      "CaptionTouchPane.ets": "@Component\nexport struct CaptionTouchPane {\n caption: string = ''\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   this.caption = 'sample.touches[0]'\n  })\n }\n}\n"
+    },
+    "original-wrong-parameter-external-field": {
+      "BackupTouchPane.ets": "@Component\nexport struct BackupTouchPane {\n backup: TouchEvent\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = this.backup.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n"
+    },
+    "original-shadowed-parameter": {
+      "NestedTouchPane.ets": "@Component\nexport struct NestedTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const inspect = (sample: TouchEvent) => {\n    const contact = sample.touches[0]\n    this.horizontal = contact.x\n   }\n  })\n }\n}\n"
+    },
+    "original-external-read-method": {
+      "HelperTouchPane.ets": "@Component\nexport struct HelperTouchPane {\n horizontal: number = 0\n inspect(sample: TouchEvent): void {\n  const contact = sample.touches[0]\n  this.horizontal = contact.x\n }\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   this.inspect(sample)\n  })\n }\n}\n"
+    },
+    "original-guarded-callback-unknown": {
+      "GuardedTouchPane.ets": "@Component\nexport struct GuardedTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   if (sample.touches.length > 0) {\n    const contact = sample.touches[0]\n    this.horizontal = contact.x\n   }\n  })\n }\n}\n"
+    },
+    "original-index-two-positive": {
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n"
+    },
+    "original-dynamic-index-unknown": {
+      "OffsetTouchPane.ets": "@Component\nexport struct OffsetTouchPane {\n horizontal: number = 0\n selectedIndex: number = 2\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[this.selectedIndex]\n   this.horizontal = contact.x\n  })\n }\n}\n"
+    },
+    "supplement-three-positive": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "TrackTouchCanvas.ets": "@Component\nexport struct TrackTouchCanvas {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n"
+    },
+    "supplement-four-positive": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "TrackTouchCanvas.ets": "@Component\nexport struct TrackTouchCanvas {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "MeterTouchBoard.ets": "@Component\nexport struct MeterTouchBoard {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n"
+    },
+    "supplement-positive-plus-unknown": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "OffsetTouchPane.ets": "@Component\nexport struct OffsetTouchPane {\n horizontal: number = 0\n selectedIndex: number = 2\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[this.selectedIndex]\n   this.horizontal = contact.x\n  })\n }\n}\n"
+    },
+    "supplement-annotation-local-shadow": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\nclass LocalPoint { x: number = 0 }\nclass TouchEvent {\n touches: LocalPoint[] = []\n}\n"
+    },
+    "supplement-annotation-import-alias": {
+      "CanvasTouchPane.ets": "import { SignalEvent as TouchEvent } from './event/SignalEvent'\n@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "event/SignalEvent.ets": "class LocalPoint { x: number = 0 }\nexport class SignalEvent {\n touches: LocalPoint[] = []\n}\n"
+    }
+  },
+  "requests": [
+    {
+      "id": "direct-indexed",
+      "query": "请定位触摸回调和索引读取所在源码。",
+      "permission": "candidate-static-set"
+    },
+    {
+      "id": "direct-literal-index",
+      "query": "请查找触摸回调中按字面量索引读取触点的源码。",
+      "permission": "candidate-static-set"
+    },
+    {
+      "id": "observed-indexed",
+      "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。",
+      "permission": "candidate-static-set"
+    },
+    {
+      "id": "quoted",
+      "query": "请查找包含“触摸回调和索引读取所在源码”的字符串。",
+      "permission": null
+    },
+    {
+      "id": "negated",
+      "query": "请不要返回触摸回调和索引读取所在源码。",
+      "permission": null
+    },
+    {
+      "id": "multi",
+      "query": "请定位触摸回调和索引读取所在源码，并查找网络请求。",
+      "permission": null
+    },
+    {
+      "id": "named",
+      "query": "请定位 TouchOwner 的触摸回调和索引读取所在源码。",
+      "permission": null
+    },
+    {
+      "id": "path",
+      "query": "请定位 src/TouchOwner.ets 的触摸回调和索引读取所在源码。",
+      "permission": null
+    },
+    {
+      "id": "event",
+      "query": "请根据错误日志定位触摸回调和索引读取所在源码。",
+      "permission": null
+    },
+    {
+      "id": "causal",
+      "query": "请证明触摸回调和索引读取导致崩溃。",
+      "permission": null
+    },
+    {
+      "id": "english-legacy",
+      "query": "Locate the touch callback and first pointer access source.",
+      "permission": null
+    },
+    {
+      "id": "first-only-unlicensed",
+      "query": "请查找触摸回调中读取第一个触点的源码。",
+      "permission": null
+    }
+  ]
+}

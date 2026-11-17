@@ -1,0 +1,49 @@
+{
+  "sources": {
+    "no-log-two": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n"
+    },
+    "global-script-depth1-two": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/ContactPulsePort.ts": "interface ContactPulsePort {\n publish(message: string): void\n}\n",
+      "notice/ContactPulseTerminal.ts": "class ContactPulseTerminal implements ContactPulsePort {\n publish(message: string): void {\n  console.error(message)\n }\n}\n",
+      "notice/ContactPulseLedger.ts": "class ContactPulseLedger implements ContactPulsePort {\n publish(message: string): void {\n  console.error(message)\n }\n}\n",
+      "notice/ContactPulseCoordinator.ts": "class ContactPulseCoordinator {\n private destination: ContactPulsePort\n constructor(destination: ContactPulsePort) {\n  this.destination = destination\n }\n run(): void {\n  this.destination.publish('touch contact state unavailable')\n }\n}\n"
+    },
+    "existing-module-graph-rejection": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/ContactNoticePort.ets": "export interface ContactNoticePort {\n report(message: string): void\n}\n",
+      "notice/ContactConsoleNotice.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactConsoleNotice implements ContactNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/ContactArchiveNotice.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactArchiveNotice implements ContactNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/ContactNoticeCoordinator.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactNoticeCoordinator {\n private channel: ContactNoticePort\n constructor(channel: ContactNoticePort) {\n  this.channel = channel\n }\n run(): void {\n  this.channel.report('touch contact state unavailable')\n }\n}\n"
+    },
+    "mixed": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/ContactNoticePort.ets": "export interface ContactNoticePort {\n report(message: string): void\n}\n",
+      "notice/ContactConsoleNotice.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactConsoleNotice implements ContactNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/ContactArchiveNotice.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactArchiveNotice implements ContactNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/ContactNoticeBridge.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactNoticeBridge {\n private channel: ContactNoticePort\n constructor(channel: ContactNoticePort) {\n  this.channel = channel\n }\n forward(message: string): void {\n  this.channel.report(message)\n }\n}\n",
+      "notice/ContactNoticeScheduler.ets": "import { ContactNoticeBridge } from './ContactNoticeBridge'\nexport class ContactNoticeScheduler {\n private bridge: ContactNoticeBridge\n constructor(bridge: ContactNoticeBridge) {\n  this.bridge = bridge\n }\n run(): void {\n  this.bridge.forward('touch contact state unavailable')\n }\n}\n"
+    },
+    "strong": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/ContactNoticePort.ets": "export interface ContactNoticePort {\n report(message: string): void\n}\n",
+      "notice/ContactConsoleNotice.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactConsoleNotice implements ContactNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/ContactArchiveNotice.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactArchiveNotice implements ContactNoticePort {\n report(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/ContactNoticeCoordinator.ets": "import { ContactNoticePort } from './ContactNoticePort'\nexport class ContactNoticeCoordinator {\n private channel: ContactNoticePort\n constructor(channel: ContactNoticePort) {\n  this.channel = channel\n }\n run(): void {\n  this.channel.report('touch contact state unavailable')\n }\n}\n",
+      "notice/ContactEventJournal.ets": "export class ContactEventJournal {\n record(): void {\n  Logger.error('触摸输入没有首个触点时界面操作异常')\n }\n}\n"
+    },
+    "static": {
+      "CanvasTouchPane.ets": "@Component\nexport struct CanvasTouchPane {\n horizontal: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((sample: TouchEvent) => {\n   const contact = sample.touches[0]\n   this.horizontal = contact.x\n  })\n }\n}\n",
+      "TimelineTouchPanel.ets": "@Component\nexport struct TimelineTouchPanel {\n position: number = 0\n build() {\n  Stack() { Text('surface') }.onTouch((motion: TouchEvent) => {\n   const primaryContact = motion.touches[2]\n   this.position = primaryContact.x\n  })\n }\n}\n",
+      "notice/PointerNoticeSink.ets": "export class PointerNoticeSink {\n emit(message: string): void {\n  Logger.error(message)\n }\n}\n",
+      "notice/PointerNoticeWorker.ets": "import { PointerNoticeSink } from './PointerNoticeSink'\nexport class PointerNoticeWorker {\n private sink: PointerNoticeSink = new PointerNoticeSink()\n run(): void {\n  this.sink.emit('touch contact state unavailable')\n }\n}\n"
+    }
+  },
+  "query": "触摸输入没有首个触点时界面操作异常，请只返回触摸回调和索引读取所在源码。"
+}

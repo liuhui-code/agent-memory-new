@@ -69,11 +69,12 @@ def limited_matches(
     )
     return bounded
 
-
 from .query_result_limits import diverse_log_matches
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False) -> dict[str, Any]:
-    baseline = _context_pass(project, query, explicit_intent)
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False) -> dict[str, Any]:
+    from .query_touch_index_trial import begin_touch_pass, bind_touch_pass
+    touch_state, baseline_capture = begin_touch_pass(project, query)
+    baseline = _context_pass(project, query, explicit_intent, touch_capture=baseline_capture)
     result = baseline
     from .query_render_recall import parse_render_request, RenderRecall
     if parse_render_request(query) is not None:
@@ -97,6 +98,8 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     from .query_cache_scan_selection import bind_cache_scan_context, CacheScanContext, cache_scan_context_view
     result = bind_cache_scan_context(project, query, result)
     from .query_command_table_selection import CommandTableContext, accounting_command_table
+    from .query_touch_index_selection import TouchIndexContext
+    result = bind_touch_pass(project, query, baseline, result, explicit_intent, touch_state, _context_pass, baseline_capture)
     from .query_ui_gesture_selection import GestureContext
     from .query_ui_divider_selection import DividerContext
     from .query_record_loop_selection import RecordLoopContext, accounting_record_loop
@@ -109,6 +112,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)
             or (isinstance(result, DividerContext) and defer_divider_accounting)
             or (isinstance(result, GestureContext) and defer_gesture_accounting)
+            or (isinstance(result, TouchIndexContext) and defer_touch_index_accounting)
             or (isinstance(result, CommandTableContext) and defer_command_table_accounting)
             or (isinstance(result, RecordLoopContext) and defer_record_loop_accounting)
             or (isinstance(result, ArchiveCreateWriteContext) and defer_archive_create_write_accounting)):
@@ -125,10 +129,14 @@ def _context_pass(
     query: str,
     explicit_intent: str | None = None,
     *, allow_render_recall: bool = False, allow_lifecycle: bool = False, allow_output_loop: bool = False,
+    allow_touch_recall: bool = False, touch_capture=None,
 ) -> dict[str, Any]:
-    collection = collect_matches_with_audit(project, query, allow_render_recall=allow_render_recall)
+    collection = collect_matches_with_audit(project, query, allow_render_recall=allow_render_recall, allow_touch_recall=allow_touch_recall)
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches, explicit_intent)
+    if isinstance(touch_capture, list):
+        from .query_touch_index_trial import capture_touch_pass
+        capture_touch_pass(collection, gated['matches'].get('wiki_matches') or [], touch_capture)
     caller_ids = requested_caller_identities(matches.get("wiki_matches") or [], query)
     from .query_context_trials import qualify_context_trials, bind_context_trials
     gated, authority, output_authority = qualify_context_trials(
@@ -203,13 +211,12 @@ def _context_pass(
     context["query_handoff"] = bind_ui_pair(project, query, context["query_handoff"])
     from .query_recovery_pair import bind_recovery_pair
     context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
-    if not (allow_render_recall or allow_lifecycle or allow_output_loop):
+    if not (allow_render_recall or allow_lifecycle or allow_output_loop or allow_touch_recall):
         from .query_context_trials import bind_source_views
         context = bind_source_views(project, query, context, gated["matches"].get("wiki_matches") or [])
     return bind_context_trials(query, context, gated["matches"].get("wiki_matches") or [],
                                allow_render_recall=allow_render_recall,
                                authority=authority, output_authority=output_authority)
-
 
 def localization_input(
     project: Project,
@@ -230,8 +237,6 @@ def localization_input(
         and (projection is None or not projection.excludes(item))
     ]
     return gate_matches_by_intent(project, query, positive_matches)["matches"], True
-
-
 
 def limited_search(
     project: Project,
@@ -264,8 +269,6 @@ def limited_search(
         retrieval_stage_counts(matches, gated["matches"], payload),
     )
     return payload
-
-
 
 def build_query_audit(
     payload: dict[str, Any],
@@ -309,8 +312,6 @@ def build_query_audit(
         "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
     }
 
-
-
 def compact_query_explanation(result_type: str, item: dict[str, Any]) -> dict[str, Any]:
     explanation = item.get("retrieval_explanation") if isinstance(item.get("retrieval_explanation"), dict) else {}
     return {
@@ -331,7 +332,6 @@ def compact_query_explanation(result_type: str, item: dict[str, Any]) -> dict[st
         "retrieval_explanation": explanation,
     }
 
-
 def retrieval_stage_counts(
     scored: dict[str, list[dict[str, Any]]],
     intent_gated: dict[str, list[dict[str, Any]]],
@@ -350,7 +350,6 @@ def retrieval_stage_counts(
             for key in keys
         },
     }
-
 
 
 def batched_search(
