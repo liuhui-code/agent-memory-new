@@ -5,6 +5,9 @@ def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str
     from .query_sql_slot_selection import SqlSlotContext, compact_sql_slot
     if isinstance(data, SqlSlotContext):
         return compact_sql_slot(data, _compact_context(dict(data)))
+    from .query_validation_field_selection import ValidationContext, compact_validation_field
+    if isinstance(data, ValidationContext):
+        return compact_validation_field(data, _compact_context(dict(data)))
     from .query_touch_index_selection import TouchIndexContext, compact_touch_index
     if isinstance(data, TouchIndexContext):
         return compact_touch_index(data, _compact_context(dict(data)))

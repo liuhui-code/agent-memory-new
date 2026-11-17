@@ -1,3 +1,18 @@
+## 2026-11-17 — Release-only fingerprint metadata
+
+- 仅本次新增 5 runtime/5 tests 补标准注释；无行为修改，784 runtime/tests AST 全等。
+- 相对已验收 b4cc63d：418 runtime 字节相同，5 为 header-only AST 等价；不改 private 候选或历史冻结证据。
+- 历史 131 缺标记保持原样，原门禁不变且未解决；原第 13 项仍未闭环。
+- 最终 clean 64/64 validation（66.048s）及 82/82 routing（277.512s）通过，结果记录于本次 release 目录，不运行原案例或全量。
+
+## 2026-11-17 — Validation source-view integration and empty auxiliary acceptance
+
+- 增量接入验证字段源码视图，保留已发布 SQL/touch/vertical 路线及无日志、原根、12 路径、1500 token 契约。
+- 有限空辅助成员仅参与声明库存，不成为认证 callee；未修改全局 RESERVED。
+- 独立主例由缺 Member 方法变为两条完整方法，1314→939 tokens；四次 context 原始输出和控制 compact 精确保持，主例全部非代码内容保留，身份/DB/sidecar 审计通过。
+- 原第 13 项仍未完成；非空日志和大 scope 未放宽，历史 STOP 证据保留。未跑全量，未改 fingerprint 门禁。
+- Clean 发布单点 64 validation 与 82 routing 回归全部通过，结果见 docs/releases/validation13-empty-aux-20261117/；38 子控作为一个 adapter 计数，不能叠加成全量分数。
+
 # Local Development Log
 
 ## 2026-11-17 — 有界 SQL 请求槽源码视图与原 06 部分改善

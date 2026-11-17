@@ -26,6 +26,6 @@ def build_context_facade(
     )
     return ContextFacade(
         project,
-        partial(limited_context, defer_render_accounting=True, defer_lifecycle_accounting=True, defer_output_loop_accounting=True, defer_command_accounting=True, defer_record_loop_accounting=True, defer_archive_create_write_accounting=True, defer_cache_scan_accounting=True, defer_command_table_accounting=True, defer_divider_accounting=True, defer_gesture_accounting=True, defer_touch_index_accounting=True, defer_vertical_accounting=True, defer_sql_slot_accounting=True),
+        partial(limited_context, defer_render_accounting=True, defer_lifecycle_accounting=True, defer_output_loop_accounting=True, defer_command_accounting=True, defer_record_loop_accounting=True, defer_archive_create_write_accounting=True, defer_cache_scan_accounting=True, defer_command_table_accounting=True, defer_divider_accounting=True, defer_gesture_accounting=True, defer_touch_index_accounting=True, defer_vertical_accounting=True, defer_sql_slot_accounting=True, defer_validation_field_accounting=True),
         path_context,
     )

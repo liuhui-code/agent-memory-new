@@ -43,7 +43,7 @@ def bind_context_trials(query, context, items, *, allow_render_recall=False,
     return context
 
 
-def bind_source_views(project, query, context, items):
+def bind_source_views(project, query, context, items, collection=None):
     """Existing terminal view order, then the opt-in static UI property view."""
     from .query_record_loop_selection import bind_record_loop_context
     from .query_archive_create_write_selection import bind_archive_create_write_context
@@ -58,4 +58,6 @@ def bind_source_views(project, query, context, items):
     from .query_ui_vertical_selection import bind_vertical_context
     context = bind_vertical_context(project, query, context, items)
     from .query_sql_slot_selection import bind_sql_slot_context
-    return bind_sql_slot_context(project, query, context, items)
+    context = bind_sql_slot_context(project, query, context, items)
+    from .query_validation_field_selection import bind_validation_field_context
+    return bind_validation_field_context(project, query, context, items, collection)

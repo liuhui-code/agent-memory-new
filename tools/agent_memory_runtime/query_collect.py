@@ -53,8 +53,6 @@ class CollectedMatches:
     recall_audit: dict[str, Any]
     _private_log_capture: object = None
 
-
-
 def apply_feedback_penalty(item: dict[str, Any], penalties: dict[int, dict[str, Any]]) -> None:
     feedback = penalties.get(int(item.get("id") or 0))
     if not feedback:
@@ -450,7 +448,10 @@ def collect_matches_with_audit(
     for key in results:
         results[key].sort(key=lambda item: (item.get("rerank_score", item.get("score", 0)), item.get("created_at", "")), reverse=True)
     from .query_touch_index_trial import capture_log_candidates
-    return CollectedMatches(results, recalled.audit, capture_log_candidates(project, query, retrieval_query, recalled.rows['code_log_statements'], log_effects))
+    collection = CollectedMatches(results, recalled.audit, capture_log_candidates(project, query, retrieval_query, recalled.rows['code_log_statements'], log_effects))
+    from .query_validation_no_logs import capture_validation_no_logs
+    capture_validation_no_logs(project, query, retrieval_query, collection, recalled.rows['code_log_statements'], log_effects)
+    return collection
 
 
 def score_symbol_behavior_match(

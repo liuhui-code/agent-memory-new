@@ -1,0 +1,196 @@
+{
+  "sources": {
+    "existing-three-mixed": {
+      "ProfileEntry.ts": "export class ProfileEntry {\n  displayName: string = ''\n  submitProfile(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Please supply a value' })\n      return\n    }\n    this.dispatchProfile(this.displayName)\n  }\n  private dispatchProfile(value: string): void {}\n}\n",
+      "PurchaseEntry.ts": "export interface PurchaseDraft { customerCode: string }\nexport class PurchaseEntry {\n  submitPurchase(draft: PurchaseDraft): void {\n    if (draft.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Please supply a value' })\n      return\n    }\n    this.dispatchPurchase(draft)\n  }\n  private dispatchPurchase(draft: PurchaseDraft): void {}\n}\n",
+      "AccountEditor.ts": "export class AccountEditor {\n  customerCode: string = ''\n  submit(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Missing display name' })\n      return\n    }\n    this.dispatch(this.customerCode)\n  }\n  private dispatch(value: string): void {}\n}\n"
+    },
+    "display-name-two-shapes": {
+      "BadgeDraftPanel.ts": "export class BadgeDraftPanel {\n  displayName: string = ''\n  submitBadge(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchBadge(this.displayName)\n  }\n  private dispatchBadge(value: string): void {}\n}\n",
+      "RosterDraftForm.ts": "export interface RosterDraft { displayName: string }\nexport class RosterDraftForm {\n  submitRoster(input: RosterDraft): void {\n    if (input.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchRoster(input)\n  }\n  private dispatchRoster(input: RosterDraft): void {}\n}\n"
+    },
+    "account-owner-and-method": {
+      "AccountDraftPanel.ts": "export class AccountDraftPanel {\n  customerCode: string = ''\n  submitDraft(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDraft(this.customerCode)\n  }\n  private dispatchDraft(value: string): void {}\n}\n",
+      "MemberDraftPanel.ts": "export interface MemberDraft { customerCode: string }\nexport class MemberDraftPanel {\n  submitAccount(input: MemberDraft): void {\n    if (input.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchMember(input)\n  }\n  private dispatchMember(input: MemberDraft): void {}\n}\n",
+      "BillingDraftPanel.ts": "export class BillingDraftPanel {\n  customerCode: string = ''\n  submitBilling(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchBilling(this.customerCode)\n  }\n  private dispatchBilling(value: string): void {}\n  reviewAccount(): void {}\n}\n",
+      "AccountingDraftPanel.ts": "export class AccountingDraftPanel {\n  customerCode: string = ''\n  submitLedger(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchLedger(this.customerCode)\n  }\n  private dispatchLedger(value: string): void {}\n}\n"
+    },
+    "display-name-decoys": {
+      "ReceiptDraftPanel.ts": "export class ReceiptDraftPanel {\n  customerCode: string = ''\n  submitReceipt(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Please provide displayName' })\n      return\n    }\n    this.dispatchReceipt(this.customerCode)\n  }\n  private dispatchReceipt(value: string): void {}\n}\n",
+      "DeliveryDraftForm.ts": "export interface DeliveryDraft { customerCode: string }\nexport class DeliveryDraftForm {\n  submitDelivery(input: DeliveryDraft): void {\n    // displayName validation is described here, not performed here\n    if (input.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchDelivery(input)\n  }\n  private dispatchDelivery(input: DeliveryDraft): void {}\n}\n",
+      "LegacyDraftPanel.ts": "export class LegacyDraftPanel {\n  oldDisplayName: string = ''\n  submitLegacy(): void {\n    if (this.oldDisplayName.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchLegacy(this.oldDisplayName)\n  }\n  private dispatchLegacy(value: string): void {}\n}\n"
+    },
+    "ordinary-logger-coexistence": {
+      "BadgeDraftPanel.ts": "export class BadgeDraftPanel {\n  displayName: string = ''\n  submitBadge(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchBadge(this.displayName)\n  }\n  private dispatchBadge(value: string): void {}\n}\n",
+      "RosterDraftForm.ts": "export interface RosterDraft { displayName: string }\nexport class RosterDraftForm {\n  submitRoster(input: RosterDraft): void {\n    if (input.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchRoster(input)\n  }\n  private dispatchRoster(input: RosterDraft): void {}\n}\n",
+      "AuditNoticeWriter.ts": "export class AuditNoticeWriter {\n  report(): void {\n    console.info('draft validation source inspection')\n  }\n}\n"
+    },
+    "display-name-object-with-trailing-save": {
+      "CatalogDraftPanel.ts": "export interface CatalogDraft { displayName: string }\nexport class CatalogDraftStore {\n  async save(input: CatalogDraft): Promise<void> {}\n}\nexport class CatalogDraftPanel {\n  private store: CatalogDraftStore = new CatalogDraftStore()\n  async submitCatalog(input: CatalogDraft): Promise<void> {\n    if (input.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'A value is required' })\n      return\n    }\n    this.dispatchCatalog(input)\n    await this.store.save(input)\n  }\n  private dispatchCatalog(input: CatalogDraft): void {}\n}\n"
+    }
+  },
+  "expected": {
+    "existing-three-mixed": [
+      {
+        "file": "ProfileEntry.ts",
+        "owner": "ProfileEntry",
+        "method": "submitProfile",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "displayName",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      },
+      {
+        "file": "PurchaseEntry.ts",
+        "owner": "PurchaseEntry",
+        "method": "submitPurchase",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "draft",
+        "dispatch_argument": "containing_object"
+      },
+      {
+        "file": "AccountEditor.ts",
+        "owner": "AccountEditor",
+        "method": "submit",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      }
+    ],
+    "display-name-two-shapes": [
+      {
+        "file": "BadgeDraftPanel.ts",
+        "owner": "BadgeDraftPanel",
+        "method": "submitBadge",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "displayName",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      },
+      {
+        "file": "RosterDraftForm.ts",
+        "owner": "RosterDraftForm",
+        "method": "submitRoster",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "displayName",
+        "root": "input",
+        "dispatch_argument": "containing_object"
+      }
+    ],
+    "account-owner-and-method": [
+      {
+        "file": "AccountDraftPanel.ts",
+        "owner": "AccountDraftPanel",
+        "method": "submitDraft",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      },
+      {
+        "file": "MemberDraftPanel.ts",
+        "owner": "MemberDraftPanel",
+        "method": "submitAccount",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "input",
+        "dispatch_argument": "containing_object"
+      },
+      {
+        "file": "BillingDraftPanel.ts",
+        "owner": "BillingDraftPanel",
+        "method": "submitBilling",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      },
+      {
+        "file": "AccountingDraftPanel.ts",
+        "owner": "AccountingDraftPanel",
+        "method": "submitLedger",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      }
+    ],
+    "display-name-decoys": [
+      {
+        "file": "ReceiptDraftPanel.ts",
+        "owner": "ReceiptDraftPanel",
+        "method": "submitReceipt",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "customerCode",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      },
+      {
+        "file": "DeliveryDraftForm.ts",
+        "owner": "DeliveryDraftForm",
+        "method": "submitDelivery",
+        "start_line": 3,
+        "end_line": 10,
+        "guarded_member": "customerCode",
+        "root": "input",
+        "dispatch_argument": "containing_object"
+      },
+      {
+        "file": "LegacyDraftPanel.ts",
+        "owner": "LegacyDraftPanel",
+        "method": "submitLegacy",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "oldDisplayName",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      }
+    ],
+    "ordinary-logger-coexistence": [
+      {
+        "file": "BadgeDraftPanel.ts",
+        "owner": "BadgeDraftPanel",
+        "method": "submitBadge",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "displayName",
+        "root": "this",
+        "dispatch_argument": "scalar"
+      },
+      {
+        "file": "RosterDraftForm.ts",
+        "owner": "RosterDraftForm",
+        "method": "submitRoster",
+        "start_line": 3,
+        "end_line": 9,
+        "guarded_member": "displayName",
+        "root": "input",
+        "dispatch_argument": "containing_object"
+      }
+    ],
+    "display-name-object-with-trailing-save": [
+      {
+        "file": "CatalogDraftPanel.ts",
+        "owner": "CatalogDraftPanel",
+        "method": "submitCatalog",
+        "start_line": 7,
+        "end_line": 14,
+        "guarded_member": "displayName",
+        "root": "input",
+        "dispatch_argument": "containing_object"
+      }
+    ]
+  }
+}

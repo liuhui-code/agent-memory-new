@@ -1,0 +1,90 @@
+diff --git a/tests/test_validation_field_integration.py b/tests/test_validation_field_integration.py
+index 4c28cce..9386db0 100644
+--- a/tests/test_validation_field_integration.py
++++ b/tests/test_validation_field_integration.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Normal init/learn/facade tests; finite view, not an evaluation rerun."""
+ from copy import deepcopy
+ import json,tempfile,unittest
+diff --git a/tests/test_validation_field_request.py b/tests/test_validation_field_request.py
+index a2e4e8a..52b71a8 100644
+--- a/tests/test_validation_field_request.py
++++ b/tests/test_validation_field_request.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Self-contained finite grammar cases, no runtime CLI or evidence file reads."""
+ import unittest
+ from tools.agent_memory_runtime.query_validation_field_request import validation_field_request as request, validation_field_matches as matches, RESERVED
+diff --git a/tests/test_validation_field_selection.py b/tests/test_validation_field_selection.py
+index 91b6f5e..7dfc0ab 100644
+--- a/tests/test_validation_field_selection.py
++++ b/tests/test_validation_field_selection.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Fresh unit cohorts, not replay of frozen before or original evaluation."""
+ from copy import copy, deepcopy
+ import json
+diff --git a/tests/test_validation_field_source.py b/tests/test_validation_field_source.py
+index 0d4bb45..ff21a34 100644
+--- a/tests/test_validation_field_source.py
++++ b/tests/test_validation_field_source.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ import json
+ import unittest
+ from pathlib import Path
+diff --git a/tests/test_validation_no_logs.py b/tests/test_validation_no_logs.py
+index 80db8ef..8996cc9 100644
+--- a/tests/test_validation_no_logs.py
++++ b/tests/test_validation_no_logs.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Pass-local empty-lane authority includes actual hidden collector effects."""
+ from copy import copy,deepcopy
+ from dataclasses import replace,FrozenInstanceError
+diff --git a/tools/agent_memory_runtime/query_validation_field_request.py b/tools/agent_memory_runtime/query_validation_field_request.py
+index d247eaf..eaf568a 100644
+--- a/tools/agent_memory_runtime/query_validation_field_request.py
++++ b/tools/agent_memory_runtime/query_validation_field_request.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Finite validation source-view permission; observations are not source facts."""
+ import re
+ from .text import identifier_parts
+diff --git a/tools/agent_memory_runtime/query_validation_field_scope.py b/tools/agent_memory_runtime/query_validation_field_scope.py
+index 7af3ade..9e3c7e4 100644
+--- a/tools/agent_memory_runtime/query_validation_field_scope.py
++++ b/tools/agent_memory_runtime/query_validation_field_scope.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Complete bounded validation source view; DB witnesses never add roots."""
+ from copy import deepcopy
+ import hashlib
+diff --git a/tools/agent_memory_runtime/query_validation_field_selection.py b/tools/agent_memory_runtime/query_validation_field_selection.py
+index 1a8d3dd..e14c0e3 100644
+--- a/tools/agent_memory_runtime/query_validation_field_selection.py
++++ b/tools/agent_memory_runtime/query_validation_field_selection.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Atomic finite guarded-field view, never unique owner or runtime causality."""
+ from copy import deepcopy
+ from pathlib import Path
+diff --git a/tools/agent_memory_runtime/query_validation_no_logs.py b/tools/agent_memory_runtime/query_validation_no_logs.py
+index c36963a..226b8d0 100644
+--- a/tools/agent_memory_runtime/query_validation_no_logs.py
++++ b/tools/agent_memory_runtime/query_validation_no_logs.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Pass-local absence capture from actual complete collector lanes, not DB proof."""
+ from dataclasses import dataclass
+ from pathlib import Path
+diff --git a/tools/agent_memory_runtime/validation_field_source.py b/tools/agent_memory_runtime/validation_field_source.py
+index fa82eda..5b91987 100644
+--- a/tools/agent_memory_runtime/validation_field_source.py
++++ b/tools/agent_memory_runtime/validation_field_source.py
+@@ -1,3 +1,4 @@
++# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+ """Closed local validation-source grammar, not runtime flow or serving authority."""
+ import re
+ from .ui_divider_source import tokenize, Unknown, RESERVED

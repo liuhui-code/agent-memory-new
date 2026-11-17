@@ -30,6 +30,17 @@ class ContextFacade:
         path_payload, freshness = filter_fresh_path_context(
             self.project, path_payload, freshness
         )
+        from .query_validation_field_selection import ValidationContext, enrich_validation_field, accounting_validation_field
+        if isinstance(result, ValidationContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
+            result = enrich_validation_field(result, query, path_payload, freshness)
+            if pending:
+                adopted = accounting_validation_field(result) if isinstance(result, ValidationContext) else result
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, adopted)
+                record_query_miss_if_empty(self.project, "context", query, adopted)
+            return result
         from .query_render_selection import RenderContext, enrich_render_context, render_context_view
         if isinstance(result, RenderContext):
             pending = getattr(result, '_pending_accounting', False) is True

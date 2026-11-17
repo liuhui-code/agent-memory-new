@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+export PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tests:.
+python -m unittest test_validation_field_request test_validation_field_source test_validation_field_selection test_validation_no_logs test_validation_field_integration test_validation_empty_aux -v
+python -m unittest test_query_sql_slot_routing test_query_sql_slot_consumer_controls test_touch_index_trial test_ui_vertical_selection -v

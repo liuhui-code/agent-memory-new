@@ -29,4 +29,6 @@ def adopted_context(result):
     adopted = accounting_archive_create_write(adopted) if isinstance(adopted, ArchiveCreateWriteContext) else adopted
     from .query_sql_slot_selection import SqlSlotContext, accounting_sql_slot
     adopted = accounting_sql_slot(adopted) if isinstance(adopted, SqlSlotContext) else adopted
+    from .query_validation_field_selection import ValidationContext, accounting_validation_field
+    adopted = accounting_validation_field(adopted) if isinstance(adopted, ValidationContext) else adopted
     return adopted

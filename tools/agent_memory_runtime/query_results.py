@@ -1,7 +1,6 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 
 from __future__ import annotations
-
 import json
 from typing import Any
 
@@ -70,8 +69,7 @@ def limited_matches(
     return bounded
 
 from .query_result_limits import diverse_log_matches
-
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False, defer_vertical_accounting: bool = False, defer_sql_slot_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False, defer_vertical_accounting: bool = False, defer_sql_slot_accounting: bool = False, defer_validation_field_accounting: bool = False) -> dict[str, Any]:
     from .query_touch_index_trial import begin_touch_pass, bind_touch_pass
     touch_state, baseline_capture = begin_touch_pass(project, query)
     baseline = _context_pass(project, query, explicit_intent, touch_capture=baseline_capture)
@@ -107,6 +105,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     from .query_archive_create_write_selection import ArchiveCreateWriteContext, accounting_archive_create_write
     from .query_render_selection import RenderContext, render_context_view
     from .query_sql_slot_selection import SqlSlotContext
+    from .query_validation_field_selection import ValidationContext
     if ((isinstance(result, SqlSlotContext) and defer_sql_slot_accounting) or (isinstance(result, RenderContext) and defer_render_accounting)
             or (isinstance(result, (LifecycleContext, LifecycleLogContext)) and defer_lifecycle_accounting)
             or (isinstance(result, OutputLoopContext) and defer_output_loop_accounting)
@@ -114,6 +113,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)
             or (isinstance(result, DividerContext) and defer_divider_accounting)
             or (isinstance(result, VerticalContext) and defer_vertical_accounting)
+            or (isinstance(result, ValidationContext) and defer_validation_field_accounting)
             or (isinstance(result, GestureContext) and defer_gesture_accounting)
             or (isinstance(result, TouchIndexContext) and defer_touch_index_accounting)
             or (isinstance(result, CommandTableContext) and defer_command_table_accounting)
@@ -215,7 +215,7 @@ def _context_pass(
     context["query_handoff"] = bind_recovery_pair(project, query, context["query_handoff"])
     if not (allow_render_recall or allow_lifecycle or allow_output_loop or allow_touch_recall):
         from .query_context_trials import bind_source_views
-        context = bind_source_views(project, query, context, gated["matches"].get("wiki_matches") or [])
+        context = bind_source_views(project, query, context, gated["matches"].get("wiki_matches") or [], collection)
     return bind_context_trials(query, context, gated["matches"].get("wiki_matches") or [],
                                allow_render_recall=allow_render_recall,
                                authority=authority, output_authority=output_authority)

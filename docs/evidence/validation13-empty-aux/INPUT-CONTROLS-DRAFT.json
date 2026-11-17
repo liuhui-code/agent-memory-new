@@ -1,0 +1,216 @@
+{
+  "status": "UNEXECUTED_DRAFT",
+  "kind": "parser_component_only_no_query",
+  "source_observation": {
+    "path": "src/pages/AccountSettingsPage.ets",
+    "sha256": "af1de608b28d9c5a7580143f276c128c6f900b0d22096fc4fb71162bbf59eab2",
+    "untyped_member": "build() {}",
+    "original_source_not_control": true,
+    "first_rejection": "name(): identifier/shadow because build in RESERVED"
+  },
+  "controls": [
+    {
+      "id": "typed-empty-baseline",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview(): void {}\n}\n",
+      "expected": "one_validation_fact"
+    },
+    {
+      "id": "untyped-empty-unused",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {}\n}\n",
+      "expected": "same_exact_fact_as_typed_baseline"
+    },
+    {
+      "id": "untyped-only-no-proof",
+      "source": "export class PreviewPanel { refreshPreview() {} }\n",
+      "expected": []
+    },
+    {
+      "id": "nonempty-call",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() { console.info('preview') }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "bare-return",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() { return }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "semicolon-statement",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() { ; }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "parameter",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview(value: string) {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "async",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  async refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "decorator",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  @State refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "static",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  static refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "getter",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  get refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "computed",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  [refreshPreview]() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "generic",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview<T>() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "optional",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview?() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "constructor",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  constructor() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "generator",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  *refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "private",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  private refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "duplicate",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {}\n  refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "unclosed",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {\n}\n",
+      "expected": null
+    },
+    {
+      "id": "referenced-untyped-dispatch",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  dispatchContact() {}\n  refreshPreview(): void {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "unknown-owner-tail",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {}\n}\nnamespace Extra {}\n",
+      "expected": null
+    },
+    {
+      "id": "closed-comment-empty",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() { /* no work */ }\n}\n",
+      "expected": "same_exact_fact_as_typed_baseline"
+    },
+    {
+      "id": "unclosed-comment",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() { /* no work }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "field-collision",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  contactCode() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "forward-method-collision",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {}\n  refreshPreview(): void {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "auxiliary-references-empty",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {}\n  reset(): void { this.refreshPreview() }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "contextual-empty-build",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  build() {}\n}\n",
+      "expected": "same_exact_fact_as_typed_baseline"
+    },
+    {
+      "id": "typed-build",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  build(): void {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "nonempty-build",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  build() { return }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "build-param",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  build(value: string) {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "decorated-build",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  @State build() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "modified-build",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  public build() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "build-field",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  build: string = ''\n}\n",
+      "expected": null
+    },
+    {
+      "id": "build-param-name",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  helper(build: string): void {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "other-reserved",
+      "source": "export class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  class() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "build-import",
+      "source": "import { build } from './helper'\nexport class ContactDraftPanel {\n  contactCode: string = ''\n  submitContact(): void {\n    if (this.contactCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Enter a contact code' })\n      return\n    }\n    this.dispatchContact(this.contactCode)\n  }\n  private dispatchContact(value: string): void {}\n  refreshPreview() {}\n}\n",
+      "expected": null
+    },
+    {
+      "id": "typed-receiver-aux-argument",
+      "source": "export class PreviewService { refreshPreview() {} }\nexport class PreviewOwner {\n  service: PreviewService = new PreviewService()\n  reset(): void { this.service.refreshPreview('x') }\n}\n",
+      "expected": null
+    },
+    {
+      "id": "typed-receiver-aux-zero",
+      "source": "export class PreviewService { refreshPreview() {} }\nexport class PreviewOwner {\n  service: PreviewService = new PreviewService()\n  reset(): void { this.service.refreshPreview() }\n}\n",
+      "expected": null
+    }
+  ],
+  "expected_fact": {
+    "owner": "ContactDraftPanel",
+    "owner_start": 1,
+    "owner_end": 12,
+    "kind": "class",
+    "method": "submitContact",
+    "start_line": 3,
+    "end_line": 9,
+    "field": "contactCode",
+    "root": "this",
+    "dispatch_argument": "scalar"
+  },
+  "correction": "Initial missing-colon firstloss was wrong for build; preserved prior prose. No execution took place."
+}
