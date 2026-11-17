@@ -1,0 +1,726 @@
+{
+  "status": "FROZEN_SOURCE_EXTENSION_COMPONENT_CONTROLS",
+  "scope": "Independent component source controls only; not a public before or original-case evidence",
+  "query": "请返回 LIKE 参数绑定和调用 scanLines 后渲染 lines 的页面。",
+  "descriptor": {
+    "sql_kind": "LIKE",
+    "method": "scanLines",
+    "state": "lines",
+    "excluded_owner": null
+  },
+  "cases": [
+    {
+      "id": "e01",
+      "purpose": "Multiple plain SELECT identifiers; same imported object type through result/state/iterator; direct declared string field",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "positive",
+        "stage": "qualification",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e02",
+      "purpose": "Single SELECT identifier with object result, return-await and declared alternate string field",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code FROM archive_lines WHERE caption LIKE ?'\n    return await this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.code)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "adf1843100439fe466745e6590e81c62b224d4b17950cc8c532fef808d7144ea",
+        "src/pages/ArchiveBoard.ets": "beb019f8a911f855f06e26dee4fbde237783800f3d6a31714a86dec8ac1d64a5"
+      },
+      "expected": {
+        "status": "positive",
+        "stage": "qualification",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e03",
+      "purpose": "Unknown projection expression is outside finite SQL subset",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, upper(caption) FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "5a05a58bc6acd6aa4633bcecedf7e84c1857fba9897401ac343b4f5f820a5e2b",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e04",
+      "purpose": "Projection alias not accepted",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption AS label FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "b416bc719e5084ab13927d338f114ad19537c5686a2f695344d537eb5938362c",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e05",
+      "purpose": "Wildcard does not establish finite projection",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT * FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "48217f09628349a68b81e04aa015409d3566c4f57ca718f48f795f0ed0a73af4",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e06",
+      "purpose": "Duplicate projected identifier rejects rather than deduplicates",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, code FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "9124c9f9f9c11dbbf923d83fc5c76b64ca86da031158fbe93764fb4f19feaa66",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e07",
+      "purpose": "Undeclared rendered member",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.missing)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "32684566d8126f531bec82cf4d254928fe7e3186ed6350689238d26ee390d5bf"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e08",
+      "purpose": "Wrong item receiver with same field name",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(other.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "aea3d49a838f51fe47c2cce9c39590fe8e83ab18466aca4d10ab090ccbc1b983"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "ui_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e09",
+      "purpose": "Computed member access unsupported",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line['caption'])\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "2e180dfccd4917249a8aecceaf3563abf94b27db4ef73e2453d56eafcac4eddc"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "ui_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e10",
+      "purpose": "Member transformation unsupported",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption.trim())\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "3f8c5c262582bfe35786cac639c678b39ba74e6a622787229df4c1068a111a9c"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "ui_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e11",
+      "purpose": "Local item alias unsupported",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        const alias = line\n        Text(alias.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "4df35cb14d2ec150659dac5b9ae294be04dc611092f1375ced3bea2a1f917851"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "ui_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e12",
+      "purpose": "Iterator annotation differs from state element type",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: OtherLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "8b8f7e6206f83fb584970a804ab0618ff9b77e3e5f87333b3648ff2deb71fe9d"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "ui_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e13",
+      "purpose": "Service result resolves different/missing entity import",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/OtherLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "9dbbf77f6f773abce7d010d8707bf017f94d1e6639083185cf628f63407b6b67",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e14",
+      "purpose": "Unsupported rendered field type",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: unknown = null\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "39755f1d3b2ca78ef77136d41a4e3c3d85ee2823f0d586f50f4d8357d2210a8c",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e15",
+      "purpose": "Unknown entity inventory affects whole scope",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine extends BaseLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "b38ebc46e3b724c8982e91c52684534a5ddc4386602ab0e9bca07f739ca33076",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "inventory",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e16",
+      "purpose": "Unknown generic result cannot be inferred from UI",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<unknown[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<unknown[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "c2b55a524c90868390d75d1720a7ed2f5a5e1d155f206858f16dfe39f07159ea",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e17",
+      "purpose": "Different imported spelling alias is outside initial extension",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine as LocalLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: LocalLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: LocalLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "07bfc665ee0d9156499454f5ca64ca93ced780caaffe410cd605fac2bf46b750"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e18",
+      "purpose": "Bare unbound object type does not authorize entity lookup",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "694a28495357667c79eb42024cfefcc5b16c9596204286b3dd985d650fa34c9b"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e19",
+      "purpose": "Forwarding helper result differs from SQL method declared object result",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "68df1d6d594af9f435a349df0ed27c5e4532bd088f3a9202d94c45ed922cd0b1",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e20",
+      "purpose": "Missing forwarding helper cannot establish matching declared result",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "7d80cf4e1b720bc12757093203e99eb80a562935c9065799408fb0122dc24c0a",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e21",
+      "purpose": "Entity annotation/import exists but entity file is outside original admitted source scope; no fetch permitted",
+      "sources": {
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e22",
+      "purpose": "Same entity spelling with two present source files is not common owner identity",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../other/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n",
+        "src/other/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "1647cb9f142105b9cb119aa35263aa00c6a7046ae5002a1541992b03bd2b1df3",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59",
+        "src/other/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e23",
+      "purpose": "Projection names need not equal render member: only source type/member declarations are proven",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT storage_key FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "4bb893e00af9483e84110aaac9d62e876742773aebe241923814d1b277a2438d",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "positive",
+        "stage": "qualification",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e24",
+      "purpose": "Private rendered field cannot certify externally accessible ordinary member",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  private caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "4409153b85fbbd5274c5f52d2015926f0c2e70fbddc45c53592236b1a2de7837",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e25",
+      "purpose": "Known state decorator on entity rendered field is not ordinary member",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  @State caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "317d5579e45ae20f3502bfa77247050cbb0b7c450f6077fd97508d488cd22ff5",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e26",
+      "purpose": "Unknown decorator on entity rendered field invalidates full inventory",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  @Unknown caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "4d8a4d4bbdf72e3e0d0a890d0377f58464bcbe77f8cb068b58ff849adb0870f6",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "inventory",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e27",
+      "purpose": "Projection duplicate differing only by ASCII case rejects conservatively",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, CODE FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "595ba89797f23a3b8fa2d22dc077d7a4ea30117944480b52fc9ddae21e1c2e6b",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e28",
+      "purpose": "Explicit public ordinary string field is supported",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  public caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "dd691ff40b33a8cae923ff53dbce00502b6d3058a5cb53855b8b208d481c1cfc",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "positive",
+        "stage": "qualification",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e29",
+      "purpose": "Readonly field is outside the initial no-modifier/public-only member subset",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  readonly caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "e963ffd44f0fea1d3ab442f26e828723b3dbd2db06e67e4f182d8060e5205169",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e30",
+      "purpose": "SQL method and helper both use scalar rather than array return; UI cannot repair declaration",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "fa9a6dd648247d4f7c4c97aaf95143ed28185ee3dc8a62ad00d3751d55c9798e",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e31",
+      "purpose": "SQL method and helper missing return annotations cannot infer result from UI",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string) {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]) {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "eb7d10063b8eb2995112d6367f39ff15b262f31b2e10807fefc87531e9c10ccd",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e32",
+      "purpose": "Entity file may exist but imported named owner must be exported",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "3388b4153cbde57ba8967e2dfda32b14c68503039f83d7ae93942944a1ea4aec",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e33",
+      "purpose": "Protected rendered field is outside public ordinary field subset",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  protected caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "839e285438aeba90ab301ef5d9108db35722228e23dbaf30accc94a4e53b938a",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e34",
+      "purpose": "Static rendered field is not an instance member witness",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  static caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "537c8625455c063b0bf5717583bb39f159d70a85c26dd491e56ad51eadee571f",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "cross_file_entity",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e35",
+      "purpose": "Only SQL method return annotation missing; helper result cannot supply it",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string) {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "304439706a8f8d695b20a166784923a84c4553ad492e7a5c298d19838ce27224",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e36",
+      "purpose": "Only helper return annotation missing; SQL method result cannot supply it",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]) {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line.caption)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "f70547a03587257442604adbc784b094ef905c0f708e3e3e1a8f34860712f618",
+        "src/pages/ArchiveBoard.ets": "83346e6ff5c8c8ccfdd2906930fc4b08973eb32a32e9d279d07c78f3db050d59"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "sql_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    },
+    {
+      "id": "e37",
+      "purpose": "Object result rendered as Text(item) cannot reuse the string-element direct render branch",
+      "sources": {
+        "src/entities/ArchiveLine.ets": "export class ArchiveLine {\n  code: string = ''\n  caption: string = ''\n}\n",
+        "src/services/ArchiveReader.ets": "import { ArchiveLine } from '../entities/ArchiveLine'\nexport class ArchiveReader {\n  async scanLines(term: string): Promise<ArchiveLine[]> {\n    const sql = 'SELECT code, caption FROM archive_lines WHERE caption LIKE ?'\n    return this.execute(sql, [term])\n  }\n  private async execute(statement: string, parameters: string[]): Promise<ArchiveLine[]> {\n    return []\n  }\n}\n",
+        "src/pages/ArchiveBoard.ets": "import { ArchiveReader } from '../services/ArchiveReader'\nimport { ArchiveLine } from '../entities/ArchiveLine'\n@Component\nexport struct ArchiveBoard {\n  @State text: string = ''\n  @State lines: ArchiveLine[] = []\n  private reader: ArchiveReader = new ArchiveReader()\n  async submit(): Promise<void> {\n    this.lines = await this.reader.scanLines(this.text)\n  }\n  build() {\n    Column() {\n      Search({ value: $$this.text }).onSubmit(() => this.submit())\n      ForEach(this.lines, (line: ArchiveLine) => {\n        Text(line)\n      })\n    }\n  }\n}\n"
+      },
+      "source_sha256": {
+        "src/entities/ArchiveLine.ets": "c023a946ecaa5920ada7453636e45d949b0d1a4ce04a96a7e334996c5aae48b7",
+        "src/services/ArchiveReader.ets": "d08a0cb6634967a0a96519192564c834029a8d90cadce7d679250f33008989ac",
+        "src/pages/ArchiveBoard.ets": "591132de96d7a8b3418f585765c72e292e9ee6e818f033ff95d51d660cfdabce"
+      },
+      "expected": {
+        "status": "unknown",
+        "stage": "ui_source",
+        "unknown_requires_whole_view_fallback": true
+      }
+    }
+  ],
+  "case_count": 37,
+  "constraints": {
+    "roots": "Only original admitted method roots; entity file must already be in admitted original scope; DB may authenticate container but never introduce a scope path or method root.",
+    "all_scope": "Complete inventories and digest receipts for all original scope paths remain required; <=12 paths and unchanged caps.",
+    "meaning": "Typed source declarations and member access only. No claim SQL rows implement the declared return type, no column-to-object mapping or runtime correctness proof.",
+    "projection_duplicates": "Plain ASCII projection identifiers are compared by ASCII lowercase; case-only duplicates reject conservatively. This is a syntactic safety bound, not database collation/schema inference.",
+    "entity_member": "Rendered field: no decorators; modifier list empty or exactly public; declared type exactly string. private/protected/static/readonly/unknown modifiers reject. Imported owner must be exported, plain undecorated class.",
+    "source_scope": "sources keys are the entire admitted source scope for these component controls. e21 intentionally has only two files; e22 intentionally has four. Never add files from imports."
+  },
+  "stage_semantics": "For unknown outcomes stage is the latest responsible layer: an earlier fail-closed inventory/frontend rejection is acceptable. Never require postponing a known rejection. Positive requires full qualification."
+}

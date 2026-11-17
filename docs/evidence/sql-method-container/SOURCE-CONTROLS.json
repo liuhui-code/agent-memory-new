@@ -1,0 +1,2433 @@
+{
+  "status": "DRAFT_SOURCE_REQUEST_CONTROLS_NOT_EXECUTED",
+  "schema": "sql-source-controls/v1",
+  "source_case_count": 53,
+  "request_case_count": 12,
+  "source_cases": [
+    {
+      "id": "p01",
+      "purpose": "Base direct-return SQL forwarding and expression callback, State, nested List",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "p02",
+      "purpose": "SQL role accepts same one-placeholder literal; not LIKE-only grammar",
+      "request": {
+        "query": "请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "SQL",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "p03",
+      "purpose": "Local component and readonly receiver, direct return-await, one-statement block callback",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return await this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@ComponentV2\nexport struct IndexView {\n  @Local input: string = ''\n  @Local rows: string[] = []\n  private readonly gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { this.submit(); })\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return await this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { this.submit(); })\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "1c2e336874517ef87ada5d99222e83121e1e970f64e1aa6a86f4c11a80af35bc",
+        "src/pages/IndexView.ets": "b98cdd7bfbfbe64e179475edc58dcf5fdfcd69c3b33d6d7578b83e56e4ecd40f"
+      }
+    },
+    {
+      "id": "p04",
+      "purpose": "Fields and methods reordered; direct Column ForEach/Text; block optional semicolon",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n@Component\nexport struct IndexView {\n  private gateway: IndexGateway = new IndexGateway()\n  @State rows: string[] = []\n  @State input: string = ''\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { this.submit() })\n      ForEach(this.rows, (row: string) => { Text(row) })\n    }\n  }\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 7,
+            "end_line": 12,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { this.submit() })\n      ForEach(this.rows, (row: string) => { Text(row) })\n    }\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 13,
+            "end_line": 15,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "a51d006b56558df2fb0062b7e1e3900e630f706dd0b056e7f28a770a9a2cd9ec"
+      }
+    },
+    {
+      "id": "p05",
+      "purpose": "Comments and string contents do not create declarations",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/entities/HintCard.ets": "export class HintCard {\n  text: string = \"@State rows: string[] = []; findRows() { fake }\"\n  // findRows(term: string) { return this.execute('?', [term]) }\n  /* @State rows: string[] = [] */\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/entities/HintCard.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "HintCard": "known_empty",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "HintCard": "known_empty",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/entities/HintCard.ets": "0c7c296ddaba5014fc8d0a25276661ffb2b4300cede05d88d695a3b4d8573257"
+      }
+    },
+    {
+      "id": "p06",
+      "purpose": "Non-target full declaration census: Consumer and nested UI callback; no target slot",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/pages/NavigationView.ets": "@ComponentV2\nexport struct NavigationView {\n  @Consumer('RouteStack') routes: RouteStack = new RouteStack()\n  @Local choices: string[] = []\n  build() {\n    List() {\n      ForEach(this.choices, (choice: string) => {\n        ListItem() { Text(choice).onClick(() => { this.routes.pushPathByName('DetailView', choice) }) }\n      })\n    }\n  }\n}\n",
+        "src/pages/KeyboardView.ets": "@Entry\n@Component\nstruct KeyboardView {\n  build() {\n    Column() {\n      TextInput({ placeholder: 'lookup' }).onKeyEvent((event: KeyEvent) => {\n        if (event.keyCode === KeyCode.KEYCODE_BACK) { return true }\n        return false\n      })\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/pages/NavigationView.ets": "known",
+          "src/pages/KeyboardView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "NavigationView": "known_empty",
+          "KeyboardView": "known_empty",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "NavigationView": "known_empty",
+          "KeyboardView": "known_empty",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/pages/NavigationView.ets": "c771db0b665523bd0adac2e97578e0c7aacc17a4a2f675e26de0465f0e61db85",
+        "src/pages/KeyboardView.ets": "6b0d4f9dac0fcbe06f26bf9de47819734d233c47cb1730f13fa1b9ca41cce5f6"
+      }
+    },
+    {
+      "id": "i01",
+      "purpose": "Unbalanced owner boundary is inventory unknown",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "1fbb83023bef854465bc4eab6bb484f11382e67c08d290f21d3ca87a39758446"
+      }
+    },
+    {
+      "id": "i02",
+      "purpose": "Computed member declaration not supported",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  [methodKey]() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "be17e42f867b817206af8fc4b9dc34a30ce4a60c92c57a45ac7bc8cc39217170"
+      }
+    },
+    {
+      "id": "i03",
+      "purpose": "Inheritance may hide method/state declarations",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView extends ParentView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "a635c0151972ef46e649a828c0c6567602f1f3b128916823ec96f4265d70e683"
+      }
+    },
+    {
+      "id": "i04",
+      "purpose": "Duplicate top-level owner name is not first-owner wins",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n\nexport class IndexView {}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "793e301f7aae5d3e373827a92d75f80818a18b723055859f1f6058186ba9fe54"
+      }
+    },
+    {
+      "id": "i05",
+      "purpose": "Unknown class decorator invalidates declaration classification",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@HiddenComponent\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "64a9e3e4c178788401d902be2273688cf34cd5e7d4f6e7ef13de8ca2f1ef2735"
+      }
+    },
+    {
+      "id": "i06",
+      "purpose": "Unterminated comment must not hide declarations",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n/* unterminated"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "e8b82b729d07ef5392e040a68279079da66e3dd8bae6043669af21174cd5b77f"
+      }
+    },
+    {
+      "id": "i07",
+      "purpose": "Unterminated quote is inventory unknown",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = '\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "93979feebb37be382ac301b6d4a40a81931936de374d81230cc4cb8e21286ce6"
+      }
+    },
+    {
+      "id": "i08",
+      "purpose": "Duplicate method declaration is ambiguous",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  async findRows(term: string): Promise<string[]> { return [] }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "unknown",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "not_called_inventory_unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "not_called_inventory_unknown"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "60b7f81bcced4c09d5d54f35e28154fef5db476a29f8ebbacf4e6bbd49b311d8",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "u01",
+      "purpose": "Matching V as an ordinary field is unsupported, not empty UI match",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "a0a4527d1b6affdb88f6e334c3601cac5c7d5d7979cf7fd03e411033d1473b27"
+      }
+    },
+    {
+      "id": "u02",
+      "purpose": "Unknown decorator on matching V cannot be ignored",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @Mystery rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "fa45e3c1ae742896f2ca298bca584a452f170a2ac02f218e9d5971c0e4f68cd8"
+      }
+    },
+    {
+      "id": "s01",
+      "purpose": "Multiple SQL placeholders outside supported finite pair",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ? OR title = ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "1679a9b0d6c309747a1763e4873e583b2d90ff3f73a920313932c10d3b0904c5",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s02",
+      "purpose": "SQL variable reassignment cannot qualify a const pair",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    statement = 'SELECT title FROM other WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "a9858fdb1904650294d810cb83ca8dc37d502029c63323d25b1f5ec37af21cb4",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s03",
+      "purpose": "Direct ordered argument must be exact method parameter",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [other])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "dcb537da953be1de4474e7c08cbd052db202ba2d90113b29f8fe71d20b1dc888",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s04",
+      "purpose": "Two argument array elements unsupported",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term, term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "86a96878a659d1d56b79f570862fa961cb394c850d80fb61e88d877da17d17ac",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s05",
+      "purpose": "Only commented SQL body is not a witness",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    // const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    const statement = 'not SQL'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "3eee530ba657176c7a5b096f568130224b8c9227ff1b4f72f9536c5ea07848a5",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s06",
+      "purpose": "SQL concatenation unsupported",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ' + '?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "719bffdd7eb024c8b058a44288f17cc666f749ef04b3b0bb9a60c46f989cd031",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s07",
+      "purpose": "LIKE source role requires LIKE binding; SQL role not silently equivalent",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title = ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "911942155943fc4923fbde1282a997ec10a345ae8f468eef8c6585a30979b82d",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "s08",
+      "purpose": "A quoted question mark is not a placeholder",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = \"SELECT title FROM records WHERE title LIKE '?'\"\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "f3cb2c6f103ea0e9a2ce67addb76ccaebee9297ef0db45f89ff173244f2c484c",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "u03",
+      "purpose": "Wrong import target must not bind by spelling",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/AnotherGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "reason": "Local named import/receiver syntax is coherent; only cross-file assembler rejects unresolved AnotherGateway module. Do not make local parser consult filesystem."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "a57ea63e5e35929c1c2dafc05896161af27c21bfbffbf0741e773da0c2f11e7c"
+      }
+    },
+    {
+      "id": "u04",
+      "purpose": "Wrong receiver constructor cannot qualify the named typed import",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new AnotherGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "1fed4c66989538a36333af82633ccb8d7b55b4f6ca127e0e5dda332cd7a707b3"
+      }
+    },
+    {
+      "id": "u05",
+      "purpose": "Wrong receiver access is not typed field invocation",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.other.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "e9398a2aea4a6b8210bf61d67601a072ffd1dd511c17c869535628af7f26968a"
+      }
+    },
+    {
+      "id": "u06",
+      "purpose": "Assignment into different state is not V consumption chain",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.otherRows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "389f0b1a1b2be097680487569671c2a58958b0cc36a3515921ec1836b6e3fbce"
+      }
+    },
+    {
+      "id": "u07",
+      "purpose": "ForEach consuming another state is not V rendering",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.otherRows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8dbefcba9c5c6a87024624aac7c448c26d3db6503aa82b3ad9c2623eaffe22bb"
+      }
+    },
+    {
+      "id": "u08",
+      "purpose": "Submission callback with extra statement unsupported",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { this.submit(); this.audit(); })\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "5ff0f321324345ebc2a6b677f90ab0148510aaf5e8c5b8e80d324b8b7643e2e8"
+      }
+    },
+    {
+      "id": "u09",
+      "purpose": "Callback alias cannot stand in for direct submit expression",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(handler)\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "ee9cab56e31ca552683212ad276dafe764dc29fb0673247e5340634a958e8ca8"
+      }
+    },
+    {
+      "id": "u10",
+      "purpose": "Delayed nested callback unsupported",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { setTimeout(() => this.submit(), 0); })\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "eedeb3f878b40c973e6dc5d282caed9aa8e58ae716870508d5cd93792b8a6e34"
+      }
+    },
+    {
+      "id": "u11",
+      "purpose": "Callback invokes wrong method",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.otherSubmit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "43ef9f9883617adbc3d046c1b439a54b19f97ad494d790491166ab4890c289be"
+      }
+    },
+    {
+      "id": "u12",
+      "purpose": "Search input must bind same query state passed to M",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.otherInput }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "7ff6b95f6eda949077350a448b2a24b82395870bdf7ed97d1bae31fec057c87a"
+      }
+    },
+    {
+      "id": "u13",
+      "purpose": "Readonly typed receiver subsequently reassigned is unsupported",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private readonly gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.gateway = new IndexGateway()\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "43421195a7b988658cb11f53ba7ce01e03cc071502ae5540309284e667861682"
+      }
+    },
+    {
+      "id": "u14",
+      "purpose": "Async callback is not supported direct callback shape",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(async () => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "c8631411033714b0dd1d82da8d7017d824c17d59fb232429650362484ebe2bb2"
+      }
+    },
+    {
+      "id": "u15",
+      "purpose": "Block return statement is not direct expression callback",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => { return this.submit(); })\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "1ba792b68384bd319f78da2d15da55c47c32fe3b10a6f7a42ecf498bd579166a"
+      }
+    },
+    {
+      "id": "m01",
+      "purpose": "Two complete valid same-M/V chains must both be returned before output cap",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/services/SecondGateway.ets": "export class SecondGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/SecondView.ets": "import { SecondGateway } from '../services/SecondGateway'\n\n@Component\nexport struct SecondView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: SecondGateway = new SecondGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/services/SecondGateway.ets": "known",
+          "src/pages/SecondView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "SecondGateway": "positive",
+          "IndexView": "known_empty",
+          "SecondView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "SecondView": "positive",
+          "IndexGateway": "known_empty",
+          "SecondGateway": "known_empty"
+        },
+        "assembly": "all_positive_then_anchor_cap_fallback",
+        "positive_chains": 2,
+        "required_method_count": 6,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          },
+          {
+            "file_path": "src/services/SecondGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/SecondView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/SecondView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/services/SecondGateway.ets": "e1310332c9957aca6f3f8469aac1f8f8e95fff680a95e26ebe5573877ce89f74",
+        "src/pages/SecondView.ets": "c92a6aa9776ae68bd7cf0e6dcbe4c007e8cd70cbda41558c4deb064ed398c4dc"
+      }
+    },
+    {
+      "id": "m02",
+      "purpose": "Valid plus same-M unsupported owner cannot be dropped",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/services/OtherGateway.ets": "export class OtherGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [other])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/services/OtherGateway.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "OtherGateway": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty",
+          "OtherGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/services/OtherGateway.ets": "75304d56c666f15f2199f7e5ebfa11d3616ad05a547f96fe0bc4ed866e7f45fe"
+      }
+    },
+    {
+      "id": "m03",
+      "purpose": "Non-UI entity exposing M must be classified in SQL domain, not ignored",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/entities/PlainEntry.ets": "export class PlainEntry {\n  findRows(term: string): string { return term }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/entities/PlainEntry.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "PlainEntry": "unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "PlainEntry": "known_empty",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/entities/PlainEntry.ets": "04cd81b00d9b8a18ac7f53fa4c0802aa4624d2c92a26f7e4eba460bf9e045f01"
+      }
+    },
+    {
+      "id": "m04",
+      "purpose": "Valid plus same-V UI ordinary field is unresolved competitor",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/pages/OtherView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct OtherView {\n  @State input: string = ''\n  rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/pages/OtherView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "OtherView": "known_empty",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "OtherView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/pages/OtherView.ets": "cace6a2afb27732d31fe83081a489c7828b622b15b3d8c224dfdf3df4ce2c2ea"
+      }
+    },
+    {
+      "id": "m05",
+      "purpose": "Unknown outside-slot declaration inventory cannot be classified negative",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/entities/AuxEntry.ets": "@Opaque\nexport class AuxEntry {\n  title: string = ''\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/entities/AuxEntry.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "AuxEntry": "not_called_inventory_unknown",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "AuxEntry": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/entities/AuxEntry.ets": "02ce88769934a2d57f8fa8aea8409cd8cc6fff4d071fc1f6f40b6c415fc85fb8"
+      }
+    },
+    {
+      "id": "m06",
+      "purpose": "Ordinary nonmatching entity remains known-empty in both domains",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n",
+        "src/entities/LabelEntry.ets": "export class LabelEntry {\n  label: string = 'rows'\n  describe(): string { return 'findRows' }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known",
+          "src/entities/LabelEntry.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "LabelEntry": "known_empty",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "LabelEntry": "known_empty",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3",
+        "src/entities/LabelEntry.ets": "c04f893116d0ce3d3689365640fb4c02f08bd8aae593befaed0d45b729742f51"
+      }
+    },
+    {
+      "id": "p07",
+      "purpose": "SQL role permits finite equality placeholder forwarding, without claiming it satisfies LIKE role",
+      "request": {
+        "query": "请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "SQL",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title = ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title = ?'\n    return this.execute(statement, [term])\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }"
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }"
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "911942155943fc4923fbde1282a997ec10a345ae8f468eef8c6585a30979b82d",
+        "src/pages/IndexView.ets": "8d2b91e440e9fc35f5174a6917dbe13845d8f26a54040f78fc9b4652071187b3"
+      }
+    },
+    {
+      "id": "i09",
+      "purpose": "Unknown member modifier cannot be silently treated as typed receiver",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private volatile gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": null,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "3e52fe87c44f4523388e96c24b89dc637c3145a5235441f0840a2b93aa1dc2fb"
+      }
+    },
+    {
+      "id": "i10",
+      "purpose": "Duplicate field identity rejects complete inventory",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "7dd905dcd39a68b2a89aa7fe3fffabc0701847bdbb681c8e646139bcfdb724f4"
+      }
+    },
+    {
+      "id": "i11",
+      "purpose": "Field and method share member name; no first declaration winner",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  submit: string = ''\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "0622b55d30f9f5beb4d2ad5fa44ad22a17296a9039dbdd37c367d4952788730d"
+      }
+    },
+    {
+      "id": "i12",
+      "purpose": "Duplicate import local binding, even identical module, rejects inventory",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\nimport { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "f89d3a16c5228507da883378abdd6e109e86a719d3a9caa3fb2963c8706ee6fa"
+      }
+    },
+    {
+      "id": "u16",
+      "purpose": "Mutable receiver reassigned in another owner method; whole-owner write audit",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  reset(): void {\n    this.gateway = new IndexGateway()\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "9680606fb58d2b01c9775081ff887a3125f349059dd10b12aad440759b68a6fe"
+      }
+    },
+    {
+      "id": "u17",
+      "purpose": "Two valid submit methods and matching Search callbacks in one UI owner: finite single-submit shape unsupported, whole unknown (never first match)",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  async submitAgain(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      Search({ value: $$this.input }).onSubmit(() => this.submitAgain())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "reason": "multiple_submit_candidates_in_one_owner"
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "9fc44dc91fdd3e01da89232bf4252ab0be26a178c242b6b3d990289ee81d46be"
+      }
+    },
+    {
+      "id": "i13",
+      "purpose": "Template literal outside matching method still unsupported whole lexical inventory",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  label: string = `caption ${1}`\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "5a4c27fb9f7c86755db72fe8a837547dcfec252178c24be0736f8f4e934897c4"
+      }
+    },
+    {
+      "id": "i14",
+      "purpose": "Regex literal outside matching method still unsupported whole lexical inventory",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\n  async findRows(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\n    return this.execute(statement, [term])\n  }\n\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\n\n@Component\nexport struct IndexView {\n  @State input: string = ''\n  @State rows: string[] = []\n  private gateway: IndexGateway = new IndexGateway()\n\n  async submit(): Promise<void> {\n    this.rows = await this.gateway.findRows(this.input)\n  }\n\n  check(): boolean { return /rows/.test(this.input) }\n\n  build() {\n    Column() {\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\n      List() {\n        ForEach(this.rows, (row: string) => {\n          ListItem() { Text(row) }\n        })\n      }\n    }\n  }\n}\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "unknown"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "not_called_inventory_unknown"
+        },
+        "ui_owner": {
+          "IndexView": "not_called_inventory_unknown",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "unknown",
+        "positive_chains": 0,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior."
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "9289450961cc5667733b909131298fb5d347bbcf84d1a51278193655ae6dfaab",
+        "src/pages/IndexView.ets": "86a5c8121a5ff6d254f5971616d6e25db456241ad18538492b7887536ee04f06"
+      }
+    },
+    {
+      "id": "p08",
+      "purpose": "CRLF preserves physical lines and original character offsets; no normalized hashing",
+      "request": {
+        "query": "请返回 LIKE 参数绑定和调用 findRows 后渲染 rows 的页面。",
+        "descriptor": {
+          "sql_kind": "LIKE",
+          "method": "findRows",
+          "state": "rows",
+          "excluded_owner": null
+        }
+      },
+      "sources": {
+        "src/services/IndexGateway.ets": "export class IndexGateway {\r\n  async findRows(term: string): Promise<string[]> {\r\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\r\n    return this.execute(statement, [term])\r\n  }\r\n\r\n  private async execute(statement: string, parameters: string[]): Promise<string[]> {\r\n    return []\r\n  }\r\n}\r\n",
+        "src/pages/IndexView.ets": "import { IndexGateway } from '../services/IndexGateway'\r\n\r\n@Component\r\nexport struct IndexView {\r\n  @State input: string = ''\r\n  @State rows: string[] = []\r\n  private gateway: IndexGateway = new IndexGateway()\r\n\r\n  async submit(): Promise<void> {\r\n    this.rows = await this.gateway.findRows(this.input)\r\n  }\r\n\r\n  build() {\r\n    Column() {\r\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\r\n      List() {\r\n        ForEach(this.rows, (row: string) => {\r\n          ListItem() { Text(row) }\r\n        })\r\n      }\r\n    }\r\n  }\r\n}\r\n"
+      },
+      "expected": {
+        "inventory": {
+          "src/services/IndexGateway.ets": "known",
+          "src/pages/IndexView.ets": "known"
+        },
+        "sql_owner": {
+          "IndexGateway": "positive",
+          "IndexView": "known_empty"
+        },
+        "ui_owner": {
+          "IndexView": "positive",
+          "IndexGateway": "known_empty"
+        },
+        "assembly": "positive",
+        "positive_chains": 1,
+        "interpretation": "source/inventory contract only; no DB admission or request parser executed. unknown causes full qualifier fallback. known_empty does not claim absence of runtime behavior.",
+        "complete_method_witnesses": [
+          {
+            "file_path": "src/services/IndexGateway.ets",
+            "symbol": "findRows",
+            "start_line": 2,
+            "end_line": 5,
+            "exact_excerpt": "  async findRows(term: string): Promise<string[]> {\r\n    const statement = 'SELECT title FROM records WHERE title LIKE ?'\r\n    return this.execute(statement, [term])\r\n  }",
+            "start_offset": 29,
+            "end_offset": 199
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "submit",
+            "start_line": 9,
+            "end_line": 11,
+            "exact_excerpt": "  async submit(): Promise<void> {\r\n    this.rows = await this.gateway.findRows(this.input)\r\n  }",
+            "start_offset": 213,
+            "end_offset": 308
+          },
+          {
+            "file_path": "src/pages/IndexView.ets",
+            "symbol": "build",
+            "start_line": 13,
+            "end_line": 22,
+            "exact_excerpt": "  build() {\r\n    Column() {\r\n      Search({ value: $$this.input }).onSubmit(() => this.submit())\r\n      List() {\r\n        ForEach(this.rows, (row: string) => {\r\n          ListItem() { Text(row) }\r\n        })\r\n      }\r\n    }\r\n  }",
+            "start_offset": 312,
+            "end_offset": 540
+          }
+        ]
+      },
+      "source_sha256": {
+        "src/services/IndexGateway.ets": "11c88f27e0cbc9fdc6f63474b37b0cb59ac93fecdc0ff1d9f23c9ea939e9063a",
+        "src/pages/IndexView.ets": "c4fbf8eb4d627eb7f29fcd5394cc0aa0e2f17da7d8b725e63d715cb7ca2ec833"
+      }
+    }
+  ],
+  "request_cases": [
+    {
+      "query": "请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面。",
+      "expected": "accepted",
+      "reason": "SQL slots",
+      "descriptor": {
+        "sql_kind": "SQL",
+        "method": "findRows",
+        "state": "rows",
+        "excluded_owner": null,
+        "observation": null
+      }
+    },
+    {
+      "query": "档案标题只能精确匹配，请返回 LIKE 参数绑定和调用 lookupNotes 后渲染 notes 的页面，不要返回 DebugConsole。",
+      "expected": "accepted",
+      "reason": "opaque observation and owner exclusion",
+      "descriptor": {
+        "sql_kind": "LIKE",
+        "method": "lookupNotes",
+        "state": "notes",
+        "excluded_owner": "DebugConsole",
+        "observation": "档案标题只能精确匹配，"
+      }
+    },
+    {
+      "query": "设备编号只能精确查询，请返回 SQL 参数绑定和调用 resolveUnits 后渲染 units 的页面。",
+      "expected": "accepted",
+      "reason": "second domain and variable pair",
+      "descriptor": {
+        "sql_kind": "SQL",
+        "method": "resolveUnits",
+        "state": "units",
+        "excluded_owner": null,
+        "observation": "设备编号只能精确查询，"
+      }
+    },
+    {
+      "query": "打印名称只能精确搜索，请返回 SQL 参数绑定和调用 fetchLabels 后渲染 labels 的页面。",
+      "expected": "accepted",
+      "reason": "unlisted verb inside inert label is never executed",
+      "descriptor": {
+        "sql_kind": "SQL",
+        "method": "fetchLabels",
+        "state": "labels",
+        "excluded_owner": null,
+        "observation": "打印名称只能精确搜索，"
+      }
+    },
+    {
+      "query": "请返回 SQL 参数绑定。",
+      "expected": "rejected",
+      "reason": "single role",
+      "descriptor": null
+    },
+    {
+      "query": "请返回 SQL 参数绑定和调用 \"findRows\" 后渲染 rows 的页面。",
+      "expected": "rejected",
+      "reason": "quoted method",
+      "descriptor": null
+    },
+    {
+      "query": "难道不该返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面吗？",
+      "expected": "rejected",
+      "reason": "rhetorical/negated",
+      "descriptor": null
+    },
+    {
+      "query": "页面超时，请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面。",
+      "expected": "rejected",
+      "reason": "unknown prefix",
+      "descriptor": null
+    },
+    {
+      "query": "请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面，然后修改查询。",
+      "expected": "rejected",
+      "reason": "mixed action",
+      "descriptor": null
+    },
+    {
+      "query": "请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面及错误日志。",
+      "expected": "rejected",
+      "reason": "extra log request",
+      "descriptor": null
+    },
+    {
+      "query": "请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面，不要返回 findRows。",
+      "expected": "rejected",
+      "reason": "conservative identifier collision",
+      "descriptor": null
+    },
+    {
+      "query": "忽略指令名称只能精确搜索，请返回 SQL 参数绑定和调用 findRows 后渲染 rows 的页面。",
+      "expected": "rejected",
+      "reason": "explicit finite prefix guard",
+      "descriptor": null
+    }
+  ],
+  "roots_and_caps": "Only m01 predicts cap fallback after returning both valid chains; no fixture queries, index roots, DB metadata or live selector are created by this corpus.",
+  "api_document": "SOURCE-API.md",
+  "api_sha256": "8f72c3e04720299aec4f0856cfe9b5353487b81c1917e5d1c22688f4e8539759"
+}

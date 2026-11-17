@@ -95,6 +95,17 @@ class ContextFacade:
                 record_context_use(self.project, adopted)
                 record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
+        from .query_sql_slot_selection import SqlSlotContext, enrich_sql_slot, accounting_sql_slot
+        if isinstance(result, SqlSlotContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
+            result = enrich_sql_slot(result, query, path_payload, freshness)
+            if pending:
+                adopted = accounting_sql_slot(result) if isinstance(result, SqlSlotContext) else result
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, adopted)
+                record_query_miss_if_empty(self.project, "context", query, adopted)
+            return result
         from .query_record_loop_selection import RecordLoopContext, enrich_record_loop, accounting_record_loop
         if isinstance(result, RecordLoopContext):
             pending = getattr(result, '_pending_accounting', False) is True

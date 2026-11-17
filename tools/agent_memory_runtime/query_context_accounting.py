@@ -27,4 +27,6 @@ def adopted_context(result):
     adopted = accounting_command_table(adopted) if isinstance(adopted, CommandTableContext) else adopted
     adopted = accounting_record_loop(adopted) if isinstance(adopted, RecordLoopContext) else adopted
     adopted = accounting_archive_create_write(adopted) if isinstance(adopted, ArchiveCreateWriteContext) else adopted
+    from .query_sql_slot_selection import SqlSlotContext, accounting_sql_slot
+    adopted = accounting_sql_slot(adopted) if isinstance(adopted, SqlSlotContext) else adopted
     return adopted

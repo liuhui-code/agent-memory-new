@@ -56,4 +56,6 @@ def bind_source_views(project, query, context, items):
     context = bind_divider_context(project, query, context, items)
     context = bind_gesture_context(project, query, context, items)
     from .query_ui_vertical_selection import bind_vertical_context
-    return bind_vertical_context(project, query, context, items)
+    context = bind_vertical_context(project, query, context, items)
+    from .query_sql_slot_selection import bind_sql_slot_context
+    return bind_sql_slot_context(project, query, context, items)

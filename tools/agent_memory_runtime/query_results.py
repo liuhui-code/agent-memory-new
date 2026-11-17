@@ -71,7 +71,7 @@ def limited_matches(
 
 from .query_result_limits import diverse_log_matches
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False, defer_vertical_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False, defer_vertical_accounting: bool = False, defer_sql_slot_accounting: bool = False) -> dict[str, Any]:
     from .query_touch_index_trial import begin_touch_pass, bind_touch_pass
     touch_state, baseline_capture = begin_touch_pass(project, query)
     baseline = _context_pass(project, query, explicit_intent, touch_capture=baseline_capture)
@@ -106,7 +106,8 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     from .query_record_loop_selection import RecordLoopContext, accounting_record_loop
     from .query_archive_create_write_selection import ArchiveCreateWriteContext, accounting_archive_create_write
     from .query_render_selection import RenderContext, render_context_view
-    if ((isinstance(result, RenderContext) and defer_render_accounting)
+    from .query_sql_slot_selection import SqlSlotContext
+    if ((isinstance(result, SqlSlotContext) and defer_sql_slot_accounting) or (isinstance(result, RenderContext) and defer_render_accounting)
             or (isinstance(result, (LifecycleContext, LifecycleLogContext)) and defer_lifecycle_accounting)
             or (isinstance(result, OutputLoopContext) and defer_output_loop_accounting)
             or (isinstance(result, CommandContext) and defer_command_accounting)
@@ -125,7 +126,6 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
     return result
-
 def _context_pass(
     project: Project,
     query: str,

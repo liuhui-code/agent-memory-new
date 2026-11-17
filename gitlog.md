@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-17 — 有界 SQL 请求槽源码视图与原 06 部分改善
+
+- 新增有限 SQL 参数绑定、提交与页面渲染链源码视图，并认证对象数组及直接成员渲染；身份、作用域或预算不满足时回退，保留 raw 与非代码内容。
+- 独立 folio 三个请求 3/3 通过；原 06 从 1/3 改善为 2/3，generic 通用措辞仍失败，不宣称全部修复。
+- clean 发布树重跑相同 313 项组件测试全部通过，未运行全量或重新执行产品 CLI。V1 的 STOP 仍保留为失败证据；V2 独立验收不追认 V1。
+- 只发布源码、必要测试及小型独立控制数据和摘要；完整私有证据另行归档。见 docs/releases/query06-sql-source-20261117/README.zh-CN.md。
+
 ## 2026-11-15 — Bounded affirmative Chinese cleanup request coverage
 
 - Reuse the existing cleanup render-source certificate for closed affirmative
