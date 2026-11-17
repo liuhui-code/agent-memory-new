@@ -54,4 +54,6 @@ def bind_source_views(project, query, context, items):
     context = bind_command_table_context(project, query, context, items)
     from .query_ui_gesture_selection import bind_gesture_context
     context = bind_divider_context(project, query, context, items)
-    return bind_gesture_context(project, query, context, items)
+    context = bind_gesture_context(project, query, context, items)
+    from .query_ui_vertical_selection import bind_vertical_context
+    return bind_vertical_context(project, query, context, items)

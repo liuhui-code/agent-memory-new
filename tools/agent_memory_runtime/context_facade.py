@@ -139,6 +139,16 @@ class ContextFacade:
                 record_context_use(self.project, adopted)
                 record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
+        from .query_ui_vertical_selection import VerticalContext, enrich_vertical
+        if isinstance(result, VerticalContext):
+            pending = getattr(result, '_pending_accounting', False) is True
+            result._pending_accounting = False
+            result = enrich_vertical(result, query, path_payload, freshness)
+            if pending:
+                from .query_results import record_context_use, record_query_miss_if_empty
+                record_context_use(self.project, dict(result))
+                record_query_miss_if_empty(self.project, "context", query, dict(result))
+            return result
         from .query_ui_gesture_selection import GestureContext, enrich_gesture, accounting_gesture
         if isinstance(result, GestureContext):
             pending = getattr(result, '_pending_accounting', False) is True

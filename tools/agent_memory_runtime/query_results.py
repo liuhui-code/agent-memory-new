@@ -71,7 +71,7 @@ def limited_matches(
 
 from .query_result_limits import diverse_log_matches
 
-def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False) -> dict[str, Any]:
+def limited_context(project: Project, query: str, explicit_intent: str | None = None, *, defer_render_accounting: bool = False, defer_lifecycle_accounting: bool = False, defer_output_loop_accounting: bool = False, defer_command_accounting: bool = False, defer_cache_scan_accounting: bool = False, defer_record_loop_accounting: bool = False, defer_archive_create_write_accounting: bool = False, defer_command_table_accounting: bool = False, defer_divider_accounting: bool = False, defer_gesture_accounting: bool = False, defer_touch_index_accounting: bool = False, defer_vertical_accounting: bool = False) -> dict[str, Any]:
     from .query_touch_index_trial import begin_touch_pass, bind_touch_pass
     touch_state, baseline_capture = begin_touch_pass(project, query)
     baseline = _context_pass(project, query, explicit_intent, touch_capture=baseline_capture)
@@ -100,6 +100,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     from .query_command_table_selection import CommandTableContext, accounting_command_table
     from .query_touch_index_selection import TouchIndexContext
     result = bind_touch_pass(project, query, baseline, result, explicit_intent, touch_state, _context_pass, baseline_capture)
+    from .query_ui_vertical_selection import VerticalContext
     from .query_ui_gesture_selection import GestureContext
     from .query_ui_divider_selection import DividerContext
     from .query_record_loop_selection import RecordLoopContext, accounting_record_loop
@@ -111,6 +112,7 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
             or (isinstance(result, CommandContext) and defer_command_accounting)
             or (isinstance(result, CacheScanContext) and defer_cache_scan_accounting)
             or (isinstance(result, DividerContext) and defer_divider_accounting)
+            or (isinstance(result, VerticalContext) and defer_vertical_accounting)
             or (isinstance(result, GestureContext) and defer_gesture_accounting)
             or (isinstance(result, TouchIndexContext) and defer_touch_index_accounting)
             or (isinstance(result, CommandTableContext) and defer_command_table_accounting)
@@ -350,7 +352,6 @@ def retrieval_stage_counts(
             for key in keys
         },
     }
-
 
 def batched_search(
     matches: dict[str, list[dict[str, Any]]],

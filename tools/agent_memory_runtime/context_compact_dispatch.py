@@ -5,6 +5,9 @@ def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str
     from .query_touch_index_selection import TouchIndexContext, compact_touch_index
     if isinstance(data, TouchIndexContext):
         return compact_touch_index(data, _compact_context(dict(data)))
+    from .query_ui_vertical_selection import VerticalContext, compact_vertical
+    if isinstance(data, VerticalContext):
+        return compact_vertical(data, _compact_context(dict(data)))
     from .query_ui_gesture_selection import GestureContext, compact_gesture
     if isinstance(data, GestureContext):
         return compact_gesture(data, _compact_context(dict(data)))
