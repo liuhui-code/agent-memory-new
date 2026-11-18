@@ -1,0 +1,11 @@
+# New non-exclusive static reading entry (Development)
+
+Authorized new capability, not a repair of old ranking or original precision. Keep all candidates, source anchors, logs, graph, uncertainty and scores. At final compact CLI boundary only, a single existing alternative with authenticated complete clock-field/minimum-scan/delete relation may become reading primary; old order is recorded and every candidate field preserved. No earlier consumer sees the permutation. Raw remains unchanged. Unknown or multiple proofs, incomplete bodies, stale identity/digest/generation, unsafe request, budget overflow => identical baseline output.
+
+Request grammar is complete positive scan-source commands in three forms plus optional lower-case cache observation; explicit names, logs, FIFO/literal/generated/mixed requests remain old routes. Observation contributes no identity. Source supports finite local numeric-interface Map clock-write, direct scan and selected-key delete. No runtime correctness/uniqueness claim. All other candidates remain unresolved, not declared irrelevant.
+
+Prospective source controls: unchanged retained WindowCache typed source plus wrong clock field/write receiver/scan receiver/delete receiver/key/minimum direction/split or deferred body/shadow builtin/extra effects/malformed literal. These qualify new support, never turn old STOP green/red retrospectively.
+
+Consumer controls: exact permutation with two alternatives; missing target candidate; partial source; stale bytes; two proven targets; explicit/quoted/mixed/log request; graph/log descendants unchanged; original order record; exact budget fallback; terminal-only CLI use. Actual original33 is observed for new reading effect, not oracle retuned or original closure. Default1500 and requested2000 tested; no full gate.
+
+First actual default and2000 executions correctly decline: default removed alternatives;2000 retains target but only a mechanism-window identity and partial displayed source. Supporting proper indexed enclosing-method join requires that the unchanged window belongs to the unique parsed method and is explicitly semantic_mechanism_window; unsupported windows still refuse. Full displayed method remains mandatory. Next predeclared interface test is explicit4000 with preserve; this does not alter default or count as the original1500 gate passing.

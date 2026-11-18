@@ -1,0 +1,122 @@
+[
+  {
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/file-only-primary/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/compat-home-scan",
+      "--query",
+      "Locate executable eviction scan ownership.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/file-only-primary/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/compat-home-timestamp",
+      "--query",
+      "Find the timestamp scan and delete implementation.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/file-only-primary/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/compat-home-minimum",
+      "--query",
+      "Return minimum-field scan and key deletion source.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/file-only-primary/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/compat-home-explicit",
+      "--query",
+      "Locate WindowCache.store.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/file-only-primary/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/compat-home-literal",
+      "--query",
+      "Locate CacheStatus.description.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/file-only-primary/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/compat-home-fifo",
+      "--query",
+      "Locate FifoBuffer.trim.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

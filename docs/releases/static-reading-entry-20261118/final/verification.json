@@ -1,0 +1,68 @@
+[
+  {
+    "name": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/final-home-default",
+      "--query",
+      "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+      "--compact",
+      "--compact-token-budget",
+      "1500",
+      "--json"
+    ],
+    "rc": 0,
+    "exact_noop": true
+  },
+  {
+    "name": "2000",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/final-home-2000",
+      "--query",
+      "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--json"
+    ],
+    "rc": 0,
+    "exact_noop": true
+  },
+  {
+    "name": "preserve",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/static-reading/final-home-preserve",
+      "--query",
+      "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--json",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0,
+    "new_primary": "put",
+    "estimated_tokens": 1996,
+    "all_other_evidence_identical": true
+  }
+]

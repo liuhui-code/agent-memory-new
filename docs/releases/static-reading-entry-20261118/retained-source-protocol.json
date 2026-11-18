@@ -1,0 +1,23 @@
+{
+  "classification": "New independent Development callable-discrimination qualification; unchanged existing WindowCache source family plus fixed original Chinese request, not rerunning/regrading old clock owner acceptance",
+  "sources": {
+    "src/WindowCache.ts": "export interface TimedValue {\n  timestamp: number\n  payload: string\n}\nexport class WindowCache {\n  private values: Map<string, TimedValue> = new Map()\n  constructor(private limit: number) {}\n  store(token: string, text: string): void {\n    this.values.set(token, { timestamp: Date.now(), payload: text })\n    if (this.values.size <= this.limit) { return }\n    let selected: string | undefined = undefined\n    let minimum: number = Number.MAX_SAFE_INTEGER\n    for (const [entryKey, entryValue] of this.values) {\n      if (entryValue.timestamp < minimum) {\n        minimum = entryValue.timestamp\n        selected = entryKey\n      }\n    }\n    if (selected !== undefined) { this.values.delete(selected) }\n  }\n}\n",
+    "src/CacheStatus.ts": "export class CacheStatus {\n  description(): string {\n    return 'Cache capacity exceeded; timestamp scan and oldest entry deletion pending.'\n  }\n}\n",
+    "src/FifoBuffer.ts": "export class FifoBuffer {\n  private values: Map<string, string> = new Map()\n  trim(limit: number): void {\n    if (this.values.size > limit) {\n      const key = this.values.keys().next().value\n      this.values.delete(key)\n    }\n  }\n}\n"
+  },
+  "queries": [
+    [
+      "file_only",
+      "结果缓存超过容量后没有淘汰最旧条目，请只返回遍历时间戳并删除候选键的实现，不要返回缓存配置、页面或数据模型。"
+    ],
+    [
+      "explicit_method",
+      "Locate WindowCache.store."
+    ],
+    [
+      "explicit_constructor",
+      "Locate WindowCache.constructor."
+    ]
+  ],
+  "contract": "Only if ordinary candidates have no callable-specific evidence and are tied solely on same-file prior/location, abstain from naming one arbitrary primary; retain candidate identities, source, uncertainty and unrelated named controls. No timestamp effect or unique owner inference."
+}

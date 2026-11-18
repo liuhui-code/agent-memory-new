@@ -1,0 +1,7 @@
+usage: agent_memory.py context [-h] [--project PROJECT]
+                               [--memory-home MEMORY_HOME] --query QUERY
+                               [--intent {code_location,code_business_semantics,runtime_log_diagnosis,procedure_reuse,semantic_correction,memory_maintenance,general_context}]
+                               [--compact]
+                               [--compact-token-budget {1500,2000}]
+                               [--preserve-selected-source-anchors] [--json]
+agent_memory.py context: error: argument --compact-token-budget: invalid choice: '4000' (choose from 1500, 2000)

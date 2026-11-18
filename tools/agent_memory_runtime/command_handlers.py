@@ -167,6 +167,9 @@ def context(args: argparse.Namespace) -> None:
         except CompactRequestIncomplete as exc:
             print(json.dumps(exc.payload, ensure_ascii=False))
             raise SystemExit(2) from exc
+    if args.compact:
+        from .context_static_reading import static_reading_order
+        data = static_reading_order(project, data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

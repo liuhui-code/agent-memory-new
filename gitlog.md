@@ -178,6 +178,14 @@
 
 # Local Development Log
 
+## 2026-11-18 - Add non-exclusive terminal static scan reading entry
+
+- New authorized reading-order feature: finite static Map clock-write/minimum-scan/key-delete proof joins unique current indexed method and complete already-displayed source. No file-name guessing or runtime causal inference.
+- Final compact CLI only, strict candidate permutation with prior order recorded; raw, anchors, logs, graphs and candidate fields preserved. Unknown/ambiguous/partial/over-budget returns identical output.
+- Original33 explicit2000+preserve moves put to reading primary at1996 tokens; default1500 and ordinary2000 remain exact no-ops. No default precision/original closure claim.
+- Independent review ambiguity defect fixed before publish;71 focused tests plus line/diff checks pass. Retain first import-name error, rejected4000 attempt and old WindowCache STOP.
+- Evidence: docs/releases/static-reading-entry-20261118/.
+
 ## 2026-11-18 - Reconcile current33/34/38 targeted failures without speculative fixes
 
 - Run each unchanged original Development group separately: each2/3, with current precise failed layer documented. No full gate/aggregate, no runtime edit.
