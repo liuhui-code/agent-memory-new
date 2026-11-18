@@ -160,6 +160,9 @@ def context(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))
     if args.compact:
+        from copy import deepcopy
+        from .context_field_alternative import field_read_request
+        original_context = deepcopy(data) if field_read_request(args.query) else None
         try:
             data = (compact_context(data) if budget is None and not preserve else
                     compact_context(data, token_budget=1500 if budget is None else budget,
@@ -173,6 +176,9 @@ def context(args: argparse.Namespace) -> None:
     if args.compact:
         from .context_callable_envelope import expand_callable_envelopes
         data = expand_callable_envelopes(project, data, enabled=True)
+        from .context_field_alternative import append_field_alternatives
+        if original_context is not None:
+            data = append_field_alternatives(project, original_context, data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

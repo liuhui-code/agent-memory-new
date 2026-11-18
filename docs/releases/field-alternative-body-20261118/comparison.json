@@ -1,0 +1,269 @@
+[
+  {
+    "cohort": "target",
+    "query": "profile-zh",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "profile-zh",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "profile-en",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "profile-en",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "purchase",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "purchase",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "both",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "both",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "logging",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "logging",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "generic",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "target",
+    "query": "generic",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "profile-zh",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "profile-zh",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "profile-en",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "profile-en",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "purchase",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "purchase",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "both",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "both",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "logging",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "logging",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "generic",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "competition",
+    "query": "generic",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "profile-zh",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "profile-zh",
+    "mode": "compact",
+    "exact_equal": false,
+    "only_additions_and_bookkeeping": true,
+    "old_anchor_prefix_exact": true,
+    "added": [
+      {
+        "source": "wiki",
+        "record_type": "code_symbol",
+        "record_ids": [
+          6
+        ],
+        "file_path": "src/pages/ProfileEditor.ets",
+        "symbol": "saveProfile",
+        "symbol_type": "function",
+        "role": "alternative",
+        "source_ranges": [
+          {
+            "symbol": "saveProfile",
+            "start_line": 6,
+            "end_line": 12
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 12
+        },
+        "display_basis": {
+          "kind": "partial_static_guarded_field_call",
+          "field": "displayName",
+          "domain_unverified": true,
+          "action_unverified": true,
+          "unverified_action": "个人资料更新"
+        },
+        "source_excerpts": [
+          {
+            "symbol": "saveProfile",
+            "start_line": 6,
+            "end_line": 12,
+            "content": "  saveProfile(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateProfile(this.displayName)\n  }",
+            "source": "current_worktree",
+            "selection_reason": "existing_alternative_field_body",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 1317,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "bodies_exact": true
+  },
+  {
+    "cohort": "logger",
+    "query": "profile-en",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "profile-en",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "purchase",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "purchase",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "both",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "both",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "logging",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "logging",
+    "mode": "compact",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "generic",
+    "mode": "raw",
+    "exact_equal": true
+  },
+  {
+    "cohort": "logger",
+    "query": "generic",
+    "mode": "compact",
+    "exact_equal": true
+  }
+]

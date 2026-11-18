@@ -194,7 +194,7 @@ class Parser:
             for token in ('}',')'): self.eat(token)
             self.end_statement(); self.eat('return'); self.end_statement(); self.eat('}')
             target,arg = self.call(d,m,(root,field))
-            if 'dispatch' not in parts(target): raise Unknown('dispatch identifier part')
+            self.validate_dispatch_target(target)
             extra = 0
             while self.i < len(self.t):
                 self.call(d,m,(root,field)); extra += 1
@@ -202,6 +202,9 @@ class Parser:
             return dict(owner=d['owner'],owner_start=d['start'],owner_end=d['end'],kind=d['kind'],
                         method=m['name'],start_line=m['start'],end_line=m['end'],field=field,root=root,dispatch_argument=arg)
         finally: self.t,self.i = saved
+
+    def validate_dispatch_target(self, target):
+        if 'dispatch' not in parts(target): raise Unknown('dispatch identifier part')
 
     def call(self,d,m,bound):
         call_line = self.t[self.i].line if self.i < len(self.t) else None

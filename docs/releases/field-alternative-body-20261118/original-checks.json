@@ -1,0 +1,56 @@
+{
+  "13": {
+    "case_count": 3,
+    "passed_case_count": 1,
+    "cases": [
+      {
+        "id": "context-validation-stop-owner::original",
+        "status": "fail",
+        "failed_checks": [
+          "minimum_anchor_precision_met"
+        ]
+      },
+      {
+        "id": "context-validation-stop-owner::en-paraphrase",
+        "status": "pass",
+        "failed_checks": []
+      },
+      {
+        "id": "context-validation-stop-owner::zh-noise",
+        "status": "fail",
+        "failed_checks": [
+          "expected_anchors_within_top_k",
+          "minimum_anchor_precision_met",
+          "minimum_source_span_recall_met",
+          "expected_anchors_recalled",
+          "expected_source_excerpt_returned"
+        ]
+      }
+    ]
+  },
+  "32": {
+    "case_count": 3,
+    "passed_case_count": 1,
+    "cases": [
+      {
+        "id": "context-webview-scheme-policy-owner::original",
+        "status": "fail",
+        "failed_checks": [
+          "minimum_anchor_precision_met"
+        ]
+      },
+      {
+        "id": "context-webview-scheme-policy-owner::en-paraphrase",
+        "status": "pass",
+        "failed_checks": []
+      },
+      {
+        "id": "context-webview-scheme-policy-owner::zh-noise",
+        "status": "fail",
+        "failed_checks": [
+          "minimum_anchor_precision_met"
+        ]
+      }
+    ]
+  }
+}

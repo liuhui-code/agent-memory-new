@@ -13114,3 +13114,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Reuse authenticated additive method display in default compact, with no dropped summary/advice or evidence. Recognize existing typed file-record method projections only with exact symbol/range/read-window and file-ID authentication.
 - Fixed disclosed renamed-source Development request improves1017→1076tokens and body7–20→method6–21; named/logger controls unchanged and old output exactly restorable. Initial rejected projection/assertion retained.
 - 61 focused tests pass.12 actual original15/33/37/38 default outputs remain exactly unchanged, so no old precision closure or full-gate claim. Proposed budget trade/new encoding not implemented. See docs/releases/default-callable-envelope-20261118/.
+
+## 2026-11-18 — Add authenticated guarded-field alternative body without displacing evidence
+
+- Preserve an existing callable alternative's complete source when a separate weak field request and current exact source identity justify a partial static guarded-field-call relation. Do not change primary, scores, certainty, old anchors/logs/graph or old strict View permissions. Business action/domain remain explicitly unverified; all matching additions must fit together.
+- Unchanged independent18-cell public matrix:18 raw and17 compact outputs unchanged; logger/profile-zh gains fullsaveProfile6–12 at1317/1500, and baseline is exactly reconstructable. No competitor removed.116 focused tests plus final11 CLI-gate tests pass; no full-suite/CI claim.
+- Preserve withdrawn file-priority qualification STOPs and first terminal36 no-ops (freshness schema mismatch and stricter dispatch predicate). Original13/32 current single groups remain1/3 each. Details: docs/releases/field-alternative-body-20261118/.
