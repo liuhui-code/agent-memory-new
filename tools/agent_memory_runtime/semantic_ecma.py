@@ -355,6 +355,8 @@ def callable_relations(
         r"\bawait\s+(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(", body
     )
     for field_name, method_name in typed_awaits:
+        if field_name == "this":
+            continue
         type_name = fields.get(field_name) or (field_name if field_name in imported_paths else None)
         if field_name in fields and type_name in context.imported_aliases:
             continue

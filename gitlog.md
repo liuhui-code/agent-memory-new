@@ -1,3 +1,9 @@
+## 2026-11-18 — Avoid duplicate local-await gap classification
+
+- Skip literal `this` in the typed-receiver await scan; retain local-method resolution and genuine unresolved local/typed target gaps. Production change is two lines in semantic_ecma.py.
+- Independent five-case parser AFTER confirms exact seven-field equality except the two redundant this-prefixed gaps; five top-level parser calls, zero CLI/DB, complete evidence readback. The standard one-method/five-subtest regression and adjacent 17-method CLI/DB suite have separate execution accounting and external final-tree audit.
+- Preserve the prior wrapped-origin STOP and 64-row census limit; no full-suite or original recovery item 10 closure claim. See docs/releases/local-await-20261118/README.md.
+
 ## 2026-11-18 — Strict additive recovery candidate and bounded source reads
 
 - Add a finite logged-recovery path that appends authenticated missing class excerpts without replacing ordinary anchors or other output channels; existing routes keep precedence.
