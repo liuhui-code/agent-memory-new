@@ -1,0 +1,14 @@
+{
+  "classification": "request-only counterexample review; not CLI repair acceptance",
+  "cases": [
+    {
+      "query": "Earlier load failed. Now load must reset state. Find the state owner.",
+      "boundary": "same identifier can refer to both past and current; past spelling cannot be globally suppressed"
+    },
+    {
+      "query": "Earlier load failed. Now swapDocument must reset state. Find the failed operation.",
+      "boundary": "terminal request explicitly refers back to historical operation, despite current sentence"
+    }
+  ],
+  "conclusion": "Neither temporal clause boundaries nor now/current override the task referent; no implementation"
+}

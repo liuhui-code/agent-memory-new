@@ -178,6 +178,13 @@
 
 # Local Development Log
 
+## 2026-11-18 - Reconcile current33/34/38 targeted failures without speculative fixes
+
+- Run each unchanged original Development group separately: each2/3, with current precise failed layer documented. No full gate/aggregate, no runtime edit.
+-33 fails English precision only;34 loses already-present replacement body through historical load priority;38 Chinese has complete target but extra editor-context sources.
+- Preserve cross-sentence temporal referent counterexamples; do not equate earlier/current clauses with source-selection permission.
+- Evidence: docs/releases/remaining-target-verification-20261118/.
+
 ## 2026-11-18 - Verify original37 current three-query group
 
 - At unchanged c195b960 runtime, the original command-binding group now passes3/3 with precision/span recall1.0. Existing finite table consumer supplies the English variant; no new runtime fix claimed.

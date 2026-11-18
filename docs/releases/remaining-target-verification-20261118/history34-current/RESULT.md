@@ -1,0 +1,5 @@
+# Original34 current default single-group verification
+
+At unchanged c195b960 runtime plus docs766d8dad, original Development group is2/3: English paraphrase and Chinese pass, English original fails. No full gate. The failed original retains only WrappedProfileService.ets after default compact projection. The required SourceSwapCoordinator.replaceSource17–21 is present in raw anchors and callable alternatives with complete range. It loses to load exact_symbol38.88 versus replaceSource32.5; portfolio is inactive target_scope_not_composite. This confirms historical-name attribution, not missing bytes, broken indexing or a logger transport omission.
+
+Preserve the earlier frozen historical-reference counterexamples. Removing load based only on earlier/failed would also remove legitimate requested historical referents. No tense whitelist, score tuning, global log removal or rerun of the rejected suppression implementation. Existing optional preserve-selected-source-anchors2000 is a separate delivered policy, not default repair. No production edit or original closure claimed.
