@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-import re
 from typing import Any, Protocol
 
 from .query_language import (
     excluded_code_candidate,
     excluded_result_identifiers,
     excluded_result_roles,
+    matches_excluded_identifier,
 )
 from .query_target_scope import classify_target_scope
 from .text import identifier_tokens, unique_list
@@ -127,11 +127,12 @@ def excluded_member(query: str, item: dict[str, Any]) -> bool:
     text = " ".join(
         str(item.get(key) or "") for key in ("file_path", "owner_name", "symbol")
     )
-    normalized = re.sub(r"[^a-z0-9]", "", text.casefold())
     identifiers = excluded_result_identifiers(query)
     return bool(
         roles.intersection(identifier_tokens(text))
-        or any(value in normalized for value in identifiers)
+        or matches_excluded_identifier(identifiers, [
+            str(item.get(key) or "") for key in ("file_path", "owner_name", "symbol")
+        ])
     )
 
 

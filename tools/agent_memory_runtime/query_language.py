@@ -118,6 +118,19 @@ def excluded_result_identifiers(query: str) -> set[str]:
     }
 
 
+def matches_excluded_identifier(identifiers: set[str], values: list[str]) -> bool:
+    """Match complete identity segments, never concatenated paths or fields.
+
+    Keep historical normalization inside each segment, including hyphenated file
+    stems. Exact directory/file identities remain conservative for all owners.
+    """
+    atoms = {
+        re.sub(r"[^a-z0-9]", "", atom.casefold())
+        for value in values for atom in re.findall(r"[\w$-]+", value)
+    }
+    return bool((identifiers - {""}) & (atoms - {""}))
+
+
 def excluded_code_candidate(query: str, item: dict[str, object]) -> bool:
     query = result_alternative_query(query)
     clauses = NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -133,9 +146,9 @@ def excluded_code_candidate(query: str, item: dict[str, object]) -> bool:
         role for clause in clauses for pattern, role in NEGATIVE_ROLE_ALIASES
         if pattern.search(clause)
     )
-    normalized = re.sub(r"[^a-z0-9]", "", text.casefold())
     identifiers = {
         re.sub(r"[^a-z0-9]", "", value.casefold())
         for clause in clauses for value in NAMED_IDENTIFIER_RE.findall(clause)
     }
-    return bool(roles & tokens or any(value in normalized for value in identifiers))
+    values = [str(item.get(key) or "") for key in ("file_path", "owner_name")]
+    return bool(roles & tokens or matches_excluded_identifier(identifiers, values))

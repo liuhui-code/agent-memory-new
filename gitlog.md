@@ -1,3 +1,17 @@
+## 2026-11-18 — Named exclusion Development AFTER verified (publication pending)
+
+- Exactly four AFTER contexts (zero init/learn/retries) from independent copies of the saved BEFORE learned archive restore ReceiptDraftPreview.previewTitle under the ReceiptDraft exclusion. Source excerpts exactly cover method lines 8–10.
+- Inventory, target-positive and role-exclusion handoffs equal BEFORE exactly. BEFORE used six CLI commands; the 28-method targeted suite includes seven existing integration CLI commands, separately accounted.
+- Preserve full compact-method subsidiary control NOT_VERIFIED boundaries and original05 unresolved status. Source/test bytes remain candidate a111cbb; only documentation is appended here. Final-tree targeted regression is recorded separately without replaying the actual fixture.
+- See docs/releases/named-exclusion-boundaries-20261118/README.md and RESULT-HASHES.json. Large raw/SQLite evidence remains in separate recovery backup; no remote publication yet.
+
+## 2026-11-18 — Candidate complete-identity named exclusions (not released)
+
+- Independent Development BEFORE shows the exact ReceiptDraftPreview method source disappearing when ReceiptDraft alone is excluded; four fixed contexts use independent copies of one learned state. This is not original05 closure or external validation.
+- Replace concatenated substring checks with complete identity-segment matching in query_language and the second callable evidence-set fallback. Preserve existing clause extraction, role tokens, normalized hyphen/underscore spelling, exact directory/file conservatism, and existing lowerCamel scope only in the second caller.
+- New ten-method pure regression first fails in 17 subtests on the unchanged baseline, then passes with the candidate. The focused command passes 28 methods total, including one existing ResultAlternativePublicTests integration method (one init, one learn, five context calls), not solely pure tests. These existing integration controls are separate from the new fixture; no new-fixture AFTER or remote publication has run.
+- Keep Chinese negative render admission, log/path protections, original fixtures and all prior STOP evidence unchanged. Candidate awaits independent diff review and authorized new-fixture AFTER.
+
 ## 2026-11-18 — Avoid duplicate local-await gap classification
 
 - Skip literal `this` in the typed-receiver await scan; retain local-method resolution and genuine unresolved local/typed target gaps. Production change is two lines in semantic_ecma.py.
