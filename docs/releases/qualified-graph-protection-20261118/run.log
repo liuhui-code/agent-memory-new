@@ -1,0 +1,83 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "base",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/home-base",
+      "--query",
+      "control panel rendering",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "method_exclusion",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/home-method_exclusion",
+      "--query",
+      "control panel rendering; exclude StateModel.reset.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "owner_exclusion",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/home-owner_exclusion",
+      "--query",
+      "control panel rendering; exclude StateModel.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "explicit",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-graph/home-explicit",
+      "--query",
+      "Locate ControlPanel.build; exclude StateModel.reset.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

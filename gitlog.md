@@ -1,3 +1,8 @@
+## 2026-11-18 — Verify qualified exclusion against actual static graph
+
+- No runtime change. Independent normal ArkTS learn-path extracts imports and typed-field calls; four normal requests preserve returned import support and method-exclusion context. Dedicated integration confirms all persisted graph rows unchanged.
+- 15 focused methods pass. Calls persistence is not a returned call-path or execution claim. Whole-owner exclusion intentionally retains graph support; no global deletion filter introduced and no old-group closure. See docs/releases/qualified-graph-protection-20261118/.
+
 ## 2026-11-18 — Preserve qualified-member exclusion granularity
 
 - A complete supported Owner.method exclusion no longer degrades into whole-owner or same-named-directory exclusion. Exact qualified or explicit owner+symbol matching fails open on absent/conflicting identity. Other prose and existing guards stay unchanged.

@@ -1,0 +1,26 @@
+{
+  "classification": "new independent Development graph protection qualification, not old holdout or closure",
+  "sources": {
+    "src/model/StateModel.ets": "export class StateModel {\n  ready: boolean = false\n  reset() { this.ready = false }\n}\n",
+    "src/views/ControlPanel.ets": "import { StateModel } from '../model/StateModel'\n\n@Component\nstruct ControlPanel {\n  private state: StateModel = new StateModel()\n  build() { Text('Controls') }\n  clear() { this.state.reset() }\n}\n"
+  },
+  "queries": [
+    [
+      "base",
+      "control panel rendering"
+    ],
+    [
+      "method_exclusion",
+      "control panel rendering; exclude StateModel.reset."
+    ],
+    [
+      "owner_exclusion",
+      "control panel rendering; exclude StateModel."
+    ],
+    [
+      "explicit",
+      "Locate ControlPanel.build; exclude StateModel.reset."
+    ]
+  ],
+  "contract": "Verify actual extracted import edge and source-backed StateModel neighbor are retained where graph protection applies. Negative member must not assert owner deletion. No claim about execution/call authority from import."
+}
