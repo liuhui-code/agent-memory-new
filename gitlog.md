@@ -1,3 +1,9 @@
+## 2026-11-18 — Operation-only reference interpolation admission
+
+- Enable the scanner's default-disabled finite ASCII reference-body option only for operation-token filtering. Unknown/complex input preserves whole-file legacy output; all other producer defaults, ranking, caps and schema stay unchanged. No effect-purity inference.
+- Candidate 43 targeted methods pass; separately 16 pure default comparisons match the saved prior scanner. Independent two-CLI merge/list AFTER removes only Unknown's literal rotate metadata, preserves six summaries/stable fields, and advances generation 2 to 3. Actual review and complete recovery pass.
+- Final-tree 85-method targeted verification is externally recorded. No context query, original38 closure, full-suite or CI claim. Details: docs/releases/operation-reference-interpolation-20261118/.
+
 ## 2026-11-18 — Operation-token lexical admission
 
 - Admit only original operation-name candidates whose tokens remain code under the existing mask, before deduplication/cap12. Unknown syntax or unreliable coordinates preserve the entire legacy result. No ranking, threshold or field-schema change.

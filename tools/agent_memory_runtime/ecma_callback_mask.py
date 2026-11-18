@@ -1,12 +1,19 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 """Equal-position callback admission mask, not a complete ECMAScript lexer.
 
-Template interpolation is opaque/unsupported, never evidence of absent operations.
+Template interpolation is opaque by default, never evidence of absent operations.
+Operation-only opt-in admits reference-shaped spelling, not effect purity.
 Unknown lexical syntax returns None: callers preserve the complete legacy ranges.
 """
+import re
+
 from .source_call_scanner import code_mask
 
 MAX_TEMPLATE_CHARS = 65536
+REFERENCE_BODY = re.compile(
+    r"[ \t\r\n]*[A-Za-z_$][A-Za-z0-9_$]*"
+    r"(?:[ \t\r\n]*\.[ \t\r\n]*[A-Za-z_$][A-Za-z0-9_$]*)*[ \t\r\n]*"
+)
 
 
 def quoted_end(text, start, quote, stop):
@@ -31,7 +38,7 @@ def comment_end(text, start, stop):
     return None
 
 
-def template_end(text, start, stop):
+def template_end(text, start, stop, *, allow_reference_interpolation=False):
     index = start + 1
     while index < stop:
         if text[index] == '\\':
@@ -39,14 +46,20 @@ def template_end(text, start, stop):
         elif text[index] == '`':
             return index + 1
         elif text.startswith('${', index):
-            # Interpolation contains executable source. Do not hide its callbacks.
-            return None
+            # Opt-in recognizes spelling only, not absence of getter/coercion effects.
+            if not allow_reference_interpolation:
+                return None
+            end = text.find('}', index + 2, stop)
+            if end < 0 or REFERENCE_BODY.fullmatch(text[index + 2:end]) is None:
+                return None
+            index = end + 1
+            continue
         else:
             index += 1
     return None
 
 
-def callback_mask_lines(lines):
+def callback_mask_lines(lines, *, allow_reference_interpolation=False):
     # Both semantic splitlines() and excerpt readlines() supply one item per
     # physical line. Do not introduce an extra line for retained terminators.
     text = '\n'.join(line.rstrip('\r\n') for line in lines)
@@ -67,7 +80,10 @@ def callback_mask_lines(lines):
             # the following source. Preserve legacy behavior for this file.
             return None
         elif char == '`':
-            end = template_end(text, index, min(len(text), index + MAX_TEMPLATE_CHARS))
+            end = template_end(
+                text, index, min(len(text), index + MAX_TEMPLATE_CHARS),
+                allow_reference_interpolation=allow_reference_interpolation,
+            )
             if end is None:
                 return None
             masked[index:end] = [' '] * (end - index)

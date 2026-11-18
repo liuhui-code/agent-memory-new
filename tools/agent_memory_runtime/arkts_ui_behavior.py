@@ -62,7 +62,7 @@ def extract_arkts_operation_names(text: str) -> list[str]:
 
 def admitted_operation_matches(text, matches):
     lines = text.split("\n")
-    masked = callback_mask_lines(lines)
+    masked = callback_mask_lines(lines, allow_reference_interpolation=True)
     if masked is None or len(masked) != len(lines):
         return matches
     offsets, offset = [], 0

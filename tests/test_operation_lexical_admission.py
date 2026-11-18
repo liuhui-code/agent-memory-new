@@ -21,7 +21,7 @@ class OperationLexicalTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             for name, text in sources.items():
                 with self.subTest(name=name):
-                    expected = name not in ('OnlyText.ets', 'Quoted.ets')
+                    expected = name not in ('OnlyText.ets', 'Quoted.ets', 'Unknown.ets')
                     self.assertEqual(expected, 'rotate' in op.extract_arkts_operation_names(text))
                     self.assertEqual(expected, 'rotate' in arkts_source_mechanisms(text))
                     path = Path(directory)/name
@@ -35,7 +35,7 @@ class OperationLexicalTests(unittest.TestCase):
                 self.assertEqual(['height','rotate','pushUrl'],op.extract_arkts_operation_names(text))
 
     def test_unknown_preserves_complete_legacy_including_interpolation(self):
-        for text in ['const s=`${router.pushUrl({})}`;', 'const s=`fake ).rotate( ${value}`;',
+        for text in ['const s=`${router.pushUrl({})}`;',
                      'const regex=/x/; Button().rotate(1);', 'const ratio=a/b; Button().rotate(1);',
                      'const s="unterminated ).rotate(', '/* unclosed ).rotate(',
                      'const s=`'+'x'*65537+'`; Button().rotate(1);']:
