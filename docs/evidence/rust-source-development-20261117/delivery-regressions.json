@@ -1,0 +1,19 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_rust_source_context",
+    "tests.test_source_artifact_adapters",
+    "tests.test_semantic_index",
+    "tests.test_design_context",
+    "tests.test_index_freshness"
+  ],
+  "returncode": 0,
+  "tests_executed": 46,
+  "duration_seconds": 59.596,
+  "log_sha256": "c22df0395f15b879537250ec36efe3844a723193f68e84148223466718306db1",
+  "scope": "final Rust adapter and independently reproduced explicit-anchor projection correction"
+}

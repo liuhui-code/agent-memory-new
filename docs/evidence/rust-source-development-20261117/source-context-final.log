@@ -1,0 +1,49 @@
+test_changed_source_is_blocked_in_context_and_relearned_without_duplicates (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_comments_strings_and_macro_token_trees_are_not_declarations (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_crlf_digest_matches_original_bytes_and_remains_queryable (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_deeply_nested_modules_respect_the_static_scope_budget (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_distinct_owners_and_cfg_duplicates_have_distinct_public_ids (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_function_bounds_do_not_truncate_the_generic_impl_owner (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_function_pointer_and_header_without_parameters_are_not_functions (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_inline_module_trait_and_generic_impl_keep_source_scopes (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_invalid_utf8_does_not_become_a_different_valid_declaration (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_public_learning_and_design_return_rust_source_anchors (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_same_line_conditional_definitions_keep_distinct_physical_identities (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_unbalanced_source_keeps_file_without_inventing_spans (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_classifies_native_and_build_artifacts (tests.test_source_artifact_adapters.SourceArtifactAdapterTests) ... ok
+test_incremental_arkts_refresh_does_not_duplicate_boundary_edges (tests.test_source_artifact_adapters.SourceArtifactAdapterTests) ... ok
+test_indexes_native_logs_spans_calls_and_artifact_boundaries (tests.test_source_artifact_adapters.SourceArtifactAdapterTests) ... ok
+test_static_provider_disambiguates_conditional_duplicate_definitions (tests.test_source_artifact_adapters.SourceArtifactAdapterTests) ... ok
+test_static_provider_locates_multiline_native_and_build_definitions (tests.test_source_artifact_adapters.SourceArtifactAdapterTests) ... ok
+test_adapter_registry_keeps_language_specific_logic_out_of_core (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_architecture_slice_exposes_semantic_symbol_identity (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_dispatch_catalog_crosses_batches_with_explicit_candidate_budget (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_exact_edge_blocks_weaker_semantic_duplicate (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_learning_enriches_symbols_and_emits_semantic_edges (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_learning_persists_callable_owner_and_roles (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_object_literal_policy_owns_callable_properties (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_partial_relearn_restores_incoming_semantic_edge (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_semantic_columns_belong_to_symbols_not_files (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_semantic_ir_round_trip_and_validation (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_static_async_arkts_methods_receive_semantic_identity (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_symbol_edges_expand_change_impact_to_cross_file_caller (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_typescript_adapter_uses_the_same_ir_contract (tests.test_semantic_index.SemanticIndexTests) ... ok
+test_agent_directed_concern_and_anchor_refine_second_pass (tests.test_design_context.DesignContextTests) ... ok
+test_compact_context_is_bounded (tests.test_design_context.DesignContextTests) ... ok
+test_explicit_constraint_has_highest_context_authority (tests.test_design_context.DesignContextTests) ... ok
+test_legacy_design_assist_remains_callable (tests.test_design_context.DesignContextTests) ... ok
+test_orientation_returns_context_without_runtime_design_decisions (tests.test_design_context.DesignContextTests) ... ok
+test_semantic_correction_is_a_guardrail_not_a_design_decision (tests.test_design_context.DesignContextTests) ... ok
+test_changed_candidate_is_blocked_before_refresh (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_changed_only_refresh_activates_a_new_current_generation (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_deleted_candidate_is_blocked_before_scope_maintenance (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_external_source_scope_validates_against_source_root (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_health_exposes_active_generation_and_digest_coverage (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_learning_stamps_derived_rows_with_digest_and_generation (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_legacy_rows_are_reported_unverified_without_false_current_claim (tests.test_index_freshness.IndexFreshnessTests) ... ok
+test_path_only_candidate_is_validated_before_handoff (tests.test_index_freshness.IndexFreshnessTests) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 54.332s
+
+OK

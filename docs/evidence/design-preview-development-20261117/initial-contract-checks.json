@@ -1,0 +1,20 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_design_preview_case"
+  ],
+  "returncode": 0,
+  "tests_executed": 12,
+  "duration_seconds": 0.139,
+  "source_sha256": {
+    "tests/fixtures/design_preview/preview.py": "c67bdacedc6dc117d4876a9e1247cfca495211d3897fe08f630a1313d9be2b79",
+    "tests/fixtures/design_preview/renderers.py": "a3a13f3a5cac7b61aa5acaa3f5a191dc39b3bb3cc009061e77c907d1fd1d5d79",
+    "tests/test_design_preview_case.py": "d1942f35cf43f14939bff611e5c138202683355c19742defef03c297e026b4ca"
+  },
+  "log_sha256": "5cbbcb4cd2d94f49452f20626e2755ec0c60968d15caec1f63a887f9248c13df",
+  "scope": "controlled contract and selected thread interleavings, not all concurrency orders or production integration"
+}

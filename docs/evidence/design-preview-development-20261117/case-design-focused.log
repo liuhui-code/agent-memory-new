@@ -1,0 +1,281 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "background report preview snapshot cancellation completion identity ownership",
+    "explicit_concerns": [
+      "reliability",
+      "testability"
+    ],
+    "explicit_anchors": [
+      "src/unsafe.py"
+    ],
+    "explicit_constraints": [
+      "Host request handlers may run concurrently; commit identity check and state update together.",
+      "Cancellation discards preview results; no stream-tail policy transfers."
+    ],
+    "query_stage": "agent_directed_expansion"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "snapshot": {
+      "graph_revision": 1,
+      "freshness": "current",
+      "truncated": false,
+      "gap_count": 2
+    },
+    "entry_points": [
+      "file:src/unsafe.py"
+    ],
+    "boundaries": [
+      {
+        "layer": "core",
+        "files": [
+          "src/unsafe.py"
+        ],
+        "incoming_edges": 5
+      }
+    ],
+    "state_owners": [],
+    "extension_points": [
+      "file:src/unsafe.py",
+      "symbol:src/unsafe.py::UnsafeJob",
+      "symbol:src/unsafe.py::UnsafePreview"
+    ],
+    "affected_consumers": [],
+    "source_anchors": [
+      {
+        "id": "file:src/unsafe.py",
+        "kind": "file",
+        "file_path": "src/unsafe.py",
+        "layer": "core",
+        "summary": "Python file with 16 non-empty lines"
+      },
+      {
+        "id": "symbol:src/unsafe.py::UnsafeJob",
+        "kind": "class",
+        "file_path": "src/unsafe.py",
+        "layer": "core",
+        "summary": "class UnsafeJob in src/unsafe.py; identifier terms: unsafe job",
+        "span": {
+          "start_line": null,
+          "end_line": null
+        }
+      },
+      {
+        "id": "symbol:src/unsafe.py::UnsafePreview",
+        "kind": "class",
+        "file_path": "src/unsafe.py",
+        "layer": "core",
+        "summary": "class UnsafePreview in src/unsafe.py; identifier terms: unsafe preview",
+        "span": {
+          "start_line": null,
+          "end_line": null
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": 1,
+        "source": "file:src/unsafe.py",
+        "relation": "contains",
+        "target": "symbol:src/unsafe.py::UnsafeJob",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      },
+      {
+        "id": 2,
+        "source": "file:src/unsafe.py",
+        "relation": "contains",
+        "target": "symbol:src/unsafe.py::UnsafePreview",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      }
+    ],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [
+      {
+        "statement": "Host request handlers may run concurrently; commit identity check and state update together.",
+        "authority": "current_task_constraint",
+        "applicability": "hard constraint for this design request",
+        "provenance": {
+          "kind": "agent_explicit_input",
+          "ref": "--constraint"
+        }
+      },
+      {
+        "statement": "Cancellation discards preview results; no stream-tail policy transfers.",
+        "authority": "current_task_constraint",
+        "applicability": "hard constraint for this design request",
+        "provenance": {
+          "kind": "agent_explicit_input",
+          "ref": "--constraint"
+        }
+      }
+    ],
+    "semantic_corrections": [],
+    "memory_evidence": [
+      {
+        "evidence_id": "episode:1",
+        "kind": "episode",
+        "title": "Learn path src from /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+        "summary": "Merged 1 files from src",
+        "location": null,
+        "anchors": [
+          "episode:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 1
+        }
+      },
+      {
+        "evidence_id": "reflection:1",
+        "kind": "reflection",
+        "title": "Check full completion identity at the state commit boundary; serialization or an equivalent atomic guard is a prerequisite.",
+        "summary": "Inspect the actual owner and commit boundary, then validate stale and current completions separately",
+        "location": null,
+        "anchors": [
+          "reflection:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "reflection",
+          "ref": 1
+        }
+      }
+    ]
+  },
+  "quality_context": {
+    "routing_hints": [
+      {
+        "concern": "reliability",
+        "origin": "agent_explicit",
+        "matched_terms": []
+      },
+      {
+        "concern": "testability",
+        "origin": "agent_explicit",
+        "matched_terms": []
+      },
+      {
+        "concern": "flexibility",
+        "origin": "lexical_routing_hint",
+        "matched_terms": [
+          "policy"
+        ]
+      }
+    ],
+    "notice": "Routing hints are not design conclusions.",
+    "scenario_questions": [
+      {
+        "concern": "reliability",
+        "questions": [
+          "What stimulus causes failure, and what recovery response is observable?"
+        ]
+      },
+      {
+        "concern": "testability",
+        "questions": [
+          "Which behavior needs an isolated or end-to-end verification path?"
+        ]
+      },
+      {
+        "concern": "flexibility",
+        "questions": [
+          "Which behaviors vary independently and who selects them?"
+        ]
+      }
+    ]
+  },
+  "design_knowledge": [
+    {
+      "id": "strategy",
+      "kind": "pattern",
+      "summary": "Represent independently varying behavior behind one caller-owned contract.",
+      "applicability": "At least two credible behaviors vary independently of the caller.",
+      "preconditions": "Selection owner, lifetime, fallback, and stable inputs/outputs are known.",
+      "contraindications": "There is only one fixed behavior or variants do not share a coherent contract.",
+      "tradeoffs": "Improves variation isolation but adds selection and lifecycle complexity.",
+      "question": "Who selects the behavior?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "concern:flexibility",
+        "concern:testability"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/"
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_test_anchor",
+      "action": "identify focused verification for the proposed design"
+    },
+    {
+      "kind": "missing_observability_anchor",
+      "action": "check whether changed high-risk paths need a stable result/failure signal"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "confirm_or_refine_concerns",
+      "values": [
+        "flexibility"
+      ]
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect source; reason about alternatives, tradeoffs, selection, plan, and verification"
+    ],
+    "runtime_limitations": [
+      "context only; no pattern recommendation, candidate ranking, design selection, or plan"
+    ]
+  },
+  "audit": {
+    "compact": true,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "returned_count": 2,
+      "truncated": true
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "ready_for_agent_directed_refinement",
+    "next_action": "inspect_source_and_confirm_design_constraints",
+    "reason_codes": [
+      "{'kind': 'missing_test_anchor', 'action': 'identify focused verification for the proposed design'}",
+      "{'kind': 'missing_observability_anchor', 'action': 'check whether changed high-risk paths need a stable result/failure signal'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 3,
+      "explicit_constraint_count": 2,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

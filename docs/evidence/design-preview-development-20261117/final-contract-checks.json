@@ -1,0 +1,25 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_design_preview_case"
+  ],
+  "returncode": 0,
+  "tests_executed": 14,
+  "duration_seconds": 0.147,
+  "log_sha256": "933441e33eba4109d6c7ad056f19b8fc70a48adf64f64309c74917fa1307923d",
+  "coordinator_unchanged_from_initial": true,
+  "changed_paths_for_format_exercise": [
+    "tests/fixtures/design_preview/renderers.py",
+    "tests/test_design_preview_case.py"
+  ],
+  "source_sha256": {
+    "tests/fixtures/design_preview/preview.py": "c67bdacedc6dc117d4876a9e1247cfca495211d3897fe08f630a1313d9be2b79",
+    "tests/fixtures/design_preview/renderers.py": "fd95cf4249176d5dc15125f37219d7dfb3deb224caf636576868ac57006dfad9",
+    "tests/test_design_preview_case.py": "9e09eca12abbf0d44bd955f05fe3ccb0e3fe7e877c945e067e24cf9c189b29e3"
+  },
+  "limits": "Controlled interleavings and a predeclared format change, not independent maintainability or efficacy evidence"
+}

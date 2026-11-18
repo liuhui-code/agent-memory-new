@@ -1,0 +1,113 @@
+{
+  "classification": "development",
+  "status": "passed_controlled_case",
+  "checks": {
+    "frozen_input_preserved": true,
+    "runtime_unchanged": true,
+    "skills_unchanged": true,
+    "p0_replay_preserved": true,
+    "p0_patch_intact": true,
+    "p0_archive_intact": true,
+    "initial_12_checks_passed": true,
+    "final_14_checks_passed": true,
+    "p1_code_matches_checks": true,
+    "coordinator_unchanged": true,
+    "negative_control_rejected": true,
+    "case_sources_learned": true,
+    "feedback_roundtrip": true,
+    "invalid_feedback_did_not_add_record": true,
+    "line_limits": true,
+    "diff_check": true,
+    "git_head_unchanged": true,
+    "recorded_logs_intact": true
+  },
+  "p0_snapshot": "8005d6b78ea741aec330ce7c29aba0a8a500e637d672473119e61d22e9eb2895",
+  "distinct_case_test_count": 14,
+  "baseline_regression_tests_rerun": false,
+  "prototype_scope": "test fixture only; no production report feature",
+  "format_change_affected_paths": [
+    "tests/fixtures/design_preview/renderers.py",
+    "tests/test_design_preview_case.py"
+  ],
+  "coordinator_sha256": "c67bdacedc6dc117d4876a9e1247cfca495211d3897fe08f630a1313d9be2b79",
+  "coordinator_lines": 103,
+  "feedback_id": 2,
+  "source_artifacts": [
+    "task.json",
+    "task-brief.md",
+    "unsafe-control.json",
+    "context-replay.json",
+    "reference-review.json",
+    "initial-contract-checks.json",
+    "final-contract-checks.json",
+    "feedback-attempt-1.json",
+    "feedback-replay.json"
+  ],
+  "log_audit": [
+    {
+      "from": "final-contract-checks.json",
+      "log": "final-contract-checks.log",
+      "matches": true
+    },
+    {
+      "from": "feedback-attempt-1.json",
+      "log": "case-save-feedback-attempt-1.log",
+      "matches": true
+    },
+    {
+      "from": "feedback-replay.json",
+      "log": "case-save-feedback-final.log",
+      "matches": true
+    },
+    {
+      "from": "feedback-replay.json",
+      "log": "case-read-feedback-final.log",
+      "matches": true
+    },
+    {
+      "from": "feedback-replay.json",
+      "log": "case-record-history-usage-final.log",
+      "matches": true
+    },
+    {
+      "from": "initial-contract-checks.json",
+      "log": "initial-contract-checks.log",
+      "matches": true
+    },
+    {
+      "from": "context-replay.json",
+      "log": "case-install.log",
+      "matches": true
+    },
+    {
+      "from": "context-replay.json",
+      "log": "case-learn-initial.log",
+      "matches": true
+    },
+    {
+      "from": "context-replay.json",
+      "log": "case-historical-seed.log",
+      "matches": true
+    },
+    {
+      "from": "context-replay.json",
+      "log": "case-design-orientation.log",
+      "matches": true
+    },
+    {
+      "from": "context-replay.json",
+      "log": "case-design-focused.log",
+      "matches": true
+    }
+  ],
+  "limits": [
+    "Agent-authored problem and manually seeded history, not an independent task or holdout",
+    "No no-guidance or no-Memory comparison",
+    "No production UI/session/auth/database snapshot integration",
+    "Only controlled thread schedules; no hard thread cancellation or cross-process identity",
+    "Only CLI/check durations available; host/model and total task cost unmeasured"
+  ],
+  "committed": false,
+  "pushed": false,
+  "finished_at": "2026-11-17T16:46:36.546171+00:00"
+}

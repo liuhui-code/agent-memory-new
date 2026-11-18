@@ -445,6 +445,30 @@ source-check guardrails, not accepted architecture decisions.
 
 The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
 
+For design tasks, the Skill now includes an Agent-prefilled brief, selective
+ADD/arc42/DPR/Ousterhout references, worked counterexamples, and an optional
+MADR-inspired decision template. It reviews applicability, caller burden and
+credible future changes without scoring taste or selecting patterns in Runtime.
+Design feedback uses the existing Reflect path. See the
+[development delivery and verification scope](docs/design-guidance-development.zh-CN.md);
+incremental design quality and Memory benefit remain unmeasured.
+
+Rust `.rs` files now support bounded source-declaration navigation through the
+existing learning and context commands. Definitions carry source spans and
+digests; macros, active cfg, types and calls remain unresolved. Explicit learned
+files are retained before design-context projection is truncated. Use a focused
+`context` query for method evidence in a large scope. Prefer a source scope such
+as `src` over build output. See the [Rust contract and evidence](docs/rust-source-context.zh-CN.md).
+
+The [frozen development baseline](docs/development-baseline-20261117.zh-CN.md)
+includes a replayed review bundle. A [controlled preview design case](docs/design-preview-development-case.zh-CN.md)
+then exercises reference adaptation, state ownership and a format change with
+14 checks. It is a test fixture, not a new review-UI feature or an efficacy result.
+
+[Design comparison preparation](docs/design-comparison-preparation.zh-CN.md) separates
+the guidance bundle from additional project history. Offline supply checks passed;
+real-task evaluation remains disabled pending a source, execution contract and independent review.
+
 Assess a change before editing or review:
 
 ```bash

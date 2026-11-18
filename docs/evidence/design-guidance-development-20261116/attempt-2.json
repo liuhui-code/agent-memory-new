@@ -1,0 +1,69 @@
+{
+  "classification": "development",
+  "started_at": "2026-11-16T16:00:08.575875+00:00",
+  "commands": [
+    {
+      "id": "install-local",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final",
+        "--local-skills",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/memory-home-final"
+      ],
+      "cwd": "/Users/liuhui/Documents/code/agent-memory-new",
+      "returncode": 0,
+      "duration_seconds": 2.259,
+      "required": true,
+      "log": "attempt-2-logs/install-local.log",
+      "log_sha256": "b93996b63e3e4400e06f6ebc0162e1df94ad4d11555d2457e53938d48e7e559f"
+    }
+  ],
+  "checks": {
+    "scalar_frontmatter_agent-memory-query": true,
+    "scalar_frontmatter_agent-memory-reflect": true,
+    "four_installed_skills": true,
+    "all_packaged_skill_resources_copied_exactly": true,
+    "installed_resource_code-design.md": true,
+    "installed_resource_design-reference-guide.md": true,
+    "installed_resource_design-decision-template.md": true,
+    "installed_resource_design-examples.md": true,
+    "installed_reference_links_resolve": false
+  },
+  "limitations": [
+    "No independent Agent behavior or efficacy comparison",
+    "No real cohort, production Memory or installed user Skill changed",
+    "Official quick_validate unavailable: PyYAML absent; current simple scalar metadata checked without a full YAML parser"
+  ],
+  "status": "failed",
+  "prior_checks": {
+    "artifact": "attempt-1.json",
+    "focused_regressions": {
+      "id": "focused-regressions",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "tests.test_design_context",
+        "tests.test_installer",
+        "tests.test_experience_query_quality"
+      ],
+      "cwd": "/Users/liuhui/Documents/code/agent-memory-new",
+      "returncode": 0,
+      "duration_seconds": 21.193,
+      "required": true,
+      "log": "logs/focused-regressions.log",
+      "log_sha256": "75d651c5ebd8c043d0fa82308ac7382f134623e8e6980b6d5335c31b4f63a01d",
+      "executed_test_count": 15
+    },
+    "official_validator_unavailable": true
+  },
+  "verification_correction": "The installer copies Skill directories, not root-level skills/.DS_Store. The initial check included non-package root metadata; installer behavior was unchanged.",
+  "error": "installed_reference_links_resolve",
+  "finished_at": "2026-11-16T16:00:10.851933+00:00",
+  "temporary_root_retained": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon",
+  "verification_script_sha256": "e10580b7e42036b0d9a52d24b3e96964751169049b2029764294d6ba260cc888"
+}

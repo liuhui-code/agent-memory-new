@@ -1,0 +1,19 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_rust_source_context",
+    "tests.test_source_artifact_adapters",
+    "tests.test_semantic_index",
+    "tests.test_design_context",
+    "tests.test_index_freshness"
+  ],
+  "returncode": 0,
+  "tests_executed": 44,
+  "duration_seconds": 54.658,
+  "log_sha256": "44732a48c6219f569ea9a6bb0cab8687689176d49043318cb5fe4fa0b133e46a",
+  "reason_for_rerun": "Rust physical identity changed after a controlled same-line collision; prior results retained"
+}

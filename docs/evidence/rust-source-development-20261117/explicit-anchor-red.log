@@ -1,0 +1,15 @@
+test_compact_projection_keeps_the_explicit_entry_file (tests.test_design_context.DesignContextTests) ... FAIL
+test_compact_projection_retains_explicit_rust_file_amid_distractors (tests.test_rust_source_context.RustSourceContextTests) ... ok
+
+======================================================================
+FAIL: test_compact_projection_keeps_the_explicit_entry_file (tests.test_design_context.DesignContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_design_context.py", line 139, in test_compact_projection_keeps_the_explicit_entry_file
+    self.assertIn("pages/ProfilePage.ets", {
+AssertionError: 'pages/ProfilePage.ets' not found in {'data/ProfileRepository.ets'}
+
+----------------------------------------------------------------------
+Ran 2 tests in 3.506s
+
+FAILED (failures=1)

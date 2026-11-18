@@ -1,0 +1,189 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "ArkLog stream ownership and retirement",
+    "explicit_concerns": [
+      "testability"
+    ],
+    "explicit_anchors": [
+      "crates/arklog-tui/src/controller.rs",
+      "crates/arklog-core/src/runtime.rs"
+    ],
+    "explicit_constraints": [
+      "Retire the old stream before committing a replacement; preserve valid manual Stop tail batches."
+    ],
+    "query_stage": "agent_directed_expansion"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "snapshot": {
+      "graph_revision": 3,
+      "freshness": "empty",
+      "truncated": false,
+      "gap_count": 1
+    },
+    "entry_points": [],
+    "boundaries": [],
+    "state_owners": [],
+    "extension_points": [],
+    "affected_consumers": [],
+    "source_anchors": [],
+    "relations": [],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [
+      {
+        "statement": "Retire the old stream before committing a replacement; preserve valid manual Stop tail batches.",
+        "authority": "current_task_constraint",
+        "applicability": "hard constraint for this design request",
+        "provenance": {
+          "kind": "agent_explicit_input",
+          "ref": "--constraint"
+        }
+      }
+    ],
+    "semantic_corrections": [],
+    "memory_evidence": [
+      {
+        "evidence_id": "episode:3",
+        "kind": "episode",
+        "title": "Learn path crates/arklog-tui/src from /Users/liuhui/Documents/code/ArkLog",
+        "summary": "Merged 0 files from crates/arklog-tui/src",
+        "location": null,
+        "anchors": [
+          "episode:3"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 3
+        }
+      }
+    ]
+  },
+  "quality_context": {
+    "routing_hints": [
+      {
+        "concern": "testability",
+        "origin": "agent_explicit",
+        "matched_terms": []
+      }
+    ],
+    "notice": "Routing hints are not design conclusions.",
+    "scenario_questions": [
+      {
+        "concern": "testability",
+        "questions": [
+          "Which behavior needs an isolated or end-to-end verification path?"
+        ]
+      }
+    ],
+    "vocabulary_source": "https://www.iso.org/standard/78176.html"
+  },
+  "design_knowledge": [
+    {
+      "id": "dependency_inversion",
+      "kind": "principle",
+      "summary": "Keep stable policy independent of changing implementation details through an owner-aligned contract.",
+      "applicability": "Stable policy currently depends directly on volatile infrastructure or integration details.",
+      "preconditions": "A stable responsibility-facing contract can be named.",
+      "contraindications": "There is one stable implementation and no boundary or testing pressure.",
+      "tradeoffs": "Adds interfaces, wiring, and indirection.",
+      "question": "Which side owns the abstraction?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "concern:testability"
+      ],
+      "source_ref": "https://www.archunit.org/userguide/html/000_Index.html"
+    },
+    {
+      "id": "strategy",
+      "kind": "pattern",
+      "summary": "Represent independently varying behavior behind one caller-owned contract.",
+      "applicability": "At least two credible behaviors vary independently of the caller.",
+      "preconditions": "Selection owner, lifetime, fallback, and stable inputs/outputs are known.",
+      "contraindications": "There is only one fixed behavior or variants do not share a coherent contract.",
+      "tradeoffs": "Improves variation isolation but adds selection and lifecycle complexity.",
+      "question": "Who selects the behavior?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "concern:testability"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/"
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_code_anchor",
+      "action": "learn or inspect the narrow current source scope"
+    },
+    {
+      "kind": "missing_memory_support",
+      "action": "continue with source evidence; reflect after verification"
+    },
+    {
+      "kind": "missing_architecture_anchor",
+      "action": "learn or name the current entry file/symbol"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "query_again",
+      "usage": "supply Agent-confirmed --concern and --anchor values"
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect source; reason about alternatives, tradeoffs, selection, plan, and verification"
+    ],
+    "runtime_limitations": [
+      "context only; no pattern recommendation, candidate ranking, design selection, or plan"
+    ]
+  },
+  "audit": {
+    "compact": true,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "returned_count": 2,
+      "truncated": true
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "needs_anchor_confirmation",
+    "next_action": "supply_or_retrieve_current_source_anchor",
+    "reason_codes": [
+      "no_repository_source_anchor",
+      "{'kind': 'missing_code_anchor', 'action': 'learn or inspect the narrow current source scope'}",
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_architecture_anchor', 'action': 'learn or name the current entry file/symbol'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 0,
+      "explicit_constraint_count": 1,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

@@ -53,6 +53,10 @@ The Runtime returns repository facts, project constraints, quality questions,
 general design references, history, and evidence gaps. It does not recommend a
 pattern or produce a design. Load `references/code-design.md`; the Agent owns
 concern selection, alternatives, tradeoffs, the final design, and its plan.
+That protocol supplies an Agent-prefilled task brief, selective reference
+guidance, worked examples and an optional decision template. Load those aids
+only when the actual decision needs them; reference retrieval is not a pattern
+recommendation or evidence that Memory improved the design.
 
 Use `search` or `wiki-search` only when the selected protocol calls for a broader or code-only view. Do not pass temporary runtime-log files to Agent Memory.
 

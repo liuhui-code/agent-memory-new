@@ -41,6 +41,19 @@ A reflection is an experience candidate, not accepted experience. The Agent must
 the assumptions, invalid cases, verification method, source cases, and reuse feedback
 needed for future Agents to decide whether the lesson should transfer.
 
+For design attempts, keep the decision document in Git and record a conditional
+lesson using existing fields: `task_type: design`, source/version references in
+`context_used` and `source_cases`, a concise decision and accepted cost in
+`reasoning_summary`, prerequisites in `hidden_assumptions`, invalid cases in
+`negative_preconditions`, a revisit condition in `future_rule`, and actual
+checks in `verification_method` and `final_verification_path`. Keep planned
+benefits separate from observed outcomes. A completed design-only task does not
+verify its implementation, long-term quality, or Memory's incremental benefit.
+Use `what_failed` and `reuse_feedback` for misleading references; retain later
+counterevidence. Do not infer a reusable procedure or change a global rule from
+one passing check. Ordinary design feedback does not itself trigger a system
+meta-review or promote a Skill candidate.
+
 Keep normative documents separate from experience. If an ADR or Feature Spec informed
 the task, cite its document ID, Git path and version in the existing source/context
 references, and record only the reusable lesson. Do not copy the full specification

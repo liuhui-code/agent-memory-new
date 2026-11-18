@@ -1,0 +1,1411 @@
+{
+  "source": "/Users/liuhui/Documents/code/ArkLog",
+  "path": "crates/arklog-core/src",
+  "scope_id": 2,
+  "mode": "merge",
+  "files": [
+    "crates/arklog-core/src/command.rs",
+    "crates/arklog-core/src/fault_log.rs",
+    "crates/arklog-core/src/lib.rs",
+    "crates/arklog-core/src/runtime.rs",
+    "crates/arklog-core/src/stream.rs"
+  ],
+  "count": 5,
+  "summary": "Merged 5 files from crates/arklog-core/src",
+  "parse_stats": {
+    "files_indexed": 5,
+    "languages": {
+      "Rust": 5
+    },
+    "symbols_total": 70,
+    "symbols_by_type": {
+      "enum": 3,
+      "function": 24,
+      "method": 23,
+      "mod": 4,
+      "struct": 14,
+      "trait": 2
+    },
+    "code_logs_total": 0,
+    "code_logs_by_level": {},
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "rust-static",
+          "version": "1.0",
+          "language": "Rust"
+        }
+      ],
+      "capabilities": [
+        "definitions"
+      ],
+      "files_indexed": 5,
+      "entities": 70,
+      "relations_extracted": 0,
+      "mechanisms_extracted": 0,
+      "relations_emitted": 0,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 46,
+      "gaps": [
+        {
+          "kind": "rust_source_only",
+          "detail": "Rust source-only declarations; macros/cfg/types/calls unresolved"
+        }
+      ],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "Rust",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 5
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 70,
+        "reference_name_count": 0,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 70
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 5,
+      "symbols_written": 70,
+      "passages_written": 75
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/Users/liuhui/Documents/code/ArkLog",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 5,
+      "scope_files": [
+        "crates/arklog-core/src/command.rs",
+        "crates/arklog-core/src/fault_log.rs",
+        "crates/arklog-core/src/lib.rs",
+        "crates/arklog-core/src/runtime.rs",
+        "crates/arklog-core/src/stream.rs"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 5,
+          "code_log_statement": 0,
+          "code_symbol": 70
+        },
+        "edge_count": 70,
+        "relation_counts": {
+          "contains": 70
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 70,
+      "edge_delta": 70
+    },
+    "phase_ms": {
+      "extract": 36.684,
+      "load_scope": 16.629,
+      "invalidate": 1.044,
+      "prepare_rows": 40.487,
+      "insert_rows": 6.048,
+      "restore_business": 0.163,
+      "rebuild_graph": 138.135,
+      "summarize": 0.777,
+      "commit": 0.591,
+      "total": 240.565
+    },
+    "memory_edges_total": 487,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 2,
+    "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 5,
+      "symbols": 25,
+      "logs": 0
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 45,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "crates/arklog-core/src/stream.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceLogOutputBatch, LogBatchSink, LogBatchSink::deliver, spawn_log_reader, deliver, decode_log_line",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "spawn_log_reader",
+              "symbol_type": "function",
+              "summary": "function spawn_log_reader in crates/arklog-core/src/stream.rs; identifier terms: spawn log reader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "stream",
+                "rs",
+                "spawn_log_reader",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "spawn",
+                "log",
+                "reader"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/stream.rs",
+                "spawn_log_reader",
+                "function",
+                "function spawn_log_reader in crates/arklog-core/src/stream.rs; identifier terms: spawn log reader"
+              ]
+            },
+            {
+              "symbol": "deliver",
+              "symbol_type": "function",
+              "summary": "function deliver in crates/arklog-core/src/stream.rs",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "stream",
+                "rs",
+                "deliver",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/stream.rs",
+                "deliver",
+                "function",
+                "function deliver in crates/arklog-core/src/stream.rs"
+              ]
+            },
+            {
+              "symbol": "decode_log_line",
+              "symbol_type": "function",
+              "summary": "function decode_log_line in crates/arklog-core/src/stream.rs; identifier terms: decode log line",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "stream",
+                "rs",
+                "decode_log_line",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "decode",
+                "log",
+                "line"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/stream.rs",
+                "decode_log_line",
+                "function",
+                "function decode_log_line in crates/arklog-core/src/stream.rs; identifier terms: decode log line"
+              ]
+            },
+            {
+              "symbol": "LogBatchSink::deliver",
+              "symbol_type": "method",
+              "summary": "method LogBatchSink::deliver in crates/arklog-core/src/stream.rs; identifier terms: log batch sink",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "stream",
+                "rs",
+                "logbatchsink",
+                "deliver",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "log",
+                "batch",
+                "sink"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/stream.rs",
+                "LogBatchSink::deliver",
+                "method",
+                "method LogBatchSink::deliver in crates/arklog-core/src/stream.rs; identifier terms: log batch sink"
+              ]
+            },
+            {
+              "symbol": "LogBatchSink",
+              "symbol_type": "trait",
+              "summary": "trait LogBatchSink in crates/arklog-core/src/stream.rs; identifier terms: log batch sink",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "stream",
+                "rs",
+                "logbatchsink",
+                "trait",
+                "in",
+                "identifier",
+                "terms",
+                "log",
+                "batch",
+                "sink"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/stream.rs",
+                "LogBatchSink",
+                "trait",
+                "trait LogBatchSink in crates/arklog-core/src/stream.rs; identifier terms: log batch sink"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "core",
+            "src",
+            "stream",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "devicelogoutputbatch",
+            "logbatchsink",
+            "deliver",
+            "spawn_log_reader",
+            "decode_log_line",
+            "device",
+            "log",
+            "output",
+            "batch",
+            "sink",
+            "spawn",
+            "reader",
+            "decode",
+            "line"
+          ],
+          "hint_context": [
+            "crates/arklog-core/src/stream.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceLogOutputBatch, LogBatchSink, LogBatchSink::deliver, spawn_log_reader, deliver, decode_log_line",
+            "spawn_log_reader deliver decode_log_line LogBatchSink::deliver LogBatchSink"
+          ],
+          "truncated_counts": {
+            "symbols": 1,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-core/src/runtime.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceLogStreamSummary, DeviceLogStreamExit, DeviceLogStartMode, DeviceLogStartError, fmt::Display for DeviceLogStartError::fmt, DeviceLogRuntime, ActiveStream, DeviceLogRuntime::new",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "fmt::Display for DeviceLogStartError::fmt",
+              "symbol_type": "method",
+              "summary": "method fmt::Display for DeviceLogStartError::fmt in crates/arklog-core/src/runtime.rs; identifier terms: device log start error",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "runtime",
+                "rs",
+                "fmt",
+                "display",
+                "for",
+                "devicelogstarterror",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "device",
+                "log",
+                "start",
+                "error"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/runtime.rs",
+                "fmt::Display for DeviceLogStartError::fmt",
+                "method",
+                "method fmt::Display for DeviceLogStartError::fmt in crates/arklog-core/src/runtime.rs; identifier terms: device log start error"
+              ]
+            },
+            {
+              "symbol": "Drop for DeviceLogRuntime::drop",
+              "symbol_type": "method",
+              "summary": "method Drop for DeviceLogRuntime::drop in crates/arklog-core/src/runtime.rs; identifier terms: device log runtime",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "runtime",
+                "rs",
+                "drop",
+                "for",
+                "devicelogruntime",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "device",
+                "log"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/runtime.rs",
+                "Drop for DeviceLogRuntime::drop",
+                "method",
+                "method Drop for DeviceLogRuntime::drop in crates/arklog-core/src/runtime.rs; identifier terms: device log runtime"
+              ]
+            },
+            {
+              "symbol": "DeviceLogStreamSummary",
+              "symbol_type": "struct",
+              "summary": "struct DeviceLogStreamSummary in crates/arklog-core/src/runtime.rs; identifier terms: device log stream summary",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "runtime",
+                "rs",
+                "devicelogstreamsummary",
+                "struct",
+                "in",
+                "identifier",
+                "terms",
+                "device",
+                "log",
+                "stream",
+                "summary"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/runtime.rs",
+                "DeviceLogStreamSummary",
+                "struct",
+                "struct DeviceLogStreamSummary in crates/arklog-core/src/runtime.rs; identifier terms: device log stream summary"
+              ]
+            },
+            {
+              "symbol": "DeviceLogStreamExit",
+              "symbol_type": "struct",
+              "summary": "struct DeviceLogStreamExit in crates/arklog-core/src/runtime.rs; identifier terms: device log stream exit",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "runtime",
+                "rs",
+                "devicelogstreamexit",
+                "struct",
+                "in",
+                "identifier",
+                "terms",
+                "device",
+                "log",
+                "stream",
+                "exit"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/runtime.rs",
+                "DeviceLogStreamExit",
+                "struct",
+                "struct DeviceLogStreamExit in crates/arklog-core/src/runtime.rs; identifier terms: device log stream exit"
+              ]
+            },
+            {
+              "symbol": "DeviceLogStartMode",
+              "symbol_type": "enum",
+              "summary": "enum DeviceLogStartMode in crates/arklog-core/src/runtime.rs; identifier terms: device log start mode",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "runtime",
+                "rs",
+                "devicelogstartmode",
+                "enum",
+                "in",
+                "identifier",
+                "terms",
+                "device",
+                "log",
+                "start",
+                "mode"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/runtime.rs",
+                "DeviceLogStartMode",
+                "enum",
+                "enum DeviceLogStartMode in crates/arklog-core/src/runtime.rs; identifier terms: device log start mode"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "core",
+            "src",
+            "runtime",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "devicelogstreamsummary",
+            "devicelogstreamexit",
+            "devicelogstartmode",
+            "devicelogstarterror",
+            "fmt",
+            "display",
+            "for",
+            "devicelogruntime",
+            "activestream",
+            "new",
+            "drop",
+            "device",
+            "log",
+            "stream",
+            "summary",
+            "exit",
+            "start",
+            "mode",
+            "error",
+            "active"
+          ],
+          "hint_context": [
+            "crates/arklog-core/src/runtime.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceLogStreamSummary, DeviceLogStreamExit, DeviceLogStartMode, DeviceLogStartError, fmt::Display for DeviceLogStartError::fmt, DeviceLogRuntime, ActiveStream, DeviceLogRuntime::new",
+            "fmt::Display for DeviceLogStartError::fmt Drop for DeviceLogRuntime::drop DeviceLogStreamSummary DeviceLogStreamExit DeviceLogStartMode"
+          ],
+          "truncated_counts": {
+            "symbols": 11,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-core/src/lib.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: command, fault_log, runtime, stream, DeviceLogDevice, HdcClient, HdcClient<SystemCommandRunner>::new, HdcClient<R>::with_runner",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "parse_phone_code",
+              "symbol_type": "function",
+              "summary": "function parse_phone_code in crates/arklog-core/src/lib.rs; identifier terms: parse phone code",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "lib",
+                "rs",
+                "parse_phone_code",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "parse",
+                "phone",
+                "code"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/lib.rs",
+                "parse_phone_code",
+                "function",
+                "function parse_phone_code in crates/arklog-core/src/lib.rs; identifier terms: parse phone code"
+              ]
+            },
+            {
+              "symbol": "parse_hdc_targets",
+              "symbol_type": "function",
+              "summary": "function parse_hdc_targets in crates/arklog-core/src/lib.rs; identifier terms: parse hdc targets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "lib",
+                "rs",
+                "parse_hdc_targets",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "parse",
+                "hdc",
+                "targets"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/lib.rs",
+                "parse_hdc_targets",
+                "function",
+                "function parse_hdc_targets in crates/arklog-core/src/lib.rs; identifier terms: parse hdc targets"
+              ]
+            },
+            {
+              "symbol": "normalize_device_status",
+              "symbol_type": "function",
+              "summary": "function normalize_device_status in crates/arklog-core/src/lib.rs; identifier terms: normalize device status",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "lib",
+                "rs",
+                "normalize_device_status",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "normalize",
+                "device",
+                "status"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/lib.rs",
+                "normalize_device_status",
+                "function",
+                "function normalize_device_status in crates/arklog-core/src/lib.rs; identifier terms: normalize device status"
+              ]
+            },
+            {
+              "symbol": "is_hdc_transport",
+              "symbol_type": "function",
+              "summary": "function is_hdc_transport in crates/arklog-core/src/lib.rs; identifier terms: is hdc transport",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "lib",
+                "rs",
+                "is_hdc_transport",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "is",
+                "hdc",
+                "transport"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/lib.rs",
+                "is_hdc_transport",
+                "function",
+                "function is_hdc_transport in crates/arklog-core/src/lib.rs; identifier terms: is hdc transport"
+              ]
+            },
+            {
+              "symbol": "stream",
+              "symbol_type": "mod",
+              "summary": "mod stream in crates/arklog-core/src/lib.rs",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "lib",
+                "rs",
+                "stream",
+                "mod",
+                "in"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/lib.rs",
+                "stream",
+                "mod",
+                "mod stream in crates/arklog-core/src/lib.rs"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "core",
+            "src",
+            "lib",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "command",
+            "fault_log",
+            "runtime",
+            "stream",
+            "devicelogdevice",
+            "hdcclient",
+            "systemcommandrunner",
+            "new",
+            "r",
+            "with_runner",
+            "parse_phone_code",
+            "parse_hdc_targets",
+            "normalize_device_status",
+            "is_hdc_transport",
+            "fault",
+            "log",
+            "device",
+            "hdc",
+            "client",
+            "system",
+            "runner",
+            "with",
+            "parse",
+            "phone",
+            "code",
+            "targets",
+            "normalize",
+            "status",
+            "is",
+            "transport"
+          ],
+          "hint_context": [
+            "crates/arklog-core/src/lib.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: command, fault_log, runtime, stream, DeviceLogDevice, HdcClient, HdcClient<SystemCommandRunner>::new, HdcClient<R>::with_runner",
+            "parse_phone_code parse_hdc_targets normalize_device_status is_hdc_transport stream"
+          ],
+          "truncated_counts": {
+            "symbols": 11,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-core/src/fault_log.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceFaultLogStatus, DeviceFaultLogRawEntry, DeviceFaultLogFetchResult, DeviceFaultLogExportResult, DeviceFaultLogExporter, DeviceFaultLogExporter::export, format_export, normalize_fault_log_output",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "split_hidumper_entries",
+              "symbol_type": "function",
+              "summary": "function split_hidumper_entries in crates/arklog-core/src/fault_log.rs; identifier terms: split hidumper entries",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "fault_log",
+                "rs",
+                "split_hidumper_entries",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "split",
+                "hidumper",
+                "entries",
+                "fault",
+                "log"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/fault_log.rs",
+                "split_hidumper_entries",
+                "function",
+                "function split_hidumper_entries in crates/arklog-core/src/fault_log.rs; identifier terms: split hidumper entries"
+              ]
+            },
+            {
+              "symbol": "split_entries",
+              "symbol_type": "function",
+              "summary": "function split_entries in crates/arklog-core/src/fault_log.rs; identifier terms: split entries",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "fault_log",
+                "rs",
+                "split_entries",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "split",
+                "entries",
+                "fault",
+                "log"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/fault_log.rs",
+                "split_entries",
+                "function",
+                "function split_entries in crates/arklog-core/src/fault_log.rs; identifier terms: split entries"
+              ]
+            },
+            {
+              "symbol": "push_entry",
+              "symbol_type": "function",
+              "summary": "function push_entry in crates/arklog-core/src/fault_log.rs; identifier terms: push entry",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "fault_log",
+                "rs",
+                "push_entry",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "push",
+                "entry",
+                "fault",
+                "log"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/fault_log.rs",
+                "push_entry",
+                "function",
+                "function push_entry in crates/arklog-core/src/fault_log.rs; identifier terms: push entry"
+              ]
+            },
+            {
+              "symbol": "normalize_fault_log_output",
+              "symbol_type": "function",
+              "summary": "function normalize_fault_log_output in crates/arklog-core/src/fault_log.rs; identifier terms: normalize fault log output",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "fault_log",
+                "rs",
+                "normalize_fault_log_output",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "normalize",
+                "fault",
+                "log",
+                "output"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/fault_log.rs",
+                "normalize_fault_log_output",
+                "function",
+                "function normalize_fault_log_output in crates/arklog-core/src/fault_log.rs; identifier terms: normalize fault log output"
+              ]
+            },
+            {
+              "symbol": "looks_like_entry_start",
+              "symbol_type": "function",
+              "summary": "function looks_like_entry_start in crates/arklog-core/src/fault_log.rs; identifier terms: looks like entry start",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "fault_log",
+                "rs",
+                "looks_like_entry_start",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "looks",
+                "like",
+                "entry",
+                "start",
+                "fault",
+                "log"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/fault_log.rs",
+                "looks_like_entry_start",
+                "function",
+                "function looks_like_entry_start in crates/arklog-core/src/fault_log.rs; identifier terms: looks like entry start"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "core",
+            "src",
+            "fault_log",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "devicefaultlogstatus",
+            "devicefaultlograwentry",
+            "devicefaultlogfetchresult",
+            "devicefaultlogexportresult",
+            "devicefaultlogexporter",
+            "export",
+            "format_export",
+            "normalize_fault_log_output",
+            "split_hidumper_entries",
+            "split_entries",
+            "push_entry",
+            "looks_like_entry_start",
+            "fault",
+            "log",
+            "device",
+            "status",
+            "raw",
+            "entry",
+            "fetch",
+            "result",
+            "exporter",
+            "format",
+            "normalize",
+            "output",
+            "split",
+            "hidumper",
+            "entries",
+            "push",
+            "looks",
+            "like",
+            "start"
+          ],
+          "hint_context": [
+            "crates/arklog-core/src/fault_log.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceFaultLogStatus, DeviceFaultLogRawEntry, DeviceFaultLogFetchResult, DeviceFaultLogExportResult, DeviceFaultLogExporter, DeviceFaultLogExporter::export, format_export, normalize_fault_log_output",
+            "split_hidumper_entries split_entries push_entry normalize_fault_log_output looks_like_entry_start"
+          ],
+          "truncated_counts": {
+            "symbols": 12,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-core/src/command.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: CommandPolicy, CommandPolicy::new, CommandOutput, CommandRunner, CommandRunner::output, CommandRunner::output_with_policy, SystemCommandRunner, CommandRunner for SystemCommandRunner::output",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "terminate_process_tree",
+              "symbol_type": "function",
+              "summary": "function terminate_process_tree in crates/arklog-core/src/command.rs; identifier terms: terminate process tree",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "command",
+                "rs",
+                "terminate_process_tree",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "terminate",
+                "process",
+                "tree"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/command.rs",
+                "terminate_process_tree",
+                "function",
+                "function terminate_process_tree in crates/arklog-core/src/command.rs; identifier terms: terminate process tree"
+              ]
+            },
+            {
+              "symbol": "terminate_child",
+              "symbol_type": "function",
+              "summary": "function terminate_child in crates/arklog-core/src/command.rs; identifier terms: terminate child",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "command",
+                "rs",
+                "terminate_child",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "terminate",
+                "child"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/command.rs",
+                "terminate_child",
+                "function",
+                "function terminate_child in crates/arklog-core/src/command.rs; identifier terms: terminate child"
+              ]
+            },
+            {
+              "symbol": "spawn_bounded_reader",
+              "symbol_type": "function",
+              "summary": "function spawn_bounded_reader in crates/arklog-core/src/command.rs; identifier terms: spawn bounded reader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "command",
+                "rs",
+                "spawn_bounded_reader",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "spawn",
+                "bounded",
+                "reader"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/command.rs",
+                "spawn_bounded_reader",
+                "function",
+                "function spawn_bounded_reader in crates/arklog-core/src/command.rs; identifier terms: spawn bounded reader"
+              ]
+            },
+            {
+              "symbol": "run_command",
+              "symbol_type": "function",
+              "summary": "function run_command in crates/arklog-core/src/command.rs; identifier terms: run command",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "command",
+                "rs",
+                "run_command",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "run"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/command.rs",
+                "run_command",
+                "function",
+                "function run_command in crates/arklog-core/src/command.rs; identifier terms: run command"
+              ]
+            },
+            {
+              "symbol": "join_reader",
+              "symbol_type": "function",
+              "summary": "function join_reader in crates/arklog-core/src/command.rs; identifier terms: join reader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "core",
+                "src",
+                "command",
+                "rs",
+                "join_reader",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "join",
+                "reader"
+              ],
+              "hint_context": [
+                "crates/arklog-core/src/command.rs",
+                "join_reader",
+                "function",
+                "function join_reader in crates/arklog-core/src/command.rs; identifier terms: join reader"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "core",
+            "src",
+            "command",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "commandpolicy",
+            "new",
+            "commandoutput",
+            "commandrunner",
+            "output",
+            "output_with_policy",
+            "systemcommandrunner",
+            "for",
+            "terminate_process_tree",
+            "terminate_child",
+            "spawn_bounded_reader",
+            "run_command",
+            "join_reader",
+            "policy",
+            "runner",
+            "with",
+            "system",
+            "terminate",
+            "process",
+            "tree",
+            "child",
+            "spawn",
+            "bounded",
+            "reader",
+            "run",
+            "join"
+          ],
+          "hint_context": [
+            "crates/arklog-core/src/command.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: CommandPolicy, CommandPolicy::new, CommandOutput, CommandRunner, CommandRunner::output, CommandRunner::output_with_policy, SystemCommandRunner, CommandRunner for SystemCommandRunner::output",
+            "terminate_process_tree terminate_child spawn_bounded_reader run_command join_reader"
+          ],
+          "truncated_counts": {
+            "symbols": 10,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_rust_source_context.RustSourceContextTests.test_public_learning_and_design_return_rust_source_anchors"
+  ],
+  "returncode": 1,
+  "duration_seconds": 1.393,
+  "observed_at": "2026-11-17T00:25:37.614691+00:00",
+  "log_sha256": "39412b7645538ec3ea8a02f8ca8b18097e34cdf6e24202e28d8ff54c06157703",
+  "expected_failure": "one controlled assertion: files_indexed should be 1 but is 0"
+}

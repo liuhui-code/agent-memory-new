@@ -1,0 +1,19 @@
+test_another_instance_or_equal_looking_handle_cannot_commit (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_cancelled_job_cannot_publish_even_after_a_worker_finishes (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_competing_receipts_accept_exactly_one_completion (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_current_completion_publishes_its_rendered_snapshot (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_current_failure_is_visible_and_a_later_job_can_recover (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_duplicate_completion_is_ignored (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_format_change_reuses_the_same_state_owner (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_invalid_input_does_not_invalidate_an_existing_job (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_json_format_preserves_unicode_and_composite_record_identity (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_late_old_completion_does_not_replace_the_new_result (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_old_failure_does_not_clear_a_new_job (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_over_limit_generator_stops_without_replacing_current_job (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_slow_render_does_not_block_new_admission_and_late_receipt_is_rejected (tests.test_design_preview_case.PreviewCaseTests) ... ok
+test_snapshot_does_not_follow_mutable_caller_input (tests.test_design_preview_case.PreviewCaseTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.002s
+
+OK

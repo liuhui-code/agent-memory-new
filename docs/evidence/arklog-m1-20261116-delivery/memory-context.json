@@ -1,0 +1,28 @@
+{
+  "files_indexed": 0,
+  "unanchored_source_anchors": 0,
+  "explicit_anchor_source_anchors": 0,
+  "status": "rust_source_context_unavailable",
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "needs_anchor_confirmation",
+    "next_action": "supply_or_retrieve_current_source_anchor",
+    "reason_codes": [
+      "no_repository_source_anchor",
+      "{'kind': 'missing_code_anchor', 'action': 'learn or inspect the narrow current source scope'}",
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_architecture_anchor', 'action': 'learn or name the current entry file/symbol'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 0,
+      "explicit_constraint_count": 1,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  },
+  "automatic_rust_source_context_proved": false,
+  "decision_basis": "Agent direct inspection of current source plus native Cargo tests",
+  "advisory_catalog_is_not_source_evidence": true
+}

@@ -1,0 +1,27 @@
+{
+  "classification": "generated_development_fixture",
+  "source_text": "# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77\n\"\"\"Synthetic P2 receipt fixture, not a product task.\"\"\"\ndef render_receipt(sequence: int, text: str) -> str:\n    return str(sequence) + ':' + text\n",
+  "query": "calibration preview receipt design",
+  "reflection": {
+    "task_type": "design",
+    "outcome": "partial",
+    "task": "CALIBRATION_ONLY preview receipt design",
+    "summary": "CALIBRATION_ONLY synthetic preview receipt history for isolation checking.",
+    "lesson": "CALIBRATION_ONLY: this is invented test data, not a prior result or design advice.",
+    "scope": "Synthetic P2 interface isolation only",
+    "confidence": 0.1
+  },
+  "equal_public_sections": [
+    "current_repository",
+    "quality_context",
+    "design_knowledge"
+  ],
+  "expected_history_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 1,
+    "B-after-C": 0
+  },
+  "model_execution": false,
+  "real_activity": false
+}

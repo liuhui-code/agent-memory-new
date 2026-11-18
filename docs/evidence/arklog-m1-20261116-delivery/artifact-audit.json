@@ -1,0 +1,30 @@
+{
+  "schema_version": "arklog-m1-artifact-audit/v1",
+  "recorded_at": "2026-11-15T16:54:17.395457+00:00",
+  "source_revision": "9aa4c503c271ab22375ec5e40e645f536b441c11",
+  "original_source_file_count": 202,
+  "original_source_manifest_matches": true,
+  "original_workspace_clean": true,
+  "runner_and_check_definitions_match_complete_replay": true,
+  "verified_command_logs": 54,
+  "verified_source_snapshot_records": 29,
+  "final_native_test_counts": {
+    "legacy-device-only-survives": 1,
+    "current-positive": 1,
+    "drop-all-rejected": 1,
+    "current-positive-restored": 1,
+    "device-only-rejected": 1,
+    "generation-positive-restored": 2,
+    "completion-rebound-rejected": 1,
+    "completion-positive-restored": 1,
+    "unsafe-completion-order-rejected": 1,
+    "all-contract-probes-green": 4,
+    "live-only-capability": 1,
+    "pnpm-test": 193,
+    "cargo-workspace": 193
+  },
+  "negative_controls_rejected": 4,
+  "memory_rust_source_context": "unavailable",
+  "m2_started": false,
+  "validation_claim": "controlled native-code development only; historical failures retained"
+}

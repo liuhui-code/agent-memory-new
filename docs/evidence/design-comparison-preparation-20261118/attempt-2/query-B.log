@@ -1,0 +1,454 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "calibration preview receipt design",
+    "explicit_concerns": [],
+    "explicit_anchors": [
+      "src/receipt.py"
+    ],
+    "explicit_constraints": [],
+    "query_stage": "agent_directed_expansion"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "project_id": "91ba7c1587b88c2d",
+    "goal": "calibration preview receipt design",
+    "snapshot": {
+      "schema_version": "repository-snapshot/v2",
+      "graph_revision": 1,
+      "freshness": "current",
+      "stale_paths": [],
+      "freshness_checked_files": 1,
+      "counts": {
+        "code_files": 1,
+        "code_symbols": 1,
+        "code_log_statements": 0,
+        "active_edges": 1
+      },
+      "truncated": false,
+      "gap_count": 2
+    },
+    "capabilities": [
+      "topology",
+      "ownership",
+      "behavior",
+      "data",
+      "failure",
+      "runtime",
+      "change"
+    ],
+    "baseline_entry_points": [
+      "file:src/receipt.py"
+    ],
+    "scope_entry_points": [
+      "file:src/receipt.py"
+    ],
+    "views": {
+      "topology": {
+        "status": "available",
+        "node_ids": [
+          "file:src/receipt.py",
+          "symbol:src/receipt.py::render_receipt"
+        ],
+        "edge_ids": [
+          1
+        ],
+        "relations": {
+          "contains": 1
+        },
+        "truncated": false
+      },
+      "ownership": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "behavior": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "data": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "failure": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "runtime": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "change": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      }
+    },
+    "evidence_gaps": [
+      {
+        "kind": "missing_test_anchor",
+        "action": "identify focused verification for the proposed design"
+      },
+      {
+        "kind": "missing_observability_anchor",
+        "action": "check whether changed high-risk paths need a stable result/failure signal"
+      }
+    ],
+    "audit": {
+      "candidate_independent_baseline": true,
+      "bounded": true,
+      "persisted": false
+    },
+    "entry_points": [
+      "file:src/receipt.py"
+    ],
+    "boundaries": [
+      {
+        "layer": "core",
+        "files": [
+          "src/receipt.py"
+        ],
+        "incoming_edges": 1
+      }
+    ],
+    "state_owners": [],
+    "extension_points": [
+      {
+        "id": "symbol:src/receipt.py::render_receipt",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "file:src/receipt.py",
+        "kind": "file",
+        "degree": 1
+      }
+    ],
+    "affected_consumers": [],
+    "source_anchors": [
+      {
+        "id": "file:src/receipt.py",
+        "entity_type": "code_file",
+        "record_id": 1,
+        "kind": "file",
+        "name": "src/receipt.py",
+        "file_path": "src/receipt.py",
+        "layer": "core",
+        "summary": "Python file with 4 non-empty lines",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-18T00:27:50+00:00"
+      },
+      {
+        "id": "symbol:src/receipt.py::render_receipt",
+        "entity_type": "code_symbol",
+        "record_id": 1,
+        "kind": "function",
+        "name": "render_receipt",
+        "file_path": "src/receipt.py",
+        "layer": "core",
+        "summary": "function render_receipt in src/receipt.py; identifier terms: render receipt",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": {
+          "start_line": null,
+          "end_line": null
+        },
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-18T00:27:50+00:00"
+      }
+    ],
+    "relations": [
+      {
+        "id": 1,
+        "source": "file:src/receipt.py",
+        "relation": "contains",
+        "target": "symbol:src/receipt.py::render_receipt",
+        "confidence": 0.9,
+        "evidence": "src/receipt.py",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "unversioned"
+      }
+    ],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Agent must inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [],
+    "semantic_corrections": [],
+    "memory_evidence": [
+      {
+        "evidence_id": "episode:1",
+        "kind": "episode",
+        "title": "Learn path src from /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/common-case-project",
+        "summary": "Merged 1 files from src",
+        "location": null,
+        "anchors": [
+          "episode:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 1
+        }
+      }
+    ]
+  },
+  "quality_context": {
+    "routing_hints": [],
+    "notice": "Lexical hints only route retrieval; the Agent decides which quality attributes matter.",
+    "scenario_questions": [],
+    "vocabulary_source": "https://www.iso.org/standard/78176.html"
+  },
+  "design_knowledge": [
+    {
+      "id": "information_hiding",
+      "kind": "principle",
+      "title": "Information hiding",
+      "quality_attributes": [
+        "maintainability",
+        "modifiability"
+      ],
+      "terms": [
+        "boundary",
+        "module",
+        "implementation",
+        "interface",
+        "边界",
+        "模块",
+        "实现",
+        "接口"
+      ],
+      "summary": "Keep volatile implementation knowledge behind the responsibility that owns it.",
+      "applicability": [
+        "A detail changes for reasons different from its callers."
+      ],
+      "preconditions": [
+        "The owning responsibility and stable caller need can be identified."
+      ],
+      "contraindications": [
+        "The proposed boundary merely mirrors file layout without hiding a decision."
+      ],
+      "tradeoffs": [
+        "Encapsulation can add indirection and migration work."
+      ],
+      "questions": [
+        "Which decision is being hidden?",
+        "Which consumers truly need this knowledge?"
+      ],
+      "evidence_needed": [
+        "dependency edges",
+        "change reasons",
+        "public consumers"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+        }
+      ]
+    },
+    {
+      "id": "smallest_viable_design",
+      "kind": "principle",
+      "title": "Smallest viable design",
+      "quality_attributes": [
+        "maintainability",
+        "flexibility"
+      ],
+      "terms": [
+        "change",
+        "refactor",
+        "extension",
+        "修改",
+        "重构",
+        "扩展"
+      ],
+      "summary": "Add structure only for a demonstrated responsibility, variation, ownership, or quality-attribute pressure.",
+      "applicability": [
+        "The request introduces a real boundary, variation, or measurable quality pressure."
+      ],
+      "preconditions": [
+        "The concrete pressure and affected behavior can be named."
+      ],
+      "contraindications": [
+        "The abstraction is justified only by a possible future need."
+      ],
+      "tradeoffs": [
+        "A smaller design may require later evolution when new evidence appears."
+      ],
+      "questions": [
+        "What is the smallest change that satisfies the observable scenario?",
+        "Which proposed abstraction has more than one credible reason to exist?"
+      ],
+      "evidence_needed": [
+        "affected behavior",
+        "known consumers",
+        "acceptance criteria"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/"
+        }
+      ]
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_memory_support",
+      "action": "continue with source evidence; reflect after verification"
+    },
+    {
+      "kind": "missing_test_anchor",
+      "action": "identify focused verification for the proposed design"
+    },
+    {
+      "kind": "missing_observability_anchor",
+      "action": "check whether changed high-risk paths need a stable result/failure signal"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "inspect_source_anchors",
+      "values": [
+        "file:src/receipt.py"
+      ]
+    },
+    {
+      "action": "close_evidence_gaps",
+      "values": [
+        {
+          "kind": "missing_memory_support",
+          "action": "continue with source evidence; reflect after verification"
+        },
+        {
+          "kind": "missing_test_anchor",
+          "action": "identify focused verification for the proposed design"
+        },
+        {
+          "kind": "missing_observability_anchor",
+          "action": "check whether changed high-risk paths need a stable result/failure signal"
+        }
+      ]
+    },
+    {
+      "action": "query_again",
+      "usage": "supply Agent-confirmed --concern and --anchor values"
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect current source",
+      "decide applicable quality attributes and principles",
+      "author and compare materially different candidates",
+      "analyze tradeoffs and select the design",
+      "create the implementation and verification plan"
+    ],
+    "runtime_limitations": [
+      "does not recommend or select a design pattern",
+      "does not generate or rank design candidates",
+      "does not create an implementation plan",
+      "does not treat graph or memory evidence as current-source proof"
+    ]
+  },
+  "audit": {
+    "compact": false,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "catalog_sources": [
+        "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/",
+        "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/",
+        "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/",
+        "https://www.iso.org/standard/78176.html",
+        "https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions",
+        "https://www.archunit.org/userguide/html/000_Index.html"
+      ],
+      "entry_count": 8,
+      "returned_count": 2,
+      "truncated": false
+    },
+    "repository_graph_revision": 1,
+    "retrieval_counts": {
+      "episode": 1,
+      "code": 2,
+      "edge": 1
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "ready_for_agent_directed_refinement",
+    "next_action": "inspect_source_and_confirm_design_constraints",
+    "reason_codes": [
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_test_anchor', 'action': 'identify focused verification for the proposed design'}",
+      "{'kind': 'missing_observability_anchor', 'action': 'check whether changed high-risk paths need a stable result/failure signal'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 2,
+      "explicit_constraint_count": 0,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

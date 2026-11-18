@@ -1,0 +1,698 @@
+diff --git a/CONTEXT.md b/CONTEXT.md
+index 13f2fb3..5ff3f7e 100644
+--- a/CONTEXT.md
++++ b/CONTEXT.md
+@@ -27,6 +27,13 @@
+ 
+ 当前证据：
+ 
++- 2026-11-18 对尚未提交的 Rust 接入与显式文件投影做限定范围作者审阅，未发现已证实需修复的新缺陷，未因此扩展实现。G1–G5 当前组合包的范围与实际重放记录见 [本地收尾](docs/evidence/local-delivery-20261118/review.md)；旧 P0/P1/P2 证据不改写，原 81/14 项不重复运行。Runtime/Skill 未改，真实活动、提交、推送均未启动。准备阶段以此收口，下一步需要真实产品任务或明确交付动作。
++- 2026-11-18 完成 P2 对照准备：固定 Git 320e951 的 20 个 Skill 资源作为 A，P0 的 23 个作为 B/C，三组均使用当前 Runtime。实际安装/公开 CLI 合成演练中，每组 310 个安装 Runtime 文件一致，源码投影/通用目录/共有学习记录一致，C 额外合成反思正常返回，13 个资料隔离断言通过。首次预期误把 learn-path 生成的共有 episode 排除，失败、原计划和脚本保留；只修正开发检查预期。B−A 衡量整个指导包，C−B 只衡量额外 Runtime 历史；无模型/真实任务/独立评审、无效能结论。真实来源、执行/预算合同和独立评审未齐，no_go；工作表不接入 diagnosis cohort。Runtime/Skill 未改、原 81/14 项未重跑、未提交/推送。见 [P2 合同与证据](docs/design-comparison-preparation.zh-CN.md)。
++- 2026-11-18 完成 P0/P1：G1–G3 基线固定为内容摘要 8005d6b78ea741aec330ce7c29aba0a8a500e637d672473119e61d22e9eb2895，组合补丁/新文件包在临时目录重放后 538 文件匹配，未提交。P1 是 Agent 编写的受控报告预览案例：依据真实 ThreadingHTTPServer 入口选用短临界区和不可变快照，14 项检查通过；增加 JSON 只改 renderer/测试，103 行 Coordinator 摘要不变。历史 M1 参考仅部分迁移，反馈在临时 Memory 保存为普通反思；首个缺 lesson 的写入被拒绝并保留。Runtime 311 / Skill 23 文件仍匹配基线，81 项原检查未重复运行，无真实界面接入、独立设计效能或 M2。见 [基线索引](docs/development-baseline-20261117.zh-CN.md)和 [P1 案例](docs/design-preview-development-case.zh-CN.md)。
++- 2026-11-17 已完成 Rust source-only 声明接入：沿用现有 CLI/语义适配/SQLite，保留范围和原始字节摘要，修正泛型、编码、同一行条件重复身份问题；不推断宏/cfg/类型/调用。实际项目还暴露了设计视图裁剪丢失显式文件的问题，已先在独立 ArkTS 公共输出复现，再修投影保留规则。最终 46 项相关 + 35 项基础回归通过，共 81 个不同用例；临时安装通过，ArkLog 只读学习 32 文件/487 声明，202 个原始文件未变。full/compact 保留 Controller，方法范围由聚焦 context 提供；历史失败保留，无 M2/真实效能结论。见 [Rust 交付与证据](docs/rust-source-context.zh-CN.md)。
++- 2026-11-17 完成现有 Query / Reflect Skill 的设计指导交付：输入预填、按需设计参考、适配/失配示例、定性取舍与可选决策模板、有条件反馈。15 项定向回归通过；临时安装的四个 Skill 共 23 个资源及五条实际 CLI 学习/设计/反馈命令通过，原 309 个 Runtime 源码/资源摘要不变。标准 Skill 校验缺 PyYAML，替代元数据检查与验证脚本三次错误假设均保留；没有独立设计效能结论、M2 或真实活动。见 [开发交付](docs/design-guidance-development.zh-CN.md)。
++- 2026-11-16 按用户提供的 M1 任务对 ArkLog 9aa4c503c271ab22375ec5e40e645f536b441c11 完成只读映射和临时副本原生实验，保留当前串行 Controller / Runtime / stream_id。新增四项实际契约探针和四类故意错误对照，修正了旧 A→B 测试无法区分 device-only 的盲区；最终 pnpm test 与 cargo workspace 各 193 项通过，构建 / check 通过。历史端口权限失败与一次现有时延断言失败保留，未改变阈值或业务代码。见 [M1 报告](docs/arklog-m1-design-experiment.zh-CN.md)。
++- M1 的 Memory 接入结果为 completed_with_context_gap：当前 `.rs` 未注册，实际学习与显式锚点查询均返回 0 个 Rust 源码锚点，不能称完整 Memory 辅助 Rust 设计已通过。LiveOnly 真机未验证，M2 未启动；ArkLog 原始 202 文件和工作区保持不变，本轮无推送 / 部署 / 真机操作。
+ - 人工工作台最终隔离回归 59 项全部通过（原有基础 35 + 新增 24），99.560 秒（含记录 / 清理 99.844 秒），0 失败 / 错误 / 跳过；源码与静态资源的前后清单一致。最终报告 docs/evidence/memory-review-development.final.json；原 58 项结果保留。收尾独立复现并修复了备份继承 WAL 头及遗留临时旁文件的问题，新增只读独立打开回归。首次沙箱禁止端口绑定的 5 项初始化错误及授权后通过记录同样保留。
+ - 2,366 条生成记录的真实浏览器流程通过 22 项检查，最终界面再通过 6 项 HTML 注入防护 / 双窗口冲突 / 窄屏检查，备份修复后追加 5 项界面删除检查（合计 33 项）；预期冲突返回一次 409，未见页面脚本异常。10 万条生成记录的单次开发测量：分页约 138–159 ms、中文搜索约 96 ms、待审查页约 25 ms，不证明真实任务或百万级 SLO。见 docs/evidence/memory-review-browser-development.json 与 docs/evidence/memory-review-scale-development.json；业务归档及原有 memory.md 未读写。工作台、基础检查和受控证据作为本次 main 交付内容，实际提交与远端状态以 Git 历史及远端核对为准。
+ - 41d9a30 之后执行 35 项基础检查，全部通过，0 失败/错误/跳过，耗时 70.670 秒（含记录/清理 70.904 秒）。入口为 python3 -m tests.run_basic_checks；报告 docs/evidence/basic-checks-41d9a30.json 记录 331 文件稳定清单及临时根清理，未调用模型或开启真实活动。该次仅新增测试入口/报告及说明，当时运行时代码未变。
+diff --git a/README.md b/README.md
+index b592ad7..b742f2f 100644
+--- a/README.md
++++ b/README.md
+@@ -445,6 +445,30 @@ source-check guardrails, not accepted architecture decisions.
+ 
+ The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
+ 
++For design tasks, the Skill now includes an Agent-prefilled brief, selective
++ADD/arc42/DPR/Ousterhout references, worked counterexamples, and an optional
++MADR-inspired decision template. It reviews applicability, caller burden and
++credible future changes without scoring taste or selecting patterns in Runtime.
++Design feedback uses the existing Reflect path. See the
++[development delivery and verification scope](docs/design-guidance-development.zh-CN.md);
++incremental design quality and Memory benefit remain unmeasured.
++
++Rust `.rs` files now support bounded source-declaration navigation through the
++existing learning and context commands. Definitions carry source spans and
++digests; macros, active cfg, types and calls remain unresolved. Explicit learned
++files are retained before design-context projection is truncated. Use a focused
++`context` query for method evidence in a large scope. Prefer a source scope such
++as `src` over build output. See the [Rust contract and evidence](docs/rust-source-context.zh-CN.md).
++
++The [frozen development baseline](docs/development-baseline-20261117.zh-CN.md)
++includes a replayed review bundle. A [controlled preview design case](docs/design-preview-development-case.zh-CN.md)
++then exercises reference adaptation, state ownership and a format change with
++14 checks. It is a test fixture, not a new review-UI feature or an efficacy result.
++
++[Design comparison preparation](docs/design-comparison-preparation.zh-CN.md) separates
++the guidance bundle from additional project history. Offline supply checks passed;
++real-task evaluation remains disabled pending a source, execution contract and independent review.
++
+ Assess a change before editing or review:
+ 
+ ```bash
+diff --git a/README.zh-CN.md b/README.zh-CN.md
+index 950d04d..8b7b5b9 100644
+--- a/README.zh-CN.md
++++ b/README.zh-CN.md
+@@ -310,6 +310,23 @@ python tools/agent_memory.py design-context \
+ Runtime 不推荐模式、不生成或排名候选、不选择设计、不生成实施计划。
+ 旧 `design-assist/prepare/check/compare/progress` 命令仅为兼容保留。
+ 
++设计 Skill 已加入 Agent 预填输入、按需使用的 ADD / arc42 / DPR / Ousterhout
++参考、失配与克制设计示例，以及可选的 MADR 风格决策模板。Agent 审查参考适用性、
++调用方负担和可信的后续变化，设计反馈沿用 Reflect。它不通过机械打分评价品味；
++设计质量和 Memory 增量收益仍待实证，见[开发交付与验证范围](docs/design-guidance-development.zh-CN.md)。
++
++Rust `.rs` 已通过原有学习与查询入口接入受限声明导航，保留源码范围和内容摘要；
++宏展开、实际 cfg、类型与调用关系仍未知。设计视图裁剪时优先保留已学习的显式文件锚点，
++大范围中的方法证据使用聚焦 `context` 查询。学习优先限定 `src` 等源码目录，避免构建输出。
++详见 [Rust 合同与证据](docs/rust-source-context.zh-CN.md)。
++
++[固定开发基线](docs/development-baseline-20261117.zh-CN.md)提供已重放的审阅包；
++[报告预览设计案例](docs/design-preview-development-case.zh-CN.md)实际演示参考适配、状态归属和格式变化，
++14 项受控检查通过。它仅是测试夹具，没有新增真实工作台功能，也不证明设计或 Memory 收益。
++
++[P2 对照准备](docs/design-comparison-preparation.zh-CN.md)区分指导包与额外项目历史的作用，
++附任务/评审工作表。离线资料隔离已通过；真实任务来源、执行合同和独立评审未齐，活动仍未启动。
++
+ 详细中文指南：
+ [Agent CLI 代码设计能力使用指南](docs/design-usage-guide.md)。
+ 
+diff --git a/agent.md b/agent.md
+index 6df38a8..0b38606 100644
+--- a/agent.md
++++ b/agent.md
+@@ -28,6 +28,7 @@ The MVP must support:
+ 7. Provide an installer and a doctor command.
+ 8. Extract code log statements during code learning and connect them to files/functions through lightweight edges.
+ 9. Enrich ArkTS and TypeScript symbols through a language-neutral, bounded semantic adapter contract.
++10. Index Rust files and bounded source declarations through the same contract, with explicit source-only limitations and no inferred call/type/cfg results.
+ 
+ The MVP must not depend on:
+ 
+@@ -59,6 +60,7 @@ Responsibilities:
+ - For human library maintenance, `review-ui` starts an explicit foreground loopback workbench through the same Runtime. It browses SQLite with bounded pages and supports reviewed/archive/restore actions and backup-protected deletion of ordinary facts, episodes and reflections. Source-derived indexes stay read-only; see [the workbench guide](docs/memory-review-workbench.zh-CN.md).
+ - The Runtime retrieves, ranks, correlates, and compresses evidence. The local Agent CLI owns hypotheses, diagnosis, design reasoning, interventions, and verification; graph paths and experience are context, not Runtime conclusions.
+ - `semantic-index/v1` adapters run only during learning; normalized symbol metadata and edges remain in SQLite for language-neutral design, impact, and Incident consumers.
++- Rust's static adapter provides declaration navigation only. It preserves raw-byte digests and source spans; macros, active cfg, types and dispatch remain unresolved. See [the bounded Rust contract](docs/rust-source-context.zh-CN.md).
+ - Explicitly marked Git ADRs and Feature Specs may be learned into a separate derived document index. `context` and `design-context` return bounded references with declared approval, scope, supersession and source freshness; the Agent reviews the original document and approval evidence before treating it as an applicable contract. This minimal integration was written on 2026-10-11 without validation; see [the normative context contract](docs/normative-context-adr-feature-spec-decision.zh-CN.md).
+ - System meta-reviews use the user's current Agent model. Explicit commands save advisory reviews outside ordinary retrieval, bind candidates/check outputs and, after current-Agent review, support acceptance, authorized file application, monitoring, rollback and governance schema migration. Controlled regressions and a real Codex ordinary-task handoff have passed; external release eligibility and general efficacy are separate claims. See [the lifecycle contract](docs/system-meta-reflection-lifecycle.zh-CN.md) and [current context](CONTEXT.md).
+ - Skill task-end handoffs may use a deterministic trigger decision and an authorized once-per-task review slot before model generation. Slots do not authenticate task identity or prove host/model execution; see [the trigger contract](docs/system-meta-reflection-triggers.zh-CN.md).
+diff --git a/docs/design-usage-guide.md b/docs/design-usage-guide.md
+index 287f892..330301b 100644
+--- a/docs/design-usage-guide.md
++++ b/docs/design-usage-guide.md
+@@ -12,7 +12,7 @@ Agent Memory 不负责替用户生成或选择代码设计。它是本地 Agent
+   -> Agent 检查当前源码
+   -> Agent 分析质量属性、原则、候选与权衡
+   -> Agent 输出设计方案
+-  -> 用户确认后再实施和验证
++  -> 按用户当前授权实施和验证
+ ```
+ 
+ 职责边界：
+@@ -35,14 +35,15 @@ Agent Memory 不负责替用户生成或选择代码设计。它是本地 Agent
+ 用户不需要记忆后台命令，也不需要编写 JSON。仍然通过固定的
+ `agent-memory-query` Skill，用自然语言提出设计任务。
+ 
+-推荐描述以下内容：
++可以描述以下内容；未说明时，由 Agent 从当前任务和适用项目文档预填，
++只追问会实质改变方案的缺项，不要求用户先完成一份需求表：
+ 
+ - **目标**：需要增加或改变什么行为。
+ - **范围**：主要涉及哪些功能、模块或入口。
+ - **硬约束**：兼容性、性能、安全、平台和组织限制。
+ - **排除项**：本次明确不处理什么。
+ - **验收标准**：如何判断设计与实现达到目标。
+-- **工作方式**：只输出设计，还是确认后继续实现。
++- **工作方式**：只输出设计，还是按已有授权继续实现。
+ 
+ 例如：
+ 
+@@ -266,6 +267,40 @@ Agent 应将重要问题进一步转为设计约束、风险或验收标准。
+ 
+ ## 5. Agent 如何形成设计方案
+ 
++2026-11-16 的 Skill 指导补充沿用现有上下文协议。Agent 先预填目标、硬约束、
++非目标、质量优先级、可信变化和未知项，区分需求、已审阅契约、当前事实与假设。
++局部直接修改不强制套完整架构流程，也不为凑数量制造候选。
++
++根据实际问题按需阅读随 Skill 安装的材料：
++
++- [参考选择指南](../skills/agent-memory-query/references/design-reference-guide.md)：ADD、arc42、复杂度评审、DPR、EIP 和 MADR 的用途与限制。
++- [工作示例](../skills/agent-memory-query/references/design-examples.md)：局部改动、ArkLog 历史开发证据、历史缓存经验与当前一致性要求失配。
++- [决策模板](../skills/agent-memory-query/references/design-decision-template.md)：重要决定的条件、备选、代价、验证状态和重审条件；不是 Runtime JSON。
++
++引用影响决定时，说明匹配的特征、已经满足/未知/被否定的前提、可迁移范围和反例。
++评审时比较易变决定是否被隐藏、状态归属、失败路径、调用方负担和一次可信变化的传播。
++不使用模式名称、模板命中率、类大小或总分代替判断；原则冲突由当前契约和质量优先级解决。
++完成设计讨论不等于完成实现或验证长期收益。反馈经原 Reflect 流程保存有条件的经验候选，
++不自动修改规范、Skill 或触发系统元反思。
++
++具体交付和开发验证边界见[开发记录](design-guidance-development.zh-CN.md)。
++
++Rust 源码现在可通过相同学习与查询入口提供受限的文件/声明导航，见
++[Rust 能力合同](rust-source-context.zh-CN.md)。`design-context` 的显式已学习文件在裁剪前
++优先保留；这不保证所有相关方法进入有界设计视图。需要声明范围时可按原 L2 路由使用
++聚焦 `context` 查询或打开当前源码。Rust 结果属于 source-only，不能据此断言宏展开、
++生效的条件编译、类型或调用关系。
++
++已有可审阅的 [G1–G3 固定基线](development-baseline-20261117.zh-CN.md)和
++[P1 报告预览开发案例](design-preview-development-case.zh-CN.md)。后者实际演示了宿主并发
++事实如何改变同步方案、历史规则的部分迁移、Strategy 的函数式边界以及一次格式变化。
++实现仅在测试夹具中；14 项受控检查不等于独立设计效能验证，也没有新增真实工作台功能。
++
++后续评测材料见 [P2 对照准备](design-comparison-preparation.zh-CN.md)：三组共享当前 Runtime、
++源码与通用目录，分别比较原指导、改进指导包及额外项目历史。已核对离线资料隔离，并提供
++[任务/评审工作表](eval/design-comparison-task-and-review.template.md)；它不启动活动，
++不替代真实来源、独立评审或既有 diagnosis 合同。本阶段未得出指导或 Memory 的效能结论。
++
+ 拿到上下文后，Agent 应独立完成以下推理：
+ 
+ 1. 重述目标、范围、约束和排除项。
+@@ -328,7 +363,7 @@ Agent 最终面向用户的结果不应直接复制 Runtime JSON，建议使用
+ 
+ ## 7. 设计后如何验证
+ 
+-用户确认方案并完成实现后，Agent 应：
++用户已授权实施并完成实现后，Agent 应：
+ 
+ 1. 检查实际改动文件和预期影响范围。
+ 2. 运行项目已有编译、静态检查和测试。
+@@ -417,7 +452,7 @@ design-outcome
+ [ ] 最小方案先行，只保留有实质取舍的备选
+ [ ] 说明原则适用条件，而不是只列模式名称
+ [ ] 标记证据缺口、假设、风险和验证方法
+-[ ] 用户确认后再实施
++[ ] 按当前授权实施；仅设计任务不自行修改实现
+ [ ] 运行真实编译、测试和运行观测
+ [ ] 检查实际实现与设计目标的偏差
+ ```
+diff --git a/docs/superpowers/specs/2026-07-16-design-context-provider.md b/docs/superpowers/specs/2026-07-16-design-context-provider.md
+index 8a7738a..eff9025 100644
+--- a/docs/superpowers/specs/2026-07-16-design-context-provider.md
++++ b/docs/superpowers/specs/2026-07-16-design-context-provider.md
+@@ -11,6 +11,16 @@ implementation planning, and final judgment.
+ The fixed public Skill set remains unchanged. `agent-memory-query` invokes the
+ backend design-context facade through `tools/agent_memory.py`.
+ 
++### 2026-11-16/17 Skill Guidance Delivery
++
++The existing Query Skill now provides a task brief, selectively loaded design
++references and worked examples, qualitative alternative review, and an optional
++decision record. The existing Reflect Skill records conditional design feedback.
++These are Agent authoring aids; the Runtime schema, catalog ranking, storage and
++decision-free boundary remain unchanged. See the
++[development scope and evidence](../../design-guidance-development.zh-CN.md).
++This delivery does not establish incremental design quality or Memory efficacy.
++
+ ## Decision
+ 
+ Replace the Runtime-owned design decision loop with a context-provider model:
+@@ -71,6 +81,13 @@ boundary: deterministic checks of explicit constraints, not architecture choice.
+ 
+ ### Language-Neutral Code Facts
+ 
++Rust now has a bounded static definition adapter using the existing semantic
++contract. It does not provide calls, dispatch, type resolution, macro expansion
++or active-cfg results. After independent public-output reproduction, source
++projection retains learned explicit entry files before truncation. This changes
++projection order, not retrieval scores or the decision-free Runtime contract.
++See [Rust scope and evidence](../../rust-source-context.zh-CN.md).
++
+ SCIP models documents, definitions, occurrences, references, and symbols in a
+ language-neutral protocol. Agent Memory keeps its existing adapters and SQLite
+ graph, but evolves stable source identities and provenance in the same spirit.
+diff --git a/gitlog.md b/gitlog.md
+index 2b98970..caf8629 100644
+--- a/gitlog.md
++++ b/gitlog.md
+@@ -10774,3 +10774,177 @@ Delivery scope:
+   58-case run, the controlled backup reproduction and single-observation scale limits.
+ - Check whitespace and the explicit staging list before committing. Actual commit identity
+   and successful remote delivery are established by Git history and the final remote check.
++
++## 2026-11-16 - Execute the ArkLog M1 native design experiment
++
++- Read the user's SUMMARY.md and CODEX_NEXT_TASK.md. Kept M0 model claims separate from
++  the real-code experiment. Located a clean ArkLog main at
++  9aa4c503c271ab22375ec5e40e645f536b441c11, read its AGENTS/Accepted stream intent contract
++  and mapped Controller, Runtime, real TUI callers, batch ingress and Stop/reap receipts.
++  No production source, public interface, device, deployment or remote state changed.
++- Added a 347-line test-only Python orchestration entry and four incremental native Rust
++  probe fragments. Git-archive snapshots, temporary Cargo outputs/Memory Home, offline
++  cached dependencies and fake HDC executables keep the business checkout read-only.
++  Logs bind exact content snapshots, check definitions, command/exit status, discovery
++  counts, counterexamples and omitted coverage. Code-control patches and the test-only
++  adapter patch are separately reviewable; this is not a new serving Runtime or MCP service.
++- Observed a genuine verification gap: a deliberately device-only fence passed the old
++  A-to-B test. The added same-device/new-stream probe rejects that same mutation while the
++  actual complete-stream-id path passes. Current valid data, completion origin and
++  retirement-before-replacement probes also pass; drop-all, completion-rebound and removed
++  retirement barriers each fail the designated real Rust assertion. No current ArkLog
++  production defect or architecture superiority is claimed from these known controls.
++- First full attempt retained two MCP loopback permission failures. An authorized attempt
++  retained one existing output-overflow latency assertion failure (176 passed / 1 failed).
++  One fixed focused diagnostic then passed; remaining build/workspace/check gates ran.
++  Updated the driver to continue independent gates after failure and performed one final
++  complete replay: pnpm test 193/193 (76.291 s), release build pass (9.407 s), cargo test
++  --workspace 193/193 (31.917 s), cargo check pass (1.376 s), four new probes pass (2.912 s).
++  These are repeated overlapping tests, not independent cases. Previous failures remain.
++- Actual validator self-checks reject zero discovered tests, a tool exiting 7 and a real
++  timeout. A typed LiveOnly unsupported-start check passes; no real-device LiveOnly claim.
++  Current Rust/Cargo 1.95.0 and pnpm 8.3.1 are recorded; the project's requested pnpm
++  10.12.1 was not installed or silently substituted into the recorded environment.
++- Runtime learn-path and both ordinary/explicit-anchor design-context commands actually
++  return zero Rust source anchors. Current source adapters do not register .rs. Retained
++  this as rust_source_context_unavailable, with completed_with_context_gap as the final
++  experiment outcome; reasoning used direct source reads and Cargo evidence. No speculative
++  Rust adapter, synthetic indexed evidence, M2 cohort or historical sealed replay was added.
++- Delivered docs/arklog-m1-design-experiment.zh-CN.md, scoped evidence for all attempts,
++  the replay entry and separate check/code patches. Preserve the existing design; defer M2
++  until its source-context boundary and fresh unseen task contract are resolved. Original
++  ArkLog file/status checks and local evidence/source checks are recorded at closing.
++  Existing business Memory and the original untracked memory.md were not read or modified.
++  Changes remain local and uncommitted; the user's M1 instruction explicitly forbids push.
++
++## 2026-11-17 - Deliver Agent-owned design guidance in the existing Skills
++
++- Turned the design discussion and self-review into a scoped Query Skill delivery:
++  Agent-prefilled inputs, selective ADD/arc42/DPR/Ousterhout references, applicability
++  and counterexample review, qualitative alternatives, and an optional decision record.
++  Local edits retain selective routing; no mandatory candidate count or taste score.
++- Added self-contained worked examples: a direct local edit, bounded historical
++  ArkLog evidence, and a synthetic stale-advice/freshness conflict. Examples are
++  labeled illustrations or historical development evidence, never unseen cases.
++- Connected conditional design feedback to existing Reflect fields and experience
++  usage. Decision costs, assumptions, invalid cases, actual checks and revisit
++  conditions stay distinct. No automatic rule, Skill, or meta-review promotion.
++- Kept Runtime/catalog/retrieval/storage unchanged; no new public Skill or runtime.
++  Updated both READMEs, the design guide, provider specification and CONTEXT.
++- Executed 15 focused existing regressions once: all passed, zero failures/errors/
++  skips, process wall time 21.193 seconds. A temporary installed copy ran learning,
++  design-context, design reflection round trip and misleading-usage recording.
++  All 23 packaged Skill resources and 308 shipped Runtime files matched source;
++  the original 309 Runtime source/resource digests were unchanged.
++- Preserved the unavailable PyYAML validator and three false assumptions in the
++  one-off verification script (root metadata, macOS path aliases, source-only tools).
++  Corrected checks against the actual installer without changing production or
++  existing tests. Final evidence: docs/evidence/design-guidance-development-20261116/
++  verification.json; scoped status passed_with_validator_unavailable.
++- No independent model efficacy claim, M2/cohort run, business Memory write, real
++  installation/deployment, commit or push. Original memory.md and prior M1 evidence
++  remain untouched. Temporary test roots are retained for audit.
++
++## 2026-11-17 - Add bounded Rust source context and retain explicit design anchors
++
++- Registered .rs in the existing source registry and rust-static@1.0 in the
++  existing semantic adapter contract. Added source-only declaration navigation
++  with explicit macro/cfg/type/call limitations; no dependency, command, schema,
++  model invocation or additional Runtime entry point.
++- Bound declarations to raw-byte digests and source spans; scoped owned callables
++  without claiming receiver/dispatch semantics. Preserved conditional duplicates
++  with physical occurrence identities, including same-line declarations.
++- Used controlled counterexamples to correct generic-return-arrow owner parsing,
++  CRLF digest normalization, invalid UTF-8 loss, and duplicate-key collisions.
++  Comments, literals, macro trees, incomplete input and scope budgets are covered.
++- Preserved an invalid first fixture that read the wrong JSON level. The corrected
++  empty-learning/empty-design reproduction ran against a byte-verified pre-change
++  Runtime snapshot after implementation started; its order is explicitly recorded.
++- Actual ArkLog inspection exposed bounded design projection losing explicit
++  entry files. Reproduced in the existing ArkTS public fixture with a Rust positive
++  control, then retained learned explicit entry files before existing truncation.
++  Ordinary context, retrieval scores and candidate generation were unchanged.
++- Final 46 related tests and 35 basic checks passed (81 distinct cases). Temporary
++  installation and real read-only ArkLog source checks passed: 32 source files,
++  487 declarations, definition-only capabilities and no adapter errors; all 202
++  original tracked files and clean worktree preserved. Broad method coverage is
++  not claimed; focused context returned current source ranges.
++- Updated agent.md, both READMEs, usage/provider specifications, CONTEXT and the
++  Rust contract. Final evidence is docs/evidence/rust-source-development-20261117/
++  delivery.json; intermediate failures remain, with no consumed holdout replay.
++- Changes remain local and uncommitted. No business Memory, original memory.md,
++  M1 artifacts, real cohort, hardware, source deployment, commit or push changed.
++
++## 2026-11-18 - Freeze a reviewable baseline and complete the P1 preview case
++
++- Fixed G1–G3 at content snapshot 8005d6b78ea741aec330ce7c29aba0a8a500e637d672473119e61d22e9eb2895.
++  A scoped 16-file tracked patch and 199-file new-file archive replayed in an owned
++  temporary Git directory; all 538 resulting file digests matched. User memory.md
++  was excluded without reading it. Root Git index, HEAD and remotes were unchanged.
++- Added an Agent-authored controlled design task for selected-row report previews.
++  Actual ThreadingHTTPServer ingress changed the synchronization choice: a small
++  per-instance lock protects identity check and immutable state publication, with
++  rendering outside the owner. The fixture has no HTTP endpoint or Memory writes.
++- Queried the frozen Runtime with manually seeded M1 history. Recorded partial
++  applicability, the non-transfer of log-tail/serialized-owner semantics, actual
++  Strategy retrieval, its source limitation, and direct reference reading.
++- A deliberately wrong control showed stale overwrite and mutable-input behavior.
++  Twelve initial checks passed. A predefined JSON change then touched renderer
++  and tests only; the 103-line coordinator stayed byte-identical. Fourteen final
++  controlled checks passed, including selected thread interleavings and wrong-owner
++  receipts. These are not 26 independent cases or proof of future generality.
++- Replayed Reflect/read/experience-usage in the owned temporary archive. The first
++  payload omitted required lesson and was correctly refused; retained that input
++  and error before saving a corrected ordinary reflection. Helpfulness is a current
++  Agent declaration, not a causal Memory result or accepted reusable procedure.
++- Production Runtime 311 files and Skill 23 files stayed at P0. Prior 81 checks
++  were not rerun. Updated README links, usage, CONTEXT and baseline/case indexes;
++  current P0/P1 material is the proposed G4 review group, not part of the old bundle.
++- No production feature, automatic pattern selection, real cohort, external model,
++  independent review, commit, push, or business Memory change. New evidence is under
++  docs/evidence/development-baseline-20261117/ and design-preview-development-20261117/.
++
++## 2026-11-18 - Prepare separate guidance and project-history comparisons
++
++- Added a design comparison contract and fillable task/review worksheet. Compare
++  existing guidance (A), the improved bundle (B), and B plus additional Runtime
++  project history (C), with the same current Runtime, source and general catalog.
++  A is the real prior Skill, not a raw Agent or an artificially weakened prompt.
++  B includes its built-in worked examples; B–A does not isolate each guidance aid.
++- Archived the 20 original Skill resources from Git 320e951 and bound B/C to the
++  23 P0 resources. Actual temporary installs supplied 310 identical Runtime files
++  per arm. Synthetic learn/reflect/design-context calls passed 13 supply assertions:
++  common source/quality/catalog/setup records agree, with only C's extra reflection.
++- Retained the first failed rehearsal, input and script: the checker wrongly
++  expected zero history, although learn-path creates a shared setup episode. Revised
++  only the development expectation, kept that record in every arm, and reran the
++  affected rehearsal. No retrieval, ranking, evaluator or production code changed.
++- Applied the review questions to already-known P1 artifacts as non-blind author
++  calibration. Accepted bounded completion behavior, rejected thread-stop claims,
++  and left guidance/Memory benefits inconclusive; no new P1 test run or independent
++  review is claimed. Kept quality judgments separate from behavior checks and cost.
++- Recorded no_go for real activity: no bound future source, task-start archive,
++  independent reviewer, host isolation/telemetry or frozen model/budget/count config.
++  The existing diagnosis cohort is unchanged; these worksheets are not its input.
++- Updated README/usage/context/baseline navigation; proposed G5 contains this stage
++  without rewriting the G1–G3 bundle or P1 evidence. Runtime/Skill bytes remain at P0;
++  prior 81/14 checks were not rerun. No real tasks, models, sealed assets, business
++  Memory, original memory.md, commit or push. Evidence: docs/evidence/
++  design-comparison-preparation-20261118/.
++
++## 2026-11-18 - Close the local development delivery without starting real activity
++
++- Performed bounded author review of the six Rust integration/projection Runtime
++  files and associated regression scope. No newly confirmed defect justified a
++  serving change; kept implementation and Skill bytes unchanged. This is not an
++  independent review or a claim that all defects have been excluded.
++- Prepared a current G1–G5 combined patch/new-file bundle with explicitly scoped
++  HEAD dependencies and per-file digests. The original P0 bundle and P1/P2 evidence
++  retain their historical bytes. Isolated replay results belong to the new manifest,
++  not to a new test/efficacy claim or five independently validated commits.
++- Added final navigation to the baseline/context and a concise review record under
++  docs/evidence/local-delivery-20261118/. Kept user memory.md outside all read,
++  hash and packaging scopes. Root Git index/HEAD are only observed, not modified.
++- Prior 81/14 tests are not repeated. Real-task sourcing, independent review and
++  host execution/budget contracts remain unbound; the preparation phase closes
++  here. No real cohort, extra model trial, business Memory, deployment, commit or push.
+diff --git a/skills/agent-memory-query/SKILL.md b/skills/agent-memory-query/SKILL.md
+index f8eb9f0..660bdaa 100644
+--- a/skills/agent-memory-query/SKILL.md
++++ b/skills/agent-memory-query/SKILL.md
+@@ -53,6 +53,10 @@ The Runtime returns repository facts, project constraints, quality questions,
+ general design references, history, and evidence gaps. It does not recommend a
+ pattern or produce a design. Load `references/code-design.md`; the Agent owns
+ concern selection, alternatives, tradeoffs, the final design, and its plan.
++That protocol supplies an Agent-prefilled task brief, selective reference
++guidance, worked examples and an optional decision template. Load those aids
++only when the actual decision needs them; reference retrieval is not a pattern
++recommendation or evidence that Memory improved the design.
+ 
+ Use `search` or `wiki-search` only when the selected protocol calls for a broader or code-only view. Do not pass temporary runtime-log files to Agent Memory.
+ 
+diff --git a/skills/agent-memory-query/references/code-design.md b/skills/agent-memory-query/references/code-design.md
+index 885e4b1..88d3b84 100644
+--- a/skills/agent-memory-query/references/code-design.md
++++ b/skills/agent-memory-query/references/code-design.md
+@@ -6,8 +6,12 @@ context. The Agent owns all design reasoning and decisions.
+ 
+ ## Workflow
+ 
+-1. Read the user's goal, explicit constraints, exclusions, and acceptance
+-   criteria. Do not ask the user to author Runtime JSON.
++Use this workflow for a material design choice. Follow the parent Skill's
++selective routing first: a direct local edit does not require entering the
++full design workflow. An explicit request to query Memory still requires it.
++
++1. Frame the decision using the intake below. Reuse the user's request and
++   applicable project documents; do not ask the user to author Runtime JSON.
+ 2. Run an orientation query:
+ 
+ ```bash
+@@ -37,13 +41,100 @@ python3 tools/agent_memory.py design-context --project . \
+ 
+ 7. Reconstruct current responsibilities, state ownership, behavior, data,
+    failure paths, consumers, and change pressure from source and context.
+-8. Author the smallest viable design. Add alternatives only for a material
+-   quality-attribute or structural tradeoff.
++8. Use the reference and review guidance below to author the smallest complete
++   design. Add alternatives only for a material quality or structural tradeoff.
+ 9. Explain applicable principles, rejected alternatives, assumptions, risks,
+-   and verification. Never cite a pattern name as the sole rationale.
++   and verification. Never cite a pattern name as the sole rationale. Use the
++   decision template only when the choice deserves a durable record.
+ 10. Use current tests, compiler output, source inspection, and optional factual
+     validators to verify claims. A clean bounded check does not prove quality.
+ 
++## Frame The Decision
++
++Scale the work to the request. A local edit with an obvious implementation does
++not need an architecture document, a reference search, or several candidates.
++Keep the parent Skill's selective-retrieval rules and explicit Memory requests.
++For an actual design decision, prefill a short brief:
++
++| Input | Establish before committing to a design |
++|---|---|
++| Outcome | Who needs a different behavior; what observation would show success? |
++| Hard constraints | Which APIs, data, lifecycle guarantees, and applicable contracts must hold? |
++| Non-goals | Which tempting adjacent changes are outside this task? |
++| Quality priorities | Which qualities compete here; what concrete scenario makes each important? |
++| Change pressure | Which credible next change should stay local; which future needs are speculation? |
++| Unknowns | What missing fact could change the selected mechanism or scope? |
++
++Label statements as user requirements, reviewed project contracts, observed
++facts, assumptions, or unknowns. An approved contract states intended behavior;
++source states actual behavior. A discrepancy is a question to resolve, not
++permission to silently replace either. Do not invent latency targets or load.
++Ask only questions whose answers materially affect the decision. Continue
++independent inspection; keep unresolved assumptions visible in the proposal.
++
++## Select References, Not Answers
++
++Read [design-reference-guide.md](design-reference-guide.md) when selecting a
++design method, reference case, or pattern. Use only the relevant entry; do not
++load a whole catalog for every task. Read
++[design-examples.md](design-examples.md) when a worked example would resolve
++uncertainty about scope, historical transfer, or unnecessary abstraction.
++
++Identify the problem features first: the volatile decision, responsibility or
++state owner, lifetime, consistency requirement, failure boundary, and credible
++change. Search project decisions and experience using the existing context
++commands. Generic external guidance remains advisory and can be read directly.
++Do not infer that Memory adds value merely because it returned a reference.
++
++For a reference that influences the decision, explain:
++
++- the matching problem features and current evidence;
++- required preconditions that are confirmed, unknown, or contradicted;
++- what can transfer and what must not transfer;
++- the cost or counterexample that would make the reference a poor fit.
++
++Unknown prerequisites are not satisfied prerequisites. A lexical match is not
++architectural fitness. No suitable reference, retaining the current structure,
++or using a direct implementation are all valid outcomes.
++
++## Review Material Alternatives
++
++Include the current design as a baseline when meaningful. Compare distinct
++mechanisms under the same requirements, rather than cosmetic variants or a
++mandatory candidate count. Review the consequences, not a summed taste score:
++
++| Lens | Decision-changing question |
++|---|---|
++| Boundary | Which changing decision is hidden; can consumers avoid knowing it? |
++| Ownership | Who mutates state, validates identity, and ends the lifetime? |
++| Completeness | What happens on failure, stale input, partial completion, and recovery? |
++| Complexity | Is complexity removed or moved to callers, wiring, and special cases? |
++| Evolution | For one credible future change, what changes and what stays stable? |
++| Reversal | What would invalidate this choice; how can it be changed safely? |
++
++Honor hard constraints first, then the task's quality priorities and total
++maintenance cost. Principles can conflict: fewer layers may leak implementation
++details; more abstraction may increase caller burden. One implementation can
++still need a boundary for ownership, trust, or testing. Smallest complete does
++not mean fewest lines. Follow stricter project-specific change policies.
++
++For a durable choice, adapt
++[design-decision-template.md](design-decision-template.md). Do not require this
++format for a short answer. State whether each validation is planned, observed,
++failed, or unknown; source checks do not establish long-term maintainability.
++
++## Record Conditional Feedback
++
++After an actual design attempt, use the existing `agent-memory-reflect` Skill
++when a reusable lesson is worth saving. Keep the decision document in Git and
++save a concise lesson with source/version references, conditions, alternatives
++rejected, observed results, and a revisit condition. A design-only outcome can
++be complete while its implementation and long-term benefits remain unverified.
++Do not turn a hypothetical result into `what_worked` or a verified procedure.
++Track helpful, ignored, misleading, or superseded reuse through the existing
++experience feedback path. One successful check does not authorize a new global
++rule, automatic Skill update, or a system meta-review.
++
+ ## Context Interpretation
+ 
+ - `authority_order`: precedence when evidence conflicts.
+diff --git a/skills/agent-memory-reflect/SKILL.md b/skills/agent-memory-reflect/SKILL.md
+index 4a29f8b..25f8f3b 100644
+--- a/skills/agent-memory-reflect/SKILL.md
++++ b/skills/agent-memory-reflect/SKILL.md
+@@ -41,6 +41,19 @@ A reflection is an experience candidate, not accepted experience. The Agent must
+ the assumptions, invalid cases, verification method, source cases, and reuse feedback
+ needed for future Agents to decide whether the lesson should transfer.
+ 
++For design attempts, keep the decision document in Git and record a conditional
++lesson using existing fields: `task_type: design`, source/version references in
++`context_used` and `source_cases`, a concise decision and accepted cost in
++`reasoning_summary`, prerequisites in `hidden_assumptions`, invalid cases in
++`negative_preconditions`, a revisit condition in `future_rule`, and actual
++checks in `verification_method` and `final_verification_path`. Keep planned
++benefits separate from observed outcomes. A completed design-only task does not
++verify its implementation, long-term quality, or Memory's incremental benefit.
++Use `what_failed` and `reuse_feedback` for misleading references; retain later
++counterevidence. Do not infer a reusable procedure or change a global rule from
++one passing check. Ordinary design feedback does not itself trigger a system
++meta-review or promote a Skill candidate.
++
+ Keep normative documents separate from experience. If an ADR or Feature Spec informed
+ the task, cite its document ID, Git path and version in the existing source/context
+ references, and record only the reusable lesson. Do not copy the full specification
+diff --git a/tests/test_design_context.py b/tests/test_design_context.py
+index f460e4a..ddd41d5 100644
+--- a/tests/test_design_context.py
++++ b/tests/test_design_context.py
+@@ -134,6 +134,12 @@ export class ProfileRepository {
+         self.assertLessEqual(len(payload["design_knowledge"]), 2)
+         self.assertLessEqual(estimate_payload_tokens(payload), 1500)
+ 
++    def test_compact_projection_keeps_the_explicit_entry_file(self) -> None:
++        payload = self.context("--anchor", "pages/ProfilePage.ets", "--compact")
++        self.assertIn("pages/ProfilePage.ets", {
++            item["file_path"] for item in payload["current_repository"]["source_anchors"]
++        })
++
+     def test_semantic_correction_is_a_guardrail_not_a_design_decision(self) -> None:
+         correction = {
+             "experience_type": "correction_experience",
+diff --git a/tests/test_semantic_index.py b/tests/test_semantic_index.py
+index ff6bf46..e78c0a4 100644
+--- a/tests/test_semantic_index.py
++++ b/tests/test_semantic_index.py
+@@ -103,11 +103,12 @@ struct ProfilePage {
+ 
+         by_language = {item["language"]: item for item in manifest}
+         self.assertEqual(
+-            {"ArkTS", "Build Artifact", "C/C++", "TypeScript"},
++            {"ArkTS", "Build Artifact", "C/C++", "Rust", "TypeScript"},
+             set(by_language),
+         )
+         self.assertIn("calls", by_language["C/C++"]["capabilities"])
+         self.assertEqual(["definitions"], by_language["Build Artifact"]["capabilities"])
++        self.assertEqual(["definitions"], by_language["Rust"]["capabilities"])
+ 
+     def test_dispatch_catalog_crosses_batches_with_explicit_candidate_budget(self) -> None:
+         self.write_file("dispatch/Contract.ets", "export interface Contract {\n}")
+diff --git a/tools/agent_memory_runtime/design_context.py b/tools/agent_memory_runtime/design_context.py
+index 687bf99..ffade9d 100644
+--- a/tools/agent_memory_runtime/design_context.py
++++ b/tools/agent_memory_runtime/design_context.py
+@@ -197,6 +197,8 @@ def repository_context(
+     compact: bool,
+ ) -> dict[str, Any]:
+     architecture = model["architecture"]
++    explicit_ids = set(model.get("scope_entry_points", []))
++    source_nodes = sorted(architecture["nodes"], key=lambda item: item["id"] not in explicit_ids)
+     if not compact:
+         return {
+             **public_repository_model(model),
+@@ -205,7 +207,7 @@ def repository_context(
+             "state_owners": architecture["state_owners"],
+             "extension_points": architecture["extension_points"],
+             "affected_consumers": architecture["public_consumers"],
+-            "source_anchors": architecture["nodes"][:limits["nodes"]],
++            "source_anchors": source_nodes[:limits["nodes"]],
+             "relations": architecture["edges"][:limits["edges"]],
+             "test_anchors": architecture["test_anchors"],
+             "observability_anchors": architecture["observability_anchors"],
+@@ -220,7 +222,7 @@ def repository_context(
+         "state_owners": architecture["state_owners"][:4],
+         "extension_points": [item.get("id") for item in architecture["extension_points"][:3] if item.get("id")],
+         "affected_consumers": [compact_edge(item) for item in architecture["public_consumers"][:1]],
+-        "source_anchors": [compact_node(item) for item in architecture["nodes"][:limits["nodes"]]],
++        "source_anchors": [compact_node(item) for item in source_nodes[:limits["nodes"]]],
+         "relations": [compact_edge(item) for item in architecture["edges"][:limits["edges"]]],
+         "test_anchors": [item.get("id") for item in architecture["test_anchors"][:3] if item.get("id")],
+         "observability_anchors": [item.get("id") for item in architecture["observability_anchors"][:3] if item.get("id")],
+diff --git a/tools/agent_memory_runtime/models.py b/tools/agent_memory_runtime/models.py
+index ba096d2..cc6b533 100644
+--- a/tools/agent_memory_runtime/models.py
++++ b/tools/agent_memory_runtime/models.py
+@@ -55,6 +55,7 @@ IGNORE_DIRS = {
+ 
+ CODE_EXTENSIONS = {
+     ".py": "Python",
++    ".rs": "Rust",
+     ".ts": "TypeScript",
+     ".tsx": "TypeScript",
+     ".ets": "ArkTS",
+diff --git a/tools/agent_memory_runtime/semantic_adapters.py b/tools/agent_memory_runtime/semantic_adapters.py
+index 8945534..d3974f1 100644
+--- a/tools/agent_memory_runtime/semantic_adapters.py
++++ b/tools/agent_memory_runtime/semantic_adapters.py
+@@ -9,6 +9,7 @@ from .models import Project
+ from .semantic_ecma import index_ecma_files
+ from .semantic_models import SemanticBatch
+ from .semantic_static_sources import StaticSourceSemanticAdapter
++from .semantic_rust import RustSemanticAdapter
+ 
+ 
+ class LanguageAdapter(Protocol):
+@@ -47,6 +48,7 @@ class TypeScriptSemanticAdapter:
+ 
+ 
+ ADAPTERS: dict[str, LanguageAdapter] = {
++    "Rust": RustSemanticAdapter(),
+     "ArkTS": ArkTSSemanticAdapter(),
+     "Build Artifact": StaticSourceSemanticAdapter(
+         "build-artifact-static", "Build Artifact", "build"
+diff --git a/tools/agent_memory_runtime/source_static_extractors.py b/tools/agent_memory_runtime/source_static_extractors.py
+index 95b522a..cd65fc3 100644
+--- a/tools/agent_memory_runtime/source_static_extractors.py
++++ b/tools/agent_memory_runtime/source_static_extractors.py
+@@ -7,6 +7,7 @@ from pathlib import Path
+ from typing import Any
+ 
+ from .text import identifier_tokens, unique_list
++from .rust_source import read_rust_text, rust_declarations, rust_summary
+ 
+ 
+ MAX_SUMMARY_ITEMS = 12
+@@ -22,6 +23,8 @@ NATIVE_SUFFIX = re.compile(
+ 
+ 
+ def extended_summary(path: Path, language: str, text: str | None = None) -> str | None:
++    if language == "Rust":
++        return rust_summary(read_rust_text(path))
+     if language not in {"C/C++", "Build Artifact"}:
+         return None
+     text = read_text(path) if text is None else text
+@@ -40,6 +43,8 @@ def extended_summary(path: Path, language: str, text: str | None = None) -> str
+ def extended_symbols(
+     path: Path, language: str, text: str | None = None,
+ ) -> list[tuple[str, str]] | None:
++    if language == "Rust":
++        return [(item.name, item.kind) for item in rust_declarations(read_rust_text(path))]
+     if language not in {"C/C++", "Build Artifact"}:
+         return None
+     return extended_symbols_from_text(read_text(path) if text is None else text, language)

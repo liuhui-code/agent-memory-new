@@ -1,0 +1,63 @@
+{
+  "classification": "development",
+  "document_type": "design-comparison-preparation-audit",
+  "status": "no_go",
+  "development_preparation": "completed_with_supply_isolation_checks",
+  "observed_at": "2026-11-18T00:30:46.733121+00:00",
+  "git_head": "320e95137a890403cbd6496858a8a1c7de79c6ec",
+  "git_worktree_clean": false,
+  "p0_content_snapshot_sha256": "8005d6b78ea741aec330ce7c29aba0a8a500e637d672473119e61d22e9eb2895",
+  "arm_manifest_sha256": "4a82eeb1233261d4167db7adf0bdcd8f0623bce530fe6133437282b4529b3ed6",
+  "authorization_scope": "development and isolated checks; real activity remains deferred",
+  "internal": {
+    "supply_isolation": "passed_supply_isolation",
+    "runtime_source_files": 311,
+    "runtime_installed_files_each": 310,
+    "skill_resources": {
+      "A": 20,
+      "B": 23,
+      "C": 23
+    },
+    "common_setup_record": "episode:1 created by synthetic source learning; shared in all arms",
+    "C_only_record": "reflection:1 synthetic calibration data; not actual prior experience",
+    "runtime_design_context": "existing interface exercised",
+    "design_comparison_document": "draft working contract; not executable Runtime protocol",
+    "existing_cohort_scope": "diagnosis only; unchanged",
+    "host_skill_loading_isolation_and_full_cost_telemetry": "not verified"
+  },
+  "external": {
+    "real_activity_project_and_future_task_stream": null,
+    "continuity_owner_and_start": null,
+    "real_task_start_memory_home_and_custodian": null,
+    "raw_task_custody_and_retention": null,
+    "task_acceptance_owner_and_validation_strategy": null,
+    "independent_design_reviewer_and_dispute_process": null
+  },
+  "campaign": {
+    "real_activity_started": false,
+    "supported_design_execution_contract_and_review": null,
+    "model_parameters_host_and_tool_permissions": null,
+    "fixed_presented_count_and_exclusion_policy": null,
+    "paired_selection_capacity_order_and_repetition": null,
+    "budgets_cost_guardrails_and_complete_telemetry": null,
+    "exact_stop_retry_and_missing_result_rules": null,
+    "summary_decision_rule": null
+  },
+  "evidence": {
+    "supply_assertions_passed": 13,
+    "top_level_cli_commands_in_final_rehearsal": 9,
+    "first_failed_rehearsal_retained": "attempt-1/result.json",
+    "corrected_rehearsal": "attempt-2/result.json",
+    "real_presented_tasks": 0,
+    "agent_model_runs": 0,
+    "independent_reviews": 0,
+    "P1_known_artifact_review": "author self-calibration only; not a new result",
+    "previous_81_or_14_tests_rerun": false
+  },
+  "not_claimed": [
+    "Agent actually loaded or followed the supplied Skill",
+    "independent task quality, efficiency, or Memory causal benefit",
+    "design contract support in the existing diagnosis cohort",
+    "real activity authorization, external gate, generalization, or promotion"
+  ]
+}

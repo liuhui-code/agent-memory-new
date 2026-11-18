@@ -1,0 +1,16 @@
+   Compiling arklog-core v0.2.1 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-core)
+   Compiling arklog v0.2.12 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-tui)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.30s
+     Running unittests src/lib.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/arklog-b18e58bae76a9378)
+
+running 4 tests
+test controller::m1_contract::completion_keeps_origin_while_another_stream_is_active ... M1_TRACE requested=stream-1 active=stream-2 observed=stream-1
+ok
+test controller::m1_contract::current_batch_is_accepted ... ok
+test controller::m1_contract::retirement_receipt_precedes_replacement_commit ... M1_TRACE old=stream-1 receipt_pending=true premature=None current=stream-2 state=Streaming
+ok
+test controller::m1_contract::same_device_reconnect_rejects_prior_stream_batches ... M1_TRACE old=stream-1 current=stream-2 device=USB-01 rows=["M1_CURRENT"]
+ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.06s
+

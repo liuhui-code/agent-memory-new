@@ -1,0 +1,45 @@
+{
+  "classification": "development",
+  "status": "passed_bounded_source_navigation",
+  "prior_attempt": "arklog-source-smoke.json",
+  "focused_lookup_artifact": "arklog-focused-lookups.json",
+  "checks": {
+    "compact_design_has_source_anchors": true,
+    "original_tracked_files_unchanged": true,
+    "source_worktree_clean": true,
+    "focused_current_method_evidence": true
+  },
+  "source_head": "9aa4c503c271ab22375ec5e40e645f536b441c11",
+  "original_file_count": 202,
+  "compact_anchor_count": 3,
+  "command": {
+    "argv": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "/Users/liuhui/Documents/code/agent-memory-new/tools/agent_memory.py",
+      "design-context",
+      "--project",
+      "/Users/liuhui/Documents/code/ArkLog",
+      "--memory-home",
+      "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/rust-source-development-548atmr3/arklog-memory",
+      "--query",
+      "ArkLogController pump_log_batches reconcile_stream",
+      "--anchor",
+      "crates/arklog-tui/src/controller.rs",
+      "--concern",
+      "reliability",
+      "--compact",
+      "--json"
+    ],
+    "returncode": 0,
+    "duration_seconds": 0.926,
+    "log": "arklog-compact-design-context.log",
+    "log_sha256": "ba93fe3015c0a96812453370cb149732f62d2df8e5b035906a125573e27b096c"
+  },
+  "projection_limit": "The broad design model returned file anchors but its first 24 nodes omitted requested methods. Existing focused context queries return current method ranges; the earlier stronger smoke assertion remains failed, not reclassified.",
+  "not_claimed": [
+    "full design projection coverage",
+    "new independent task or design quality gain",
+    "hardware/native validation"
+  ],
+  "finished_at": "2026-11-17T00:36:52.962469+00:00"
+}

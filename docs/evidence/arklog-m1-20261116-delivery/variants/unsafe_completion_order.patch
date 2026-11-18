@@ -1,0 +1,11 @@
+--- a/crates/arklog-tui/src/controller.rs
++++ b/crates/arklog-tui/src/controller.rs
+@@ -211,8 +211,6 @@
+         if !selected_device_is_online
+             || self.active_stream.is_some()
+             || self.device_refresh.is_running()
+-            || self.stream_stop.is_running()
+-            || self.stream_reap.is_running()
+             || self
+                 .start_retry_at
+                 .is_some_and(|retry_at| Instant::now() < retry_at)

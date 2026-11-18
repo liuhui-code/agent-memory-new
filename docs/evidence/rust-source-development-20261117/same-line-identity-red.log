@@ -1,0 +1,20 @@
+test_same_line_conditional_definitions_keep_distinct_physical_identities (tests.test_rust_source_context.RustSourceContextTests) ... ERROR
+
+======================================================================
+ERROR: test_same_line_conditional_definitions_keep_distinct_physical_identities (tests.test_rust_source_context.RustSourceContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 179, in test_same_line_conditional_definitions_keep_distinct_physical_identities
+    batch = self.batch("#[cfg(unix)] fn platform() {} #[cfg(windows)] fn platform() {}\n")
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 63, in batch
+    return adapter.index(project, [self.source])
+  File "/Users/liuhui/Documents/code/agent-memory-new/tools/agent_memory_runtime/semantic_rust.py", line 46, in index
+    return SemanticBatch(
+  File "/Users/liuhui/Documents/code/agent-memory-new/tools/agent_memory_runtime/semantic_models.py", line 103, in validate
+    raise ValueError("semantic entity keys must be unique")
+ValueError: semantic entity keys must be unique
+
+----------------------------------------------------------------------
+Ran 1 test in 0.531s
+
+FAILED (errors=1)

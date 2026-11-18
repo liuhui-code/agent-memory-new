@@ -1,0 +1,21 @@
+   Compiling arklog-core v0.2.1 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-core)
+   Compiling arklog v0.2.12 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-tui)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.88s
+     Running unittests src/lib.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/arklog-b18e58bae76a9378)
+
+running 1 test
+test controller::m1_contract::retirement_receipt_precedes_replacement_commit ... M1_TRACE old=stream-1 receipt_pending=true premature=Some("stream-2") current=stream-2 state=Stopped
+
+thread 'controller::m1_contract::retirement_receipt_precedes_replacement_commit' (42432948) panicked at crates/arklog-tui/src/../tests/support/m1_stream_contract.rs:113:5:
+replacement must wait for retirement receipt
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    controller::m1_contract::retirement_receipt_precedes_replacement_commit
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.04s
+
+error: test failed, to rerun pass `-p arklog --lib`

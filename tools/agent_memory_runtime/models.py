@@ -55,6 +55,7 @@ IGNORE_DIRS = {
 
 CODE_EXTENSIONS = {
     ".py": "Python",
+    ".rs": "Rust",
     ".ts": "TypeScript",
     ".tsx": "TypeScript",
     ".ets": "ArkTS",

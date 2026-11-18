@@ -1,0 +1,14 @@
+test_public_learning_and_design_return_rust_source_anchors (tests.test_rust_source_context.RustSourceContextTests) ... ERROR
+
+======================================================================
+ERROR: test_public_learning_and_design_return_rust_source_anchors (tests.test_rust_source_context.RustSourceContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 67, in test_public_learning_and_design_return_rust_source_anchors
+    self.assertEqual(1, learned["files_indexed"])
+KeyError: 'files_indexed'
+
+----------------------------------------------------------------------
+Ran 1 test in 1.158s
+
+FAILED (errors=1)

@@ -1,0 +1,213 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "Ledger read_balance",
+    "explicit_concerns": [],
+    "explicit_anchors": [
+      "src/ledger.rs"
+    ],
+    "explicit_constraints": [],
+    "query_stage": "agent_directed_expansion"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "snapshot": {
+      "graph_revision": 1,
+      "freshness": "current",
+      "truncated": false,
+      "gap_count": 2
+    },
+    "entry_points": [
+      "file:src/ledger.rs"
+    ],
+    "boundaries": [
+      {
+        "layer": "core",
+        "files": [
+          "src/ledger.rs"
+        ],
+        "incoming_edges": 3
+      }
+    ],
+    "state_owners": [],
+    "extension_points": [
+      "file:src/ledger.rs",
+      "symbol:src/ledger.rs::current_version"
+    ],
+    "affected_consumers": [],
+    "source_anchors": [
+      {
+        "id": "file:src/ledger.rs",
+        "kind": "file",
+        "file_path": "src/ledger.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: Ledger, Ledger::read_balance, current_version"
+      },
+      {
+        "id": "symbol:src/ledger.rs::Ledger",
+        "kind": "struct",
+        "file_path": "src/ledger.rs",
+        "layer": "core",
+        "summary": "struct Ledger in src/ledger.rs",
+        "span": {
+          "start_line": 1,
+          "end_line": 1
+        },
+        "evidence_class": "static"
+      },
+      {
+        "id": "symbol:src/ledger.rs::Ledger::read_balance",
+        "kind": "method",
+        "file_path": "src/ledger.rs",
+        "layer": "core",
+        "summary": "method Ledger::read_balance in src/ledger.rs; identifier terms: read balance",
+        "span": {
+          "start_line": 3,
+          "end_line": 8
+        },
+        "evidence_class": "static"
+      }
+    ],
+    "relations": [
+      {
+        "id": 1,
+        "source": "file:src/ledger.rs",
+        "relation": "contains",
+        "target": "symbol:src/ledger.rs::Ledger",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      },
+      {
+        "id": 2,
+        "source": "file:src/ledger.rs",
+        "relation": "contains",
+        "target": "symbol:src/ledger.rs::Ledger::read_balance",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      },
+      {
+        "id": 3,
+        "source": "file:src/ledger.rs",
+        "relation": "contains",
+        "target": "symbol:src/ledger.rs::current_version",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      }
+    ],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [],
+    "semantic_corrections": [],
+    "memory_evidence": []
+  },
+  "quality_context": {
+    "routing_hints": [],
+    "notice": "Routing hints are not design conclusions.",
+    "scenario_questions": [],
+    "vocabulary_source": "https://www.iso.org/standard/78176.html"
+  },
+  "design_knowledge": [
+    {
+      "id": "information_hiding",
+      "kind": "principle",
+      "summary": "Keep volatile implementation knowledge behind the responsibility that owns it.",
+      "applicability": "A detail changes for reasons different from its callers.",
+      "preconditions": "The owning responsibility and stable caller need can be identified.",
+      "contraindications": "The proposed boundary merely mirrors file layout without hiding a decision.",
+      "tradeoffs": "Encapsulation can add indirection and migration work.",
+      "question": "Which decision is being hidden?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+    },
+    {
+      "id": "smallest_viable_design",
+      "kind": "principle",
+      "summary": "Add structure only for a demonstrated responsibility, variation, ownership, or quality-attribute pressure.",
+      "applicability": "The request introduces a real boundary, variation, or measurable quality pressure.",
+      "preconditions": "The concrete pressure and affected behavior can be named.",
+      "contraindications": "The abstraction is justified only by a possible future need.",
+      "tradeoffs": "A smaller design may require later evolution when new evidence appears.",
+      "question": "What is the smallest change that satisfies the observable scenario?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/"
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_memory_support",
+      "action": "continue with source evidence; reflect after verification"
+    },
+    {
+      "kind": "missing_test_anchor",
+      "action": "identify focused verification for the proposed design"
+    },
+    {
+      "kind": "missing_observability_anchor",
+      "action": "check whether changed high-risk paths need a stable result/failure signal"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "query_again",
+      "usage": "supply Agent-confirmed --concern and --anchor values"
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect source; reason about alternatives, tradeoffs, selection, plan, and verification"
+    ],
+    "runtime_limitations": [
+      "context only; no pattern recommendation, candidate ranking, design selection, or plan"
+    ]
+  },
+  "audit": {
+    "compact": true,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "returned_count": 2,
+      "truncated": false
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "ready_for_agent_directed_refinement",
+    "next_action": "inspect_source_and_confirm_design_constraints",
+    "reason_codes": [
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_test_anchor', 'action': 'identify focused verification for the proposed design'}",
+      "{'kind': 'missing_observability_anchor', 'action': 'check whether changed high-risk paths need a stable result/failure signal'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 3,
+      "explicit_constraint_count": 0,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

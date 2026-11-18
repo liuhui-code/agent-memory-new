@@ -9,6 +9,7 @@ from .models import Project
 from .semantic_ecma import index_ecma_files
 from .semantic_models import SemanticBatch
 from .semantic_static_sources import StaticSourceSemanticAdapter
+from .semantic_rust import RustSemanticAdapter
 
 
 class LanguageAdapter(Protocol):
@@ -47,6 +48,7 @@ class TypeScriptSemanticAdapter:
 
 
 ADAPTERS: dict[str, LanguageAdapter] = {
+    "Rust": RustSemanticAdapter(),
     "ArkTS": ArkTSSemanticAdapter(),
     "Build Artifact": StaticSourceSemanticAdapter(
         "build-artifact-static", "Build Artifact", "build"

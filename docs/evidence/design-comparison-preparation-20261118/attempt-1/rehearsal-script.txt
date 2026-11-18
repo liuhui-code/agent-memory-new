@@ -1,0 +1,236 @@
+# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+"""Offline synthetic supply check only; never runs an Agent or a real cohort."""
+
+from __future__ import annotations
+
+import hashlib
+import io
+import json
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[3]
+EVIDENCE = Path(__file__).resolve().parent
+BASELINE = ROOT / "docs/evidence/development-baseline-20261117/manifest.json"
+HEAD = "320e95137a890403cbd6496858a8a1c7de79c6ec"
+
+
+def sha(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def save(path: Path, value: object) -> None:
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def freeze(path: Path, value: object) -> None:
+    if path.exists():
+        if json.loads(path.read_text(encoding="utf-8")) != value:
+            raise ValueError("frozen preparation input differs: " + str(path))
+    else:
+        save(path, value)
+
+
+def hashes(root: Path) -> dict[str, str]:
+    return {
+        p.relative_to(root).as_posix(): sha(p.read_bytes())
+        for p in sorted(root.rglob("*"))
+        if p.is_file() and "__pycache__" not in p.parts
+    }
+
+
+def main() -> None:
+    baseline = json.loads(BASELINE.read_text(encoding="utf-8"))
+    for group in ("runtime_files", "skill_files"):
+        for path, digest in baseline[group].items():
+            if sha((ROOT / path).read_bytes()) != digest:
+                raise ValueError("P0 drift: " + path)
+    installer_sha = sha((ROOT / "install.py").read_bytes())
+    if installer_sha != baseline["all_replayed_file_sha256"]["install.py"]:
+        raise ValueError("installer differs from P0")
+    paths = subprocess.check_output(
+        ["git", "ls-tree", "-r", "--name-only", HEAD, "skills"], cwd=ROOT, text=True
+    ).splitlines()
+    old_bytes = {
+        p: subprocess.check_output(["git", "show", HEAD + ":" + p], cwd=ROOT) for p in paths
+    }
+    old_skills = {p: sha(data) for p, data in old_bytes.items()}
+    current_skills = baseline["skill_files"]
+    archive = EVIDENCE / "baseline-skills.tar.gz"
+    if not archive.exists():
+        with tarfile.open(archive, "w:gz") as target:
+            for path, data in sorted(old_bytes.items()):
+                info = tarfile.TarInfo(path)
+                info.size, info.mode, info.mtime = len(data), 0o644, 0
+                target.addfile(info, io.BytesIO(data))
+    with tarfile.open(archive, "r:gz") as source:
+        members = source.getmembers()
+        if any(not m.isfile() for m in members):
+            raise ValueError("baseline archive contains a non-file")
+        replayed = {m.name: sha(source.extractfile(m).read()) for m in members}
+        if len(members) != len(old_skills) or replayed != old_skills:
+            raise ValueError("baseline archive differs from Git objects")
+    freeze(EVIDENCE / "arm-manifest.json", {
+        "classification": "development",
+        "purpose": "Freeze supply differences, not host execution or efficacy",
+        "p0_manifest_sha256": sha(BASELINE.read_bytes()),
+        "p0_content_snapshot_sha256": baseline["content_snapshot_sha256"],
+        "shared_runtime_files": baseline["runtime_files"],
+        "installer_sha256": installer_sha,
+        "baseline_skill_git_revision": HEAD,
+        "baseline_skill_files": old_skills,
+        "improved_skill_files": current_skills,
+        "baseline_archive_sha256": sha(archive.read_bytes()),
+        "modified_guidance_paths": sorted(p for p in old_skills if old_skills[p] != current_skills.get(p)),
+        "added_guidance_paths": sorted(set(current_skills) - set(old_skills)),
+        "arms": {
+            "A": {"skills": "baseline_skill_files", "history": "absent"},
+            "B": {"skills": "improved_skill_files", "history": "absent"},
+            "C": {"skills": "improved_skill_files", "history": "one synthetic calibration reflection"},
+        },
+        "real_task_memory_bound": False,
+        "host_skill_loading_verified": False,
+    })
+    plan = {
+        "classification": "generated_development_fixture",
+        "source_text": "# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77\n"
+                       "\"\"\"Synthetic P2 receipt fixture, not a product task.\"\"\"\n"
+                       "def render_receipt(sequence: int, text: str) -> str:\n"
+                       "    return str(sequence) + ':' + text\n",
+        "query": "calibration preview receipt design",
+        "reflection": {
+            "task_type": "design", "outcome": "partial",
+            "task": "CALIBRATION_ONLY preview receipt design",
+            "summary": "CALIBRATION_ONLY synthetic preview receipt history for isolation checking.",
+            "lesson": "CALIBRATION_ONLY: this is invented test data, not a prior result or design advice.",
+            "scope": "Synthetic P2 interface isolation only", "confidence": 0.1,
+        },
+        "equal_public_sections": ["current_repository", "quality_context", "design_knowledge"],
+        "expected_history_counts": {"A": 0, "B": 0, "C": 1, "B-after-C": 0},
+        "model_execution": False,
+        "real_activity": False,
+    }
+    freeze(EVIDENCE / "rehearsal-plan.json", plan)
+    attempt = 1
+    while (EVIDENCE / ("attempt-" + str(attempt))).exists():
+        attempt += 1
+    output = EVIDENCE / ("attempt-" + str(attempt))
+    output.mkdir()
+    work = Path(tempfile.mkdtemp(prefix="design-comparison-preparation-"))
+    records, checks = [], {}
+
+    def run(label: str, argv: list[str], cwd: Path) -> str:
+        started = time.monotonic()
+        result = subprocess.run(argv, cwd=cwd, text=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, timeout=45)
+        data = result.stdout.encode("utf-8")
+        logfile = output / (label + ".log")
+        logfile.write_bytes(data)
+        records.append({"id": label, "argv": argv, "cwd": str(cwd),
+                        "returncode": result.returncode, "seconds": round(time.monotonic() - started, 3),
+                        "log": logfile.relative_to(EVIDENCE).as_posix(), "log_sha256": sha(data)})
+        if result.returncode:
+            raise RuntimeError(label + " exited " + str(result.returncode))
+        return result.stdout
+
+    report = {"classification": "generated_development_fixture", "status": "running",
+              "attempt": attempt, "temporary_root": str(work), "checks": checks,
+              "commands": records, "real_tasks": 0, "agent_model_runs": 0,
+              "independent_reviews": 0, "host_skill_loading_verified": False,
+              "limits": "File supply and public CLI only; no model adherence, task quality, or causal gain"}
+    try:
+        bundles, installs, homes = {}, {}, {}
+        for arm in ("A", "B", "C"):
+            bundle, installed = work / ("source-" + arm), work / ("installed-" + arm)
+            bundle.mkdir()
+            installed.mkdir()
+            bundles[arm], installs[arm], homes[arm] = bundle, installed, work / ("memory-" + arm)
+            for path in ["install.py", *baseline["runtime_files"]]:
+                target = bundle / path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ROOT / path, target)
+            skill_data = old_bytes if arm == "A" else {
+                p: (ROOT / p).read_bytes() for p in current_skills
+            }
+            for path, data in skill_data.items():
+                target = bundle / path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(data)
+            run("install-" + arm, [sys.executable, str(bundle / "install.py"),
+                "--project", str(installed), "--memory-home", str(homes[arm]), "--local-skills"], bundle)
+        expected_runtime = {p.removeprefix("tools/"): h for p, h in baseline["runtime_files"].items()
+                            if p != "tools/check_line_limits.py"}
+        installed_runtime = {arm: hashes(installs[arm] / "tools") for arm in installs}
+        checks["installed_runtime_310_files_each"] = all(
+            value == expected_runtime for value in installed_runtime.values()) and len(expected_runtime) == 310
+        installed_skills = {arm: hashes(installs[arm] / ".agents/skills") for arm in installs}
+        checks["installed_A_20_original_skills"] = installed_skills["A"] == {
+            p.removeprefix("skills/"): h for p, h in old_skills.items()} and len(old_skills) == 20
+        expected_skills = {p.removeprefix("skills/"): h for p, h in current_skills.items()}
+        checks["installed_B_C_23_identical_skills"] = (
+            installed_skills["B"] == installed_skills["C"] == expected_skills and len(expected_skills) == 23)
+        project = work / "common-case-project"
+        (project / "src").mkdir(parents=True)
+        (project / "src/receipt.py").write_text(plan["source_text"], encoding="utf-8")
+
+        def command(arm: str, name: str, *args: str) -> list[str]:
+            return [sys.executable, str(installs[arm] / "tools/agent_memory.py"), name, *args,
+                    "--project", str(project), "--memory-home", str(homes[arm]), "--json"]
+
+        learned = json.loads(run("learn-common-B", command("B", "learn-path", "--path", "src"), project))
+        report["learn_result"] = learned
+        # All child processes have exited; clone only this rehearsal's owned homes.
+        for arm in ("A", "C"):
+            shutil.rmtree(homes[arm])
+            shutil.copytree(homes["B"], homes[arm])
+        initial_homes = {arm: hashes(homes[arm]) for arm in homes}
+        checks["identical_initial_memory_bytes"] = initial_homes["A"] == initial_homes["B"] == initial_homes["C"]
+        payload = work / "synthetic-reflection.json"
+        save(payload, plan["reflection"])
+        report["seed_result"] = json.loads(run("seed-C", command("C", "reflect", "--payload-file", str(payload)), project))
+        contexts = {}
+        for label, arm in (("A", "A"), ("B", "B"), ("C", "C"), ("B-after-C", "B")):
+            contexts[label] = json.loads(run("query-" + label, command(arm, "design-context",
+                "--query", plan["query"], "--anchor", "src/receipt.py"), project))
+        history = {k: v["project_context"]["memory_evidence"] for k, v in contexts.items()}
+        report["observed_history"] = history
+        checks["history_counts_match_plan"] = {k: len(v) for k, v in history.items()} == plan["expected_history_counts"]
+        checks["C_synthetic_history_label_retained"] = (
+            len(history["C"]) == 1 and "CALIBRATION_ONLY" in history["C"][0]["summary"]
+            and history["C"][0]["authority"] == "unverified_historical_observation")
+        for section in plan["equal_public_sections"]:
+            checks["equal_" + section] = all(contexts["B"][section] == v[section] for v in contexts.values())
+        checks["actual_source_anchor_returned"] = bool(contexts["B"]["current_repository"]["source_anchors"])
+        checks["common_constraints_unchanged"] = all(
+            v["project_context"]["task_constraints"] == contexts["B"]["project_context"]["task_constraints"]
+            and v["project_context"]["semantic_corrections"] == contexts["B"]["project_context"]["semantic_corrections"]
+            and v["project_context"].get("normative_context") == contexts["B"]["project_context"].get("normative_context")
+            for v in contexts.values())
+        checks["frozen_runtime_and_skills_unchanged"] = all(
+            sha((ROOT / p).read_bytes()) == digest
+            for group in ("runtime_files", "skill_files") for p, digest in baseline[group].items())
+        report["installed_runtime_files_per_arm"] = {a: len(v) for a, v in installed_runtime.items()}
+        report["installed_skill_files_per_arm"] = {a: len(v) for a, v in installed_skills.items()}
+        report["status"] = "passed_supply_isolation" if all(checks.values()) else "failed_supply_isolation"
+    except Exception as exc:
+        report["status"] = "failed_supply_isolation"
+        report["error"] = type(exc).__name__ + ": " + str(exc)
+    report["finished_at"] = datetime.now(timezone.utc).isoformat()
+    report["script_sha256"] = sha(Path(__file__).read_bytes())
+    save(output / "result.json", report)
+    save(EVIDENCE / "isolation-rehearsal.json", report)
+    print(json.dumps({"status": report["status"], "checks": checks, "attempt": attempt,
+                      "temporary_root": str(work), "error": report.get("error")}, ensure_ascii=False))
+    if report["status"] != "passed_supply_isolation":
+        raise SystemExit(1)
+
+
+if __name__ == "__main__":
+    main()

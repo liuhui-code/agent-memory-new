@@ -1,0 +1,1459 @@
+{
+  "source": "/Users/liuhui/Documents/code/ArkLog",
+  "path": "crates/arklog-tui/src",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "crates/arklog-tui/src/action_status.rs",
+    "crates/arklog-tui/src/agent_query.rs",
+    "crates/arklog-tui/src/background_job.rs",
+    "crates/arklog-tui/src/controller/background.rs",
+    "crates/arklog-tui/src/controller/stream_health.rs",
+    "crates/arklog-tui/src/controller/stream_sink.rs",
+    "crates/arklog-tui/src/controller.rs",
+    "crates/arklog-tui/src/execution_log.rs",
+    "crates/arklog-tui/src/input_ui.rs",
+    "crates/arklog-tui/src/keymap.rs",
+    "crates/arklog-tui/src/lib.rs",
+    "crates/arklog-tui/src/log_geometry.rs",
+    "crates/arklog-tui/src/log_selection.rs",
+    "crates/arklog-tui/src/main.rs",
+    "crates/arklog-tui/src/mcp.rs",
+    "crates/arklog-tui/src/mcp_runtime.rs",
+    "crates/arklog-tui/src/memory.rs",
+    "crates/arklog-tui/src/mouse_capture.rs",
+    "crates/arklog-tui/src/query_history.rs",
+    "crates/arklog-tui/src/runtime_state.rs",
+    "crates/arklog-tui/src/session_store.rs",
+    "crates/arklog-tui/src/state.rs",
+    "crates/arklog-tui/src/system_clipboard.rs",
+    "crates/arklog-tui/src/text_input.rs",
+    "crates/arklog-tui/src/theme.rs",
+    "crates/arklog-tui/src/ui.rs",
+    "crates/arklog-tui/src/windows_console.rs"
+  ],
+  "count": 27,
+  "summary": "Merged 27 files from crates/arklog-tui/src",
+  "parse_stats": {
+    "files_indexed": 27,
+    "languages": {
+      "Rust": 27
+    },
+    "symbols_total": 417,
+    "symbols_by_type": {
+      "enum": 14,
+      "function": 115,
+      "method": 220,
+      "mod": 28,
+      "struct": 39,
+      "trait": 1
+    },
+    "code_logs_total": 0,
+    "code_logs_by_level": {},
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "rust-static",
+          "version": "1.0",
+          "language": "Rust"
+        }
+      ],
+      "capabilities": [
+        "definitions"
+      ],
+      "files_indexed": 27,
+      "entities": 417,
+      "relations_extracted": 0,
+      "mechanisms_extracted": 0,
+      "relations_emitted": 0,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 327,
+      "gaps": [
+        {
+          "kind": "rust_source_only",
+          "detail": "Rust source-only declarations; macros/cfg/types/calls unresolved"
+        }
+      ],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "Rust",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 27
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 417,
+        "reference_name_count": 0,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 417
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 27,
+      "symbols_written": 417,
+      "passages_written": 444
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/Users/liuhui/Documents/code/ArkLog",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 27,
+      "scope_files": [
+        "crates/arklog-tui/src/action_status.rs",
+        "crates/arklog-tui/src/agent_query.rs",
+        "crates/arklog-tui/src/background_job.rs",
+        "crates/arklog-tui/src/controller.rs",
+        "crates/arklog-tui/src/controller/background.rs",
+        "crates/arklog-tui/src/controller/stream_health.rs",
+        "crates/arklog-tui/src/controller/stream_sink.rs",
+        "crates/arklog-tui/src/execution_log.rs",
+        "crates/arklog-tui/src/input_ui.rs",
+        "crates/arklog-tui/src/keymap.rs",
+        "crates/arklog-tui/src/lib.rs",
+        "crates/arklog-tui/src/log_geometry.rs",
+        "crates/arklog-tui/src/log_selection.rs",
+        "crates/arklog-tui/src/main.rs",
+        "crates/arklog-tui/src/mcp.rs",
+        "crates/arklog-tui/src/mcp_runtime.rs",
+        "crates/arklog-tui/src/memory.rs",
+        "crates/arklog-tui/src/mouse_capture.rs",
+        "crates/arklog-tui/src/query_history.rs",
+        "crates/arklog-tui/src/runtime_state.rs",
+        "crates/arklog-tui/src/session_store.rs",
+        "crates/arklog-tui/src/state.rs",
+        "crates/arklog-tui/src/system_clipboard.rs",
+        "crates/arklog-tui/src/text_input.rs",
+        "crates/arklog-tui/src/theme.rs",
+        "crates/arklog-tui/src/ui.rs",
+        "crates/arklog-tui/src/windows_console.rs"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 27,
+          "code_log_statement": 0,
+          "code_symbol": 417
+        },
+        "edge_count": 417,
+        "relation_counts": {
+          "contains": 417
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 417,
+      "edge_delta": 417
+    },
+    "phase_ms": {
+      "extract": 265.05,
+      "load_scope": 16.836,
+      "invalidate": 1.053,
+      "prepare_rows": 253.684,
+      "insert_rows": 27.345,
+      "restore_business": 0.252,
+      "rebuild_graph": 872.676,
+      "summarize": 2.795,
+      "commit": 1.516,
+      "total": 1441.221
+    },
+    "memory_edges_total": 417,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": true,
+    "returned_counts": {
+      "files": 5,
+      "symbols": 25,
+      "logs": 0
+    },
+    "remaining_counts": {
+      "files": 22,
+      "symbols": 129,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "crates/arklog-tui/src/ui.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: InputMode, OverlayMode, AppView, AppLayoutGeometry, app_layout, render_app, render_header, render_query",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "visible_byte_range",
+              "symbol_type": "function",
+              "summary": "function visible_byte_range in crates/arklog-tui/src/ui.rs; identifier terms: visible byte range",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "ui",
+                "rs",
+                "visible_byte_range",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "visible",
+                "byte",
+                "range"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/ui.rs",
+                "visible_byte_range",
+                "function",
+                "function visible_byte_range in crates/arklog-tui/src/ui.rs; identifier terms: visible byte range"
+              ]
+            },
+            {
+              "symbol": "styled_wrapped_log_lines",
+              "symbol_type": "function",
+              "summary": "function styled_wrapped_log_lines in crates/arklog-tui/src/ui.rs; identifier terms: styled wrapped log lines",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "ui",
+                "rs",
+                "styled_wrapped_log_lines",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "styled",
+                "wrapped",
+                "log",
+                "lines"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/ui.rs",
+                "styled_wrapped_log_lines",
+                "function",
+                "function styled_wrapped_log_lines in crates/arklog-tui/src/ui.rs; identifier terms: styled wrapped log lines"
+              ]
+            },
+            {
+              "symbol": "styled_log_line",
+              "symbol_type": "function",
+              "summary": "function styled_log_line in crates/arklog-tui/src/ui.rs; identifier terms: styled log line",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "ui",
+                "rs",
+                "styled_log_line",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "styled",
+                "log",
+                "line"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/ui.rs",
+                "styled_log_line",
+                "function",
+                "function styled_log_line in crates/arklog-tui/src/ui.rs; identifier terms: styled log line"
+              ]
+            },
+            {
+              "symbol": "styled_graphemes",
+              "symbol_type": "function",
+              "summary": "function styled_graphemes in crates/arklog-tui/src/ui.rs; identifier terms: styled graphemes",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "ui",
+                "rs",
+                "styled_graphemes",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "styled",
+                "graphemes"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/ui.rs",
+                "styled_graphemes",
+                "function",
+                "function styled_graphemes in crates/arklog-tui/src/ui.rs; identifier terms: styled graphemes"
+              ]
+            },
+            {
+              "symbol": "render_query",
+              "symbol_type": "function",
+              "summary": "function render_query in crates/arklog-tui/src/ui.rs; identifier terms: render query",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "ui",
+                "rs",
+                "render_query",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "render",
+                "query"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/ui.rs",
+                "render_query",
+                "function",
+                "function render_query in crates/arklog-tui/src/ui.rs; identifier terms: render query"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "tui",
+            "src",
+            "ui",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "inputmode",
+            "overlaymode",
+            "appview",
+            "applayoutgeometry",
+            "app_layout",
+            "render_app",
+            "render_header",
+            "render_query",
+            "visible_byte_range",
+            "styled_wrapped_log_lines",
+            "styled_log_line",
+            "styled_graphemes",
+            "input",
+            "mode",
+            "overlay",
+            "app",
+            "view",
+            "layout",
+            "geometry",
+            "render",
+            "header",
+            "query",
+            "visible",
+            "byte",
+            "range",
+            "styled",
+            "wrapped",
+            "log",
+            "lines",
+            "line",
+            "graphemes"
+          ],
+          "hint_context": [
+            "crates/arklog-tui/src/ui.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: InputMode, OverlayMode, AppView, AppLayoutGeometry, app_layout, render_app, render_header, render_query",
+            "visible_byte_range styled_wrapped_log_lines styled_log_line styled_graphemes render_query"
+          ],
+          "truncated_counts": {
+            "symbols": 13,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-tui/src/theme.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: Tone, tone_color, canvas, panel, text, emphasized_text, strong_text, selected_tab",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "wrapped_continuation",
+              "symbol_type": "function",
+              "summary": "function wrapped_continuation in crates/arklog-tui/src/theme.rs; identifier terms: wrapped continuation",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "theme",
+                "rs",
+                "wrapped_continuation",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "wrapped",
+                "continuation"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/theme.rs",
+                "wrapped_continuation",
+                "function",
+                "function wrapped_continuation in crates/arklog-tui/src/theme.rs; identifier terms: wrapped continuation"
+              ]
+            },
+            {
+              "symbol": "tone_color",
+              "symbol_type": "function",
+              "summary": "function tone_color in crates/arklog-tui/src/theme.rs; identifier terms: tone color",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "theme",
+                "rs",
+                "tone_color",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "tone",
+                "color"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/theme.rs",
+                "tone_color",
+                "function",
+                "function tone_color in crates/arklog-tui/src/theme.rs; identifier terms: tone color"
+              ]
+            },
+            {
+              "symbol": "text",
+              "symbol_type": "function",
+              "summary": "function text in crates/arklog-tui/src/theme.rs",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "theme",
+                "rs",
+                "text",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/theme.rs",
+                "text",
+                "function",
+                "function text in crates/arklog-tui/src/theme.rs"
+              ]
+            },
+            {
+              "symbol": "strong_text",
+              "symbol_type": "function",
+              "summary": "function strong_text in crates/arklog-tui/src/theme.rs; identifier terms: strong text",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "theme",
+                "rs",
+                "strong_text",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "strong",
+                "text"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/theme.rs",
+                "strong_text",
+                "function",
+                "function strong_text in crates/arklog-tui/src/theme.rs; identifier terms: strong text"
+              ]
+            },
+            {
+              "symbol": "selected_tab",
+              "symbol_type": "function",
+              "summary": "function selected_tab in crates/arklog-tui/src/theme.rs; identifier terms: selected tab",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "theme",
+                "rs",
+                "selected_tab",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "selected",
+                "tab"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/theme.rs",
+                "selected_tab",
+                "function",
+                "function selected_tab in crates/arklog-tui/src/theme.rs; identifier terms: selected tab"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "tui",
+            "src",
+            "theme",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "tone",
+            "tone_color",
+            "canvas",
+            "panel",
+            "text",
+            "emphasized_text",
+            "strong_text",
+            "selected_tab",
+            "wrapped_continuation",
+            "color",
+            "emphasized",
+            "strong",
+            "selected",
+            "tab",
+            "wrapped",
+            "continuation"
+          ],
+          "hint_context": [
+            "crates/arklog-tui/src/theme.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: Tone, tone_color, canvas, panel, text, emphasized_text, strong_text, selected_tab",
+            "wrapped_continuation tone_color text strong_text selected_tab"
+          ],
+          "truncated_counts": {
+            "symbols": 17,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-tui/src/text_input.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: Clipboard, Clipboard::get_text, Clipboard::set_text, TextInputView, TextInputView<'a>::at_end, TextInput, Snapshot, TextInput::new",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "push_bounded",
+              "symbol_type": "function",
+              "summary": "function push_bounded in crates/arklog-tui/src/text_input.rs; identifier terms: push bounded",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "text_input",
+                "rs",
+                "push_bounded",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "push",
+                "bounded",
+                "text",
+                "input"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/text_input.rs",
+                "push_bounded",
+                "function",
+                "function push_bounded in crates/arklog-tui/src/text_input.rs; identifier terms: push bounded"
+              ]
+            },
+            {
+              "symbol": "previous_word_boundary",
+              "symbol_type": "function",
+              "summary": "function previous_word_boundary in crates/arklog-tui/src/text_input.rs; identifier terms: previous word boundary",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "text_input",
+                "rs",
+                "previous_word_boundary",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "previous",
+                "word",
+                "boundary",
+                "text",
+                "input"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/text_input.rs",
+                "previous_word_boundary",
+                "function",
+                "function previous_word_boundary in crates/arklog-tui/src/text_input.rs; identifier terms: previous word boundary"
+              ]
+            },
+            {
+              "symbol": "previous_char_boundary",
+              "symbol_type": "function",
+              "summary": "function previous_char_boundary in crates/arklog-tui/src/text_input.rs; identifier terms: previous char boundary",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "text_input",
+                "rs",
+                "previous_char_boundary",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "previous",
+                "char",
+                "boundary",
+                "text",
+                "input"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/text_input.rs",
+                "previous_char_boundary",
+                "function",
+                "function previous_char_boundary in crates/arklog-tui/src/text_input.rs; identifier terms: previous char boundary"
+              ]
+            },
+            {
+              "symbol": "normalized_code",
+              "symbol_type": "function",
+              "summary": "function normalized_code in crates/arklog-tui/src/text_input.rs; identifier terms: normalized code",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "text_input",
+                "rs",
+                "normalized_code",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "normalized",
+                "code",
+                "text",
+                "input"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/text_input.rs",
+                "normalized_code",
+                "function",
+                "function normalized_code in crates/arklog-tui/src/text_input.rs; identifier terms: normalized code"
+              ]
+            },
+            {
+              "symbol": "next_word_boundary",
+              "symbol_type": "function",
+              "summary": "function next_word_boundary in crates/arklog-tui/src/text_input.rs; identifier terms: next word boundary",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "text_input",
+                "rs",
+                "next_word_boundary",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "next",
+                "word",
+                "boundary",
+                "text",
+                "input"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/text_input.rs",
+                "next_word_boundary",
+                "function",
+                "function next_word_boundary in crates/arklog-tui/src/text_input.rs; identifier terms: next word boundary"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "tui",
+            "src",
+            "text_input",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "clipboard",
+            "get_text",
+            "set_text",
+            "textinputview",
+            "a",
+            "at_end",
+            "textinput",
+            "snapshot",
+            "new",
+            "push_bounded",
+            "previous_word_boundary",
+            "previous_char_boundary",
+            "normalized_code",
+            "next_word_boundary",
+            "text",
+            "input",
+            "get",
+            "set",
+            "view",
+            "at",
+            "end",
+            "push",
+            "bounded",
+            "previous",
+            "word",
+            "boundary",
+            "char",
+            "normalized",
+            "code",
+            "next"
+          ],
+          "hint_context": [
+            "crates/arklog-tui/src/text_input.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: Clipboard, Clipboard::get_text, Clipboard::set_text, TextInputView, TextInputView<'a>::at_end, TextInput, Snapshot, TextInput::new",
+            "push_bounded previous_word_boundary previous_char_boundary normalized_code next_word_boundary"
+          ],
+          "truncated_counts": {
+            "symbols": 27,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-tui/src/state.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: selection, LogTab, ViewportAnchor, DisplayWindow, ArkLogState, ArkLogState::new, ArkLogState::append_lines, ArkLogState::query_snapshot",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "selection",
+              "symbol_type": "mod",
+              "summary": "mod selection in crates/arklog-tui/src/state.rs",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "state",
+                "rs",
+                "selection",
+                "mod",
+                "in"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/state.rs",
+                "selection",
+                "mod",
+                "mod selection in crates/arklog-tui/src/state.rs"
+              ]
+            },
+            {
+              "symbol": "ViewportAnchor",
+              "symbol_type": "struct",
+              "summary": "struct ViewportAnchor in crates/arklog-tui/src/state.rs; identifier terms: viewport anchor",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "state",
+                "rs",
+                "viewportanchor",
+                "struct",
+                "in",
+                "identifier",
+                "terms",
+                "viewport",
+                "anchor"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/state.rs",
+                "ViewportAnchor",
+                "struct",
+                "struct ViewportAnchor in crates/arklog-tui/src/state.rs; identifier terms: viewport anchor"
+              ]
+            },
+            {
+              "symbol": "LogTab",
+              "symbol_type": "enum",
+              "summary": "enum LogTab in crates/arklog-tui/src/state.rs; identifier terms: log tab",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "state",
+                "rs",
+                "logtab",
+                "enum",
+                "in",
+                "identifier",
+                "terms",
+                "log",
+                "tab"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/state.rs",
+                "LogTab",
+                "enum",
+                "enum LogTab in crates/arklog-tui/src/state.rs; identifier terms: log tab"
+              ]
+            },
+            {
+              "symbol": "DisplayWindow",
+              "symbol_type": "struct",
+              "summary": "struct DisplayWindow in crates/arklog-tui/src/state.rs; identifier terms: display window",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "state",
+                "rs",
+                "displaywindow",
+                "struct",
+                "in",
+                "identifier",
+                "terms",
+                "display",
+                "window"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/state.rs",
+                "DisplayWindow",
+                "struct",
+                "struct DisplayWindow in crates/arklog-tui/src/state.rs; identifier terms: display window"
+              ]
+            },
+            {
+              "symbol": "ArkLogState::window_start",
+              "symbol_type": "method",
+              "summary": "method ArkLogState::window_start in crates/arklog-tui/src/state.rs; identifier terms: ark log state window start",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "state",
+                "rs",
+                "arklogstate",
+                "window_start",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "ark",
+                "log",
+                "window",
+                "start"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/state.rs",
+                "ArkLogState::window_start",
+                "method",
+                "method ArkLogState::window_start in crates/arklog-tui/src/state.rs; identifier terms: ark log state window start"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "tui",
+            "src",
+            "state",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "selection",
+            "logtab",
+            "viewportanchor",
+            "displaywindow",
+            "arklogstate",
+            "new",
+            "append_lines",
+            "query_snapshot",
+            "window_start",
+            "log",
+            "tab",
+            "viewport",
+            "anchor",
+            "display",
+            "window",
+            "ark",
+            "append",
+            "lines",
+            "query",
+            "snapshot",
+            "start"
+          ],
+          "hint_context": [
+            "crates/arklog-tui/src/state.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: selection, LogTab, ViewportAnchor, DisplayWindow, ArkLogState, ArkLogState::new, ArkLogState::append_lines, ArkLogState::query_snapshot",
+            "selection ViewportAnchor LogTab DisplayWindow ArkLogState::window_start"
+          ],
+          "truncated_counts": {
+            "symbols": 42,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "crates/arklog-tui/src/session_store.rs",
+          "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: QueryRebuildWork, SessionDirectory, Drop for SessionDirectory::drop, SessionLogStore, SessionLogStore::new, SessionLogStore::append_lines, SessionLogStore::query_snapshot, SessionLogStore::raw_count",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "read_u64",
+              "symbol_type": "function",
+              "summary": "function read_u64 in crates/arklog-tui/src/session_store.rs; identifier terms: read u64",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "session_store",
+                "rs",
+                "read_u64",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "read",
+                "u64",
+                "session",
+                "store"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/session_store.rs",
+                "read_u64",
+                "function",
+                "function read_u64 in crates/arklog-tui/src/session_store.rs; identifier terms: read u64"
+              ]
+            },
+            {
+              "symbol": "read_record",
+              "symbol_type": "function",
+              "summary": "function read_record in crates/arklog-tui/src/session_store.rs; identifier terms: read record",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "session_store",
+                "rs",
+                "read_record",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "read",
+                "record",
+                "session",
+                "store"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/session_store.rs",
+                "read_record",
+                "function",
+                "function read_record in crates/arklog-tui/src/session_store.rs; identifier terms: read record"
+              ]
+            },
+            {
+              "symbol": "read_next_u64",
+              "symbol_type": "function",
+              "summary": "function read_next_u64 in crates/arklog-tui/src/session_store.rs; identifier terms: read next u64",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "session_store",
+                "rs",
+                "read_next_u64",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "read",
+                "next",
+                "u64",
+                "session",
+                "store"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/session_store.rs",
+                "read_next_u64",
+                "function",
+                "function read_next_u64 in crates/arklog-tui/src/session_store.rs; identifier terms: read next u64"
+              ]
+            },
+            {
+              "symbol": "read_next_record",
+              "symbol_type": "function",
+              "summary": "function read_next_record in crates/arklog-tui/src/session_store.rs; identifier terms: read next record",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "session_store",
+                "rs",
+                "read_next_record",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "read",
+                "next",
+                "record",
+                "session",
+                "store"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/session_store.rs",
+                "read_next_record",
+                "function",
+                "function read_next_record in crates/arklog-tui/src/session_store.rs; identifier terms: read next record"
+              ]
+            },
+            {
+              "symbol": "create_session_directory",
+              "symbol_type": "function",
+              "summary": "function create_session_directory in crates/arklog-tui/src/session_store.rs; identifier terms: create session directory",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "crates",
+                "arklog",
+                "tui",
+                "src",
+                "session_store",
+                "rs",
+                "create_session_directory",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "create",
+                "session",
+                "directory",
+                "store"
+              ],
+              "hint_context": [
+                "crates/arklog-tui/src/session_store.rs",
+                "create_session_directory",
+                "function",
+                "function create_session_directory in crates/arklog-tui/src/session_store.rs; identifier terms: create session directory"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "crates",
+            "arklog",
+            "tui",
+            "src",
+            "session_store",
+            "rs",
+            "rust",
+            "source",
+            "only",
+            "declarations",
+            "macros",
+            "cfg",
+            "types",
+            "calls",
+            "unresolved",
+            "queryrebuildwork",
+            "sessiondirectory",
+            "drop",
+            "for",
+            "sessionlogstore",
+            "new",
+            "append_lines",
+            "query_snapshot",
+            "raw_count",
+            "read_u64",
+            "read_record",
+            "read_next_u64",
+            "read_next_record",
+            "create_session_directory",
+            "session",
+            "store",
+            "query",
+            "rebuild",
+            "work",
+            "directory",
+            "log",
+            "append",
+            "lines",
+            "snapshot",
+            "raw",
+            "count",
+            "read",
+            "u64",
+            "record",
+            "next",
+            "create"
+          ],
+          "hint_context": [
+            "crates/arklog-tui/src/session_store.rs",
+            "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: QueryRebuildWork, SessionDirectory, Drop for SessionDirectory::drop, SessionLogStore, SessionLogStore::new, SessionLogStore::append_lines, SessionLogStore::query_snapshot, SessionLogStore::raw_count",
+            "read_u64 read_record read_next_u64 read_next_record create_session_directory"
+          ],
+          "truncated_counts": {
+            "symbols": 30,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

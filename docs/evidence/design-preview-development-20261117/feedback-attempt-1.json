@@ -1,0 +1,11 @@
+{
+  "classification": "development",
+  "status": "rejected_input",
+  "observed_returncode": 1,
+  "log": "case-save-feedback-attempt-1.log",
+  "log_sha256": "63a78bb893fcab7fdf644bf863706e26ce83b5af53cb7ccf2ea2d3fc5a8167ce",
+  "payload": "feedback-payload-attempt-1.json",
+  "payload_sha256": "c42970aab98a04f89056a6f8bc5c936efc5b71ccb0b05e39ee704bd2d112d009",
+  "diagnostic": "--task and --lesson are required",
+  "cause": "Agent payload omitted the required lesson field; existing Runtime correctly refused the write"
+}

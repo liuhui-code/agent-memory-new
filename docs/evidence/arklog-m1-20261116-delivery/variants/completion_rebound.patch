@@ -1,0 +1,11 @@
+--- a/crates/arklog-core/src/runtime.rs
++++ b/crates/arklog-core/src/runtime.rs
+@@ -196,7 +196,7 @@
+             .try_wait()
+             .map_err(|error| format!("Failed to inspect HDC HiLog: {error}"))?;
+         Ok(status.map(|status| DeviceLogStreamExit {
+-            stream_id: stream_id.to_string(),
++            stream_id: streams.keys().max().cloned().unwrap_or_default(),
+             success: status.success(),
+             code: status.code(),
+         }))

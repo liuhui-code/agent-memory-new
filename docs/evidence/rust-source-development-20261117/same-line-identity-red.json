@@ -1,0 +1,14 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_rust_source_context.RustSourceContextTests.test_same_line_conditional_definitions_keep_distinct_physical_identities"
+  ],
+  "returncode": 1,
+  "seconds": 0.717,
+  "log_sha256": "d652bc1d594cf3db17707c9d34278f093c21930ad4d00d1a1f5280581aa4abff",
+  "known_expectation": "two physical conditional declarations on one line need two identities"
+}

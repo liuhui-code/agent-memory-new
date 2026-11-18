@@ -1,0 +1,32 @@
+{
+  "classification": "development",
+  "origin": "Agent-authored controlled product-adjacent task, not an external user task or holdout",
+  "frozen_at": "2026-11-17T15:11:21.153992+00:00",
+  "baseline_snapshot": "8005d6b78ea741aec330ce7c29aba0a8a500e637d672473119e61d22e9eb2895",
+  "baseline_runtime_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-development-baseline-v5fnhh1g/restored",
+  "temporary_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4",
+  "input_brief": "docs/design-preview-development-case.zh-CN.md",
+  "input_brief_sha256": "4694b04dbd716b1b6c64ecfb7a372688f5c282a372eb43b34176525325b1e64a",
+  "observed_source_sha256": {
+    "tools/agent_memory_runtime/review_server.py": "3ac031c06ba904b474ba1b5dd08787aa0d5010206c735a7308503ef7ca9f563b",
+    "tools/agent_memory_runtime/review_library.py": "662b9b0ff768ea73a0e7ea7d82f532007455bdbb03e32946d481fe8b6754a042",
+    "docs/memory-review-workbench.zh-CN.md": "66c9d115aa91ae1a78a489c44d1089db3cfba1c8ff03eb31c1fb940f413e253f"
+  },
+  "requirements": [
+    "immutable selected-row snapshot",
+    "only currently admitted job may commit",
+    "cancel/duplicate/wrong-instance/old-failure receipts cannot publish",
+    "check and state mutation are one critical section",
+    "rendering outside the critical section",
+    "invalid and over-limit input preserves current job",
+    "add JSON renderer without changing state owner"
+  ],
+  "excluded": [
+    "production integration",
+    "independent design efficacy",
+    "runtime or ranking changes",
+    "real business Memory",
+    "cross-process identity"
+  ],
+  "future_exercise": "JSON format added after freezing the initial coordinator hash"
+}

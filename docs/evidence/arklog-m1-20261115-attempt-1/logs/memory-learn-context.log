@@ -1,0 +1,118 @@
+{
+  "source": "/Users/liuhui/Documents/code/ArkLog",
+  "path": "crates/arklog-tui/src",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [],
+  "count": 0,
+  "summary": "Merged 0 files from crates/arklog-tui/src",
+  "parse_stats": {
+    "files_indexed": 0,
+    "languages": {},
+    "symbols_total": 0,
+    "symbols_by_type": {},
+    "code_logs_total": 0,
+    "code_logs_by_level": {},
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [],
+      "capabilities": [],
+      "files_indexed": 0,
+      "entities": 0,
+      "relations_extracted": 0,
+      "mechanisms_extracted": 0,
+      "relations_emitted": 0,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 0,
+      "gaps": [],
+      "adapter_errors": [],
+      "provider_runs": [],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {}
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 0,
+      "symbols_written": 0,
+      "passages_written": 0
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/Users/liuhui/Documents/code/ArkLog",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 0,
+      "scope_files": [],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 0,
+      "edge_delta": 0
+    },
+    "phase_ms": {
+      "extract": 0.029,
+      "load_scope": 15.895,
+      "invalidate": 0.466,
+      "prepare_rows": 0.004,
+      "insert_rows": 0.328,
+      "restore_business": 0.205,
+      "rebuild_graph": 17.291,
+      "summarize": 0.163,
+      "commit": 0.184,
+      "total": 34.571
+    },
+    "memory_edges_total": 0,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+  }
+}

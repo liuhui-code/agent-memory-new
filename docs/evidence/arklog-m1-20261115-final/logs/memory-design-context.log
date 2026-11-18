@@ -1,0 +1,142 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "ArkLogController active_stream stream_id pump_log_batches reconcile_stream",
+    "explicit_concerns": [],
+    "explicit_anchors": [],
+    "explicit_constraints": [],
+    "query_stage": "orientation"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "snapshot": {
+      "graph_revision": 2,
+      "freshness": "empty",
+      "truncated": false,
+      "gap_count": 1
+    },
+    "entry_points": [],
+    "boundaries": [],
+    "state_owners": [],
+    "extension_points": [],
+    "affected_consumers": [],
+    "source_anchors": [],
+    "relations": [],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [],
+    "semantic_corrections": [],
+    "memory_evidence": []
+  },
+  "quality_context": {
+    "routing_hints": [],
+    "notice": "Routing hints are not design conclusions.",
+    "scenario_questions": [],
+    "vocabulary_source": "https://www.iso.org/standard/78176.html"
+  },
+  "design_knowledge": [
+    {
+      "id": "observer",
+      "kind": "pattern",
+      "summary": "Notify independent consumers through an explicit subscription and delivery lifecycle.",
+      "applicability": "A publisher should not depend on independent consumer behavior or results.",
+      "preconditions": "Ordering, subscription lifetime, delivery, and failure semantics are defined.",
+      "contraindications": "The interaction requires a synchronous result or strict transactional coupling.",
+      "tradeoffs": "Reduces direct coupling but increases temporal reasoning and observability needs.",
+      "question": "Who owns subscriptions?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "term:active"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+    },
+    {
+      "id": "information_hiding",
+      "kind": "principle",
+      "summary": "Keep volatile implementation knowledge behind the responsibility that owns it.",
+      "applicability": "A detail changes for reasons different from its callers.",
+      "preconditions": "The owning responsibility and stable caller need can be identified.",
+      "contraindications": "The proposed boundary merely mirrors file layout without hiding a decision.",
+      "tradeoffs": "Encapsulation can add indirection and migration work.",
+      "question": "Which decision is being hidden?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_code_anchor",
+      "action": "learn or inspect the narrow current source scope"
+    },
+    {
+      "kind": "missing_memory_support",
+      "action": "continue with source evidence; reflect after verification"
+    },
+    {
+      "kind": "missing_architecture_anchor",
+      "action": "learn or name the current entry file/symbol"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "query_again",
+      "usage": "supply Agent-confirmed --concern and --anchor values"
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect source; reason about alternatives, tradeoffs, selection, plan, and verification"
+    ],
+    "runtime_limitations": [
+      "context only; no pattern recommendation, candidate ranking, design selection, or plan"
+    ]
+  },
+  "audit": {
+    "compact": true,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "returned_count": 2,
+      "truncated": true
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "needs_anchor_confirmation",
+    "next_action": "supply_or_retrieve_current_source_anchor",
+    "reason_codes": [
+      "no_repository_source_anchor",
+      "{'kind': 'missing_code_anchor', 'action': 'learn or inspect the narrow current source scope'}",
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_architecture_anchor', 'action': 'learn or name the current entry file/symbol'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 0,
+      "explicit_constraint_count": 0,
+      "agent_directed_stage": false
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

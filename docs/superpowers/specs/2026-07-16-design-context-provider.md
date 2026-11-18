@@ -11,6 +11,16 @@ implementation planning, and final judgment.
 The fixed public Skill set remains unchanged. `agent-memory-query` invokes the
 backend design-context facade through `tools/agent_memory.py`.
 
+### 2026-11-16/17 Skill Guidance Delivery
+
+The existing Query Skill now provides a task brief, selectively loaded design
+references and worked examples, qualitative alternative review, and an optional
+decision record. The existing Reflect Skill records conditional design feedback.
+These are Agent authoring aids; the Runtime schema, catalog ranking, storage and
+decision-free boundary remain unchanged. See the
+[development scope and evidence](../../design-guidance-development.zh-CN.md).
+This delivery does not establish incremental design quality or Memory efficacy.
+
 ## Decision
 
 Replace the Runtime-owned design decision loop with a context-provider model:
@@ -70,6 +80,13 @@ boundary: deterministic checks of explicit constraints, not architecture choice.
 - https://www.archunit.org/userguide/html/000_Index.html
 
 ### Language-Neutral Code Facts
+
+Rust now has a bounded static definition adapter using the existing semantic
+contract. It does not provide calls, dispatch, type resolution, macro expansion
+or active-cfg results. After independent public-output reproduction, source
+projection retains learned explicit entry files before truncation. This changes
+projection order, not retrieval scores or the decision-free Runtime contract.
+See [Rust scope and evidence](../../rust-source-context.zh-CN.md).
 
 SCIP models documents, definitions, occurrences, references, and symbols in a
 language-neutral protocol. Agent Memory keeps its existing adapters and SQLite

@@ -6,8 +6,12 @@ context. The Agent owns all design reasoning and decisions.
 
 ## Workflow
 
-1. Read the user's goal, explicit constraints, exclusions, and acceptance
-   criteria. Do not ask the user to author Runtime JSON.
+Use this workflow for a material design choice. Follow the parent Skill's
+selective routing first: a direct local edit does not require entering the
+full design workflow. An explicit request to query Memory still requires it.
+
+1. Frame the decision using the intake below. Reuse the user's request and
+   applicable project documents; do not ask the user to author Runtime JSON.
 2. Run an orientation query:
 
 ```bash
@@ -37,12 +41,99 @@ python3 tools/agent_memory.py design-context --project . \
 
 7. Reconstruct current responsibilities, state ownership, behavior, data,
    failure paths, consumers, and change pressure from source and context.
-8. Author the smallest viable design. Add alternatives only for a material
-   quality-attribute or structural tradeoff.
+8. Use the reference and review guidance below to author the smallest complete
+   design. Add alternatives only for a material quality or structural tradeoff.
 9. Explain applicable principles, rejected alternatives, assumptions, risks,
-   and verification. Never cite a pattern name as the sole rationale.
+   and verification. Never cite a pattern name as the sole rationale. Use the
+   decision template only when the choice deserves a durable record.
 10. Use current tests, compiler output, source inspection, and optional factual
     validators to verify claims. A clean bounded check does not prove quality.
+
+## Frame The Decision
+
+Scale the work to the request. A local edit with an obvious implementation does
+not need an architecture document, a reference search, or several candidates.
+Keep the parent Skill's selective-retrieval rules and explicit Memory requests.
+For an actual design decision, prefill a short brief:
+
+| Input | Establish before committing to a design |
+|---|---|
+| Outcome | Who needs a different behavior; what observation would show success? |
+| Hard constraints | Which APIs, data, lifecycle guarantees, and applicable contracts must hold? |
+| Non-goals | Which tempting adjacent changes are outside this task? |
+| Quality priorities | Which qualities compete here; what concrete scenario makes each important? |
+| Change pressure | Which credible next change should stay local; which future needs are speculation? |
+| Unknowns | What missing fact could change the selected mechanism or scope? |
+
+Label statements as user requirements, reviewed project contracts, observed
+facts, assumptions, or unknowns. An approved contract states intended behavior;
+source states actual behavior. A discrepancy is a question to resolve, not
+permission to silently replace either. Do not invent latency targets or load.
+Ask only questions whose answers materially affect the decision. Continue
+independent inspection; keep unresolved assumptions visible in the proposal.
+
+## Select References, Not Answers
+
+Read [design-reference-guide.md](design-reference-guide.md) when selecting a
+design method, reference case, or pattern. Use only the relevant entry; do not
+load a whole catalog for every task. Read
+[design-examples.md](design-examples.md) when a worked example would resolve
+uncertainty about scope, historical transfer, or unnecessary abstraction.
+
+Identify the problem features first: the volatile decision, responsibility or
+state owner, lifetime, consistency requirement, failure boundary, and credible
+change. Search project decisions and experience using the existing context
+commands. Generic external guidance remains advisory and can be read directly.
+Do not infer that Memory adds value merely because it returned a reference.
+
+For a reference that influences the decision, explain:
+
+- the matching problem features and current evidence;
+- required preconditions that are confirmed, unknown, or contradicted;
+- what can transfer and what must not transfer;
+- the cost or counterexample that would make the reference a poor fit.
+
+Unknown prerequisites are not satisfied prerequisites. A lexical match is not
+architectural fitness. No suitable reference, retaining the current structure,
+or using a direct implementation are all valid outcomes.
+
+## Review Material Alternatives
+
+Include the current design as a baseline when meaningful. Compare distinct
+mechanisms under the same requirements, rather than cosmetic variants or a
+mandatory candidate count. Review the consequences, not a summed taste score:
+
+| Lens | Decision-changing question |
+|---|---|
+| Boundary | Which changing decision is hidden; can consumers avoid knowing it? |
+| Ownership | Who mutates state, validates identity, and ends the lifetime? |
+| Completeness | What happens on failure, stale input, partial completion, and recovery? |
+| Complexity | Is complexity removed or moved to callers, wiring, and special cases? |
+| Evolution | For one credible future change, what changes and what stays stable? |
+| Reversal | What would invalidate this choice; how can it be changed safely? |
+
+Honor hard constraints first, then the task's quality priorities and total
+maintenance cost. Principles can conflict: fewer layers may leak implementation
+details; more abstraction may increase caller burden. One implementation can
+still need a boundary for ownership, trust, or testing. Smallest complete does
+not mean fewest lines. Follow stricter project-specific change policies.
+
+For a durable choice, adapt
+[design-decision-template.md](design-decision-template.md). Do not require this
+format for a short answer. State whether each validation is planned, observed,
+failed, or unknown; source checks do not establish long-term maintainability.
+
+## Record Conditional Feedback
+
+After an actual design attempt, use the existing `agent-memory-reflect` Skill
+when a reusable lesson is worth saving. Keep the decision document in Git and
+save a concise lesson with source/version references, conditions, alternatives
+rejected, observed results, and a revisit condition. A design-only outcome can
+be complete while its implementation and long-term benefits remain unverified.
+Do not turn a hypothetical result into `what_worked` or a verified procedure.
+Track helpful, ignored, misleading, or superseded reuse through the existing
+experience feedback path. One successful check does not authorize a new global
+rule, automatic Skill update, or a system meta-review.
 
 ## Context Interpretation
 

@@ -1,0 +1,16 @@
+{
+  "classification": "development",
+  "status": "expected_failure_observed",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/rust-source-development-548atmr3/red_baseline.py"
+  ],
+  "baseline_source_matches_original_manifest": true,
+  "baseline_file_count": 309,
+  "returncode": 1,
+  "duration_seconds": 3.059,
+  "observed": "files_indexed=0 and actual design source_anchors=[]",
+  "log_sha256": "efae6eb4b3f6f2688f01b5287f86ecb02abe249c9ec34f1bbab52f9e2a64f812",
+  "invalid_first_fixture": "fixture-attempt-1.json: incorrect top-level field access; not accepted as a serving reproduction",
+  "ordering_note": "The first invalid fixture was followed by implementation. This corrected reproduction ran against an isolated byte-verified pre-change Runtime; it is not relabeled as an earlier observation."
+}

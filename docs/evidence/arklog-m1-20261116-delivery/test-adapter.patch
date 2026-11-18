@@ -1,0 +1,130 @@
+--- a/crates/arklog-tui/src/controller.rs
++++ b/crates/arklog-tui/src/controller.rs
+@@ -738,3 +738,7 @@
+         );
+     }
+ }
++
++#[cfg(test)]
++#[path = "../tests/support/m1_stream_contract.rs"]
++mod m1_contract;
+--- /dev/null
++++ b/crates/arklog-tui/tests/support/m1_stream_contract.rs
+@@ -0,0 +1,117 @@
++// Test-only queue ingress adapter. It calls the actual Controller pump; no gate is reimplemented.
++use super::ArkLogController;
++use arklog_core::{DeviceLogDevice, DeviceLogOutputBatch};
++use std::path::PathBuf;
++
++fn online(id: &str) -> DeviceLogDevice {
++    DeviceLogDevice {
++        id: id.to_string(), label: id.to_string(), status: "online".to_string(),
++        detail: format!("{id} Connected"),
++    }
++}
++
++fn fixture(name: &str) -> String {
++    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
++        .join("tests/fixtures").join(name).to_string_lossy().into_owned()
++}
++
++fn enqueue(controller: &ArkLogController, stream: &str, device: &str, line: &str) {
++    controller.batch_sender.send(DeviceLogOutputBatch {
++        stream_id: stream.to_string(), device_id: device.to_string(), lines: vec![line.to_string()],
++    }).expect("test-only controlled queue ingress");
++}
++
++#[test]
++fn current_batch_is_accepted() {
++    let mut controller = ArkLogController::new(fixture("fake-hdc.sh"), vec![online("USB-01")])
++        .expect("controller");
++    controller.start_stream().expect("start actual Runtime with fixture executable");
++    let stream = controller.active_stream_id().unwrap().to_string();
++    enqueue(&controller, &stream, "USB-01", "M1_CURRENT");
++    controller.pump_log_batches().expect("actual public pump");
++    let rows = controller.state_mut().visible_window(100).unwrap();
++    assert!(rows.iter().any(|line| line == "M1_CURRENT"), "valid current batch must be retained");
++    controller.stop_stream().expect("stop fixture");
++}
++
++#[test]
++fn same_device_reconnect_rejects_prior_stream_batches() {
++    let mut controller = ArkLogController::new(fixture("fake-hdc.sh"), vec![online("USB-01")])
++        .expect("controller");
++    controller.start_stream().expect("first actual stream");
++    let old = controller.active_stream_id().unwrap().to_string();
++    controller.stop_stream().expect("reap first stream");
++    controller.start_stream().expect("reconnect same device");
++    let current = controller.active_stream_id().unwrap().to_string();
++    assert_ne!(old, current, "same device reconnect needs a new stream identity");
++    // Explicit fault injection at the transport queue: no claim that the joined
++    // production worker can naturally emit after reap. This tests the real fence.
++    enqueue(&controller, &old, "USB-01", "M1_STALE");
++    enqueue(&controller, &current, "USB-01", "M1_CURRENT");
++    controller.pump_log_batches().expect("actual public pump");
++    let rows = controller.state_mut().visible_window(100).unwrap();
++    println!("M1_TRACE old={old} current={current} device=USB-01 rows={rows:?}");
++    assert!(rows.iter().any(|line| line == "M1_CURRENT"), "current generation must remain usable");
++    assert!(!rows.iter().any(|line| line == "M1_STALE"), "prior generation must not commit on same device");
++    controller.stop_stream().expect("stop fixture");
++}
++
++#[test]
++fn completion_keeps_origin_while_another_stream_is_active() {
++    use arklog_core::{DeviceLogRuntime, LogBatchSink};
++    use std::sync::Arc;
++    use std::time::{Duration, Instant};
++    struct Sink;
++    impl LogBatchSink for Sink { fn deliver(&self, _batch: DeviceLogOutputBatch) {} }
++    let executable = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
++        .join("../arklog-core/tests/fixtures/fake-hdc.sh");
++    let runtime = DeviceLogRuntime::new(executable.to_string_lossy());
++    let retiring = runtime.start_stream("EXIT-01", Arc::new(Sink)).unwrap();
++    let current = runtime.start_stream("USB-01", Arc::new(Sink)).unwrap();
++    let deadline = Instant::now() + Duration::from_secs(3);
++    let observed = loop {
++        if let Some(exit) = runtime.finished_stream_status(&retiring.stream_id).unwrap() { break exit; }
++        assert!(Instant::now() < deadline, "controlled exiting fixture did not finish");
++        std::thread::sleep(Duration::from_millis(2));
++    };
++    println!("M1_TRACE requested={} active={} observed={}", retiring.stream_id, current.stream_id, observed.stream_id);
++    assert_eq!(observed.stream_id, retiring.stream_id, "completion must keep its origin, not current binding");
++    let reaped = runtime.reap_finished_stream(&retiring.stream_id).unwrap().unwrap();
++    assert_eq!(reaped.stream_id, retiring.stream_id);
++    assert!(runtime.has_stream(&current.stream_id), "retiring completion must preserve current stream");
++    runtime.stop_stream(&current.stream_id).unwrap();
++}
++
++#[test]
++fn retirement_receipt_precedes_replacement_commit() {
++    use crate::{ConnectionState, StreamState};
++    use std::time::{Duration, Instant};
++    let mut controller = ArkLogController::new(fixture("switching-devices-hdc.sh"), vec![online("USB-A")])
++        .expect("controller");
++    controller.start_stream().expect("start A");
++    let old = controller.active_stream_id().unwrap().to_string();
++    controller.request_device_refresh().expect("discover A offline and B online");
++    let deadline = Instant::now() + Duration::from_secs(3);
++    while controller.connection_state() == &ConnectionState::Refreshing {
++        assert!(Instant::now() < deadline, "fixture discovery did not finish");
++        controller.pump_background_tasks().expect("actual background owner");
++        std::thread::sleep(Duration::from_millis(2));
++    }
++    assert_eq!(controller.selected_device().unwrap().id, "USB-B");
++    let pending_receipt = controller.stream_stop.is_running();
++    let premature_binding = controller.active_stream_id().map(str::to_string);
++    while controller.stream_stop.is_running() || controller.active_stream_id().is_none() {
++        assert!(Instant::now() < deadline, "cleanup/replacement fixture did not finish");
++        controller.pump_log_batches().unwrap();
++        controller.pump_background_tasks().expect("apply old receipt then reconcile");
++        std::thread::sleep(Duration::from_millis(2));
++    }
++    let current = controller.active_stream_id().unwrap().to_string();
++    let final_state = controller.stream_state().clone();
++    println!("M1_TRACE old={old} receipt_pending={pending_receipt} premature={premature_binding:?} current={current} state={final_state:?}");
++    assert!(pending_receipt, "test must reach the actual unconsumed Stop receipt boundary");
++    assert!(premature_binding.is_none(), "replacement must wait for retirement receipt");
++    assert_ne!(old, current);
++    assert_eq!(final_state, StreamState::Streaming, "retired completion must not clobber replacement state");
++    controller.stop_stream().expect("stop B fixture");
++}

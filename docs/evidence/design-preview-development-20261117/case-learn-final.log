@@ -1,0 +1,641 @@
+{
+  "source": "/private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+  "path": "src",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "src/preview.py",
+    "src/renderers.py",
+    "src/unsafe.py"
+  ],
+  "count": 3,
+  "summary": "Merged 3 files from src",
+  "parse_stats": {
+    "files_indexed": 3,
+    "languages": {
+      "Python": 3
+    },
+    "symbols_total": 19,
+    "symbols_by_type": {
+      "class": 7,
+      "function": 12
+    },
+    "code_logs_total": 0,
+    "code_logs_by_level": {},
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [],
+      "capabilities": [],
+      "files_indexed": 0,
+      "entities": 0,
+      "relations_extracted": 0,
+      "mechanisms_extracted": 0,
+      "relations_emitted": 0,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 0,
+      "gaps": [],
+      "adapter_errors": [],
+      "provider_runs": [],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 19,
+        "reference_name_count": 0,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 19
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 3,
+      "symbols_written": 19,
+      "passages_written": 22
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [
+      "src/unsafe.py"
+    ],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 3,
+      "scope_files": [
+        "src/preview.py",
+        "src/renderers.py",
+        "src/unsafe.py"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 1,
+          "code_log_statement": 0,
+          "code_symbol": 5
+        },
+        "edge_count": 5,
+        "relation_counts": {
+          "contains": 5
+        }
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 3,
+          "code_log_statement": 0,
+          "code_symbol": 19
+        },
+        "edge_count": 19,
+        "relation_counts": {
+          "contains": 19
+        }
+      },
+      "edges_deleted_estimate": 5,
+      "edges_inserted_estimate": 19,
+      "edge_delta": 14
+    },
+    "phase_ms": {
+      "extract": 6.138,
+      "load_scope": 23.418,
+      "invalidate": 4.93,
+      "prepare_rows": 2.748,
+      "insert_rows": 1.294,
+      "restore_business": 0.184,
+      "rebuild_graph": 34.579,
+      "summarize": 0.744,
+      "commit": 0.226,
+      "total": 74.268
+    },
+    "memory_edges_total": 19,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 2,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 3,
+      "symbols": 12,
+      "logs": 0
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 7,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "src/unsafe.py",
+          "summary": "Python file with 16 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "request",
+              "symbol_type": "function",
+              "summary": "function request in src/unsafe.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "unsafe",
+                "py",
+                "request",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/unsafe.py",
+                "request",
+                "function",
+                "function request in src/unsafe.py"
+              ]
+            },
+            {
+              "symbol": "complete",
+              "symbol_type": "function",
+              "summary": "function complete in src/unsafe.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "unsafe",
+                "py",
+                "complete",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/unsafe.py",
+                "complete",
+                "function",
+                "function complete in src/unsafe.py"
+              ]
+            },
+            {
+              "symbol": "__init__",
+              "symbol_type": "function",
+              "summary": "function __init__ in src/unsafe.py; identifier terms: init",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "unsafe",
+                "py",
+                "__init__",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "init"
+              ],
+              "hint_context": [
+                "src/unsafe.py",
+                "__init__",
+                "function",
+                "function __init__ in src/unsafe.py; identifier terms: init"
+              ]
+            },
+            {
+              "symbol": "UnsafePreview",
+              "symbol_type": "class",
+              "summary": "class UnsafePreview in src/unsafe.py; identifier terms: unsafe preview",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "unsafe",
+                "py",
+                "unsafepreview",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "preview"
+              ],
+              "hint_context": [
+                "src/unsafe.py",
+                "UnsafePreview",
+                "class",
+                "class UnsafePreview in src/unsafe.py; identifier terms: unsafe preview"
+              ]
+            },
+            {
+              "symbol": "UnsafeJob",
+              "symbol_type": "class",
+              "summary": "class UnsafeJob in src/unsafe.py; identifier terms: unsafe job",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "unsafe",
+                "py",
+                "unsafejob",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "job"
+              ],
+              "hint_context": [
+                "src/unsafe.py",
+                "UnsafeJob",
+                "class",
+                "class UnsafeJob in src/unsafe.py; identifier terms: unsafe job"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "unsafe",
+            "py",
+            "python",
+            "file",
+            "with",
+            "16",
+            "non",
+            "empty",
+            "lines",
+            "request",
+            "complete",
+            "__init__",
+            "unsafepreview",
+            "unsafejob",
+            "init",
+            "preview",
+            "job"
+          ],
+          "hint_context": [
+            "src/unsafe.py",
+            "Python file with 16 non-empty lines",
+            "request complete __init__ UnsafePreview UnsafeJob"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/preview.py",
+          "summary": "Python file with 85 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "state",
+              "symbol_type": "function",
+              "summary": "function state in src/preview.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "preview",
+                "py",
+                "state",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/preview.py",
+                "state",
+                "function",
+                "function state in src/preview.py"
+              ]
+            },
+            {
+              "symbol": "request",
+              "symbol_type": "function",
+              "summary": "function request in src/preview.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "preview",
+                "py",
+                "request",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/preview.py",
+                "request",
+                "function",
+                "function request in src/preview.py"
+              ]
+            },
+            {
+              "symbol": "fail",
+              "symbol_type": "function",
+              "summary": "function fail in src/preview.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "preview",
+                "py",
+                "fail",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/preview.py",
+                "fail",
+                "function",
+                "function fail in src/preview.py"
+              ]
+            },
+            {
+              "symbol": "complete",
+              "symbol_type": "function",
+              "summary": "function complete in src/preview.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "preview",
+                "py",
+                "complete",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/preview.py",
+                "complete",
+                "function",
+                "function complete in src/preview.py"
+              ]
+            },
+            {
+              "symbol": "cancel",
+              "symbol_type": "function",
+              "summary": "function cancel in src/preview.py",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "preview",
+                "py",
+                "cancel",
+                "function",
+                "in"
+              ],
+              "hint_context": [
+                "src/preview.py",
+                "cancel",
+                "function",
+                "function cancel in src/preview.py"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "preview",
+            "py",
+            "python",
+            "file",
+            "with",
+            "85",
+            "non",
+            "empty",
+            "lines",
+            "state",
+            "request",
+            "fail",
+            "complete",
+            "cancel"
+          ],
+          "hint_context": [
+            "src/preview.py",
+            "Python file with 85 non-empty lines",
+            "state request fail complete cancel"
+          ],
+          "truncated_counts": {
+            "symbols": 7,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/renderers.py",
+          "summary": "Python file with 11 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "render_text",
+              "symbol_type": "function",
+              "summary": "function render_text in src/renderers.py; identifier terms: render text",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "renderers",
+                "py",
+                "render_text",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "render",
+                "text"
+              ],
+              "hint_context": [
+                "src/renderers.py",
+                "render_text",
+                "function",
+                "function render_text in src/renderers.py; identifier terms: render text"
+              ]
+            },
+            {
+              "symbol": "render_json",
+              "symbol_type": "function",
+              "summary": "function render_json in src/renderers.py; identifier terms: render json",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "renderers",
+                "py",
+                "render_json",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "render",
+                "json"
+              ],
+              "hint_context": [
+                "src/renderers.py",
+                "render_json",
+                "function",
+                "function render_json in src/renderers.py; identifier terms: render json"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 52,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "renderers",
+            "py",
+            "python",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "render_text",
+            "render_json",
+            "render",
+            "text",
+            "json"
+          ],
+          "hint_context": [
+            "src/renderers.py",
+            "Python file with 11 non-empty lines",
+            "render_text render_json"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

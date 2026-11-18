@@ -1,0 +1,15 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_design_context.DesignContextTests.test_compact_projection_keeps_the_explicit_entry_file",
+    "tests.test_rust_source_context.RustSourceContextTests.test_compact_projection_retains_explicit_rust_file_amid_distractors"
+  ],
+  "returncode": 1,
+  "seconds": 3.687,
+  "log_sha256": "1b8efd37bcefbcd221f12f7be651c0671b14f8899ab9af05274e11ee9e005400",
+  "known_expectation": "the explicitly named learned file must survive the bounded source projection for both existing ArkTS and new Rust sources"
+}

@@ -103,11 +103,12 @@ struct ProfilePage {
 
         by_language = {item["language"]: item for item in manifest}
         self.assertEqual(
-            {"ArkTS", "Build Artifact", "C/C++", "TypeScript"},
+            {"ArkTS", "Build Artifact", "C/C++", "Rust", "TypeScript"},
             set(by_language),
         )
         self.assertIn("calls", by_language["C/C++"]["capabilities"])
         self.assertEqual(["definitions"], by_language["Build Artifact"]["capabilities"])
+        self.assertEqual(["definitions"], by_language["Rust"]["capabilities"])
 
     def test_dispatch_catalog_crosses_batches_with_explicit_candidate_budget(self) -> None:
         self.write_file("dispatch/Contract.ets", "export interface Contract {\n}")

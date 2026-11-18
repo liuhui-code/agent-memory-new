@@ -1,0 +1,92 @@
+{
+  "classification": "development",
+  "orientation_reference_ids": [
+    "information_hiding",
+    "smallest_viable_design"
+  ],
+  "focused_returned_references": [
+    {
+      "id": "strategy",
+      "kind": "pattern",
+      "summary": "Represent independently varying behavior behind one caller-owned contract.",
+      "applicability": "At least two credible behaviors vary independently of the caller.",
+      "preconditions": "Selection owner, lifetime, fallback, and stable inputs/outputs are known.",
+      "contraindications": "There is only one fixed behavior or variants do not share a coherent contract.",
+      "tradeoffs": "Improves variation isolation but adds selection and lifecycle complexity.",
+      "question": "Who selects the behavior?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "concern:flexibility",
+        "concern:testability"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/"
+    }
+  ],
+  "historical_case": {
+    "id": "reflection:1",
+    "returned_as": "unverified_historical_observation",
+    "matches": [
+      "background work can outlive an active request",
+      "identity must be checked at the commit boundary"
+    ],
+    "transfers": [
+      "conditional identity and ownership questions"
+    ],
+    "does_not_transfer": [
+      "Rust serialized-owner synchronization mechanism: current HTTP handlers are threaded",
+      "manual log Stop tail policy: preview cancellation discards the result"
+    ],
+    "selected_adaptation": "immutable in-process handle plus a lock around check and state publication",
+    "limits": "History was manually seeded, so this does not measure retrieval generalization or incremental value"
+  },
+  "strategy": {
+    "match_reasons": [
+      "concern:flexibility",
+      "concern:testability"
+    ],
+    "fit": "Rendering varies behind a stable job-to-result contract; caller selects a pure function",
+    "adopted": "ordinary text/JSON render functions; state owner does not execute or select rendering",
+    "not_needed": "strategy class hierarchy, plugin registry, automatic fallback or selection service",
+    "source_gap": "Catalog source_ref is a general ATAM collection, not a direct Strategy definition; treat it as advisory routing, not authority",
+    "observed_change": "JSON required only renderer and test edits; coordinator digest unchanged"
+  },
+  "agent_direct_references": [
+    {
+      "source": "https://www.enterpriseintegrationpatterns.com/patterns/messaging/CorrelationIdentifier.html",
+      "fit": "Associate a completion with its originating request",
+      "limit": "Only the correlation idea transfers; an in-process object handle is not a serializable or authenticated message token"
+    },
+    {
+      "source": "https://docs.python.org/3.9/library/threading.html#lock-objects",
+      "fit": "Keep identity check and state publication in one critical section",
+      "limit": "No scheduling fairness, hard thread cancellation or all-interleaving proof is claimed"
+    }
+  ],
+  "candidate_review": [
+    {
+      "id": "unscoped_callback",
+      "kind": "deliberately wrong control",
+      "observed": "Old completion overwrote newest result; input changed after admission",
+      "disposition": "rejected by the frozen contract"
+    },
+    {
+      "id": "single_owner_event_pump",
+      "kind": "conditional alternative, not implemented",
+      "fit": "Could serialize state if a suitable owner loop existed",
+      "cost": "Current handler model provides no such task owner; adding a queue, lifecycle and shutdown is additional responsibility",
+      "disposition": "not selected for this case"
+    },
+    {
+      "id": "narrow_lock_and_snapshot",
+      "kind": "implemented fixture",
+      "fit": "Matches observed threaded ingress and finite snapshots",
+      "accepted_cost": "Synchronous operations briefly contend on one per-instance lock; same-process handles only",
+      "disposition": "selected for the controlled case"
+    }
+  ],
+  "not_claimed": [
+    "automatic architectural fitness matching",
+    "an independent candidate benchmark",
+    "general design-taste improvement"
+  ]
+}

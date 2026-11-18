@@ -1,0 +1,21 @@
+{
+  "status": "three_actual_controls_correctly_rejected",
+  "controls": [
+    {
+      "case": "zero-test-is-not-pass",
+      "correctly_rejected": true,
+      "observed_outcome": "failed_or_invalid_discovery"
+    },
+    {
+      "case": "tool-error-is-not-pass",
+      "correctly_rejected": true,
+      "observed_outcome": "failed_or_invalid_discovery"
+    },
+    {
+      "case": "timeout-is-not-pass",
+      "correctly_rejected": true,
+      "observed_outcome": "failed_or_invalid_discovery"
+    }
+  ],
+  "scope": "validator self-checks, not successful business tests"
+}

@@ -1,0 +1,42 @@
+{
+  "classification": "development",
+  "status": "passed",
+  "runtime_matches_final_validation": true,
+  "local_links_checked": 94,
+  "missing_links": [],
+  "line_limits_returncode": 0,
+  "delivery_file_sha256": {
+    "agent.md": "42431c48ebeb003c750ea52269917f99744ff9549cee6a647eebdd3598cfd59d",
+    "README.md": "52ec7644d4c643f6662342547c87f2077a0da26da2fa2ce9fd99bf7d8ff3bff6",
+    "README.zh-CN.md": "318ba08edb95b6e1fecfc3e9a174ef630c802c97e0ec93c44d24af619b9561e2",
+    "CONTEXT.md": "bb26354c2d1af3cb6d973d35726e4d38c23669a8304cab8703ef0ae183f64e23",
+    "gitlog.md": "8dad414a395165459062be24b30026556e3c65ae8bc5f10eedbb6f2ed92a678c",
+    "docs/rust-source-context.zh-CN.md": "9476c3f4f63448b1cca397f8bd194d68646e9255262301b94847b08f1b099092",
+    "docs/design-usage-guide.md": "3bd7b5033acc087a18a5a196a6155b105e932394c19eff84d825bd0ca5c1480e",
+    "docs/superpowers/specs/2026-07-16-design-context-provider.md": "7cf1a0f7b12ac26c6dbea17d29cfad87be2662ad6fbdbab51079fea9e897e5d1",
+    "tools/agent_memory_runtime/rust_source.py": "d564459696db83611f3782178ceb1aabfaede10d81a567017b7ef1210ac15e1a",
+    "tools/agent_memory_runtime/semantic_rust.py": "6cf4f6fed67e60f2bbc65f1de9083f2380128ff7ff2df1591c22a5f687cc83d0",
+    "tools/agent_memory_runtime/models.py": "017b93b15a46cec50da866bf585cbe2645805fa27c7d0da9cae5430ab658cfd5",
+    "tools/agent_memory_runtime/semantic_adapters.py": "e365ccb1751cfe4ab56eabbdd052bf27740b6990a41d9c1e4697bd55fcb16047",
+    "tools/agent_memory_runtime/source_static_extractors.py": "2591382679eb1922200b6ea7fc2b7b2d93d44b0157b98aaec595c876793a27f3",
+    "tools/agent_memory_runtime/design_context.py": "4e39c18bc9a2f6b58c71c95d82c443d2eb45b2045eeea99fdf3c60560471ff9f",
+    "tests/test_rust_source_context.py": "f4a11f063d6e3a2a701f8ee539297eb367cf95f3f390443b2526d2a662789eaa",
+    "tests/test_semantic_index.py": "7284fff836097edaeed96017ccdc9d397b2efa9c4cca9f74da0cf21efa8075a8",
+    "tests/test_design_context.py": "c2310fac5105bb377d6178e26174bf5a0116d6f585deff730b0fdc534551485d"
+  },
+  "delivery_report_sha256": "83036afb5249ac8b20a14dc9b7140a152eb019f37916d297078666f4332da12c",
+  "python_line_counts": {
+    "tools/agent_memory_runtime/rust_source.py": 254,
+    "tools/agent_memory_runtime/semantic_rust.py": 51,
+    "tools/agent_memory_runtime/models.py": 222,
+    "tools/agent_memory_runtime/semantic_adapters.py": 74,
+    "tools/agent_memory_runtime/source_static_extractors.py": 252,
+    "tools/agent_memory_runtime/design_context.py": 418,
+    "tests/test_rust_source_context.py": 215,
+    "tests/test_semantic_index.py": 433,
+    "tests/test_design_context.py": 187
+  },
+  "git_head": "320e95137a890403cbd6496858a8a1c7de79c6ec",
+  "committed_or_pushed": false,
+  "finished_at": "2026-11-17T00:49:38.855188+00:00"
+}

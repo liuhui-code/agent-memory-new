@@ -1,0 +1,203 @@
+{
+  "classification": "development",
+  "status": "prepared_real_activity_not_started",
+  "development_checks": "passed",
+  "campaign_status": "no_go",
+  "checks": {
+    "final_supply_rehearsal_passed": true,
+    "final_rehearsal_equals_retained_attempt_2": true,
+    "first_failed_rehearsal_retained": true,
+    "first_executed_script_preserved": true,
+    "final_executed_script_matches": true,
+    "corrected_plan_binds_original": true,
+    "p0_manifest_unchanged": true,
+    "runtime_311_files_match_p0": true,
+    "skills_23_files_match_p0": true,
+    "baseline_skill_archive_unchanged": true,
+    "readiness_preserves_no_go": true,
+    "archived_A_20_exact_git_files": true,
+    "p0_patch_and_archive_intact": true,
+    "p1_five_code_files_unchanged": true,
+    "all_rehearsal_logs_intact": true,
+    "local_document_links_resolve": true,
+    "new_python_fingerprint": true,
+    "line_limits_passed": true,
+    "diff_check_passed": true,
+    "new_text_has_no_trailing_spaces": true,
+    "all_preparation_json_parses": true,
+    "head_unchanged": true,
+    "root_index_empty": true
+  },
+  "real_presented_tasks": 0,
+  "experimental_agent_model_runs": 0,
+  "independent_reviews": 0,
+  "final_supply_assertions": 13,
+  "final_top_level_cli_commands": 9,
+  "final_top_level_command_seconds": 15.018,
+  "command_cost_scope": "Synthetic Python interface calls only, not Agent end-to-end cost",
+  "runtime_source_files": 311,
+  "installed_runtime_files_each": 310,
+  "skill_files": {
+    "A": 20,
+    "B": 23,
+    "C": 23
+  },
+  "history_counts": {
+    "A": 1,
+    "B": 1,
+    "C": 2,
+    "B-after-C": 1
+  },
+  "prior_test_reruns": {
+    "rust_and_basic_81": false,
+    "P1_14": false
+  },
+  "local_link_count": 112,
+  "missing_links": [],
+  "log_audit": [
+    {
+      "path": "attempt-1/install-A.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/install-B.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/install-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/learn-common-B.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/seed-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/query-A.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/query-B.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/query-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-1/query-B-after-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/install-A.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/install-B.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/install-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/learn-common-B.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/seed-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/query-A.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/query-B.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/query-C.log",
+      "matches": true,
+      "returncode": 0
+    },
+    {
+      "path": "attempt-2/query-B-after-C.log",
+      "matches": true,
+      "returncode": 0
+    }
+  ],
+  "file_sha256": {
+    "README.md": "5f81eb1172795ec2eaf5197b96c5fe19c6595e31dc16c0fe2c02ef278e489b08",
+    "README.zh-CN.md": "475ad0171d3c113da7c137662a26bf70e2c927b6b6731d4e36dd7cbb61129372",
+    "CONTEXT.md": "c8d7932de5facd4088300dd1ed47d2520876c0e0928057732c637e3fbb27a614",
+    "docs/design-usage-guide.md": "7616a7dcf866380e75080d01cf24b7463499686a4af6f347f74b02d47dab2eea",
+    "docs/development-baseline-20261117.zh-CN.md": "6993c779a2379668be1cfb7185993229386791a353ffc775320807d687cd7474",
+    "docs/design-comparison-preparation.zh-CN.md": "8f26a7f83eb43d473f0fbbd489deeb208deb344f71c077775e867ecef419c11e",
+    "docs/eval/design-comparison-task-and-review.template.md": "2af0fac7a3483e7f2dffec62dd9e760813da53ced57175dc149177ecd3d39c20",
+    "docs/evidence/design-comparison-preparation-20261118/p1-review-calibration.md": "a961a97bb71710de61d650a4bce8b0fd444c4162fce7617bfe4ed93fc170f7f3",
+    "gitlog.md": "503e985b03f9c1705811a0c3328a152b58d397c4fc52dcf97fbd971173abf57f",
+    "docs/evidence/design-comparison-preparation-20261118/arm-manifest.json": "4a82eeb1233261d4167db7adf0bdcd8f0623bce530fe6133437282b4529b3ed6",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/install-A.log": "78dd97380ebd4898647a33d0db2ec036fdc36dac8b0069a7bce14a04a2e35907",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/install-B.log": "5ae10f7587e1f6cc8983fcee52a57bb049ea5d7d0cd5d5d300587a865a6f21e4",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/install-C.log": "0af1f368f7ee2a6d03ae8f0afa799ac6569780288a0fd66e71222ede52468d60",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/learn-common-B.log": "5f48dc7fe68f5ad869965069d99dd1016c6ae4f9d24a1846a5d9491dd4cca3f2",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/query-A.log": "c2758bf3a8f3831ab95d2970924995e5cba90d8c7615d20d70eef2aa834a3547",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/query-B-after-C.log": "c2758bf3a8f3831ab95d2970924995e5cba90d8c7615d20d70eef2aa834a3547",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/query-B.log": "c2758bf3a8f3831ab95d2970924995e5cba90d8c7615d20d70eef2aa834a3547",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/query-C.log": "68db9b947bdfd47eefa6d3b773198eff2ebc70f220a2939d83f2dabfdd5cc3e0",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/rehearsal-script.txt": "42fa9f62aba86104d659c2ed71249637abe79b5b557a1ccc8f89e07ee6c30bab",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/result.json": "1265c3cf2f890edf4705a0428a9e71b156a19a7c6568f9a11885909f3d701d31",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-1/seed-C.log": "4a6d98b38e5c7005c0a59b1495ffe5f90cc263a13c386b824672ac3cf98b9911",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/install-A.log": "79a3bbf9e51957bc1e33f9f44c462de3af8ee704fd72f565d7300dca492f5529",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/install-B.log": "6a4ef3a874102b95b287cd42b48e00b2bef16a211aa8631665342426f28702f4",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/install-C.log": "38dbda7fc8fcf7f9df62af3250cc12109c0069f72eb430f236d579145e050ad2",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/learn-common-B.log": "169345a379a469bfecdade1c8a4364edf58d066415678a6dd5851849cc67d02f",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/query-A.log": "d44324726ff13a7f3a22fecd1a3c7793adb419718fa02e3c06306fe6f5780eb0",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/query-B-after-C.log": "d44324726ff13a7f3a22fecd1a3c7793adb419718fa02e3c06306fe6f5780eb0",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/query-B.log": "d44324726ff13a7f3a22fecd1a3c7793adb419718fa02e3c06306fe6f5780eb0",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/query-C.log": "c759520128004caad1d13d8f28126d41f9de3b0df28b7c79b95bbb557181b002",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/result.json": "2fcc40d906cb8fa12f8a9775f59b3c7da4a712311315f68f9cd737ebaf58d9d4",
+    "docs/evidence/design-comparison-preparation-20261118/attempt-2/seed-C.log": "86561ae35a479e5860456f4e40827de4e6fa394b2cc8529a94289689319f223c",
+    "docs/evidence/design-comparison-preparation-20261118/baseline-skills.tar.gz": "2feb11f88ff53a9ee466ad830e798ee53b99298656388bcb7bab6090581f09bb",
+    "docs/evidence/design-comparison-preparation-20261118/diff-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/design-comparison-preparation-20261118/isolation-rehearsal.json": "2fcc40d906cb8fa12f8a9775f59b3c7da4a712311315f68f9cd737ebaf58d9d4",
+    "docs/evidence/design-comparison-preparation-20261118/line-limits.log": "7a122ce4307c6266284fa20b88ef0469e4b948324385e352dfb80031bf3b39f6",
+    "docs/evidence/design-comparison-preparation-20261118/readiness.json": "569b23e575838e1531e8e9c217099b3aa17670e876f43d14914d48e0ec704a31",
+    "docs/evidence/design-comparison-preparation-20261118/rehearsal-plan-v2.json": "f9af26d2537c7c3765b28fb8151857be372b8ab42310ba325333b5558212c468",
+    "docs/evidence/design-comparison-preparation-20261118/rehearsal-plan.json": "9ea0e812666de48b169699bb2e603bec5b1d20857eacd7f546995a050f4d8f76",
+    "docs/evidence/design-comparison-preparation-20261118/rehearse_isolation.py": "cb859c4d6c53d17d5bd8cb4f94d0369c3ec2faaad3b7b8c8e40d13ec48aa222c"
+  },
+  "git_head": "320e95137a890403cbd6496858a8a1c7de79c6ec",
+  "committed": false,
+  "pushed": false,
+  "limits": [
+    "A is an existing-Skill baseline, not a raw Agent; B includes worked examples",
+    "C-B isolates additional Runtime history, not the entire Memory product",
+    "Single synthetic source and reflection; no nonempty normative-doc or other history-type fixture",
+    "File supply and public output do not prove host Skill loading, isolation, activation, or design quality",
+    "P1 review is known-artifact author calibration, not independent review or a new task",
+    "Real source, custody, reviewer, supported execution contract, model, budgets and stopping configuration remain unbound",
+    "Earlier phase document hashes describe their own time points; new navigation does not rewrite those artifacts"
+  ],
+  "finished_at": "2026-11-18T00:32:33.964245+00:00"
+}

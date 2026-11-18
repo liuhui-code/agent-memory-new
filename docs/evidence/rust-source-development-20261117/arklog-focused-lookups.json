@@ -1,0 +1,121 @@
+{
+  "classification": "development",
+  "records": [
+    {
+      "term": "pump_log_batches",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/tools/agent_memory.py",
+        "context",
+        "--project",
+        "/Users/liuhui/Documents/code/ArkLog",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/rust-source-development-548atmr3/arklog-memory",
+        "--query",
+        "pump_log_batches",
+        "--compact",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.974,
+      "log": "arklog-focused-pump_log_batches.log",
+      "log_sha256": "86d912537d4f317b648578f40b1871caf2cd019e11a8f829c79697d0271b1b67",
+      "freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "anchors": [
+        {
+          "file_path": "crates/arklog-tui/src/controller.rs",
+          "symbol": "ArkLogController::pump_log_batches_limited",
+          "symbol_type": "method",
+          "record_ids": [
+            66
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ArkLogController::pump_log_batches_limited",
+              "start_line": 365,
+              "end_line": 383
+            }
+          ],
+          "read_window": {
+            "start_line": 365,
+            "end_line": 383
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 354,
+              "end_line": 370,
+              "content": "        if !preserve_tail {\n            self.active_stream = None;\n        }\n        self.stream_state = StreamState::Stopping;\n        Ok(())\n    }\n\n    pub fn pump_log_batches(&mut self) -> Result<(), String> {\n        self.pump_log_batches_limited(usize::MAX).map(|_| ())\n    }\n\n    pub fn pump_log_batches_limited(&mut self, max_batches: usize) -> Result<usize, String> {\n        let mut processed = 0;\n        while processed < max_batches {\n            match self.batch_receiver.try_recv() {\n                Ok(batch) if self.active_stream.as_deref() == Some(&batch.stream_id) => {\n                    self.state",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "term": "reconcile_stream",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/tools/agent_memory.py",
+        "context",
+        "--project",
+        "/Users/liuhui/Documents/code/ArkLog",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/rust-source-development-548atmr3/arklog-memory",
+        "--query",
+        "reconcile_stream",
+        "--compact",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.759,
+      "log": "arklog-focused-reconcile_stream.log",
+      "log_sha256": "de2d7fd6010cc4f5e158def4dba7c6d43b62cb10123ea1420fadb214611a66dd",
+      "freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "anchors": [
+        {
+          "file_path": "crates/arklog-tui/src/controller.rs",
+          "symbol": "ArkLogController::reconcile_stream",
+          "symbol_type": "method",
+          "record_ids": [
+            54
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ArkLogController::reconcile_stream",
+              "start_line": 190,
+              "end_line": 224
+            }
+          ],
+          "read_window": {
+            "start_line": 190,
+            "end_line": 224
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 175,
+              "end_line": 191,
+              "content": "        self.clear_start_retry();\n    }\n\n    pub fn toggle_stream(&mut self) -> Result<bool, String> {\n        match self.desired_stream {\n            DesiredStream::Running => self.request_stream_stopped(),\n            DesiredStream::Stopped => self.request_stream_running(),\n        }\n        self.reconcile_stream()\n    }\n\n    pub fn pending_stream_action(&self) -> Option<StreamAction> {\n        pending_stream_action(self.desired_stream, &self.stream_state)\n    }\n\n    pub fn reconcile_stream(&mut self) -> Result<bool, String> {\n        if self.desired_stream == DesiredStream::Stopped {",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

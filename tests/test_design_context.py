@@ -134,6 +134,12 @@ export class ProfileRepository {
         self.assertLessEqual(len(payload["design_knowledge"]), 2)
         self.assertLessEqual(estimate_payload_tokens(payload), 1500)
 
+    def test_compact_projection_keeps_the_explicit_entry_file(self) -> None:
+        payload = self.context("--anchor", "pages/ProfilePage.ets", "--compact")
+        self.assertIn("pages/ProfilePage.ets", {
+            item["file_path"] for item in payload["current_repository"]["source_anchors"]
+        })
+
     def test_semantic_correction_is_a_guardrail_not_a_design_decision(self) -> None:
         correction = {
             "experience_type": "correction_experience",

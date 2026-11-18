@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .text import identifier_tokens, unique_list
+from .rust_source import read_rust_text, rust_declarations, rust_summary
 
 
 MAX_SUMMARY_ITEMS = 12
@@ -22,6 +23,8 @@ NATIVE_SUFFIX = re.compile(
 
 
 def extended_summary(path: Path, language: str, text: str | None = None) -> str | None:
+    if language == "Rust":
+        return rust_summary(read_rust_text(path))
     if language not in {"C/C++", "Build Artifact"}:
         return None
     text = read_text(path) if text is None else text
@@ -40,6 +43,8 @@ def extended_summary(path: Path, language: str, text: str | None = None) -> str 
 def extended_symbols(
     path: Path, language: str, text: str | None = None,
 ) -> list[tuple[str, str]] | None:
+    if language == "Rust":
+        return [(item.name, item.kind) for item in rust_declarations(read_rust_text(path))]
     if language not in {"C/C++", "Build Artifact"}:
         return None
     return extended_symbols_from_text(read_text(path) if text is None else text, language)

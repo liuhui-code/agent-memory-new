@@ -1,0 +1,373 @@
+
+> arklog@0.2.12 test /private/tmp/arklog-m1-nikq477d/baseline
+> cargo test --workspace
+
+   Compiling arklog-core v0.2.1 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-core)
+   Compiling arklog v0.2.12 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-tui)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.92s
+     Running unittests src/lib.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/arklog-b18e58bae76a9378)
+
+running 8 tests
+test controller::m1_contract::completion_keeps_origin_while_another_stream_is_active ... ok
+test controller::m1_contract::current_batch_is_accepted ... ok
+test controller::m1_contract::retirement_receipt_precedes_replacement_commit ... ok
+test controller::m1_contract::same_device_reconnect_rejects_prior_stream_batches ... ok
+test controller::tests::discovery_runs_frequently_while_waiting_and_slowly_during_a_healthy_stream ... ok
+test controller::tests::stop_requested_during_starting_remains_queued ... ok
+test controller::tests::stream_start_retry_policy_caps_at_five_seconds ... ok
+test log_geometry::tests::huge_records_only_materialize_the_requested_wrapped_rows ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+
+     Running unittests src/main.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/arklog-56918fd232872d51)
+
+running 10 tests
+test tests::ctrl_l_records_when_clearing_the_live_view_finishes ... ok
+test tests::function_keys_select_log_views_even_while_editing_or_browsing_devices ... ok
+test tests::leaving_log_selection_restores_terminal_mouse_handling_even_on_error ... ok
+test tests::modified_function_keys_and_tab_in_editors_preserve_navigation_and_drafts ... ok
+test tests::modified_terminal_tab_shortcuts_do_not_switch_log_views ... ok
+test tests::mouse_selection_reaches_hilog_but_not_query_editors_or_device_overlays ... ok
+test tests::redraw_state_coalesces_changes_and_stays_clean_while_idle ... ok
+test tests::selecting_log_text_with_shift_arrows_pauses_following_live_logs ... ok
+test tests::shift_tab_switches_between_the_log_views ... ok
+test tests::windows_terminal_relaunch_requires_an_explicit_request ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/action_status.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/action_status-919f591b7d3339a4)
+
+running 1 test
+test successful_background_poll_does_not_erase_the_last_action_error ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/agent_query.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/agent_query-52f293a2f42bb1f0)
+
+running 14 tests
+test accepts_millisecond_strings_mixed_bounds_and_null_with_exact_epoch_comparisons ... ok
+test boolean_match_is_not_limited_by_the_query_text_response_budget ... ok
+test boolean_query_is_strictly_after_unix_milliseconds_and_does_not_return_log_text ... ok
+test boolean_query_needs_no_time_and_checks_beyond_the_first_scan_page ... ok
+test local_dst_gaps_and_overlaps_require_an_explicit_offset ... ok
+test pages_a_fixed_snapshot_and_rejects_cursors_from_a_cleared_session ... ok
+test queries_inclusive_rfc3339_bounds_with_offsets_and_millisecond_precision ... ok
+test queries_local_calendar_formats_and_date_only_at_midnight ... ok
+test queries_raw_session_by_inclusive_time_and_regex_without_changing_ui_filter ... ok
+test rejects_invalid_query_parameters_without_changing_the_session ... ok
+test rejects_invalid_time_values_and_inverted_mixed_format_ranges ... ok
+test response_budget_does_not_drop_the_first_record_of_the_next_page ... ok
+test sparse_queries_yield_bounded_pages_and_keep_a_resumable_cursor ... ok
+test unix_millisecond_comparisons_are_exact_and_allow_a_single_optional_bound ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s
+
+     Running tests/clear_ui.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/clear_ui-d9672bb8c7f7d051)
+
+running 1 test
+test minimum_width_hilog_view_maximizes_log_workspace_without_a_footer ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/controller_clear.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/controller_clear-9121147009899e4b)
+
+running 1 test
+test clear_keeps_the_same_live_stream_and_displays_logs_sent_after_clear ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.02s
+
+     Running tests/controller_desired_stream.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/controller_desired_stream-86136f1f5f06a396)
+
+running 4 tests
+test consecutive_start_failures_are_not_retried_in_a_hot_loop ... ok
+test initial_multiple_online_devices_require_an_explicit_selection ... ok
+test running_desire_survives_a_stream_start_failure ... ok
+test running_desire_survives_temporary_device_unavailability ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/controller_fault.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/controller_fault-714912b91870a147)
+
+running 6 tests
+test changing_device_clears_session_data_before_the_next_stream ... ok
+test equivalent_device_refresh_preserves_fault_log_and_selection ... ok
+test fault_refresh_returns_immediately_and_completes_as_one_background_job ... ok
+test fault_result_from_the_previous_device_is_discarded ... ok
+test refreshes_fault_logs_and_moves_the_raw_inspector_selection ... ok
+test structured_fault_failure_remains_an_error_state ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.24s
+
+     Running tests/controller_stream.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/controller_stream-ca28d694ead03010)
+
+running 24 tests
+test automatic_discovery_replaces_a_disconnected_stream_even_if_hdc_stays_open ... ok
+test background_disconnect_never_blocks_while_reaping_the_stale_stream ... ok
+test background_stop_commits_the_final_partial_log_batch ... ok
+test background_stop_drains_a_full_bounded_batch_channel_until_reap_completes ... ok
+test cached_online_device_reconnects_when_post_disconnect_discovery_fails ... ok
+test device_switch_discards_the_old_streams_late_partial_batch ... ok
+test exited_stream_reaps_in_the_background_while_the_ui_drains_a_large_tail ... ok
+test frame_pump_processes_only_the_requested_number_of_batches ... ok
+test idle_background_pump_reports_no_visible_activity ... ok
+test initial_selection_prefers_the_first_online_device ... ok
+test late_old_reap_result_cannot_clear_the_replacement_stream ... ok
+test offline_only_snapshot_is_not_ready_to_stream ... ok
+test quiet_but_healthy_stream_is_not_reconnected ... ok
+test refresh_does_not_guess_when_multiple_online_devices_replace_the_target ... ok
+test refresh_falls_back_to_an_online_device_when_the_previous_device_disappears ... ok
+test refresh_keeps_the_current_target_when_it_is_still_online ... ok
+test refresh_request_returns_immediately_and_applies_devices_in_the_background ... ok
+test refreshes_connected_devices_without_interrupting_the_active_stream ... ok
+test reports_device_discovery_failure_without_hiding_it_as_an_empty_list ... ok
+test stop_failure_reports_an_error_instead_of_a_false_stopped_state ... ok
+test stop_request_keeps_the_controller_responsive_until_the_stream_is_reaped ... ok
+test stops_the_stale_stream_when_refresh_confirms_the_device_disconnected ... ok
+test streams_real_hdc_output_through_the_bounded_controller_channel ... ok
+test unexpected_hdc_exit_replaces_the_false_live_state_and_keeps_final_logs ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.07s
+
+     Running tests/execution_log.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/execution_log-f974991051ca7516)
+
+running 4 tests
+test records_commands_state_transitions_and_errors_without_poll_noise ... ok
+test records_the_first_frame_after_clear_without_logging_log_content ... ok
+test restarts_the_execution_log_before_it_exceeds_its_file_budget ... ok
+test writes_structured_execution_events_to_the_requested_file ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/keymap.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/keymap-b0ba00521e71f958)
+
+running 8 tests
+test a_repeated_ctrl_s_does_not_reverse_the_first_stop_or_start ... ok
+test character_commands_require_the_control_modifier ... ok
+test editing_and_terminal_copy_shortcuts_are_not_claimed_as_global_commands ... ok
+test filter_history_arrows_are_scoped_to_the_filter_editor ... ok
+test function_keys_select_views_in_every_command_context_without_claiming_modified_keys ... ok
+test hilog_commands_are_disabled_outside_the_hilog_workspace ... ok
+test horizontal_keys_follow_the_focused_workspace_without_stealing_input_editing ... ok
+test soft_wrap_shortcut_is_available_only_in_the_hilog_body ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/layout_geometry.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/layout_geometry-7d276ae337991a24)
+
+running 1 test
+test hilog_viewport_height_comes_from_the_same_compact_layout_as_rendering ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/log_selection.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/log_selection-064b16fc5f109cf9)
+
+running 10 tests
+test dragging_past_the_right_edge_includes_the_last_visible_character ... ok
+test extending_selection_reveals_the_caret_in_horizontal_and_wrapped_views ... ok
+test keyboard_selection_crosses_records_and_escape_clears_it ... ok
+test mouse_selection_maps_horizontal_and_wrapped_unicode_cells_to_source_bytes ... ok
+test oversized_copy_reports_an_error_and_preserves_the_clipboard ... ok
+test resize_preserves_source_selection_and_view_changes_or_following_clear_it ... ok
+test reverse_mouse_drag_selects_raw_text_across_rows_and_survives_append ... ok
+test scrolling_to_the_bottom_keeps_an_active_selection_paused ... ok
+test select_all_copies_only_the_current_filtered_snapshot ... ok
+test shift_arrows_select_unicode_log_text_and_ctrl_c_copies_without_screen_markers ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/mcp.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/mcp-4697e38cd411d76c)
+
+running 6 tests
+test binary_mcp_mode_uses_only_json_stdout_and_needs_no_terminal_or_hdc ... ok
+test binary_rejects_unusable_configured_ports ... ok
+test mcp_queries_the_running_controller_and_reports_invalid_regex_as_tool_error ... ok
+test rejects_invalid_initialize_parameters_and_handles_unavailable_runtime ... ok
+test runtime_waits_for_a_complete_query_frame_before_parsing_time_bounds ... ok
+test stdio_negotiates_mcp_and_advertises_read_only_query_tools ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.49s
+
+     Running tests/memory_probe.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/memory_probe-0252bdd2c39121c0)
+
+running 1 test
+test stress_probe_keeps_session_heap_bounded_for_one_hundred_thousand_lines ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.63s
+
+     Running tests/query_history.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/query_history-63f71cd951abcc93)
+
+running 4 tests
+test edited_history_items_survive_navigation_and_use_the_text_input_undo_stack ... ok
+test history_does_not_trim_or_case_fold_regular_expressions ... ok
+test history_rejects_empty_or_oversized_queries_and_evicts_the_oldest_of_fifty ... ok
+test successful_queries_are_exactly_deduplicated_and_restore_the_draft ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/release_workflow.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/release_workflow-1b97ce5bcc4751f7)
+
+running 4 tests
+test pushes_and_pull_requests_verify_macos_and_windows ... ok
+test release_package_version_is_v0_2_12 ... ok
+test version_tag_builds_and_publishes_windows_and_macos_executables ... ok
+test windows_release_embeds_the_multisize_arklog_application_icon ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/session_store.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/session_store-4b7fe70374e256d9)
+
+running 9 tests
+test active_regex_append_does_not_rescan_historical_records ... ok
+test clear_starts_an_empty_session_and_preserves_the_active_filter ... ok
+test find_index_rebuilds_after_filter_changes_and_indexes_later_lines ... ok
+test find_index_uses_original_text_unicode_case_matching ... ok
+test invalid_or_over_budget_regex_hides_matches_without_discarding_raw_lines ... ok
+test query_rebuilds_scan_raw_logs_once_and_find_only_scans_visible_records ... ok
+test regex_filter_matches_existing_and_later_lines_without_case_sensitivity ... ok
+test reindexes_changed_regex_and_indexes_later_lines_incrementally ... ok
+test stores_a_large_session_without_retaining_log_text_on_the_heap ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/state.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/state-9eea87f389932d20)
+
+running 13 tests
+test applying_a_filter_does_not_steal_horizontal_position_for_an_existing_find ... ok
+test applying_regex_reindexes_existing_lines_and_reports_invalid_input ... ok
+test browsing_filter_history_does_not_change_the_active_filter ... ok
+test filter_history_records_only_successful_nonempty_applications_and_survives_clear ... ok
+test find_navigation_wraps_and_reveals_matches_without_filtering_lines ... ok
+test find_reveals_a_match_beyond_the_horizontal_viewport ... ok
+test hilog_and_fault_log_share_one_wrapping_tab_state ... ok
+test horizontal_navigation_reaches_the_real_end_and_survives_append_and_resize ... ok
+test scrolling_keeps_its_anchor_until_follow_latest_resumes ... ok
+test soft_wrap_find_anchors_the_viewport_at_an_offscreen_match ... ok
+test soft_wrap_keeps_record_identity_and_follows_the_last_wrapped_rows ... ok
+test wrapped_content_anchor_survives_resize_append_and_mode_round_trip ... ok
+test wrapped_scrolling_moves_by_display_rows_across_record_boundaries ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/stream_intent_controller.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/stream_intent_controller-7e03de1120e4b430)
+
+running 4 tests
+test cancelled_auto_start_stays_cancelled_when_delayed_discovery_finishes ... ok
+test controller_starts_when_discovery_satisfies_the_persistent_running_desire ... ok
+test queued_restart_starts_once_after_the_previous_stream_is_fully_reaped ... ok
+test running_without_devices_schedules_discovery_without_duplicate_ui_ownership ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.18s
+
+     Running tests/stream_intent_ui.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/stream_intent_ui-34e4b0be7d9c497d)
+
+running 4 tests
+test automatic_device_refresh_never_replaces_the_applied_regex ... ok
+test connection_refresh_does_not_reflow_navigation_slots ... ok
+test initial_refresh_only_shows_start_queued_until_ctrl_s_cancels_it ... ok
+test stopping_stream_shows_when_a_restart_is_queued ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/stream_status_ui.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/stream_status_ui-02772bdf00279ab9)
+
+running 2 tests
+test action_errors_remain_visible_in_the_compact_top_controls ... ok
+test pending_stop_is_shown_as_stopping_instead_of_stopped ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/text_input.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/text_input-c9ebfdd1ceb4e4ec)
+
+running 8 tests
+test arrows_home_and_end_move_or_extend_a_unicode_safe_selection ... ok
+test copy_cut_and_paste_operate_on_the_selected_input_text ... ok
+test delete_keys_remove_characters_or_words_without_splitting_unicode ... ok
+test macos_command_moves_by_line_while_option_moves_by_word ... ok
+test paste_stays_single_line_utf8_and_within_the_query_memory_budget ... ok
+test primary_a_selects_the_whole_draft_for_replacement_on_each_desktop ... ok
+test primary_arrows_move_by_words_and_shift_extends_the_selection ... ok
+test undo_and_redo_restore_text_edits_with_desktop_shortcuts ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/theme_ui.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/theme_ui-a1130d3114f65e8e)
+
+running 8 tests
+test colors_only_the_level_field_and_keeps_every_other_log_field_neutral ... ok
+test composes_low_contrast_current_row_and_highlights_only_actual_matches ... ok
+test epoch_hilog_colors_only_the_parsed_level ... ok
+test keeps_an_optional_line_number_neutral_while_coloring_the_hilog_level ... ok
+test presentation_modules_consume_semantic_tokens_instead_of_owning_design_values ... ok
+test renders_a_cohesive_dark_canvas_with_distinct_panel_borders ... ok
+test selected_log_characters_use_only_the_low_contrast_background ... ok
+test uses_one_semantic_palette_for_navigation_status_and_secondary_text ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests/ui.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/ui-0270106eadc72f82)
+
+running 12 tests
+test a_match_inside_a_combining_grapheme_highlights_the_intact_terminal_cell ... ok
+test device_list_windows_a_large_collection_around_the_selection ... ok
+test highlights_all_find_matches_and_distinguishes_the_current_match_line ... ok
+test highlights_every_non_empty_regex_match_without_changing_the_raw_line ... ok
+test horizontal_slice_marks_only_content_that_is_actually_hidden ... ok
+test huge_offsets_crop_unicode_graphemes_and_keep_find_highlight_on_source_text ... ok
+test renders_all_connected_devices_in_the_device_list_view ... ok
+test renders_compact_shared_workspace_without_duplicate_device_or_hilog_status ... ok
+test renders_the_real_connection_failure_inside_the_no_devices_status ... ok
+test short_and_exact_width_lines_have_no_overflow_markers_at_column_zero ... ok
+test soft_wrap_renders_continuations_without_changing_record_count_or_source ... ok
+test windows_large_fault_lists_and_raw_diagnostics_to_the_visible_area ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+     Running tests/ui_input.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/ui_input-ac031c868e2f344a)
+
+running 1 test
+test long_input_keeps_the_cursor_suffix_visible ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/windows_console.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/windows_console-43e1baa8b6d22581)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/arklog_core-ab459b1ffe078d70)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/device_discovery.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/device_discovery-c2baebf1171ed55a)
+
+running 9 tests
+test device_discovery_kills_a_command_that_exceeds_its_deadline ... ok
+test device_discovery_kills_a_still_running_command_as_soon_as_output_overflows ... FAILED
+test device_discovery_rejects_output_above_its_memory_budget ... ok
+test ignores_diagnostics_that_do_not_match_a_device_record ... ok
+test lists_structured_devices_from_hdc_targets ... ok
+test parses_official_verbose_target_fields_and_connection_states ... ok
+test prefixes_online_device_ids_with_the_special_cust_phone_code ... ok
+test rejects_connected_diagnostics_and_does_not_repeat_device_fields_in_detail ... ok
+test reports_daemon_failure_even_when_hdc_exits_with_success ... ok
+
+failures:
+
+---- device_discovery_kills_a_still_running_command_as_soon_as_output_overflows stdout ----
+
+thread 'device_discovery_kills_a_still_running_command_as_soon_as_output_overflows' (42485664) panicked at crates/arklog-core/tests/device_discovery.rs:82:5:
+assertion failed: started.elapsed() < Duration::from_secs(1)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    device_discovery_kills_a_still_running_command_as_soon_as_output_overflows
+
+test result: FAILED. 8 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.74s
+
+error: test failed, to rerun pass `-p arklog-core --test device_discovery`
+ ELIFECYCLE  Test failed. See above for more details.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?

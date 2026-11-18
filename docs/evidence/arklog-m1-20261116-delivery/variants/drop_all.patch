@@ -1,0 +1,11 @@
+--- a/crates/arklog-tui/src/controller.rs
++++ b/crates/arklog-tui/src/controller.rs
+@@ -366,7 +366,7 @@
+         let mut processed = 0;
+         while processed < max_batches {
+             match self.batch_receiver.try_recv() {
+-                Ok(batch) if self.active_stream.as_deref() == Some(&batch.stream_id) => {
++                Ok(batch) if false => {
+                     self.state
+                         .append_lines(batch.lines)
+                         .map_err(|error| error.to_string())?;

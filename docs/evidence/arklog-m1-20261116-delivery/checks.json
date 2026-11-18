@@ -1,0 +1,25 @@
+{
+  "scope": "M1 native controlled development checks; known incorrect controls, not M2 hidden tasks",
+  "baseline_revision": "9aa4c503c271ab22375ec5e40e645f536b441c11",
+  "production_candidate": "existing serialized Controller; no production patch",
+  "test_only_instrumentation": "test-adapter.patch",
+  "definitions": {
+    "cleanup_order.rs": "c8f513275903d8d8cb1529740031224248fa0ead44e6af3a5a95136456de4404",
+    "completion_identity.rs": "423c6a8f11cd906cfce6679274c7c24889bc2324a3b95fd42a717d3460ba4c84",
+    "current_batch.rs": "e351846b28865694cf161fb8b16654ddab6708aa4729d9bbc8ee446d3827bb25",
+    "same_device.rs": "22354c4f3798a3a63da3bd7244b220dcec5941b704a64f81a5f0ddb32e90db45"
+  },
+  "negative_control_patches": {
+    "drop_all": "variants/drop_all.patch",
+    "device_only": "variants/device_only.patch",
+    "completion_rebound": "variants/completion_rebound.patch",
+    "unsafe_completion_order": "variants/unsafe_completion_order.patch"
+  },
+  "contract_checks": [
+    "current batch retained",
+    "same device reconnect new stream ID and stale generation rejected",
+    "completion retains origin with another stream active",
+    "old retirement receipt consumed before replacement and stale completion cannot overwrite replacement state"
+  ],
+  "test_queue_ingress_limitation": "Same-device stale message is intentionally injected at the actual bounded queue; it is not a claim that a joined worker naturally emits after reap. All mutations and the adapter exist only in the temporary snapshot."
+}

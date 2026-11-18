@@ -1,0 +1,21 @@
+   Compiling arklog-core v0.2.1 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-core)
+   Compiling arklog v0.2.12 (/private/tmp/arklog-m1-nikq477d/baseline/crates/arklog-tui)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.35s
+     Running unittests src/lib.rs (/private/tmp/arklog-m1-nikq477d/target/debug/deps/arklog-b18e58bae76a9378)
+
+running 1 test
+test controller::m1_contract::same_device_reconnect_rejects_prior_stream_batches ... M1_TRACE old=stream-1 current=stream-2 device=USB-01 rows=["M1_STALE", "M1_CURRENT"]
+
+thread 'controller::m1_contract::same_device_reconnect_rejects_prior_stream_batches' (42431148) panicked at crates/arklog-tui/src/../tests/support/m1_stream_contract.rs:55:5:
+prior generation must not commit on same device
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    controller::m1_contract::same_device_reconnect_rejects_prior_stream_batches
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p arklog --lib`

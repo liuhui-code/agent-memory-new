@@ -1,0 +1,46 @@
+test_function_bounds_do_not_truncate_the_generic_impl_owner (tests.test_rust_source_context.RustSourceContextTests) ... FAIL
+test_crlf_digest_matches_original_bytes_and_remains_queryable (tests.test_rust_source_context.RustSourceContextTests) ... FAIL
+test_invalid_utf8_does_not_become_a_different_valid_declaration (tests.test_rust_source_context.RustSourceContextTests) ... FAIL
+
+======================================================================
+FAIL: test_function_bounds_do_not_truncate_the_generic_impl_owner (tests.test_rust_source_context.RustSourceContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 146, in test_function_bounds_do_not_truncate_the_generic_impl_owner
+    self.assertEqual("Store<F>::invoke", method.qualified_name)
+AssertionError: 'Store<F>::invoke' != 'u64> Store<F>::invoke'
+- Store<F>::invoke
++ u64> Store<F>::invoke
+? +++++
+
+
+======================================================================
+FAIL: test_crlf_digest_matches_original_bytes_and_remains_queryable (tests.test_rust_source_context.RustSourceContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 153, in test_crlf_digest_matches_original_bytes_and_remains_queryable
+    self.assertEqual(hashlib.sha256(data).hexdigest(), method["source_digest"])
+AssertionError: '2ca791d987124713bb00667fcd923c2b7d0832f94dadc79d8c2d5d8ea78f16eb' != '85f5f07e01c3e8bd9aab9254790eb0f722f265bfe54ee0bdc0466a02af3bd47e'
+- 2ca791d987124713bb00667fcd923c2b7d0832f94dadc79d8c2d5d8ea78f16eb
++ 85f5f07e01c3e8bd9aab9254790eb0f722f265bfe54ee0bdc0466a02af3bd47e
+
+
+======================================================================
+FAIL: test_invalid_utf8_does_not_become_a_different_valid_declaration (tests.test_rust_source_context.RustSourceContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 163, in test_invalid_utf8_does_not_become_a_different_valid_declaration
+    self.assertEqual([], self.rows("code_symbols"))
+AssertionError: Lists differ: [] != [<sqlite3.Row object at 0x10be137f0>]
+
+Second list contains 1 additional elements.
+First extra element 0:
+<sqlite3.Row object at 0x10be137f0>
+
+- []
++ [<sqlite3.Row object at 0x10be137f0>]
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.424s
+
+FAILED (failures=3)

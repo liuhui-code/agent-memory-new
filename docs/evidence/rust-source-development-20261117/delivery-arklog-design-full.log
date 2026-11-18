@@ -1,0 +1,1556 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "ArkLogController pump_log_batches reconcile_stream stream_id",
+    "explicit_concerns": [
+      "reliability"
+    ],
+    "explicit_anchors": [
+      "crates/arklog-tui/src/controller.rs"
+    ],
+    "explicit_constraints": [],
+    "query_stage": "agent_directed_expansion"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "project_id": "48b51b22677423bd",
+    "goal": "ArkLogController pump_log_batches reconcile_stream stream_id",
+    "snapshot": {
+      "schema_version": "repository-snapshot/v2",
+      "graph_revision": 2,
+      "freshness": "current",
+      "stale_paths": [],
+      "freshness_checked_files": 9,
+      "counts": {
+        "code_files": 32,
+        "code_symbols": 487,
+        "code_log_statements": 0,
+        "active_edges": 487
+      },
+      "truncated": true,
+      "gap_count": 2
+    },
+    "capabilities": [
+      "topology",
+      "ownership",
+      "behavior",
+      "data",
+      "failure",
+      "runtime",
+      "change"
+    ],
+    "baseline_entry_points": [
+      "file:crates/arklog-core/src/command.rs",
+      "file:crates/arklog-core/src/fault_log.rs",
+      "file:crates/arklog-core/src/lib.rs",
+      "file:crates/arklog-core/src/runtime.rs",
+      "file:crates/arklog-core/src/stream.rs",
+      "file:crates/arklog-tui/src/controller.rs",
+      "file:crates/arklog-tui/src/theme.rs",
+      "file:crates/arklog-tui/src/ui.rs",
+      "file:crates/arklog-tui/src/windows_console.rs"
+    ],
+    "scope_entry_points": [
+      "file:crates/arklog-tui/src/controller.rs"
+    ],
+    "views": {
+      "topology": {
+        "status": "available",
+        "node_ids": [
+          "file:crates/arklog-core/src/command.rs",
+          "file:crates/arklog-core/src/fault_log.rs",
+          "file:crates/arklog-core/src/lib.rs",
+          "file:crates/arklog-core/src/runtime.rs",
+          "file:crates/arklog-core/src/stream.rs",
+          "file:crates/arklog-tui/src/windows_console.rs",
+          "symbol:crates/arklog-core/src/command.rs::CommandOutput",
+          "symbol:crates/arklog-core/src/command.rs::CommandPolicy",
+          "symbol:crates/arklog-core/src/command.rs::CommandPolicy::new",
+          "symbol:crates/arklog-core/src/command.rs::CommandRunner",
+          "symbol:crates/arklog-core/src/command.rs::CommandRunner for SystemCommandRunner::output",
+          "symbol:crates/arklog-core/src/command.rs::CommandRunner for SystemCommandRunner::output_with_policy"
+        ],
+        "edge_ids": [
+          417,
+          418,
+          419,
+          420,
+          421,
+          422,
+          423,
+          424,
+          425,
+          426,
+          427,
+          428
+        ],
+        "relations": {
+          "contains": 71
+        },
+        "truncated": true
+      },
+      "ownership": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "behavior": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "data": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "failure": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "runtime": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      },
+      "change": {
+        "status": "gap",
+        "node_ids": [],
+        "edge_ids": [],
+        "relations": {},
+        "truncated": false
+      }
+    },
+    "evidence_gaps": [
+      {
+        "kind": "missing_test_anchor",
+        "action": "identify focused verification for the proposed design"
+      },
+      {
+        "kind": "missing_observability_anchor",
+        "action": "check whether changed high-risk paths need a stable result/failure signal"
+      }
+    ],
+    "audit": {
+      "candidate_independent_baseline": true,
+      "bounded": true,
+      "persisted": false
+    },
+    "entry_points": [
+      "file:crates/arklog-tui/src/ui.rs",
+      "file:crates/arklog-core/src/fault_log.rs",
+      "file:crates/arklog-core/src/stream.rs",
+      "file:crates/arklog-tui/src/theme.rs",
+      "file:crates/arklog-core/src/runtime.rs",
+      "file:crates/arklog-core/src/command.rs",
+      "file:crates/arklog-tui/src/controller.rs",
+      "file:crates/arklog-tui/src/windows_console.rs",
+      "file:crates/arklog-core/src/lib.rs"
+    ],
+    "boundaries": [
+      {
+        "layer": "core",
+        "files": [
+          "crates/arklog-core/src/command.rs",
+          "crates/arklog-core/src/fault_log.rs",
+          "crates/arklog-core/src/lib.rs",
+          "crates/arklog-core/src/runtime.rs",
+          "crates/arklog-core/src/stream.rs",
+          "crates/arklog-tui/src/controller.rs",
+          "crates/arklog-tui/src/theme.rs",
+          "crates/arklog-tui/src/ui.rs",
+          "crates/arklog-tui/src/windows_console.rs"
+        ],
+        "incoming_edges": 71
+      }
+    ],
+    "state_owners": [],
+    "extension_points": [
+      {
+        "id": "file:crates/arklog-core/src/fault_log.rs",
+        "kind": "file",
+        "degree": 17
+      },
+      {
+        "id": "file:crates/arklog-core/src/lib.rs",
+        "kind": "file",
+        "degree": 16
+      },
+      {
+        "id": "file:crates/arklog-core/src/runtime.rs",
+        "kind": "file",
+        "degree": 16
+      },
+      {
+        "id": "file:crates/arklog-core/src/command.rs",
+        "kind": "file",
+        "degree": 15
+      },
+      {
+        "id": "file:crates/arklog-core/src/stream.rs",
+        "kind": "file",
+        "degree": 6
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::configure_hidden_command",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::join_reader",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::run_command",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::spawn_bounded_reader",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::terminate_child",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::terminate_process_tree",
+        "kind": "function",
+        "degree": 1
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/fault_log.rs::contains_ignore_ascii_case",
+        "kind": "function",
+        "degree": 1
+      }
+    ],
+    "affected_consumers": [],
+    "source_anchors": [
+      {
+        "id": "file:crates/arklog-tui/src/controller.rs",
+        "entity_type": "code_file",
+        "record_id": 7,
+        "kind": "file",
+        "name": "crates/arklog-tui/src/controller.rs",
+        "file_path": "crates/arklog-tui/src/controller.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: background, stream_health, stream_sink, ArkLogController, ArkLogController::discover, ArkLogController::new, ArkLogController::with_runtime, ArkLogController::state",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:38+00:00"
+      },
+      {
+        "id": "file:crates/arklog-core/src/command.rs",
+        "entity_type": "code_file",
+        "record_id": 28,
+        "kind": "file",
+        "name": "crates/arklog-core/src/command.rs",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: CommandPolicy, CommandPolicy::new, CommandOutput, CommandRunner, CommandRunner::output, CommandRunner::output_with_policy, SystemCommandRunner, CommandRunner for SystemCommandRunner::output",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "file:crates/arklog-core/src/fault_log.rs",
+        "entity_type": "code_file",
+        "record_id": 29,
+        "kind": "file",
+        "name": "crates/arklog-core/src/fault_log.rs",
+        "file_path": "crates/arklog-core/src/fault_log.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceFaultLogStatus, DeviceFaultLogRawEntry, DeviceFaultLogFetchResult, DeviceFaultLogExportResult, DeviceFaultLogExporter, DeviceFaultLogExporter::export, format_export, normalize_fault_log_output",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "file:crates/arklog-core/src/lib.rs",
+        "entity_type": "code_file",
+        "record_id": 30,
+        "kind": "file",
+        "name": "crates/arklog-core/src/lib.rs",
+        "file_path": "crates/arklog-core/src/lib.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: command, fault_log, runtime, stream, DeviceLogDevice, HdcClient, HdcClient<SystemCommandRunner>::new, HdcClient<R>::with_runner",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "file:crates/arklog-core/src/runtime.rs",
+        "entity_type": "code_file",
+        "record_id": 31,
+        "kind": "file",
+        "name": "crates/arklog-core/src/runtime.rs",
+        "file_path": "crates/arklog-core/src/runtime.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceLogStreamSummary, DeviceLogStreamExit, DeviceLogStartMode, DeviceLogStartError, fmt::Display for DeviceLogStartError::fmt, DeviceLogRuntime, ActiveStream, DeviceLogRuntime::new",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "file:crates/arklog-core/src/stream.rs",
+        "entity_type": "code_file",
+        "record_id": 32,
+        "kind": "file",
+        "name": "crates/arklog-core/src/stream.rs",
+        "file_path": "crates/arklog-core/src/stream.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceLogOutputBatch, LogBatchSink, LogBatchSink::deliver, spawn_log_reader, deliver, decode_log_line",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "file:crates/arklog-tui/src/theme.rs",
+        "entity_type": "code_file",
+        "record_id": 25,
+        "kind": "file",
+        "name": "crates/arklog-tui/src/theme.rs",
+        "file_path": "crates/arklog-tui/src/theme.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: Tone, tone_color, canvas, panel, text, emphasized_text, strong_text, selected_tab",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:38+00:00"
+      },
+      {
+        "id": "file:crates/arklog-tui/src/ui.rs",
+        "entity_type": "code_file",
+        "record_id": 26,
+        "kind": "file",
+        "name": "crates/arklog-tui/src/ui.rs",
+        "file_path": "crates/arklog-tui/src/ui.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: InputMode, OverlayMode, AppView, AppLayoutGeometry, app_layout, render_app, render_header, render_query",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:38+00:00"
+      },
+      {
+        "id": "file:crates/arklog-tui/src/windows_console.rs",
+        "entity_type": "code_file",
+        "record_id": 27,
+        "kind": "file",
+        "name": "crates/arklog-tui/src/windows_console.rs",
+        "file_path": "crates/arklog-tui/src/windows_console.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: ConsoleModeGuard, ConsoleModeGuard::new, Drop for ConsoleModeGuard::drop",
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "span": null,
+        "semantic_adapter": null,
+        "evidence_class": null,
+        "updated_at": "2026-11-17T00:44:38+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandOutput",
+        "entity_type": "code_symbol",
+        "record_id": 420,
+        "kind": "struct",
+        "name": "CommandOutput",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "struct CommandOutput in crates/arklog-core/src/command.rs; identifier terms: command output",
+        "symbol_key": "symbol:1d4e15264a3198f1a34943c0",
+        "qualified_name": "CommandOutput",
+        "signature": "pub struct CommandOutput",
+        "span": {
+          "start_line": 23,
+          "end_line": 27
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandPolicy",
+        "entity_type": "code_symbol",
+        "record_id": 418,
+        "kind": "struct",
+        "name": "CommandPolicy",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "struct CommandPolicy in crates/arklog-core/src/command.rs; identifier terms: command policy",
+        "symbol_key": "symbol:f6db89163690a44fa93bea67",
+        "qualified_name": "CommandPolicy",
+        "signature": "pub struct CommandPolicy",
+        "span": {
+          "start_line": 9,
+          "end_line": 12
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandPolicy::new",
+        "entity_type": "code_symbol",
+        "record_id": 419,
+        "kind": "method",
+        "name": "CommandPolicy::new",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "method CommandPolicy::new in crates/arklog-core/src/command.rs; identifier terms: command policy",
+        "symbol_key": "symbol:88bf702de4ca27bd45cf2d18",
+        "qualified_name": "CommandPolicy::new",
+        "signature": "pub const fn new(timeout: Duration, max_output_bytes: usize) -> Self",
+        "span": {
+          "start_line": 15,
+          "end_line": 20
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandRunner",
+        "entity_type": "code_symbol",
+        "record_id": 421,
+        "kind": "trait",
+        "name": "CommandRunner",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "trait CommandRunner in crates/arklog-core/src/command.rs; identifier terms: command runner",
+        "symbol_key": "symbol:7136f0aaeb70af2e724707f9",
+        "qualified_name": "CommandRunner",
+        "signature": "pub trait CommandRunner: Send + Sync",
+        "span": {
+          "start_line": 29,
+          "end_line": 48
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandRunner for SystemCommandRunner::output",
+        "entity_type": "code_symbol",
+        "record_id": 425,
+        "kind": "method",
+        "name": "CommandRunner for SystemCommandRunner::output",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "method CommandRunner for SystemCommandRunner::output in crates/arklog-core/src/command.rs; identifier terms: command runner system",
+        "symbol_key": "symbol:450d6b56a44833f9e7d9f664",
+        "qualified_name": "CommandRunner for SystemCommandRunner::output",
+        "signature": "fn output(&self, program: &str, args: &[String]) -> Result<CommandOutput, String>",
+        "span": {
+          "start_line": 53,
+          "end_line": 59
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandRunner for SystemCommandRunner::output_with_policy",
+        "entity_type": "code_symbol",
+        "record_id": 426,
+        "kind": "method",
+        "name": "CommandRunner for SystemCommandRunner::output_with_policy",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "method CommandRunner for SystemCommandRunner::output_with_policy in crates/arklog-core/src/command.rs; identifier terms: command runner system output with policy",
+        "symbol_key": "symbol:bba675778d7ded3386121640",
+        "qualified_name": "CommandRunner for SystemCommandRunner::output_with_policy",
+        "signature": "fn output_with_policy( &self, program: &str, args: &[String], policy: CommandPolicy, ) -> Result<CommandOutput, String>",
+        "span": {
+          "start_line": 61,
+          "end_line": 68
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandRunner::output",
+        "entity_type": "code_symbol",
+        "record_id": 422,
+        "kind": "method",
+        "name": "CommandRunner::output",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "method CommandRunner::output in crates/arklog-core/src/command.rs; identifier terms: command runner",
+        "symbol_key": "symbol:e490bced37e041fda9cdde97",
+        "qualified_name": "CommandRunner::output",
+        "signature": "fn output(&self, program: &str, args: &[String]) -> Result<CommandOutput, String>",
+        "span": {
+          "start_line": 30,
+          "end_line": 30
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::CommandRunner::output_with_policy",
+        "entity_type": "code_symbol",
+        "record_id": 423,
+        "kind": "method",
+        "name": "CommandRunner::output_with_policy",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "method CommandRunner::output_with_policy in crates/arklog-core/src/command.rs; identifier terms: command runner output with policy",
+        "symbol_key": "symbol:a57e0f6022c22222572f2568",
+        "qualified_name": "CommandRunner::output_with_policy",
+        "signature": "fn output_with_policy( &self, program: &str, args: &[String], policy: CommandPolicy, ) -> Result<CommandOutput, String>",
+        "span": {
+          "start_line": 32,
+          "end_line": 47
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::SystemCommandRunner",
+        "entity_type": "code_symbol",
+        "record_id": 424,
+        "kind": "struct",
+        "name": "SystemCommandRunner",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "struct SystemCommandRunner in crates/arklog-core/src/command.rs; identifier terms: system command runner",
+        "symbol_key": "symbol:f110f48176b1826640de1114",
+        "qualified_name": "SystemCommandRunner",
+        "signature": "pub struct SystemCommandRunner",
+        "span": {
+          "start_line": 50,
+          "end_line": 50
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::configure_hidden_command",
+        "entity_type": "code_symbol",
+        "record_id": 431,
+        "kind": "function",
+        "name": "configure_hidden_command",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "function configure_hidden_command in crates/arklog-core/src/command.rs; identifier terms: configure hidden command",
+        "symbol_key": "symbol:bf4b4d9bf5d0b877e23f09a5",
+        "qualified_name": "configure_hidden_command",
+        "signature": "pub(crate) fn configure_hidden_command(command: &mut Command)",
+        "span": {
+          "start_line": 176,
+          "end_line": 190
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::join_reader",
+        "entity_type": "code_symbol",
+        "record_id": 430,
+        "kind": "function",
+        "name": "join_reader",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "function join_reader in crates/arklog-core/src/command.rs; identifier terms: join reader",
+        "symbol_key": "symbol:12166533734ec914ddf6c636",
+        "qualified_name": "join_reader",
+        "signature": "fn join_reader(reader: thread::JoinHandle<Result<Vec<u8>, String>>) -> Result<Vec<u8>, String>",
+        "span": {
+          "start_line": 170,
+          "end_line": 174
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::run_command",
+        "entity_type": "code_symbol",
+        "record_id": 427,
+        "kind": "function",
+        "name": "run_command",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "function run_command in crates/arklog-core/src/command.rs; identifier terms: run command",
+        "symbol_key": "symbol:d647bf8c481cb2fdcb2f426e",
+        "qualified_name": "run_command",
+        "signature": "fn run_command( program: &str, args: &[String], policy: CommandPolicy, ) -> Result<CommandOutput, String>",
+        "span": {
+          "start_line": 71,
+          "end_line": 127
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::spawn_bounded_reader",
+        "entity_type": "code_symbol",
+        "record_id": 429,
+        "kind": "function",
+        "name": "spawn_bounded_reader",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "function spawn_bounded_reader in crates/arklog-core/src/command.rs; identifier terms: spawn bounded reader",
+        "symbol_key": "symbol:9de6ff9df93819a13a703d0e",
+        "qualified_name": "spawn_bounded_reader",
+        "signature": "fn spawn_bounded_reader<R: Read + Send + 'static>( mut reader: R, used: Arc<AtomicUsize>, limit: usize, ) -> thread::JoinHandle<Result<Vec<u8>, String>>",
+        "span": {
+          "start_line": 145,
+          "end_line": 168
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::terminate_child",
+        "entity_type": "code_symbol",
+        "record_id": 428,
+        "kind": "function",
+        "name": "terminate_child",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "function terminate_child in crates/arklog-core/src/command.rs; identifier terms: terminate child",
+        "symbol_key": "symbol:c3d507a56e8747c53e7f9fe2",
+        "qualified_name": "terminate_child",
+        "signature": "fn terminate_child( program: &str, child: &mut std::process::Child, stdout_reader: thread::JoinHandle<Result<Vec<u8>, String>>, stderr_reader: thread::JoinHandle<Result<Vec<u8>, String>>, ) -> Result<(), String>",
+        "span": {
+          "start_line": 129,
+          "end_line": 143
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      },
+      {
+        "id": "symbol:crates/arklog-core/src/command.rs::terminate_process_tree",
+        "entity_type": "code_symbol",
+        "record_id": 432,
+        "kind": "function",
+        "name": "terminate_process_tree",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "function terminate_process_tree in crates/arklog-core/src/command.rs; identifier terms: terminate process tree",
+        "symbol_key": "symbol:bd25b5716cc2a1d1867f3e50",
+        "qualified_name": "terminate_process_tree",
+        "signature": "pub(crate) fn terminate_process_tree(child: &mut std::process::Child) -> std::io::Result<()>",
+        "span": {
+          "start_line": 192,
+          "end_line": 202
+        },
+        "semantic_adapter": "rust-static@1.0",
+        "evidence_class": "static",
+        "updated_at": "2026-11-17T00:44:40+00:00"
+      }
+    ],
+    "relations": [
+      {
+        "id": 417,
+        "source": "file:crates/arklog-tui/src/windows_console.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-tui/src/windows_console.rs::Drop for ConsoleModeGuard::drop",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-tui/src/windows_console.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 418,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandPolicy",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 419,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandPolicy::new",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 420,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandOutput",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 421,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandRunner",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 422,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandRunner::output",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 423,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandRunner::output_with_policy",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 424,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::SystemCommandRunner",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 425,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandRunner for SystemCommandRunner::output",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 426,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandRunner for SystemCommandRunner::output_with_policy",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 427,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::run_command",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 428,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::terminate_child",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 429,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::spawn_bounded_reader",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 430,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::join_reader",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 431,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::configure_hidden_command",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 432,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::terminate_process_tree",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/command.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 433,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::DeviceFaultLogStatus",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 434,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::DeviceFaultLogRawEntry",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 435,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::DeviceFaultLogFetchResult",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 436,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::DeviceFaultLogExportResult",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 437,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::DeviceFaultLogExporter",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 438,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::DeviceFaultLogExporter::export",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 439,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::format_export",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 440,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::normalize_fault_log_output",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 441,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::split_entries",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 442,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::split_hidumper_entries",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 443,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::push_entry",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 444,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::looks_like_entry_start",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 445,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::first_message",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 446,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::first_message_pair",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 447,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::has_authorization_error",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 448,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::has_unavailable_error",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 449,
+        "source": "file:crates/arklog-core/src/fault_log.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/fault_log.rs::contains_ignore_ascii_case",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/fault_log.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 450,
+        "source": "file:crates/arklog-core/src/lib.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/lib.rs::command",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/lib.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 451,
+        "source": "file:crates/arklog-core/src/lib.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/lib.rs::fault_log",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/lib.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      },
+      {
+        "id": 452,
+        "source": "file:crates/arklog-core/src/lib.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/lib.rs::runtime",
+        "confidence": 0.9,
+        "evidence": "crates/arklog-core/src/lib.rs",
+        "evidence_kind": "static_containment",
+        "evidence_class": "static",
+        "extractor_version": "code-wiki:v4",
+        "source_revision": "git:9aa4c503c271ab22375ec5e40e645f536b441c11"
+      }
+    ],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Agent must inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [],
+    "semantic_corrections": [],
+    "memory_evidence": []
+  },
+  "quality_context": {
+    "routing_hints": [
+      {
+        "concern": "reliability",
+        "origin": "agent_explicit",
+        "matched_terms": []
+      }
+    ],
+    "notice": "Lexical hints only route retrieval; the Agent decides which quality attributes matter.",
+    "scenario_questions": [
+      {
+        "concern": "reliability",
+        "questions": [
+          "What stimulus causes failure, and what recovery response is observable?",
+          "Which timeout, retry, fallback, and partial-success semantics are required?"
+        ]
+      }
+    ],
+    "vocabulary_source": "https://www.iso.org/standard/78176.html"
+  },
+  "design_knowledge": [
+    {
+      "id": "cache_aside",
+      "kind": "tactic",
+      "title": "Cache-aside reference",
+      "quality_attributes": [
+        "performance",
+        "reliability",
+        "compatibility"
+      ],
+      "terms": [
+        "cache",
+        "latency",
+        "repeated",
+        "缓存",
+        "延迟",
+        "重复查询"
+      ],
+      "summary": "A caller or repository checks a cache before loading the source and explicitly owns population and invalidation.",
+      "applicability": [
+        "Repeated reads have measurable cost and bounded staleness is acceptable."
+      ],
+      "preconditions": [
+        "Stable keys, invalidation policy, and source fallback are defined."
+      ],
+      "contraindications": [
+        "Strong consistency is required without a coherent invalidation mechanism."
+      ],
+      "tradeoffs": [
+        "Improves repeated-read latency but introduces stale data, miss concurrency, and memory pressure."
+      ],
+      "questions": [
+        "What invalidates each key?",
+        "How are concurrent misses handled?",
+        "What is observable on fallback?"
+      ],
+      "evidence_needed": [
+        "read paths",
+        "latency or call frequency",
+        "state lifecycle",
+        "failure behavior"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "concern:reliability"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/"
+        }
+      ]
+    },
+    {
+      "id": "observer",
+      "kind": "pattern",
+      "title": "Observer reference",
+      "quality_attributes": [
+        "flexibility",
+        "reliability",
+        "performance"
+      ],
+      "terms": [
+        "event",
+        "notify",
+        "callback",
+        "reactive",
+        "事件",
+        "通知",
+        "回调",
+        "响应式"
+      ],
+      "summary": "Notify independent consumers through an explicit subscription and delivery lifecycle.",
+      "applicability": [
+        "A publisher should not depend on independent consumer behavior or results."
+      ],
+      "preconditions": [
+        "Ordering, subscription lifetime, delivery, and failure semantics are defined."
+      ],
+      "contraindications": [
+        "The interaction requires a synchronous result or strict transactional coupling."
+      ],
+      "tradeoffs": [
+        "Reduces direct coupling but increases temporal reasoning and observability needs."
+      ],
+      "questions": [
+        "Who owns subscriptions?",
+        "What ordering is guaranteed?",
+        "How are failures and duplicate delivery handled?"
+      ],
+      "evidence_needed": [
+        "event edges",
+        "consumer list",
+        "lifecycle and failure logs"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "concern:reliability"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+        }
+      ]
+    },
+    {
+      "id": "single_state_owner",
+      "kind": "principle",
+      "title": "Single state owner",
+      "quality_attributes": [
+        "reliability",
+        "maintainability"
+      ],
+      "terms": [
+        "state",
+        "cache",
+        "session",
+        "concurrent",
+        "状态",
+        "缓存",
+        "会话",
+        "并发"
+      ],
+      "summary": "Give mutable state one clear owner or make synchronization and invalidation explicit.",
+      "applicability": [
+        "The change adds or redistributes mutable state."
+      ],
+      "preconditions": [
+        "Readers, writers, lifetime, and invalidation events can be identified."
+      ],
+      "contraindications": [
+        "The value is immutable or entirely local to one operation."
+      ],
+      "tradeoffs": [
+        "Central ownership may create coordination or throughput pressure."
+      ],
+      "questions": [
+        "Who creates, mutates, invalidates, and observes the state?",
+        "What happens during concurrent updates?"
+      ],
+      "evidence_needed": [
+        "state owners",
+        "read/write edges",
+        "lifecycle events"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "concern:reliability"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+        }
+      ]
+    },
+    {
+      "id": "information_hiding",
+      "kind": "principle",
+      "title": "Information hiding",
+      "quality_attributes": [
+        "maintainability",
+        "modifiability"
+      ],
+      "terms": [
+        "boundary",
+        "module",
+        "implementation",
+        "interface",
+        "边界",
+        "模块",
+        "实现",
+        "接口"
+      ],
+      "summary": "Keep volatile implementation knowledge behind the responsibility that owns it.",
+      "applicability": [
+        "A detail changes for reasons different from its callers."
+      ],
+      "preconditions": [
+        "The owning responsibility and stable caller need can be identified."
+      ],
+      "contraindications": [
+        "The proposed boundary merely mirrors file layout without hiding a decision."
+      ],
+      "tradeoffs": [
+        "Encapsulation can add indirection and migration work."
+      ],
+      "questions": [
+        "Which decision is being hidden?",
+        "Which consumers truly need this knowledge?"
+      ],
+      "evidence_needed": [
+        "dependency edges",
+        "change reasons",
+        "public consumers"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/"
+        }
+      ]
+    },
+    {
+      "id": "smallest_viable_design",
+      "kind": "principle",
+      "title": "Smallest viable design",
+      "quality_attributes": [
+        "maintainability",
+        "flexibility"
+      ],
+      "terms": [
+        "change",
+        "refactor",
+        "extension",
+        "修改",
+        "重构",
+        "扩展"
+      ],
+      "summary": "Add structure only for a demonstrated responsibility, variation, ownership, or quality-attribute pressure.",
+      "applicability": [
+        "The request introduces a real boundary, variation, or measurable quality pressure."
+      ],
+      "preconditions": [
+        "The concrete pressure and affected behavior can be named."
+      ],
+      "contraindications": [
+        "The abstraction is justified only by a possible future need."
+      ],
+      "tradeoffs": [
+        "A smaller design may require later evolution when new evidence appears."
+      ],
+      "questions": [
+        "What is the smallest change that satisfies the observable scenario?",
+        "Which proposed abstraction has more than one credible reason to exist?"
+      ],
+      "evidence_needed": [
+        "affected behavior",
+        "known consumers",
+        "acceptance criteria"
+      ],
+      "source_refs": [
+        "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/"
+      ],
+      "authority": "general_advisory_knowledge",
+      "applicability_status": "agent_must_evaluate",
+      "match_reasons": [
+        "baseline:general_design_guardrail"
+      ],
+      "provenance": [
+        {
+          "kind": "catalog_source",
+          "ref": "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/"
+        }
+      ]
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_memory_support",
+      "action": "continue with source evidence; reflect after verification"
+    },
+    {
+      "kind": "missing_test_anchor",
+      "action": "identify focused verification for the proposed design"
+    },
+    {
+      "kind": "missing_observability_anchor",
+      "action": "check whether changed high-risk paths need a stable result/failure signal"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "inspect_source_anchors",
+      "values": [
+        "file:crates/arklog-tui/src/ui.rs",
+        "file:crates/arklog-core/src/fault_log.rs",
+        "file:crates/arklog-core/src/stream.rs",
+        "file:crates/arklog-tui/src/theme.rs",
+        "file:crates/arklog-core/src/runtime.rs",
+        "file:crates/arklog-core/src/command.rs"
+      ]
+    },
+    {
+      "action": "close_evidence_gaps",
+      "values": [
+        {
+          "kind": "missing_memory_support",
+          "action": "continue with source evidence; reflect after verification"
+        },
+        {
+          "kind": "missing_test_anchor",
+          "action": "identify focused verification for the proposed design"
+        },
+        {
+          "kind": "missing_observability_anchor",
+          "action": "check whether changed high-risk paths need a stable result/failure signal"
+        }
+      ]
+    },
+    {
+      "action": "query_again",
+      "usage": "supply Agent-confirmed --concern and --anchor values"
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect current source",
+      "decide applicable quality attributes and principles",
+      "author and compare materially different candidates",
+      "analyze tradeoffs and select the design",
+      "create the implementation and verification plan"
+    ],
+    "runtime_limitations": [
+      "does not recommend or select a design pattern",
+      "does not generate or rank design candidates",
+      "does not create an implementation plan",
+      "does not treat graph or memory evidence as current-source proof"
+    ]
+  },
+  "audit": {
+    "compact": false,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "catalog_sources": [
+        "https://www.sei.cmu.edu/library/quality-attribute-workshop-collection/",
+        "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/",
+        "https://www.sei.cmu.edu/library/reasoning-about-software-quality-attributes/",
+        "https://www.iso.org/standard/78176.html",
+        "https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions",
+        "https://www.archunit.org/userguide/html/000_Index.html"
+      ],
+      "entry_count": 8,
+      "returned_count": 5,
+      "truncated": false
+    },
+    "repository_graph_revision": 2,
+    "retrieval_counts": {
+      "code": 4,
+      "edge": 10
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "ready_for_agent_directed_refinement",
+    "next_action": "inspect_source_and_confirm_design_constraints",
+    "reason_codes": [
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_test_anchor', 'action': 'identify focused verification for the proposed design'}",
+      "{'kind': 'missing_observability_anchor', 'action': 'check whether changed high-risk paths need a stable result/failure signal'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 24,
+      "explicit_constraint_count": 0,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

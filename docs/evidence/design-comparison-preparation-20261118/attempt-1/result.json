@@ -1,0 +1,586 @@
+{
+  "classification": "generated_development_fixture",
+  "status": "failed_supply_isolation",
+  "attempt": 1,
+  "temporary_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp",
+  "checks": {
+    "installed_runtime_310_files_each": true,
+    "installed_A_20_original_skills": true,
+    "installed_B_C_23_identical_skills": true,
+    "identical_initial_memory_bytes": true,
+    "history_counts_match_plan": false,
+    "C_synthetic_history_label_retained": false,
+    "equal_current_repository": true,
+    "equal_quality_context": true,
+    "equal_design_knowledge": true,
+    "actual_source_anchor_returned": true,
+    "common_constraints_unchanged": true,
+    "frozen_runtime_and_skills_unchanged": true
+  },
+  "commands": [
+    {
+      "id": "install-A",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/source-A/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-A",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-A",
+        "--local-skills"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/source-A",
+      "returncode": 0,
+      "seconds": 2.166,
+      "log": "attempt-1/install-A.log",
+      "log_sha256": "78dd97380ebd4898647a33d0db2ec036fdc36dac8b0069a7bce14a04a2e35907"
+    },
+    {
+      "id": "install-B",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/source-B/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-B",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-B",
+        "--local-skills"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/source-B",
+      "returncode": 0,
+      "seconds": 1.969,
+      "log": "attempt-1/install-B.log",
+      "log_sha256": "5ae10f7587e1f6cc8983fcee52a57bb049ea5d7d0cd5d5d300587a865a6f21e4"
+    },
+    {
+      "id": "install-C",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/source-C/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-C",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-C",
+        "--local-skills"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/source-C",
+      "returncode": 0,
+      "seconds": 2.136,
+      "log": "attempt-1/install-C.log",
+      "log_sha256": "0af1f368f7ee2a6d03ae8f0afa799ac6569780288a0fd66e71222ede52468d60"
+    },
+    {
+      "id": "learn-common-B",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-B/tools/agent_memory.py",
+        "learn-path",
+        "--path",
+        "src",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-B",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+      "returncode": 0,
+      "seconds": 0.929,
+      "log": "attempt-1/learn-common-B.log",
+      "log_sha256": "5f48dc7fe68f5ad869965069d99dd1016c6ae4f9d24a1846a5d9491dd4cca3f2"
+    },
+    {
+      "id": "seed-C",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-C/tools/agent_memory.py",
+        "reflect",
+        "--payload-file",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/synthetic-reflection.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-C",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+      "returncode": 0,
+      "seconds": 0.883,
+      "log": "attempt-1/seed-C.log",
+      "log_sha256": "4a6d98b38e5c7005c0a59b1495ffe5f90cc263a13c386b824672ac3cf98b9911"
+    },
+    {
+      "id": "query-A",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-A/tools/agent_memory.py",
+        "design-context",
+        "--query",
+        "calibration preview receipt design",
+        "--anchor",
+        "src/receipt.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-A",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+      "returncode": 0,
+      "seconds": 0.94,
+      "log": "attempt-1/query-A.log",
+      "log_sha256": "c2758bf3a8f3831ab95d2970924995e5cba90d8c7615d20d70eef2aa834a3547"
+    },
+    {
+      "id": "query-B",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-B/tools/agent_memory.py",
+        "design-context",
+        "--query",
+        "calibration preview receipt design",
+        "--anchor",
+        "src/receipt.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-B",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+      "returncode": 0,
+      "seconds": 0.85,
+      "log": "attempt-1/query-B.log",
+      "log_sha256": "c2758bf3a8f3831ab95d2970924995e5cba90d8c7615d20d70eef2aa834a3547"
+    },
+    {
+      "id": "query-C",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-C/tools/agent_memory.py",
+        "design-context",
+        "--query",
+        "calibration preview receipt design",
+        "--anchor",
+        "src/receipt.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-C",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+      "returncode": 0,
+      "seconds": 0.853,
+      "log": "attempt-1/query-C.log",
+      "log_sha256": "68db9b947bdfd47eefa6d3b773198eff2ebc70f220a2939d83f2dabfdd5cc3e0"
+    },
+    {
+      "id": "query-B-after-C",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/installed-B/tools/agent_memory.py",
+        "design-context",
+        "--query",
+        "calibration preview receipt design",
+        "--anchor",
+        "src/receipt.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/memory-B",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+      "returncode": 0,
+      "seconds": 0.828,
+      "log": "attempt-1/query-B-after-C.log",
+      "log_sha256": "c2758bf3a8f3831ab95d2970924995e5cba90d8c7615d20d70eef2aa834a3547"
+    }
+  ],
+  "real_tasks": 0,
+  "agent_model_runs": 0,
+  "independent_reviews": 0,
+  "host_skill_loading_verified": false,
+  "limits": "File supply and public CLI only; no model adherence, task quality, or causal gain",
+  "learn_result": {
+    "source": "/private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+    "path": "src",
+    "scope_id": 1,
+    "mode": "merge",
+    "files": [
+      "src/receipt.py"
+    ],
+    "count": 1,
+    "summary": "Merged 1 files from src",
+    "parse_stats": {
+      "files_indexed": 1,
+      "languages": {
+        "Python": 1
+      },
+      "symbols_total": 1,
+      "symbols_by_type": {
+        "function": 1
+      },
+      "code_logs_total": 0,
+      "code_logs_by_level": {},
+      "business_semantics_restored": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "semantic_index": {
+        "schema_version": "semantic-index/v1",
+        "adapters": [],
+        "capabilities": [],
+        "files_indexed": 0,
+        "entities": 0,
+        "relations_extracted": 0,
+        "mechanisms_extracted": 0,
+        "relations_emitted": 0,
+        "unresolved_relations": 0,
+        "method_summaries_enriched": 0,
+        "gaps": [],
+        "adapter_errors": [],
+        "provider_runs": [],
+        "log_effects": {
+          "schema_version": "log-effect/v1",
+          "wrappers_resolved": 0,
+          "effects_emitted": 0,
+          "truncated": false,
+          "max_wrapper_depth": 0
+        },
+        "graph_candidate_resolution": {
+          "provider": "scoped-unique-symbols/v1",
+          "local_symbol_count": 1,
+          "reference_name_count": 0,
+          "resolved_external_symbol_count": 0,
+          "candidate_symbol_count": 1
+        }
+      },
+      "passage_index": {
+        "schema_version": "code-passages-v2",
+        "files_written": 1,
+        "symbols_written": 1,
+        "passages_written": 2
+      },
+      "normative_index": {
+        "schema_version": "normative-index/v1",
+        "source_root": "/private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "documents_indexed": 0,
+        "documents_added": 0,
+        "documents_updated": 0,
+        "documents_unchanged": 0,
+        "documents_retired": 0,
+        "retirement_counts": {},
+        "retirement_sample": [],
+        "retirement_sample_truncated": false,
+        "indexed_sample": [],
+        "indexed_sample_truncated": false,
+        "documents_requiring_metadata_review": 0,
+        "metadata_issues": [],
+        "metadata_issue_count": 0,
+        "metadata_issues_truncated": false,
+        "read_issues": [],
+        "read_issue_count": 0,
+        "read_issues_truncated": false,
+        "next_action": "no_normative_change",
+        "approval_inferred": false
+      },
+      "reverse_dependents_reindexed": [],
+      "dispatch_dependents_reindexed": [],
+      "edge_rebuild": {
+        "mode": "merge",
+        "scope_file_count": 1,
+        "scope_files": [
+          "src/receipt.py"
+        ],
+        "before": {
+          "node_counts": {
+            "code_file": 0,
+            "code_log_statement": 0,
+            "code_symbol": 0
+          },
+          "edge_count": 0,
+          "relation_counts": {}
+        },
+        "after": {
+          "node_counts": {
+            "code_file": 1,
+            "code_log_statement": 0,
+            "code_symbol": 1
+          },
+          "edge_count": 1,
+          "relation_counts": {
+            "contains": 1
+          }
+        },
+        "edges_deleted_estimate": 0,
+        "edges_inserted_estimate": 1,
+        "edge_delta": 1
+      },
+      "phase_ms": {
+        "extract": 1.277,
+        "load_scope": 14.654,
+        "invalidate": 0.995,
+        "prepare_rows": 1.984,
+        "insert_rows": 0.484,
+        "restore_business": 0.166,
+        "rebuild_graph": 19.688,
+        "summarize": 0.284,
+        "commit": 0.294,
+        "total": 39.833
+      },
+      "memory_edges_total": 1,
+      "memory_edges_total_provider": "project-counter/v1",
+      "index_generation": 1,
+      "source_revision": "unversioned"
+    },
+    "semantic_followup": {
+      "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+      "workflow_steps": [
+        "Read the listed files, symbols, and logs in current source.",
+        "Fill missing business_summary and business_terms in followup_payload_template.",
+        "Write the completed payload with learn-business.",
+        "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+      ],
+      "recommended_next_action": "run_learn_business_now",
+      "truncated": false,
+      "returned_counts": {
+        "files": 1,
+        "symbols": 1,
+        "logs": 0
+      },
+      "remaining_counts": {
+        "files": 0,
+        "symbols": 0,
+        "logs": 0
+      },
+      "followup_payload_template": {
+        "files": [
+          {
+            "file_path": "src/receipt.py",
+            "summary": "Python file with 4 non-empty lines",
+            "business_summary": "",
+            "business_terms": [],
+            "symbols": [
+              {
+                "symbol": "render_receipt",
+                "symbol_type": "function",
+                "summary": "function render_receipt in src/receipt.py; identifier terms: render receipt",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "src",
+                  "receipt",
+                  "py",
+                  "render_receipt",
+                  "function",
+                  "in",
+                  "identifier",
+                  "terms",
+                  "render"
+                ],
+                "hint_context": [
+                  "src/receipt.py",
+                  "render_receipt",
+                  "function",
+                  "function render_receipt in src/receipt.py; identifier terms: render receipt"
+                ]
+              }
+            ],
+            "logs": [],
+            "priority_score": 32,
+            "priority_reasons": [
+              "missing_file_business_summary",
+              "missing_file_business_terms",
+              "missing_symbol_semantics",
+              "missing_symbol_business_summary",
+              "missing_symbol_business_terms"
+            ],
+            "hint_terms": [
+              "src",
+              "receipt",
+              "py",
+              "python",
+              "file",
+              "with",
+              "4",
+              "non",
+              "empty",
+              "lines",
+              "render_receipt",
+              "render"
+            ],
+            "hint_context": [
+              "src/receipt.py",
+              "Python file with 4 non-empty lines",
+              "render_receipt"
+            ],
+            "truncated_counts": {
+              "symbols": 0,
+              "logs": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "seed_result": {
+    "project_id": "e6112f04daa5095e",
+    "task": "CALIBRATION_ONLY preview receipt design",
+    "summary": "CALIBRATION_ONLY synthetic preview receipt history for isolation checking.",
+    "mistake": null,
+    "lesson": "CALIBRATION_ONLY: this is invented test data, not a prior result or design advice.",
+    "future_rule": null,
+    "experience_type": null,
+    "task_type": "design",
+    "outcome": "partial",
+    "problem": null,
+    "reasoning_summary": null,
+    "context_used": "[]",
+    "what_worked": "[]",
+    "what_failed": "[]",
+    "hidden_assumptions": "[]",
+    "negative_preconditions": "[]",
+    "query_rounds": null,
+    "trajectory_summary": null,
+    "useful_followup_focus": null,
+    "useful_followup_terms": "[]",
+    "misleading_followup_terms": "[]",
+    "inspection_targets": "[]",
+    "final_verification_path": null,
+    "related_cases": "[]",
+    "verification_method": null,
+    "reuse_feedback": null,
+    "source_cases": "[]",
+    "skill_candidate": null,
+    "scope": "Synthetic P2 interface isolation only",
+    "evidence": null,
+    "confidence": 0.1,
+    "trigger_condition": null,
+    "anti_pattern": null,
+    "repair_action": null,
+    "applies_to": null,
+    "does_not_apply_to": null,
+    "anchor_type": null,
+    "anchor_key": null,
+    "semantic_field": null,
+    "existing_value": null,
+    "proposed_value": null,
+    "patch_reason": null,
+    "applies_to_current_code": 0,
+    "superseded_by": null,
+    "misleading_score": 0.0,
+    "created_at": "2026-11-18T00:26:23+00:00",
+    "id": 1
+  },
+  "observed_history": {
+    "A": [
+      {
+        "evidence_id": "episode:1",
+        "kind": "episode",
+        "title": "Learn path src from /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "summary": "Merged 1 files from src",
+        "location": null,
+        "anchors": [
+          "episode:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 1
+        }
+      }
+    ],
+    "B": [
+      {
+        "evidence_id": "episode:1",
+        "kind": "episode",
+        "title": "Learn path src from /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "summary": "Merged 1 files from src",
+        "location": null,
+        "anchors": [
+          "episode:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 1
+        }
+      }
+    ],
+    "C": [
+      {
+        "evidence_id": "episode:1",
+        "kind": "episode",
+        "title": "Learn path src from /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "summary": "Merged 1 files from src",
+        "location": null,
+        "anchors": [
+          "episode:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 1
+        }
+      },
+      {
+        "evidence_id": "reflection:1",
+        "kind": "reflection",
+        "title": "CALIBRATION_ONLY: this is invented test data, not a prior result or design advice.",
+        "summary": "CALIBRATION_ONLY synthetic preview receipt history for isolation checking.",
+        "location": "Synthetic P2 interface isolation only",
+        "anchors": [
+          "reflection:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "reflection",
+          "ref": 1
+        }
+      }
+    ],
+    "B-after-C": [
+      {
+        "evidence_id": "episode:1",
+        "kind": "episode",
+        "title": "Learn path src from /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-8rp1zrdp/common-case-project",
+        "summary": "Merged 1 files from src",
+        "location": null,
+        "anchors": [
+          "episode:1"
+        ],
+        "authority": "unverified_historical_observation",
+        "applicability": "warning or context only; cannot establish current architecture",
+        "provenance": {
+          "kind": "episode",
+          "ref": 1
+        }
+      }
+    ]
+  },
+  "installed_runtime_files_per_arm": {
+    "A": 310,
+    "B": 310,
+    "C": 310
+  },
+  "installed_skill_files_per_arm": {
+    "A": 20,
+    "B": 23,
+    "C": 23
+  },
+  "finished_at": "2026-11-18T00:26:26.983068+00:00",
+  "script_sha256": "42fa9f62aba86104d659c2ed71249637abe79b5b557a1ccc8f89e07ee6c30bab"
+}

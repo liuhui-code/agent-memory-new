@@ -197,6 +197,8 @@ def repository_context(
     compact: bool,
 ) -> dict[str, Any]:
     architecture = model["architecture"]
+    explicit_ids = set(model.get("scope_entry_points", []))
+    source_nodes = sorted(architecture["nodes"], key=lambda item: item["id"] not in explicit_ids)
     if not compact:
         return {
             **public_repository_model(model),
@@ -205,7 +207,7 @@ def repository_context(
             "state_owners": architecture["state_owners"],
             "extension_points": architecture["extension_points"],
             "affected_consumers": architecture["public_consumers"],
-            "source_anchors": architecture["nodes"][:limits["nodes"]],
+            "source_anchors": source_nodes[:limits["nodes"]],
             "relations": architecture["edges"][:limits["edges"]],
             "test_anchors": architecture["test_anchors"],
             "observability_anchors": architecture["observability_anchors"],
@@ -220,7 +222,7 @@ def repository_context(
         "state_owners": architecture["state_owners"][:4],
         "extension_points": [item.get("id") for item in architecture["extension_points"][:3] if item.get("id")],
         "affected_consumers": [compact_edge(item) for item in architecture["public_consumers"][:1]],
-        "source_anchors": [compact_node(item) for item in architecture["nodes"][:limits["nodes"]]],
+        "source_anchors": [compact_node(item) for item in source_nodes[:limits["nodes"]]],
         "relations": [compact_edge(item) for item in architecture["edges"][:limits["edges"]]],
         "test_anchors": [item.get("id") for item in architecture["test_anchors"][:3] if item.get("id")],
         "observability_anchors": [item.get("id") for item in architecture["observability_anchors"][:3] if item.get("id")],

@@ -1,0 +1,14 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_semantic_index.SemanticIndexTests.test_adapter_registry_keeps_language_specific_logic_out_of_core"
+  ],
+  "returncode": 0,
+  "duration_seconds": 0.817,
+  "log_sha256": "1954708f47816c0adaf655be245589a85953e1b1959ecd37ccf9744aec2019eb",
+  "change": "Expected language registry includes the added Rust definition-only adapter; previous four languages and capabilities remain checked."
+}

@@ -1,0 +1,24 @@
+test_changed_source_is_blocked_in_context_and_relearned_without_duplicates (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_comments_strings_and_macro_token_trees_are_not_declarations (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_crlf_digest_matches_original_bytes_and_remains_queryable (tests.test_rust_source_context.RustSourceContextTests) ... ERROR
+test_deeply_nested_modules_respect_the_static_scope_budget (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_distinct_owners_and_cfg_duplicates_have_distinct_public_ids (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_function_bounds_do_not_truncate_the_generic_impl_owner (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_function_pointer_and_header_without_parameters_are_not_functions (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_inline_module_trait_and_generic_impl_keep_source_scopes (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_invalid_utf8_does_not_become_a_different_valid_declaration (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_public_learning_and_design_return_rust_source_anchors (tests.test_rust_source_context.RustSourceContextTests) ... ok
+test_unbalanced_source_keeps_file_without_inventing_spans (tests.test_rust_source_context.RustSourceContextTests) ... ok
+
+======================================================================
+ERROR: test_crlf_digest_matches_original_bytes_and_remains_queryable (tests.test_rust_source_context.RustSourceContextTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/liuhui/Documents/code/agent-memory-new/tests/test_rust_source_context.py", line 157, in test_crlf_digest_matches_original_bytes_and_remains_queryable
+    self.assertNotIn("src/ledger.rs", result["source_freshness"]["stale_paths"])
+KeyError: 'stale_paths'
+
+----------------------------------------------------------------------
+Ran 11 tests in 12.186s
+
+FAILED (errors=1)

@@ -1,0 +1,211 @@
+{
+  "schema_version": "design-context/v1",
+  "request": {
+    "query": "ArkLogController pump_log_batches reconcile_stream",
+    "explicit_concerns": [
+      "reliability"
+    ],
+    "explicit_anchors": [
+      "crates/arklog-tui/src/controller.rs"
+    ],
+    "explicit_constraints": [],
+    "query_stage": "agent_directed_expansion"
+  },
+  "authority_order": [
+    "current_task_constraint",
+    "current_source_or_test",
+    "confirmed_project_constraint_or_correction",
+    "current_derived_graph",
+    "project_semantic_correction",
+    "verified_project_experience",
+    "general_advisory_knowledge",
+    "unverified_historical_observation"
+  ],
+  "current_repository": {
+    "schema_version": "repository-model/v2",
+    "snapshot": {
+      "graph_revision": 2,
+      "freshness": "current",
+      "truncated": true,
+      "gap_count": 2
+    },
+    "entry_points": [
+      "file:crates/arklog-tui/src/controller.rs",
+      "file:crates/arklog-tui/src/ui.rs",
+      "file:crates/arklog-core/src/fault_log.rs",
+      "file:crates/arklog-tui/src/theme.rs",
+      "file:crates/arklog-core/src/stream.rs",
+      "file:crates/arklog-core/src/command.rs",
+      "file:crates/arklog-core/src/runtime.rs",
+      "file:crates/arklog-core/src/lib.rs",
+      "file:crates/arklog-tui/src/windows_console.rs"
+    ],
+    "boundaries": [
+      {
+        "layer": "core",
+        "files": [
+          "crates/arklog-core/src/command.rs",
+          "crates/arklog-core/src/fault_log.rs",
+          "crates/arklog-core/src/lib.rs",
+          "crates/arklog-core/src/runtime.rs",
+          "crates/arklog-core/src/stream.rs",
+          "crates/arklog-tui/src/controller.rs",
+          "crates/arklog-tui/src/theme.rs",
+          "crates/arklog-tui/src/ui.rs",
+          "crates/arklog-tui/src/windows_console.rs"
+        ],
+        "incoming_edges": 71
+      }
+    ],
+    "state_owners": [],
+    "extension_points": [
+      "file:crates/arklog-core/src/fault_log.rs",
+      "file:crates/arklog-core/src/lib.rs",
+      "file:crates/arklog-core/src/runtime.rs"
+    ],
+    "affected_consumers": [],
+    "source_anchors": [
+      {
+        "id": "file:crates/arklog-core/src/command.rs",
+        "kind": "file",
+        "file_path": "crates/arklog-core/src/command.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: CommandPolicy, CommandPolicy::new, CommandOutput, CommandRunner, CommandRunner::output, CommandRunner::output_with_policy, SystemCommandRunner, CommandRunner for SystemCommandRunner::output"
+      },
+      {
+        "id": "file:crates/arklog-core/src/fault_log.rs",
+        "kind": "file",
+        "file_path": "crates/arklog-core/src/fault_log.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: DeviceFaultLogStatus, DeviceFaultLogRawEntry, DeviceFaultLogFetchResult, DeviceFaultLogExportResult, DeviceFaultLogExporter, DeviceFaultLogExporter::export, format_export, normalize_fault_log_output"
+      },
+      {
+        "id": "file:crates/arklog-core/src/lib.rs",
+        "kind": "file",
+        "file_path": "crates/arklog-core/src/lib.rs",
+        "layer": "core",
+        "summary": "Rust source-only declarations; macros/cfg/types/calls unresolved; declarations: command, fault_log, runtime, stream, DeviceLogDevice, HdcClient, HdcClient<SystemCommandRunner>::new, HdcClient<R>::with_runner"
+      }
+    ],
+    "relations": [
+      {
+        "id": 417,
+        "source": "file:crates/arklog-tui/src/windows_console.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-tui/src/windows_console.rs::Drop for ConsoleModeGuard::drop",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      },
+      {
+        "id": 418,
+        "source": "file:crates/arklog-core/src/command.rs",
+        "relation": "contains",
+        "target": "symbol:crates/arklog-core/src/command.rs::CommandPolicy",
+        "confidence": 0.9,
+        "evidence_class": "static"
+      }
+    ],
+    "test_anchors": [],
+    "observability_anchors": [],
+    "authority": "current_derived_graph",
+    "applicability": "Inspect current source before relying on derived structure."
+  },
+  "project_context": {
+    "task_constraints": [],
+    "semantic_corrections": [],
+    "memory_evidence": []
+  },
+  "quality_context": {
+    "routing_hints": [
+      {
+        "concern": "reliability",
+        "origin": "agent_explicit",
+        "matched_terms": []
+      }
+    ],
+    "notice": "Routing hints are not design conclusions.",
+    "scenario_questions": [
+      {
+        "concern": "reliability",
+        "questions": [
+          "What stimulus causes failure, and what recovery response is observable?"
+        ]
+      }
+    ]
+  },
+  "design_knowledge": [
+    {
+      "id": "cache_aside",
+      "kind": "tactic",
+      "summary": "A caller or repository checks a cache before loading the source and explicitly owns population and invalidation.",
+      "applicability": "Repeated reads have measurable cost and bounded staleness is acceptable.",
+      "preconditions": "Stable keys, invalidation policy, and source fallback are defined.",
+      "contraindications": "Strong consistency is required without a coherent invalidation mechanism.",
+      "tradeoffs": "Improves repeated-read latency but introduces stale data, miss concurrency, and memory pressure.",
+      "question": "What invalidates each key?",
+      "authority": "general_advisory_knowledge",
+      "match_reasons": [
+        "concern:reliability"
+      ],
+      "source_ref": "https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/"
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "kind": "missing_memory_support",
+      "action": "continue with source evidence; reflect after verification"
+    },
+    {
+      "kind": "missing_test_anchor",
+      "action": "identify focused verification for the proposed design"
+    },
+    {
+      "kind": "missing_observability_anchor",
+      "action": "check whether changed high-risk paths need a stable result/failure signal"
+    }
+  ],
+  "expansion_hints": [
+    {
+      "action": "query_again",
+      "usage": "supply Agent-confirmed --concern and --anchor values"
+    }
+  ],
+  "agent_ownership": {
+    "agent_responsibilities": [
+      "inspect source; reason about alternatives, tradeoffs, selection, plan, and verification"
+    ],
+    "runtime_limitations": [
+      "context only; no pattern recommendation, candidate ranking, design selection, or plan"
+    ]
+  },
+  "audit": {
+    "compact": true,
+    "persisted": false,
+    "llm_used": false,
+    "decision_free": true,
+    "bounded": true,
+    "knowledge": {
+      "catalog_schema": "design-knowledge-catalog/v1",
+      "returned_count": 2,
+      "truncated": true
+    }
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "design",
+    "status": "ready_for_agent_directed_refinement",
+    "next_action": "inspect_source_and_confirm_design_constraints",
+    "reason_codes": [
+      "{'kind': 'missing_memory_support', 'action': 'continue with source evidence; reflect after verification'}",
+      "{'kind': 'missing_test_anchor', 'action': 'identify focused verification for the proposed design'}",
+      "{'kind': 'missing_observability_anchor', 'action': 'check whether changed high-risk paths need a stable result/failure signal'}"
+    ],
+    "coverage": {
+      "repository_source_anchor_count": 3,
+      "explicit_constraint_count": 0,
+      "agent_directed_stage": true
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Agent inspects source, compares alternatives, selects a design, and plans verification."
+  }
+}

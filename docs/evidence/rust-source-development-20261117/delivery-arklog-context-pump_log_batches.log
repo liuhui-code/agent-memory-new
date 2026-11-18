@@ -1,0 +1,183 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "48b51b22677423bd",
+  "query": "pump_log_batches",
+  "memory_intent": "runtime_log_diagnosis",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 2
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "pump_log_batches"
+    ],
+    "log_anchors": [],
+    "code_anchors": [
+      {
+        "file_path": "crates/arklog-tui/src/controller.rs",
+        "symbol": "ArkLogController::pump_log_batches_limited",
+        "symbol_type": "method",
+        "record_ids": [
+          66
+        ],
+        "source_ranges": [
+          {
+            "symbol": "ArkLogController::pump_log_batches_limited",
+            "start_line": 365,
+            "end_line": 383
+          }
+        ],
+        "read_window": {
+          "start_line": 365,
+          "end_line": 383
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": null,
+            "start_line": 354,
+            "end_line": 370,
+            "content": "        if !preserve_tail {\n            self.active_stream = None;\n        }\n        self.stream_state = StreamState::Stopping;\n        Ok(())\n    }\n\n    pub fn pump_log_batches(&mut self) -> Result<(), String> {\n        self.pump_log_batches_limited(usize::MAX).map(|_| ())\n    }\n\n    pub fn pump_log_batches_limited(&mut self, max_batches: usize) -> Result<usize, String> {\n        let mut processed = 0;\n        while processed < max_batches {\n            match self.batch_receiver.try_recv() {\n                Ok(batch) if self.active_stream.as_deref() == Some(&batch.stream_id) => {\n                    self.state",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "crates/arklog-tui/src/controller.rs",
+        "symbol": "ArkLogController::pump_log_batches_limited",
+        "owner_name": "ArkLogController",
+        "owner_kind": "source_scope",
+        "score": 69.5,
+        "evidence_score": 69.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 365,
+          "end_line": 383,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "crates/arklog-core/src/fault_log.rs",
+          "symbol": "normalize_fault_log_output",
+          "score": 23.44,
+          "evidence_score": 23.44,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 80,
+            "end_line": 128,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "crates/arklog-tui/src/controller/background.rs",
+          "symbol": "ArkLogController::pump_background_tasks_with_activity",
+          "owner_name": "ArkLogController",
+          "owner_kind": "source_scope",
+          "score": 23.38,
+          "evidence_score": 23.38,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 10,
+            "end_line": 71,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 1,
+      "excerpt_chars": 618
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor",
+    "limited_code_anchor_diversity"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1182,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}

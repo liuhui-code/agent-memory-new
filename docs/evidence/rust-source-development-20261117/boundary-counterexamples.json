@@ -1,0 +1,16 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_rust_source_context.RustSourceContextTests.test_function_bounds_do_not_truncate_the_generic_impl_owner",
+    "tests.test_rust_source_context.RustSourceContextTests.test_crlf_digest_matches_original_bytes_and_remains_queryable",
+    "tests.test_rust_source_context.RustSourceContextTests.test_invalid_utf8_does_not_become_a_different_valid_declaration"
+  ],
+  "returncode": 1,
+  "duration_seconds": 2.588,
+  "log_sha256": "84616ab16d474f03284daa9358660a4580f549b67f2a75f856206e33af4f18a3",
+  "scope": "known expected owner, raw-byte digest and invalid encoding controls"
+}

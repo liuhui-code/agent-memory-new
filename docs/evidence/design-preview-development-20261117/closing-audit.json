@@ -1,0 +1,34 @@
+{
+  "classification": "development",
+  "status": "passed",
+  "checks": {
+    "delivery_passed": true,
+    "local_links_resolve": true,
+    "new_python_fingerprints": true,
+    "new_python_under_500_lines": true,
+    "runtime_and_skills_stable": true,
+    "root_index_empty": true,
+    "git_diff_clean": true
+  },
+  "local_link_count": 106,
+  "missing_links": [],
+  "delivery_file_sha256": {
+    "README.md": "86e42ca7f4b2424fd7874cfc61a3c35e4b2f80bf0d88ca341eab8e5aa0b494b0",
+    "README.zh-CN.md": "c01d6e4a1b9b5764c6555f5822c0e8f532f7ce98cdadeb1cefc668cfbd0c6759",
+    "CONTEXT.md": "71e34307ab3471b20b0bc918b28363798c69d74779ad71f7429a4a9ce0634e7c",
+    "gitlog.md": "ad3d355cebf7bd91e3f979599ab2fd79b389e32a715a162d77d327a5891f5d82",
+    "docs/design-usage-guide.md": "a00a6e49b050a303148529d56eeca7342abc0e790b3878bb3da421b5ed545d8e",
+    "docs/development-baseline-20261117.zh-CN.md": "2e586566e9ccd61330cd15fdaee6fbfa95e7c0aeca3a9051056738019f5b5b3f",
+    "docs/design-preview-development-case.zh-CN.md": "def532e276429eb26c428818148d5b66677e44f913759d9730c79380630a87ad",
+    "tests/fixtures/design_preview/__init__.py": "33f64da8ba02edfdaff187a406527ef804fcdc0d12c520e4b3bc226e7ccd90ae",
+    "tests/fixtures/design_preview/unsafe.py": "2a8d6640d428ebf2c53eac52cfb87d643f09eaa21c527f70076e4a6a3223b96a",
+    "tests/fixtures/design_preview/preview.py": "c67bdacedc6dc117d4876a9e1247cfca495211d3897fe08f630a1313d9be2b79",
+    "tests/fixtures/design_preview/renderers.py": "fd95cf4249176d5dc15125f37219d7dfb3deb224caf636576868ac57006dfad9",
+    "tests/test_design_preview_case.py": "9e09eca12abbf0d44bd955f05fe3ccb0e3fe7e877c945e067e24cf9c189b29e3"
+  },
+  "delivery_report_sha256": "ea10aa24bb1713991606d99896c05671aa6004b51767cb90fc1b3c35a45ffacd",
+  "head": "320e95137a890403cbd6496858a8a1c7de79c6ec",
+  "committed": false,
+  "pushed": false,
+  "finished_at": "2026-11-17T16:51:09.203747+00:00"
+}

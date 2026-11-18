@@ -10774,3 +10774,194 @@ Delivery scope:
   58-case run, the controlled backup reproduction and single-observation scale limits.
 - Check whitespace and the explicit staging list before committing. Actual commit identity
   and successful remote delivery are established by Git history and the final remote check.
+
+## 2026-11-16 - Execute the ArkLog M1 native design experiment
+
+- Read the user's SUMMARY.md and CODEX_NEXT_TASK.md. Kept M0 model claims separate from
+  the real-code experiment. Located a clean ArkLog main at
+  9aa4c503c271ab22375ec5e40e645f536b441c11, read its AGENTS/Accepted stream intent contract
+  and mapped Controller, Runtime, real TUI callers, batch ingress and Stop/reap receipts.
+  No production source, public interface, device, deployment or remote state changed.
+- Added a 347-line test-only Python orchestration entry and four incremental native Rust
+  probe fragments. Git-archive snapshots, temporary Cargo outputs/Memory Home, offline
+  cached dependencies and fake HDC executables keep the business checkout read-only.
+  Logs bind exact content snapshots, check definitions, command/exit status, discovery
+  counts, counterexamples and omitted coverage. Code-control patches and the test-only
+  adapter patch are separately reviewable; this is not a new serving Runtime or MCP service.
+- Observed a genuine verification gap: a deliberately device-only fence passed the old
+  A-to-B test. The added same-device/new-stream probe rejects that same mutation while the
+  actual complete-stream-id path passes. Current valid data, completion origin and
+  retirement-before-replacement probes also pass; drop-all, completion-rebound and removed
+  retirement barriers each fail the designated real Rust assertion. No current ArkLog
+  production defect or architecture superiority is claimed from these known controls.
+- First full attempt retained two MCP loopback permission failures. An authorized attempt
+  retained one existing output-overflow latency assertion failure (176 passed / 1 failed).
+  One fixed focused diagnostic then passed; remaining build/workspace/check gates ran.
+  Updated the driver to continue independent gates after failure and performed one final
+  complete replay: pnpm test 193/193 (76.291 s), release build pass (9.407 s), cargo test
+  --workspace 193/193 (31.917 s), cargo check pass (1.376 s), four new probes pass (2.912 s).
+  These are repeated overlapping tests, not independent cases. Previous failures remain.
+- Actual validator self-checks reject zero discovered tests, a tool exiting 7 and a real
+  timeout. A typed LiveOnly unsupported-start check passes; no real-device LiveOnly claim.
+  Current Rust/Cargo 1.95.0 and pnpm 8.3.1 are recorded; the project's requested pnpm
+  10.12.1 was not installed or silently substituted into the recorded environment.
+- Runtime learn-path and both ordinary/explicit-anchor design-context commands actually
+  return zero Rust source anchors. Current source adapters do not register .rs. Retained
+  this as rust_source_context_unavailable, with completed_with_context_gap as the final
+  experiment outcome; reasoning used direct source reads and Cargo evidence. No speculative
+  Rust adapter, synthetic indexed evidence, M2 cohort or historical sealed replay was added.
+- Delivered docs/arklog-m1-design-experiment.zh-CN.md, scoped evidence for all attempts,
+  the replay entry and separate check/code patches. Preserve the existing design; defer M2
+  until its source-context boundary and fresh unseen task contract are resolved. Original
+  ArkLog file/status checks and local evidence/source checks are recorded at closing.
+  Existing business Memory and the original untracked memory.md were not read or modified.
+  Changes remain local and uncommitted; the user's M1 instruction explicitly forbids push.
+
+## 2026-11-17 - Deliver Agent-owned design guidance in the existing Skills
+
+- Turned the design discussion and self-review into a scoped Query Skill delivery:
+  Agent-prefilled inputs, selective ADD/arc42/DPR/Ousterhout references, applicability
+  and counterexample review, qualitative alternatives, and an optional decision record.
+  Local edits retain selective routing; no mandatory candidate count or taste score.
+- Added self-contained worked examples: a direct local edit, bounded historical
+  ArkLog evidence, and a synthetic stale-advice/freshness conflict. Examples are
+  labeled illustrations or historical development evidence, never unseen cases.
+- Connected conditional design feedback to existing Reflect fields and experience
+  usage. Decision costs, assumptions, invalid cases, actual checks and revisit
+  conditions stay distinct. No automatic rule, Skill, or meta-review promotion.
+- Kept Runtime/catalog/retrieval/storage unchanged; no new public Skill or runtime.
+  Updated both READMEs, the design guide, provider specification and CONTEXT.
+- Executed 15 focused existing regressions once: all passed, zero failures/errors/
+  skips, process wall time 21.193 seconds. A temporary installed copy ran learning,
+  design-context, design reflection round trip and misleading-usage recording.
+  All 23 packaged Skill resources and 308 shipped Runtime files matched source;
+  the original 309 Runtime source/resource digests were unchanged.
+- Preserved the unavailable PyYAML validator and three false assumptions in the
+  one-off verification script (root metadata, macOS path aliases, source-only tools).
+  Corrected checks against the actual installer without changing production or
+  existing tests. Final evidence: docs/evidence/design-guidance-development-20261116/
+  verification.json; scoped status passed_with_validator_unavailable.
+- No independent model efficacy claim, M2/cohort run, business Memory write, real
+  installation/deployment, commit or push. Original memory.md and prior M1 evidence
+  remain untouched. Temporary test roots are retained for audit.
+
+## 2026-11-17 - Add bounded Rust source context and retain explicit design anchors
+
+- Registered .rs in the existing source registry and rust-static@1.0 in the
+  existing semantic adapter contract. Added source-only declaration navigation
+  with explicit macro/cfg/type/call limitations; no dependency, command, schema,
+  model invocation or additional Runtime entry point.
+- Bound declarations to raw-byte digests and source spans; scoped owned callables
+  without claiming receiver/dispatch semantics. Preserved conditional duplicates
+  with physical occurrence identities, including same-line declarations.
+- Used controlled counterexamples to correct generic-return-arrow owner parsing,
+  CRLF digest normalization, invalid UTF-8 loss, and duplicate-key collisions.
+  Comments, literals, macro trees, incomplete input and scope budgets are covered.
+- Preserved an invalid first fixture that read the wrong JSON level. The corrected
+  empty-learning/empty-design reproduction ran against a byte-verified pre-change
+  Runtime snapshot after implementation started; its order is explicitly recorded.
+- Actual ArkLog inspection exposed bounded design projection losing explicit
+  entry files. Reproduced in the existing ArkTS public fixture with a Rust positive
+  control, then retained learned explicit entry files before existing truncation.
+  Ordinary context, retrieval scores and candidate generation were unchanged.
+- Final 46 related tests and 35 basic checks passed (81 distinct cases). Temporary
+  installation and real read-only ArkLog source checks passed: 32 source files,
+  487 declarations, definition-only capabilities and no adapter errors; all 202
+  original tracked files and clean worktree preserved. Broad method coverage is
+  not claimed; focused context returned current source ranges.
+- Updated agent.md, both READMEs, usage/provider specifications, CONTEXT and the
+  Rust contract. Final evidence is docs/evidence/rust-source-development-20261117/
+  delivery.json; intermediate failures remain, with no consumed holdout replay.
+- Changes remain local and uncommitted. No business Memory, original memory.md,
+  M1 artifacts, real cohort, hardware, source deployment, commit or push changed.
+
+## 2026-11-18 - Freeze a reviewable baseline and complete the P1 preview case
+
+- Fixed G1–G3 at content snapshot 8005d6b78ea741aec330ce7c29aba0a8a500e637d672473119e61d22e9eb2895.
+  A scoped 16-file tracked patch and 199-file new-file archive replayed in an owned
+  temporary Git directory; all 538 resulting file digests matched. User memory.md
+  was excluded without reading it. Root Git index, HEAD and remotes were unchanged.
+- Added an Agent-authored controlled design task for selected-row report previews.
+  Actual ThreadingHTTPServer ingress changed the synchronization choice: a small
+  per-instance lock protects identity check and immutable state publication, with
+  rendering outside the owner. The fixture has no HTTP endpoint or Memory writes.
+- Queried the frozen Runtime with manually seeded M1 history. Recorded partial
+  applicability, the non-transfer of log-tail/serialized-owner semantics, actual
+  Strategy retrieval, its source limitation, and direct reference reading.
+- A deliberately wrong control showed stale overwrite and mutable-input behavior.
+  Twelve initial checks passed. A predefined JSON change then touched renderer
+  and tests only; the 103-line coordinator stayed byte-identical. Fourteen final
+  controlled checks passed, including selected thread interleavings and wrong-owner
+  receipts. These are not 26 independent cases or proof of future generality.
+- Replayed Reflect/read/experience-usage in the owned temporary archive. The first
+  payload omitted required lesson and was correctly refused; retained that input
+  and error before saving a corrected ordinary reflection. Helpfulness is a current
+  Agent declaration, not a causal Memory result or accepted reusable procedure.
+- Production Runtime 311 files and Skill 23 files stayed at P0. Prior 81 checks
+  were not rerun. Updated README links, usage, CONTEXT and baseline/case indexes;
+  current P0/P1 material is the proposed G4 review group, not part of the old bundle.
+- No production feature, automatic pattern selection, real cohort, external model,
+  independent review, commit, push, or business Memory change. New evidence is under
+  docs/evidence/development-baseline-20261117/ and design-preview-development-20261117/.
+
+## 2026-11-18 - Prepare separate guidance and project-history comparisons
+
+- Added a design comparison contract and fillable task/review worksheet. Compare
+  existing guidance (A), the improved bundle (B), and B plus additional Runtime
+  project history (C), with the same current Runtime, source and general catalog.
+  A is the real prior Skill, not a raw Agent or an artificially weakened prompt.
+  B includes its built-in worked examples; B–A does not isolate each guidance aid.
+- Archived the 20 original Skill resources from Git 320e951 and bound B/C to the
+  23 P0 resources. Actual temporary installs supplied 310 identical Runtime files
+  per arm. Synthetic learn/reflect/design-context calls passed 13 supply assertions:
+  common source/quality/catalog/setup records agree, with only C's extra reflection.
+- Retained the first failed rehearsal, input and script: the checker wrongly
+  expected zero history, although learn-path creates a shared setup episode. Revised
+  only the development expectation, kept that record in every arm, and reran the
+  affected rehearsal. No retrieval, ranking, evaluator or production code changed.
+- Applied the review questions to already-known P1 artifacts as non-blind author
+  calibration. Accepted bounded completion behavior, rejected thread-stop claims,
+  and left guidance/Memory benefits inconclusive; no new P1 test run or independent
+  review is claimed. Kept quality judgments separate from behavior checks and cost.
+- Recorded no_go for real activity: no bound future source, task-start archive,
+  independent reviewer, host isolation/telemetry or frozen model/budget/count config.
+  The existing diagnosis cohort is unchanged; these worksheets are not its input.
+- Updated README/usage/context/baseline navigation; proposed G5 contains this stage
+  without rewriting the G1–G3 bundle or P1 evidence. Runtime/Skill bytes remain at P0;
+  prior 81/14 checks were not rerun. No real tasks, models, sealed assets, business
+  Memory, original memory.md, commit or push. Evidence: docs/evidence/
+  design-comparison-preparation-20261118/.
+
+## 2026-11-18 - Close the local development delivery without starting real activity
+
+- Performed bounded author review of the six Rust integration/projection Runtime
+  files and associated regression scope. No newly confirmed defect justified a
+  serving change; kept implementation and Skill bytes unchanged. This is not an
+  independent review or a claim that all defects have been excluded.
+- Prepared a current G1–G5 combined patch/new-file bundle with explicitly scoped
+  HEAD dependencies and per-file digests. The original P0 bundle and P1/P2 evidence
+  retain their historical bytes. Isolated replay results belong to the new manifest,
+  not to a new test/efficacy claim or five independently validated commits.
+- Added final navigation to the baseline/context and a concise review record under
+  docs/evidence/local-delivery-20261118/. Kept user memory.md outside all read,
+  hash and packaging scopes. Root Git index/HEAD are only observed, not modified.
+- Prior 81/14 tests are not repeated. Real-task sourcing, independent review and
+  host execution/budget contracts remain unbound; the preparation phase closes
+  here. No real cohort, extra model trial, business Memory, deployment, commit or push.
+
+## 2026-11-18 - Prepare the reviewed G1–G5 local integration commit
+
+- Rechecked all 610 scoped development/dependency files against the completed
+  delivery replay; every digest matched before adding this commit note. Preserve
+  the five logical review groups in one integration commit, with shared documents
+  and their already-validated combined implementation.
+- Since capture, only CONTEXT.md and gitlog.md gain the local commit explanation.
+  Runtime, Skills, fixtures, original evidence and both historical review bundles
+  remain byte-identical. Historical HEAD/committed fields retain their time-point
+  meaning; the resulting commit identifier belongs in Git history.
+- Stage only the 16 reviewed tracked paths, 271 scoped new paths and the three
+  combined-package artifacts. The original untracked memory.md is excluded from
+  reading, hashing, staging and committing. No unrelated paths are included.
+- No production behavior changed in this step, so the prior 81/14 tests are not
+  rerun. Check staged content/whitespace and the resulting commit tree; do not push
+  or begin real tasks, model trials or deployment.

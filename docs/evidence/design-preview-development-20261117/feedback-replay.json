@@ -1,0 +1,83 @@
+{
+  "classification": "development",
+  "status": "passed_scoped_feedback_replay",
+  "commands": [
+    {
+      "id": "case-save-feedback-final",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project/tools/agent_memory.py",
+        "reflect",
+        "--payload-file",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-feedback.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "duration_seconds": 1.099,
+      "log": "case-save-feedback-final.log",
+      "log_sha256": "69146a6811e898583c14013debbbec6f9dee075c995305614bcb7b82a262f53f"
+    },
+    {
+      "id": "case-read-feedback-final",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project/tools/agent_memory.py",
+        "list",
+        "--type",
+        "reflection",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.845,
+      "log": "case-read-feedback-final.log",
+      "log_sha256": "2bba605606d2301b96c6cd5133a2f190beea515e8d88714b8fca8006ce379a46"
+    },
+    {
+      "id": "case-record-history-usage-final",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project/tools/agent_memory.py",
+        "experience-usage",
+        "--query",
+        "background report preview snapshot cancellation completion identity ownership",
+        "--type",
+        "reflection",
+        "--id",
+        "1",
+        "--outcome",
+        "helpful",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.911,
+      "log": "case-record-history-usage-final.log",
+      "log_sha256": "fc423704dc91182d6f3b31f30d1341b45d55d8f5639b7568aca32ee4784466c5"
+    }
+  ],
+  "stored_feedback_id": 2,
+  "history_seed_id": 1,
+  "stored_experience_type": null,
+  "payload_sha256": "5af66371d8e4c1f2136135b7e0672d99caa93d711dbd380a7011b591fd8a1797",
+  "prior_rejection": "feedback-attempt-1.json",
+  "usage_meaning": "Current Agent declared the manually seeded history partially helpful; not a measured causal benefit",
+  "project": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/case-project",
+  "memory_home": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-preview-development-9dci71x4/memory-home",
+  "not_claimed": [
+    "production Memory write",
+    "accepted reusable experience",
+    "independent design or Memory efficacy"
+  ],
+  "finished_at": "2026-11-17T16:36:38.638239+00:00"
+}

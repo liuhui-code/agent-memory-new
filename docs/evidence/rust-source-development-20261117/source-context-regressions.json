@@ -1,0 +1,18 @@
+{
+  "classification": "development",
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_rust_source_context",
+    "tests.test_source_artifact_adapters",
+    "tests.test_semantic_index",
+    "tests.test_design_context",
+    "tests.test_index_freshness"
+  ],
+  "returncode": 1,
+  "tests_executed": 43,
+  "duration_seconds": 44.18,
+  "log_sha256": "977c043bffd0b20050ccf54835d23eaae76820f7df314cd3e250eade1ec41565"
+}

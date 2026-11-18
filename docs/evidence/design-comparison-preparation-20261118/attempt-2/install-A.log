@@ -1,0 +1,27 @@
+initialized agent memory for /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A at /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/memory-A/projects/c775101123436547
+OK memory home exists
+OK project memory directory exists
+OK global config.json exists
+OK config.json exists
+OK memory.db exists
+OK vault directory exists
+OK runtime directory exists
+OK required tables exist
+installed /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/tools/agent_memory.py
+installed /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/tools/agent_memory_runtime
+installed /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/.agents/skills/agent-memory-learn
+installed /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/.agents/skills/agent-memory-maintain
+installed /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/.agents/skills/agent-memory-query
+installed /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/.agents/skills/agent-memory-reflect
++ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/tools/agent_memory.py init --project /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A --memory-home /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/memory-A
++ /Applications/Xcode.app/Contents/Developer/usr/bin/python3 /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/tools/agent_memory.py doctor --project /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A --memory-home /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/memory-A
+
+Agent Memory MVP installed.
+
+Try:
+  python3 tools/agent_memory.py update --project . --memory-home /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/memory-A --type semantic --fact "用户偏好先做 MVP" --source user --confidence 1.0
+  python3 tools/agent_memory.py context --project . --memory-home /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/memory-A --query "实现本地 agent memory" --json
+  python3 tools/agent_memory.py vault-export --project . --memory-home /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/memory-A
+
+Optional shell alias:
+  alias agent-memory='python3 /private/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-comparison-preparation-hm5ay5ef/installed-A/tools/agent_memory.py'

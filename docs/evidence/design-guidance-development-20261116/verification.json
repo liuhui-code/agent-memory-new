@@ -1,0 +1,244 @@
+{
+  "classification": "development",
+  "status": "passed_with_validator_unavailable",
+  "commands": [
+    {
+      "id": "install-final",
+      "returncode": 0,
+      "duration_seconds": 2.434,
+      "log": "install-final.log",
+      "log_sha256": "ebf63281a36639c588256c9ffb4f56023ac87f2dc8a22c4156fcdfbffbf180ef"
+    }
+  ],
+  "limitations": [
+    "Official quick_validate unavailable because PyYAML is absent; simple scalar metadata checked separately",
+    "No independent model behavior or efficacy comparison; no real cohort"
+  ],
+  "historical_attempts": [
+    "attempt-1.json",
+    "attempt-2.json",
+    "attempt-3.json"
+  ],
+  "regression": {
+    "id": "focused-regressions",
+    "argv": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_design_context",
+      "tests.test_installer",
+      "tests.test_experience_query_quality"
+    ],
+    "cwd": "/Users/liuhui/Documents/code/agent-memory-new",
+    "returncode": 0,
+    "duration_seconds": 21.193,
+    "required": true,
+    "log": "logs/focused-regressions.log",
+    "log_sha256": "75d651c5ebd8c043d0fa82308ac7382f134623e8e6980b6d5335c31b4f63a01d",
+    "executed_test_count": 15,
+    "source_artifact": "attempt-1.json"
+  },
+  "installed_interface_commands": [
+    {
+      "id": "learn-fixture",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3/tools/agent_memory.py",
+        "learn-path",
+        "--path",
+        "src",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/memory-home-final-3",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+      "returncode": 0,
+      "duration_seconds": 0.999,
+      "required": true,
+      "log": "attempt-3-logs/learn-fixture.log",
+      "log_sha256": "1e8d57e97cc81c6c02c2dcda3edf56e998bf78eddaec864a06f66cc5ede4b26d",
+      "source_artifact": "attempt-3.json"
+    },
+    {
+      "id": "design-context",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3/tools/agent_memory.py",
+        "design-context",
+        "--query",
+        "CatalogReader design compatibility",
+        "--anchor",
+        "src/catalog.py",
+        "--concern",
+        "compatibility",
+        "--constraint",
+        "Keep CatalogReader.read signature stable.",
+        "--compact",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/memory-home-final-3",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+      "returncode": 0,
+      "duration_seconds": 0.971,
+      "required": true,
+      "log": "attempt-3-logs/design-context.log",
+      "log_sha256": "c00ec53688b80fd33ecc422719c2249f4def53d4a62ede4e92bd32e197ab80d4",
+      "source_artifact": "attempt-3.json"
+    },
+    {
+      "id": "reflect-design",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3/tools/agent_memory.py",
+        "reflect",
+        "--payload-file",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/reflection.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/memory-home-final-3",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+      "returncode": 0,
+      "duration_seconds": 0.92,
+      "required": true,
+      "log": "attempt-3-logs/reflect-design.log",
+      "log_sha256": "c617c9bde73d50f57d52c25f7376e5a3bc9fe9d323be86dd7ee78dc1eff5d5c6",
+      "source_artifact": "attempt-3.json"
+    },
+    {
+      "id": "list-reflections",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3/tools/agent_memory.py",
+        "list",
+        "--type",
+        "reflection",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/memory-home-final-3",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+      "returncode": 0,
+      "duration_seconds": 0.913,
+      "required": true,
+      "log": "attempt-3-logs/list-reflections.log",
+      "log_sha256": "5e8b3b40bc02020bad944b1264eee04dc988676f864479dcdb6a42504c1575e1",
+      "source_artifact": "attempt-3.json"
+    },
+    {
+      "id": "record-misleading-usage",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3/tools/agent_memory.py",
+        "experience-usage",
+        "--query",
+        "CatalogReader design compatibility",
+        "--type",
+        "reflection",
+        "--id",
+        "1",
+        "--outcome",
+        "misleading",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/memory-home-final-3",
+        "--json"
+      ],
+      "cwd": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon/installed-project-final-3",
+      "returncode": 0,
+      "duration_seconds": 0.931,
+      "required": true,
+      "log": "attempt-3-logs/record-misleading-usage.log",
+      "log_sha256": "b0eae5a433549aef1ac943f8ee0864a6a3ee498fcd3d8e6a080118a635811a3a",
+      "source_artifact": "attempt-3.json"
+    }
+  ],
+  "checks": {
+    "four_installed_skills": true,
+    "all_packaged_skill_resources_match": true,
+    "all_packaged_runtime_files_match": true,
+    "all_original_runtime_files_unchanged": true,
+    "installed_resource_links_resolve": true,
+    "simple_scalar_metadata_agent-memory-query": true,
+    "simple_scalar_metadata_agent-memory-reflect": true,
+    "design_context_v1": true,
+    "design_context_has_source_anchors": true,
+    "runtime_remains_decision_free": true,
+    "design_feedback_roundtrip": true,
+    "existing_usage_interface_executable": true,
+    "focused_regressions_passed": true,
+    "all_recorded_command_logs_intact": true
+  },
+  "runtime_source_file_count": 309,
+  "runtime_packaged_file_count": 308,
+  "skill_file_count": 23,
+  "skill_source_sha256": {
+    "skills/agent-memory-query/SKILL.md": "3f416bf0228dfccd03c0f263a84b713527f1a062a879983c7fe50656c0ea9a03",
+    "skills/agent-memory-query/references/design-examples.md": "070e44b70fdda556990818dd4d0177b99c7f741844d9595b6ab0498866593174",
+    "skills/agent-memory-query/references/incident-diagnosis.md": "bec482955640b7c4f6ed8cade41be06ebcf81beea35df4cd3266a178adda197a",
+    "skills/agent-memory-query/references/design-reference-guide.md": "f45c73e8b41073ed6ff40a2b26dedf868714e2f055348ed8d382766459ae90d7",
+    "skills/agent-memory-query/references/design-decision-template.md": "d412e7708d02444e68a29e474f3533b3c890279a4a916299d460534fdbd9bcff",
+    "skills/agent-memory-query/references/code-design.md": "fef02c08afe11b2ba134fa37c0728dd04c0a8d6182958603e5626768c8b22d34",
+    "skills/agent-memory-query/references/change-impact.md": "82ef076d5c461640eb88de1bc4b9472ace726a02ae206581141e6bfd4d283c32",
+    "skills/agent-memory-query/references/code-understanding.md": "98cdf23fdffb0640dcda61e86b94346083444cdba13918edee25895819c68d0b",
+    "skills/agent-memory-query/references/evidence-policy.md": "996bd73ba0cdf5fe8a4101003c997553e74e8ad5b41ad444bd48d4608dac38ee",
+    "skills/agent-memory-reflect/SKILL.md": "a5dd3f90a89199655a32a4fe6034504ac42ac9b756a77af10f979074189100de",
+    "skills/agent-memory-reflect/references/system-trigger.md": "c5c368eacd734c888bd2b0a615ea52f8190d773c359d5704fee0f631ce692f6c",
+    "skills/agent-memory-reflect/references/system-meta-review.md": "94fa47aeadc0799a3b4f7d76cdfdb9f572e884d3779f6e5fe87adbb85b9bb631",
+    "skills/agent-memory-learn/SKILL.md": "515ad065335b5af671de99572c1971ec622417b61b13b46baf55db50c298a2a6",
+    "skills/agent-memory-learn/references/normative-documents.md": "385b5e2f8ba5e0347a778b59bb9bc44810c8e14c7753285e6e36ed02972420ec",
+    "skills/agent-memory-maintain/SKILL.md": "c183d3d350f83886f3735b84eafeb8d609705f8358d7825064af79bd71ee0c1f",
+    "skills/agent-memory-maintain/references/system-rounds.md": "c262b80a0eaea6466a6455db7d78af7ac3809b4e5179f01843b20e76bf7ed22a",
+    "skills/agent-memory-maintain/references/system-campaign-readiness.md": "1f391227ecc31748ef9af88b9d17eaf40b0bd8d5c0a28b9a4a10d9c6b82665e5",
+    "skills/agent-memory-maintain/references/system-checks.md": "f2acb83baeecdd67d69468ff891b2ab510d211dd8f357bef5aff1740cd737304",
+    "skills/agent-memory-maintain/references/system-evolution.md": "1c2633fe68d17585753396413cd13cd54cd326a6d9743e7cf56e958ecb528042",
+    "skills/agent-memory-maintain/references/system-candidates.md": "4f46379133f50ef6d6a6375055defb5f14c2a2605bdc87784259eb9d8c40f2d1",
+    "skills/agent-memory-maintain/references/system-lifecycle.md": "06f42b9ba34ed735bcf2a2fdf0fa3a490a32f3c28053771964f39f6b8d7ac396",
+    "skills/agent-memory-maintain/references/system-outcomes.md": "c5dcf828c784d3dcf8afe8231902204d58050816a3003342d67687e86acd92b6",
+    "skills/agent-memory-maintain/references/system-handoffs.md": "9e20fbbd491a96a66e63f2ccd67fa698f93c402864daff23d0d25cd9ca779915"
+  },
+  "installed_reference_links": [
+    {
+      "from": "code-design.md",
+      "target": "design-reference-guide.md",
+      "exists": true,
+      "within_install": true
+    },
+    {
+      "from": "code-design.md",
+      "target": "design-examples.md",
+      "exists": true,
+      "within_install": true
+    },
+    {
+      "from": "code-design.md",
+      "target": "design-decision-template.md",
+      "exists": true,
+      "within_install": true
+    },
+    {
+      "from": "design-reference-guide.md",
+      "target": "design-decision-template.md",
+      "exists": true,
+      "within_install": true
+    }
+  ],
+  "verification_corrections": [
+    "Root skills/.DS_Store is outside the four Skill packages",
+    "Resolve both /var and /private/var before containment checks",
+    "Installer ships tools/agent_memory.py and its package; other tools helpers stay source-only"
+  ],
+  "finished_at": "2026-11-16T16:05:24.579873+00:00",
+  "temporary_root_retained": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-guidance-development-utb0jvon"
+}

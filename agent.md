@@ -28,6 +28,7 @@ The MVP must support:
 7. Provide an installer and a doctor command.
 8. Extract code log statements during code learning and connect them to files/functions through lightweight edges.
 9. Enrich ArkTS and TypeScript symbols through a language-neutral, bounded semantic adapter contract.
+10. Index Rust files and bounded source declarations through the same contract, with explicit source-only limitations and no inferred call/type/cfg results.
 
 The MVP must not depend on:
 
@@ -59,6 +60,7 @@ Responsibilities:
 - For human library maintenance, `review-ui` starts an explicit foreground loopback workbench through the same Runtime. It browses SQLite with bounded pages and supports reviewed/archive/restore actions and backup-protected deletion of ordinary facts, episodes and reflections. Source-derived indexes stay read-only; see [the workbench guide](docs/memory-review-workbench.zh-CN.md).
 - The Runtime retrieves, ranks, correlates, and compresses evidence. The local Agent CLI owns hypotheses, diagnosis, design reasoning, interventions, and verification; graph paths and experience are context, not Runtime conclusions.
 - `semantic-index/v1` adapters run only during learning; normalized symbol metadata and edges remain in SQLite for language-neutral design, impact, and Incident consumers.
+- Rust's static adapter provides declaration navigation only. It preserves raw-byte digests and source spans; macros, active cfg, types and dispatch remain unresolved. See [the bounded Rust contract](docs/rust-source-context.zh-CN.md).
 - Explicitly marked Git ADRs and Feature Specs may be learned into a separate derived document index. `context` and `design-context` return bounded references with declared approval, scope, supersession and source freshness; the Agent reviews the original document and approval evidence before treating it as an applicable contract. This minimal integration was written on 2026-10-11 without validation; see [the normative context contract](docs/normative-context-adr-feature-spec-decision.zh-CN.md).
 - System meta-reviews use the user's current Agent model. Explicit commands save advisory reviews outside ordinary retrieval, bind candidates/check outputs and, after current-Agent review, support acceptance, authorized file application, monitoring, rollback and governance schema migration. Controlled regressions and a real Codex ordinary-task handoff have passed; external release eligibility and general efficacy are separate claims. See [the lifecycle contract](docs/system-meta-reflection-lifecycle.zh-CN.md) and [current context](CONTEXT.md).
 - Skill task-end handoffs may use a deterministic trigger decision and an authorized once-per-task review slot before model generation. Slots do not authenticate task identity or prove host/model execution; see [the trigger contract](docs/system-meta-reflection-triggers.zh-CN.md).

@@ -310,6 +310,23 @@ python tools/agent_memory.py design-context \
 Runtime 不推荐模式、不生成或排名候选、不选择设计、不生成实施计划。
 旧 `design-assist/prepare/check/compare/progress` 命令仅为兼容保留。
 
+设计 Skill 已加入 Agent 预填输入、按需使用的 ADD / arc42 / DPR / Ousterhout
+参考、失配与克制设计示例，以及可选的 MADR 风格决策模板。Agent 审查参考适用性、
+调用方负担和可信的后续变化，设计反馈沿用 Reflect。它不通过机械打分评价品味；
+设计质量和 Memory 增量收益仍待实证，见[开发交付与验证范围](docs/design-guidance-development.zh-CN.md)。
+
+Rust `.rs` 已通过原有学习与查询入口接入受限声明导航，保留源码范围和内容摘要；
+宏展开、实际 cfg、类型与调用关系仍未知。设计视图裁剪时优先保留已学习的显式文件锚点，
+大范围中的方法证据使用聚焦 `context` 查询。学习优先限定 `src` 等源码目录，避免构建输出。
+详见 [Rust 合同与证据](docs/rust-source-context.zh-CN.md)。
+
+[固定开发基线](docs/development-baseline-20261117.zh-CN.md)提供已重放的审阅包；
+[报告预览设计案例](docs/design-preview-development-case.zh-CN.md)实际演示参考适配、状态归属和格式变化，
+14 项受控检查通过。它仅是测试夹具，没有新增真实工作台功能，也不证明设计或 Memory 收益。
+
+[P2 对照准备](docs/design-comparison-preparation.zh-CN.md)区分指导包与额外项目历史的作用，
+附任务/评审工作表。离线资料隔离已通过；真实任务来源、执行合同和独立评审未齐，活动仍未启动。
+
 详细中文指南：
 [Agent CLI 代码设计能力使用指南](docs/design-usage-guide.md)。
 
