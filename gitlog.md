@@ -178,6 +178,12 @@
 
 # Local Development Log
 
+## 2026-11-18 - Verify original37 current three-query group
+
+- At unchanged c195b960 runtime, the original command-binding group now passes3/3 with precision/span recall1.0. Existing finite table consumer supplies the English variant; no new runtime fix claimed.
+- Verify250 source files byte-identical to original Development input; retain first missing-source invocation error and final successful single-group result. No full gate or historical-score rewrite.
+- Evidence: docs/releases/command37-current-verification-20261118/.
+
 ## 2026-11-18 - Reject literal-only cache scan hints without changing unknown lexical behavior
 
 - Freeze independent PruneEngine/ReferenceText/TemplateText source and reproduce actual learn/context false cacheeviction recall before editing production.

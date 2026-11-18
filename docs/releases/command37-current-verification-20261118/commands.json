@@ -1,0 +1,72 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "original",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/home-original",
+      "--query",
+      "Choosing Restore backup starts snapshot creation instead of restoration. Locate the menu command binding owner, not transfer infrastructure or its row view.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "en-paraphrase",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/home-en-paraphrase",
+      "--query",
+      "The restore menu entry invokes the create workflow; return the UI action-to-method dispatch table rather than archive lifecycle code or presentation components.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "zh-noise",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/home-zh-noise",
+      "--query",
+      "\u70b9\u51fb\u6062\u590d\u5907\u4efd\u5374\u6267\u884c\u4e86\u521b\u5efa\u5feb\u7167\uff0c\u8bf7\u5b9a\u4f4d\u83dc\u5355\u9879\u5230\u65b9\u6cd5\u7684\u547d\u4ee4\u7ed1\u5b9a\uff0c\u4e0d\u8981\u8fd4\u56de\u4f20\u8f93 Ability \u6216\u901a\u7528\u884c\u7ec4\u4ef6\u3002",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]
