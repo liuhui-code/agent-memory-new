@@ -86,14 +86,14 @@ For compact diagnosis and code-understanding results, follow
 
 1. Inspect `code_anchors` with `role=primary` first within the existing budget; apply [Reading Targets and Supporting Evidence](references/code-understanding.md#reading-targets-and-supporting-evidence), because `primary` is exploration priority, not business or causal ownership.
 2. Treat `source_excerpts` as bounded current-worktree evidence: do not reread those lines, and open source only for a named gap outside them. Without excerpts, read `read_window` once rather than once per `source_range`.
-3. Stop only when an inspected causal file shows the concrete mechanism, with no direct contradiction and a verification path. A likely owner or intended behavior is not direct mechanism evidence.
+3. For diagnosis, stop only when an inspected causal file shows the concrete mechanism, with no direct contradiction and a verification path. A likely owner or intended behavior is not direct mechanism evidence. For source reading, apply the completion boundaries in [Reading Targets and Supporting Evidence](references/code-understanding.md#reading-targets-and-supporting-evidence).
 4. Inspect `role=expansion` or non-anchor files only for one named `allowed_expansion_reasons`.
 5. Record each round in `expansion_trace`; close one gap and add at most two files.
 6. Respect the returned total-file, search, and expansion-round budgets.
 7. On budget exhaustion or no new evidence, report uncertainty instead of
    continuing broad source exploration.
 
-Before `supported_cause_found`, report direct `evidence_basis` and inspected
+For diagnosis, before `supported_cause_found`, report direct `evidence_basis` and inspected
 `mechanism_evidence_files`; they may span supporting boundaries but must include
 one predicted owner. Otherwise use `inference_only` and an uncertainty stop.
 
@@ -107,7 +107,7 @@ in the evidence trail but must not be presented as causal owners.
 
 ## Output
 
-Return only query results needed for the selected intent. Cite inspectable files, symbols, stored edges, code-log templates, or record ids. Separate current code, historical advice, and search misses. The local Agent CLI must summarize the user log, form competing causes, reconstruct call/causal chains from source, and verify its conclusion.
+Return only query results needed for the selected intent. Cite inspectable files, symbols, stored edges, code-log templates, or record ids. Separate current code, historical advice, and search misses. For diagnosis, the local Agent CLI must summarize the user log, form competing causes, reconstruct call/causal chains from source, and verify its conclusion.
 
 ## Task-End System Review Handoff
 

@@ -13132,3 +13132,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Keep Runtime JSON, ranking, budgets and default commands unchanged. Clarify existing Query Skill role=primary as exploration priority, not business/causal ownership; current source and explicit user purpose govern the Agent's answer. Preserve all target/support evidence and a shared exploration budget.
 - Add concrete source/log, string-only, dual implementation and unknown controls; code/log IDs must not be miscast into semantic/reflection feedback. Real source-reading excerpt omits the return line, explicitly retained as a gap rather than claimed complete.
 - Seven consumer-content/real-output/installation checks pass; entry remains119lines. This is not Agent behavioral acceptance or original13/32 closure. See docs/releases/query-reading-roles-20261118/README.md.
+
+## 2026-11-18 - Scope source-reading completion separately from diagnosis
+
+- Preserve causal verification requirements for diagnosis; source-reading completion depends on inspected requested facts, contradictions and remaining gaps, not invented causal success.
+- Keep Runtime, budgets, evaluator and frozen outputs unchanged; preserve design protocol.
+- Record two actual pre-change developer Agent consumption observations with their limits, not benchmark improvement. See docs/releases/query-reading-completion-20261118.

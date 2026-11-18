@@ -28,3 +28,12 @@ class QueryReadingRolesTests(unittest.TestCase):
         a=next(a for a in d['query_handoff']['code_anchors']if a['file_path'].endswith('WrappedProfileService.ets'))
         self.assertEqual(a['record_type'],'code_symbol')
         self.assertTrue(any('WRAP_PROFILE_7F19' in str(a)for a in d['query_handoff']['log_anchors']))
+
+    def test_completion_scope_does_not_require_causality_for_location(self):
+        entry=(ROOT/'skills/agent-memory-query/SKILL.md').read_text()
+        body=(ROOT/'skills/agent-memory-query/references/code-understanding.md').read_text()
+        self.assertIn('3. For diagnosis, stop only when an inspected causal file',entry)
+        self.assertIn('For diagnosis, before `supported_cause_found`',entry)
+        self.assertIn('For diagnosis, the local Agent CLI must summarize',entry)
+        for marker in ['every requested, verifiable source fact','no direct contradiction','unverified remainder or budget stop','callback attachment without its return','log string alone does not complete','separate design protocol','not new Runtime stop enums']:
+            self.assertIn(marker,body)
