@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import re
+from bisect import bisect_right
 
 from .code_wiki_component_flow import mask_comments
+from .ecma_callback_mask import callback_mask_lines
 
 
 MAX_INDEXED_OPERATIONS = 12
@@ -45,6 +47,7 @@ def extract_arkts_operation_names(text: str) -> list[str]:
         [*OPERATION_RE.finditer(source), *member_matches],
         key=lambda item: item.start(),
     )
+    matches = admitted_operation_matches(text, matches)
     for match in matches:
         name = match.group(1)
         normalized = name.casefold()
@@ -55,6 +58,32 @@ def extract_arkts_operation_names(text: str) -> list[str]:
         if len(names) >= MAX_INDEXED_OPERATIONS:
             break
     return names
+
+
+def admitted_operation_matches(text, matches):
+    lines = text.split("\n")
+    masked = callback_mask_lines(lines)
+    if masked is None or len(masked) != len(lines):
+        return matches
+    offsets, offset = [], 0
+    for line, code in zip(lines, masked):
+        if len(code) != len(line.rstrip("\r\n")):
+            return matches
+        offsets.append(offset)
+        offset += len(line) + 1
+    admitted = []
+    for match in matches:
+        begin, end = match.span(1)
+        row = bisect_right(offsets, begin) - 1
+        column = begin - offsets[row]
+        if row < 0 or end > offsets[row] + len(masked[row]):
+            return matches
+        token = masked[row][column:column + end - begin]
+        if token == match.group(1):
+            admitted.append(match)
+        elif token.strip():
+            return matches
+    return admitted
 
 
 def summary_operation_names(summary: str) -> list[str]:

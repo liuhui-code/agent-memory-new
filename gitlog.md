@@ -1,3 +1,9 @@
+## 2026-11-18 — Operation-token lexical admission
+
+- Admit only original operation-name candidates whose tokens remain code under the existing mask, before deduplication/cap12. Unknown syntax or unreliable coordinates preserve the entire legacy result. No ranking, threshold or field-schema change.
+- Candidate 37 focused methods pass. Independent two-CLI merge/list AFTER removes false rotate metadata from two literal sources while preserving five other summaries and fixed non-operation fields; merge IDs/generation change normally. Final-tree 79-method targeted verification is externally recorded.
+- No context query, original38 closure, full-suite or CI claim. Source/seed and original BEFORE are preserved. Details: docs/releases/operation-token-lexical-20261118/.
+
 ## 2026-11-18 — Focus-preserving excerpt trim
 
 - Correct the local trim helper to preserve fitting valid focus lines and report only represented source lines, including clipped-LF versus real-empty-line boundaries. Keep ordinary invalid/missing-focus character-prefix behavior and existing thresholds/budgets.
