@@ -1,0 +1,228 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "400f2371f421ac00",
+  "query": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+  "memory_intent": "code_location",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "embedded",
+      "document",
+      "webview",
+      "permits",
+      "dangerous",
+      "file",
+      "script",
+      "url",
+      "schemes",
+      "locate",
+      "executable",
+      "access"
+    ],
+    "log_anchors": [],
+    "code_anchors": [
+      {
+        "file_path": "src/web/Reader.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          4
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 8,
+            "end_line": 18
+          }
+        ],
+        "read_window": {
+          "start_line": 8,
+          "end_line": 18
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "build",
+            "start_line": 8,
+            "end_line": 18,
+            "content": "  build() {\n    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(false)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }",
+            "source": "current_worktree",
+            "selection_reason": "existing_callable_envelope",
+            "focus_line": null,
+            "truncated": false,
+            "expanded_from": {
+              "symbol": "Column",
+              "start_line": 9,
+              "end_line": 17,
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          }
+        ]
+      },
+      {
+        "file_path": "src/pages/Settings.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          2
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 3,
+            "end_line": 8
+          }
+        ],
+        "read_window": {
+          "start_line": 3,
+          "end_line": 8
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": null,
+            "start_line": 1,
+            "end_line": 9,
+            "content": "@Component\nexport struct Settings {\n  build() {\n    Column() {\n      Text('Embedded browser URL scheme policy')\n      Text('File and script access are disabled')\n    }\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/pages/Settings.ets",
+        "symbol": "build",
+        "owner_name": "Settings",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 30.67,
+        "evidence_score": 30.67,
+        "reasons": [
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "salient_query_evidence"
+        ],
+        "source_range": {
+          "start_line": 3,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/web/Reader.ets",
+          "symbol": "build",
+          "owner_name": "Reader",
+          "owner_kind": "component",
+          "file_structural_coverage": 2,
+          "callable_roles": [
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 29.93,
+          "evidence_score": 29.93,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 8,
+            "end_line": 18,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 2,
+      "excerpt_chars": 558
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor",
+    "limited_code_anchor_diversity"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1295,
+    "target_tokens": 1500,
+    "truncated": false
+  }
+}

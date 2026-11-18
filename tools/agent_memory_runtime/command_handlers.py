@@ -162,7 +162,8 @@ def context(args: argparse.Namespace) -> None:
     if args.compact:
         from copy import deepcopy
         from .context_field_alternative import field_read_request
-        original_context = deepcopy(data) if field_read_request(args.query) else None
+        from .context_web_policy_reading import web_reading_request
+        original_context = deepcopy(data) if field_read_request(args.query) or web_reading_request(args.query) else None
         try:
             data = (compact_context(data) if budget is None and not preserve else
                     compact_context(data, token_budget=1500 if budget is None else budget,
@@ -179,6 +180,8 @@ def context(args: argparse.Namespace) -> None:
         from .context_field_alternative import append_field_alternatives
         if original_context is not None:
             data = append_field_alternatives(project, original_context, data)
+            from .context_web_policy_reading import web_reading_order
+            data = web_reading_order(project, original_context, data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

@@ -13120,3 +13120,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Preserve an existing callable alternative's complete source when a separate weak field request and current exact source identity justify a partial static guarded-field-call relation. Do not change primary, scores, certainty, old anchors/logs/graph or old strict View permissions. Business action/domain remain explicitly unverified; all matching additions must fit together.
 - Unchanged independent18-cell public matrix:18 raw and17 compact outputs unchanged; logger/profile-zh gains fullsaveProfile6–12 at1317/1500, and baseline is exactly reconstructable. No competitor removed.116 focused tests plus final11 CLI-gate tests pass; no full-suite/CI claim.
 - Preserve withdrawn file-priority qualification STOPs and first terminal36 no-ops (freshness schema mismatch and stricter dispatch predicate). Original13/32 current single groups remain1/3 each. Details: docs/releases/field-alternative-body-20261118/.
+
+## 2026-11-18 — Preserve candidates while prioritizing authenticated same-chain Web reading
+
+- Add a bounded terminal reading permutation only for authenticated same-Web-chain fileAccess/onLoadIntercept evidence already fully displayed. No score boost, evidence deletion, raw output change, runtime/security diagnosis or oracle change.
+- Freeze six source controls and compositional request controls. Actual CLI: 10 raw and 9 compact unchanged; one positive compact restores executable Reader.build as reading primary, old candidates exactly recoverable, 1295→1307/1500 tokens.
+- Final independent review passes after source/typed identity and resource safeguards. New10 tests pass; related60 complete with59 passes and1 inherited expected failure. Original13/32 individually remain1/3. No full-gate claim. See docs/releases/web-policy-reading-20261118/README.md.

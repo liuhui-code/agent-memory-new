@@ -1,0 +1,45 @@
+{
+  "classification": "Development frozen controls, no runtime diagnosis",
+  "sources": {
+    "positive": {
+      "src/web/Reader.ets": "import web_webview from '@ohos.web.webview'\n\n@Component\nexport struct Reader {\n  private controller: web_webview.WebviewController = new web_webview.WebviewController()\n  @Prop sourceUrl: string = ''\n\n  build() {\n    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(false)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }\n}\n",
+      "src/pages/Settings.ets": "@Component\nexport struct Settings {\n  build() {\n    Column() {\n      Text('Embedded browser URL scheme policy')\n      Text('File and script access are disabled')\n    }\n  }\n}\n"
+    },
+    "two-web": {
+      "src/web/Reader.ets": "import web_webview from '@ohos.web.webview'\n\n@Component\nexport struct Reader {\n  private controller: web_webview.WebviewController = new web_webview.WebviewController()\n  @Prop sourceUrl: string = ''\n\n  build() {\n    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(false)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }\n}\n",
+      "src/pages/Settings.ets": "@Component\nexport struct Settings {\n  build() {\n    Column() {\n      Text('Embedded browser URL scheme policy')\n      Text('File and script access are disabled')\n    }\n  }\n}\n",
+      "src/web/OtherReader.ets": "import web_webview from '@ohos.web.webview'\n\n@Component\nexport struct OtherReader {\n  private controller: web_webview.WebviewController = new web_webview.WebviewController()\n  @Prop sourceUrl: string = ''\n\n  build() {\n    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(false)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }\n}\n"
+    },
+    "split-chain": {
+      "src/web/Reader.ets": "import web_webview from '@ohos.web.webview'\n\n@Component\nexport struct Reader {\n  private controller: web_webview.WebviewController = new web_webview.WebviewController()\n  @Prop sourceUrl: string = ''\n\n  build() {\n    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        ; Web({ src: this.sourceUrl, controller: this.controller }).fileAccess(false)\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }\n}\n",
+      "src/pages/Settings.ets": "@Component\nexport struct Settings {\n  build() {\n    Column() {\n      Text('Embedded browser URL scheme policy')\n      Text('File and script access are disabled')\n    }\n  }\n}\n"
+    },
+    "ordinary-object": {
+      "src/web/Reader.ets": "import web_webview from '@ohos.web.webview'\n\n@Component\nexport struct Reader {\n  private controller: web_webview.WebviewController = new web_webview.WebviewController()\n  @Prop sourceUrl: string = ''\n\n  build() {\n    Column() {\n      this.widget({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(false)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }\n}\n"
+    },
+    "opposite-value": {
+      "src/web/Reader.ets": "import web_webview from '@ohos.web.webview'\n\n@Component\nexport struct Reader {\n  private controller: web_webview.WebviewController = new web_webview.WebviewController()\n  @Prop sourceUrl: string = ''\n\n  build() {\n    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(true)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']\n          return blocked.some((scheme) => url.startsWith(scheme))\n        })\n    }\n  }\n}\n",
+      "src/pages/Settings.ets": "@Component\nexport struct Settings {\n  build() {\n    Column() {\n      Text('Embedded browser URL scheme policy')\n      Text('File and script access are disabled')\n    }\n  }\n}\n"
+    },
+    "literal-only": {
+      "src/pages/Settings.ets": "@Component\nexport struct DocumentBrowserSettingsPage {\n  build() {\n    Column() {\n      Text('Web({}).fileAccess(false).onLoadIntercept(() => {})')\n      Text('File and script access are disabled')\n    }\n  }\n}\n"
+    }
+  },
+  "queries": {
+    "positive": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+    "metadata": "Locate the WebView scheme metadata and settings page.",
+    "logs": "Locate WebView logs and the logging call graph.",
+    "negative": "Locate WebView policy but not Reader; return Settings instead.",
+    "compare": "Compare both Reader and OtherReader WebView policies."
+  },
+  "expected": {
+    "positive": "unique executable chain may be reading primary only if authenticated and fully displayed",
+    "opposite-value": "same structural qualification as positive, do not choose safe value",
+    "two-web": "ambiguous no-op even if only one displayed",
+    "split-chain": "no same-chain proof",
+    "ordinary-object": "no ArkUI Web proof",
+    "literal-only": "no executable proof",
+    "metadata/logs/negative/compare": "unsupported request no-op"
+  },
+  "do_not_modify_inputs_after_observation": true
+}
