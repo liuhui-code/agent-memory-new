@@ -1,0 +1,36 @@
+[
+  {
+    "name": "owner",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/after-home-owner",
+      "--query",
+      "Locate PairService implementation.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "exact",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/after-home-exact",
+      "--query",
+      "Locate PairService.second.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

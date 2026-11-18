@@ -1,0 +1,1976 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/source",
+  "path": "src",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "src/abilities/ProfileBootstrapAbility.ets",
+    "src/abilities/SessionAbility.ets",
+    "src/abilities/SnapshotTransferAbility.ets",
+    "src/abilities/WorkspaceAbility.ets",
+    "src/actions/BackupCommandPanel.ets",
+    "src/actions/OrderActionButton.ets",
+    "src/automation/ReceiptExportCoordinator.ets",
+    "src/cache/BoundedResultCache.ets",
+    "src/components/KeyboardFocusHint.ets",
+    "src/components/KeyboardHint.ets",
+    "src/components/NavigationToolbar.ets",
+    "src/components/RecordPreview.ets",
+    "src/config/ArchivePackageProfile.ets",
+    "src/config/BootstrapDeadlineProfile.ets",
+    "src/config/BrowserSchemeManifest.ets",
+    "src/config/ClipboardFeatureProfile.ets",
+    "src/config/CommandOutputProfile.ets",
+    "src/config/DraftCheckpointPolicy.ets",
+    "src/config/JobFailureMessages.ets",
+    "src/config/ResultCachePolicy.ets",
+    "src/config/RuntimeFeatureManifest.ets",
+    "src/config/StartupPermissionProfile.ets",
+    "src/controllers/SeatMapController.ets",
+    "src/controllers/WorkspaceSelectionController.ets",
+    "src/coordinators/DocumentNavigationCoordinator.ets",
+    "src/coordinators/DraftSessionCoordinator.ets",
+    "src/coordinators/OrderCommitCoordinator.ets",
+    "src/coordinators/SessionUsageCoordinator.ets",
+    "src/coordinators/SourceSwapCoordinator.ets",
+    "src/crypto/SessionCodeGenerator.ets",
+    "src/dialogs/ConfirmationDialogController.ets",
+    "src/entities/ArticleRecord.ets",
+    "src/entities/FacetRecord.ets",
+    "src/entities/InventoryRecord.ets",
+    "src/entities/ProductRecord.ets",
+    "src/examples/ThumbnailPoolExample.ets",
+    "src/gateways/JobTransport.ets",
+    "src/gateways/TelemetrySocketGateway.ets",
+    "src/io/AssetArchiveInstaller.ets",
+    "src/io/ClipboardContentReader.ets",
+    "src/io/ProcessOutputReader.ets",
+    "src/lifecycle/DeadlineBootstrapController.ets",
+    "src/logging/ConsoleFailureReporter.ets",
+    "src/logging/DomainLogger.ets",
+    "src/logging/FailureReporter.ets",
+    "src/logging/FileFailureReporter.ets",
+    "src/logging/LogSink.ets",
+    "src/media/VoiceCaptureCoordinator.ets",
+    "src/models/BoardState.ets",
+    "src/models/CanvasSelection.ets",
+    "src/models/InteractionState.ets",
+    "src/models/ProfileList.ets",
+    "src/models/ResultCacheEntry.ets",
+    "src/models/ThemeSettings.ets",
+    "src/models/WorkspaceSchema.ets",
+    "src/network/NetworkClient.ets",
+    "src/pages/AccountSettingsPage.ets",
+    "src/pages/AppearanceSettingsPage.ets",
+    "src/pages/CacheInspectorPage.ets",
+    "src/pages/CallbackAuditPage.ets",
+    "src/pages/CapabilitySettingsPage.ets",
+    "src/pages/CatalogPage.ets",
+    "src/pages/CheckoutPage.ets",
+    "src/pages/CollectionPage.ets",
+    "src/pages/CommandOutputPage.ets",
+    "src/pages/DisclosureAppearancePage.ets",
+    "src/pages/DocumentBrowserSettingsPage.ets",
+    "src/pages/DownloadsPage.ets",
+    "src/pages/DraftPage.ets",
+    "src/pages/DraftStatusPage.ets",
+    "src/pages/EditorKeyboardPage.ets",
+    "src/pages/JobDispatchPage.ets",
+    "src/pages/KeyboardWorkspacePage.ets",
+    "src/pages/LedgerMaintenancePage.ets",
+    "src/pages/NotificationDetailsPage.ets",
+    "src/pages/NotificationListPage.ets",
+    "src/pages/ParcelRetryPage.ets",
+    "src/pages/PasteImportPage.ets",
+    "src/pages/ProductSearchPage.ets",
+    "src/pages/ProfileArchivePage.ets",
+    "src/pages/ProfilePage.ets",
+    "src/pages/QuotaRecoveryPage.ets",
+    "src/pages/ReconciliationPage.ets",
+    "src/pages/RevenueQuarterPage.ets",
+    "src/pages/RuleCreatorPage.ets",
+    "src/pages/RuleEditorPage.ets",
+    "src/pages/ShareComposerPage.ets",
+    "src/pages/ShipmentTimelinePage.ets",
+    "src/pages/ShortcutSearchPage.ets",
+    "src/pages/SnapshotAuditPage.ets",
+    "src/pages/StartupStatusPage.ets",
+    "src/pages/ThemePreferencesPage.ets",
+    "src/pages/TimelinePage.ets",
+    "src/pages/UpgradeStatusPage.ets",
+    "src/pages/VoiceMessagePage.ets",
+    "src/pages/WarehouseFacetPage.ets",
+    "src/pages/WorkspaceLoadingPage.ets",
+    "src/pages/WorkspacePage.ets",
+    "src/pools/ThumbnailPool.ets",
+    "src/repositories/ParcelRepository.ets",
+    "src/runtime/CommandEligibility.ets",
+    "src/runtime/FeatureCapabilityProbe.ets",
+    "src/runtime/LeaseController.ets",
+    "src/runtime/PermissionStartupCoordinator.ets",
+    "src/runtime/TransportRegistry.ets",
+    "src/runtime/WindowRegistry.ets",
+    "src/services/AccountUpdateService.ets",
+    "src/services/AssetSource.ets",
+    "src/services/AttachmentService.ets",
+    "src/services/AudioPermissionService.ets",
+    "src/services/CacheService.ets",
+    "src/services/DispatchProfileService.ets",
+    "src/services/DocumentLoader.ets",
+    "src/services/ParcelDeliveryService.ets",
+    "src/services/PaymentService.ets",
+    "src/services/ProductSearchService.ets",
+    "src/services/ProfileService.ets",
+    "src/services/SnapshotCoordinator.ets",
+    "src/services/WrappedProfileService.ets",
+    "src/sharing/SharedRecordCollector.ets",
+    "src/storage/DraftPreferences.ets",
+    "src/storage/OrderStore.ets",
+    "src/stores/DeviceSyncStore.ets",
+    "src/stores/DocumentSelectionStore.ets",
+    "src/stores/LightingStore.ets",
+    "src/stores/SeatStore.ets",
+    "src/streaming/ConversationDraftStore.ets",
+    "src/theme/SystemBarColorAdapter.ets",
+    "src/utils/ThemePalette.ets",
+    "src/validation/OrderValidator.ets",
+    "src/viewmodels/FolderCollectionLoader.ets",
+    "src/viewmodels/GalleryListViewModel.ets",
+    "src/views/ArticleMarkupView.ets",
+    "src/views/BoardGestureSurface.ets",
+    "src/views/CanvasInteractionSurface.ets",
+    "src/views/CatalogFilterPanel.ets",
+    "src/views/CatalogFilterSuggestion.ets",
+    "src/views/EventBubble.ets",
+    "src/views/FilterToggle.ets",
+    "src/views/InventoryItem.ets",
+    "src/views/InventoryList.ets",
+    "src/views/InventoryOverlayPanel.ets",
+    "src/views/JobDispatchButton.ets",
+    "src/views/MessageRow.ets",
+    "src/views/PlaybackTouchSurface.ets",
+    "src/views/QuotedMessagePreview.ets",
+    "src/views/SnapshotCommandRow.ets",
+    "src/views/TimelineRow.ets",
+    "src/views/WorkGalleryPage.ets",
+    "src/web/DesktopEditorFocusController.ets",
+    "src/web/SecureDocumentBrowser.ets",
+    "src/widgets/MessageActionBar.ets",
+    "src/widgets/NotificationRow.ets",
+    "src/widgets/ResizeHandle.ets",
+    "src/widgets/SeatCell.ets",
+    "src/widgets/TouchOverlay.ets",
+    "src/widgets/WorkCard.ets"
+  ],
+  "count": 157,
+  "summary": "Merged 157 files from src",
+  "parse_stats": {
+    "files_indexed": 157,
+    "skipped_by_reason": {},
+    "languages": {
+      "ArkTS": 157
+    },
+    "symbols_total": 525,
+    "symbols_by_type": {
+      "class": 70,
+      "component": 71,
+      "event": 1,
+      "function": 293,
+      "interface": 16,
+      "object": 10,
+      "resource": 4,
+      "state": 60
+    },
+    "code_logs_total": 13,
+    "code_logs_by_level": {
+      "debug": 2,
+      "error": 9,
+      "info": 1,
+      "warning": 1
+    },
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "arkts-static",
+          "version": "1.2",
+          "language": "ArkTS"
+        }
+      ],
+      "capabilities": [
+        "api_boundaries",
+        "async_flow",
+        "callbacks",
+        "calls",
+        "definitions",
+        "dispatch_candidates",
+        "inheritance",
+        "mechanisms",
+        "references",
+        "state_flow",
+        "types"
+      ],
+      "files_indexed": 157,
+      "entities": 522,
+      "relations_extracted": 603,
+      "mechanisms_extracted": 339,
+      "relations_emitted": 542,
+      "unresolved_relations": 61,
+      "method_summaries_enriched": 281,
+      "gaps": [
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/automation/ReceiptExportCoordinator.ets",
+          "symbol": "ReceiptExportCoordinator.exportForHarmonyScreen",
+          "start_line": "2",
+          "end_line": "5"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/components/KeyboardHint.ets",
+          "symbol": "KeyboardHint.build",
+          "start_line": "5",
+          "end_line": "7"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "loader.prepare"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "loader.load"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": "loader.openSource"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/gateways/JobTransport.ets",
+          "symbol": "socket.send"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport.submit",
+          "start_line": "4",
+          "end_line": "12"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/io/AssetArchiveInstaller.ets",
+          "symbol": "unzip"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/io/ClipboardContentReader.ets",
+          "symbol": "board.getData"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "Promise.race"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/models/WorkspaceSchema.ets",
+          "symbol": "WorkspaceSchema.describePreviousItem",
+          "start_line": "5",
+          "end_line": "7"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage.DispatchButton",
+          "start_line": "6",
+          "end_line": "15"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage.onClick@7",
+          "start_line": "7",
+          "end_line": "14"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "LedgerStore.validatePendingBatch"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "LedgerStore.commitPendingBatch"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "ParcelDeliveryService.retryFailedParcel"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "RevenueQuarterPage.build",
+          "start_line": "18",
+          "end_line": "20"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/pages/ShareComposerPage.ets",
+          "symbol": "ShareComposerPage.build",
+          "start_line": "5",
+          "end_line": "7"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/runtime/PermissionStartupCoordinator.ets",
+          "symbol": "accessManager.requestPermissionsFromUser"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/runtime/PermissionStartupCoordinator.ets",
+          "symbol": "sessionService.start"
+        },
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService.dispatchUpdate",
+          "start_line": "2",
+          "end_line": "4"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/services/AssetSource.ets",
+          "symbol": "mediaLibrary.queryAssets"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/services/DocumentLoader.ets",
+          "symbol": "remote.read"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "ParcelRepository.markParcelForRetry"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/streaming/ConversationDraftStore.ets",
+          "symbol": "repository.saveDraft"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/streaming/ConversationDraftStore.ets",
+          "symbol": "repository.saveDraft"
+        }
+      ],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "ArkTS",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 157
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 7,
+        "effects_emitted": 13,
+        "truncated": false,
+        "max_wrapper_depth": 2
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 525,
+        "reference_name_count": 244,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 525
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 157,
+      "symbols_written": 525,
+      "passages_written": 682
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/source",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 157,
+      "scope_files": [
+        "src/abilities/ProfileBootstrapAbility.ets",
+        "src/abilities/SessionAbility.ets",
+        "src/abilities/SnapshotTransferAbility.ets",
+        "src/abilities/WorkspaceAbility.ets",
+        "src/actions/BackupCommandPanel.ets",
+        "src/actions/OrderActionButton.ets",
+        "src/automation/ReceiptExportCoordinator.ets",
+        "src/cache/BoundedResultCache.ets",
+        "src/components/KeyboardFocusHint.ets",
+        "src/components/KeyboardHint.ets",
+        "src/components/NavigationToolbar.ets",
+        "src/components/RecordPreview.ets",
+        "src/config/ArchivePackageProfile.ets",
+        "src/config/BootstrapDeadlineProfile.ets",
+        "src/config/BrowserSchemeManifest.ets",
+        "src/config/ClipboardFeatureProfile.ets",
+        "src/config/CommandOutputProfile.ets",
+        "src/config/DraftCheckpointPolicy.ets",
+        "src/config/JobFailureMessages.ets",
+        "src/config/ResultCachePolicy.ets",
+        "src/config/RuntimeFeatureManifest.ets",
+        "src/config/StartupPermissionProfile.ets",
+        "src/controllers/SeatMapController.ets",
+        "src/controllers/WorkspaceSelectionController.ets",
+        "src/coordinators/DocumentNavigationCoordinator.ets",
+        "src/coordinators/DraftSessionCoordinator.ets",
+        "src/coordinators/OrderCommitCoordinator.ets",
+        "src/coordinators/SessionUsageCoordinator.ets",
+        "src/coordinators/SourceSwapCoordinator.ets",
+        "src/crypto/SessionCodeGenerator.ets",
+        "src/dialogs/ConfirmationDialogController.ets",
+        "src/entities/ArticleRecord.ets",
+        "src/entities/FacetRecord.ets",
+        "src/entities/InventoryRecord.ets",
+        "src/entities/ProductRecord.ets",
+        "src/examples/ThumbnailPoolExample.ets",
+        "src/gateways/JobTransport.ets",
+        "src/gateways/TelemetrySocketGateway.ets",
+        "src/io/AssetArchiveInstaller.ets",
+        "src/io/ClipboardContentReader.ets",
+        "src/io/ProcessOutputReader.ets",
+        "src/lifecycle/DeadlineBootstrapController.ets",
+        "src/logging/ConsoleFailureReporter.ets",
+        "src/logging/DomainLogger.ets",
+        "src/logging/FailureReporter.ets",
+        "src/logging/FileFailureReporter.ets",
+        "src/logging/LogSink.ets",
+        "src/media/VoiceCaptureCoordinator.ets",
+        "src/models/BoardState.ets",
+        "src/models/CanvasSelection.ets",
+        "src/models/InteractionState.ets",
+        "src/models/ProfileList.ets",
+        "src/models/ResultCacheEntry.ets",
+        "src/models/ThemeSettings.ets",
+        "src/models/WorkspaceSchema.ets",
+        "src/network/NetworkClient.ets",
+        "src/pages/AccountSettingsPage.ets",
+        "src/pages/AppearanceSettingsPage.ets",
+        "src/pages/CacheInspectorPage.ets",
+        "src/pages/CallbackAuditPage.ets",
+        "src/pages/CapabilitySettingsPage.ets",
+        "src/pages/CatalogPage.ets",
+        "src/pages/CheckoutPage.ets",
+        "src/pages/CollectionPage.ets",
+        "src/pages/CommandOutputPage.ets",
+        "src/pages/DisclosureAppearancePage.ets",
+        "src/pages/DocumentBrowserSettingsPage.ets",
+        "src/pages/DownloadsPage.ets",
+        "src/pages/DraftPage.ets",
+        "src/pages/DraftStatusPage.ets",
+        "src/pages/EditorKeyboardPage.ets",
+        "src/pages/JobDispatchPage.ets",
+        "src/pages/KeyboardWorkspacePage.ets",
+        "src/pages/LedgerMaintenancePage.ets",
+        "src/pages/NotificationDetailsPage.ets",
+        "src/pages/NotificationListPage.ets",
+        "src/pages/ParcelRetryPage.ets",
+        "src/pages/PasteImportPage.ets",
+        "src/pages/ProductSearchPage.ets",
+        "src/pages/ProfileArchivePage.ets",
+        "src/pages/ProfilePage.ets",
+        "src/pages/QuotaRecoveryPage.ets",
+        "src/pages/ReconciliationPage.ets",
+        "src/pages/RevenueQuarterPage.ets",
+        "src/pages/RuleCreatorPage.ets",
+        "src/pages/RuleEditorPage.ets",
+        "src/pages/ShareComposerPage.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/pages/ShortcutSearchPage.ets",
+        "src/pages/SnapshotAuditPage.ets",
+        "src/pages/StartupStatusPage.ets",
+        "src/pages/ThemePreferencesPage.ets",
+        "src/pages/TimelinePage.ets",
+        "src/pages/UpgradeStatusPage.ets",
+        "src/pages/VoiceMessagePage.ets",
+        "src/pages/WarehouseFacetPage.ets",
+        "src/pages/WorkspaceLoadingPage.ets",
+        "src/pages/WorkspacePage.ets",
+        "src/pools/ThumbnailPool.ets",
+        "src/repositories/ParcelRepository.ets",
+        "src/runtime/CommandEligibility.ets",
+        "src/runtime/FeatureCapabilityProbe.ets",
+        "src/runtime/LeaseController.ets",
+        "src/runtime/PermissionStartupCoordinator.ets",
+        "src/runtime/TransportRegistry.ets",
+        "src/runtime/WindowRegistry.ets",
+        "src/services/AccountUpdateService.ets",
+        "src/services/AssetSource.ets",
+        "src/services/AttachmentService.ets",
+        "src/services/AudioPermissionService.ets",
+        "src/services/CacheService.ets",
+        "src/services/DispatchProfileService.ets",
+        "src/services/DocumentLoader.ets",
+        "src/services/ParcelDeliveryService.ets",
+        "src/services/PaymentService.ets",
+        "src/services/ProductSearchService.ets",
+        "src/services/ProfileService.ets",
+        "src/services/SnapshotCoordinator.ets",
+        "src/services/WrappedProfileService.ets",
+        "src/sharing/SharedRecordCollector.ets",
+        "src/storage/DraftPreferences.ets",
+        "src/storage/OrderStore.ets",
+        "src/stores/DeviceSyncStore.ets",
+        "src/stores/DocumentSelectionStore.ets",
+        "src/stores/LightingStore.ets",
+        "src/stores/SeatStore.ets",
+        "src/streaming/ConversationDraftStore.ets",
+        "src/theme/SystemBarColorAdapter.ets",
+        "src/utils/ThemePalette.ets",
+        "src/validation/OrderValidator.ets",
+        "src/viewmodels/FolderCollectionLoader.ets",
+        "src/viewmodels/GalleryListViewModel.ets",
+        "src/views/ArticleMarkupView.ets",
+        "src/views/BoardGestureSurface.ets",
+        "src/views/CanvasInteractionSurface.ets",
+        "src/views/CatalogFilterPanel.ets",
+        "src/views/CatalogFilterSuggestion.ets",
+        "src/views/EventBubble.ets",
+        "src/views/FilterToggle.ets",
+        "src/views/InventoryItem.ets",
+        "src/views/InventoryList.ets",
+        "src/views/InventoryOverlayPanel.ets",
+        "src/views/JobDispatchButton.ets",
+        "src/views/MessageRow.ets",
+        "src/views/PlaybackTouchSurface.ets",
+        "src/views/QuotedMessagePreview.ets",
+        "src/views/SnapshotCommandRow.ets",
+        "src/views/TimelineRow.ets",
+        "src/views/WorkGalleryPage.ets",
+        "src/web/DesktopEditorFocusController.ets",
+        "src/web/SecureDocumentBrowser.ets",
+        "src/widgets/MessageActionBar.ets",
+        "src/widgets/NotificationRow.ets",
+        "src/widgets/ResizeHandle.ets",
+        "src/widgets/SeatCell.ets",
+        "src/widgets/TouchOverlay.ets",
+        "src/widgets/WorkCard.ets"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 157,
+          "code_log_statement": 13,
+          "code_symbol": 525
+        },
+        "edge_count": 1301,
+        "relation_counts": {
+          "awaits": 15,
+          "calls": 86,
+          "consumes_api": 24,
+          "contains": 538,
+          "defines_state": 60,
+          "dispatches_via": 1,
+          "emits_log": 13,
+          "exposes_api": 292,
+          "implements": 2,
+          "imports": 24,
+          "passes_property": 6,
+          "reads_state": 100,
+          "registers_callback": 2,
+          "renders_component": 6,
+          "uses_resource": 4,
+          "uses_service": 7,
+          "writes_state": 121
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 1301,
+      "edge_delta": 1301
+    },
+    "phase_ms": {
+      "extract": 197.564,
+      "load_scope": 37.601,
+      "invalidate": 0.919,
+      "prepare_rows": 230.521,
+      "insert_rows": 17.336,
+      "restore_business": 0.278,
+      "rebuild_graph": 1128.491,
+      "summarize": 4.298,
+      "commit": 6.34,
+      "total": 1623.381
+    },
+    "memory_edges_total": 1448,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": true,
+    "returned_counts": {
+      "files": 5,
+      "symbols": 23,
+      "logs": 4
+    },
+    "remaining_counts": {
+      "files": 152,
+      "symbols": 0,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "src/services/AttachmentService.ets",
+          "summary": "ArkTS file with 17 non-empty lines; behavior: validationguard, conditionalbranch, asyncboundary",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "writeCache",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method writeCache in src/services/AttachmentService.ets; identifier terms: write cache",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "writecache",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "write",
+                "cache",
+                "attachment",
+                "service",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "writeCache",
+                "function",
+                "ArkTS function or lifecycle method writeCache in src/services/AttachmentService.ets; identifier terms: write cache"
+              ]
+            },
+            {
+              "symbol": "loadAttachment",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method loadAttachment in src/services/AttachmentService.ets; identifier terms: load attachment",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "loadattachment",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "load",
+                "attachment",
+                "service",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "loadAttachment",
+                "function",
+                "ArkTS function or lifecycle method loadAttachment in src/services/AttachmentService.ets; identifier terms: load attachment"
+              ]
+            },
+            {
+              "symbol": "AttachmentService",
+              "symbol_type": "class",
+              "summary": "ArkTS class AttachmentService declared in src/services/AttachmentService.ets; identifier terms: attachment service",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "class",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "attachment",
+                "service",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "AttachmentService",
+                "class",
+                "ArkTS class AttachmentService declared in src/services/AttachmentService.ets; identifier terms: attachment service"
+              ]
+            }
+          ],
+          "logs": [
+            {
+              "message_template": "attachment download failed after cache write",
+              "function": "loadAttachment",
+              "level": "error",
+              "logger": "hilog",
+              "raw_statement": "hilog.error(0x3000, 'AttachmentService', 'attachment download failed after cache write')",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "attachment",
+                "download",
+                "failed",
+                "after",
+                "cache",
+                "write",
+                "loadattachment",
+                "error",
+                "hilog",
+                "0x3000",
+                "service",
+                "load"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "attachment download failed after cache write",
+                "loadAttachment",
+                "error",
+                "hilog",
+                "hilog.error(0x3000, 'AttachmentService', 'attachment download failed after cache write')"
+              ]
+            },
+            {
+              "message_template": "attachment download started",
+              "function": "loadAttachment",
+              "level": "debug",
+              "logger": "hilog",
+              "raw_statement": "hilog.debug(0x3000, 'AttachmentService', 'attachment download started')",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "attachment",
+                "download",
+                "started",
+                "loadattachment",
+                "debug",
+                "hilog",
+                "0x3000",
+                "service",
+                "load"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "attachment download started",
+                "loadAttachment",
+                "debug",
+                "hilog",
+                "hilog.debug(0x3000, 'AttachmentService', 'attachment download started')"
+              ]
+            },
+            {
+              "message_template": "attachment cached file remains usable",
+              "function": "loadAttachment",
+              "level": "debug",
+              "logger": "hilog",
+              "raw_statement": "hilog.debug(0x3000, 'AttachmentService', 'attachment cached file remains usable')",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "attachment",
+                "cached",
+                "file",
+                "remains",
+                "usable",
+                "loadattachment",
+                "debug",
+                "hilog",
+                "0x3000",
+                "service",
+                "load"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "attachment cached file remains usable",
+                "loadAttachment",
+                "debug",
+                "hilog",
+                "hilog.debug(0x3000, 'AttachmentService', 'attachment cached file remains usable')"
+              ]
+            },
+            {
+              "message_template": "attachment cache write missing",
+              "function": "loadAttachment",
+              "level": "warning",
+              "logger": "hilog",
+              "raw_statement": "hilog.warn(0x3000, 'AttachmentService', 'attachment cache write missing')",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "services",
+                "attachmentservice",
+                "ets",
+                "attachment",
+                "cache",
+                "write",
+                "missing",
+                "loadattachment",
+                "warning",
+                "hilog",
+                "warn",
+                "0x3000",
+                "service",
+                "load"
+              ],
+              "hint_context": [
+                "src/services/AttachmentService.ets",
+                "attachment cache write missing",
+                "loadAttachment",
+                "warning",
+                "hilog",
+                "hilog.warn(0x3000, 'AttachmentService', 'attachment cache write missing')"
+              ]
+            }
+          ],
+          "priority_score": 208,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms",
+            "missing_log_semantics",
+            "missing_log_business_summary",
+            "missing_log_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "services",
+            "attachmentservice",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "17",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "asyncboundary",
+            "writecache",
+            "loadattachment",
+            "attachment",
+            "download",
+            "failed",
+            "after",
+            "cache",
+            "write",
+            "started",
+            "cached",
+            "remains",
+            "usable",
+            "missing",
+            "service",
+            "ark",
+            "ts",
+            "load"
+          ],
+          "hint_context": [
+            "src/services/AttachmentService.ets",
+            "ArkTS file with 17 non-empty lines; behavior: validationguard, conditionalbranch, asyncboundary",
+            "writeCache loadAttachment AttachmentService",
+            "attachment download failed after cache write attachment download started attachment cached file remains usable attachment cache write missing"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "summary": "ArkTS file with 17 non-empty lines; components: TimelineRow; component terms: timeline, row",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "build",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method build in src/views/TimelineRow.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "timelinerow",
+                "ets",
+                "build",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "timeline",
+                "row",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/TimelineRow.ets",
+                "build",
+                "function",
+                "ArkTS function or lifecycle method build in src/views/TimelineRow.ets"
+              ]
+            },
+            {
+              "symbol": "showHeader",
+              "symbol_type": "state",
+              "summary": "state showHeader in src/views/TimelineRow.ets; identifier terms: show header",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "timelinerow",
+                "ets",
+                "showheader",
+                "state",
+                "in",
+                "identifier",
+                "terms",
+                "show",
+                "header",
+                "timeline",
+                "row"
+              ],
+              "hint_context": [
+                "src/views/TimelineRow.ets",
+                "showHeader",
+                "state",
+                "state showHeader in src/views/TimelineRow.ets; identifier terms: show header"
+              ]
+            },
+            {
+              "symbol": "entry",
+              "symbol_type": "state",
+              "summary": "state entry in src/views/TimelineRow.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "timelinerow",
+                "ets",
+                "entry",
+                "state",
+                "in",
+                "timeline",
+                "row"
+              ],
+              "hint_context": [
+                "src/views/TimelineRow.ets",
+                "entry",
+                "state",
+                "state entry in src/views/TimelineRow.ets"
+              ]
+            },
+            {
+              "symbol": "TimelineRow",
+              "symbol_type": "component",
+              "summary": "ArkTS component TimelineRow declared in src/views/TimelineRow.ets; identifier terms: timeline row",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "timelinerow",
+                "ets",
+                "component",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "timeline",
+                "row",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/TimelineRow.ets",
+                "TimelineRow",
+                "component",
+                "ArkTS component TimelineRow declared in src/views/TimelineRow.ets; identifier terms: timeline row"
+              ]
+            },
+            {
+              "symbol": "TimelineEntry",
+              "symbol_type": "interface",
+              "summary": "interface TimelineEntry in src/views/TimelineRow.ets; identifier terms: timeline entry",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "timelinerow",
+                "ets",
+                "timelineentry",
+                "interface",
+                "in",
+                "identifier",
+                "terms",
+                "timeline",
+                "entry",
+                "row"
+              ],
+              "hint_context": [
+                "src/views/TimelineRow.ets",
+                "TimelineEntry",
+                "interface",
+                "interface TimelineEntry in src/views/TimelineRow.ets; identifier terms: timeline entry"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 120,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "views",
+            "timelinerow",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "17",
+            "non",
+            "empty",
+            "lines",
+            "components",
+            "component",
+            "terms",
+            "timeline",
+            "row",
+            "build",
+            "showheader",
+            "entry",
+            "timelineentry",
+            "ark",
+            "ts",
+            "show",
+            "header"
+          ],
+          "hint_context": [
+            "src/views/TimelineRow.ets",
+            "ArkTS file with 17 non-empty lines; components: TimelineRow; component terms: timeline, row",
+            "build showHeader entry TimelineRow TimelineEntry"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/views/SnapshotCommandRow.ets",
+          "summary": "ArkTS file with 11 non-empty lines; components: SnapshotCommandRow; component terms: snapshot, command, row; resources: sys.symbol.archivebox; behavior: callbackboundary, commandbinding, uicallbackbinding",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "build",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method build in src/views/SnapshotCommandRow.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "snapshotcommandrow",
+                "ets",
+                "build",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "snapshot",
+                "command",
+                "row",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/SnapshotCommandRow.ets",
+                "build",
+                "function",
+                "ArkTS function or lifecycle method build in src/views/SnapshotCommandRow.ets"
+              ]
+            },
+            {
+              "symbol": "title",
+              "symbol_type": "state",
+              "summary": "state title in src/views/SnapshotCommandRow.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "snapshotcommandrow",
+                "ets",
+                "title",
+                "state",
+                "in",
+                "snapshot",
+                "command",
+                "row"
+              ],
+              "hint_context": [
+                "src/views/SnapshotCommandRow.ets",
+                "title",
+                "state",
+                "state title in src/views/SnapshotCommandRow.ets"
+              ]
+            },
+            {
+              "symbol": "sys.symbol.archivebox",
+              "symbol_type": "resource",
+              "summary": "ArkTS resource sys.symbol.archivebox referenced by src/views/SnapshotCommandRow.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "snapshotcommandrow",
+                "ets",
+                "sys",
+                "symbol",
+                "archivebox",
+                "resource",
+                "arkts",
+                "referenced",
+                "by",
+                "snapshot",
+                "command",
+                "row",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/SnapshotCommandRow.ets",
+                "sys.symbol.archivebox",
+                "resource",
+                "ArkTS resource sys.symbol.archivebox referenced by src/views/SnapshotCommandRow.ets"
+              ]
+            },
+            {
+              "symbol": "invoke",
+              "symbol_type": "event",
+              "summary": "event invoke in src/views/SnapshotCommandRow.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "snapshotcommandrow",
+                "ets",
+                "invoke",
+                "event",
+                "in",
+                "snapshot",
+                "command",
+                "row"
+              ],
+              "hint_context": [
+                "src/views/SnapshotCommandRow.ets",
+                "invoke",
+                "event",
+                "event invoke in src/views/SnapshotCommandRow.ets"
+              ]
+            },
+            {
+              "symbol": "SnapshotCommandRow",
+              "symbol_type": "component",
+              "summary": "ArkTS component SnapshotCommandRow declared in src/views/SnapshotCommandRow.ets; identifier terms: snapshot command row",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "snapshotcommandrow",
+                "ets",
+                "component",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "snapshot",
+                "command",
+                "row",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/SnapshotCommandRow.ets",
+                "SnapshotCommandRow",
+                "component",
+                "ArkTS component SnapshotCommandRow declared in src/views/SnapshotCommandRow.ets; identifier terms: snapshot command row"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 120,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "views",
+            "snapshotcommandrow",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "components",
+            "component",
+            "terms",
+            "snapshot",
+            "command",
+            "row",
+            "resources",
+            "sys",
+            "symbol",
+            "archivebox",
+            "behavior",
+            "callbackboundary",
+            "commandbinding",
+            "uicallbackbinding",
+            "build",
+            "title",
+            "invoke",
+            "ark",
+            "ts"
+          ],
+          "hint_context": [
+            "src/views/SnapshotCommandRow.ets",
+            "ArkTS file with 11 non-empty lines; components: SnapshotCommandRow; component terms: snapshot, command, row; resources: sys.symbol.archivebox; behavior: callbackboundary, commandbinding, uicallbackbinding",
+            "build title sys.symbol.archivebox invoke SnapshotCommandRow"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/views/EventBubble.ets",
+          "summary": "ArkTS file with 18 non-empty lines; components: EventBubble; component terms: event, bubble; behavior: conditionalbranch",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "build",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method build in src/views/EventBubble.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "eventbubble",
+                "ets",
+                "build",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "event",
+                "bubble",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/EventBubble.ets",
+                "build",
+                "function",
+                "ArkTS function or lifecycle method build in src/views/EventBubble.ets"
+              ]
+            },
+            {
+              "symbol": "showHeader",
+              "symbol_type": "state",
+              "summary": "state showHeader in src/views/EventBubble.ets; identifier terms: show header",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "eventbubble",
+                "ets",
+                "showheader",
+                "state",
+                "in",
+                "identifier",
+                "terms",
+                "show",
+                "header",
+                "event",
+                "bubble"
+              ],
+              "hint_context": [
+                "src/views/EventBubble.ets",
+                "showHeader",
+                "state",
+                "state showHeader in src/views/EventBubble.ets; identifier terms: show header"
+              ]
+            },
+            {
+              "symbol": "entry",
+              "symbol_type": "state",
+              "summary": "state entry in src/views/EventBubble.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "eventbubble",
+                "ets",
+                "entry",
+                "state",
+                "in",
+                "event",
+                "bubble"
+              ],
+              "hint_context": [
+                "src/views/EventBubble.ets",
+                "entry",
+                "state",
+                "state entry in src/views/EventBubble.ets"
+              ]
+            },
+            {
+              "symbol": "TimelineEntry",
+              "symbol_type": "interface",
+              "summary": "interface TimelineEntry in src/views/EventBubble.ets; identifier terms: timeline entry",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "eventbubble",
+                "ets",
+                "timelineentry",
+                "interface",
+                "in",
+                "identifier",
+                "terms",
+                "timeline",
+                "entry",
+                "event",
+                "bubble"
+              ],
+              "hint_context": [
+                "src/views/EventBubble.ets",
+                "TimelineEntry",
+                "interface",
+                "interface TimelineEntry in src/views/EventBubble.ets; identifier terms: timeline entry"
+              ]
+            },
+            {
+              "symbol": "EventBubble",
+              "symbol_type": "component",
+              "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "eventbubble",
+                "ets",
+                "component",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "event",
+                "bubble",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/EventBubble.ets",
+                "EventBubble",
+                "component",
+                "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 120,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "views",
+            "eventbubble",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "18",
+            "non",
+            "empty",
+            "lines",
+            "components",
+            "component",
+            "terms",
+            "event",
+            "bubble",
+            "behavior",
+            "conditionalbranch",
+            "build",
+            "showheader",
+            "entry",
+            "timelineentry",
+            "ark",
+            "ts",
+            "show",
+            "header",
+            "timeline"
+          ],
+          "hint_context": [
+            "src/views/EventBubble.ets",
+            "ArkTS file with 18 non-empty lines; components: EventBubble; component terms: event, bubble; behavior: conditionalbranch",
+            "build showHeader entry TimelineEntry EventBubble"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/views/CanvasInteractionSurface.ets",
+          "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "onActionUpdate",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "canvasinteractionsurface",
+                "ets",
+                "onactionupdate",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "on",
+                "action",
+                "update",
+                "canvas",
+                "interaction",
+                "surface",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/CanvasInteractionSurface.ets",
+                "onActionUpdate",
+                "function",
+                "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update"
+              ]
+            },
+            {
+              "symbol": "onActionStart",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method onActionStart in src/views/CanvasInteractionSurface.ets; identifier terms: on action start",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "canvasinteractionsurface",
+                "ets",
+                "onactionstart",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "on",
+                "action",
+                "start",
+                "canvas",
+                "interaction",
+                "surface",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/CanvasInteractionSurface.ets",
+                "onActionStart",
+                "function",
+                "ArkTS function or lifecycle method onActionStart in src/views/CanvasInteractionSurface.ets; identifier terms: on action start"
+              ]
+            },
+            {
+              "symbol": "build",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "canvasinteractionsurface",
+                "ets",
+                "build",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "canvas",
+                "interaction",
+                "surface",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/CanvasInteractionSurface.ets",
+                "build",
+                "function",
+                "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets"
+              ]
+            },
+            {
+              "symbol": "activeHandle",
+              "symbol_type": "state",
+              "summary": "state activeHandle in src/views/CanvasInteractionSurface.ets; identifier terms: active handle",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "canvasinteractionsurface",
+                "ets",
+                "activehandle",
+                "state",
+                "in",
+                "identifier",
+                "terms",
+                "active",
+                "handle",
+                "canvas",
+                "interaction",
+                "surface"
+              ],
+              "hint_context": [
+                "src/views/CanvasInteractionSurface.ets",
+                "activeHandle",
+                "state",
+                "state activeHandle in src/views/CanvasInteractionSurface.ets; identifier terms: active handle"
+              ]
+            },
+            {
+              "symbol": "CanvasInteractionSurface",
+              "symbol_type": "component",
+              "summary": "ArkTS component CanvasInteractionSurface declared in src/views/CanvasInteractionSurface.ets; identifier terms: canvas interaction surface",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "views",
+                "canvasinteractionsurface",
+                "ets",
+                "component",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "canvas",
+                "interaction",
+                "surface",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/views/CanvasInteractionSurface.ets",
+                "CanvasInteractionSurface",
+                "component",
+                "ArkTS component CanvasInteractionSurface declared in src/views/CanvasInteractionSurface.ets; identifier terms: canvas interaction surface"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 120,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "views",
+            "canvasinteractionsurface",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "18",
+            "non",
+            "empty",
+            "lines",
+            "components",
+            "component",
+            "terms",
+            "canvas",
+            "interaction",
+            "surface",
+            "operations",
+            "gesture",
+            "onactionstart",
+            "onactionupdate",
+            "behavior",
+            "callbackboundary",
+            "gestureboundary",
+            "indexedread",
+            "statewrite",
+            "build",
+            "activehandle",
+            "ark",
+            "ts",
+            "on",
+            "action",
+            "start",
+            "update",
+            "active",
+            "handle"
+          ],
+          "hint_context": [
+            "src/views/CanvasInteractionSurface.ets",
+            "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+            "onActionUpdate onActionStart build activeHandle CanvasInteractionSurface"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

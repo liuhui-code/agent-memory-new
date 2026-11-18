@@ -1,0 +1,57 @@
+test_bounded_and_existing_cross_file_display_unchanged (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_bounded_and_existing_cross_file_display_unchanged) ... ok
+test_maximum_two_and_original_order (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_maximum_two_and_original_order) ... FAIL
+test_same_symbol_distinct_identity_ranges_remain_distinct (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_same_symbol_distinct_identity_ranges_remain_distinct) ... ERROR
+test_uncertain_competing_methods_are_visible (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_uncertain_competing_methods_are_visible) ... FAIL
+test_unknown_conflicting_owner_and_duplicate_not_added (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_unknown_conflicting_owner_and_duplicate_not_added) ... ok
+test_bounded_primary_keeps_diverse_alternatives (tests.test_query_callable_evidence.CallableEvidenceTests.test_bounded_primary_keeps_diverse_alternatives) ... ok
+test_equal_structural_coverage_remains_uncertain (tests.test_query_callable_evidence.CallableEvidenceTests.test_equal_structural_coverage_remains_uncertain) ... ok
+test_first_stage_prior_cannot_create_bounded_certainty_by_itself (tests.test_query_callable_evidence.CallableEvidenceTests.test_first_stage_prior_cannot_create_bounded_certainty_by_itself) ... ok
+test_missing_source_range_is_explicitly_uncertain (tests.test_query_callable_evidence.CallableEvidenceTests.test_missing_source_range_is_explicitly_uncertain) ... ok
+test_structural_coverage_dominance_is_bounded_for_same_owner_kind (tests.test_query_callable_evidence.CallableEvidenceTests.test_structural_coverage_dominance_is_bounded_for_same_owner_kind) ... ok
+test_unique_structured_owner_match_is_bounded_without_score_gap (tests.test_query_callable_evidence.CallableEvidenceTests.test_unique_structured_owner_match_is_bounded_without_score_gap) ... ok
+
+======================================================================
+ERROR: test_same_symbol_distinct_identity_ranges_remain_distinct (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_same_symbol_distinct_identity_ranges_remain_distinct)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tests/test_uncertain_same_owner_alternatives.py", line 21, in test_same_symbol_distinct_identity_ranges_remain_distinct
+    v=self.view(self.row(1,symbol='run'),self.row(2,symbol='run'));self.assertEqual(v['alternatives'][0]['source_range']['start_line'],2)
+                                                                                    ~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_maximum_two_and_original_order (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_maximum_two_and_original_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tests/test_uncertain_same_owner_alternatives.py", line 19, in test_maximum_two_and_original_order
+    v=self.view(*[self.row(i) for i in range(1,6)]);self.assertEqual([x['symbol'] for x in v['alternatives']],['f2','f3'])
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['f2', 'f3']
+
+Second list contains 2 additional elements.
+First extra element 0:
+'f2'
+
+- []
++ ['f2', 'f3']
+
+======================================================================
+FAIL: test_uncertain_competing_methods_are_visible (tests.test_uncertain_same_owner_alternatives.SameOwnerAlternativeTests.test_uncertain_competing_methods_are_visible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tests/test_uncertain_same_owner_alternatives.py", line 10, in test_uncertain_competing_methods_are_visible
+    v=self.view(self.row(1),self.row(2));self.assertEqual(v['certainty'],'uncertain');self.assertEqual(v['primary']['symbol'],'f1');self.assertEqual([x['symbol'] for x in v['alternatives']],['f2'])
+                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['f2']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'f2'
+
+- []
++ ['f2']
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.020s
+
+FAILED (failures=2, errors=1)

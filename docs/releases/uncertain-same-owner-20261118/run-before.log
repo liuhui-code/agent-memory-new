@@ -1,0 +1,55 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "owner",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/home-owner",
+      "--query",
+      "Locate PairService implementation.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "exact",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/uncertain-alternatives/home-exact",
+      "--query",
+      "Locate PairService.second.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

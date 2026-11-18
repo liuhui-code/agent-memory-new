@@ -1,0 +1,17 @@
+{
+  "classification": "Independent Development ambiguous same-owner candidate display; no timestamp semantics or original33 closure",
+  "sources": {
+    "src/PairService.ts": "export class PairService {\n  first(): number { return 1 }\n  second(): number { return 2 }\n}\n"
+  },
+  "queries": [
+    [
+      "owner",
+      "Locate PairService implementation."
+    ],
+    [
+      "exact",
+      "Locate PairService.second."
+    ]
+  ],
+  "contract": "If uncertainty is caused by distinct same-owner callable candidates and old diversity hides every alternative, show existing known distinct alternatives without changing winner, ranking, certainty or complete source evidence. Explicit exact winner retains ordinary behavior."
+}

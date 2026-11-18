@@ -1,0 +1,6180 @@
+{
+  "project_id": "809895e4e1ee0160",
+  "project_path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/source",
+  "query": "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+  "memory_intent": "general_context",
+  "memory_intent_v2": "general_context",
+  "memory_intent_source": "inferred",
+  "retrieval_lanes": {
+    "counts": {
+      "main_reflections": 0,
+      "correction_guards": 0,
+      "semantic_patch_notes": 0,
+      "blocked_memory_notes": 0
+    },
+    "intent_profile": {
+      "intent": "general_context",
+      "intent_v2": "general_context",
+      "intent_source": "inferred",
+      "legacy_intent": "general_context",
+      "preferred_lanes": [
+        "semantic_facts",
+        "wiki_matches",
+        "reusable_procedure",
+        "historical_reflection"
+      ],
+      "interference_policy": "prefer source-backed and high-quality memories"
+    },
+    "lane_budgets": {
+      "main_reflections": 2,
+      "correction_guards": 4,
+      "semantic_patch_notes": 6,
+      "blocked_memory_notes": 8
+    },
+    "policy": {
+      "procedure_experience": "main context only when the query intent can reuse a procedure",
+      "correction_experience": "guardrail lane; not injected as the main task direction by default",
+      "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+    }
+  },
+  "memory_brief": {
+    "intent": "general_context",
+    "intent_v2": "general_context",
+    "main_reflection_count": 0,
+    "correction_guard_count": 0,
+    "semantic_patch_count": 0,
+    "blocked_count": 0,
+    "conflict_count": 0
+  },
+  "followup_focus": "log",
+  "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+  "semantic_facts": [],
+  "reflections": [],
+  "episodes": [],
+  "wiki_matches": [
+    {
+      "id": 8,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/cache/BoundedResultCache.ets",
+      "summary": "ArkTS file with 25 non-empty lines; behavior: cacheeviction, conditionalbranch",
+      "language": "ArkTS",
+      "business_summary": null,
+      "business_terms": [],
+      "source_digest": "96ee52fdb41aad104d6762f6cfa07879438991a4b500d8d9e4406b966f9fc391",
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:28+00:00",
+      "recall_lanes": [
+        "broad_fts",
+        "structural_fts",
+        "file_identity_fts",
+        "file_semantic_fts"
+      ],
+      "recall_fusion": {
+        "provider": "reciprocal_rank_fusion/v1",
+        "score": 0.07417844,
+        "best_rank": 1,
+        "channel_count": 4,
+        "contributions": [
+          {
+            "channel": "broad_fts",
+            "rank": 2,
+            "weight": 1.0,
+            "score": 0.01612903
+          },
+          {
+            "channel": "structural_fts",
+            "rank": 1,
+            "weight": 1.25,
+            "score": 0.0204918
+          },
+          {
+            "channel": "file_identity_fts",
+            "rank": 3,
+            "weight": 1.35,
+            "score": 0.02142857
+          },
+          {
+            "channel": "file_semantic_fts",
+            "rank": 2,
+            "weight": 1.0,
+            "score": 0.01612903
+          }
+        ]
+      },
+      "kind": "file",
+      "score": 47.4,
+      "search_terms": [
+        "src/cache/boundedresultcache.ets",
+        "arkts",
+        "arkts file with 25 non-empty lines; behavior: cacheeviction, conditionalbranch",
+        "src",
+        "cache",
+        "boundedresultcache",
+        "ets",
+        "file",
+        "with",
+        "25",
+        "non",
+        "empty",
+        "lines",
+        "behavior",
+        "cacheeviction",
+        "conditionalbranch",
+        "bounded",
+        "result",
+        "ark",
+        "ts",
+        "harmonyos",
+        "component",
+        "page"
+      ],
+      "match_reasons": [
+        "file_path",
+        "file_summary",
+        "search_terms",
+        "exact_path_segment",
+        "structural_behavior",
+        "query_focus_coverage"
+      ],
+      "symbol": "BoundedResultCache",
+      "symbol_type": "class",
+      "start_line": 6,
+      "end_line": 28,
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "wiki_matches",
+        "score": 47.4,
+        "rerank_score": null,
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "structural_behavior",
+          "query_focus_coverage"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 138,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/pages/CacheInspectorPage.ets",
+      "symbol": "build",
+      "symbol_type": "function",
+      "summary": "ArkTS function or lifecycle method build in src/pages/CacheInspectorPage.ets",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": [],
+      "symbol_key": "symbol:d3ea49d28f34d2d57d546b02",
+      "qualified_name": "CacheInspectorPage.build",
+      "signature": "build():unknown",
+      "start_line": 5,
+      "end_line": 10,
+      "semantic_adapter": "arkts-static@1.2",
+      "source_digest": "39f80f5f38b27986000c06544edf4ebb996f9e8220f56e4f4a170185b34163db",
+      "evidence_class": "static",
+      "method_evidence": "oldestentrylabel oldest entry label column text stateread state read",
+      "string_evidence": "entry limit and eviction status",
+      "mechanism_evidence": "[]",
+      "owner_name": "CacheInspectorPage",
+      "owner_kind": "component",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "literal_property_path": null,
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:28+00:00",
+      "recall_lanes": [
+        "broad_fts",
+        "method_body_fts",
+        "symbol_identity_fts",
+        "symbol_semantic_fts",
+        "string_key_fts",
+        "salient_string_fts"
+      ],
+      "recall_fusion": {
+        "provider": "reciprocal_rank_fusion/v1",
+        "score": 0.10422735,
+        "best_rank": 1,
+        "channel_count": 6,
+        "contributions": [
+          {
+            "channel": "broad_fts",
+            "rank": 13,
+            "weight": 1.0,
+            "score": 0.01369863
+          },
+          {
+            "channel": "method_body_fts",
+            "rank": 1,
+            "weight": 0.8,
+            "score": 0.01311475
+          },
+          {
+            "channel": "symbol_identity_fts",
+            "rank": 19,
+            "weight": 1.45,
+            "score": 0.01835443
+          },
+          {
+            "channel": "symbol_semantic_fts",
+            "rank": 16,
+            "weight": 1.0,
+            "score": 0.01315789
+          },
+          {
+            "channel": "string_key_fts",
+            "rank": 1,
+            "weight": 1.2,
+            "score": 0.01967213
+          },
+          {
+            "channel": "salient_string_fts",
+            "rank": 1,
+            "weight": 1.6,
+            "score": 0.02622951
+          }
+        ]
+      },
+      "method_evidence_coverage": 2,
+      "semantic_behavior_coverage": 0,
+      "kind": "symbol",
+      "score": 39.5,
+      "search_terms": [
+        "src/pages/cacheinspectorpage.ets",
+        "arkts function or lifecycle method build in src/pages/cacheinspectorpage.ets",
+        "build",
+        "function",
+        "src",
+        "pages",
+        "cacheinspectorpage",
+        "ets",
+        "arkts",
+        "or",
+        "lifecycle",
+        "method",
+        "in",
+        "cache",
+        "inspector",
+        "page",
+        "ark",
+        "ts",
+        "harmonyos",
+        "component"
+      ],
+      "match_reasons": [
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "method_evidence",
+        "string_evidence",
+        "exact_path_segment",
+        "salient_query_evidence",
+        "source_locatable"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "wiki_matches",
+        "score": 39.5,
+        "rerank_score": null,
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "string_evidence",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 354,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/pools/ThumbnailPool.ets",
+      "symbol": "storeThumbnail",
+      "symbol_type": "function",
+      "summary": "ArkTS function or lifecycle method storeThumbnail in src/pools/ThumbnailPool.ets; identifier terms: store thumbnail",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": [],
+      "symbol_key": "symbol:788538ef5862a677ee1964d0",
+      "qualified_name": "ThumbnailPool.storeThumbnail",
+      "signature": "storeThumbnail(key: string, payload: string):void",
+      "start_line": 6,
+      "end_line": 13,
+      "semantic_adapter": "arkts-static@1.2",
+      "source_digest": "c6110f8eec1dd4d122f5c6ede52baddd84b735707deee87f702046101c854520",
+      "evidence_class": "static",
+      "method_evidence": "thumbnails set size capacity keys delete store thumbnail next stateread state read statebranch branch conditional guardreturn guard",
+      "string_evidence": "",
+      "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:thumbnails.set\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:788538ef5862a677ee1964d0\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":8,\"source_key\":\"symbol:788538ef5862a677ee1964d0\",\"terms\":[\"guard\",\"conditional\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":8,\"source_key\":\"symbol:788538ef5862a677ee1964d0\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\"]},{\"confidence\":0.9,\"detail\":\"call:thumbnails.keys\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":11,\"source_key\":\"symbol:788538ef5862a677ee1964d0\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:thumbnails.delete\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":12,\"source_key\":\"symbol:788538ef5862a677ee1964d0\",\"terms\":[\"operation\",\"call\"]}]",
+      "owner_name": "ThumbnailPool",
+      "owner_kind": "class",
+      "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+      "literal_property_path": null,
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:28+00:00",
+      "recall_lanes": [
+        "semantic_mechanism_fts",
+        "salient_string_fts"
+      ],
+      "recall_fusion": {
+        "provider": "reciprocal_rank_fusion/v1",
+        "score": 0.04119193,
+        "best_rank": 7,
+        "channel_count": 2,
+        "contributions": [
+          {
+            "channel": "semantic_mechanism_fts",
+            "rank": 7,
+            "weight": 1.25,
+            "score": 0.01865672
+          },
+          {
+            "channel": "salient_string_fts",
+            "rank": 11,
+            "weight": 1.6,
+            "score": 0.02253521
+          }
+        ]
+      },
+      "method_evidence_coverage": 0,
+      "semantic_behavior_coverage": 0,
+      "kind": "symbol",
+      "score": 11.0,
+      "search_terms": [
+        "src/pools/thumbnailpool.ets",
+        "arkts function or lifecycle method storethumbnail in src/pools/thumbnailpool.ets; identifier terms: store thumbnail",
+        "storethumbnail",
+        "function",
+        "src",
+        "pools",
+        "thumbnailpool",
+        "ets",
+        "arkts",
+        "or",
+        "lifecycle",
+        "method",
+        "in",
+        "identifier",
+        "terms",
+        "store",
+        "thumbnail",
+        "pool",
+        "ark",
+        "ts",
+        "harmonyos",
+        "component",
+        "page"
+      ],
+      "match_reasons": [
+        "mechanism_evidence",
+        "salient_query_evidence",
+        "source_locatable"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "wiki_matches",
+        "score": 11.0,
+        "rerank_score": null,
+        "match_reasons": [
+          "mechanism_evidence",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    }
+  ],
+  "code_log_matches": [
+    {
+      "id": 10,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/services/AttachmentService.ets",
+      "line": 12,
+      "function": "loadAttachment",
+      "level": "debug",
+      "logger": "hilog",
+      "message_template": "attachment cached file remains usable",
+      "raw_statement": "hilog.debug(0x3000, 'AttachmentService', 'attachment cached file remains usable')",
+      "business_summary": null,
+      "business_terms": [],
+      "business_event": null,
+      "trigger_stage": null,
+      "symptom_terms": null,
+      "process_hint": null,
+      "neighbor_terms": null,
+      "source_digest": "f41114ac681a1d6d1863209caeb4d2503e6b999cad2ffab80a0b7dd13129b61a",
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:28+00:00",
+      "start_line": 4,
+      "end_line": 14,
+      "recall_lanes": [
+        "broad_fts"
+      ],
+      "recall_fusion": {
+        "provider": "reciprocal_rank_fusion/v1",
+        "score": 0.01639344,
+        "best_rank": 1,
+        "channel_count": 1,
+        "contributions": [
+          {
+            "channel": "broad_fts",
+            "rank": 1,
+            "weight": 1.0,
+            "score": 0.01639344
+          }
+        ]
+      },
+      "kind": "log_statement",
+      "score": 15.6,
+      "search_terms": [
+        "src/services/attachmentservice.ets",
+        "debug",
+        "hilog",
+        "attachment cached file remains usable",
+        "loadattachment",
+        "src",
+        "services",
+        "attachmentservice",
+        "ets",
+        "attachment",
+        "cached",
+        "file",
+        "remains",
+        "usable",
+        "0x3000",
+        "service",
+        "load",
+        "arkts",
+        "harmonyos",
+        "component",
+        "page",
+        "log",
+        "logger",
+        "console",
+        "error",
+        "warning",
+        "failed",
+        "failure"
+      ],
+      "match_reasons": [
+        "expanded_query:log_message",
+        "expanded_query:log_context",
+        "expanded_query:search_terms"
+      ],
+      "log_signal_score": 0.35,
+      "log_signal_band": "poor",
+      "present_signals": [
+        "level",
+        "logger",
+        "route_or_resource",
+        "entity_id_or_key",
+        "neighbor_context"
+      ],
+      "missing_signals": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_or_session_id",
+        "action_result"
+      ],
+      "suggested_log_fields": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_id",
+        "session_id",
+        "result"
+      ],
+      "observability_gaps": [
+        "missing_time",
+        "missing_process",
+        "missing_event_name",
+        "missing_stage",
+        "missing_reason",
+        "missing_correlation",
+        "missing_result"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "code_log_matches",
+        "score": 15.6,
+        "rerank_score": null,
+        "match_reasons": [
+          "expanded_query:log_message",
+          "expanded_query:log_context",
+          "expanded_query:search_terms"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 8,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/pages/DownloadsPage.ets",
+      "line": 8,
+      "function": "retryDownload",
+      "wrapper_symbol": "loadAttachment",
+      "sink_log_id": 10,
+      "level": "debug",
+      "logger": "hilog",
+      "message_template": "attachment cached file remains usable",
+      "evidence_class": "static_wrapped",
+      "wrapper_depth": 1,
+      "truncated": 0,
+      "call_path": [
+        "retryDownload",
+        "loadAttachment",
+        "hilog.debug"
+      ],
+      "call_path_locations": [
+        "src/pages/DownloadsPage.ets#retryDownload",
+        "src/services/AttachmentService.ets#loadAttachment",
+        "src/services/AttachmentService.ets#hilog.debug"
+      ],
+      "raw_call": "service.loadAttachment(path)",
+      "source_digest": "9e160b6ef73e6121a340044fc2ca50a61d0c4baf2a5c48981a95ea7b36b6fccf",
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:30+00:00",
+      "kind": "log_effect",
+      "raw_statement": "service.loadAttachment(path)",
+      "business_summary": "",
+      "business_terms": [],
+      "business_event": "",
+      "trigger_stage": "",
+      "symptom_terms": "[]",
+      "process_hint": "",
+      "neighbor_terms": "[]",
+      "recall_lanes": [
+        "log_effect_fts"
+      ],
+      "recall_fusion": {},
+      "start_line": 7,
+      "end_line": 9,
+      "score": 10.8,
+      "search_terms": [
+        "src/pages/downloadspage.ets",
+        "debug",
+        "hilog",
+        "attachment cached file remains usable",
+        "retrydownload",
+        "src",
+        "pages",
+        "downloadspage",
+        "ets",
+        "attachment",
+        "cached",
+        "file",
+        "remains",
+        "usable",
+        "service",
+        "loadattachment",
+        "path",
+        "downloads",
+        "page",
+        "retry",
+        "download",
+        "load",
+        "arkts",
+        "harmonyos",
+        "component",
+        "log",
+        "logger",
+        "console",
+        "error",
+        "warning",
+        "failed",
+        "failure"
+      ],
+      "match_reasons": [
+        "expanded_query:log_message",
+        "expanded_query:search_terms",
+        "static_wrapped"
+      ],
+      "log_signal_score": 0.35,
+      "log_signal_band": "poor",
+      "present_signals": [
+        "level",
+        "logger",
+        "route_or_resource",
+        "entity_id_or_key",
+        "neighbor_context"
+      ],
+      "missing_signals": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_or_session_id",
+        "action_result"
+      ],
+      "suggested_log_fields": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_id",
+        "session_id",
+        "result"
+      ],
+      "observability_gaps": [
+        "missing_time",
+        "missing_process",
+        "missing_event_name",
+        "missing_stage",
+        "missing_reason",
+        "missing_correlation",
+        "missing_result"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "code_log_matches",
+        "score": 10.8,
+        "rerank_score": null,
+        "match_reasons": [
+          "expanded_query:log_message",
+          "expanded_query:search_terms",
+          "static_wrapped"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 8,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/services/AttachmentService.ets",
+      "line": 8,
+      "function": "loadAttachment",
+      "level": "warning",
+      "logger": "hilog",
+      "message_template": "attachment cache write missing",
+      "raw_statement": "hilog.warn(0x3000, 'AttachmentService', 'attachment cache write missing')",
+      "business_summary": null,
+      "business_terms": [],
+      "business_event": null,
+      "trigger_stage": null,
+      "symptom_terms": null,
+      "process_hint": null,
+      "neighbor_terms": null,
+      "source_digest": "f41114ac681a1d6d1863209caeb4d2503e6b999cad2ffab80a0b7dd13129b61a",
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:28+00:00",
+      "start_line": 4,
+      "end_line": 14,
+      "recall_lanes": [
+        "broad_fts"
+      ],
+      "recall_fusion": {
+        "provider": "reciprocal_rank_fusion/v1",
+        "score": 0.01612903,
+        "best_rank": 2,
+        "channel_count": 1,
+        "contributions": [
+          {
+            "channel": "broad_fts",
+            "rank": 2,
+            "weight": 1.0,
+            "score": 0.01612903
+          }
+        ]
+      },
+      "kind": "log_statement",
+      "score": 5.2,
+      "search_terms": [
+        "src/services/attachmentservice.ets",
+        "warning",
+        "hilog",
+        "attachment cache write missing",
+        "loadattachment",
+        "src",
+        "services",
+        "attachmentservice",
+        "ets",
+        "attachment",
+        "cache",
+        "write",
+        "missing",
+        "warn",
+        "0x3000",
+        "service",
+        "load",
+        "arkts",
+        "harmonyos",
+        "component",
+        "page",
+        "log",
+        "logger",
+        "console",
+        "debug",
+        "error",
+        "failed",
+        "failure"
+      ],
+      "match_reasons": [
+        "log_message",
+        "log_context",
+        "search_terms"
+      ],
+      "log_signal_score": 0.35,
+      "log_signal_band": "poor",
+      "present_signals": [
+        "level",
+        "logger",
+        "route_or_resource",
+        "entity_id_or_key",
+        "neighbor_context"
+      ],
+      "missing_signals": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_or_session_id",
+        "action_result"
+      ],
+      "suggested_log_fields": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_id",
+        "session_id",
+        "result"
+      ],
+      "observability_gaps": [
+        "missing_time",
+        "missing_process",
+        "missing_event_name",
+        "missing_stage",
+        "missing_reason",
+        "missing_correlation",
+        "missing_result"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "code_log_matches",
+        "score": 5.2,
+        "rerank_score": null,
+        "match_reasons": [
+          "log_message",
+          "log_context",
+          "search_terms"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 9,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/services/AttachmentService.ets",
+      "line": 11,
+      "function": "loadAttachment",
+      "level": "error",
+      "logger": "hilog",
+      "message_template": "attachment download failed after cache write",
+      "raw_statement": "hilog.error(0x3000, 'AttachmentService', 'attachment download failed after cache write')",
+      "business_summary": null,
+      "business_terms": [],
+      "business_event": null,
+      "trigger_stage": null,
+      "symptom_terms": null,
+      "process_hint": null,
+      "neighbor_terms": null,
+      "source_digest": "f41114ac681a1d6d1863209caeb4d2503e6b999cad2ffab80a0b7dd13129b61a",
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:28+00:00",
+      "start_line": 4,
+      "end_line": 14,
+      "recall_lanes": [
+        "broad_fts"
+      ],
+      "recall_fusion": {
+        "provider": "reciprocal_rank_fusion/v1",
+        "score": 0.01587302,
+        "best_rank": 3,
+        "channel_count": 1,
+        "contributions": [
+          {
+            "channel": "broad_fts",
+            "rank": 3,
+            "weight": 1.0,
+            "score": 0.01587302
+          }
+        ]
+      },
+      "kind": "log_statement",
+      "score": 5.2,
+      "search_terms": [
+        "src/services/attachmentservice.ets",
+        "error",
+        "hilog",
+        "attachment download failed after cache write",
+        "loadattachment",
+        "src",
+        "services",
+        "attachmentservice",
+        "ets",
+        "attachment",
+        "download",
+        "failed",
+        "after",
+        "cache",
+        "write",
+        "0x3000",
+        "service",
+        "load",
+        "arkts",
+        "harmonyos",
+        "component",
+        "page",
+        "log",
+        "logger",
+        "console",
+        "debug",
+        "warning",
+        "failure"
+      ],
+      "match_reasons": [
+        "log_message",
+        "log_context",
+        "search_terms"
+      ],
+      "log_signal_score": 0.51,
+      "log_signal_band": "poor",
+      "present_signals": [
+        "level",
+        "logger",
+        "stage",
+        "route_or_resource",
+        "entity_id_or_key",
+        "action_result",
+        "neighbor_context"
+      ],
+      "missing_signals": [
+        "timestamp",
+        "process",
+        "event_type",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_or_session_id"
+      ],
+      "suggested_log_fields": [
+        "timestamp",
+        "process",
+        "event_type",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_id",
+        "session_id"
+      ],
+      "observability_gaps": [
+        "missing_time",
+        "missing_process",
+        "missing_event_name",
+        "missing_reason",
+        "missing_correlation"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "code_log_matches",
+        "score": 5.2,
+        "rerank_score": null,
+        "match_reasons": [
+          "log_message",
+          "log_context",
+          "search_terms"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 6,
+      "project_id": "809895e4e1ee0160",
+      "file_path": "src/pages/DownloadsPage.ets",
+      "line": 8,
+      "function": "retryDownload",
+      "wrapper_symbol": "loadAttachment",
+      "sink_log_id": 8,
+      "level": "warning",
+      "logger": "hilog",
+      "message_template": "attachment cache write missing",
+      "evidence_class": "static_wrapped",
+      "wrapper_depth": 1,
+      "truncated": 0,
+      "call_path": [
+        "retryDownload",
+        "loadAttachment",
+        "hilog.warning"
+      ],
+      "call_path_locations": [
+        "src/pages/DownloadsPage.ets#retryDownload",
+        "src/services/AttachmentService.ets#loadAttachment",
+        "src/services/AttachmentService.ets#hilog.warning"
+      ],
+      "raw_call": "service.loadAttachment(path)",
+      "source_digest": "9e160b6ef73e6121a340044fc2ca50a61d0c4baf2a5c48981a95ea7b36b6fccf",
+      "index_generation": 1,
+      "updated_at": "2026-11-18T16:10:30+00:00",
+      "kind": "log_effect",
+      "raw_statement": "service.loadAttachment(path)",
+      "business_summary": "",
+      "business_terms": [],
+      "business_event": "",
+      "trigger_stage": "",
+      "symptom_terms": "[]",
+      "process_hint": "",
+      "neighbor_terms": "[]",
+      "recall_lanes": [
+        "log_effect_fts"
+      ],
+      "recall_fusion": {},
+      "start_line": 7,
+      "end_line": 9,
+      "score": 3.6,
+      "search_terms": [
+        "src/pages/downloadspage.ets",
+        "warning",
+        "hilog",
+        "attachment cache write missing",
+        "retrydownload",
+        "src",
+        "pages",
+        "downloadspage",
+        "ets",
+        "attachment",
+        "cache",
+        "write",
+        "missing",
+        "service",
+        "loadattachment",
+        "path",
+        "downloads",
+        "page",
+        "retry",
+        "download",
+        "load",
+        "arkts",
+        "harmonyos",
+        "component",
+        "log",
+        "logger",
+        "console",
+        "debug",
+        "error",
+        "failed",
+        "failure"
+      ],
+      "match_reasons": [
+        "log_message",
+        "search_terms",
+        "static_wrapped"
+      ],
+      "log_signal_score": 0.35,
+      "log_signal_band": "poor",
+      "present_signals": [
+        "level",
+        "logger",
+        "route_or_resource",
+        "entity_id_or_key",
+        "neighbor_context"
+      ],
+      "missing_signals": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_or_session_id",
+        "action_result"
+      ],
+      "suggested_log_fields": [
+        "timestamp",
+        "process",
+        "event_type",
+        "stage",
+        "business_event",
+        "error_code",
+        "reason",
+        "request_id",
+        "session_id",
+        "result"
+      ],
+      "observability_gaps": [
+        "missing_time",
+        "missing_process",
+        "missing_event_name",
+        "missing_stage",
+        "missing_reason",
+        "missing_correlation",
+        "missing_result"
+      ],
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.623,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.65",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "code_log_matches",
+        "score": 3.6,
+        "rerank_score": null,
+        "match_reasons": [
+          "log_message",
+          "search_terms",
+          "static_wrapped"
+        ],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": null,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    }
+  ],
+  "edge_matches": [
+    {
+      "id": 887,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 148,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 458,
+      "evidence": "src/views/TimelineRow.ets passes entry, showHeader to EventBubble",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.853,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.85",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.85,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 876,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 144,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 484,
+      "evidence": "src/views/MessageRow.ets passes text to QuotedMessagePreview",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.853,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.85",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.85,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 795,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 93,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 493,
+      "evidence": "src/pages/TimelinePage.ets passes entry, showHeader to TimelineRow",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.853,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.85",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.85,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 886,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 148,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 458,
+      "evidence": "src/views/TimelineRow.ets renders EventBubble",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.818,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.75",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.75,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 875,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 144,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 484,
+      "evidence": "src/views/MessageRow.ets renders QuotedMessagePreview",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.818,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.75",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.75,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 794,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 93,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 493,
+      "evidence": "src/pages/TimelinePage.ets renders TimelineRow",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.818,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.75",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.75,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 742,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 73,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 33,
+      "evidence": "src/pages/KeyboardWorkspacePage.ets renders NavigationToolbar",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.818,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.75",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.75,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 632,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 148,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 138,
+      "evidence": "src/views/TimelineRow.ets -> src/views/EventBubble.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.853,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.85",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.85,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 625,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 144,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 146,
+      "evidence": "src/views/MessageRow.ets -> src/views/QuotedMessagePreview.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.853,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.85",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.85,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    },
+    {
+      "id": 601,
+      "project_id": "809895e4e1ee0160",
+      "source_type": "code_file",
+      "source_id": 93,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 148,
+      "evidence": "src/pages/TimelinePage.ets -> src/views/TimelineRow.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-18T16:10:29+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-18T16:10:29+00:00",
+      "created_at": "2026-11-18T16:10:29+00:00",
+      "query_risk_flags": [],
+      "trust_cap": null,
+      "trust_cap_reasons": [],
+      "trust_score": 0.853,
+      "trust_level": "source_truth",
+      "trust_reasons": [
+        "confidence=0.85",
+        "has explicit evidence",
+        "source-like code/log evidence"
+      ],
+      "retrieval_explanation": {
+        "group": "edge_matches",
+        "score": null,
+        "rerank_score": null,
+        "match_reasons": [],
+        "gate_score": null,
+        "gate_reasons": [],
+        "quality_score": null,
+        "quality_band": null,
+        "experience_maturity": null,
+        "experience_maturity_score": null,
+        "feedback_penalty": 0.0,
+        "feedback_reasons": [],
+        "calibration_feedback_bonus": 0.0,
+        "calibration_feedback_penalty": 0.0,
+        "calibration_feedback_reasons": [],
+        "query_risk_flags": [],
+        "intent_alignment": null,
+        "interference_penalty": 0.0,
+        "interference_reasons": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "status": null,
+        "confidence": 0.85,
+        "experience_evidence_profile": null,
+        "source_case_quality": null
+      }
+    }
+  ],
+  "incident_trace_matches": [],
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "suggested_followup_terms": [
+    "hilog",
+    "log",
+    "logger",
+    "error",
+    "warning",
+    "failed",
+    "warn",
+    "attachment download failed after cache write",
+    "arkts function or lifecycle method storethumbnail in src/pools/thumbnailpool.ets; identifier terms: store thumbnail",
+    "loadattachment",
+    "load",
+    "retrydownload"
+  ],
+  "query_handoff": {
+    "schema_version": "agent-query-handoff/v1",
+    "input_query": "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+    "log_keywords": [
+      "full",
+      "result",
+      "cache",
+      "remains",
+      "above",
+      "its",
+      "entry",
+      "limit",
+      "because",
+      "no",
+      "oldest",
+      "key",
+      "is",
+      "evicted",
+      "locate",
+      "executable",
+      "eviction",
+      "scan",
+      "ownership",
+      "hilog"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 10,
+        "effect_id": null,
+        "message_template": "attachment cached file remains usable",
+        "logger": "hilog",
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": [],
+        "process_hint": null,
+        "file_path": "src/services/AttachmentService.ets",
+        "function": "loadAttachment",
+        "line": 12,
+        "evidence_class": "direct",
+        "wrapper_symbol": null,
+        "wrapper_depth": null,
+        "truncated": false,
+        "call_path": [],
+        "call_path_locations": []
+      },
+      {
+        "log_id": 10,
+        "effect_id": 8,
+        "message_template": "attachment cached file remains usable",
+        "logger": "hilog",
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": [],
+        "process_hint": "",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "truncated": false,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.debug"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.debug"
+        ]
+      },
+      {
+        "log_id": 8,
+        "effect_id": null,
+        "message_template": "attachment cache write missing",
+        "logger": "hilog",
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": [],
+        "process_hint": null,
+        "file_path": "src/services/AttachmentService.ets",
+        "function": "loadAttachment",
+        "line": 8,
+        "evidence_class": "direct",
+        "wrapper_symbol": null,
+        "wrapper_depth": null,
+        "truncated": false,
+        "call_path": [],
+        "call_path_locations": []
+      },
+      {
+        "log_id": 9,
+        "effect_id": null,
+        "message_template": "attachment download failed after cache write",
+        "logger": "hilog",
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": [],
+        "process_hint": null,
+        "file_path": "src/services/AttachmentService.ets",
+        "function": "loadAttachment",
+        "line": 11,
+        "evidence_class": "direct",
+        "wrapper_symbol": null,
+        "wrapper_depth": null,
+        "truncated": false,
+        "call_path": [],
+        "call_path_locations": []
+      },
+      {
+        "log_id": 8,
+        "effect_id": 6,
+        "message_template": "attachment cache write missing",
+        "logger": "hilog",
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": [],
+        "process_hint": "",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "truncated": false,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.warning"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.warning"
+        ]
+      }
+    ],
+    "code_anchors": [
+      {
+        "source": "wiki",
+        "record_id": 8,
+        "record_type": "code_file",
+        "file_path": "src/cache/BoundedResultCache.ets",
+        "symbol": "BoundedResultCache",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 25 non-empty lines; behavior: cacheeviction, conditionalbranch",
+        "start_line": 6,
+        "end_line": 28,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 138,
+        "record_type": "code_symbol",
+        "file_path": "src/pages/CacheInspectorPage.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method build in src/pages/CacheInspectorPage.ets",
+        "start_line": 5,
+        "end_line": 10,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 354,
+        "record_type": "code_symbol",
+        "file_path": "src/pools/ThumbnailPool.ets",
+        "symbol": "storeThumbnail",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method storeThumbnail in src/pools/ThumbnailPool.ets; identifier terms: store thumbnail",
+        "start_line": 6,
+        "end_line": 13,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "log_emitter",
+        "record_id": 10,
+        "record_type": "code_log_statement",
+        "file_path": "src/services/AttachmentService.ets",
+        "symbol": "loadAttachment",
+        "symbol_type": null,
+        "summary": null,
+        "start_line": 4,
+        "end_line": 14,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wrapped_log_caller",
+        "record_id": 8,
+        "record_type": "code_log_effect",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "symbol": "retryDownload",
+        "symbol_type": null,
+        "summary": null,
+        "start_line": 7,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "next_query_contract": {
+      "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+      "accepted_inputs": [
+        "exact phrase or identifier observed in the temporary runtime log",
+        "one candidate cause produced by the Agent CLI",
+        "file, symbol, route, resource, error code, logger, or event name"
+      ],
+      "one_candidate_per_query": true
+    },
+    "role_boundary": {
+      "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+      "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+      "runtime_reads_temporary_logs": false,
+      "runtime_builds_causal_chains": false
+    },
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/pages/CacheInspectorPage.ets",
+        "symbol": "build",
+        "owner_name": "CacheInspectorPage",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 25.61,
+        "evidence_score": 25.61,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "put",
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "guard",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 25.5,
+          "evidence_score": 25.5,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "semantic_mechanism",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 22,
+            "end_line": 26,
+            "selection_reason": "semantic_mechanism_window"
+          }
+        },
+        {
+          "file_path": "src/services/CacheService.ets",
+          "symbol": "clearCache",
+          "owner_name": "CacheService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 17.715,
+          "evidence_score": 17.715,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 2,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    },
+    "path_context": {
+      "schema_version": "log-anchored-path-context/v1",
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "candidate_count": 3,
+      "seeds": [],
+      "path_candidates": [],
+      "gaps": {},
+      "bounds": {
+        "max_depth": 6,
+        "max_nodes": 80,
+        "max_edges": 160,
+        "max_raw_paths_per_seed": 20,
+        "max_returned_paths": 5,
+        "max_same_entry_paths": 2,
+        "cycle_visit_limit": 1
+      },
+      "lane_isolation": {
+        "log_anchor": "code_log_statements identity fields only",
+        "program_path": "current active code graph edges only",
+        "semantic_correction": "annotation in base context; cannot create or rank paths",
+        "experience": "advisory in base context; cannot create or rank paths"
+      }
+    }
+  },
+  "network_limits": {
+    "max_depth": 1,
+    "edge_limit": 10,
+    "evidence_chain_limit": 3,
+    "allowed_relations": [
+      "configured_by",
+      "contains",
+      "emits_log",
+      "imports",
+      "passes_property",
+      "renders_component",
+      "routes_to",
+      "uses_resource"
+    ]
+  },
+  "source_freshness": {
+    "schema_version": "source-freshness/v1",
+    "status": "current",
+    "generation": 1,
+    "source_revision": "unversioned",
+    "extractor_version": "code-derived:v1",
+    "candidate_file_count": 31,
+    "checked_file_count": 31,
+    "current_file_count": 31,
+    "blocked_rows": 0,
+    "blocked_rows_by_table": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "stale_paths": [],
+    "missing_paths": [],
+    "unverified_paths": [],
+    "boundary_drift_scope_ids": [],
+    "policy": "digest_mismatch_and_missing_source_blocked"
+  },
+  "memory_use_policy": {
+    "mode": "advisory",
+    "authority_order": [
+      "current_source",
+      "explicit_user_instruction",
+      "source_truth",
+      "verified_experience",
+      "usable_hint",
+      "weak_hint"
+    ],
+    "rules": [
+      "Current source files and explicit user instructions override stored memory.",
+      "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+      "Use weak hints only to choose what to inspect next.",
+      "Do not let recency override evidence, status, confidence, or feedback penalties."
+    ]
+  },
+  "query_audit": {
+    "result_counts": {
+      "semantic_facts": 0,
+      "reflections": 0,
+      "episodes": 0,
+      "wiki_matches": 3,
+      "code_log_matches": 5,
+      "edge_matches": 10,
+      "incident_trace_matches": 0
+    },
+    "candidate_recall": {
+      "schema_version": "agent-candidate-recall-audit/v1",
+      "source_freshness": {
+        "schema_version": "source-freshness/v1",
+        "status": "current",
+        "generation": 1,
+        "source_revision": "unversioned",
+        "extractor_version": "code-derived:v1",
+        "candidate_file_count": 31,
+        "checked_file_count": 31,
+        "current_file_count": 31,
+        "blocked_rows": 0,
+        "blocked_rows_by_table": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "stale_paths": [],
+        "missing_paths": [],
+        "unverified_paths": [],
+        "boundary_drift_scope_ids": [],
+        "policy": "digest_mismatch_and_missing_source_blocked"
+      },
+      "provider": "sqlite_fts5_passage_rrf/v4",
+      "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+      "tables": {
+        "semantic_facts": {
+          "requested_limit": 120,
+          "candidate_count": 0,
+          "saturated": false,
+          "broad_saturated": false,
+          "used_fallback": false,
+          "fallback_skipped_for_scale": false,
+          "focus_term_count": 4,
+          "structural_term_count": 0,
+          "lane_counts": {
+            "broad_fts": 0,
+            "like_fallback": 0
+          },
+          "fielded_retrieval": {},
+          "rank_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "rank_constant": 60,
+            "channel_count": 2,
+            "channel_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fused_candidate_count": 0
+          },
+          "candidate_refs": []
+        },
+        "reflections": {
+          "requested_limit": 120,
+          "candidate_count": 0,
+          "saturated": false,
+          "broad_saturated": false,
+          "used_fallback": false,
+          "fallback_skipped_for_scale": false,
+          "focus_term_count": 4,
+          "structural_term_count": 0,
+          "lane_counts": {
+            "broad_fts": 0,
+            "like_fallback": 0
+          },
+          "fielded_retrieval": {},
+          "rank_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "rank_constant": 60,
+            "channel_count": 2,
+            "channel_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fused_candidate_count": 0
+          },
+          "candidate_refs": []
+        },
+        "episodes": {
+          "requested_limit": 80,
+          "candidate_count": 0,
+          "saturated": false,
+          "broad_saturated": false,
+          "used_fallback": false,
+          "fallback_skipped_for_scale": false,
+          "focus_term_count": 4,
+          "structural_term_count": 0,
+          "lane_counts": {
+            "broad_fts": 0,
+            "like_fallback": 0
+          },
+          "fielded_retrieval": {},
+          "rank_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "rank_constant": 60,
+            "channel_count": 2,
+            "channel_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fused_candidate_count": 0
+          },
+          "candidate_refs": []
+        },
+        "code_files": {
+          "requested_limit": 160,
+          "candidate_count": 11,
+          "saturated": false,
+          "broad_saturated": false,
+          "used_fallback": false,
+          "fallback_skipped_for_scale": false,
+          "focus_term_count": 4,
+          "structural_term_count": 1,
+          "lane_counts": {
+            "broad_fts": 5,
+            "structural_fts": 1,
+            "file_identity_fts": 5,
+            "file_semantic_fts": 5,
+            "salient_file_fts": 6
+          },
+          "fielded_retrieval": {
+            "provider": "code_passage_fts/v2",
+            "score_scope": "channel_local_bm25",
+            "channels": {
+              "file_identity_fts": {
+                "source_type": "code_file",
+                "passage_kinds": [
+                  "file"
+                ],
+                "columns": [
+                  "file_path",
+                  "identity_terms"
+                ],
+                "candidate_count": 5,
+                "file_path_weight": 6.0,
+                "identity_terms_weight": 9.0
+              },
+              "file_semantic_fts": {
+                "source_type": "code_file",
+                "passage_kinds": [
+                  "file"
+                ],
+                "columns": [
+                  "file_path",
+                  "semantic_terms"
+                ],
+                "candidate_count": 5,
+                "file_path_weight": 1.0,
+                "semantic_terms_weight": 7.0
+              },
+              "salient_file_fts": {
+                "source_type": "code_file",
+                "passage_kinds": [
+                  "file"
+                ],
+                "columns": [
+                  "file_path",
+                  "semantic_terms"
+                ],
+                "candidate_count": 6,
+                "query_term_count": 6,
+                "file_path_weight": 3.0,
+                "semantic_terms_weight": 8.0
+              }
+            },
+            "mode": "serving",
+            "serving_candidates_changed": true,
+            "serving_channels": [
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 3,
+              "channel_counts": {
+                "file_identity_fts": 5,
+                "file_semantic_fts": 5,
+                "salient_file_fts": 6
+              },
+              "fused_candidate_count": 11
+            },
+            "candidate_fusion": {
+              "53": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03775615,
+                "best_rank": 1,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "file_identity_fts",
+                    "rank": 1,
+                    "weight": 1.35,
+                    "score": 0.02213115
+                  },
+                  {
+                    "channel": "file_semantic_fts",
+                    "rank": 4,
+                    "weight": 1.0,
+                    "score": 0.015625
+                  }
+                ]
+              },
+              "20": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03764721,
+                "best_rank": 2,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "file_identity_fts",
+                    "rank": 2,
+                    "weight": 1.35,
+                    "score": 0.02177419
+                  },
+                  {
+                    "channel": "file_semantic_fts",
+                    "rank": 3,
+                    "weight": 1.0,
+                    "score": 0.01587302
+                  }
+                ]
+              },
+              "8": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.0375576,
+                "best_rank": 2,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "file_identity_fts",
+                    "rank": 3,
+                    "weight": 1.35,
+                    "score": 0.02142857
+                  },
+                  {
+                    "channel": "file_semantic_fts",
+                    "rank": 2,
+                    "weight": 1.0,
+                    "score": 0.01612903
+                  }
+                ]
+              },
+              "59": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03716267,
+                "best_rank": 1,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "file_identity_fts",
+                    "rank": 5,
+                    "weight": 1.35,
+                    "score": 0.02076923
+                  },
+                  {
+                    "channel": "file_semantic_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  }
+                ]
+              },
+              "111": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03647837,
+                "best_rank": 4,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "file_identity_fts",
+                    "rank": 4,
+                    "weight": 1.35,
+                    "score": 0.02109375
+                  },
+                  {
+                    "channel": "file_semantic_fts",
+                    "rank": 5,
+                    "weight": 1.0,
+                    "score": 0.01538462
+                  }
+                ]
+              },
+              "10": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02377049,
+                "best_rank": 1,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 1,
+                    "weight": 1.45,
+                    "score": 0.02377049
+                  }
+                ]
+              },
+              "73": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.0233871,
+                "best_rank": 2,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 2,
+                    "weight": 1.45,
+                    "score": 0.0233871
+                  }
+                ]
+              },
+              "9": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02301587,
+                "best_rank": 3,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 3,
+                    "weight": 1.45,
+                    "score": 0.02301587
+                  }
+                ]
+              },
+              "71": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02265625,
+                "best_rank": 4,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 4,
+                    "weight": 1.45,
+                    "score": 0.02265625
+                  }
+                ]
+              },
+              "89": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02230769,
+                "best_rank": 5,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 5,
+                    "weight": 1.45,
+                    "score": 0.02230769
+                  }
+                ]
+              },
+              "150": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.0219697,
+                "best_rank": 6,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 6,
+                    "weight": 1.45,
+                    "score": 0.0219697
+                  }
+                ]
+              }
+            },
+            "candidate_refs": [
+              {
+                "id": 53,
+                "file_path": "src/models/ResultCacheEntry.ets",
+                "symbol": "",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 20,
+                "file_path": "src/config/ResultCachePolicy.ets",
+                "symbol": "",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 8,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "symbol": "",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 59,
+                "file_path": "src/pages/CacheInspectorPage.ets",
+                "symbol": "",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 111,
+                "file_path": "src/services/CacheService.ets",
+                "symbol": "",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 10,
+                "file_path": "src/components/KeyboardHint.ets",
+                "symbol": "",
+                "channels": [
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 73,
+                "file_path": "src/pages/KeyboardWorkspacePage.ets",
+                "symbol": "",
+                "channels": [
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 9,
+                "file_path": "src/components/KeyboardFocusHint.ets",
+                "symbol": "",
+                "channels": [
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 71,
+                "file_path": "src/pages/EditorKeyboardPage.ets",
+                "symbol": "",
+                "channels": [
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 89,
+                "file_path": "src/pages/ShortcutSearchPage.ets",
+                "symbol": "",
+                "channels": [
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 150,
+                "file_path": "src/web/DesktopEditorFocusController.ets",
+                "symbol": "",
+                "channels": [
+                  "salient_file_fts"
+                ]
+              }
+            ]
+          },
+          "rank_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "rank_constant": 60,
+            "channel_count": 5,
+            "channel_counts": {
+              "broad_fts": 5,
+              "structural_fts": 1,
+              "file_identity_fts": 5,
+              "file_semantic_fts": 5,
+              "salient_file_fts": 6
+            },
+            "fused_candidate_count": 11
+          },
+          "candidate_refs": [
+            {
+              "id": 8,
+              "file_path": "src/cache/BoundedResultCache.ets",
+              "channels": [
+                "broad_fts",
+                "structural_fts",
+                "file_identity_fts",
+                "file_semantic_fts"
+              ]
+            },
+            {
+              "id": 59,
+              "file_path": "src/pages/CacheInspectorPage.ets",
+              "channels": [
+                "broad_fts",
+                "file_identity_fts",
+                "file_semantic_fts"
+              ]
+            },
+            {
+              "id": 20,
+              "file_path": "src/config/ResultCachePolicy.ets",
+              "channels": [
+                "broad_fts",
+                "file_identity_fts",
+                "file_semantic_fts"
+              ]
+            },
+            {
+              "id": 53,
+              "file_path": "src/models/ResultCacheEntry.ets",
+              "channels": [
+                "broad_fts",
+                "file_identity_fts",
+                "file_semantic_fts"
+              ]
+            },
+            {
+              "id": 111,
+              "file_path": "src/services/CacheService.ets",
+              "channels": [
+                "broad_fts",
+                "file_identity_fts",
+                "file_semantic_fts"
+              ]
+            },
+            {
+              "id": 10,
+              "file_path": "src/components/KeyboardHint.ets",
+              "channels": [
+                "salient_file_fts"
+              ]
+            },
+            {
+              "id": 73,
+              "file_path": "src/pages/KeyboardWorkspacePage.ets",
+              "channels": [
+                "salient_file_fts"
+              ]
+            },
+            {
+              "id": 9,
+              "file_path": "src/components/KeyboardFocusHint.ets",
+              "channels": [
+                "salient_file_fts"
+              ]
+            },
+            {
+              "id": 71,
+              "file_path": "src/pages/EditorKeyboardPage.ets",
+              "channels": [
+                "salient_file_fts"
+              ]
+            },
+            {
+              "id": 89,
+              "file_path": "src/pages/ShortcutSearchPage.ets",
+              "channels": [
+                "salient_file_fts"
+              ]
+            },
+            {
+              "id": 150,
+              "file_path": "src/web/DesktopEditorFocusController.ets",
+              "channels": [
+                "salient_file_fts"
+              ]
+            }
+          ]
+        },
+        "code_symbols": {
+          "requested_limit": 220,
+          "candidate_count": 42,
+          "saturated": false,
+          "broad_saturated": false,
+          "used_fallback": false,
+          "fallback_skipped_for_scale": false,
+          "focus_term_count": 4,
+          "structural_term_count": 0,
+          "lane_counts": {
+            "broad_fts": 20,
+            "method_body_fts": 1,
+            "behavior_method_fts": 0,
+            "symbol_identity_fts": 21,
+            "symbol_semantic_fts": 20,
+            "string_key_fts": 4,
+            "semantic_mechanism_fts": 12,
+            "salient_string_fts": 11
+          },
+          "fielded_retrieval": {
+            "provider": "code_passage_fts/v2",
+            "score_scope": "channel_local_bm25",
+            "channels": {
+              "symbol_identity_fts": {
+                "source_type": "code_symbol",
+                "passage_kinds": [
+                  "symbol",
+                  "callable"
+                ],
+                "columns": [
+                  "file_path",
+                  "symbol",
+                  "identity_terms"
+                ],
+                "candidate_count": 21,
+                "file_path_weight": 2.0,
+                "symbol_weight": 8.0,
+                "identity_terms_weight": 10.0
+              },
+              "symbol_semantic_fts": {
+                "source_type": "code_symbol",
+                "passage_kinds": [
+                  "symbol",
+                  "callable"
+                ],
+                "columns": [
+                  "symbol",
+                  "semantic_terms"
+                ],
+                "candidate_count": 20,
+                "symbol_weight": 2.0,
+                "semantic_terms_weight": 7.0
+              },
+              "method_body_fts": {
+                "source_type": "code_symbol",
+                "passage_kinds": [
+                  "callable"
+                ],
+                "columns": [
+                  "body_terms"
+                ],
+                "candidate_count": 12,
+                "body_terms_weight": 8.0
+              },
+              "string_key_fts": {
+                "source_type": "code_symbol",
+                "passage_kinds": [
+                  "callable"
+                ],
+                "columns": [
+                  "string_terms"
+                ],
+                "candidate_count": 4,
+                "string_terms_weight": 9.0
+              },
+              "semantic_mechanism_fts": {
+                "source_type": "code_symbol",
+                "passage_kinds": [
+                  "symbol",
+                  "callable"
+                ],
+                "columns": [
+                  "mechanism_terms"
+                ],
+                "candidate_count": 12,
+                "mechanism_terms_weight": 9.0
+              },
+              "salient_string_fts": {
+                "source_type": "code_symbol",
+                "passage_kinds": [
+                  "callable"
+                ],
+                "columns": [
+                  "body_terms",
+                  "string_terms"
+                ],
+                "candidate_count": 11,
+                "query_term_count": 6,
+                "body_terms_weight": 3.0,
+                "string_terms_weight": 10.0
+              }
+            },
+            "mode": "serving",
+            "serving_candidates_changed": true,
+            "serving_channels": [
+              "salient_string_fts",
+              "semantic_mechanism_fts",
+              "string_key_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 6,
+              "channel_counts": {
+                "symbol_identity_fts": 21,
+                "symbol_semantic_fts": 20,
+                "method_body_fts": 1,
+                "string_key_fts": 4,
+                "semantic_mechanism_fts": 12,
+                "salient_string_fts": 11
+              },
+              "fused_candidate_count": 42
+            },
+            "candidate_fusion": {
+              "138": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.09052872,
+                "best_rank": 1,
+                "channel_count": 5,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 19,
+                    "weight": 1.45,
+                    "score": 0.01835443
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 16,
+                    "weight": 1.0,
+                    "score": 0.01315789
+                  },
+                  {
+                    "channel": "method_body_fts",
+                    "rank": 1,
+                    "weight": 0.8,
+                    "score": 0.01311475
+                  },
+                  {
+                    "channel": "string_key_fts",
+                    "rank": 1,
+                    "weight": 1.2,
+                    "score": 0.01967213
+                  },
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 1,
+                    "weight": 1.6,
+                    "score": 0.02622951
+                  }
+                ]
+              },
+              "27": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.05705897,
+                "best_rank": 1,
+                "channel_count": 3,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 7,
+                    "weight": 1.45,
+                    "score": 0.02164179
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 7,
+                    "weight": 1.0,
+                    "score": 0.01492537
+                  },
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 1,
+                    "weight": 1.25,
+                    "score": 0.0204918
+                  }
+                ]
+              },
+              "62": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.05094452,
+                "best_rank": 2,
+                "channel_count": 3,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 20,
+                    "weight": 1.45,
+                    "score": 0.018125
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 19,
+                    "weight": 1.0,
+                    "score": 0.01265823
+                  },
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 2,
+                    "weight": 1.25,
+                    "score": 0.02016129
+                  }
+                ]
+              },
+              "399": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.04184806,
+                "best_rank": 6,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 11,
+                    "weight": 1.25,
+                    "score": 0.01760563
+                  },
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 6,
+                    "weight": 1.6,
+                    "score": 0.02424242
+                  }
+                ]
+              },
+              "354": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.04119193,
+                "best_rank": 7,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 7,
+                    "weight": 1.25,
+                    "score": 0.01865672
+                  },
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 11,
+                    "weight": 1.6,
+                    "score": 0.02253521
+                  }
+                ]
+              },
+              "139": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.04016393,
+                "best_rank": 1,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 1,
+                    "weight": 1.45,
+                    "score": 0.02377049
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  }
+                ]
+              },
+              "124": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03951613,
+                "best_rank": 2,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 2,
+                    "weight": 1.45,
+                    "score": 0.0233871
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 2,
+                    "weight": 1.0,
+                    "score": 0.01612903
+                  }
+                ]
+              },
+              "46": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03888889,
+                "best_rank": 3,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 3,
+                    "weight": 1.45,
+                    "score": 0.02301587
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 3,
+                    "weight": 1.0,
+                    "score": 0.01587302
+                  }
+                ]
+              },
+              "24": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03828125,
+                "best_rank": 4,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 4,
+                    "weight": 1.45,
+                    "score": 0.02265625
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 4,
+                    "weight": 1.0,
+                    "score": 0.015625
+                  }
+                ]
+              },
+              "25": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03769231,
+                "best_rank": 5,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 5,
+                    "weight": 1.45,
+                    "score": 0.02230769
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 5,
+                    "weight": 1.0,
+                    "score": 0.01538462
+                  }
+                ]
+              },
+              "26": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03712121,
+                "best_rank": 6,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 6,
+                    "weight": 1.45,
+                    "score": 0.0219697
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 6,
+                    "weight": 1.0,
+                    "score": 0.01515152
+                  }
+                ]
+              },
+              "460": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03602941,
+                "best_rank": 8,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 8,
+                    "weight": 1.45,
+                    "score": 0.02132353
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 8,
+                    "weight": 1.0,
+                    "score": 0.01470588
+                  }
+                ]
+              },
+              "495": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03550725,
+                "best_rank": 9,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 9,
+                    "weight": 1.45,
+                    "score": 0.02101449
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 9,
+                    "weight": 1.0,
+                    "score": 0.01449275
+                  }
+                ]
+              },
+              "330": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.035,
+                "best_rank": 10,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 10,
+                    "weight": 1.45,
+                    "score": 0.02071429
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 10,
+                    "weight": 1.0,
+                    "score": 0.01428571
+                  }
+                ]
+              },
+              "492": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03450704,
+                "best_rank": 11,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 11,
+                    "weight": 1.45,
+                    "score": 0.02042254
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 11,
+                    "weight": 1.0,
+                    "score": 0.01408451
+                  }
+                ]
+              },
+              "457": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03402778,
+                "best_rank": 12,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 12,
+                    "weight": 1.45,
+                    "score": 0.02013889
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 12,
+                    "weight": 1.0,
+                    "score": 0.01388889
+                  }
+                ]
+              },
+              "382": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03356164,
+                "best_rank": 13,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 13,
+                    "weight": 1.45,
+                    "score": 0.01986301
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 13,
+                    "weight": 1.0,
+                    "score": 0.01369863
+                  }
+                ]
+              },
+              "137": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03310811,
+                "best_rank": 14,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 14,
+                    "weight": 1.45,
+                    "score": 0.01959459
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 14,
+                    "weight": 1.0,
+                    "score": 0.01351351
+                  }
+                ]
+              },
+              "413": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03232035,
+                "best_rank": 15,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 15,
+                    "weight": 1.45,
+                    "score": 0.01933333
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 17,
+                    "weight": 1.0,
+                    "score": 0.01298701
+                  }
+                ]
+              },
+              "383": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.0321645,
+                "best_rank": 15,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 17,
+                    "weight": 1.45,
+                    "score": 0.01883117
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 15,
+                    "weight": 1.0,
+                    "score": 0.01333333
+                  }
+                ]
+              },
+              "388": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03189946,
+                "best_rank": 16,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 16,
+                    "weight": 1.45,
+                    "score": 0.01907895
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 18,
+                    "weight": 1.0,
+                    "score": 0.01282051
+                  }
+                ]
+              },
+              "379": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.03040123,
+                "best_rank": 20,
+                "channel_count": 2,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 21,
+                    "weight": 1.45,
+                    "score": 0.01790123
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 20,
+                    "weight": 1.0,
+                    "score": 0.0125
+                  }
+                ]
+              },
+              "179": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02580645,
+                "best_rank": 2,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 2,
+                    "weight": 1.6,
+                    "score": 0.02580645
+                  }
+                ]
+              },
+              "502": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02539683,
+                "best_rank": 3,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 3,
+                    "weight": 1.6,
+                    "score": 0.02539683
+                  }
+                ]
+              },
+              "501": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.025,
+                "best_rank": 4,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 4,
+                    "weight": 1.6,
+                    "score": 0.025
+                  }
+                ]
+              },
+              "177": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02461538,
+                "best_rank": 5,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 5,
+                    "weight": 1.6,
+                    "score": 0.02461538
+                  }
+                ]
+              },
+              "178": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.0238806,
+                "best_rank": 7,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 7,
+                    "weight": 1.6,
+                    "score": 0.0238806
+                  }
+                ]
+              },
+              "319": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02352941,
+                "best_rank": 8,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 8,
+                    "weight": 1.6,
+                    "score": 0.02352941
+                  }
+                ]
+              },
+              "32": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02318841,
+                "best_rank": 9,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 9,
+                    "weight": 1.6,
+                    "score": 0.02318841
+                  }
+                ]
+              },
+              "320": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.02285714,
+                "best_rank": 10,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 10,
+                    "weight": 1.6,
+                    "score": 0.02285714
+                  }
+                ]
+              },
+              "367": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01984127,
+                "best_rank": 3,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 3,
+                    "weight": 1.25,
+                    "score": 0.01984127
+                  }
+                ]
+              },
+              "434": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01953125,
+                "best_rank": 4,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 4,
+                    "weight": 1.25,
+                    "score": 0.01953125
+                  }
+                ]
+              },
+              "378": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01935484,
+                "best_rank": 2,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "string_key_fts",
+                    "rank": 2,
+                    "weight": 1.2,
+                    "score": 0.01935484
+                  }
+                ]
+              },
+              "154": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01923077,
+                "best_rank": 5,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 5,
+                    "weight": 1.25,
+                    "score": 0.01923077
+                  }
+                ]
+              },
+              "281": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01904762,
+                "best_rank": 3,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "string_key_fts",
+                    "rank": 3,
+                    "weight": 1.2,
+                    "score": 0.01904762
+                  }
+                ]
+              },
+              "477": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01893939,
+                "best_rank": 6,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 6,
+                    "weight": 1.25,
+                    "score": 0.01893939
+                  }
+                ]
+              },
+              "325": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01875,
+                "best_rank": 4,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "string_key_fts",
+                    "rank": 4,
+                    "weight": 1.2,
+                    "score": 0.01875
+                  }
+                ]
+              },
+              "332": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01858974,
+                "best_rank": 18,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 18,
+                    "weight": 1.45,
+                    "score": 0.01858974
+                  }
+                ]
+              },
+              "431": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01838235,
+                "best_rank": 8,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 8,
+                    "weight": 1.25,
+                    "score": 0.01838235
+                  }
+                ]
+              },
+              "436": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01811594,
+                "best_rank": 9,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 9,
+                    "weight": 1.25,
+                    "score": 0.01811594
+                  }
+                ]
+              },
+              "131": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01785714,
+                "best_rank": 10,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 10,
+                    "weight": 1.25,
+                    "score": 0.01785714
+                  }
+                ]
+              },
+              "70": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01736111,
+                "best_rank": 12,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "semantic_mechanism_fts",
+                    "rank": 12,
+                    "weight": 1.25,
+                    "score": 0.01736111
+                  }
+                ]
+              }
+            },
+            "candidate_refs": [
+              {
+                "id": 138,
+                "file_path": "src/pages/CacheInspectorPage.ets",
+                "symbol": "build",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "method_body_fts",
+                  "string_key_fts",
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 27,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "symbol": "put",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 62,
+                "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                "symbol": "navigateToEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 399,
+                "file_path": "src/services/SnapshotCoordinator.ets",
+                "symbol": "restoreSnapshot",
+                "channels": [
+                  "semantic_mechanism_fts",
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 354,
+                "file_path": "src/pools/ThumbnailPool.ets",
+                "symbol": "storeThumbnail",
+                "channels": [
+                  "semantic_mechanism_fts",
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 139,
+                "file_path": "src/pages/CacheInspectorPage.ets",
+                "symbol": "oldestEntryLabel",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 124,
+                "file_path": "src/models/ResultCacheEntry.ets",
+                "symbol": "ResultCacheEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 46,
+                "file_path": "src/config/ResultCachePolicy.ets",
+                "symbol": "ResultCachePolicy",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 24,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "symbol": "CachedResult",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 25,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "symbol": "BoundedResultCache",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 26,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "symbol": "constructor",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 460,
+                "file_path": "src/views/EventBubble.ets",
+                "symbol": "entry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 495,
+                "file_path": "src/views/TimelineRow.ets",
+                "symbol": "entry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 330,
+                "file_path": "src/pages/TimelinePage.ets",
+                "symbol": "TimelineEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 492,
+                "file_path": "src/views/TimelineRow.ets",
+                "symbol": "TimelineEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 457,
+                "file_path": "src/views/EventBubble.ets",
+                "symbol": "TimelineEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 382,
+                "file_path": "src/services/CacheService.ets",
+                "symbol": "CacheService",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 137,
+                "file_path": "src/pages/CacheInspectorPage.ets",
+                "symbol": "CacheInspectorPage",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 413,
+                "file_path": "src/stores/DocumentSelectionStore.ets",
+                "symbol": "selectEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 383,
+                "file_path": "src/services/CacheService.ets",
+                "symbol": "clearCache",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 388,
+                "file_path": "src/services/DocumentLoader.ets",
+                "symbol": "loadEntry",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 379,
+                "file_path": "src/services/AttachmentService.ets",
+                "symbol": "writeCache",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ]
+              },
+              {
+                "id": 179,
+                "file_path": "src/pages/EditorKeyboardPage.ets",
+                "symbol": "on",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 502,
+                "file_path": "src/web/DesktopEditorFocusController.ets",
+                "symbol": "on",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 501,
+                "file_path": "src/web/DesktopEditorFocusController.ets",
+                "symbol": "attach",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 177,
+                "file_path": "src/pages/EditorKeyboardPage.ets",
+                "symbol": "aboutToAppear",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 178,
+                "file_path": "src/pages/EditorKeyboardPage.ets",
+                "symbol": "build",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 319,
+                "file_path": "src/pages/ShortcutSearchPage.ets",
+                "symbol": "build",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 32,
+                "file_path": "src/components/KeyboardHint.ets",
+                "symbol": "build",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 320,
+                "file_path": "src/pages/ShortcutSearchPage.ets",
+                "symbol": "onKeyEvent",
+                "channels": [
+                  "salient_string_fts"
+                ]
+              },
+              {
+                "id": 367,
+                "file_path": "src/runtime/PermissionStartupCoordinator.ets",
+                "symbol": "startSession",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 434,
+                "file_path": "src/validation/OrderValidator.ets",
+                "symbol": "validate",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 378,
+                "file_path": "src/services/AttachmentService.ets",
+                "symbol": "loadAttachment",
+                "channels": [
+                  "string_key_fts"
+                ]
+              },
+              {
+                "id": 154,
+                "file_path": "src/pages/CollectionPage.ets",
+                "symbol": "updateFolder",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 281,
+                "file_path": "src/pages/ProfileArchivePage.ets",
+                "symbol": "build",
+                "channels": [
+                  "string_key_fts"
+                ]
+              },
+              {
+                "id": 477,
+                "file_path": "src/views/MessageRow.ets",
+                "symbol": "build",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 325,
+                "file_path": "src/pages/StartupStatusPage.ets",
+                "symbol": "build",
+                "channels": [
+                  "string_key_fts"
+                ]
+              },
+              {
+                "id": 332,
+                "file_path": "src/pages/TimelinePage.ets",
+                "symbol": "shouldShowHeader",
+                "channels": [
+                  "symbol_identity_fts"
+                ]
+              },
+              {
+                "id": 431,
+                "file_path": "src/theme/SystemBarColorAdapter.ets",
+                "symbol": "parseNativeColor",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 436,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "symbol": "loadFolder",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 131,
+                "file_path": "src/pages/AccountSettingsPage.ets",
+                "symbol": "saveAccount",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              },
+              {
+                "id": 70,
+                "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+                "symbol": "commitOrder",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ]
+              }
+            ]
+          },
+          "rank_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "rank_constant": 60,
+            "channel_count": 8,
+            "channel_counts": {
+              "broad_fts": 20,
+              "method_body_fts": 1,
+              "behavior_method_fts": 0,
+              "symbol_identity_fts": 21,
+              "symbol_semantic_fts": 20,
+              "string_key_fts": 4,
+              "semantic_mechanism_fts": 12,
+              "salient_string_fts": 11
+            },
+            "fused_candidate_count": 42
+          },
+          "candidate_refs": [
+            {
+              "id": 138,
+              "file_path": "src/pages/CacheInspectorPage.ets",
+              "channels": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "string_key_fts",
+                "salient_string_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 27,
+              "file_path": "src/cache/BoundedResultCache.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "put"
+            },
+            {
+              "id": 62,
+              "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "navigateToEntry"
+            },
+            {
+              "id": 139,
+              "file_path": "src/pages/CacheInspectorPage.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "oldestEntryLabel"
+            },
+            {
+              "id": 124,
+              "file_path": "src/models/ResultCacheEntry.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "ResultCacheEntry"
+            },
+            {
+              "id": 46,
+              "file_path": "src/config/ResultCachePolicy.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "ResultCachePolicy"
+            },
+            {
+              "id": 24,
+              "file_path": "src/cache/BoundedResultCache.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "CachedResult"
+            },
+            {
+              "id": 25,
+              "file_path": "src/cache/BoundedResultCache.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "BoundedResultCache"
+            },
+            {
+              "id": 26,
+              "file_path": "src/cache/BoundedResultCache.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "constructor"
+            },
+            {
+              "id": 460,
+              "file_path": "src/views/EventBubble.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "entry"
+            },
+            {
+              "id": 495,
+              "file_path": "src/views/TimelineRow.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "entry"
+            },
+            {
+              "id": 382,
+              "file_path": "src/services/CacheService.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "CacheService"
+            },
+            {
+              "id": 330,
+              "file_path": "src/pages/TimelinePage.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "TimelineEntry"
+            },
+            {
+              "id": 137,
+              "file_path": "src/pages/CacheInspectorPage.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "CacheInspectorPage"
+            },
+            {
+              "id": 492,
+              "file_path": "src/views/TimelineRow.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "TimelineEntry"
+            },
+            {
+              "id": 457,
+              "file_path": "src/views/EventBubble.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "TimelineEntry"
+            },
+            {
+              "id": 383,
+              "file_path": "src/services/CacheService.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "clearCache"
+            },
+            {
+              "id": 413,
+              "file_path": "src/stores/DocumentSelectionStore.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "selectEntry"
+            },
+            {
+              "id": 388,
+              "file_path": "src/services/DocumentLoader.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "loadEntry"
+            },
+            {
+              "id": 379,
+              "file_path": "src/services/AttachmentService.ets",
+              "channels": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "symbol": "writeCache"
+            },
+            {
+              "id": 399,
+              "file_path": "src/services/SnapshotCoordinator.ets",
+              "channels": [
+                "semantic_mechanism_fts",
+                "salient_string_fts"
+              ],
+              "symbol": "restoreSnapshot"
+            },
+            {
+              "id": 354,
+              "file_path": "src/pools/ThumbnailPool.ets",
+              "channels": [
+                "semantic_mechanism_fts",
+                "salient_string_fts"
+              ],
+              "symbol": "storeThumbnail"
+            },
+            {
+              "id": 179,
+              "file_path": "src/pages/EditorKeyboardPage.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "on"
+            },
+            {
+              "id": 502,
+              "file_path": "src/web/DesktopEditorFocusController.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "on"
+            },
+            {
+              "id": 501,
+              "file_path": "src/web/DesktopEditorFocusController.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "attach"
+            },
+            {
+              "id": 177,
+              "file_path": "src/pages/EditorKeyboardPage.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "aboutToAppear"
+            },
+            {
+              "id": 178,
+              "file_path": "src/pages/EditorKeyboardPage.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 319,
+              "file_path": "src/pages/ShortcutSearchPage.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 32,
+              "file_path": "src/components/KeyboardHint.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 320,
+              "file_path": "src/pages/ShortcutSearchPage.ets",
+              "channels": [
+                "salient_string_fts"
+              ],
+              "symbol": "onKeyEvent"
+            },
+            {
+              "id": 367,
+              "file_path": "src/runtime/PermissionStartupCoordinator.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "startSession"
+            },
+            {
+              "id": 434,
+              "file_path": "src/validation/OrderValidator.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "validate"
+            },
+            {
+              "id": 378,
+              "file_path": "src/services/AttachmentService.ets",
+              "channels": [
+                "string_key_fts"
+              ],
+              "symbol": "loadAttachment"
+            },
+            {
+              "id": 154,
+              "file_path": "src/pages/CollectionPage.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "updateFolder"
+            },
+            {
+              "id": 281,
+              "file_path": "src/pages/ProfileArchivePage.ets",
+              "channels": [
+                "string_key_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 477,
+              "file_path": "src/views/MessageRow.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 325,
+              "file_path": "src/pages/StartupStatusPage.ets",
+              "channels": [
+                "string_key_fts"
+              ],
+              "symbol": "build"
+            },
+            {
+              "id": 332,
+              "file_path": "src/pages/TimelinePage.ets",
+              "channels": [
+                "symbol_identity_fts"
+              ],
+              "symbol": "shouldShowHeader"
+            },
+            {
+              "id": 431,
+              "file_path": "src/theme/SystemBarColorAdapter.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "parseNativeColor"
+            },
+            {
+              "id": 436,
+              "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "loadFolder"
+            },
+            {
+              "id": 131,
+              "file_path": "src/pages/AccountSettingsPage.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "saveAccount"
+            },
+            {
+              "id": 70,
+              "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+              "channels": [
+                "semantic_mechanism_fts"
+              ],
+              "symbol": "commitOrder"
+            }
+          ]
+        },
+        "code_log_statements": {
+          "requested_limit": 180,
+          "candidate_count": 3,
+          "saturated": false,
+          "broad_saturated": false,
+          "used_fallback": false,
+          "fallback_skipped_for_scale": false,
+          "focus_term_count": 4,
+          "structural_term_count": 0,
+          "lane_counts": {
+            "broad_fts": 3
+          },
+          "fielded_retrieval": {},
+          "rank_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "rank_constant": 60,
+            "channel_count": 1,
+            "channel_counts": {
+              "broad_fts": 3
+            },
+            "fused_candidate_count": 3
+          },
+          "candidate_refs": [
+            {
+              "id": 10,
+              "file_path": "src/services/AttachmentService.ets",
+              "channels": [
+                "broad_fts"
+              ]
+            },
+            {
+              "id": 8,
+              "file_path": "src/services/AttachmentService.ets",
+              "channels": [
+                "broad_fts"
+              ]
+            },
+            {
+              "id": 9,
+              "file_path": "src/services/AttachmentService.ets",
+              "channels": [
+                "broad_fts"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "retrieval_stages": {
+      "scored": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 52,
+        "code_log_matches": 6,
+        "edge_matches": 40,
+        "incident_trace_matches": 0
+      },
+      "after_intent_gate": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 52,
+        "code_log_matches": 6,
+        "edge_matches": 40,
+        "incident_trace_matches": 0
+      },
+      "selected": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 3,
+        "code_log_matches": 5,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      }
+    },
+    "top_explanations": {
+      "semantic_facts": [],
+      "reflections": [],
+      "episodes": [],
+      "wiki_matches": [
+        {
+          "type": "wiki_matches",
+          "id": 8,
+          "score": 47.4,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "structural_behavior",
+            "query_focus_coverage"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "structural_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07417844,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "structural_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 3,
+                "weight": 1.35,
+                "score": 0.02142857
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 47.4,
+            "rerank_score": null,
+            "match_reasons": [
+              "file_path",
+              "file_summary",
+              "search_terms",
+              "exact_path_segment",
+              "structural_behavior",
+              "query_focus_coverage"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "type": "wiki_matches",
+          "id": 138,
+          "score": 39.5,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "string_evidence",
+            "exact_path_segment",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10422735,
+            "best_rank": 1,
+            "channel_count": 6,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 13,
+                "weight": 1.0,
+                "score": 0.01369863
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 19,
+                "weight": 1.45,
+                "score": 0.01835443
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 16,
+                "weight": 1.0,
+                "score": 0.01315789
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 39.5,
+            "rerank_score": null,
+            "match_reasons": [
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "string_evidence",
+              "exact_path_segment",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "type": "wiki_matches",
+          "id": 354,
+          "score": 11.0,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [
+            "mechanism_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.04119193,
+            "best_rank": 7,
+            "channel_count": 2,
+            "contributions": [
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 7,
+                "weight": 1.25,
+                "score": 0.01865672
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 11,
+                "weight": 1.6,
+                "score": 0.02253521
+              }
+            ]
+          },
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 11.0,
+            "rerank_score": null,
+            "match_reasons": [
+              "mechanism_evidence",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "code_log_matches": [
+        {
+          "type": "code_log_matches",
+          "id": 10,
+          "score": 15.6,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [
+            "expanded_query:log_message",
+            "expanded_query:log_context",
+            "expanded_query:search_terms"
+          ],
+          "recall_lanes": [
+            "broad_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.01639344,
+            "best_rank": 1,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "code_log_matches",
+            "score": 15.6,
+            "rerank_score": null,
+            "match_reasons": [
+              "expanded_query:log_message",
+              "expanded_query:log_context",
+              "expanded_query:search_terms"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "type": "code_log_matches",
+          "id": 8,
+          "score": 10.8,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [
+            "expanded_query:log_message",
+            "expanded_query:search_terms",
+            "static_wrapped"
+          ],
+          "recall_lanes": [
+            "log_effect_fts"
+          ],
+          "recall_fusion": {},
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "code_log_matches",
+            "score": 10.8,
+            "rerank_score": null,
+            "match_reasons": [
+              "expanded_query:log_message",
+              "expanded_query:search_terms",
+              "static_wrapped"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "type": "code_log_matches",
+          "id": 9,
+          "score": 5.2,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [
+            "log_message",
+            "log_context",
+            "search_terms"
+          ],
+          "recall_lanes": [
+            "broad_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.01587302,
+            "best_rank": 3,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              }
+            ]
+          },
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "code_log_matches",
+            "score": 5.2,
+            "rerank_score": null,
+            "match_reasons": [
+              "log_message",
+              "log_context",
+              "search_terms"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "edge_matches": [
+        {
+          "type": "edge_matches",
+          "id": 887,
+          "score": null,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [],
+          "recall_lanes": [],
+          "recall_fusion": {},
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "type": "edge_matches",
+          "id": 876,
+          "score": null,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [],
+          "recall_lanes": [],
+          "recall_fusion": {},
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "type": "edge_matches",
+          "id": 795,
+          "score": null,
+          "rerank_score": null,
+          "quality_score": null,
+          "trust_score": 0.853,
+          "trust_level": "source_truth",
+          "feedback_penalty": 0.0,
+          "usage_feedback_bonus": 0.0,
+          "usage_feedback_penalty": 0.0,
+          "match_reasons": [],
+          "recall_lanes": [],
+          "recall_fusion": {},
+          "gate_reasons": [],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.85,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "incident_trace_matches": []
+    },
+    "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+    "hierarchical_localization": {
+      "schema_version": "agent-hierarchical-localization/v2",
+      "provider": "sqlite_hierarchical_localizer/v2",
+      "mode": "serving",
+      "projection_contract": {
+        "candidate_recall_changed": false,
+        "affects_serving_projection": true,
+        "consumer": "query_handoff.callable_evidence"
+      },
+      "limits": {
+        "files": 8,
+        "file_callable_pool": 128,
+        "direct_callable_pool": 32,
+        "graph_seeds": 6,
+        "graph_owners": 16,
+        "callables": 12,
+        "source_ranges": 8
+      },
+      "stage_counts": {
+        "file_candidates": 8,
+        "file_callable_pool": 10,
+        "graph_seed_count": 6,
+        "graph_owner_pool": 1,
+        "selected_callables": 10,
+        "selected_ranges": 8
+      },
+      "file_candidates": [
+        {
+          "file_path": "src/models/ResultCacheEntry.ets",
+          "score": 66.5,
+          "first_rank": 1,
+          "record_ids": [
+            124,
+            53
+          ],
+          "direct_symbol_ids": [
+            124
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "score": 54.75,
+          "first_rank": 2,
+          "record_ids": [
+            24,
+            25,
+            27,
+            8,
+            26
+          ],
+          "direct_symbol_ids": [
+            24,
+            25,
+            27,
+            26
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable",
+            "mechanism_evidence",
+            "file_summary",
+            "structural_behavior"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts",
+            "structural_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "structural_coverage": 1,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/config/ResultCachePolicy.ets",
+          "score": 54.75,
+          "first_rank": 4,
+          "record_ids": [
+            46,
+            20
+          ],
+          "direct_symbol_ids": [
+            46
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/pages/CacheInspectorPage.ets",
+          "score": 42.25,
+          "first_rank": 9,
+          "record_ids": [
+            139,
+            138,
+            137,
+            59
+          ],
+          "direct_symbol_ids": [
+            139,
+            138,
+            137
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "source_locatable",
+            "method_evidence",
+            "string_evidence",
+            "salient_query_evidence",
+            "file_summary"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "method_body_fts",
+            "string_key_fts",
+            "salient_string_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/services/CacheService.ets",
+          "score": 31.75,
+          "first_rank": 13,
+          "record_ids": [
+            382,
+            383,
+            111
+          ],
+          "direct_symbol_ids": [
+            382,
+            383
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/views/EventBubble.ets",
+          "score": 21.75,
+          "first_rank": 17,
+          "record_ids": [
+            460,
+            457
+          ],
+          "direct_symbol_ids": [
+            460,
+            457
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "source_locatable",
+            "graph_neighbor",
+            "graph_relation:passes_property"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "score": 21.75,
+          "first_rank": 18,
+          "record_ids": [
+            495,
+            492
+          ],
+          "direct_symbol_ids": [
+            495,
+            492
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        },
+        {
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "score": 14.75,
+          "first_rank": 19,
+          "record_ids": [
+            62
+          ],
+          "direct_symbol_ids": [
+            62
+          ],
+          "match_reasons": [
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "mechanism_evidence",
+            "source_locatable"
+          ],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts"
+          ],
+          "structural_coverage": 0,
+          "definition_identity": false
+        }
+      ],
+      "graph_seeds": [
+        {
+          "source_operation_match": null,
+          "symbol_id": 27,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "put",
+          "qualified_name": "BoundedResultCache.put",
+          "start_line": 11,
+          "end_line": 27,
+          "score": 25.5,
+          "evidence_score": 25.5,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "semantic_mechanism",
+            "source_locatable",
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts"
+          ],
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "guard",
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 26,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "constructor",
+          "qualified_name": "BoundedResultCache.constructor",
+          "start_line": 9,
+          "end_line": 9,
+          "score": 18.42,
+          "evidence_score": 18.42,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 138,
+          "file_path": "src/pages/CacheInspectorPage.ets",
+          "symbol": "build",
+          "qualified_name": "CacheInspectorPage.build",
+          "start_line": 5,
+          "end_line": 10,
+          "score": 25.61,
+          "evidence_score": 25.61,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "string_evidence",
+            "exact_path_segment",
+            "salient_query_evidence"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "owner_name": "CacheInspectorPage",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 383,
+          "file_path": "src/services/CacheService.ets",
+          "symbol": "clearCache",
+          "qualified_name": "CacheService.clearCache",
+          "start_line": 2,
+          "end_line": 2,
+          "score": 17.715,
+          "evidence_score": 17.715,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "owner_name": "CacheService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 62,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "navigateToEntry",
+          "qualified_name": "DocumentNavigationCoordinator.navigateToEntry",
+          "start_line": 17,
+          "end_line": 24,
+          "score": 14.655,
+          "evidence_score": 14.655,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "semantic_mechanism",
+            "source_locatable",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "mechanism_evidence"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts"
+          ],
+          "owner_name": "DocumentNavigationCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "guard",
+            "state_write",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 459,
+          "file_path": "src/views/EventBubble.ets",
+          "symbol": "build",
+          "qualified_name": "EventBubble.build",
+          "start_line": 12,
+          "end_line": 19,
+          "score": 5.5,
+          "evidence_score": 5.5,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [],
+          "owner_name": "EventBubble",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        }
+      ],
+      "graph_owner_candidates": [
+        {
+          "source_operation_match": null,
+          "symbol_id": 494,
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "build",
+          "qualified_name": "TimelineRow.build",
+          "start_line": 14,
+          "end_line": 19,
+          "score": null,
+          "evidence_score": null,
+          "reasons": [],
+          "graph_depth": 1,
+          "graph_relations": [
+            "passes_property",
+            "renders_component"
+          ],
+          "recall_lanes": [],
+          "owner_name": "TimelineRow",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": null,
+          "artifact_query_intent": null
+        }
+      ],
+      "callable_candidates": [
+        {
+          "source_operation_match": null,
+          "symbol_id": 138,
+          "file_path": "src/pages/CacheInspectorPage.ets",
+          "symbol": "build",
+          "qualified_name": "CacheInspectorPage.build",
+          "start_line": 5,
+          "end_line": 10,
+          "score": 25.61,
+          "evidence_score": 25.61,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "string_evidence",
+            "exact_path_segment",
+            "salient_query_evidence"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "owner_name": "CacheInspectorPage",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 27,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "put",
+          "qualified_name": "BoundedResultCache.put",
+          "start_line": 11,
+          "end_line": 27,
+          "score": 25.5,
+          "evidence_score": 25.5,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "semantic_mechanism",
+            "source_locatable",
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts"
+          ],
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "guard",
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 26,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "constructor",
+          "qualified_name": "BoundedResultCache.constructor",
+          "start_line": 9,
+          "end_line": 9,
+          "score": 18.42,
+          "evidence_score": 18.42,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 383,
+          "file_path": "src/services/CacheService.ets",
+          "symbol": "clearCache",
+          "qualified_name": "CacheService.clearCache",
+          "start_line": 2,
+          "end_line": 2,
+          "score": 17.715,
+          "evidence_score": 17.715,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "owner_name": "CacheService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 62,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "navigateToEntry",
+          "qualified_name": "DocumentNavigationCoordinator.navigateToEntry",
+          "start_line": 17,
+          "end_line": 24,
+          "score": 14.655,
+          "evidence_score": 14.655,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "semantic_mechanism",
+            "source_locatable",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "mechanism_evidence"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts"
+          ],
+          "owner_name": "DocumentNavigationCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "guard",
+            "state_write",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 459,
+          "file_path": "src/views/EventBubble.ets",
+          "symbol": "build",
+          "qualified_name": "EventBubble.build",
+          "start_line": 12,
+          "end_line": 19,
+          "score": 5.5,
+          "evidence_score": 5.5,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [],
+          "owner_name": "EventBubble",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 494,
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "build",
+          "qualified_name": "TimelineRow.build",
+          "start_line": 14,
+          "end_line": 19,
+          "score": 4.5,
+          "evidence_score": 4.5,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [],
+          "owner_name": "TimelineRow",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 59,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "warmIndex",
+          "qualified_name": "DocumentNavigationCoordinator.warmIndex",
+          "start_line": 5,
+          "end_line": 7,
+          "score": 1.5,
+          "evidence_score": 1.5,
+          "reasons": [
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [],
+          "owner_name": "DocumentNavigationCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 60,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "updateLabel",
+          "qualified_name": "DocumentNavigationCoordinator.updateLabel",
+          "start_line": 9,
+          "end_line": 11,
+          "score": 1.5,
+          "evidence_score": 1.5,
+          "reasons": [
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [],
+          "owner_name": "DocumentNavigationCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        },
+        {
+          "source_operation_match": null,
+          "symbol_id": 61,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "resetIndicator",
+          "qualified_name": "DocumentNavigationCoordinator.resetIndicator",
+          "start_line": 13,
+          "end_line": 15,
+          "score": 1.5,
+          "evidence_score": 1.5,
+          "reasons": [
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "graph_depth": 0,
+          "graph_relations": [],
+          "recall_lanes": [],
+          "owner_name": "DocumentNavigationCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation"
+        }
+      ],
+      "source_ranges": [
+        {
+          "symbol_id": 138,
+          "file_path": "src/pages/CacheInspectorPage.ets",
+          "symbol": "build",
+          "callable_start_line": 5,
+          "callable_end_line": 10,
+          "start_line": 5,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        },
+        {
+          "symbol_id": 27,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "put",
+          "callable_start_line": 11,
+          "callable_end_line": 27,
+          "start_line": 22,
+          "end_line": 26,
+          "selection_reason": "semantic_mechanism_window",
+          "mechanism_kind": "guard",
+          "mechanism_terms": [
+            "key",
+            "oldest"
+          ]
+        },
+        {
+          "symbol_id": 26,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "constructor",
+          "callable_start_line": 9,
+          "callable_end_line": 9,
+          "start_line": 9,
+          "end_line": 9,
+          "selection_reason": "callable_symbol_range"
+        },
+        {
+          "symbol_id": 383,
+          "file_path": "src/services/CacheService.ets",
+          "symbol": "clearCache",
+          "callable_start_line": 2,
+          "callable_end_line": 2,
+          "start_line": 2,
+          "end_line": 2,
+          "selection_reason": "callable_symbol_range"
+        },
+        {
+          "symbol_id": 62,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "navigateToEntry",
+          "callable_start_line": 17,
+          "callable_end_line": 24,
+          "start_line": 18,
+          "end_line": 22,
+          "selection_reason": "semantic_mechanism_window",
+          "mechanism_kind": "guard",
+          "mechanism_terms": [
+            "entry"
+          ]
+        },
+        {
+          "symbol_id": 459,
+          "file_path": "src/views/EventBubble.ets",
+          "symbol": "build",
+          "callable_start_line": 12,
+          "callable_end_line": 19,
+          "start_line": 12,
+          "end_line": 19,
+          "selection_reason": "callable_symbol_range"
+        },
+        {
+          "symbol_id": 494,
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "build",
+          "callable_start_line": 14,
+          "callable_end_line": 19,
+          "start_line": 14,
+          "end_line": 19,
+          "selection_reason": "callable_symbol_range"
+        },
+        {
+          "symbol_id": 59,
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "warmIndex",
+          "callable_start_line": 5,
+          "callable_end_line": 7,
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        }
+      ]
+    },
+    "callable_evidence_set": {
+      "schema_version": "agent-callable-evidence-set/v1",
+      "mode": "shadow",
+      "serving_projection_changed": false,
+      "target_scope": {
+        "kind": "unknown",
+        "basis": [
+          "no_explicit_target_scope"
+        ]
+      },
+      "members": [
+        {
+          "position": 1,
+          "file_path": "src/pages/CacheInspectorPage.ets",
+          "symbol": "build",
+          "owner_name": "CacheInspectorPage",
+          "owner_kind": "component",
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation",
+          "source_locatable": true,
+          "support_kinds": [
+            "source_locatable"
+          ],
+          "excluded_by_query": false
+        },
+        {
+          "position": 2,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "put",
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation",
+          "source_locatable": true,
+          "support_kinds": [
+            "semantic_mechanism",
+            "source_locatable"
+          ],
+          "excluded_by_query": false
+        },
+        {
+          "position": 3,
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "constructor",
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "artifact_role": "production",
+          "artifact_query_intent": "implementation",
+          "source_locatable": true,
+          "support_kinds": [
+            "source_locatable"
+          ],
+          "excluded_by_query": false
+        }
+      ],
+      "competition": {
+        "member_count": 3,
+        "distinct_file_count": 2,
+        "same_owner_kind_alternative": false,
+        "graph_backed_alternative": false,
+        "excluded_member_count": 0
+      },
+      "calibration": {
+        "state": "insufficient",
+        "basis": [
+          "no_substantive_primary_support"
+        ]
+      },
+      "boundary": "retrieval_calibration_not_diagnosis"
+    },
+    "callable_passage_portfolio": {
+      "schema_version": "agent-callable-passage-portfolio/v1",
+      "mode": "serving",
+      "state": "inactive",
+      "members": [],
+      "selection_basis": [
+        "target_scope_not_composite"
+      ],
+      "candidate_recall_changed": false,
+      "boundary": "source_passage_composition_not_diagnosis"
+    }
+  }
+}

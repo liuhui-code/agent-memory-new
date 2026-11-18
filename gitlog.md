@@ -1,3 +1,9 @@
+## 2026-11-18 — Expose hidden same-owner uncertain alternatives
+
+- Independently reproduce uncertain first method with no displayed competitor despite known same-owner second method. Limited fallback exposes up to2 known distinct alternatives only when old diversity yielded none; primary, scoring, certainty and ranges unchanged.
+- 86 focused methods pass. Public independent compact845→947 untruncated preserves source; exact control unchanged. Original33 Chinese now exposes put beside uncertain constructor at1051 tokens with anchors/logs/relations intact, not a primary fix.
+- Correct source distinction: original BoundedResultCache contains local timestamp type and Date.now write; separate ExpiryStore does not. Preserve all original default truncation/primary failures, optional2000 incomplete results and initial fixture-test mistake. See docs/releases/uncertain-same-owner-20261118/. No full-suite/CI or original33 closure.
+
 ## 2026-11-18 — Verify historical-action retention without symbol suppression
 
 - No runtime change. Existing preserve-selected-source-anchors with explicit2000 retains complete swapDocument/load at1298 tokens for the independent historical-action request. Default loss remains recorded.

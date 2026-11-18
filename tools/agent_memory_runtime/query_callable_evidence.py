@@ -24,6 +24,8 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
     certainty_value = certainty(primary, certainty_alternatives(candidates, prepared))
     if primary.get("typed_contract_match") and sum(bool(item.get("typed_contract_match")) for item in prepared) > 1:
         certainty_value = "uncertain"
+    if certainty_value == "uncertain" and not alternatives:
+        alternatives = same_owner_alternatives(candidates, prepared)
     from .query_builder_selection import project_builder_evidence
     return project_builder_evidence(localization, {
         "schema_version": "agent-callable-evidence/v1",
@@ -32,6 +34,29 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
         "alternatives": alternatives,
         "boundary": "retrieval_evidence_not_root_cause",
     })
+
+
+def same_owner_alternatives(candidates, prepared):
+    """Expose known competing identities when diversity hid every alternative."""
+    primary = prepared[0]
+    key = callable_identity(candidates[0], primary)
+    owner = primary.get("owner_name")
+    if key is None or not owner:
+        return []
+    seen, result = {key}, []
+    for candidate, projected in zip(candidates[1:], prepared[1:]):
+        identity = callable_identity(candidate, projected)
+        if (identity is None or identity in seen
+                or projected.get("file_path") != primary.get("file_path")
+                or projected.get("owner_name") != owner
+                or projected.get("owner_kind") != primary.get("owner_kind")
+                or not valid_window(projected.get("source_range") or {})):
+            continue
+        seen.add(identity)
+        result.append(projected)
+        if len(result) == 2:
+            break
+    return result
 
 
 def certainty_alternatives(candidates: list[dict[str, Any]], prepared: list[dict[str, Any]]) -> list[dict[str, Any]]:

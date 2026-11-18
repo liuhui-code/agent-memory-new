@@ -1,0 +1,351 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "809895e4e1ee0160",
+  "query": "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "full",
+      "result",
+      "cache",
+      "remains",
+      "above",
+      "entry",
+      "limit",
+      "because",
+      "no",
+      "oldest",
+      "key",
+      "evicted"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 10,
+        "message_template": "attachment cached file remains usable",
+        "logger": "hilog",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "effect_id": 8,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.debug"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.debug"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 8,
+        "message_template": "attachment cache write missing",
+        "logger": "hilog",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "effect_id": 6,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.warning"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.warning"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 10,
+        "message_template": "attachment cached file remains usable",
+        "logger": "hilog",
+        "file_path": "src/services/AttachmentService.ets",
+        "function": "loadAttachment",
+        "line": 12,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/cache/BoundedResultCache.ets",
+        "symbol": "BoundedResultCache",
+        "symbol_type": "class",
+        "record_ids": [
+          8
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "BoundedResultCache",
+            "start_line": 6,
+            "end_line": 28
+          }
+        ],
+        "summary": "ArkTS file with 25 non-empty lines; behavior: cacheeviction, conditionalbranch",
+        "read_window": {
+          "start_line": 6,
+          "end_line": 28
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "put",
+            "start_line": 11,
+            "end_line": 27,
+            "content": "  put(key: string, value: string): void {\n    this.entries.set(key, { updatedAt: Date.now(), value: value })\n    if (this.entries.size <= this.capacity) {\n      return\n    }\n    let oldestKey: string | undefined = undefined\n    let oldestTime: number = Number.MAX_SAFE_INTEGER\n    for (const [candidateKey, candidate] of this.entries) {\n      if (candidate.updatedAt < oldestTime) {\n        oldestTime = candidate.updatedAt\n        oldestKey = candidateKey\n      }\n    }\n    if (oldestKey !== undefined) {\n      this.entries.delete(oldestKey)\n    }\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/pages/CacheInspectorPage.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          138
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 5,
+            "end_line": 10
+          }
+        ],
+        "read_window": {
+          "start_line": 5,
+          "end_line": 10
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": null,
+            "start_line": 1,
+            "end_line": 11,
+            "content": "@Component\nexport struct CacheInspectorPage {\n  @State oldestEntryLabel: string = 'Oldest cached result'\n\n  build() {\n    Column() {\n      Text(this.oldestEntryLabel)\n      Text('Entry limit and eviction status')\n    }\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/pools/ThumbnailPool.ets",
+        "symbol": "storeThumbnail",
+        "symbol_type": "function",
+        "record_ids": [
+          354
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "storeThumbnail",
+            "start_line": 6,
+            "end_line": 13
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 13
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "storeThumbnail",
+            "start_line": 3,
+            "end_line": 6,
+            "content": "\n  constructor(private capacity: number) {}\n\n  storeThumbnail(key: ",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": true
+          }
+        ]
+      },
+      {
+        "source": "wrapped_log_caller",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "symbol": "retryDownload",
+        "record_ids": [
+          8
+        ],
+        "record_type": "code_log_effect",
+        "source_ranges": [
+          {
+            "symbol": "retryDownload",
+            "start_line": 7,
+            "end_line": 9
+          }
+        ],
+        "read_window": {
+          "start_line": 7,
+          "end_line": 9
+        },
+        "role": "expansion"
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/pages/CacheInspectorPage.ets",
+        "symbol": "build",
+        "owner_name": "CacheInspectorPage",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 25.61,
+        "evidence_score": 25.61,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 10,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/cache/BoundedResultCache.ets",
+          "symbol": "put",
+          "owner_name": "BoundedResultCache",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "guard",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 25.5,
+          "evidence_score": 25.5,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "semantic_mechanism",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 22,
+            "end_line": 26,
+            "selection_reason": "semantic_mechanism_window"
+          }
+        },
+        {
+          "file_path": "src/services/CacheService.ets",
+          "symbol": "clearCache",
+          "owner_name": "CacheService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 17.715,
+          "evidence_score": 17.715,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 2,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 843
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "target_tokens": 2000,
+    "estimated_tokens": 1985,
+    "truncated": true
+  }
+}

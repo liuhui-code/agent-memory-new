@@ -1,0 +1,53 @@
+[
+  {
+    "name": "original",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/after-home-original",
+      "--query",
+      "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "en-paraphrase",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/after-home-en-paraphrase",
+      "--query",
+      "The bounded cache fails to remove its oldest entry after capacity is exceeded; return the timestamp scan and delete implementation rather than cache policy or models.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "zh-noise",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/timestamp33/after-home-zh-noise",
+      "--query",
+      "\u7ed3\u679c\u7f13\u5b58\u8d85\u8fc7\u5bb9\u91cf\u540e\u6ca1\u6709\u6dd8\u6c70\u6700\u65e7\u6761\u76ee\uff0c\u8bf7\u53ea\u8fd4\u56de\u904d\u5386\u65f6\u95f4\u6233\u5e76\u5220\u9664\u5019\u9009\u952e\u7684\u5b9e\u73b0\uff0c\u4e0d\u8981\u8fd4\u56de\u7f13\u5b58\u914d\u7f6e\u3001\u9875\u9762\u6216\u6570\u636e\u6a21\u578b\u3002",
+      "--json"
+    ],
+    "rc": 0
+  }
+]
