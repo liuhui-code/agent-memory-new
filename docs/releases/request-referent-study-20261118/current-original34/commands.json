@@ -1,0 +1,61 @@
+[
+  {
+    "name": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history34-current-policy/default-home",
+      "--query",
+      "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "plain2000",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history34-current-policy/plain2000-home",
+      "--query",
+      "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner.",
+      "--compact",
+      "--json",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "preserve2000",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history34-current-policy/preserve2000-home",
+      "--query",
+      "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner.",
+      "--compact",
+      "--json",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  }
+]

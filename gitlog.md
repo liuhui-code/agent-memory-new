@@ -13150,3 +13150,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Explicit2000+preserve can append typed expansion navigation from authenticated returned import sources with partial field evidence, within unchanged budgets and slots. Default/plain2000 remain unchanged.
 - Original13 Chinese navigation appears at1984 vs1867 with every old JSON field preserved except estimate. No body delivery or unique/business/causal claim; original default group remains1/3.
 - 31 focused checks and frozen development CLI controls; actual Agent observations retain window deviation and no accuracy/cost claim. See docs/releases/graph-field-navigation-20261118.
+
+## 2026-11-18 - Preserve unsuccessful request-referent qualification
+
+- Rechecked original34 default/plain2000 existing alternative navigation and preserved2000 full method; do not duplicate delivered capability.
+- Five paired isolated Agent developer observations: one clear referent correction, one partial/remaining binding failure, three target outcomes unchanged; retain search regressions and all replies.
+- STOP: candidate guidance not adopted, no Runtime/Skill/oracle changes and no original-group closure. See docs/releases/request-referent-study-20261118.

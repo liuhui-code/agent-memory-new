@@ -1,0 +1,24 @@
+{
+  "classification": "development consumer instruction experiment; not original runtime gate or causal/model promotion",
+  "source_protocol": "existing history-retention/protocol.json, unchanged",
+  "queries": {
+    "historical-action": "After an earlier load failed, replacing the document must reset its ready flag before opening the new document. Find the state owner.",
+    "historical-reference": "After an earlier load failed, replacing the document must reset its ready flag. Find the failed operation implementation.",
+    "current-load-after-history": "After an earlier load failed, replacing the document must reset its ready flag. Find the load method.",
+    "reverse-current-load": "After an earlier swapDocument failed, loading the thumbnail must report a failure. Find the load method.",
+    "quoted-history": "Locate the code emitting the literal \"After an earlier load failed\"."
+  },
+  "arms": [
+    "baseline-code-understanding.md",
+    "candidate-code-understanding.md"
+  ],
+  "expectations": {
+    "historical-action": "current replacement/state source",
+    "historical-reference": "earlier failed load operation, not replacement",
+    "current-load-after-history": "explicit load method",
+    "reverse-current-load": "explicit load method",
+    "quoted-history": "quoted log emitter, not keyword-derived source"
+  },
+  "controls": "same given JSON/source and shared budgets; no oracle/expected path in consumer assignment",
+  "candidate_sha256": "f6ea6ae6da3b87e9a548fe7ca14bcf58ef28f3137ab0d6c4446412c723e6766d"
+}

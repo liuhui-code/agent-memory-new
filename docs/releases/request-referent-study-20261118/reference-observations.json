@@ -1,0 +1,32 @@
+{
+  "classification": "isolated internal Agent Development observations, not a model benchmark or original gate",
+  "initial_baseline_failure": {
+    "target": "DocumentSession.swapDocument:5-9 and DocumentReader.openDocument:12-14",
+    "answer_claim": "目标实现是替换文档并重置ready的源码",
+    "extra_reads": [{"file":"DocumentSession.ts","start":1,"end":15}],
+    "searches":0,"rounds":1,
+    "qualification": "wrong requested referent; retained before candidate design"
+  },
+  "paired_baseline": {
+    "target":"DocumentReader.openDocument:12-14; DocumentSession.swapDocument:5-9",
+    "answer_claim":"文档加载操作的实现是 DocumentReader.openDocument；ThumbnailLoader没有文档替换或ready状态，不能据此认定是用户所指失败操作",
+    "extra_reads":[{"file":"DocumentSession.ts","requested_start":1,"requested_end":120,"actual_end":15}],
+    "searches":0,"rounds":1,"source_files":2,
+    "uncertainty":"没有实际失败日志或运行验证，无法确认历史上失败的具体调用",
+    "qualification":"substituted proposed replacement context for explicitly referenced earlier failed load"
+  },
+  "paired_candidate": {
+    "target":"ThumbnailLoader.load:2-8",
+    "answer_claim":"The failed-load implementation is ThumbnailLoader.load. Failed operation refers to the earlier load, not proposed replacement. DocumentSession.swapDocument is separate and was not inspected.",
+    "extra_reads":[],"searches":0,"rounds":0,"source_files":1,
+    "uncertainty":"No runtime log establishes which invocation failed; relationship to document replacement unverified",
+    "qualification":"matches explicitly requested referent; one controlled observation, not stable improvement proof"
+  },
+  "original34_current_baseline_observation": {
+    "input":"history34-current-policy/default.json",
+    "target":"SourceSwapCoordinator.replaceSource:17-21; phase field:12",
+    "extra_reads":[{"file":"src/coordinators/SourceSwapCoordinator.ets","start":1,"end":22}],
+    "searches":0,"rounds":1,
+    "qualification":"existing alternative already supports locating current state owner; do not duplicate navigation fields or claim prior output had no target navigation"
+  }
+}

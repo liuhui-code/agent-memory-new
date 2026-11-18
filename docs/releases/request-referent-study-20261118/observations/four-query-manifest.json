@@ -1,0 +1,71 @@
+{
+  "classification": "isolated developer consumer observations, no runtime gate or promotion claim",
+  "each_agent_fork_turns": "none",
+  "maximum_concurrent_consumers": 4,
+  "observations": [
+    {
+      "request": "historical-action",
+      "arm": "baseline",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/historical-action-baseline.md",
+      "sha256": "d55dcf9d91b7783fba095dea2f512c54d5416f4760ce2fa2d7973dd9bcaa3df9",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "historical-action",
+      "arm": "candidate",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/historical-action-candidate.md",
+      "sha256": "9f7184a045a83d1dd024003b91a7ab41d81b32bba352d7acdb13b6ec052b9ed2",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "current-load-after-history",
+      "arm": "baseline",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/current-load-after-history-baseline.md",
+      "sha256": "cd1eeeaef23e696ddedc21590adc56a0ba2dec8f81e45f2b67fe9cb78f7a07aa",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "current-load-after-history",
+      "arm": "candidate",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/current-load-after-history-candidate.md",
+      "sha256": "b3afffd4a7598ac853996ce3b460dcd626dc63082dead1340b6198404ecad7ee",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "reverse-current-load",
+      "arm": "baseline",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/reverse-current-load-baseline.md",
+      "sha256": "fb950a01bafa928b5c47ba5545bdca8b9aa55e74101e413a6cf6245141f09d37",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "reverse-current-load",
+      "arm": "candidate",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/reverse-current-load-candidate.md",
+      "sha256": "65339bac6e353aced0b68bdd5832a86584521462540faedd0a29ae51a7f42b42",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "quoted-history",
+      "arm": "baseline",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/quoted-history-baseline.md",
+      "sha256": "7b12505fbfa6d867e7cb719b4316c9d5bfc486b0610f71438510142422dc74d0",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    },
+    {
+      "request": "quoted-history",
+      "arm": "candidate",
+      "path": "/workspace/scratch/dcdb41e16594/concrete-plan-work/request-referent-consumer/observations/quoted-history-candidate.md",
+      "sha256": "116f39beb4e64dbc88162d6bd43931956666c27fcfac18e859e7b03db14ca393",
+      "status": "completed",
+      "capture": "verbatim final response plus terminal newline"
+    }
+  ]
+}

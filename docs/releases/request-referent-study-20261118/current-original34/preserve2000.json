@@ -1,0 +1,342 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "04569fbab35d9e06",
+  "query": "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner.",
+  "memory_intent": "runtime_log_diagnosis",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "selecting",
+      "replacement",
+      "source",
+      "after",
+      "earlier",
+      "load",
+      "failed",
+      "must",
+      "reset",
+      "lifecycle",
+      "phase",
+      "before"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 4,
+        "message_template": "WRAP_PROFILE_7F19 load failed",
+        "logger": "hilog",
+        "file_path": "src/services/WrappedProfileService.ets",
+        "function": "load",
+        "line": 7,
+        "effect_id": 13,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "report",
+        "wrapper_depth": 2,
+        "call_path": [
+          "load",
+          "report",
+          "emit",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/WrappedProfileService.ets#load",
+          "src/logging/DomainLogger.ets#report",
+          "src/logging/LogSink.ets#emit",
+          "src/logging/LogSink.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 9,
+        "message_template": "attachment download failed after cache write",
+        "logger": "hilog",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "effect_id": 7,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 9,
+        "message_template": "attachment download failed after cache write",
+        "logger": "hilog",
+        "file_path": "src/services/AttachmentService.ets",
+        "function": "loadAttachment",
+        "line": 11,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "symbol_type": "function",
+        "record_ids": [
+          78
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "replaceSource",
+            "start_line": 17,
+            "end_line": 21
+          }
+        ],
+        "read_window": {
+          "start_line": 17,
+          "end_line": 21
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "replaceSource",
+            "start_line": 12,
+            "end_line": 22,
+            "content": "  private phase: SourcePhase = SourcePhase.Idle\n  private source: string = ''\n\n  constructor(private loader: SourceLoader) {}\n\n  async replaceSource(nextSource: string): Promise<void> {\n    this.phase = SourcePhase.Idle\n    this.source = nextSource\n    await this.loader.openSource(nextSource)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "DeadlineBootstrapController",
+        "symbol_type": "class",
+        "record_ids": [
+          42
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "DeadlineBootstrapController",
+            "start_line": 1,
+            "end_line": 31
+          }
+        ],
+        "summary": "ArkTS file with 27 non-empty lines; behavior: timeoutboundary, cancellationguard, conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 31
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "DeadlineBootstrapController",
+            "start_line": 9,
+            "end_line": 25,
+            "content": "        this.cancelled = true\n        resolve()\n      }, 3000)\n    })\n    await Promise.race([this.initializeWorkspace(), deadline])\n  }\n\n  private async initializeWorkspace(): Promise<void> {\n    await this.loadAccount()\n    if (this.cancelled) {\n      return\n    }\n    await this.loadWorkspace()\n    if (this.cancelled) {\n      return\n    }\n    this.ready = true",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "symbol_type": "function",
+        "record_ids": [
+          401
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "load",
+            "start_line": 6,
+            "end_line": 8
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 8
+        },
+        "role": "primary"
+      },
+      {
+        "source": "wrapped_log_caller",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "symbol": "retryDownload",
+        "record_ids": [
+          7
+        ],
+        "record_type": "code_log_effect",
+        "source_ranges": [
+          {
+            "symbol": "retryDownload",
+            "start_line": 7,
+            "end_line": 9
+          }
+        ],
+        "read_window": {
+          "start_line": 7,
+          "end_line": 9
+        },
+        "role": "expansion"
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "owner_name": "WrappedProfileService",
+        "owner_kind": "service",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 38.88,
+        "evidence_score": 38.88,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": "replaceSource",
+          "owner_name": "SourceSwapCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.5,
+          "evidence_score": 32.5,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 17,
+            "end_line": 21,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "loadAccount",
+          "owner_name": "DeadlineBootstrapController",
+          "owner_kind": "controller",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 22.62,
+          "evidence_score": 22.62,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 28,
+            "end_line": 28,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 2,
+      "excerpt_chars": 663
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "target_tokens": 2000,
+    "estimated_tokens": 1940,
+    "truncated": true
+  }
+}
