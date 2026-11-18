@@ -1,0 +1,42 @@
+{
+  "classification": "Disclosed repeatable independent Development retention qualification, not historical feature suppression; source and all8 frozen queries reused unchanged. No original34 campaign or sealed run.",
+  "sources": {
+    "ThumbnailLoader.ts": "export class ThumbnailLoader {\n  async load(path: string): Promise<void> {\n    try {\n      await fetch(path)\n    } catch (error) {\n      console.error('THUMBNAIL_READ_FAILED: load failed')\n    }\n  }\n}\n",
+    "DocumentSession.ts": "export class DocumentSession {\n  private ready: boolean = false\n  private documentPath: string = ''\n  constructor(private reader: DocumentReader) {}\n  async swapDocument(path: string): Promise<void> {\n    this.ready = false\n    this.documentPath = path\n    await this.reader.openDocument(path)\n  }\n}\nexport class DocumentReader {\n  async openDocument(path: string): Promise<void> {\n    await fetch(path)\n  }\n}\n"
+  },
+  "queries": [
+    [
+      "historical-action",
+      "After an earlier load failed, replacing the document must reset its ready flag before opening the new document. Find the state owner."
+    ],
+    [
+      "actual-load",
+      "Find the load method that fetches the thumbnail and reports a failure."
+    ],
+    [
+      "actual-literal",
+      "Locate the code emitting the literal THUMBNAIL_READ_FAILED: load failed."
+    ],
+    [
+      "historical-reference",
+      "After an earlier load failed, replacing the document must reset its ready flag. Find the failed operation implementation."
+    ],
+    [
+      "current-load-after-history",
+      "After an earlier load failed, replacing the document must reset its ready flag. Find the load method."
+    ],
+    [
+      "multiple-targets",
+      "After an earlier load failed, replacing the document must reset its ready flag. Find both load and swapDocument."
+    ],
+    [
+      "reverse-current-load",
+      "After an earlier swapDocument failed, loading the thumbnail must report a failure. Find the load method."
+    ],
+    [
+      "quoted-history",
+      "Locate the code emitting the literal \"After an earlier load failed\"."
+    ]
+  ],
+  "contract": "Observe preservation of previously focused real source alongside historical exact-symbol authority without suppressing any identifier. No new target attribution or blanket retention permission assumed."
+}

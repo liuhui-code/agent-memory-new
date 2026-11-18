@@ -1,3 +1,9 @@
+## 2026-11-18 — Verify historical-action retention without symbol suppression
+
+- No runtime change. Existing preserve-selected-source-anchors with explicit2000 retains complete swapDocument/load at1298 tokens for the independent historical-action request. Default loss remains recorded.
+- All8 fixed requests keep identical primary/certainty/log anchors, including historical backreference load; multiple/reverse controls gain an existing emits_log relation. Reverse current-load primary remains wrong, so this is opt-in source retention, not attribution/default34 closure.
+- 18 final focused preserve/budget methods pass; raw/default/corrected preserve and the initial invalid-flag error remain in docs/releases/history-source-preserve-20261118/. No full-suite/CI claim.
+
 ## 2026-11-18 — Bound disclosure hints to known declared owners
 
 - Public independent learn/list reproduced cross-class same-spelled this fields creating a false disclosure hint. Finite balanced top-level declaration partition prevents this pairing while preserving same-owner and unknown input.

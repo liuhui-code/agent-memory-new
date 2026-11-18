@@ -1,0 +1,176 @@
+[
+  {
+    "name": "historical-action",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-historical-action",
+      "--query",
+      "After an earlier load failed, replacing the document must reset its ready flag before opening the new document. Find the state owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "actual-load",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-actual-load",
+      "--query",
+      "Find the load method that fetches the thumbnail and reports a failure.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "actual-literal",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-actual-literal",
+      "--query",
+      "Locate the code emitting the literal THUMBNAIL_READ_FAILED: load failed.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "historical-reference",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-historical-reference",
+      "--query",
+      "After an earlier load failed, replacing the document must reset its ready flag. Find the failed operation implementation.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "current-load-after-history",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-current-load-after-history",
+      "--query",
+      "After an earlier load failed, replacing the document must reset its ready flag. Find the load method.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "multiple-targets",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-multiple-targets",
+      "--query",
+      "After an earlier load failed, replacing the document must reset its ready flag. Find both load and swapDocument.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "reverse-current-load",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-reverse-current-load",
+      "--query",
+      "After an earlier swapDocument failed, loading the thumbnail must report a failure. Find the load method.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "quoted-history",
+    "mode": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/default-home-quoted-history",
+      "--query",
+      "Locate the code emitting the literal \"After an earlier load failed\".",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "historical-action",
+    "mode": "preserve",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/preserve-home-historical-action",
+      "--query",
+      "After an earlier load failed, replacing the document must reset its ready flag before opening the new document. Find the state owner.",
+      "--compact",
+      "--preserve-selected-source-anchors",
+      "--context-budget",
+      "2000",
+      "--json"
+    ],
+    "rc": 2
+  }
+]

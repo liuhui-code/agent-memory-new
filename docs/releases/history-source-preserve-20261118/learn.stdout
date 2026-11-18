@@ -1,0 +1,557 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+  "path": ".",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "DocumentSession.ts",
+    "ThumbnailLoader.ts"
+  ],
+  "count": 2,
+  "summary": "Merged 2 files from .",
+  "parse_stats": {
+    "files_indexed": 2,
+    "skipped_by_reason": {},
+    "languages": {
+      "TypeScript": 2
+    },
+    "symbols_total": 7,
+    "symbols_by_type": {
+      "class": 3,
+      "function": 4
+    },
+    "code_logs_total": 1,
+    "code_logs_by_level": {
+      "error": 1
+    },
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "typescript-static",
+          "version": "1.2",
+          "language": "TypeScript"
+        }
+      ],
+      "capabilities": [
+        "api_boundaries",
+        "async_flow",
+        "callbacks",
+        "calls",
+        "definitions",
+        "inheritance",
+        "mechanisms",
+        "references",
+        "types"
+      ],
+      "files_indexed": 2,
+      "entities": 7,
+      "relations_extracted": 7,
+      "mechanisms_extracted": 2,
+      "relations_emitted": 7,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 3,
+      "gaps": [
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "DocumentSession.ts",
+          "symbol": "reader.openDocument"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "DocumentSession.ts",
+          "symbol": "fetch"
+        },
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "fetch"
+        }
+      ],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "TypeScript",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 2
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 7,
+        "reference_name_count": 0,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 7
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 2,
+      "symbols_written": 7,
+      "passages_written": 9
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/workspace/scratch/dcdb41e16594/concrete-plan-work/history-retention/source",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 2,
+      "scope_files": [
+        "DocumentSession.ts",
+        "ThumbnailLoader.ts"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 2,
+          "code_log_statement": 1,
+          "code_symbol": 7
+        },
+        "edge_count": 16,
+        "relation_counts": {
+          "contains": 8,
+          "emits_log": 1,
+          "exposes_api": 7
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 16,
+      "edge_delta": 16
+    },
+    "phase_ms": {
+      "extract": 4.789,
+      "load_scope": 3.794,
+      "invalidate": 0.642,
+      "prepare_rows": 3.037,
+      "insert_rows": 0.495,
+      "restore_business": 0.064,
+      "rebuild_graph": 17.602,
+      "summarize": 0.192,
+      "commit": 0.989,
+      "total": 31.622
+    },
+    "memory_edges_total": 16,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 2,
+      "symbols": 7,
+      "logs": 1
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 0,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "DocumentSession.ts",
+          "summary": "TypeScript file with 15 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "swapDocument",
+              "symbol_type": "function",
+              "summary": "function swapDocument in DocumentSession.ts; identifier terms: swap document",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "documentsession",
+                "ts",
+                "swapdocument",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "swap",
+                "document",
+                "session"
+              ],
+              "hint_context": [
+                "DocumentSession.ts",
+                "swapDocument",
+                "function",
+                "function swapDocument in DocumentSession.ts; identifier terms: swap document"
+              ]
+            },
+            {
+              "symbol": "openDocument",
+              "symbol_type": "function",
+              "summary": "function openDocument in DocumentSession.ts; identifier terms: open document",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "documentsession",
+                "ts",
+                "opendocument",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "open",
+                "document",
+                "session"
+              ],
+              "hint_context": [
+                "DocumentSession.ts",
+                "openDocument",
+                "function",
+                "function openDocument in DocumentSession.ts; identifier terms: open document"
+              ]
+            },
+            {
+              "symbol": "constructor",
+              "symbol_type": "function",
+              "summary": "function constructor in DocumentSession.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "documentsession",
+                "ts",
+                "constructor",
+                "function",
+                "in",
+                "document",
+                "session"
+              ],
+              "hint_context": [
+                "DocumentSession.ts",
+                "constructor",
+                "function",
+                "function constructor in DocumentSession.ts"
+              ]
+            },
+            {
+              "symbol": "DocumentSession",
+              "symbol_type": "class",
+              "summary": "class DocumentSession in DocumentSession.ts; identifier terms: document session",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "documentsession",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "document",
+                "session"
+              ],
+              "hint_context": [
+                "DocumentSession.ts",
+                "DocumentSession",
+                "class",
+                "class DocumentSession in DocumentSession.ts; identifier terms: document session"
+              ]
+            },
+            {
+              "symbol": "DocumentReader",
+              "symbol_type": "class",
+              "summary": "class DocumentReader in DocumentSession.ts; identifier terms: document reader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "documentsession",
+                "ts",
+                "documentreader",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "document",
+                "reader",
+                "session"
+              ],
+              "hint_context": [
+                "DocumentSession.ts",
+                "DocumentReader",
+                "class",
+                "class DocumentReader in DocumentSession.ts; identifier terms: document reader"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 112,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "documentsession",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "15",
+            "non",
+            "empty",
+            "lines",
+            "swapdocument",
+            "opendocument",
+            "constructor",
+            "documentreader",
+            "document",
+            "session",
+            "type",
+            "script",
+            "swap",
+            "open",
+            "reader"
+          ],
+          "hint_context": [
+            "DocumentSession.ts",
+            "TypeScript file with 15 non-empty lines",
+            "swapDocument openDocument constructor DocumentSession DocumentReader"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "load",
+              "symbol_type": "function",
+              "summary": "function load in ThumbnailLoader.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "thumbnailloader",
+                "ts",
+                "load",
+                "function",
+                "in",
+                "thumbnail",
+                "loader"
+              ],
+              "hint_context": [
+                "ThumbnailLoader.ts",
+                "load",
+                "function",
+                "function load in ThumbnailLoader.ts"
+              ]
+            },
+            {
+              "symbol": "ThumbnailLoader",
+              "symbol_type": "class",
+              "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "thumbnailloader",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "thumbnail",
+                "loader"
+              ],
+              "hint_context": [
+                "ThumbnailLoader.ts",
+                "ThumbnailLoader",
+                "class",
+                "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader"
+              ]
+            }
+          ],
+          "logs": [
+            {
+              "message_template": "THUMBNAIL_READ_FAILED: load failed",
+              "function": "load",
+              "level": "error",
+              "logger": "console",
+              "raw_statement": "console.error('THUMBNAIL_READ_FAILED: load failed')",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "thumbnailloader",
+                "ts",
+                "thumbnail_read_failed",
+                "load",
+                "failed",
+                "error",
+                "console",
+                "thumbnail",
+                "loader",
+                "read"
+              ],
+              "hint_context": [
+                "ThumbnailLoader.ts",
+                "THUMBNAIL_READ_FAILED: load failed",
+                "load",
+                "error",
+                "console",
+                "console.error('THUMBNAIL_READ_FAILED: load failed')"
+              ]
+            }
+          ],
+          "priority_score": 84,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms",
+            "missing_log_semantics",
+            "missing_log_business_summary",
+            "missing_log_business_terms"
+          ],
+          "hint_terms": [
+            "thumbnailloader",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "load",
+            "thumbnail_read_failed",
+            "failed",
+            "thumbnail",
+            "loader",
+            "type",
+            "script",
+            "read"
+          ],
+          "hint_context": [
+            "ThumbnailLoader.ts",
+            "TypeScript file with 9 non-empty lines",
+            "load ThumbnailLoader",
+            "THUMBNAIL_READ_FAILED: load failed"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}
