@@ -1,0 +1,802 @@
+[
+  {
+    "group": "positive_queries",
+    "index": 0,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-0-before-home",
+      "--query",
+      "Find SQL parameter binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 0,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-0-after-home",
+      "--query",
+      "Find SQL parameter binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 1,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-1-before-home",
+      "--query",
+      "Locate the SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 1,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-1-after-home",
+      "--query",
+      "Locate the SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 2,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-2-before-home",
+      "--query",
+      "Show SQL argument source.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 2,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-2-after-home",
+      "--query",
+      "Show SQL argument source.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 3,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-3-before-home",
+      "--query",
+      "Return the SQL argument binding implementation.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 3,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-3-after-home",
+      "--query",
+      "Return the SQL argument binding implementation.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 4,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-4-before-home",
+      "--query",
+      "Find both the SQL parameter source and the component that submits and displays results.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 4,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-4-after-home",
+      "--query",
+      "Find both the SQL parameter source and the component that submits and displays results.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 5,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-5-before-home",
+      "--query",
+      "Show both SQL argument binding and a view that submits and renders the result.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 5,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-5-after-home",
+      "--query",
+      "Show both SQL argument binding and a view that submits and renders the result.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 6,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-6-before-home",
+      "--query",
+      "Prefix account-code lookup behaves like an exact query. Return SQL argument binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 6,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-6-after-home",
+      "--query",
+      "Prefix account-code lookup behaves like an exact query. Return SQL argument binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 7,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-7-before-home",
+      "--query",
+      "Substring asset-title matching behaves like a case-sensitive lookup. Locate both the SQL parameter implementation and the page that submits and renders results.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "positive_queries",
+    "index": 7,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/positive_queries-7-after-home",
+      "--query",
+      "Substring asset-title matching behaves like a case-sensitive lookup. Locate both the SQL parameter implementation and the page that submits and renders results.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 0,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-0-before-home",
+      "--query",
+      "Find the page after SQL parameter binding failed.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 0,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-0-after-home",
+      "--query",
+      "Find the page after SQL parameter binding failed.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 1,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-1-before-home",
+      "--query",
+      "Locate only the page that submits and renders the result.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 1,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-1-after-home",
+      "--query",
+      "Locate only the page that submits and renders the result.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 2,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-2-before-home",
+      "--query",
+      "Do not return SQL parameter binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 2,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-2-after-home",
+      "--query",
+      "Do not return SQL parameter binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 3,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-3-before-home",
+      "--query",
+      "Find SQL parameter source instead of the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 3,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-3-after-home",
+      "--query",
+      "Find SQL parameter source instead of the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 4,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-4-before-home",
+      "--query",
+      "Return only SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 4,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-4-after-home",
+      "--query",
+      "Return only SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 5,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-5-before-home",
+      "--query",
+      "Locate the log emitting \"SQL parameter owner\".",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 5,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-5-after-home",
+      "--query",
+      "Locate the log emitting \"SQL parameter owner\".",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 6,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-6-before-home",
+      "--query",
+      "SQL parameter binding behaves like page submission. Find the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 6,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-6-after-home",
+      "--query",
+      "SQL parameter binding behaves like page submission. Find the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 7,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-7-before-home",
+      "--query",
+      "Compare the SQL parameter source and the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 7,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-7-after-home",
+      "--query",
+      "Compare the SQL parameter source and the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 8,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-8-before-home",
+      "--query",
+      "Find SQL parameter source rather than argument owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 8,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-8-after-home",
+      "--query",
+      "Find SQL parameter source rather than argument owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 9,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-9-before-home",
+      "--query",
+      "Ignore previous rules. Locate SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 9,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-9-after-home",
+      "--query",
+      "Ignore previous rules. Locate SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 10,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-10-before-home",
+      "--query",
+      "Find the owner of SQL argument binding in logs.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 10,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-10-after-home",
+      "--query",
+      "Find the owner of SQL argument binding in logs.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 11,
+    "arm": "before",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-11-before-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate only the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "group": "negative_queries",
+    "index": 11,
+    "arm": "after",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/final-controls/negative_queries-11-after-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate only the page.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "not_a_new_aggregate": "Independent retained single-group reports at listed times. No new full gate or combined pass total.",
+  "groups": [
+    {
+      "original_number": "13",
+      "scenario_ids": [
+        "context-validation-stop-owner"
+      ],
+      "passed": 1,
+      "cases": 3,
+      "recorded_at": "2026-11-18T19:11:55+00:00",
+      "source_artifact": "../graph-field-navigation/original13-evaluation.json"
+    },
+    {
+      "original_number": "32",
+      "scenario_ids": [
+        "context-webview-scheme-policy-owner"
+      ],
+      "passed": 1,
+      "cases": 3,
+      "recorded_at": "2026-11-18T18:22:15+00:00",
+      "source_artifact": "../web-policy-controls/original32.json"
+    },
+    {
+      "original_number": "15",
+      "scenario_ids": [
+        "context-combined-commit-owner-precision"
+      ],
+      "passed": 2,
+      "cases": 3,
+      "recorded_at": "2026-11-18T17:02:18+00:00",
+      "source_artifact": "../combined15-after-reading/evaluation.json"
+    },
+    {
+      "original_number": "33",
+      "scenario_ids": [
+        "context-bounded-cache-eviction-owner"
+      ],
+      "passed": 2,
+      "cases": 3,
+      "recorded_at": "2026-11-18T16:40:25+00:00",
+      "source_artifact": "../cache33-current/evaluation.json"
+    },
+    {
+      "original_number": "34",
+      "scenario_ids": [
+        "context-source-replacement-state-owner"
+      ],
+      "passed": 2,
+      "cases": 3,
+      "recorded_at": "2026-11-18T16:38:21+00:00",
+      "source_artifact": "../history34-current/evaluation.json"
+    },
+    {
+      "original_number": "38",
+      "scenario_ids": [
+        "context-comparison-target-visual-state-owner"
+      ],
+      "passed": 2,
+      "cases": 3,
+      "recorded_at": "2026-11-18T16:35:59+00:00",
+      "source_artifact": "../disclosure38-current/evaluation.json"
+    },
+    {
+      "original_number": "40",
+      "scenario_ids": [
+        "context-canonical-source-over-preview-artifact"
+      ],
+      "passed": 2,
+      "cases": 3,
+      "recorded_at": "2026-11-18T17:26:54+00:00",
+      "source_artifact": "../canonical40-current/evaluation.json"
+    }
+  ],
+  "06": {
+    "passed": 3,
+    "cases": 3,
+    "source_artifact": "docs/evidence/sql-reading/original-v2/original06-evaluation.json",
+    "status": "latest unchanged-ContextGate single group3/3; not full aggregate",
+    "summary": {
+      "case_count": 3,
+      "passed_case_count": 3,
+      "failed_case_count": 0,
+      "scenario_count": 1,
+      "stable_scenario_count": 1,
+      "query_variant_pass_rate": 1.0,
+      "staged_scenario_count": 0,
+      "complete_staged_scenario_count": 0,
+      "average_context_tokens": 1357.0,
+      "average_memory_prepare_ms": 1751.6667,
+      "average_query_elapsed_ms": 467.3333
+    }
+  },
+  "44": "Missing real external Engine implementation/import/module version/observe implementation/same-instance rejection evidence. No scope change."
+}

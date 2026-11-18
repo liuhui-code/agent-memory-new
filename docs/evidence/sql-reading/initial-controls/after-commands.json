@@ -1,0 +1,146 @@
+[
+  {
+    "index": 0,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-0-home",
+      "--query",
+      "Find SQL parameter binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 1,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-1-home",
+      "--query",
+      "Locate the SQL parameter owner.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 2,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-2-home",
+      "--query",
+      "Show SQL argument source.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 3,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-3-home",
+      "--query",
+      "Return the SQL argument binding implementation.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 4,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-4-home",
+      "--query",
+      "Find both the SQL parameter source and the component that submits and displays results.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 5,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-5-home",
+      "--query",
+      "Show both SQL argument binding and a view that submits and renders the result.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 6,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-6-home",
+      "--query",
+      "Prefix account-code lookup behaves like an exact query. Return SQL argument binding.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "index": 7,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/after-7-home",
+      "--query",
+      "Substring asset-title matching behaves like a case-sensitive lookup. Locate both the SQL parameter implementation and the page that submits and renders results.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

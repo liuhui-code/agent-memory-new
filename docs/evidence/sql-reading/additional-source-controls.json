@@ -1,0 +1,10 @@
+{
+  "classification": "concrete source negative controls frozen after implementation, before first execution; original protocol unchanged",
+  "sources": {
+    "unknown-callee": "export class CatalogReader {\n  async lookup(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM catalog WHERE title LIKE ?'\n    return this.missingRows(statement, [term])\n  }\n  private async queryRows(statement: string, args: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+    "unsupported-arguments": "export class CatalogReader {\n  async lookup(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM catalog WHERE title LIKE ?'\n    return this.queryRows(statement, term)\n  }\n  private async queryRows(statement: string, args: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+    "fake-sql": "export class CatalogReader {\n  async lookup(term: string): Promise<string[]> {\n    const statement = 'SQL parameter binding is described here'\n    return this.queryRows(statement, [term])\n  }\n  private async queryRows(statement: string, args: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+    "shadow-helper": "export class CatalogReader {\n  async lookup(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM catalog WHERE title LIKE ?'\n    return this.queryRows(statement, [term])\n  }\n  private async queryRows(statement: string, args: string[]): Promise<string[]> { return [] }\n  private async queryRows(statement: string, args: string[]): Promise<string[]> {\n    return []\n  }\n}\n"
+  },
+  "expected": "no addition from these unsupported source forms; original evidence retained"
+}

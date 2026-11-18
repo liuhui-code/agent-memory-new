@@ -1,0 +1,212 @@
+[
+  {
+    "name": "original",
+    "mode": "default",
+    "arm": "baseline",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/original-default-baseline-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "original",
+    "mode": "default",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/original-default-candidate-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "original",
+    "mode": "plain2000",
+    "arm": "baseline",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/original-plain2000-baseline-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "original",
+    "mode": "plain2000",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/original-plain2000-candidate-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "original",
+    "mode": "preserve2000",
+    "arm": "baseline",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/original-preserve2000-baseline-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "original",
+    "mode": "preserve2000",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/original-preserve2000-candidate-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "en-paraphrase",
+    "mode": "default",
+    "arm": "baseline",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/en-paraphrase-default-baseline-home",
+      "--query",
+      "Return ProductSearchService query binding and ProductSearchPage result consumption for the missing substring match.",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "en-paraphrase",
+    "mode": "default",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/en-paraphrase-default-candidate-home",
+      "--query",
+      "Return ProductSearchService query binding and ProductSearchPage result consumption for the missing substring match.",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "zh-noise",
+    "mode": "default",
+    "arm": "baseline",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/zh-noise-default-baseline-home",
+      "--query",
+      "商品名称只能精确搜索，请返回 LIKE 参数绑定和调用 search 后渲染 products 的页面，不要返回 ProductRecord。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "zh-noise",
+    "mode": "default",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/v2/zh-noise-default-candidate-home",
+      "--query",
+      "商品名称只能精确搜索，请返回 LIKE 参数绑定和调用 search 后渲染 products 的页面，不要返回 ProductRecord。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  }
+]

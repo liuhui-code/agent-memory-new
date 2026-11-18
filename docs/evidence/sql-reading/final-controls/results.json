@@ -1,0 +1,422 @@
+[
+  {
+    "group": "positive_queries",
+    "index": 0,
+    "before": {
+      "estimated_tokens": 553,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 553,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "positive_queries",
+    "index": 1,
+    "before": {
+      "estimated_tokens": 554,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 554,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "positive_queries",
+    "index": 2,
+    "before": {
+      "estimated_tokens": 551,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 551,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "positive_queries",
+    "index": 3,
+    "before": {
+      "estimated_tokens": 563,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 563,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "positive_queries",
+    "index": 4,
+    "before": {
+      "estimated_tokens": 578,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 578,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "positive_queries",
+    "index": 5,
+    "before": {
+      "estimated_tokens": 577,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 577,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "positive_queries",
+    "index": 6,
+    "before": {
+      "estimated_tokens": 1050,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1252,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": false,
+    "all_old_evidence_unchanged": true,
+    "added": [
+      {
+        "file_path": "src/DirectoryReader.ts",
+        "symbol": "resolve",
+        "record_type": "code_symbol",
+        "record_ids": [
+          6
+        ],
+        "role": "expansion",
+        "source_ranges": [
+          {
+            "symbol": "resolve",
+            "start_line": 2,
+            "end_line": 5
+          }
+        ],
+        "read_window": {
+          "start_line": 2,
+          "end_line": 5
+        },
+        "display_basis": {
+          "kind": "literal_sql_argument_source",
+          "execution_unverified": true,
+          "pair_unverified": true,
+          "behavior_unverified": true,
+          "domain_unverified": true
+        },
+        "source_excerpts": [
+          {
+            "symbol": "resolve",
+            "start_line": 2,
+            "end_line": 5,
+            "content": "  async resolve(term: string): Promise<string[]> {\n    const statement = 'SELECT code FROM directory WHERE code LIKE ?'\n    return this.executeRows(statement, [term])\n  }",
+            "source": "current_worktree",
+            "selection_reason": "existing_sql_candidate_body",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "group": "positive_queries",
+    "index": 7,
+    "before": {
+      "estimated_tokens": 1056,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1258,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": false,
+    "all_old_evidence_unchanged": true,
+    "added": [
+      {
+        "file_path": "src/DirectoryReader.ts",
+        "symbol": "resolve",
+        "record_type": "code_symbol",
+        "record_ids": [
+          6
+        ],
+        "role": "expansion",
+        "source_ranges": [
+          {
+            "symbol": "resolve",
+            "start_line": 2,
+            "end_line": 5
+          }
+        ],
+        "read_window": {
+          "start_line": 2,
+          "end_line": 5
+        },
+        "display_basis": {
+          "kind": "literal_sql_argument_source",
+          "execution_unverified": true,
+          "pair_unverified": true,
+          "behavior_unverified": true,
+          "domain_unverified": true
+        },
+        "source_excerpts": [
+          {
+            "symbol": "resolve",
+            "start_line": 2,
+            "end_line": 5,
+            "content": "  async resolve(term: string): Promise<string[]> {\n    const statement = 'SELECT code FROM directory WHERE code LIKE ?'\n    return this.executeRows(statement, [term])\n  }",
+            "source": "current_worktree",
+            "selection_reason": "existing_sql_candidate_body",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "group": "negative_queries",
+    "index": 0,
+    "before": {
+      "estimated_tokens": 565,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 565,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 1,
+    "before": {
+      "estimated_tokens": 563,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 563,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 2,
+    "before": {
+      "estimated_tokens": 556,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 556,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 3,
+    "before": {
+      "estimated_tokens": 560,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 560,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 4,
+    "before": {
+      "estimated_tokens": 556,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 556,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 5,
+    "before": {
+      "estimated_tokens": 565,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 565,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 6,
+    "before": {
+      "estimated_tokens": 1223,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1223,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 7,
+    "before": {
+      "estimated_tokens": 558,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 558,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 8,
+    "before": {
+      "estimated_tokens": 568,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 568,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 9,
+    "before": {
+      "estimated_tokens": 566,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 566,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 10,
+    "before": {
+      "estimated_tokens": 564,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 564,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  },
+  {
+    "group": "negative_queries",
+    "index": 11,
+    "before": {
+      "estimated_tokens": 1036,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1036,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "unchanged": true,
+    "all_old_evidence_unchanged": true,
+    "added": []
+  }
+]

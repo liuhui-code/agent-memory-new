@@ -1,0 +1,206 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "04569fbab35d9e06",
+  "query": "商品名称只能精确搜索，请返回 LIKE 参数绑定和调用 search 后渲染 products 的页面，不要返回 ProductRecord。",
+  "memory_intent": "semantic_correction",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "商品名称只能精确搜索",
+      "商品",
+      "品名",
+      "名称",
+      "称只",
+      "只能",
+      "能精",
+      "精确",
+      "确搜",
+      "搜索",
+      "请返回",
+      "请返"
+    ],
+    "log_anchors": [],
+    "code_anchors": [
+      {
+        "file_path": "src/services/ProductSearchService.ets",
+        "symbol": "search",
+        "symbol_type": "function",
+        "record_ids": [
+          394
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "search",
+            "start_line": 4,
+            "end_line": 7
+          }
+        ],
+        "read_window": {
+          "start_line": 4,
+          "end_line": 7
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "search",
+            "start_line": 4,
+            "end_line": 7,
+            "content": "  async search(query: string): Promise<ProductRecord[]> {\n    const sql = 'SELECT id, name FROM products WHERE name LIKE ?'\n    return this.queryProducts(sql, [query])\n  }",
+            "source": "validated_request_snapshot",
+            "selection_reason": "complete_sql_state_render_method",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "submitSearch",
+        "symbol_type": "function",
+        "record_ids": [
+          275
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "submitSearch",
+            "start_line": 10,
+            "end_line": 12
+          }
+        ],
+        "read_window": {
+          "start_line": 10,
+          "end_line": 12
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "submitSearch",
+            "start_line": 10,
+            "end_line": 12,
+            "content": "  async submitSearch(): Promise<void> {\n    this.products = await this.service.search(this.query)\n  }",
+            "source": "validated_request_snapshot",
+            "selection_reason": "complete_sql_state_render_method",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          276
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 14,
+            "end_line": 23
+          }
+        ],
+        "read_window": {
+          "start_line": 14,
+          "end_line": 23
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "build",
+            "start_line": 14,
+            "end_line": 23,
+            "content": "  build() {\n    Column() {\n      Search({ value: $$this.query }).onSubmit(() => this.submitSearch())\n      List() {\n        ForEach(this.products, (product: ProductRecord) => {\n          ListItem() { Text(product.name) }\n        })\n      }\n    }\n  }",
+            "source": "validated_request_snapshot",
+            "selection_reason": "complete_sql_state_render_method",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": null,
+      "alternatives": [],
+      "boundary": "positive_direct_syntax_not_unique_owner_or_runtime_causality"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "validated_request_snapshot",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 521
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor",
+    "limited_code_anchor_diversity"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1141,
+    "target_tokens": 1500,
+    "truncated": false
+  }
+}

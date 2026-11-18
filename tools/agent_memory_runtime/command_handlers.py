@@ -163,7 +163,8 @@ def context(args: argparse.Namespace) -> None:
         from copy import deepcopy
         from .context_field_alternative import field_read_request
         from .context_web_policy_reading import web_reading_request
-        original_context = deepcopy(data) if field_read_request(args.query) or web_reading_request(args.query) else None
+        from .query_sql_reading_request import sql_reading_request
+        original_context = deepcopy(data) if field_read_request(args.query) or web_reading_request(args.query) or sql_reading_request(args.query) else None
         try:
             data = (compact_context(data) if budget is None and not preserve else
                     compact_context(data, token_budget=1500 if budget is None else budget,
@@ -184,6 +185,8 @@ def context(args: argparse.Namespace) -> None:
             data = web_reading_order(project, original_context, data)
             from .context_graph_field_navigation import append_graph_field_navigation
             data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))
+            from .context_sql_reading import append_sql_reading
+            data = append_sql_reading(project, original_context, data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

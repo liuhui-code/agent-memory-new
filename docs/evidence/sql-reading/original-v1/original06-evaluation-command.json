@@ -1,0 +1,21 @@
+{
+  "case_id": "context-query-owner-and-consuming-page",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-B",
+    "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+    "eval-context-capability",
+    "--project",
+    "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+    "--memory-home",
+    "/workspace/scratch/dcdb41e16594/concrete-plan-work/sql-reading-qualification/original06-eval-home",
+    "--source",
+    "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+    "--cases",
+    "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/docs/eval/system-capability-cases.json",
+    "--case-id",
+    "context-query-owner-and-consuming-page",
+    "--json"
+  ],
+  "rc": 0
+}

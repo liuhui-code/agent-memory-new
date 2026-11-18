@@ -1,0 +1,14 @@
+from pathlib import Path
+import json,subprocess,sys,shutil
+b=Path(__file__).resolve().parent;r=b.parent/'repo';source=b.parent/'command37-current/source';seed=b.parent/'command37-current/seed';queries=json.loads((b.parent/'pair06-current/protocol.json').read_text())['queries'];commands=[];results=[]
+for name,q in queries:
+ for mode,extra in [('default',['--compact']),('plain2000',['--compact','--compact-token-budget','2000']),('preserve2000',['--compact','--compact-token-budget','2000','--preserve-selected-source-anchors'])]:
+  if name!='original' and mode!='default':continue
+  values=[]
+  for arm,entry in [('baseline',b/'disabled.py'),('candidate',r/'tools/agent_memory.py')]:
+   label=name+'-'+mode+'-'+arm;home=b/(label+'-home');shutil.copytree(seed,home);cmd=[sys.executable,'-B',str(entry),'context','--project',str(source),'--memory-home',str(home),'--query',q,'--json']+extra;x=subprocess.run(cmd,capture_output=True,text=True);assert x.returncode==0,x.stderr;(b/(label+'.json')).write_text(x.stdout);(b/(label+'.stderr')).write_text(x.stderr);commands.append({'name':name,'mode':mode,'arm':arm,'command':cmd,'rc':x.returncode});values.append(json.loads(x.stdout))
+  old,new=values;restored=json.loads(json.dumps(new));restored['query_handoff']['code_anchors']=old['query_handoff']['code_anchors'];restored['query_handoff']['source_excerpt_policy']=old['query_handoff']['source_excerpt_policy'];restored['output_budget']=old['output_budget'];assert restored==old
+  results.append({'name':name,'mode':mode,'before':old['output_budget']['estimated_tokens'],'after':new['output_budget']['estimated_tokens'],'unchanged':old==new,'all_old_evidence_unchanged':True,'added':[(a['file_path'],[(e['start_line'],e['end_line'])for e in a.get('source_excerpts',[])])for a in new['query_handoff']['code_anchors'][len(old['query_handoff']['code_anchors']):]]})
+(b/'original-commands.json').write_text(json.dumps(commands,ensure_ascii=False,indent=2));(b/'original-results.json').write_text(json.dumps(results,indent=2));print(json.dumps(results,indent=2))
+pack=r/'docs/eval/system-capability-cases.json';data=json.loads(pack.read_text());candidates=[c for c in data['cases'] if queries[0][1] in json.dumps(c,ensure_ascii=False)];assert len(candidates)==1,len(candidates);case_id=candidates[0]['id'];home=b/'original06-eval-home';shutil.copytree(seed,home)
+cmd=[sys.executable,'-B',str(r/'tools/agent_memory.py'),'eval-context-capability','--project',str(source),'--memory-home',str(home),'--source',str(source),'--cases',str(pack),'--case-id',case_id,'--json'];x=subprocess.run(cmd,capture_output=True,text=True);(b/'original06-evaluation.json').write_text(x.stdout);(b/'original06-evaluation.stderr').write_text(x.stderr);(b/'original06-evaluation-command.json').write_text(json.dumps({'case_id':case_id,'command':cmd,'rc':x.returncode},indent=2));assert x.returncode==0,x.stderr;print(json.loads(x.stdout)['summary'])

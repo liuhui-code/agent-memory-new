@@ -1,0 +1,61 @@
+[
+  {
+    "name": "default",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/english06-current-policy/default-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "plain2000",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/english06-current-policy/plain2000-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--compact",
+      "--json",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "preserve2000",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/english06-current-policy/preserve2000-home",
+      "--query",
+      "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result.",
+      "--compact",
+      "--json",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  }
+]

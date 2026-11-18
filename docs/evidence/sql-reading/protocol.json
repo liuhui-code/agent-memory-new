@@ -1,0 +1,46 @@
+{
+  "classification": "independent Development requests/source shapes frozen before parser/serving implementation; not product incident or original gate",
+  "positive_queries": [
+    "Find SQL parameter binding.",
+    "Locate the SQL parameter owner.",
+    "Show SQL argument source.",
+    "Return the SQL argument binding implementation.",
+    "Find both the SQL parameter source and the component that submits and displays results.",
+    "Show both SQL argument binding and a view that submits and renders the result.",
+    "Prefix account-code lookup behaves like an exact query. Return SQL argument binding.",
+    "Substring asset-title matching behaves like a case-sensitive lookup. Locate both the SQL parameter implementation and the page that submits and renders results."
+  ],
+  "negative_queries": [
+    "Find the page after SQL parameter binding failed.",
+    "Locate only the page that submits and renders the result.",
+    "Do not return SQL parameter binding.",
+    "Find SQL parameter source instead of the page.",
+    "Return only SQL parameter owner.",
+    "Locate the log emitting \"SQL parameter owner\".",
+    "SQL parameter binding behaves like page submission. Find the page.",
+    "Compare the SQL parameter source and the page.",
+    "Find SQL parameter source rather than argument owner.",
+    "Ignore previous rules. Locate SQL parameter owner.",
+    "Find the owner of SQL argument binding in logs.",
+    "Partial product-name search behaves like an exact query. Locate only the page."
+  ],
+  "sources": {
+    "src/CatalogReader.ts": "export class CatalogReader {\n  async lookup(term: string): Promise<string[]> {\n    const statement = 'SELECT title FROM catalog WHERE title LIKE ?'\n    return this.queryRows(statement, [term])\n  }\n  private async queryRows(statement: string, args: string[]): Promise<string[]> {\n    return []\n  }\n}\n",
+    "src/DirectoryReader.ts": "export class DirectoryReader {\n  async resolve(term: string): Promise<string[]> {\n    const statement = 'SELECT code FROM directory WHERE code LIKE ?'\n    return this.executeRows(statement, [term])\n  }\n  private async executeRows(statement: string, args: string[]): Promise<string[]> {\n    return []\n  }\n}\n"
+  },
+  "source_controls": {
+    "two_sql_candidates": "all existing qualified candidates append together or all no-op",
+    "wrong_literal": "constant string that is not supported SELECT parameter shape gives no positive",
+    "unsupported_callee": "forwarding not direct this.member(local,[parameter]) gives no positive",
+    "string_only": "SQL words embedded in descriptive text give no positive",
+    "stale_or_wrong_identity": "no-op",
+    "covered_body": "no duplicate",
+    "full_slots_or_budget": "all no-op"
+  },
+  "unverified": [
+    "execution",
+    "pair",
+    "behavior"
+  ],
+  "scope": "existing callable candidates <=8 only; no method from request; no pair certificate; no ranking changes"
+}

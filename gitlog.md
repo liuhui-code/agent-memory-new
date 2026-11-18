@@ -1,3 +1,10 @@
+## 2026-11-18 — Add nonexclusive SQL candidate body reading
+
+- For bounded positive SQL-source requests, append a complete literal-SQL argument method already present among callable candidates. Authenticate current typed method, owner and local helper against indexed digest and source; do not infer user slots, exclusive business ownership, real database execution or SQL/UI pairing. Explicit execution/pair/behavior/domain uncertainty travels with the new excerpt.
+- Preserve all prior evidence and apply existing expansion slots, excerpt limit, payload budget and atomic fallback. Existing full bodies are unchanged. Unsupported grammar, stale identity, absent helper, ambiguity and resource limits leave the previous output intact.
+- Original06 latest single-group result is3/3. Original English default/plain2000 estimate1238→1444 includes search4–7; preserve2000 remains1674 and the other two original variants are unchanged. Initial2/3 qualification is retained: requiring a preexisting raw anchor excluded a real callable alternative; v2 instead authenticates its unique indexed typed identity. This is a source-reading repair, not a stronger global certificate or a new full gate.
+- Final independent controls and focused logs are retained in docs/evidence/sql-reading/. Remaining per-group state and rejected33/38 full-class envelopes (2085/2064 versus2000) are recorded in docs/releases/remaining-budget-audit-20261118/. Do not treat optional full-method delivery as full-class delivery, or diagnostic proposals as shipped behavior.
+
 ## 2026-11-18 — Expose hidden same-owner uncertain alternatives
 
 - Independently reproduce uncertain first method with no displayed competitor despite known same-owner second method. Limited fallback exposes up to2 known distinct alternatives only when old diversity yielded none; primary, scoring, certainty and ranges unchanged.

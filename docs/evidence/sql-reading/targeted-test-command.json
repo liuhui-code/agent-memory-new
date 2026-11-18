@@ -1,0 +1,4 @@
+{
+  "command": "PYTHONPATH=tests:. python -B -m unittest tests.test_sql_reading tests.test_field_alternative tests.test_graph_field_navigation $(find tests -maxdepth 1 -name 'test*sql*py' ! -name test_sql_reading.py | sort | sed 's#/#.#g;s/\\.py$//')",
+  "result": "324 passed, targeted related modules, not full suite"
+}

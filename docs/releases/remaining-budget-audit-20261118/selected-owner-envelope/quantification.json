@@ -1,0 +1,107 @@
+{
+  "runs": [
+    {
+      "case": "38",
+      "mode": "default",
+      "tokens": 1496,
+      "read_window": {
+        "start_line": 2,
+        "end_line": 26
+      },
+      "excerpts": [
+        [
+          7,
+          16
+        ]
+      ]
+    },
+    {
+      "case": "38",
+      "mode": "plain2000",
+      "tokens": 1974,
+      "read_window": {
+        "start_line": 2,
+        "end_line": 26
+      },
+      "excerpts": [
+        [
+          6,
+          21
+        ]
+      ]
+    },
+    {
+      "case": "38",
+      "mode": "preserve2000",
+      "tokens": 1974,
+      "read_window": {
+        "start_line": 2,
+        "end_line": 26
+      },
+      "excerpts": [
+        [
+          6,
+          21
+        ]
+      ]
+    },
+    {
+      "case": "33",
+      "mode": "default",
+      "tokens": 1472,
+      "read_window": {
+        "start_line": 6,
+        "end_line": 28
+      },
+      "excerpts": [
+        [
+          11,
+          19
+        ]
+      ]
+    },
+    {
+      "case": "33",
+      "mode": "plain2000",
+      "tokens": 1956,
+      "read_window": {
+        "start_line": 6,
+        "end_line": 28
+      },
+      "excerpts": [
+        [
+          11,
+          19
+        ]
+      ]
+    },
+    {
+      "case": "33",
+      "mode": "preserve2000",
+      "tokens": 1996,
+      "read_window": {
+        "start_line": 6,
+        "end_line": 28
+      },
+      "excerpts": [
+        [
+          11,
+          27
+        ]
+      ]
+    }
+  ],
+  "rejected_lossless_full_window": {
+    "38": {
+      "required_tokens": 2064,
+      "budget": 2000,
+      "excess": 64
+    },
+    "33": {
+      "required_tokens": 2085,
+      "budget": 2000,
+      "excess": 85
+    }
+  },
+  "decision": "No implementation: preserve old evidence and metadata; do not change estimator or budget."
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/../sql-reading-qualification/run-final-controls.py", line 12, in <module>
+    for key in ['code_anchors','source_excerpt_policy']:restore['query_handoff'][key]=a['query_handoff'][key]
+                                                                                      ~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'source_excerpt_policy'
