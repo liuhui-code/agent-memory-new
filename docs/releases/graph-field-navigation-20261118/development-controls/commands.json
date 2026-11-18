@@ -1,0 +1,178 @@
+[
+  {
+    "name": "profile",
+    "mode": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/profile/baseline-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "profile",
+    "mode": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/profile/candidate-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "customer",
+    "mode": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer/baseline-disabled-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "customer",
+    "mode": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer/candidate-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "wrong-field",
+    "mode": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/wrong-field/baseline-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "wrong-field",
+    "mode": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/wrong-field/candidate-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "two-matches",
+    "mode": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/two-matches/baseline-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "two-matches",
+    "mode": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/two-matches/candidate-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  }
+]

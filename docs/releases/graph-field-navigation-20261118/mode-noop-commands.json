@@ -1,0 +1,82 @@
+[
+  {
+    "mode": "default",
+    "arm": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/default-baseline-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "mode": "default",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/default-candidate-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "mode": "plain2000",
+    "arm": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/plain2000-baseline-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  },
+  {
+    "mode": "plain2000",
+    "arm": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/plain2000-candidate-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  }
+]

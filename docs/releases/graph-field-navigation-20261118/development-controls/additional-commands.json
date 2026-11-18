@@ -1,0 +1,90 @@
+[
+  {
+    "name": "customer-two",
+    "mode": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer-two/baseline-disabled-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "customer-two",
+    "mode": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/customer-two/candidate-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "string-only",
+    "mode": "baseline-disabled",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/string-only/baseline-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  },
+  {
+    "name": "string-only",
+    "mode": "candidate",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/string-only/candidate-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors",
+      "--json"
+    ],
+    "returncode": 0
+  }
+]

@@ -13144,3 +13144,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Reproduced a synthetic design response without alternatives receiving diagnostic score 1.0; retain reproduction and provenance correction.
 - Preserve design case loading/design-context, but reject design before diagnosis benchmark work or scoring. Mixed selected batches reject atomically; historical diagnosis compatibility retained.
 - Preserve formulas and original results; add eight scope tests, retain initial initialization-side-effect failure and fix. See docs/releases/design-benchmark-scope-20261118.
+
+## 2026-11-18 - Add preserved-2000 graph-field navigation without evidence displacement
+
+- Explicit2000+preserve can append typed expansion navigation from authenticated returned import sources with partial field evidence, within unchanged budgets and slots. Default/plain2000 remain unchanged.
+- Original13 Chinese navigation appears at1984 vs1867 with every old JSON field preserved except estimate. No body delivery or unique/business/causal claim; original default group remains1/3.
+- 31 focused checks and frozen development CLI controls; actual Agent observations retain window deviation and no accuracy/cost claim. See docs/releases/graph-field-navigation-20261118.

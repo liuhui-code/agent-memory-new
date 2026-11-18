@@ -182,6 +182,8 @@ def context(args: argparse.Namespace) -> None:
             data = append_field_alternatives(project, original_context, data)
             from .context_web_policy_reading import web_reading_order
             data = web_reading_order(project, original_context, data)
+            from .context_graph_field_navigation import append_graph_field_navigation
+            data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

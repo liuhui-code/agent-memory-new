@@ -1,0 +1,22 @@
+{
+  "classification": "additional independent Development coverage frozen before its first before/after comparison; original controls unchanged",
+  "controls": {
+    "customer-two": {
+      "sources": {
+        "src/pages/CustomerEditor.ets": "import { CustomerGateway } from '../services/CustomerGateway'\n@Component\nexport struct CustomerEditor {\n  @State customerCode: string = ''\n  private gateway: CustomerGateway = new CustomerGateway()\n  saveCustomer(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateCustomer(this.customerCode)\n  }\n  build() {}\n}\n",
+        "src/services/CustomerGateway.ets": "export class CustomerGateway {\n  updateCustomer(name: string): void {\n    profileClient.update(name)\n  }\n}\n",
+        "src/pages/SecondCustomerEditor.ets": "import { CustomerGateway } from '../services/CustomerGateway'\n@Component\nexport struct SecondCustomerEditor {\n  @State customerCode: string = ''\n  private gateway: CustomerGateway = new CustomerGateway()\n  saveCustomer(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateCustomer(this.customerCode)\n  }\n  build() {}\n}\n"
+      },
+      "query": "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "expected": "missing same-field imported-source method navigation appended with all old evidence"
+    },
+    "string-only": {
+      "sources": {
+        "src/pages/Hints.ets": "import { ProfileGateway } from '../services/ProfileGateway'\nexport class Hints {\n  text: string = 'displayName validation guard return dispatch'\n}\n",
+        "src/services/ProfileGateway.ets": "export class ProfileGateway {\n  updateProfile(name: string): void {\n    profileClient.update(name)\n  }\n}\n"
+      },
+      "query": "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "expected": "no structural guarded field candidate from string tokens"
+    }
+  }
+}

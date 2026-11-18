@@ -1,0 +1,88 @@
+{
+  "status": "prototype_only_not_qualified",
+  "checked": [
+    {
+      "edge_id": 610,
+      "source": "src/services/WrappedProfileService.ets",
+      "parse_supported": true
+    },
+    {
+      "edge_id": 608,
+      "source": "src/services/DispatchProfileService.ets",
+      "parse_supported": false
+    },
+    {
+      "edge_id": 599,
+      "source": "src/pages/SnapshotAuditPage.ets",
+      "parse_supported": false
+    },
+    {
+      "edge_id": 586,
+      "source": "src/pages/ProfilePage.ets",
+      "parse_supported": true
+    },
+    {
+      "edge_id": 583,
+      "source": "src/pages/ProductSearchPage.ets",
+      "parse_supported": false
+    },
+    {
+      "edge_id": 582,
+      "source": "src/pages/ProductSearchPage.ets",
+      "parse_supported": false
+    },
+    {
+      "edge_id": 574,
+      "source": "src/pages/DownloadsPage.ets",
+      "parse_supported": true
+    },
+    {
+      "edge_id": 563,
+      "source": "src/pages/AccountSettingsPage.ets",
+      "parse_supported": true
+    },
+    {
+      "edge_id": 562,
+      "source": "src/logging/FileFailureReporter.ets",
+      "parse_supported": false
+    },
+    {
+      "edge_id": 561,
+      "source": "src/logging/DomainLogger.ets",
+      "parse_supported": true
+    }
+  ],
+  "added": [
+    {
+      "file_path": "src/pages/AccountSettingsPage.ets",
+      "symbol": "saveAccount",
+      "record_type": "code_symbol",
+      "record_ids": [
+        131
+      ],
+      "source_ranges": [
+        {
+          "symbol": "saveAccount",
+          "start_line": 9,
+          "end_line": 15
+        }
+      ],
+      "read_window": {
+        "start_line": 9,
+        "end_line": 15
+      },
+      "role": "expansion",
+      "display_basis": {
+        "kind": "partial_static_guarded_field_call",
+        "field": "displayName",
+        "domain_unverified": true,
+        "action_unverified": true,
+        "edge_id": 563,
+        "gap": "missing_state_owner"
+      }
+    }
+  ],
+  "estimated_tokens": 1984,
+  "target_tokens": 2000,
+  "old_payload_preserved": true
+}

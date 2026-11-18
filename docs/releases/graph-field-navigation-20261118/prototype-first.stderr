@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/../graph-field-navigation/prototype.py", line 17, in <module>
+    e=db.execute('select * from edges where project_id=? and id=?',(pid,edge['id'])).fetchone()
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: edges

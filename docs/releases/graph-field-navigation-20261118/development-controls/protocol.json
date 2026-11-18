@@ -1,0 +1,36 @@
+{
+  "classification": "independent Development controls frozen before serving implementation",
+  "query": "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+  "controls": {
+    "profile": {
+      "sources": {
+        "src/pages/ProfileEditor.ets": "import { ProfileGateway } from '../services/ProfileGateway'\n@Component\nexport struct ProfileEditor {\n  @State displayName: string = ''\n  private gateway: ProfileGateway = new ProfileGateway()\n  saveProfile(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateProfile(this.displayName)\n  }\n  build() {}\n}\n",
+        "src/services/ProfileGateway.ets": "export class ProfileGateway {\n  updateProfile(name: string): void {\n    profileClient.update(name)\n  }\n}\n"
+      },
+      "expected": "all matching imported-source methods appended only when not already present; otherwise unchanged"
+    },
+    "customer": {
+      "sources": {
+        "src/pages/CustomerEditor.ets": "import { CustomerGateway } from '../services/CustomerGateway'\n@Component\nexport struct CustomerEditor {\n  @State customerCode: string = ''\n  private gateway: CustomerGateway = new CustomerGateway()\n  saveCustomer(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateCustomer(this.customerCode)\n  }\n  build() {}\n}\n",
+        "src/services/CustomerGateway.ets": "export class CustomerGateway {\n  updateCustomer(name: string): void {\n    profileClient.update(name)\n  }\n}\n"
+      },
+      "query": "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "expected": "different exact field and names supported without source-name whitelist"
+    },
+    "wrong-field": {
+      "sources": {
+        "src/pages/ProfileEditor.ets": "import { ProfileGateway } from '../services/ProfileGateway'\n@Component\nexport struct ProfileEditor {\n  @State customerCode: string = ''\n  private gateway: ProfileGateway = new ProfileGateway()\n  saveProfile(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateProfile(this.customerCode)\n  }\n  build() {}\n}\n",
+        "src/services/ProfileGateway.ets": "export class ProfileGateway {\n  updateProfile(name: string): void {\n    profileClient.update(name)\n  }\n}\n"
+      },
+      "expected": "no new candidates for displayName"
+    },
+    "two-matches": {
+      "sources": {
+        "src/pages/ProfileEditor.ets": "import { ProfileGateway } from '../services/ProfileGateway'\n@Component\nexport struct ProfileEditor {\n  @State displayName: string = ''\n  private gateway: ProfileGateway = new ProfileGateway()\n  saveProfile(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateProfile(this.displayName)\n  }\n  build() {}\n}\n",
+        "src/services/ProfileGateway.ets": "export class ProfileGateway {\n  updateProfile(name: string): void {\n    profileClient.update(name)\n  }\n}\n",
+        "src/pages/AlternateEditor.ets": "import { ProfileGateway } from '../services/ProfileGateway'\n@Component\nexport struct AlternateEditor {\n  @State displayName: string = ''\n  private gateway: ProfileGateway = new ProfileGateway()\n  saveProfile(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateProfile(this.displayName)\n  }\n  build() {}\n}\n"
+      },
+      "expected": "all new positives together or exact budget/slot no-op"
+    }
+  }
+}
