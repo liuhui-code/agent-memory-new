@@ -1,0 +1,48 @@
+{
+  "binding": {
+    "before": {
+      "estimated_tokens": 1017,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1076,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "exact_noop": false,
+    "exact_restoration": true,
+    "new_ranges": [
+      [
+        6,
+        21
+      ]
+    ]
+  },
+  "named": {
+    "before": {
+      "estimated_tokens": 1052,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1052,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "exact_noop": true
+  },
+  "logger": {
+    "before": {
+      "estimated_tokens": 1004,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1004,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "exact_noop": true
+  }
+}

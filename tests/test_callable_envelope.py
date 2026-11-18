@@ -91,3 +91,9 @@ class CallableEnvelopeTests(AgentMemoryTestBase):
         self.assertLess(source.index('data = static_reading_order'),source.index('data = expand_callable_envelopes'))
         self.assertLess(source.index('data = expand_callable_envelopes'),source.index('record_query_usage'))
         self.assertEqual(source.count('data = static_reading_order'),1)
+        self.assertIn('if args.compact:\n        from .context_callable_envelope',source)
+
+    def test_authenticated_file_projection_of_method(self):
+        p=deepcopy(self.payload);a=p['query_handoff']['code_anchors'][0];a['symbol']='toggleRegion';a['source_ranges']=[dict(symbol='toggleRegion',start_line=5,end_line=10)];a['read_window']=dict(start_line=5,end_line=10)
+        self.assertIsNot(self.apply(p),p)
+        a['read_window']['start_line']=6;self.assertIs(self.apply(p),p)

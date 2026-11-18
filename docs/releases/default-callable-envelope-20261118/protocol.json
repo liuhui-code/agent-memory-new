@@ -1,0 +1,14 @@
+{
+  "classification": "fixed Development presentation-source fixture; renamed real UI structure disclosed; not an independent behavioral oracle",
+  "sources": {
+    "src/FoldSettingsPanel.ets": "@Component\nexport struct FoldSettingsPanel {\n  @State private opened: boolean = false\n\n  @Builder\n  private SettingsDetail() {\n    Column() {\n      Row() {\n        Text('Settings details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.opened ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.opened = !this.opened\n      })\n\n      if (this.opened) {\n        Text('Advanced settings')\n      }\n    }\n  }\n\n  build() {\n    this.SettingsDetail()\n  }\n}\n",
+    "src/DiagnosticSink.ets": "export class DiagnosticSink {\n  report(message: string): void {\n    console.error(message)\n  }\n}\n",
+    "src/SettingsKeyboard.ets": "@Component\nexport struct SettingsKeyboard {\n  build() { Text('Settings keyboard diagnostics') }\n}\n"
+  },
+  "queries": {
+    "binding": "设置详情箭头展开时方向错误，请定位 rotate 与展开状态绑定源码。",
+    "named": "Locate FoldSettingsPanel.SettingsDetail source.",
+    "logger": "Locate DiagnosticSink.report source."
+  },
+  "criterion": "Improve method source display without changing existing candidate order, logs, graph, or any other excerpt. Generated summary/advice trade must be explicit and measured; no source/query retries to manufacture red."
+}

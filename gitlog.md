@@ -13108,3 +13108,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - After all existing allocation and reading selection, expand an existing mechanism excerpt to its already-admitted callable's unique authenticated full method only if current evidence remains intact and the original budget permits. Default/raw unchanged; no candidate/primary changes, no UI identity inference.
 - Preserve original metadata in expanded_from and verify exact reconstruction. Stale/ambiguous/bad source, unknown shapes, caps and over-budget are no-op. Keep source limits and all other evidence intact.
 - Actual38 explicit2000+preserve gains method6–21 from body7–20 at1974tokens (was1914); default exact no-op.33 preserve exact no-op.60 focused tests pass; initial misnamed-module import retained, no full gate. See docs/releases/callable-envelope-display-20261118/.
+
+## 2026-11-18 — Permit budget-fitting method envelopes in default compact output
+
+- Reuse authenticated additive method display in default compact, with no dropped summary/advice or evidence. Recognize existing typed file-record method projections only with exact symbol/range/read-window and file-ID authentication.
+- Fixed disclosed renamed-source Development request improves1017→1076tokens and body7–20→method6–21; named/logger controls unchanged and old output exactly restorable. Initial rejected projection/assertion retained.
+- 61 focused tests pass.12 actual original15/33/37/38 default outputs remain exactly unchanged, so no old precision closure or full-gate claim. Proposed budget trade/new encoding not implemented. See docs/releases/default-callable-envelope-20261118/.

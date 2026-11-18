@@ -1,5 +1,5 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
-"""Opt-in, additive full-method display; never selection or diagnosis authority."""
+"""Budget-bounded additive full-method display; never selection authority."""
 from copy import deepcopy
 import hashlib
 from pathlib import Path, PurePosixPath
@@ -38,7 +38,10 @@ def qualified_source(project,payload,anchor,candidate):
         or container['symbol_type']not in {'class','struct','component'}or container['owner_kind']!=method['owner_kind']
         or container.get('owner_name')not in ('',None)or not container['start_line']<=lo<=hi<=container['end_line']):return None
     if anchor.get('record_type')=='code_file':
-        if anchor.get('record_ids')!=[files[0]['id']]or anchor.get('symbol')!=owner:return None
+        owner_display=anchor.get('symbol')==owner
+        method_display=(anchor.get('symbol')==name and anchor.get('source_ranges')==[dict(symbol=name,start_line=lo,end_line=hi)]
+                        and anchor.get('read_window')==dict(start_line=lo,end_line=hi))
+        if anchor.get('record_ids')!=[files[0]['id']]or not(owner_display or method_display):return None
     elif anchor.get('record_type')=='code_symbol':
         if anchor.get('record_ids')!=[method['id']]or anchor.get('symbol')!=name:return None
     else:return None
