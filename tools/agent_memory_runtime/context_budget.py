@@ -266,23 +266,43 @@ def trim_excerpt(excerpt: dict[str, Any]) -> bool:
     if len(content) <= MIN_FINAL_EXCERPT_CHARS:
         return False
     target = max(MIN_FINAL_EXCERPT_CHARS, len(content) - 240)
-    lines = content.splitlines()
+    # read_excerpt joins actual source lines with LF, not Unicode separators.
+    lines = content.split("\n")
     focus = excerpt.get("focus_line")
     start = excerpt.get("start_line")
     focus_index = int(focus) - int(start) if isinstance(focus, int) and isinstance(start, int) else 0
     focus_index = min(max(0, focus_index), max(0, len(lines) - 1))
-    selected = [lines[focus_index]] if lines else []
-    left, right = focus_index - 1, focus_index + 1
-    while (left >= 0 or right < len(lines)) and len("\n".join(selected)) < target:
-        if left >= 0:
-            selected.insert(0, lines[left])
-            left -= 1
-        if right < len(lines) and len("\n".join(selected)) < target:
-            selected.append(lines[right])
-            right += 1
+    valid_focus = (type(focus) is int and type(start) is int
+                   and start > 0 and 0 <= focus - start < len(lines))
+    lo = hi = focus_index
+    selected = [lines[focus_index][:target] if valid_focus else lines[focus_index]]
+    used = len(selected[0])
+    left_open, right_open = lo > 0, hi + 1 < len(lines)
+    while (left_open or right_open) and used < target:
+        if left_open:
+            extra = len(lines[lo - 1]) + 1
+            if not valid_focus or used + extra <= target:
+                lo -= 1
+                selected.insert(0, lines[lo])
+                used += extra
+                left_open = lo > 0
+            else:
+                left_open = False
+        if right_open and used < target:
+            extra = len(lines[hi + 1]) + 1
+            if not valid_focus or used + extra <= target:
+                hi += 1
+                selected.append(lines[hi])
+                used += extra
+                right_open = hi + 1 < len(lines)
+            else:
+                right_open = False
     excerpt["content"] = "\n".join(selected)[:target]
-    excerpt["start_line"] = int(start or 1) + left + 1
-    excerpt["end_line"] = excerpt["start_line"] + max(0, len(selected) - 1)
+    last = lo + excerpt["content"].count("\n")
+    if excerpt["content"].endswith("\n") and lines[last]:
+        excerpt["content"] = excerpt["content"][:-1]
+    excerpt["start_line"] = int(start or 1) + lo
+    excerpt["end_line"] = excerpt["start_line"] + excerpt["content"].count("\n")
     excerpt["truncated"] = True
     return True
 

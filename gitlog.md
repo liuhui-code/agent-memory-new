@@ -1,3 +1,9 @@
+## 2026-11-18 — Focus-preserving excerpt trim
+
+- Correct the local trim helper to preserve fitting valid focus lines and report only represented source lines, including clipped-LF versus real-empty-line boundaries. Keep ordinary invalid/missing-focus character-prefix behavior and existing thresholds/budgets.
+- Candidate 42 targeted tests pass. Separate frozen-input pure BEFORE/AFTER proves exact focus line 8 restoration; earlier candidates and findings remain preserved. Final-tree targeted verification is recorded externally.
+- Zero public CLI/DB calls; no original32, public budget-chain, full-suite or CI claim. Details: docs/releases/excerpt-trim-focus-20261118/.
+
 ## 2026-11-18 — Finite accumulator recall and relevance
 
 - Connect the existing complete original accumulator request to indexed collectionfold in bounded file/method recall and relevance. Keep original-query/projection qualification, existing coefficients/limits and all source/identity/log/path/budget guards; no global alias or bare-result expansion.
