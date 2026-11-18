@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from .agent_benchmark_scope import require_diagnosis_cases
 from .agent_benchmark_cases import public_case
 from .benchmark_context_setup import apply_context_setup, context_setup_audit
 from .benchmark_memory import prepare_isolated_memory
@@ -42,6 +43,7 @@ def run_benchmark_agent(
     treatment_mode: str = "preloaded-context",
     replay_package: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    require_diagnosis_cases([case])
     executable = resolve_runner(runner)
     with materialized_workspace(root, case) as workspace:
         setup = case.get("context_setup")

@@ -12,6 +12,7 @@ from .agent_benchmark_cases import (
     load_case_pack,
     require_executable_case_pack,
 )
+from .agent_benchmark_scope import require_diagnosis_cases
 from .agent_benchmark_eval import evaluate_agent_benchmark
 from .agent_benchmark_longitudinal import (
     evaluate_longitudinal_value,
@@ -35,7 +36,6 @@ BENCHMARK_HISTORY_LIMIT = 100
 
 def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
-    ensure_initialized(project)
     pack = load_case_pack(Path(args.cases).expanduser())
     require_executable_case_pack(pack)
     cases = eligible_cases(pack, bool(args.allow_drafts))
@@ -43,6 +43,8 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     cases = cases[: max(1, int(args.limit))]
     if not cases:
         raise SystemExit("no eligible benchmark cases; review drafts or pass --allow-drafts")
+    require_diagnosis_cases(cases)
+    ensure_initialized(project)
     validate_longitudinal_cases(cases)
     replay = load_package(Path(args.paired_replay_package).expanduser()) if args.paired_replay_package else None
     if bool(args.runner) == bool(args.responses):
@@ -157,6 +159,7 @@ def run_cases(
     treatment_mode: str = "preloaded-context",
     replay_package: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
+    require_diagnosis_cases(cases)
     observations: list[dict[str, Any]] = []
     for case_position, case in enumerate(cases, start=1):
         for trial_index in range(1, trials + 1):

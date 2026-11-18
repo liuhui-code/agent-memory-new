@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
+from tools.agent_memory_runtime.agent_benchmark_scope import require_diagnosis_cases
 from examples.codex_benchmark_prompt import benchmark_response_schema, build_prompt
 from examples.ollama_benchmark_tools import SourceToolExecutor, source_tool_definitions
 from tools.agent_memory_runtime.source_exploration import (
@@ -123,6 +124,7 @@ def run_request(
     model: str,
     timeout: int,
 ) -> dict[str, Any]:
+    require_diagnosis_cases([request.get("case") or {}])
     workspace = Path(required_text(request, "workspace")).resolve()
     if not workspace.is_dir():
         raise SystemExit(f"benchmark workspace not found: {workspace}")

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .agent_benchmark_scope import require_diagnosis_cases
 from .agent_benchmark_cost import COST_METRIC_FIELDS, evaluate_efficiency
 from .agent_benchmark_schedule import execution_order_audit
 from .agent_benchmark_selective import selective_query_audit
@@ -34,6 +35,7 @@ def evaluate_agent_benchmark(
     cases: list[dict[str, Any]],
     observations: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    require_diagnosis_cases(cases)
     selected_case_ids = {case["id"] for case in cases}
     selected_observations = [
         item for item in observations if item.get("case_id") in selected_case_ids
@@ -246,6 +248,7 @@ def aggregate_trial_scores(values: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, Any]:
+    require_diagnosis_cases([case])
     oracle = case["oracle"]
     expected = set(oracle["expected_files"])
     predicted = set(observation["predicted_files"])

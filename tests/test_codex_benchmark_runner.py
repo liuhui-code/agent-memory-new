@@ -64,6 +64,7 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             manifest = result["runner_metadata"]["benchmark_protocol_manifest"]
             self.assertEqual("agent-benchmark-protocol-manifest/v1", manifest["schema_version"])
             self.assertGreaterEqual(len(manifest["components"]), 10)
+            self.assertIn("tools/agent_memory_runtime/agent_benchmark_scope.py", manifest["components"])
             self.assertEqual("runner_preloaded", result["runner_metadata"]["memory_delivery"])
             self.assertEqual("isolated_home", result["runner_metadata"]["user_context"])
             self.assertEqual(

@@ -13138,3 +13138,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Preserve causal verification requirements for diagnosis; source-reading completion depends on inspected requested facts, contradictions and remaining gaps, not invented causal success.
 - Keep Runtime, budgets, evaluator and frozen outputs unchanged; preserve design protocol.
 - Record two actual pre-change developer Agent consumption observations with their limits, not benchmark improvement. See docs/releases/query-reading-completion-20261118.
+
+## 2026-11-18 - Reject unsupported design diagnosis-benchmark execution
+
+- Reproduced a synthetic design response without alternatives receiving diagnostic score 1.0; retain reproduction and provenance correction.
+- Preserve design case loading/design-context, but reject design before diagnosis benchmark work or scoring. Mixed selected batches reject atomically; historical diagnosis compatibility retained.
+- Preserve formulas and original results; add eight scope tests, retain initial initialization-side-effect failure and fix. See docs/releases/design-benchmark-scope-20261118.

@@ -1,0 +1,22 @@
+test_actual_cli_refuses_design_before_ledger_and_runner (test_agent_benchmark_scope.BenchmarkScopeTests.test_actual_cli_refuses_design_before_ledger_and_runner) ... FAIL
+test_design_cannot_be_scored_or_prompted (test_agent_benchmark_scope.BenchmarkScopeTests.test_design_cannot_be_scored_or_prompted) ... ok
+test_design_case_loading_still_supported (test_agent_benchmark_scope.BenchmarkScopeTests.test_design_case_loading_still_supported) ... ok
+test_diagnosis_scores_unchanged_and_legacy_missing_type_supported (test_agent_benchmark_scope.BenchmarkScopeTests.test_diagnosis_scores_unchanged_and_legacy_missing_type_supported) ... ok
+test_direct_external_runners_reject_before_work (test_agent_benchmark_scope.BenchmarkScopeTests.test_direct_external_runners_reject_before_work) ... ok
+test_direct_run_rejects_before_resolver_or_workspace (test_agent_benchmark_scope.BenchmarkScopeTests.test_direct_run_rejects_before_resolver_or_workspace) ... ok
+test_mixed_batch_rejects_before_first_runner (test_agent_benchmark_scope.BenchmarkScopeTests.test_mixed_batch_rejects_before_first_runner) ... ok
+test_selected_diagnosis_from_mixed_pack_is_allowed (test_agent_benchmark_scope.BenchmarkScopeTests.test_selected_diagnosis_from_mixed_pack_is_allowed) ... ok
+
+======================================================================
+FAIL: test_actual_cli_refuses_design_before_ledger_and_runner (test_agent_benchmark_scope.BenchmarkScopeTests.test_actual_cli_refuses_design_before_ledger_and_runner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tests/test_agent_benchmark_scope.py", line 83, in test_actual_cli_refuses_design_before_ledger_and_runner
+    self.assertEqual(before,after)
+AssertionError: {'con[22680 chars]:58:38+00:00\n\x00\x00\x00\x01\x0f\xec\x00\x0f[2645537 chars]]\n'} != {'con[22680 chars]:58:39+00:00\n\x00\x00\x00\x01\x0f\xec\x00\x0f[2644992 chars]]\n'}
+Diff is 6927458 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 8 tests in 8.195s
+
+FAILED (failures=1)

@@ -1,0 +1,108 @@
+{
+  "governance": "independent synthetic development contract reproduction, not project incident or oracle quality",
+  "case": {
+    "id": "design-cache-policy",
+    "task_type": "design",
+    "review_status": "validated",
+    "task": {
+      "description": "Compare bounded cache replacement strategies and document tradeoffs; no incident is alleged."
+    },
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "independent_development_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/Cache.ets"
+      ],
+      "forbidden_files": [
+        "src/Other.ets"
+      ],
+      "root_cause_category": "state",
+      "expected_causal_level": "supported"
+    }
+  },
+  "observation": {
+    "schema_version": "agent-benchmark-response/v1",
+    "case_id": "design-cache-policy",
+    "variant": "memory",
+    "root_cause_category": "state",
+    "predicted_files": [
+      "src/Cache.ets"
+    ],
+    "investigated_files": [
+      "src/Cache.ets"
+    ],
+    "causal_level": "supported",
+    "verification_status": "pass",
+    "query_rounds": 1,
+    "token_estimate": 50,
+    "memory_context_bytes": 400,
+    "memory_context_token_estimate": 100,
+    "elapsed_ms": 100,
+    "summary": "No design alternatives or tradeoffs were provided."
+  },
+  "score": {
+    "agent_outcome_score": 1.0,
+    "agent_root_cause_match": true,
+    "predicted_root_cause_category": "state",
+    "expected_root_cause_category": "state",
+    "expected_file_recall": 1.0,
+    "predicted_file_precision": 1.0,
+    "forbidden_direction_hit": false,
+    "forbidden_files": [],
+    "causal_level_match": true,
+    "causal_level_source": "agent_reported_legacy",
+    "mechanism_evidence_eligible": false,
+    "mechanism_evidence_score": null,
+    "mechanism_grounded": null,
+    "matched_mechanism_assertions": 0,
+    "expected_mechanism_assertions": 0,
+    "verification_status": "pass",
+    "query_rounds": 1,
+    "source_search_count": 0,
+    "source_search_count_source": "agent_reported",
+    "token_estimate": 50,
+    "model_input_tokens": 0,
+    "model_cached_input_tokens": 0,
+    "model_uncached_input_tokens": 0,
+    "model_output_tokens": 0,
+    "model_reasoning_tokens": 0,
+    "command_count": 0,
+    "command_output_bytes": 0,
+    "source_read_count": 0,
+    "source_read_output_bytes": 0,
+    "tool_error_count": 0,
+    "source_search_miss_count": 0,
+    "source_search_error_count": 0,
+    "source_read_error_count": 0,
+    "other_tool_error_count": 0,
+    "cost_metrics_reported": false,
+    "memory_context_bytes": 400,
+    "memory_context_token_estimate": 100,
+    "elapsed_ms": 100,
+    "end_to_end_elapsed_ms": 100,
+    "agent_elapsed_ms": 0,
+    "memory_retrieval_elapsed_ms": 0,
+    "source_file_count": 0,
+    "memory_anchor_hit_count": 0,
+    "memory_anchor_hit_rate": 0.0,
+    "primary_anchor_hit_count": 0,
+    "non_anchor_file_count": 0,
+    "expansion_rounds": 0,
+    "expansion_file_count": 0,
+    "expansion_accounting_source": "agent_trace",
+    "expansion_reason_codes": [],
+    "stop_reason": "unreported",
+    "exploration_metrics_reported": false,
+    "predicted_files": [
+      "src/Cache.ets"
+    ],
+    "supporting_files": []
+  },
+  "forced_causal_stop": true,
+  "forced_causal_files": true,
+  "provenance_correction": "Initial reproduction inherited reviewed_incident from a test helper. It was synthetic, never a reviewed incident; original file is retained."
+}

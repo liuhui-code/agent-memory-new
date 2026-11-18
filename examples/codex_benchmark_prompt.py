@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from tools.agent_memory_runtime.agent_benchmark_scope import require_diagnosis_cases
 from tools.agent_memory_runtime.source_exploration import (
     ALLOWED_EXPANSION_REASONS,
     EVIDENCE_BASES,
@@ -28,6 +29,7 @@ def build_prompt(
     treatment_mode: str = "preloaded-context",
 ) -> str:
     case = request.get("case") or {}
+    require_diagnosis_cases([case])
     task = case.get("task") or {}
     lines = [
         "Act as the external coding Agent for a controlled benchmark.",

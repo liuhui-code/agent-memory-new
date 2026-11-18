@@ -20,6 +20,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from tools.agent_memory_runtime.agent_benchmark_scope import require_diagnosis_cases
 from tools.agent_memory_runtime.source_exploration import (  # noqa: E402
     FILES_PER_EXPANSION_LIMIT,
     POLICY_NAME,
@@ -54,6 +55,7 @@ RESPONSE_SCHEMA = "agent-benchmark-response/v1"
 def main() -> int:
     total_started = time.monotonic()
     request = json.load(sys.stdin)
+    require_diagnosis_cases([request.get("case") or {}])
     workspace = Path(required_text(request, "workspace")).resolve()
     if not workspace.is_dir():
         raise SystemExit(f"benchmark workspace not found: {workspace}")
@@ -412,6 +414,7 @@ def benchmark_protocol_manifest() -> dict[str, Any]:
         "tools/agent_memory_runtime/agent_benchmark_measurement.py",
         "tools/agent_memory_runtime/agent_benchmark_paired_cost.py",
         "tools/agent_memory_runtime/agent_benchmark_protocol.py",
+        "tools/agent_memory_runtime/agent_benchmark_scope.py",
         "tools/agent_memory_runtime/agent_benchmark_treatment.py",
         "tools/agent_memory_runtime/context_source_excerpt.py",
         "tools/agent_memory_runtime/source_exploration.py",
