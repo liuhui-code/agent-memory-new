@@ -1,3 +1,9 @@
+## 2026-11-18 — Summary explicit-presentation evidence record (no runtime change)
+
+- Reuse the disclosed nonsealed Summary source/query bytes in a fresh project: four normal CLI calls, with raw/compact using independent learned-home copies. Independently accepted compact1255/2000, truncated=false, preserves both required method bodies and current identity/projection fields; complete evidence recovery passed.
+- Logs are empty in this study; do not transfer the preceding B study's nonempty three-log claim here. This is not a new domain, default1500 repair, old two-red gate replay, Invoice reclassification or original06 group closure.
+- Documentation only;441 runtime files unchanged from the published explicit-preserve implementation. No new49-method run, full-suite, CI or repair count. See docs/releases/summary06-explicit-presentation-20261118/.
+
 ## 2026-11-18 — Explicit preserve2000 finite actual acceptance
 
 - Independently reviewed V2 actual context returns1977/2000, with Store and Registry complete source bodies, all3logs and full callable risk/guidance/guard fields preserved. Complete recovery passed; actual JSON equals the separate pure result.
