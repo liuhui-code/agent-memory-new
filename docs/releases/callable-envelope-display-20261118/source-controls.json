@@ -1,0 +1,59 @@
+{
+  "classification": "prospective source-only controls, not public runtime acceptance",
+  "sources": {
+    "editor": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "creator_inverse_angle": "@Component\nexport struct RuleCreatorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Row() {\n      Text('Rule details')\n      SymbolGlyph($r('sys.symbol.chevron_down'))\n        .rotate({ angle: this.detailsExpanded ? 180 : 0 })\n    }.onClick(() => {\n      this.detailsExpanded = !this.detailsExpanded\n    })\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "renamed": "@Component\nexport struct FoldingPanel {\n  @State private openState: boolean = false\n\n  @Builder\n  private ToggleRegion() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.openState ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.openState = !this.openState\n      })\n\n      if (this.openState) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.ToggleRegion()\n  }\n}\n",
+    "ordinary_function": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      .onClick(function() {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "different_write_field": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.otherState = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "deferred": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      .onClick(() => {\n        const unused = () => { this.detailsExpanded = !this.detailsExpanded }\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "unattached": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      ; (() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "static_angle": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: 0 })\n      }\n      .onClick(() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "different_read_field": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.otherState ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "extra_writer": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  update() { this.detailsExpanded = true }\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n",
+    "same_angles": "@Component\nexport struct RuleEditorPage {\n  @State private detailsExpanded: boolean = false\n\n  @Builder\n  private DetailsDisclosure() {\n    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 0 })\n      }\n      .onClick(() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }\n  }\n\n  build() {\n    this.DetailsDisclosure()\n  }\n}\n"
+  },
+  "results": {
+    "editor": {
+      "owner": "RuleEditorPage",
+      "method": "DetailsDisclosure",
+      "field": "detailsExpanded",
+      "start_line": 6,
+      "end_line": 21,
+      "body_start": 7,
+      "body_end": 20,
+      "class_start": 2,
+      "class_end": 26
+    },
+    "creator_inverse_angle": {
+      "owner": "RuleCreatorPage",
+      "method": "DetailsDisclosure",
+      "field": "detailsExpanded",
+      "start_line": 6,
+      "end_line": 14,
+      "body_start": 7,
+      "body_end": 13,
+      "class_start": 2,
+      "class_end": 19
+    },
+    "renamed": {
+      "owner": "FoldingPanel",
+      "method": "ToggleRegion",
+      "field": "openState",
+      "start_line": 6,
+      "end_line": 21,
+      "body_start": 7,
+      "body_end": 20,
+      "class_start": 2,
+      "class_end": 26
+    },
+    "ordinary_function": null,
+    "different_write_field": null,
+    "deferred": null,
+    "unattached": null,
+    "static_angle": null,
+    "different_read_field": null,
+    "extra_writer": null,
+    "same_angles": null
+  }
+}

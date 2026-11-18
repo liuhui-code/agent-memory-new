@@ -1,0 +1,351 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "04569fbab35d9e06",
+  "query": "规则编辑页的详情箭头在展开时方向错误，相比新建页正好相反，请定位编辑侧 rotate 与展开状态绑定。",
+  "memory_intent": "runtime_log_diagnosis",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "规则编辑页的详情箭头在展开时方向错误",
+      "规则",
+      "则编",
+      "编辑",
+      "辑页",
+      "页的",
+      "的详",
+      "详情",
+      "情箭",
+      "箭头",
+      "头在",
+      "在展"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 2,
+        "message_template": "DISPATCH_PROFILE_8A21 load failed",
+        "logger": "hilog",
+        "file_path": "src/services/DispatchProfileService.ets",
+        "function": "run",
+        "line": 11,
+        "effect_id": 11,
+        "evidence_class": "inferred_wrapped",
+        "wrapper_symbol": "report",
+        "wrapper_depth": 1,
+        "call_path": [
+          "run",
+          "report",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/DispatchProfileService.ets#run",
+          "src/logging/ConsoleFailureReporter.ets#report",
+          "src/logging/ConsoleFailureReporter.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 8,
+        "message_template": "attachment cache write missing",
+        "logger": "hilog",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "effect_id": 6,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.warning"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.warning"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 2,
+        "message_template": "{message}",
+        "logger": "hilog",
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "function": "report",
+        "line": 6,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/pages/RuleEditorPage.ets",
+        "symbol": "RuleEditorPage",
+        "symbol_type": "component",
+        "record_ids": [
+          86
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "RuleEditorPage",
+            "start_line": 2,
+            "end_line": 26
+          }
+        ],
+        "summary": "ArkTS file with 23 non-empty lines; components: RuleEditorPage; resources: sys.symbol.chevron_down; operations: rotate, onClick; behavior: callbackboundary, disclosurestate, condit",
+        "read_window": {
+          "start_line": 2,
+          "end_line": 26
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "Column",
+            "start_line": 7,
+            "end_line": 20,
+            "content": "    Column() {\n      Row() {\n        Text('Rule details')\n        SymbolGlyph($r('sys.symbol.chevron_down'))\n          .rotate({ angle: this.detailsExpanded ? 0 : 180 })\n      }\n      .onClick(() => {\n        this.detailsExpanded = !this.detailsExpanded\n      })\n\n      if (this.detailsExpanded) {\n        Text('Advanced matching options')\n      }\n    }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/pages/EditorKeyboardPage.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          178
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 7,
+            "end_line": 9
+          }
+        ],
+        "read_window": {
+          "start_line": 7,
+          "end_line": 9
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "build",
+            "start_line": 7,
+            "end_line": 9,
+            "content": "  build() {\n    Text('Editor keyboard diagnostics')\n  }",
+            "source": "current_worktree",
+            "selection_reason": "anchor_range",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "symbol": "attach",
+        "symbol_type": "function",
+        "record_ids": [
+          501
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "attach",
+            "start_line": 4,
+            "end_line": 12
+          }
+        ],
+        "read_window": {
+          "start_line": 4,
+          "end_line": 12
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "attach",
+            "start_line": 4,
+            "end_line": 12,
+            "content": "  attach(stage: WindowStage): void {\n    stage.on('keyboardHeightChange', (height: number) => {\n      if (height > 0) {\n        this.editorFocusable = true\n      } else {\n        this.editorFocusable = false\n      }\n    })\n  }",
+            "source": "current_worktree",
+            "selection_reason": "anchor_range",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "source": "wrapped_log_caller",
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "record_ids": [
+          11
+        ],
+        "record_type": "code_log_effect",
+        "source_ranges": [
+          {
+            "symbol": "run",
+            "start_line": 10,
+            "end_line": 12
+          }
+        ],
+        "read_window": {
+          "start_line": 10,
+          "end_line": 12
+        },
+        "role": "expansion"
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "owner_name": "ConsoleFailureReporter",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 20.38,
+        "evidence_score": 20.38,
+        "reasons": [
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 5,
+          "end_line": 7,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/pages/RuleEditorPage.ets",
+          "symbol": "DetailsDisclosure",
+          "owner_name": "RuleEditorPage",
+          "owner_kind": "component",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 19.47,
+          "evidence_score": 19.47,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 6,
+            "end_line": 21,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/pages/EditorKeyboardPage.ets",
+          "symbol": "build",
+          "owner_name": "EditorKeyboardPage",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 19.42,
+          "evidence_score": 19.42,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 7,
+            "end_line": 9,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 634
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "target_tokens": 2000,
+    "estimated_tokens": 1914,
+    "truncated": false
+  }
+}

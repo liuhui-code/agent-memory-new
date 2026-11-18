@@ -170,6 +170,9 @@ def context(args: argparse.Namespace) -> None:
     if args.compact:
         from .context_static_reading import static_reading_order
         data = static_reading_order(project, data)
+    if args.compact and preserve:
+        from .context_callable_envelope import expand_callable_envelopes
+        data = expand_callable_envelopes(project, data, enabled=True)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

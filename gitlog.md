@@ -13102,3 +13102,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Audit twelve default public CLI outputs for original15/33/37/38 without changing queries, source, scoring or production.15 all three methods complete;33 English variants partial;37 Chinese carries two complete command objects but not whole property/build;38 original/Chinese partial and paraphrase body-only.
 - Explain existing span recall as overlap/symbol hit, not every-line coverage; retain original gate outcomes rather than silently regrade them. Correct earlier completeness prose using actual source lines.
 - Preserve exact output and commands in docs/releases/excerpt-completeness-audit-20261118/. No full gate or new fix claimed; UI relation prototype does not authorize editor identity.
+
+## 2026-11-18 — Add opt-in authenticated callable source envelopes
+
+- After all existing allocation and reading selection, expand an existing mechanism excerpt to its already-admitted callable's unique authenticated full method only if current evidence remains intact and the original budget permits. Default/raw unchanged; no candidate/primary changes, no UI identity inference.
+- Preserve original metadata in expanded_from and verify exact reconstruction. Stale/ambiguous/bad source, unknown shapes, caps and over-budget are no-op. Keep source limits and all other evidence intact.
+- Actual38 explicit2000+preserve gains method6–21 from body7–20 at1974tokens (was1914); default exact no-op.33 preserve exact no-op.60 focused tests pass; initial misnamed-module import retained, no full gate. See docs/releases/callable-envelope-display-20261118/.
