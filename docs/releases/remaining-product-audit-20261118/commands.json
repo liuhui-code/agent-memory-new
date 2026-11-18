@@ -1,0 +1,59 @@
+[
+  {
+    "case_id": "context-bounded-cache-eviction-owner",
+    "variant": "original",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-product-audit/33-home",
+      "--query",
+      "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "case_id": "context-comparison-target-visual-state-owner",
+    "variant": "zh-noise",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-product-audit/38-home",
+      "--query",
+      "规则编辑页的详情箭头在展开时方向错误，相比新建页正好相反，请定位编辑侧 rotate 与展开状态绑定。",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "case_id": "context-canonical-source-over-preview-artifact",
+    "variant": "en-paraphrase",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-product-audit/40-home",
+      "--query",
+      "Locate the canonical quota recovery click handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]
