@@ -1,3 +1,9 @@
+## 2026-11-18 — Avoid repeated source text during staged discovery
+
+- Current existing-intent probes do not fix13/34 principal selection. Preserve actual outputs and prior staged-source navigation facts; do not call34 entire response missing its existing alternative.
+- Two existing Development counterexamples keep correct field/competing-target conclusions under fresh paired consumers. Both baseline searches reprint known source lines; a frozen path-only discovery preference avoids duplicate text in both candidate observations without changing evidence or budgets. One candidate uses1 rather than2 searches; exclude-glob failure remains documented.
+- Adopt only this generic consumer clarification.9 focused content/disclosure/install checks pass; Runtime, score and original13/34 gate outcomes are unchanged. Full outputs, four answers and limitations: docs/releases/staged-source-discovery-20261118/.
+
 ## 2026-11-18 — Check remaining15/32 actual source consumption
 
 - No product change. Two isolated consumers used current compact input and bounded source reads:32 identified executable Web policy rather than settings/logs, and15 identified the combined coordinator without treating the reported runtime symptom as established fact. Preserve answers, actual read counts, current CLI modes and failed unsupported-flag probe in docs/releases/remaining-consumer-check-20261118/.

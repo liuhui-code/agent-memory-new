@@ -1,0 +1,11 @@
+{
+  "candidate": "single added source-discovery paragraph, not adopted",
+  "frozen_sha256": "6b279bae37f348b3519ca7ab86d3377fef684f94cd425b0ea8f651b39ccc8b53",
+  "inputs": [
+    "control-0.json",
+    "control-1.json"
+  ],
+  "baseline_observed": "both correct targets/uncertainty; both source-text search repeats known lines; one exclusion glob ineffective",
+  "candidate_success": "same factual source answer/uncertainty, no repeated source-text output, no extra search/read budget",
+  "do_not_claim": "original gate closure, population accuracy, runtime change"
+}

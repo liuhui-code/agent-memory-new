@@ -1,0 +1,74 @@
+[
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/staged-existing-interface/13-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--intent",
+      "code_location",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/staged-existing-interface/34-home",
+      "--query",
+      "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner.",
+      "--intent",
+      "code_location",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/staged-existing-interface/control-0-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/staged-existing-interface/control-1-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

@@ -1,0 +1,47 @@
+## 完整答复
+
+当前源码中有两个同样匹配的实现，不能仅凭检索排名确定实际运行的是哪一个：
+
+- `src/pages/AlternateEditor.ets` → `AlternateEditor.saveProfile()`，第 6–12 行。
+- `src/pages/ProfileEditor.ets` → `ProfileEditor.saveProfile()`，第 6–12 行。
+
+两者的校验与动作分发一致：
+
+1. 第 7 行检查 `this.displayName.trim().length === 0`。
+2. 第 8 行通过 `promptAction.showToast` 显示 `Display name is required`。
+3. 第 9 行执行 `return`，中止当前 `saveProfile()` 调用。
+4. 第 11 行只有在该空值分支未进入时才执行 `this.gateway.updateProfile(this.displayName)`。检查使用 trim 后的长度，但传递的是原始字符串。
+5. 两组件第 1、5 行分别导入并实例化 `ProfileGateway`。后者在 `src/services/ProfileGateway.ets` 第 2–3 行接收 `name`，再调用 `profileClient.update(name)`。
+
+因此，已检查源码确实包含校验中止，无法据此解释“同一次保存调用提示错误后仍提交更新”。两个组件的 `build()` 都为空（第 13 行），没有可见按钮绑定或页面路由来判定实际入口。检索结果也没有提供日志锚点、运行时调用路径或 `profileClient` 的实现。尚不能证明该现象发生于这条路径，更不能宣称问题已修复。
+
+## 读取及搜索轨迹
+
+源根：`concrete-plan-work/graph-field-navigation/frozen/two-matches/source`
+
+准备读取：
+- 指导文件 `staged-existing-interface/candidate-code-understanding.md`：全文。
+- 输入 `staged-existing-interface/control-1.json`：全文。
+- 保留查询：“必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。”
+- 输入标识：`project_id=4b68d9a6a7632e75`，freshness=`current`，generation=`1`；无提交哈希，graph revision 为 null。
+- 已给源码：`AlternateEditor.ets:6–12`，7 行，`code_file` record ID `1`。静态 imports 边为 `code_file:1 → code_file:3`。未改写或删除输入证据。
+
+源码补读：
+
+| 阶段 | 操作 | 实际读取范围 | 行数 |
+|---|---|---|---:|
+| 1 | 读取 `src/pages/AlternateEditor.ets` | 1–5、13–14 | 7 |
+| 1 | 读取 `src/pages/ProfileEditor.ets` | 1–14 | 14 |
+| 2 | 读取 `src/services/ProfileGateway.ets` | 1–5 | 5 |
+| 2 | 源根 `rg -l 'saveProfile\|updateProfile\|ProfileEditor\|AlternateEditor'` | 仅输出上述三个文件路径，无源码行 | 0 |
+
+搜索命令尝试通过 glob 排除已读文件，但实际仍返回这三个路径。它只打印文件名，没有重复输出源码，也没有据此新增事实。
+
+计数：
+- 补读 2 轮，分别涉及 2、1 个文件。
+- 唯一源码文件 3 个。
+- 补读 26 行；含输入提供的 7 行，共检查 33 行源码。
+- 每文件补读各 1 次；若将输入 excerpt 计入，AlternateEditor 共 2 次，其余各 1 次。
+- 搜索 1 次，结果 3 个路径。
+- 重复已给行：否。
+- 预算停止：补读已到 2 轮上限，未继续扩展。所请求的静态校验中止及动作分发已定位；运行时症状诊断仍存在上述证据缺口。

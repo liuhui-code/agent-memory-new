@@ -37,3 +37,12 @@ class QueryReadingRolesTests(unittest.TestCase):
         self.assertIn('For diagnosis, the local Agent CLI must summarize',entry)
         for marker in ['every requested, verifiable source fact','no direct contradiction','unverified remainder or budget stop','callback attachment without its return','log string alone does not complete','separate design protocol','not new Runtime stop enums']:
             self.assertIn(marker,body)
+
+    def test_discovery_prefers_paths_without_new_evidence_or_budget(self):
+        body=(ROOT/'skills/agent-memory-query/references/code-understanding.md').read_text()
+        for marker in ['prefer file-name-only search results', '`rg -l`',
+                       'navigation, not newly inspected source facts',
+                       'read only uncovered ranges', 'All searches and reads still share the existing limits']:
+            self.assertIn(marker,body)
+        self.assertIn('verify the requested boundaries or state the missing ones',body)
+        self.assertIn('Do not reread already supplied lines',body)

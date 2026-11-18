@@ -1,0 +1,38 @@
+原始请求：“必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。”
+
+结论：当前源码中有两个同样匹配的候选，不能只凭检索排名选出唯一入口；两者都明确在空值提示后 `return`，未发现同一次调用在该分支后继续更新的静态证据。
+
+### 源码定位
+
+- `src/pages/AlternateEditor.ets:6–12`，`AlternateEditor.saveProfile`
+  - 第 7 行：`this.displayName.trim().length === 0`。
+  - 第 8 行：提示 `Display name is required`。
+  - 第 9 行：`return` 中止本次方法。
+  - 第 11 行：仅未进入空值分支时调用 `this.gateway.updateProfile(this.displayName)`。
+  - 该方法体来自输入的 current_worktree 摘录，未用行范围再次读取。
+- `src/pages/ProfileEditor.ets:6–12`，`ProfileEditor.saveProfile`
+  - 校验、提示、`return` 和更新调用与上述实现相同，已直接读取验证。
+- `src/services/ProfileGateway.ets:2–4`，`ProfileGateway.updateProfile`
+  - 第 3 行通过 `profileClient.update(name)` 继续分发更新。
+- 两个页面均在第 1 行导入 `ProfileGateway`，第 5 行创建实例，依赖方向均为：
+  `页面.saveProfile → ProfileGateway.updateProfile → profileClient.update`。
+
+### 不确定性
+
+两个页面的 `build()` 都为空，未见实际保存按钮或事件绑定。限定源码搜索也未找到 `profileClient` 的实现或另一个更新调用点。因此不能确认实际运行的是哪个页面、提示和更新是否来自同一次调用，也不能将“提示后仍提交”认定为上述 `return` 失效。仍需事件绑定、客户端实现或运行时调用证据才能归因。
+
+### 搜读轨迹与预算
+
+源根：`/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/two-matches/source`。
+
+1. 读取获准输入 `staged-existing-interface/control-1.json` 一次。
+2. 主锚点源码读取：
+   - `src/pages/AlternateEditor.ets`：仅第 1–5、13–14 行，共 7 行，避开已给第 6–12 行。
+   - `src/pages/ProfileEditor.ets`：第 1–14 行，共 14 行。
+3. 第一次阶段性扩展：
+   - 沿显式导入读取 `src/services/ProfileGateway.ets` 第 1–5 行，共 5 行。
+   - 搜索 1：`source/src` 下 `*.ets`，词项 `saveProfile|updateProfile|dispatch|Display name is required`。命中上述 3 个文件，没有新文件。
+4. 搜索 2：整个 `source`，词项 `profileClient|\.update\(|onClick|saveProfile|ProfileEditor|AlternateEditor`。尝试排除已读文件的 glob 未生效，输出仍是上述 3 个文件的重复命中，没有新增来源。此点明确保留，不将其算作新证据。
+5. 读取获准参考 `repo/skills/agent-memory-query/references/code-understanding.md` 一次。此前只检查过两个错误的参考文件路径是否存在，未读取其他文件或枚举目录。
+
+计数：源码文件 3/7；搜索 2/3；主锚点读取 2 个文件；阶段性扩展 1 轮、1 个文件；每个源码文件一次范围读取，每次不超过 180 行。没有修改文件。未因预算耗尽停止；因现有源码事实已定位、运行时归因证据缺失而停止。搜索结果重复展示了既有行，虽未重复执行正文范围读取，仍属于应避免的证据重复。

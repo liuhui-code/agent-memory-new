@@ -1,0 +1,45 @@
+原始请求：“必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。”
+
+### 完整答复
+
+当前源码能定位到以下链路，但不能证明“显示名为空、提示错误后仍提交”的运行现象：
+
+- **校验与中止**：`src/pages/ProfileEditor.ets` 的 `ProfileEditor.saveProfile()`，第 6–12 行。第 7 行判断的是 **`this.customerCode.trim().length === 0`**，不是已证实绑定到显示名的字段。第 8 行提示 `Display name is required`，随后第 9 行 `return`。因此，在这一次调用进入该分支的情况下，第 11 行更新调用不会继续执行。
+- **动作调用**：同一方法第 11 行执行 `this.gateway.updateProfile(this.customerCode)`。传入的仍是 `customerCode`。
+- **下游转发**：`src/services/ProfileGateway.ets` 第 2–3 行，`ProfileGateway.updateProfile(name)` 将参数交给 `profileClient.update(name)`。当前源码没有给出 `profileClient` 的定义、实际网络发送或其他分发实现。
+- **关键不一致**：错误文案说“显示名”，但校验条件及更新入参都是 `customerCode`。这足以指出字段语义待核对，不能仅凭文案把它认定为显示名校验，也不能断言它就是运行故障根因。
+- **入口缺口**：`ProfileEditor.ets` 第 13 行的 `build()` 为空，没有显示名输入绑定或保存按钮回调。因此无法从这里确认显示名对应哪个状态、谁触发保存，或是否另有提交路径。
+
+建议验证真实显示名与 `customerCode` 的绑定关系，并取得同一次操作的调用或请求记录。现有证据更明确支持“此分支有中止，但校验字段与提示语义不一致”，不支持“该分支提示后继续执行更新”。
+
+### 读取与搜索证据
+
+源根：`/workspace/scratch/dcdb41e16594/concrete-plan-work/graph-field-navigation/frozen/wrong-field/source`
+
+预先读取：
+1. 指导文件 `staged-existing-interface/candidate-code-understanding.md`，全文。
+2. 输入文件 `staged-existing-interface/control-0.json`，全文。
+   - 项目 ID：`dfc531c6eafa56d4`
+   - freshness：`current`，generation `1`
+   - 未提供提交 SHA。
+   - 原记录：`code_file:1`，`src/pages/ProfileEditor.ets`。
+   - 已给源码：`saveProfile` 第 6–12 行，共 7 行。
+   - 静态导入关系：`code_file:1 → code_file:2`，confidence `0.85`。
+   - 无日志锚点；无激活路径图。
+
+源码补读与导航按顺序：
+1. 第一阶段补读 `src/pages/ProfileEditor.ets` 第 1–5、13–30 行；文件实际止于第 14 行，因此新增读取 **7 行**，没有重读第 6–12 行。
+2. 搜索 1：`rg -l 'displayName|updateProfile|dispatch' <源根>`。仅返回路径，2 个文件，无源码行输出。
+3. 第二阶段补读 `src/services/ProfileGateway.ets` 第 1–5 行，**5 行**。
+4. 搜索 2：`rg --files <源根>`。仅列出上述 2 个文件，无新增源码行。
+
+### 预算与停止情况
+
+- 源码文件：2 / 7。
+- 补读阶段：2 / 2；各阶段 1 个文件，未超过每阶段 2 文件。
+- 搜索：2 / 3。
+- 新增源码阅读：12 行；连同已给摘录共 19 / 180 行。
+- 每文件阅读：`ProfileEditor` 已给摘录 1 次、补读 1 次；`ProfileGateway` 补读 1 次，均未超过 2 次。
+- 重复已给行：**否**。
+- 修改文件：**无**。
+- 因预算强制停止：**否**。已列明源根全部文件并读完其源码；剩余问题是当前源码未包含运行证据、字段绑定与 `profileClient` 实现。
