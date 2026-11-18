@@ -1,0 +1,20 @@
+{
+  "classification": "Independent Development lexical declared-owner boundary qualification; no original38 rerun or runtime effect claim",
+  "sources": {
+    "src/SplitOwners.ets": "class Read { render() { SymbolGlyph('arrow').rotate({angle:this.opened?0:180}); } }\nclass Write { toggle() { this.opened=!this.opened; } }\n",
+    "src/SameOwner.ets": "class Both { render() { SymbolGlyph('arrow').rotate({angle:this.opened?0:180}); } toggle() { this.opened=!this.opened; } }\n",
+    "src/DifferentFields.ets": "class Different { render() { SymbolGlyph('arrow').rotate({angle:this.opened?0:180}); } toggle() { this.selected=!this.selected; } }\n",
+    "src/Unknown.ets": "const p=/x/; class Read { render() { SymbolGlyph('arrow').rotate({angle:this.opened?0:180}); } }\nclass Write { toggle() { this.opened=!this.opened; } }\n"
+  },
+  "queries": [
+    [
+      "split",
+      "Find SplitOwners source."
+    ],
+    [
+      "same",
+      "Find SameOwner source."
+    ]
+  ],
+  "contract": "For fully known balanced simple top-level class/struct spans, a disclosure hint must not pair operations across distinct spans; same-owner and unsupported legacy behavior retained. No claim of within-owner receiver/callback causality. Other markers and source content unchanged."
+}

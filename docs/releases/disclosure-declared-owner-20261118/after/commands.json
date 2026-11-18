@@ -1,0 +1,72 @@
+[
+  {
+    "name": "learn",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "learn-path",
+      "--path",
+      "src",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/after-seed"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "list",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "list",
+      "--type",
+      "code-file",
+      "--limit",
+      "100",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/after-seed"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "split",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--query",
+      "Find SplitOwners source.",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/after-seed"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "same",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--query",
+      "Find SameOwner source.",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/after-seed"
+    ],
+    "rc": 0
+  }
+]

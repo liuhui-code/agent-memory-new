@@ -412,9 +412,18 @@ def disclosure_state_present(source: str) -> bool:
     from .ecma_callback_mask import callback_mask_lines
     masked = callback_mask_lines(source.splitlines())
     operations = "\n".join(masked) if masked is not None else source
+    from .disclosure_owner_spans import declared_owner_spans
+    spans = declared_owner_spans(operations) if masked is not None else None
+    raw = "\n".join(source.splitlines())
     for match in DISCLOSURE_ROTATION_RE.finditer(operations):
+        region = next(((a, b) for a, b in spans or [] if a <= match.start() < b), None)
+        # Fragment/unknown input keeps prior behavior. A known owner must not
+        # borrow either its glyph context or toggle from another declaration.
+        scope = operations[slice(*region)] if region else operations
+        if region and not DISCLOSURE_SYMBOL_RE.search(raw[slice(*region)]):
+            continue
         state = re.escape(match.group(1))
-        if re.search(rf"\bthis\.{state}\s*=\s*!\s*this\.{state}\b", operations):
+        if re.search(rf"\bthis\.{state}\s*=\s*!\s*this\.{state}\b", scope):
             return True
     return False
 

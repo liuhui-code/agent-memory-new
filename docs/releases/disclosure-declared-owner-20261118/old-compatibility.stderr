@@ -1,0 +1,18 @@
+test_cross_owner_legacy_scope_not_strengthened (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_cross_owner_legacy_scope_not_strengthened) ... FAIL
+test_one_fake_operation_cannot_complete_pair (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_one_fake_operation_cannot_complete_pair) ... ok
+test_other_markers_and_unknown_equal_legacy (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_other_markers_and_unknown_equal_legacy) ... ok
+test_quotes_templates_and_comments (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_quotes_templates_and_comments) ... ok
+test_public_summary_noncode_not_disclosure (tests.test_disclosure_marker_lexical.DisclosureMarkerPublic.test_public_summary_noncode_not_disclosure) ... ok
+
+======================================================================
+FAIL: test_cross_owner_legacy_scope_not_strengthened (tests.test_disclosure_marker_lexical.DisclosureMarkerCompatibility.test_cross_owner_legacy_scope_not_strengthened)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tests/test_disclosure_marker_lexical.py", line 36, in test_cross_owner_legacy_scope_not_strengthened
+    self.assertIn('disclosurestate',extract_arkts_behavior_markers(source))
+AssertionError: 'disclosurestate' not found in ['statewrite']
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.002s
+
+FAILED (failures=1)

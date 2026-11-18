@@ -31,9 +31,9 @@ class DisclosureMarkerCompatibility(unittest.TestCase):
   toggle="this.a=!this.a;"
   for source in [rotation+' return "'+toggle+'";', 'const note="'+rotation+'"; '+toggle]:
    with self.subTest(source=source):self.assertNotIn('disclosurestate',extract_arkts_behavior_markers(source))
- def test_cross_owner_legacy_scope_not_strengthened(self):
+ def test_known_distinct_owner_scope_is_not_combined(self):
   source="class Read { m(){ SymbolGlyph('arrow').rotate({angle:this.a?0:180}); }} class Write { m(){this.a=!this.a;} }"
-  self.assertIn('disclosurestate',extract_arkts_behavior_markers(source))
+  self.assertNotIn('disclosurestate',extract_arkts_behavior_markers(source))
  def test_other_markers_and_unknown_equal_legacy(self):
   # A wrapper around mask helper is introduced by the tiny candidate; patch the
   # existing helper module so this test is valid before and after production edit.

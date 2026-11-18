@@ -1,3 +1,9 @@
+## 2026-11-18 — Bound disclosure hints to known declared owners
+
+- Public independent learn/list reproduced cross-class same-spelled this fields creating a false disclosure hint. Finite balanced top-level declaration partition prevents this pairing while preserving same-owner and unknown input.
+- Preserve inheritance/unsupported input via legacy fallback; no receiver-flow or absence proof. Independent review narrowed initial admission accordingly. 83 final focused methods pass, with old compatibility failure and all prior runs retained, not accumulated.
+- Normal merge relearn removes the old false stored hint; installation alone does not. Source digests/context identities remain; no original38/full-suite/CI closure. See docs/releases/disclosure-declared-owner-20261118/.
+
 ## 2026-11-18 — Verify qualified exclusion against actual static graph
 
 - No runtime change. Independent normal ArkTS learn-path extracts imports and typed-field calls; four normal requests preserve returned import support and method-exclusion context. Dedicated integration confirms all persisted graph rows unchanged.

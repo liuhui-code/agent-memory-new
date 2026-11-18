@@ -1,0 +1,11 @@
+# Disclosure hint: finite declared-owner boundary
+
+Independent Development producer repair, not original38 closure or a runtime-receiver certificate. A fully known, balanced, simple top-level class/struct declaration no longer borrows glyph, rotation or same-spelled toggle from another declaration. Other markers, source bytes, scores and query vocabulary are unchanged. This bounds an existing hint, not a new architecture or semantic cause.
+
+The normal public BEFORE learn/list stored disclosurestate for SplitOwners even though Read rotates and Write toggles a different this object. SameOwner is a genuine same-declaration control, DifferentFields lacks a pair, and Unknown retains the existing unsupported-lexical behavior. Final ordinary merge learn removes only SplitOwners' false disclosure hint. SameOwner stays present, DifferentFields absent, Unknown present. Named context anchor identities remain unchanged; this is a metadata correction, not claimed anchor-quality improvement.
+
+Known unsupported input (including extends inheritance, nested/generic declarations, lexical mask failure, unbalanced scopes, oversized source and fragments) retains legacy. Extends was removed from candidate admission after independent review identified a real same-receiver inheritance counterexample; the test now explicitly preserves that case. Operations outside known declaration spans also retain legacy. Glyph text matching is the existing raw-text policy. Absence of this hint never proves absence of disclosure behavior.
+
+83 final focused methods pass; earlier6/82 runs overlap and are retained. The old lexical test deliberately asserted the prior cross-owner behavior; its one failed candidate run remains recorded. That compatibility assertion was explicitly renamed/reversed for this new producer contract, not an original campaign Oracle edit. No other old evaluation or rejected Chinese alias was modified or rerun.
+
+Activation is explicit: final public list with new code and old learned database still has the false hint. Normal learn-path merge then clears it; source digests stay unchanged and record IDs may regenerate normally. Initial AFTER and final repeated independent Development runs both remain, not counted as external repetitions. No full suite/CI/old38 closure.

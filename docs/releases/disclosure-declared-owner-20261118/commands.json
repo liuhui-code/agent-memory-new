@@ -1,0 +1,55 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "split",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/home-split",
+      "--query",
+      "Find SplitOwners source.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "same",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/disclosure-owner/home-same",
+      "--query",
+      "Find SameOwner source.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]
