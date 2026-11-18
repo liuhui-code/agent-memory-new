@@ -1,0 +1,22 @@
+{
+  "classification": "independent Development request-boundary fixture; constructed source, not a real incident or original06 replay",
+  "base_tree": "ca16b98a15236db1eb2cf583770e4363e7dfb00b",
+  "hypothesis": "A comparison-only named owner gains positive multi-target focus even though the existing positive projection removes the comparison. Public output must establish impact before code changes.",
+  "sources": {
+    "src/AlphaService.ts": "export class AlphaService {\n  stop(): string {\n    return 'alpha service stopped'\n  }\n}\n",
+    "src/BetaService.ts": "export class BetaService {\n  stop(): string {\n    return 'beta service stopped'\n  }\n}\n"
+  },
+  "queries": [
+    ["single", "Locate AlphaService.stop."],
+    ["comparison", "Locate AlphaService.stop compared with BetaService.stop."],
+    ["excluded", "Locate AlphaService.stop; exclude BetaService.stop."],
+    ["pair", "Locate AlphaService.stop and BetaService.stop."],
+    ["pair_unrelated_exclusion", "Locate AlphaService.stop and BetaService.stop; exclude generated files."]
+  ],
+  "expected": {
+    "positive_identity_permission": "comparison/exclusion alone cannot establish positive named pair authority; true pair must retain both",
+    "no_blanket_context_exclusion": "Any extra related anchor is not by itself a failure. Must identify incorrect focus permission's actual public effect; otherwise stop.",
+    "public": "Use ordinary context --json at default settings; no injected candidates, runtime monkeypatch, synthetic logs or fabricated causal claims.",
+    "runs": "one init, one learn, five context requests each from a separate copy of the same learned home. Stop this candidate if no demonstrable public defect; no query/source mutation chasing red."
+  }
+}

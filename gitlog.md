@@ -1,3 +1,9 @@
+## 2026-11-18 — Positive named-focus comparison consistency
+
+- Reproduce an independent ordinary-context comparison-only owner retained as a positive target, then reuse the existing positive query projection at the early named-focus consumer. This is not the previously repaired final retention predicate.
+- 29 targeted tests pass; five frozen public AFTER requests preserve single/positive-pair/unrelated-exclusion behavior and remove the comparison-only Beta class. Explicit exclusion remains unresolved via a later fallback; keep that red result and the pre-existing unrelated-exclusion method-anchor gap.
+- Preserve all raw BEFORE/AFTER, source, protocol, commands and diagnostic evidence in docs/releases/positive-named-focus-20261118/. No original group closure, full-suite or CI claim; independent review accepted the finite scope.
+
 ## 2026-11-18 — Finite nested literal-property navigation acceptance
 
 - Independently accepted fresh V2 merge/list/two-context comparison selects the requested upload callback4–6 and discard callback10–12 with complete required text,860/874 tokens under unchanged default1500, uncertain and untruncated. Complete evidence recovery passed.

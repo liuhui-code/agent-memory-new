@@ -1,0 +1,11 @@
+# Positive named-focus consistency: finite Development acceptance
+
+Named owner-pair focus now consumes the existing positive query projection instead of the raw query. This is a separate earlier consumer from commit 138494bb's final multiple-requested-anchor retention guard. No new vocabulary, architecture, score, source facts or diagnosis was introduced.
+
+Before modification, two independently constructed Development service files and five frozen normal context requests reproduced a comparison-only BetaService class being retained as a positive named target. After modification comparison contains AlphaService.stop only; ordinary single, affirmative pair and unrelated-exclusion outputs are unchanged. The true pair retains both methods. The unrelated-exclusion control already lacked the Beta method anchor before this patch; it is not newly claimed correct.
+
+The explicit excluded Beta class remains through a subsequent strong-identity fallback. This is an acknowledged remaining failure, not a passed acceptance. The existing exclusion parser truncates at dots, so blindly filtering whole owners would risk deleting a different positively requested method. That requires a separate bounded contract and controls, not a global deletion rule in this patch.
+
+29 targeted tests passed (7 new + 22 existing) with the command in targeted.stderr and protocol/runner records. Actual public before and after raw responses and exit codes are retained here. Sources are synthetic independent Development navigation fixtures, not user incident evidence. No original06,15,40 group closure, full suite, CI or sealed campaign claim. Independent review accepted this finite comparison fix and explicitly retained the exclusion failure.
+
+Next contracts:06 generic compact coverage must preserve independently selected affirmative roles under an unchanged budget without promoting unasked names;15 operation-primary requests must distinguish the requested operation from supporting diagnostics while allowing actual explicit error requests;40 action conjunction must not imply multiple target cardinality, and canonical lexical labels cannot alone override real edges. These are development contracts to validate, not shipped capabilities or proven old-group resolution.

@@ -12,7 +12,7 @@ from .arkts_ui_behavior import (
     matching_operation_names,
 )
 from .query_behavior_concepts import behavior_marker_terms, matching_behavior_markers
-from .query_language import target_role_terms
+from .query_language import positive_retrieval_query, target_role_terms
 from .text import identifier_tokens, terms_from_text, unique_list
 
 
@@ -335,7 +335,7 @@ def named_identity_candidates(
     items: list[dict[str, Any]],
     query: str,
 ) -> list[dict[str, Any]]:
-    identities = set(NAMED_CODE_IDENTITY_RE.findall(query))
+    identities = set(NAMED_CODE_IDENTITY_RE.findall(positive_retrieval_query(query)))
     if len(identities) < 2:
         return []
     return [item for item in items if candidate_identities(item) & identities]

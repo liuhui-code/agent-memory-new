@@ -1,0 +1,87 @@
+[
+  {
+    "name": "single",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/after-home-single",
+      "--query",
+      "Locate AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "comparison",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/after-home-comparison",
+      "--query",
+      "Locate AlphaService.stop compared with BetaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "excluded",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/after-home-excluded",
+      "--query",
+      "Locate AlphaService.stop; exclude BetaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "pair",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/after-home-pair",
+      "--query",
+      "Locate AlphaService.stop and BetaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "pair_unrelated_exclusion",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/after-home-pair_unrelated_exclusion",
+      "--query",
+      "Locate AlphaService.stop and BetaService.stop; exclude generated files.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

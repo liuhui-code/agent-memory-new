@@ -1,0 +1,97 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "single",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/home-single",
+      "--query",
+      "Locate AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "comparison",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/home-comparison",
+      "--query",
+      "Locate AlphaService.stop compared with BetaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "excluded",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/home-excluded",
+      "--query",
+      "Locate AlphaService.stop; exclude BetaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "pair",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/home-pair",
+      "--query",
+      "Locate AlphaService.stop and BetaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "pair_unrelated_exclusion",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualification/home-pair_unrelated_exclusion",
+      "--query",
+      "Locate AlphaService.stop and BetaService.stop; exclude generated files.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

@@ -1,0 +1,5093 @@
+{
+  "single": {
+    "query": "Locate AlphaService.stop.",
+    "positive": "Locate AlphaService.stop.",
+    "rows": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10219461,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 112.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05553835,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 80.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 55.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10029442,
+          "best_rank": 2,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 49.0,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05390625,
+          "best_rank": 4,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 12.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "file_identity_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.02177419,
+          "best_rank": 2,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 3.8,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms"
+        ]
+      }
+    ],
+    "focused": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10219461,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 112.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05553835,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 80.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 55.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10029442,
+          "best_rank": 2,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 49.0,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      }
+    ],
+    "activated": true
+  },
+  "comparison": {
+    "query": "Locate AlphaService.stop compared with BetaService.stop.",
+    "positive": "Locate AlphaService.stop stop.",
+    "rows": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10219461,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 112.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05553835,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 80.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 55.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10029442,
+          "best_rank": 2,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 49.0,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05390625,
+          "best_rank": 4,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 12.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "file_identity_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.02177419,
+          "best_rank": 2,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 3.8,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms"
+        ]
+      }
+    ],
+    "focused": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10219461,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 112.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05553835,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 80.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 55.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10029442,
+          "best_rank": 2,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 49.0,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05390625,
+          "best_rank": 4,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 12.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "file_identity_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.02177419,
+          "best_rank": 2,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 3.8,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms"
+        ]
+      }
+    ],
+    "activated": true
+  },
+  "excluded": {
+    "query": "Locate AlphaService.stop; exclude BetaService.stop.",
+    "positive": "Locate AlphaService.stop; stop. beta",
+    "rows": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10177155,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10071748,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 98.0,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05553835,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05390625,
+          "best_rank": 4,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 53.75,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07741935,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 43.6,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "focused": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10177155,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10071748,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 98.0,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05553835,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05390625,
+          "best_rank": 4,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 53.75,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07741935,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 43.6,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "activated": true
+  },
+  "pair": {
+    "query": "Locate AlphaService.stop and BetaService.stop.",
+    "positive": "Locate AlphaService.stop and BetaService.stop.",
+    "rows": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10167418,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10056683,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05528233,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05441028,
+          "best_rank": 2,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07741935,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "focused": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10167418,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10056683,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05528233,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05441028,
+          "best_rank": 2,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07741935,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "activated": true
+  },
+  "pair_unrelated_exclusion": {
+    "query": "Locate AlphaService.stop and BetaService.stop; exclude generated files.",
+    "positive": "Locate AlphaService.stop and BetaService.stop;",
+    "rows": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10167418,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10056683,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05528233,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05441028,
+          "best_rank": 2,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07741935,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "focused": [
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/AlphaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:38b9d0060ebd04e92b4cbbe5",
+        "qualified_name": "AlphaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "alpha service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "AlphaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10167418,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "function stop in src/alphaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "alphaservice",
+          "ts",
+          "in",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 4,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "stop",
+        "symbol_type": "function",
+        "summary": "function stop in src/BetaService.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e2a12ac47c6eb47fcfa44f3c",
+        "qualified_name": "BetaService.stop",
+        "signature": "stop():string",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "beta service stopped",
+        "mechanism_evidence": "[]",
+        "owner_name": "BetaService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10056683,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "src/betaservice.ts",
+          "function stop in src/betaservice.ts",
+          "stop",
+          "function",
+          "src",
+          "betaservice",
+          "ts",
+          "in",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "symbol": "AlphaService",
+        "symbol_type": "class",
+        "summary": "class AlphaService in src/AlphaService.ts; identifier terms: alpha service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:fcc0d6b1e0d77a92f6725a6b",
+        "qualified_name": "AlphaService",
+        "signature": "class AlphaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05528233,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.5,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "class alphaservice in src/alphaservice.ts; identifier terms: alpha service",
+          "alphaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "alpha",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 3,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "symbol": "BetaService",
+        "symbol_type": "class",
+        "summary": "class BetaService in src/BetaService.ts; identifier terms: beta service",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:db93d6ff1e7d15dfe43abe97",
+        "qualified_name": "BetaService",
+        "signature": "class BetaService",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "service",
+        "callable_roles": "[]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05441028,
+          "best_rank": 2,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 4,
+              "weight": 1.0,
+              "score": 0.015625
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 78.25,
+        "search_terms": [
+          "src/betaservice.ts",
+          "class betaservice in src/betaservice.ts; identifier terms: beta service",
+          "betaservice",
+          "class",
+          "src",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "beta",
+          "service"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 1,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/AlphaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "17353768c3ee779fda1946d854a8287ae9fffea307f953324fad273372f6a91a",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/alphaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "alphaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "alpha",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "87a6c5c72c872548",
+        "file_path": "src/BetaService.ts",
+        "summary": "TypeScript file with 5 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "cbc24b8bd2cc57135f0b952715fa5eedcf36bdb47cd1db8602a64f1098eea086",
+        "index_generation": 1,
+        "updated_at": "2026-11-18T15:34:52+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07741935,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 53.4,
+        "search_terms": [
+          "src/betaservice.ts",
+          "typescript",
+          "typescript file with 5 non-empty lines",
+          "src",
+          "betaservice",
+          "ts",
+          "file",
+          "with",
+          "5",
+          "non",
+          "empty",
+          "lines",
+          "beta",
+          "service",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ]
+      }
+    ],
+    "activated": true
+  }
+}
