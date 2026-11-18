@@ -1,0 +1,166 @@
+{
+  "status": "CANDIDATE_SUMMARY_NOT_RELEASE_APPROVAL",
+  "source_commit": "7eccdc321764c5e0d19356aa7957d6632b75a501",
+  "source_files": 439,
+  "I": {
+    "mechanical_status": "PASS_LIMITED_REAL_EFFECTS_REFUSAL",
+    "independent_review": "accepted limited early capture effects refusal",
+    "actual_calls": {
+      "init": 1,
+      "learn": 1,
+      "facade": 1,
+      "render": 1
+    },
+    "main_direct": 1,
+    "main_effects": 1,
+    "rejection_site": "query_recovery_append_capture.capture return line44, effects conjunct",
+    "capability_minted": false,
+    "scope": "real effects gate only; no deeper source auth claim; no raw effects exclusion claim",
+    "raw_and_final_logs": 2,
+    "actual_effect": {
+      "id": 2,
+      "path": "src/diagnostics/PaymentService.ets",
+      "line": 11,
+      "function": "submit",
+      "wrapper": "reportFailure",
+      "wrapper_depth": 2,
+      "evidence_class": "static_wrapped"
+    },
+    "boundary": "capture line44 effects conjunct only; downstream proof/guard success not established"
+  },
+  "J": {
+    "mechanical_status": "PASS_LIMITED_SIX_ROUTES",
+    "independent_review": "accepted six declared route components",
+    "actual_calls": {
+      "init": 5,
+      "learn": 5,
+      "facade": 6,
+      "render": 6
+    },
+    "active_routes": [
+      {
+        "id": "upper_command_table",
+        "raw_type": "CommandTableContext",
+        "status": "PASS_LIMITED_REAL_ROUTE"
+      },
+      {
+        "id": "command_receipt",
+        "raw_type": "CommandContext",
+        "status": "PASS_LIMITED_REAL_ROUTE"
+      },
+      {
+        "id": "cache_receipt",
+        "raw_type": "CacheScanContext",
+        "status": "PASS_LIMITED_REAL_ROUTE"
+      },
+      {
+        "id": "render_receipt",
+        "raw_type": "RenderContext",
+        "status": "PASS_LIMITED_REAL_ROUTE"
+      },
+      {
+        "id": "output_receipt",
+        "raw_type": "OutputLoopContext",
+        "status": "PASS_LIMITED_REAL_ROUTE"
+      },
+      {
+        "id": "legacy_recovery",
+        "raw_type": "dict",
+        "status": "PASS_LIMITED_REAL_ROUTE"
+      }
+    ],
+    "excluded": "lifecycle lower receipt not covered: archived cleanup fixture mismatched request grammar",
+    "scope": "genuine preceding routes; not simultaneous incompatible recovery authority",
+    "post_shutdown_caveat": "208 extant files match; legacy live memory.db-wal and memory.db-shm disappeared from early210-file manifest at close. Before/after/final stage binary archives preserve both; no extant file changed.",
+    "render_count_boundary": "6 top-level renders; legacy terminal uses2 internal ordinary calls; existing facade qualification/enrichment also makes ordinary calls retained in trace. Not six total renderer operations.",
+    "coverage_boundary": "lower lifecycle and9 other upper typed families not dynamically covered; no simultaneous conflicting capability claim"
+  },
+  "unit109V2": {
+    "status": "PASS",
+    "testsRun": 109,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "independent_review": "accepted",
+    "V1": "109 run /1 stale expected-dict failure STOP preserved",
+    "single_method_revision": "only exact expected dict adds existing SQL/validation flags"
+  },
+  "public_AFTER": {
+    "status": "ACCEPTED_LIMITED_SEVEN_CASE_PROSPECTIVE_CAMPAIGN",
+    "campaign": "r74",
+    "new_prospective_cases": 7,
+    "positive_cases": [
+      "p03 observed-find"
+    ],
+    "controls": [
+      "p04 single",
+      "p05 quoted",
+      "p06 mixed",
+      "p07 negative",
+      "p08 generic",
+      "p09 explicit-event"
+    ],
+    "actual_cli_commands": 28,
+    "actual_context_calls": 14,
+    "all_cli_rc": 0,
+    "outer_rc": 0,
+    "final_errors": [],
+    "earlier_saved_diagnostics": {
+      "p01_p02_forms": 4,
+      "status": "complete offline diagnostic only",
+      "new_product_calls": 0,
+      "not_prospective_acceptance": true
+    },
+    "retained_stops": [
+      "r72 original BLOB comparator STOP",
+      "A diagnostic persistence STOP",
+      "r73 compact-schema assumption STOP"
+    ],
+    "prohibited_aggregation": "Not original9/9, not9 fresh prospective passes, not original10 closure",
+    "memory_accounting_limit": "All14 forms have empty semantic_facts/reflections/episodes writer targets. Real calls verified, nonempty counter mutations not dynamically covered.",
+    "independent_review_sha256": "516aab00cea1b02cc79c3a9ad0349610d909da92dca70f81e51e6caae8dfa020",
+    "complete_backup_readback": {
+      "status": "PASS",
+      "main_archive_sha256": "10e92a282024d59d6487d910c01a888358c28e0b92a0536c1235185b7bba85ab",
+      "review_archive_sha256": "e40cc6ce14569727c2d082f18f38c60144cb527c93c08f2e7c37572f0a50035b"
+    },
+    "p03_verified": {
+      "tokens": 1364,
+      "excerpts": 2,
+      "excerpt_chars": 540,
+      "source_reads": 3,
+      "source_bytes": 644,
+      "source_rounds": 1,
+      "readonly_db_connections": 1,
+      "final_joint_nodes": 5750,
+      "final_joint_bytes": 101245
+    },
+    "control_boundaries": {
+      "p07": "main plus localization auxiliary fully checked; grammar/local-exclusion refusal only, not globally correct raw exclusion",
+      "p08": "zero recalled logs despite existing logger source, not NoLog or whole-scope absence",
+      "p09": "explicit-event protection, raw and compact expose actual message, no new source round"
+    }
+  },
+  "original10": "SEPARATELY_UNRESOLVED",
+  "publish": "DRAFT_NOT_PUBLISHED",
+  "implementation_scope": [
+    "Six new bounded recovery capture/lifecycle/guard/source/DB/append modules plus four narrow existing pipeline hook changes.",
+    "Strict additive excerpts preserve all ordinary output except declared appended anchors, exact excerpt counters and token estimate.",
+    "Late source/DB authentication uses actual originating pass, selected/facade and terminal identities; fake or copied helper objects cannot mint serving authority.",
+    "Leaf read now requires O_NONBLOCK, fstats regular type before fdopen, and closes on type/fstat/fdopen failures; unsupported flag declines.",
+    "Repeatable exact composition unit expected dict corrected for two existing defer flags; no production accounting flag changed."
+  ],
+  "accepted_prior_components": {
+    "E": "real canonical origin, two excerpts/540 chars/1445 tokens, repeat render no accounting replay; limited component not public CLI",
+    "D2": "real authentication plus controlled final joint 16385-node overflow returns identical ordinary baseline",
+    "F": "eight source/DB mutations refused; early rejection is not deeper branch proof; SQL close-time checkpoint caveat retained",
+    "G": "pure metadata guard boundary only",
+    "H": "real-issued copy/clone/phase/owner-GC boundaries; not valid-caller stale-ticket proof",
+    "FIFO": "old blocking bounded reproduction retained; four new read cases accepted; not arbitrary filesystem deadlines"
+  },
+  "persistent_result_backup": {
+    "status": "complete main archive readback PASS reported by parent",
+    "sha256": "15546cfa03ffabdebbcc17bdcc3f2f34016b8921bbe44c0e48251925641b1209"
+  },
+  "clean_tree109": "Outcome is recorded in a separate versioned external audit, not embedded into the tree under test. No in-tree final clean-test pass claim."
+}

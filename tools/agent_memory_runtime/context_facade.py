@@ -193,7 +193,9 @@ class ContextFacade:
                 record_context_use(self.project, adopted)
                 record_query_miss_if_empty(self.project, "context", query, adopted)
             return result
+        from .query_recovery_append_lifecycle import begin_facade, finish_facade
+        recovery_ticket = begin_facade(result)
         result["source_freshness"] = freshness
         handoff = result.setdefault("query_handoff", {})
         handoff["path_context"] = path_payload
-        return result
+        return finish_facade(result, recovery_ticket, freshness, path_payload)

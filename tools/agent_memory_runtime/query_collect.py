@@ -62,8 +62,6 @@ def apply_feedback_penalty(item: dict[str, Any], penalties: dict[int, dict[str, 
     item["feedback_reasons"] = unique_list([str(reason) for reason in feedback.get("reasons", [])])
     item["feedback_ids"] = feedback.get("feedback_ids", [])
 
-
-
 def apply_calibration_feedback(item: dict[str, Any], feedback_rows: dict[int, dict[str, Any]]) -> None:
     feedback = feedback_rows.get(int(item.get("id") or 0))
     if not feedback:
@@ -453,6 +451,8 @@ def collect_matches_with_audit(
     if recalled.rows['code_log_statements'] or log_effects:
         from .query_validation_log_capture import capture_validation_logs
         capture_validation_logs(project, query, retrieval_query, collection, recalled.rows['code_log_statements'], log_effects)
+    from .query_recovery_append_capture import capture as capture_recovery_append
+    capture_recovery_append(project, query, retrieval_query, collection, recalled.rows["code_log_statements"], log_effects)
     return collection
 def score_symbol_behavior_match(
     evidence: str,

@@ -1,3 +1,10 @@
+## 2026-11-18 — Strict additive recovery candidate and bounded source reads
+
+- Add a finite logged-recovery path that appends authenticated missing class excerpts without replacing ordinary anchors or other output channels; existing routes keep precedence.
+- Require actual originating pass, selected/facade and terminal identities; bound source/DB reads and final combined metadata. Non-regular leaf reads now fail closed using O_NONBLOCK before fd wrapping, with descriptor cleanup.
+- Accepted limited origin, source/DB, metadata, lifetime, real-effects and six-route components retain their stated boundaries. Correct a pre-existing exact unit expectation for two existing accounting flags; the revised 109 targeted methods pass. Historical STOP results remain preserved.
+- The independent r74 continuation mechanically completes seven new cases (one positive and six controls), 28 CLI commands/14 contexts, accepted in that limited scope with complete evidence backup/readback. Four older p01/p02 saved forms are offline diagnostics only; preserve r72/A/r73 STOP, do not combine these into9/9. Final clean-tree verification and publication outcomes are recorded separately from this fixed content; no full-suite,88-cell,lifecycle-route or original case10 closure claim.
+
 ## 2026-11-18 — Finite auxiliary console template source repair
 
 - Preserve original lexical offsets; admit only one safe string-parameter template in a sole auxiliary console argument. Shared tokenizer, caps, logs and authority rules unchanged.

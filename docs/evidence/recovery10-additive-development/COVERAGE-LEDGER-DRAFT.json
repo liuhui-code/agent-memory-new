@@ -1,0 +1,717 @@
+{
+  "status": "COVERAGE_ACCOUNTING_DRAFT_NOT_ACCEPTANCE",
+  "matrix_sha256": "890fd29717a562c202c34afab1e09be7be0b0c12fcc025ecdbd847f683afbf3f",
+  "defined_cells": 88,
+  "certified_total": null,
+  "reason_no_total": "Related component evidence is not automatic equivalence to each frozen matrix definition. V2 regression and I/J limited components independently accepted; public AFTER remains pending. Do not report88 passed.",
+  "candidate_source_sha256": "ba2657d178ded71ad394e0984076bad9dfaaea8236f0af875dacb05372a2c3a9",
+  "cells": [
+    {
+      "id": "01",
+      "mode": "public_once",
+      "status": "PARTIAL_COMPONENT_NOT_PUBLIC_AFTER",
+      "related_evidence": [
+        "Group E actual canonical component"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "02",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "03a",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "03b",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "04a",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "04b",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "05",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "06",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "07",
+      "mode": "boundary_component_plus_real_if_satisfied",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "08",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "09",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "10",
+      "mode": "real_lifecycle",
+      "status": "PARTIAL_COMPONENT_NOT_PUBLIC_AFTER",
+      "related_evidence": [
+        "Group E actual canonical component"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "11",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "12a",
+      "mode": "public_request_refusal_plus_pure_owner_predicate",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "12b",
+      "mode": "public_request_refusal_plus_pure_owner_predicate",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "13",
+      "mode": "boundary_component_plus_real_if_satisfied",
+      "status": "ACCEPTED_LIMITED_EARLY_EFFECTS_COMPONENT",
+      "related_evidence": [
+        "Group I: actual1direct/1effect, capture line44 effects refusal; not downstream source/guard validation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "14-saturated",
+      "mode": "boundary_component",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "14-broad_saturated",
+      "mode": "boundary_component",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "14-fallback_skipped_for_scale",
+      "mode": "boundary_component",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "14-uncovered",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "15-source_digest",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "15-line",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "15-function",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "16-active_path",
+      "mode": "boundary_component",
+      "status": "PURE_COMPONENT_NOT_REAL_HIDDEN_PIPELINE",
+      "related_evidence": [
+        "Group G pure admitted-input mutation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "16-wrapper",
+      "mode": "boundary_component",
+      "status": "PURE_COMPONENT_NOT_REAL_HIDDEN_PIPELINE",
+      "related_evidence": [
+        "Group G pure admitted-input mutation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "16-identity_match",
+      "mode": "boundary_component",
+      "status": "PURE_COMPONENT_NOT_REAL_HIDDEN_PIPELINE",
+      "related_evidence": [
+        "Group G pure admitted-input mutation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "16-graph_relation",
+      "mode": "boundary_component",
+      "status": "PURE_COMPONENT_NOT_REAL_HIDDEN_PIPELINE",
+      "related_evidence": [
+        "Group G pure admitted-input mutation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "16-unknown_scored_key",
+      "mode": "boundary_component",
+      "status": "PURE_COMPONENT_NOT_REAL_HIDDEN_PIPELINE",
+      "related_evidence": [
+        "Group G pure admitted-input mutation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "16-unknown_scored_reason",
+      "mode": "boundary_component",
+      "status": "PURE_COMPONENT_NOT_REAL_HIDDEN_PIPELINE",
+      "related_evidence": [
+        "Group G pure admitted-input mutation"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-copy.copy",
+      "mode": "real_lifecycle",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-copy.deepcopy",
+      "mode": "real_lifecycle",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-JSON roundtrip",
+      "mode": "real_lifecycle",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-subclass",
+      "mode": "real_lifecycle",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-coherent attribute clone",
+      "mode": "real_lifecycle",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-lifetime",
+      "mode": "registry_component",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "17-reissue",
+      "mode": "registry_component",
+      "status": "COMPONENT_REVIEW_ACCEPTED_WITH_STATED_LIMITS",
+      "related_evidence": [
+        "Group H actual owner transforms/phase/GC"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-same-query other pass",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-same-query other project",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-different db",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-different root",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-same-query reissued collection",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-auxiliary localization collector",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "18-discarded-trial",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "19",
+      "mode": "real_lifecycle",
+      "status": "RELATED_COMPONENT_NOT_AUTOMATIC_CELL_EQUIVALENCE",
+      "related_evidence": [
+        "Group F actual source/DB helper mutation; compare exact frozen cases"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "20-alias duplicate",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "20-index generation increment",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "20-class start_line=2",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "20-method owner_name=OtherOwner",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "20-State symbol key collision",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "21",
+      "mode": "real_lifecycle",
+      "status": "RELATED_COMPONENT_NOT_AUTOMATIC_CELL_EQUIVALENCE",
+      "related_evidence": [
+        "Group F actual source/DB helper mutation; compare exact frozen cases"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "22",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "23",
+      "mode": "pure_resource",
+      "status": "FINAL_JOINT_FAULT_NOT_ORIGINAL_TWO_LIST_CELL",
+      "related_evidence": [
+        "Group D2 final joint 16385 node fault"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-16384ASCII scalar",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-16385ASCII scalar",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-8192 two-byte characters",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-8193 two-byte characters",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-depth12",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-depth13",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-16384nodes",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-16385nodes",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-cycle",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-dict subclass",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-NaN",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-integer bit_length65",
+      "mode": "pure_resource",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-sentinel",
+      "mode": "pure_source_reader",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "24-union12",
+      "mode": "pure_source_reader",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "25-3existing anchors",
+      "mode": "pure_transaction",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "25-40\u219241lines",
+      "mode": "pure_transaction",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "25-1500\u21921501chars",
+      "mode": "pure_transaction",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "25-2600\u21922601totalchars",
+      "mode": "pure_transaction",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "25-final token target+1 including counters",
+      "mode": "pure_transaction",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "26a",
+      "mode": "real_lifecycle",
+      "status": "PARTIAL_COMPONENT_NOT_PUBLIC_AFTER",
+      "related_evidence": [
+        "Group E actual canonical component"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "26b-source_freshness",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "26b-path_context",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "26b-query",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "26b-code_anchor",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "26c",
+      "mode": "registry_transaction",
+      "status": "DIRECT_HELPER_COMPONENT_ONLY",
+      "related_evidence": [
+        "Group B2 direct helper negative"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "27",
+      "mode": "public_once",
+      "status": "PARTIAL_COMPONENT_NOT_PUBLIC_AFTER",
+      "related_evidence": [
+        "Group E actual canonical component"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "28",
+      "mode": "public_once_injected",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "29a",
+      "mode": "real_lifecycle",
+      "status": "PARTIAL_COMPONENT_NOT_PUBLIC_AFTER",
+      "related_evidence": [
+        "Group E actual canonical component"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "29b",
+      "mode": "real_lifecycle",
+      "status": "NOT_CERTIFIED_BY_THIS_LEDGER",
+      "related_evidence": [],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-upper private type",
+      "mode": "real_lifecycle",
+      "status": "ACCEPTED_LIMITED_REAL_ROUTE_COMPONENT",
+      "related_evidence": [
+        "Group J six genuine early-dispatch routes; actual receipts/return identities; not all upper families or simultaneous conflicting capabilities"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-cache receipt",
+      "mode": "real_lifecycle",
+      "status": "ACCEPTED_LIMITED_REAL_ROUTE_COMPONENT",
+      "related_evidence": [
+        "Group J six genuine early-dispatch routes; actual receipts/return identities; not all upper families or simultaneous conflicting capabilities"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-command receipt",
+      "mode": "real_lifecycle",
+      "status": "ACCEPTED_LIMITED_REAL_ROUTE_COMPONENT",
+      "related_evidence": [
+        "Group J six genuine early-dispatch routes; actual receipts/return identities; not all upper families or simultaneous conflicting capabilities"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-render receipt",
+      "mode": "real_lifecycle",
+      "status": "ACCEPTED_LIMITED_REAL_ROUTE_COMPONENT",
+      "related_evidence": [
+        "Group J six genuine early-dispatch routes; actual receipts/return identities; not all upper families or simultaneous conflicting capabilities"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-lifecycle receipt",
+      "mode": "real_lifecycle",
+      "status": "NOT_COVERED_STATIC_GRAMMAR_MISMATCH",
+      "related_evidence": [
+        "fixed cleanup input excluded before execution"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-output receipt",
+      "mode": "real_lifecycle",
+      "status": "ACCEPTED_LIMITED_REAL_ROUTE_COMPONENT",
+      "related_evidence": [
+        "Group J six genuine early-dispatch routes; actual receipts/return identities; not all upper families or simultaneous conflicting capabilities"
+      ],
+      "final_candidate_rerun": false
+    },
+    {
+      "id": "30-old recovery handoff receipt",
+      "mode": "real_lifecycle",
+      "status": "ACCEPTED_LIMITED_REAL_ROUTE_COMPONENT",
+      "related_evidence": [
+        "Group J six genuine early-dispatch routes; actual receipts/return identities; not all upper families or simultaneous conflicting capabilities"
+      ],
+      "final_candidate_rerun": false
+    }
+  ],
+  "final_regression": {
+    "version": 2,
+    "methods": 109,
+    "failures": 0,
+    "status": "PASS_INDEPENDENTLY_ACCEPTED",
+    "old_V1": "STOP remains immutable"
+  },
+  "IJ_stage_archive_caveat": "J two legacy live WAL/SHM entries disappeared after close; stage archives preserve bytes,208 extant files match. I37 files exact.",
+  "IJ_persistent_backup_sha256": "15546cfa03ffabdebbcc17bdcc3f2f34016b8921bbe44c0e48251925641b1209",
+  "original_case10": "separately unresolved; independent additive AFTER or publication does not close it",
+  "V1_history": "Pre-existing stale expected dict independently attributed; separate exact two-key test-only correction and single-method PASS preceded V2. V1 STOP and executed source preserved.",
+  "public_continuation": {
+    "new_cases": 7,
+    "new_positive": 1,
+    "new_controls": 6,
+    "cli": 28,
+    "context": 14,
+    "mechanical_status": "INDEPENDENTLY_ACCEPTED_LIMITED_SCOPE",
+    "saved_offline_forms": 4,
+    "offline_role": "diagnostic only, not added to prospective count",
+    "original9_success_claim": false,
+    "original10_closed": false,
+    "old_stops_preserved": [
+      "r72",
+      "A",
+      "r73"
+    ],
+    "complete_backup_readback": "PASS",
+    "review_sha256": "516aab00cea1b02cc79c3a9ad0349610d909da92dca70f81e51e6caae8dfa020",
+    "nonempty_memory_target_mutations_tested": false
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "classification": "independent development; synthetic logger explicitly created for this contract, never a claimed incident log",
+  "families": [
+    {
+      "id": "pair-log",
+      "sources": {
+        "src/runtime/SessionRegistry.ets": "export class SessionRegistry {\n  private repository: SessionRepository = new NetworkSessionRepository()\n\n  chooseRepository(online: boolean): void {\n    if (online) {\n      this.repository = new NetworkSessionRepository()\n    } else {\n      this.repository = new LocalSessionRepository()\n    }\n  }\n}\n",
+        "src/stores/SessionSyncStore.ets": "export class SessionSyncStore {\n  @State sessions: SessionRecord[] = []\n  private repository: SessionRepository\n\n  async syncSessions(): Promise<void> {\n    const loaded = await this.repository.loadSessions()\n    this.sessions = loaded\n  }\n}\n",
+        "src/diagnostics/RecoveryAuditLog.ets": "export class RecoveryAuditLog {\n  report(): void {\n    console.info(\"registry fallback status\")\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "observed-return",
+          "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+          "criterion": "required"
+        },
+        {
+          "id": "head-locate",
+          "query": "Locate the registry branch and store sync owners.",
+          "criterion": "required"
+        },
+        {
+          "id": "observed-find",
+          "query": "The cached listing remains after reconnection; find the registry branch and store sync owners.",
+          "criterion": "required"
+        },
+        {
+          "id": "single",
+          "query": "Find SessionRegistry.chooseRepository source.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "quoted",
+          "query": "Find the literal \"registry branch and store sync owners\".",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "mixed",
+          "query": "Return the registry branch and store sync owners and the logging policy.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "negative",
+          "query": "Return the registry branch and store sync owners, but exclude SessionRegistry.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "generic",
+          "query": "Locate repository selection and the synchronization trigger.",
+          "criterion": "unchanged"
+        },
+        {
+          "id": "explicit-event",
+          "query": "The registry fallback status remains after reconnect; return the registry branch and store sync owners.",
+          "criterion": "unchanged_protected_event"
+        }
+      ],
+      "expected_positive_paths": [
+        "src/runtime/SessionRegistry.ets",
+        "src/stores/SessionSyncStore.ets"
+      ]
+    }
+  ],
+  "historical_source_hashes": {
+    "src/runtime/SessionRegistry.ets": "862acd311e9fe24a6f0b35c2cecdbc663f3fd26d683acb58be4e8ef7b7697136",
+    "src/stores/SessionSyncStore.ets": "06c8eb0f3c8b4e464e6305357c6a95a7d1efd7391d8bc17a3d209a5f000a661e",
+    "src/diagnostics/RecoveryAuditLog.ets": "21827cbcd2f23be57859d5bf5295fd2b61193e279a27c3646dd4ec9c22a807f5"
+  }
+}

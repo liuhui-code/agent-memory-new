@@ -125,7 +125,8 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
         adopted = adopted_context(result)
         record_context_use(project, adopted)
         record_query_miss_if_empty(project, "context", query, adopted)
-    return result
+    from .query_recovery_append_lifecycle import selected as select_recovery_append
+    return select_recovery_append(result)
 def _context_pass(
     project: Project,
     query: str,
@@ -216,9 +217,11 @@ def _context_pass(
     if not (allow_render_recall or allow_lifecycle or allow_output_loop or allow_touch_recall):
         from .query_context_trials import bind_source_views
         context = bind_source_views(project, query, context, gated["matches"].get("wiki_matches") or [], collection)
-    return bind_context_trials(query, context, gated["matches"].get("wiki_matches") or [],
+    context = bind_context_trials(query, context, gated["matches"].get("wiki_matches") or [],
                                allow_render_recall=allow_render_recall,
                                authority=authority, output_authority=output_authority)
+    from .query_recovery_append_lifecycle import pending as pending_recovery_append
+    return pending_recovery_append(project, query, context, gated["matches"].get("wiki_matches") or [], collection)
 
 def localization_input(
     project: Project,
@@ -398,8 +401,6 @@ def batched_search(
     payload["suggested_followup_terms"] = suggested_followup_terms(query, payload)
     return payload
 
-
-
 def record_context_use(project: Project, context_data: dict[str, Any]) -> None:
     ts = now_iso()
     updates = [
@@ -420,7 +421,6 @@ def record_context_use(project: Project, context_data: dict[str, Any]) -> None:
                     (ts, project.project_id, item["id"]),
                 )
         conn.commit()
-
 
 
 def result_counts(data: dict[str, Any]) -> dict[str, int]:

@@ -2,6 +2,7 @@
 from typing import Any
 
 def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str, Any]:
+    recovery_original = data
     from .query_sql_slot_selection import SqlSlotContext, compact_sql_slot
     if isinstance(data, SqlSlotContext):
         return compact_sql_slot(data, _compact_context(dict(data)))
@@ -56,4 +57,7 @@ def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str
         baseline = _compact_context({**data, "query_handoff": dict(handoff)})
         candidate = complete_added_snapshots(handoff, baseline, _compact_context(data))
         return candidate if accepted_output(handoff, baseline, candidate) else baseline
-    return _compact_context(data, render_receipts)
+    if render_receipts:
+        return _compact_context(data, render_receipts)
+    from .context_recovery_append import ordinary_render
+    return ordinary_render(recovery_original, data, _compact_context, render_receipts)
