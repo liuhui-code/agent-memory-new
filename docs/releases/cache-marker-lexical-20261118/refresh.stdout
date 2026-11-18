@@ -1,0 +1,555 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/source",
+  "path": "src",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "src/PruneEngine.ets",
+    "src/ReferenceText.ets",
+    "src/TemplateText.ets"
+  ],
+  "count": 3,
+  "summary": "Merged 3 files from src",
+  "parse_stats": {
+    "files_indexed": 3,
+    "skipped_by_reason": {},
+    "languages": {
+      "ArkTS": 3
+    },
+    "symbols_total": 6,
+    "symbols_by_type": {
+      "class": 3,
+      "function": 3
+    },
+    "code_logs_total": 0,
+    "code_logs_by_level": {},
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "arkts-static",
+          "version": "1.2",
+          "language": "ArkTS"
+        }
+      ],
+      "capabilities": [
+        "api_boundaries",
+        "async_flow",
+        "callbacks",
+        "calls",
+        "definitions",
+        "inheritance",
+        "mechanisms",
+        "references",
+        "state_flow",
+        "types"
+      ],
+      "files_indexed": 3,
+      "entities": 6,
+      "relations_extracted": 7,
+      "mechanisms_extracted": 10,
+      "relations_emitted": 6,
+      "unresolved_relations": 1,
+      "method_summaries_enriched": 3,
+      "gaps": [
+        {
+          "kind": "operation_syntax_unverified_template",
+          "file_path": "src/TemplateText.ets",
+          "symbol": "TemplateText.example",
+          "start_line": "2",
+          "end_line": "4"
+        }
+      ],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "ArkTS",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 3
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 6,
+        "reference_name_count": 5,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 6
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 3,
+      "symbols_written": 6,
+      "passages_written": 9
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/source",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [
+      "src/PruneEngine.ets",
+      "src/ReferenceText.ets",
+      "src/TemplateText.ets"
+    ],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 3,
+      "scope_files": [
+        "src/PruneEngine.ets",
+        "src/ReferenceText.ets",
+        "src/TemplateText.ets"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 3,
+          "code_log_statement": 0,
+          "code_symbol": 6
+        },
+        "edge_count": 12,
+        "relation_counts": {
+          "contains": 6,
+          "exposes_api": 6
+        }
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 3,
+          "code_log_statement": 0,
+          "code_symbol": 6
+        },
+        "edge_count": 12,
+        "relation_counts": {
+          "contains": 6,
+          "exposes_api": 6
+        }
+      },
+      "edges_deleted_estimate": 12,
+      "edges_inserted_estimate": 12,
+      "edge_delta": 0
+    },
+    "phase_ms": {
+      "extract": 5.3,
+      "load_scope": 6.019,
+      "invalidate": 0.819,
+      "prepare_rows": 4.858,
+      "insert_rows": 0.444,
+      "restore_business": 0.064,
+      "rebuild_graph": 29.306,
+      "summarize": 0.265,
+      "commit": 0.295,
+      "total": 47.389
+    },
+    "memory_edges_total": 15,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 2,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 3,
+      "symbols": 6,
+      "logs": 0
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 0,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "src/TemplateText.ets",
+          "summary": "ArkTS file with 5 non-empty lines; behavior: conditionalbranch",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "example",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method example in src/TemplateText.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "templatetext",
+                "ets",
+                "example",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "template",
+                "text",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TemplateText.ets",
+                "example",
+                "function",
+                "ArkTS function or lifecycle method example in src/TemplateText.ets"
+              ]
+            },
+            {
+              "symbol": "TemplateText",
+              "symbol_type": "class",
+              "summary": "ArkTS class TemplateText declared in src/TemplateText.ets; identifier terms: template text",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "templatetext",
+                "ets",
+                "class",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "template",
+                "text",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TemplateText.ets",
+                "TemplateText",
+                "class",
+                "ArkTS class TemplateText declared in src/TemplateText.ets; identifier terms: template text"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 60,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "templatetext",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "5",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "conditionalbranch",
+            "example",
+            "template",
+            "text",
+            "ark",
+            "ts"
+          ],
+          "hint_context": [
+            "src/TemplateText.ets",
+            "ArkTS file with 5 non-empty lines; behavior: conditionalbranch",
+            "example TemplateText"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/ReferenceText.ets",
+          "summary": "ArkTS file with 5 non-empty lines; behavior: conditionalbranch",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "example",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method example in src/ReferenceText.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "referencetext",
+                "ets",
+                "example",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "reference",
+                "text",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/ReferenceText.ets",
+                "example",
+                "function",
+                "ArkTS function or lifecycle method example in src/ReferenceText.ets"
+              ]
+            },
+            {
+              "symbol": "ReferenceText",
+              "symbol_type": "class",
+              "summary": "ArkTS class ReferenceText declared in src/ReferenceText.ets; identifier terms: reference text",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "referencetext",
+                "ets",
+                "class",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "reference",
+                "text",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/ReferenceText.ets",
+                "ReferenceText",
+                "class",
+                "ArkTS class ReferenceText declared in src/ReferenceText.ets; identifier terms: reference text"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 60,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "referencetext",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "5",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "conditionalbranch",
+            "example",
+            "reference",
+            "text",
+            "ark",
+            "ts"
+          ],
+          "hint_context": [
+            "src/ReferenceText.ets",
+            "ArkTS file with 5 non-empty lines; behavior: conditionalbranch",
+            "example ReferenceText"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/PruneEngine.ets",
+          "summary": "ArkTS file with 12 non-empty lines; behavior: collectionfold, cacheeviction, conditionalbranch",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "prune",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method prune in src/PruneEngine.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "pruneengine",
+                "ets",
+                "prune",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "engine",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/PruneEngine.ets",
+                "prune",
+                "function",
+                "ArkTS function or lifecycle method prune in src/PruneEngine.ets"
+              ]
+            },
+            {
+              "symbol": "PruneEngine",
+              "symbol_type": "class",
+              "summary": "ArkTS class PruneEngine declared in src/PruneEngine.ets; identifier terms: prune engine",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "pruneengine",
+                "ets",
+                "class",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "prune",
+                "engine",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/PruneEngine.ets",
+                "PruneEngine",
+                "class",
+                "ArkTS class PruneEngine declared in src/PruneEngine.ets; identifier terms: prune engine"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 60,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "pruneengine",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "12",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "collectionfold",
+            "cacheeviction",
+            "conditionalbranch",
+            "prune",
+            "engine",
+            "ark",
+            "ts"
+          ],
+          "hint_context": [
+            "src/PruneEngine.ets",
+            "ArkTS file with 12 non-empty lines; behavior: collectionfold, cacheeviction, conditionalbranch",
+            "prune PruneEngine"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

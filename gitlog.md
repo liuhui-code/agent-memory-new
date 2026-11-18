@@ -178,6 +178,15 @@
 
 # Local Development Log
 
+## 2026-11-18 - Reject literal-only cache scan hints without changing unknown lexical behavior
+
+- Freeze independent PruneEngine/ReferenceText/TemplateText source and reproduce actual learn/context false cacheeviction recall before editing production.
+- Only the four cache marker predicates use the existing conservative lexical mask; regex/interpolation/unknown input keeps legacy evidence. No TS feature expansion or timestamp certificate.
+- Actual scan removes literal-only ReferenceText; explicit identity output stays identical. Normal merge learn refreshes a retained old index.
+- Retain the unpublished direct-code_mask attempt and review correction. 80 focused tests and Python line limits pass; no full gate and no original33 closure claim.
+- Evidence: docs/releases/cache-marker-lexical-20261118/.
+
+
 ## 2026-11-17 — 有界 SQL 请求槽源码视图与原 06 部分改善
 
 - 新增有限 SQL 参数绑定、提交与页面渲染链源码视图，并认证对象数组及直接成员渲染；身份、作用域或预算不满足时回退，保留 raw 与非代码内容。

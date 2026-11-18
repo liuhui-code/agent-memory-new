@@ -6,7 +6,7 @@ import re
 
 from .code_wiki_component_flow import mask_comments
 from .arkts_state_write_source import has_file_state_write
-
+from .ecma_callback_mask import callback_mask_lines
 
 MAX_BEHAVIOR_MARKERS = 56
 MARKER_ORDER = (
@@ -266,7 +266,6 @@ COLLECTION_WRITE_RE = re.compile(
     r"(?:\.[A-Za-z_$][A-Za-z0-9_$]*)?\s*(?:=|\+=|-=|\+\+|--)"
 )
 
-
 def extract_arkts_behavior_markers(text: str) -> list[str]:
     """Normalize existing ArkTS mechanisms without inferring missing repairs."""
     source = mask_comments(text)
@@ -331,11 +330,13 @@ def extract_arkts_behavior_markers(text: str) -> list[str]:
         and URL_SCHEME_CHECK_RE.search(source)
     ):
         markers.add("urlschemeguard")
+    cache_lines = callback_mask_lines(text.splitlines())
+    cache_code = "\n".join(cache_lines) if cache_lines is not None else source
     if (
-        CACHE_SIZE_RE.search(source)
-        and FOR_OF_RE.search(source)
-        and CACHE_DELETE_RE.search(source)
-        and CACHE_AGE_RE.search(source)
+        CACHE_SIZE_RE.search(cache_code)
+        and FOR_OF_RE.search(cache_code)
+        and CACHE_DELETE_RE.search(cache_code)
+        and CACHE_AGE_RE.search(cache_code)
     ):
         markers.add("cacheeviction")
     if TOOLBAR_COMPONENT_RE.search(source):

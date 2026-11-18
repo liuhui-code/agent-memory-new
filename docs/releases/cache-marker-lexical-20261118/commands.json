@@ -1,0 +1,55 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "scan",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/home-scan",
+      "--query",
+      "Locate executable eviction scan ownership when a cache remains above its entry limit.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "literal",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/cache-literal/home-literal",
+      "--query",
+      "Locate ReferenceText.example.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

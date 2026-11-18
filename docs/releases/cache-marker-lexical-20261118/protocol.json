@@ -1,0 +1,18 @@
+{
+  "classification": "Independent Development producer lexical purity: frozen before public execution; no claim of original33 closure",
+  "sources": {
+    "src/PruneEngine.ets": "export class PruneEngine {\n  private entries: Map<string, { updatedAt: number }> = new Map()\n  prune(limit: number): void {\n    if (this.entries.size <= limit) { return }\n    let oldest = Number.MAX_SAFE_INTEGER\n    let selected: string | undefined = undefined\n    for (const [key, value] of this.entries) {\n      if (value.updatedAt < oldest) { oldest = value.updatedAt; selected = key }\n    }\n    if (selected !== undefined) { this.entries.delete(selected) }\n  }\n}\n",
+    "src/ReferenceText.ets": "export class ReferenceText {\n  example(): string {\n    return \"if (this.entries.size > 1) { for (const [key, value] of this.entries) { if (value.updatedAt < oldest) { this.entries.delete(key) } } }\"\n  }\n}\n",
+    "src/TemplateText.ets": "export class TemplateText {\n  example(): string {\n    return `if (this.entries.size > 1) { for (const [key, value] of this.entries) { if (value.updatedAt < oldest) { this.entries.delete(key) } } }`\n  }\n}\n"
+  },
+  "queries": [
+    [
+      "scan",
+      "Locate executable eviction scan ownership when a cache remains above its entry limit."
+    ],
+    [
+      "literal",
+      "Locate ReferenceText.example."
+    ]
+  ]
+}
