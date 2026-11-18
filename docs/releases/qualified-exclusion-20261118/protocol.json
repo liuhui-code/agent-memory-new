@@ -1,0 +1,35 @@
+{
+  "classification": "independent repeatable Development; no old campaign replay",
+  "sources": {
+    "src/AlphaService.ts": "export class AlphaService {\n  start(): string {\n    return 'alpha started'\n  }\n  stop(): string {\n    return 'alpha stopped'\n  }\n}\n",
+    "src/AlphaService/OtherService.ts": "export class OtherService {\n  stop(): string {\n    return 'other stopped'\n  }\n}\n",
+    "src/RunnerService.ts": "import { AlphaService } from './AlphaService'\nexport class RunnerService {\n  run(): string {\n    const worker = new AlphaService()\n    return worker.start()\n  }\n}\n"
+  },
+  "queries": [
+    [
+      "single",
+      "Locate AlphaService.start."
+    ],
+    [
+      "method_exclusion",
+      "Locate AlphaService.start; exclude AlphaService.stop."
+    ],
+    [
+      "directory_control",
+      "Locate OtherService.stop; exclude AlphaService.stop."
+    ],
+    [
+      "comparison",
+      "Locate AlphaService.start compared with AlphaService.stop."
+    ],
+    [
+      "graph_control",
+      "Locate RunnerService.run; exclude AlphaService.stop."
+    ],
+    [
+      "owner_exclusion",
+      "Locate OtherService.stop; exclude AlphaService."
+    ]
+  ],
+  "contract": "Qualified negative Owner.method must never expand to owner or directory. Exact matched method may be excluded; unrelated methods and directory-coincident other owners retained. Comparisons do not exclude; actual stored graph facts not deleted. Preserve legacy whole-owner exclusion. Finite grammar only; no general English parser."
+}

@@ -1,3 +1,9 @@
+## 2026-11-18 — Preserve qualified-member exclusion granularity
+
+- A complete supported Owner.method exclusion no longer degrades into whole-owner or same-named-directory exclusion. Exact qualified or explicit owner+symbol matching fails open on absent/conflicting identity. Other prose and existing guards stay unchanged.
+- Independent normal-context BEFORE reproduces wrong primaries; final AFTER restores requested Alpha.start and directory-coincident Other.stop. 102 distinct focused tests pass; earlier40/99 overlap. All six public requests, both AFTER attempts, source and raw results retained in docs/releases/qualified-exclusion-20261118/.
+- Graph control preserves actual returned containment edges, not proof of call/import-edge preservation; primary retained but code context/score change. No original group/full-suite/CI closure. Earlier excluded supporting owner-context residual is not claimed resolved.
+
 ## 2026-11-18 — Positive named-focus comparison consistency
 
 - Reproduce an independent ordinary-context comparison-only owner retained as a positive target, then reuse the existing positive query projection at the early named-focus consumer. This is not the previously repaired final retention predicate.

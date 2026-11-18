@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 
 from .text import identifier_tokens, unique_list
+from .query_qualified_exclusions import qualified_exclusions, matches_qualified_exclusion
 
 
 NEGATIVE_RESULT_CLAUSE_RE = re.compile(
@@ -85,6 +86,7 @@ def result_alternative_query(query: str) -> str:
 def positive_retrieval_query(query: str) -> str:
     """Remove explicit result exclusions from positive evidence retrieval."""
     query = result_alternative_query(query)
+    _qualified, query = qualified_exclusions(query)
     retained_terms = unique_list([
         term
         for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -100,6 +102,7 @@ def positive_retrieval_query(query: str) -> str:
 
 def excluded_result_roles(query: str) -> set[str]:
     query = result_alternative_query(query)
+    _qualified, query = qualified_exclusions(query)
     return {
         term
         for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -110,6 +113,7 @@ def excluded_result_roles(query: str) -> set[str]:
 
 def excluded_result_identifiers(query: str) -> set[str]:
     query = result_alternative_query(query)
+    _qualified, query = qualified_exclusions(query)
     return {
         re.sub(r"[^a-z0-9]", "", value.casefold())
         for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -133,6 +137,9 @@ def matches_excluded_identifier(identifiers: set[str], values: list[str]) -> boo
 
 def excluded_code_candidate(query: str, item: dict[str, object]) -> bool:
     query = result_alternative_query(query)
+    qualified, query = qualified_exclusions(query)
+    if matches_qualified_exclusion(qualified, item):
+        return True
     clauses = NEGATIVE_RESULT_CLAUSE_RE.findall(query)
     if not clauses:
         return False

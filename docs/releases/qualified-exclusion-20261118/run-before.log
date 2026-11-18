@@ -1,0 +1,111 @@
+[
+  {
+    "label": "init",
+    "args": [
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/seed"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "learn",
+    "args": [
+      "learn-path",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/seed",
+      "--path",
+      "src",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "single",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/home-single",
+      "--query",
+      "Locate AlphaService.start.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "method_exclusion",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/home-method_exclusion",
+      "--query",
+      "Locate AlphaService.start; exclude AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "directory_control",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/home-directory_control",
+      "--query",
+      "Locate OtherService.stop; exclude AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "comparison",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/home-comparison",
+      "--query",
+      "Locate AlphaService.start compared with AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "graph_control",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/home-graph_control",
+      "--query",
+      "Locate RunnerService.run; exclude AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "label": "owner_exclusion",
+    "args": [
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/home-owner_exclusion",
+      "--query",
+      "Locate OtherService.stop; exclude AlphaService.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

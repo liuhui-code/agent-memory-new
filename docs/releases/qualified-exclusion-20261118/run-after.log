@@ -1,0 +1,6 @@
+single [('src/AlphaService.ts', 'start'), ('src/RunnerService.ts', 'run')]
+method_exclusion [('src/AlphaService.ts', 'start'), ('src/RunnerService.ts', 'run')]
+directory_control [('src/AlphaService/OtherService.ts', 'stop')]
+comparison [('src/AlphaService.ts', 'start'), ('src/AlphaService.ts', 'stop'), ('src/AlphaService/OtherService.ts', 'stop'), ('src/AlphaService/OtherService.ts', 'OtherService')]
+graph_control [('src/RunnerService.ts', 'RunnerService'), ('src/AlphaService/OtherService.ts', 'OtherService'), ('src/RunnerService.ts', 'run'), ('src/AlphaService.ts', 'AlphaService')]
+owner_exclusion [('src/AlphaService/OtherService.ts', 'stop'), ('src/RunnerService.ts', 'run')]

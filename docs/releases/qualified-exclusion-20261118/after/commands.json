@@ -1,0 +1,104 @@
+[
+  {
+    "name": "single",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/after-home-single",
+      "--query",
+      "Locate AlphaService.start.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "method_exclusion",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/after-home-method_exclusion",
+      "--query",
+      "Locate AlphaService.start; exclude AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "directory_control",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/after-home-directory_control",
+      "--query",
+      "Locate OtherService.stop; exclude AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "comparison",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/after-home-comparison",
+      "--query",
+      "Locate AlphaService.start compared with AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "graph_control",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/after-home-graph_control",
+      "--query",
+      "Locate RunnerService.run; exclude AlphaService.stop.",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "owner_exclusion",
+    "args": [
+      "python3",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/qualified-exclusion/after-home-owner_exclusion",
+      "--query",
+      "Locate OtherService.stop; exclude AlphaService.",
+      "--json"
+    ],
+    "rc": 0
+  }
+]
