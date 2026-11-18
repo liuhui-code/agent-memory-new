@@ -13096,3 +13096,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Fast-forward the reviewed f743838 record-loop candidate; rerun 25 focused tests in the integration checkout, all pass. Changed Python files compile and remain within 500 lines; diff whitespace check passes.
 - Preserve the post-hoc clean-a012737 original26 comparison: 1/3 to 3/3, two net improvements for the combined candidate, not a fresh aggregate score. Two independent bare requests remain failed.
 - Keep all earlier rejected gates and source/path/identity corrections. New public history remains unapproved; no main change. Details: docs/evidence/record-loop-contract/INTEGRATION.md.
+
+## 2026-11-18 — Correct excerpt-completeness reporting with actual CLI evidence
+
+- Audit twelve default public CLI outputs for original15/33/37/38 without changing queries, source, scoring or production.15 all three methods complete;33 English variants partial;37 Chinese carries two complete command objects but not whole property/build;38 original/Chinese partial and paraphrase body-only.
+- Explain existing span recall as overlap/symbol hit, not every-line coverage; retain original gate outcomes rather than silently regrade them. Correct earlier completeness prose using actual source lines.
+- Preserve exact output and commands in docs/releases/excerpt-completeness-audit-20261118/. No full gate or new fix claimed; UI relation prototype does not authorize editor identity.

@@ -1,0 +1,200 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "04569fbab35d9e06",
+  "query": "The restore menu entry invokes the create workflow; return the UI action-to-method dispatch table rather than archive lifecycle code or presentation components.",
+  "memory_intent": "memory_maintenance",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "restore",
+      "menu",
+      "entry",
+      "invokes",
+      "create",
+      "workflow",
+      "return",
+      "ui",
+      "action",
+      "method",
+      "dispatch",
+      "table"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 2,
+        "message_template": "DISPATCH_PROFILE_8A21 load failed",
+        "logger": "hilog",
+        "file_path": "src/services/DispatchProfileService.ets",
+        "function": "run",
+        "line": 11,
+        "effect_id": 11,
+        "evidence_class": "inferred_wrapped",
+        "wrapper_symbol": "report",
+        "wrapper_depth": 1,
+        "call_path": [
+          "run",
+          "report",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/DispatchProfileService.ets#run",
+          "src/logging/ConsoleFailureReporter.ets#report",
+          "src/logging/ConsoleFailureReporter.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 3,
+        "message_template": "DISPATCH_PROFILE_8A21 load failed",
+        "logger": "hilog",
+        "file_path": "src/services/DispatchProfileService.ets",
+        "function": "run",
+        "line": 11,
+        "effect_id": 12,
+        "evidence_class": "inferred_wrapped",
+        "wrapper_symbol": "report",
+        "wrapper_depth": 1,
+        "call_path": [
+          "run",
+          "report",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/DispatchProfileService.ets#run",
+          "src/logging/FileFailureReporter.ets#report",
+          "src/logging/FileFailureReporter.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 6,
+        "message_template": "submit account update ${displayName}",
+        "logger": "console",
+        "file_path": "src/services/AccountUpdateService.ets",
+        "function": "dispatchUpdate",
+        "line": 3,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "BackupCommandPanel",
+        "symbol_type": "component",
+        "record_ids": [
+          15
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "BackupCommandPanel",
+            "start_line": 12,
+            "end_line": 37
+          }
+        ],
+        "read_window": {
+          "start_line": 12,
+          "end_line": 37
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "BackupCommandPanel",
+            "start_line": 12,
+            "end_line": 37,
+            "content": "export struct BackupCommandPanel {\n  private coordinator: SnapshotCoordinator = new SnapshotCoordinator()\n\n  private commands: BackupCommand[] = [\n    {\n      title: 'Create backup',\n      invoke: async (): Promise<void> => {\n        await this.coordinator.createSnapshot()\n      }\n    },\n    {\n      title: 'Restore backup',\n      invoke: async (): Promise<void> => {\n        await this.coordinator.createSnapshot()\n      }\n    }\n  ]\n\n  build() {\n    Column() {\n      ForEach(this.commands, (command: BackupCommand) => {\n        Button(command.title).onClick(command.invoke)\n      })\n    }\n  }\n}",
+            "source": "validated_request_snapshot",
+            "selection_reason": "static_ui_dispatch_table_component",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": null,
+      "alternatives": [],
+      "boundary": "certified_static_ui_tables_only_not_exhaustive_or_unique",
+      "certification_scope": "non_exhaustive_recalled_component_frames",
+      "qualified_frame_count": 4,
+      "unverified_path_count": 31
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "validated_request_snapshot",
+      "body_persisted": false,
+      "excerpt_count": 1,
+      "excerpt_chars": 596
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor",
+    "limited_code_anchor_diversity"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1293,
+    "target_tokens": 1500,
+    "truncated": false
+  }
+}

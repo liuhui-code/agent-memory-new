@@ -1,0 +1,247 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "04569fbab35d9e06",
+  "query": "An invalid order still reaches both action dispatch and storage; return the one coordinator that owns the complete guarded commit.",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "invalid",
+      "order",
+      "still",
+      "reaches",
+      "both",
+      "action",
+      "dispatch",
+      "storage",
+      "return",
+      "one",
+      "coordinator",
+      "owns"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 11,
+        "message_template": "payment duplicate order rejected",
+        "logger": "hilog",
+        "file_path": "src/pages/CheckoutPage.ets",
+        "function": "submitOrder",
+        "line": 8,
+        "effect_id": 4,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "chargeOrder",
+        "wrapper_depth": 1,
+        "call_path": [
+          "submitOrder",
+          "chargeOrder",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/pages/CheckoutPage.ets#submitOrder",
+          "src/services/PaymentService.ets#chargeOrder",
+          "src/services/PaymentService.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 12,
+        "message_template": "profile load failed session invalid",
+        "logger": "hilog",
+        "file_path": "src/abilities/SessionAbility.ets",
+        "function": "onCreate",
+        "line": 7,
+        "effect_id": 1,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadProfile",
+        "wrapper_depth": 1,
+        "call_path": [
+          "onCreate",
+          "loadProfile",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/abilities/SessionAbility.ets#onCreate",
+          "src/services/ProfileService.ets#loadProfile",
+          "src/services/ProfileService.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 11,
+        "message_template": "payment duplicate order rejected",
+        "logger": "hilog",
+        "file_path": "src/services/PaymentService.ets",
+        "function": "chargeOrder",
+        "line": 5,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "symbol": "commitOrder",
+        "symbol_type": "function",
+        "record_ids": [
+          70
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "commitOrder",
+            "start_line": 8,
+            "end_line": 15
+          }
+        ],
+        "read_window": {
+          "start_line": 8,
+          "end_line": 15
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "commitOrder",
+            "start_line": 8,
+            "end_line": 15,
+            "content": "  async commitOrder(order: OrderDraft): Promise<void> {\n    if (order.customerId.trim().length === 0) {\n      promptAction.showToast({ message: 'Required customer' })\n      return\n    }\n    this.dispatchCommit(order)\n    await this.orderStore.save(order)\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "symbol": "commitOrder",
+        "owner_name": "OrderCommitCoordinator",
+        "owner_kind": "coordinator",
+        "file_structural_coverage": 3,
+        "callable_roles": [
+          "async",
+          "persistence_write",
+          "source_operation_checked:v2.1",
+          "source_operation_unresolved:persistenceread"
+        ],
+        "reasons": [],
+        "source_range": {
+          "start_line": 12,
+          "end_line": 15,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/streaming/ConversationDraftStore.ets",
+          "symbol": "commitCompletedDraft",
+          "owner_name": "ConversationDraftStore",
+          "owner_kind": "store",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "persistence_write",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "reasons": [],
+          "source_range": {
+            "start_line": 38,
+            "end_line": 41,
+            "selection_reason": "semantic_mechanism_window"
+          }
+        },
+        {
+          "file_path": "src/actions/OrderActionButton.ets",
+          "symbol": "dispatchCommit",
+          "owner_name": "OrderActionButton",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "reasons": [],
+          "source_range": {
+            "start_line": 6,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 1,
+      "excerpt_chars": 258
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "limited_code_anchor_diversity",
+    "no_strong_log_anchor"
+  ],
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "limited_code_anchor_diversity",
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1395,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}
