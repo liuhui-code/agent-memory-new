@@ -84,7 +84,7 @@ Read `references/evidence-policy.md` when the answer relies materially on reflec
 For compact diagnosis and code-understanding results, follow
 `query_handoff.source_exploration`:
 
-1. Inspect `code_anchors` with `role=primary` first.
+1. Inspect `code_anchors` with `role=primary` first within the existing budget; apply [Reading Targets and Supporting Evidence](references/code-understanding.md#reading-targets-and-supporting-evidence), because `primary` is exploration priority, not business or causal ownership.
 2. Treat `source_excerpts` as bounded current-worktree evidence: do not reread those lines, and open source only for a named gap outside them. Without excerpts, read `read_window` once rather than once per `source_range`.
 3. Stop only when an inspected causal file shows the concrete mechanism, with no direct contradiction and a verification path. A likely owner or intended behavior is not direct mechanism evidence.
 4. Inspect `role=expansion` or non-anchor files only for one named `allowed_expansion_reasons`.

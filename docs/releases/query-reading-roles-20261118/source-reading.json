@@ -1,0 +1,263 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "6099e8e1feb0eb3b",
+  "query": "内嵌浏览器允许 javascript、data 或 file 协议加载，请只返回 WebView 文件访问设置和 URL 拦截回调，不要返回协议清单或设置页面。",
+  "memory_intent": "semantic_correction",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "内嵌浏览器允许",
+      "内嵌",
+      "嵌浏",
+      "浏览",
+      "览器",
+      "器允",
+      "允许",
+      "javascript"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 2,
+        "message_template": "profile load failed session invalid",
+        "logger": "hilog",
+        "file_path": "src/abilities/SessionAbility.ets",
+        "function": "onCreate",
+        "line": 7,
+        "effect_id": 1,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadProfile",
+        "wrapper_depth": 1,
+        "call_path": [
+          "onCreate",
+          "loadProfile",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/abilities/SessionAbility.ets#onCreate",
+          "src/services/ProfileService.ets#loadProfile",
+          "src/services/ProfileService.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 1,
+        "message_template": "WRAP_PROFILE_7F19 load failed",
+        "logger": "hilog",
+        "file_path": "src/services/WrappedProfileService.ets",
+        "function": "load",
+        "line": 7,
+        "effect_id": 3,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "report",
+        "wrapper_depth": 2,
+        "call_path": [
+          "load",
+          "report",
+          "emit",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/WrappedProfileService.ets#load",
+          "src/logging/DomainLogger.ets#report",
+          "src/logging/LogSink.ets#emit",
+          "src/logging/LogSink.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 2,
+        "message_template": "profile load failed session invalid",
+        "logger": "hilog",
+        "file_path": "src/services/ProfileService.ets",
+        "function": "loadProfile",
+        "line": 5,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "build",
+        "symbol_type": "function",
+        "record_ids": [
+          15
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "build",
+            "start_line": 8,
+            "end_line": 18
+          }
+        ],
+        "read_window": {
+          "start_line": 8,
+          "end_line": 18
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "Column",
+            "start_line": 9,
+            "end_line": 14,
+            "content": "    Column() {\n      Web({ src: this.sourceUrl, controller: this.controller })\n        .fileAccess(false)\n        .onLoadIntercept((event) => {\n          const url = event.data.getRequestUrl().trim().toLowerCase()\n          const blocked = ['javascript:', 'data:', 'file:', 'vbscript:']",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": true
+          }
+        ]
+      },
+      {
+        "source": "wrapped_log_caller",
+        "file_path": "src/abilities/SessionAbility.ets",
+        "symbol": "onCreate",
+        "record_ids": [
+          1
+        ],
+        "record_type": "code_log_effect",
+        "source_ranges": [
+          {
+            "symbol": "onCreate",
+            "start_line": 6,
+            "end_line": 8
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 8
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "onCreate",
+            "start_line": 1,
+            "end_line": 9,
+            "content": "import { ProfileService } from '../services/ProfileService'\n\nexport class SessionAbility {\n  private profileService: ProfileService = new ProfileService()\n\n  onCreate(): void {\n    this.profileService.loadProfile()\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "source": "wrapped_log_caller",
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "record_ids": [
+          3
+        ],
+        "record_type": "code_log_effect",
+        "source_ranges": [
+          {
+            "symbol": "load",
+            "start_line": 6,
+            "end_line": 8
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 8
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "load",
+            "start_line": 1,
+            "end_line": 9,
+            "content": "import { DomainLogger } from '../logging/DomainLogger'\n\nexport class WrappedProfileService {\n  private logger: DomainLogger = new DomainLogger()\n\n  load(): void {\n    this.logger.report('WRAP_PROFILE_7F19 load failed')\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "onLoadIntercept",
+        "owner_kind": "component",
+        "source_range": {
+          "start_line": 12,
+          "end_line": 14,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      },
+      "alternatives": []
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 730
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1469,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}
