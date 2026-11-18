@@ -308,7 +308,7 @@ def multiple_requested_anchors_present(
     paths: set[str] = set()
     candidates = [evidence.get("primary"), *(evidence.get("alternatives") or [])]
     for candidate in candidates:
-        if not isinstance(candidate, dict) or not explicitly_named_candidate(candidate, query):
+        if not isinstance(candidate, dict) or not explicitly_named_candidate(candidate, positive):
             continue
         span = candidate.get("source_range")
         if not valid_retained_range(span):

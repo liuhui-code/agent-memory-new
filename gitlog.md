@@ -1,3 +1,9 @@
+## 2026-11-18 — Qualified-candidate retention projection consistency
+
+- Use this consumer's existing positive projection for qualified/path candidate matching. Keep global grammar/helper, code markup compatibility, ranks/caps and prior routes unchanged.
+- Candidate 23 targeted methods pass; independent review accepts six frozen pure request AFTER results. Original BEFORE remains intact. Final-tree verification repeats only the same relevant two modules and is externally recorded.
+- Zero public CLI/DB; no actual public leakage, generic Summary restoration or original06 closure claim. Details: docs/releases/qualified-retention-projection-20261118/.
+
 ## 2026-11-18 — Operation-only reference interpolation admission
 
 - Enable the scanner's default-disabled finite ASCII reference-body option only for operation-token filtering. Unknown/complex input preserves whole-file legacy output; all other producer defaults, ranking, caps and schema stay unchanged. No effect-purity inference.

@@ -25,3 +25,32 @@ class ExplicitCrossFileNarrowingGuardTests(unittest.TestCase):
     def test_uncertified_portfolio_still_cannot_project(self):
         self.evidence['passage_portfolio']={'state':'composed','selection_basis':['indexed_explicit_owner_methods'],'members':[{'file_path':'unseen.ts'}]}
         self.assertEqual(self.anchors,focus_callable_anchors(self.anchors,self.evidence,False,'Return Alpha.stop and Beta.stop.'))
+
+    def test_supported_negative_and_comparison_do_not_authorize_pair(self):
+        from tools.agent_memory_runtime.context_callable_focus import multiple_requested_anchors_present
+        cases = [
+            ('Return Alpha.stop and Beta.stop.', True),
+            ('Return `Alpha.stop` and `Beta.stop`.', True),
+            ('Return Alpha.stop.', False),
+            ('Return Alpha.stop; exclude Beta.stop.', False),
+            ('Return Alpha.stop compared with Beta.stop.', False),
+            ('Return Alpha.stop and Beta.stop; exclude Gamma.stop.', True),
+        ]
+        for query, retain in cases:
+            with self.subTest(query=query):
+                self.assertEqual(retain, multiple_requested_anchors_present(self.anchors,self.evidence,query))
+                actual=focus_callable_anchors(self.anchors,self.evidence,False,query)
+                self.assertEqual(self.anchors if retain else self.anchors[:1],actual)
+                if retain:
+                    self.assertIs(actual,self.anchors)
+
+    def test_path_names_use_same_positive_projection(self):
+        cases=[('Return a.ts and b.ts.',True),
+               ('Return `a.ts` and `b.ts`.',True),
+               ('Return a.ts; exclude b.ts.',False),
+               ('Return a.ts compared with b.ts.',False),
+               ('Return a.ts and b.ts; exclude c.ts.',True)]
+        for query,retain in cases:
+            with self.subTest(query=query):
+                self.assertEqual(self.anchors if retain else self.anchors[:1],
+                                 focus_callable_anchors(self.anchors,self.evidence,False,query))
