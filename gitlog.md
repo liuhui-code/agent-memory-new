@@ -1,3 +1,8 @@
+## 2026-11-18 — Check remaining15/32 actual source consumption
+
+- No product change. Two isolated consumers used current compact input and bounded source reads:32 identified executable Web policy rather than settings/logs, and15 identified the combined coordinator without treating the reported runtime symptom as established fact. Preserve answers, actual read counts, current CLI modes and failed unsupported-flag probe in docs/releases/remaining-consumer-check-20261118/.
+- Original15/32 remain2/3 and1/3 respectively; these observations are not new gate results or accuracy claims.32 preserve2000 still has9–17, while fullbuild8–18 with recoverable metadata costs2011. Do not delete evidence, increase budget or repeat a label-only patch to hide the remaining precision/body limits.
+
 ## 2026-11-18 — Add nonexclusive SQL candidate body reading
 
 - For bounded positive SQL-source requests, append a complete literal-SQL argument method already present among callable candidates. Authenticate current typed method, owner and local helper against indexed digest and source; do not infer user slots, exclusive business ownership, real database execution or SQL/UI pairing. Explicit execution/pair/behavior/domain uncertainty travels with the new excerpt.

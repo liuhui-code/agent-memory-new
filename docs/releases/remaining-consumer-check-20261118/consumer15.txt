@@ -1,0 +1,10 @@
+实际答案：
+`src/coordinators/OrderCommitCoordinator.ets`（`commitOrder`，第 8–15 行）
+
+核验依据：第 9–11 行校验并 `return` 中止，第 13 行分发，第 14 行持久化。此源码同时包含三项机制，但没有证明“校验报错后仍执行”；现有校验失败分支实际会提前返回。
+
+读取记录：
+- 输入：`remaining-consumer-check/15.json`，完整读取。
+- 第 1 轮：`command37-current/source/src/coordinators/OrderCommitCoordinator.ets`，请求第 1–180 行，实际第 1–18 行。
+
+计数：源码搜索 0 次，源码文件 1 个，源码读取 1 次，第 1 轮读取 1 个文件，第 2 轮未用；该文件读取次数 1。未读取评估、报告、oracle、测试或历史，未修改文件。

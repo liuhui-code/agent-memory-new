@@ -1,0 +1,36 @@
+[
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-consumer-check/home15",
+      "--query",
+      "订单校验报错后仍执行动作且写入存储，请只返回同时拥有校验中止、分发和持久化的协调源码。",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-consumer-check/home32",
+      "--query",
+      "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

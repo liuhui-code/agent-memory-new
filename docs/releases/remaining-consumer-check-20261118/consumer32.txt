@@ -1,0 +1,43 @@
+## 完整回答
+
+实际执行 WebView 访问和 URL 导航策略的是 **`src/web/SecureDocumentBrowser.ets` 的 `build()`，8–18 行**，不是设置页。
+
+源码显示：
+- 第 10 行创建 `Web`，入口为 `this.sourceUrl`。
+- 第 11 行明确设置 `.fileAccess(false)`。
+- 第 12–16 行注册 `.onLoadIntercept`，先对请求 URL 去首尾空白、转小写，然后针对 `javascript:`、`data:`、`file:`、`vbscript:` 前缀返回拦截判断。
+
+因此，这份源码**不支持“该组件放行危险 file/script URL”的描述**。它明确配置了文件访问关闭和上述协议的拦截逻辑。不能根据题述直接认定漏洞存在。
+
+其他相关文件并不承担这段实际策略：
+- `src/pages/DocumentBrowserSettingsPage.ets:3–8` 只有描述策略的 `Text`，没有 WebView 配置或导航拦截。
+- `src/config/BrowserSchemeManifest.ets:1–5` 声明了允许/阻止协议和 `fileAccess: false`；在 `src` 搜索未发现其他引用，不能把这份声明视为已经接入运行时的策略。尤其 `allowedSchemes: ['https']` 没有在已读 WebView 实现中执行，后者是黑名单而非 HTTPS 白名单。
+- `src/coordinators/DocumentNavigationCoordinator.ets:17–24` 负责异步加载 entry 并过滤过期结果，不进行 URL scheme 检查。
+
+不确定范围：
+- 没有运行应用验证拦截回调的实际行为或覆盖所有加载路径。
+- 没有发现 `javaScriptAccess` 配置；拦截 `javascript:` URL **不等于**禁用网页中的 JavaScript。
+- `src` 内没有发现组件调用或 `sourceUrl` 的外部赋值，因此无法证明该组件就是线上实际挂载的浏览器，亦无法定位入口 URL 来源。
+
+## 真实读取记录
+
+先读取任务指定 compact JSON 全文一次。该 JSON 无 `project_path`，由上级补充源码路径后继续；没有读取其他评估、报告、测试或历史。
+
+源码第 1 轮：
+1. `src/web/SecureDocumentBrowser.ets`：请求 1–180 行，实际 1–19 行。
+2. `src/pages/DocumentBrowserSettingsPage.ets`：请求 1–180 行，实际 1–9 行。
+
+搜索 1：
+`rg -n 'fileAccess|onLoadIntercept|javaScriptAccess|Web\(' src`
+
+搜索 2：
+`rg -n -i 'webview|browser|javascript|vbscript|scheme|navigation|loadurl|file:' src`
+
+源码第 2 轮：
+3. `src/config/BrowserSchemeManifest.ets`：请求 1–180 行，实际 1–5 行。
+4. `src/coordinators/DocumentNavigationCoordinator.ets`：请求 1–180 行，实际 1–25 行。
+
+搜索 3：
+`rg -n 'SecureDocumentBrowser|BrowserSchemeManifest|DocumentNavigationCoordinator|sourceUrl' src`
+
+**计数：2 轮 × 2 个文件；4 个独立源码文件，各读 1 次；正文实际 58 行；3 次搜索。** 搜索命中共涉及 6 个独立源码文件，包含未展开阅读的 NavigationToolbar 和 KeyboardWorkspacePage。未修改文件。

@@ -1,0 +1,41 @@
+[
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-consumer-check/32-plain2000-v2-home",
+      "--query",
+      "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+      "--compact",
+      "--json",
+      "--compact-token-budget",
+      "2000"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/command37-current/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-plan-work/remaining-consumer-check/32-preserve2000-v2-home",
+      "--query",
+      "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+      "--compact",
+      "--json",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  }
+]
