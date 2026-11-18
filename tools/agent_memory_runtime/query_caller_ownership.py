@@ -26,6 +26,16 @@ MAX_SEED_PATHS = 4
 MAX_CALLER_OWNERS = 2
 
 
+def plural_caller_member(query):
+    """One finite caller request, not global scope or a file-path target."""
+    match = re.fullmatch(
+        r"\s*Find\s+(?:the\s+)?actual\s+callers\s+of\s+"
+        r"([A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*)\.?\s*",
+        query, re.IGNORECASE,
+    )
+    return match.group(1) if match else None
+
+
 class ResolvedCallerItem(dict):
     """Ephemeral query binding; dict/JSON projection deliberately loses it."""
 
@@ -72,6 +82,15 @@ def collect_bounded_caller_owners(
             target_params = target_ids
         complete_targets = (explicit_caller_target_ids(targets, query, resolve_member, require_complete=True)
                             if target_ids and classify_target_scope(query).get("kind") == "multiple" else [])
+        member = plural_caller_member(query)
+        if member is not None:
+            # Never certify a same-shaped file token as an Owner.member. The
+            # complete project lookup must agree with the actual SQL filter.
+            member_rows = resolve_member(member)
+            complete_targets = ([int(member_rows[0]["id"])]
+                                if len(member_rows) == 1 else [])
+            if complete_targets != target_ids:
+                complete_targets = []
         rows = conn.execute(
             f"""
             SELECT callers.*, files.summary AS caller_file_summary,
@@ -226,7 +245,8 @@ def requested_caller_identities(items, query):
     This does not discover callers, certify completeness or override capacity.
     Unknown/legacy identities and generic request scope retain the old policy.
     """
-    if classify_target_scope(query).get("kind") != "multiple":
+    if (classify_target_scope(query).get("kind") != "multiple"
+            and plural_caller_member(query) is None):
         return None
     by_id = {}
     for item in items:

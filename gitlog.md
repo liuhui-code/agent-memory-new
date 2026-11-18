@@ -1,3 +1,10 @@
+## 2026-11-18 — Finite plural caller retention
+
+- Add caller-local complete request qualification with unique member/actual-filter agreement, preserving indexed source identity and existing private binding. No global scope, ranking, caps or old both/list change.
+- Candidate 19 focused methods pass; independent six-context AFTER restores both required caller bodies at 1487/1500, and single/both controls preserve their BEFORE compact handoffs. Main/both remain globally truncated while required excerpts are complete.
+- Original42 remains open. Untouched-baseline 17-method verification supersedes the initial unfenced run as baseline evidence. Final integrated targeted verification is separately audited; no full suite or saved-fixture replay.
+- Details and original evidence hashes: docs/releases/caller42-finite-plural-20261118/.
+
 ## 2026-11-18 — Named exclusion Development AFTER verified (publication pending)
 
 - Exactly four AFTER contexts (zero init/learn/retries) from independent copies of the saved BEFORE learned archive restore ReceiptDraftPreview.previewTitle under the ReceiptDraft exclusion. Source excerpts exactly cover method lines 8–10.
