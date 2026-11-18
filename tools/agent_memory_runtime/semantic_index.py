@@ -127,6 +127,20 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
             f"SELECT * FROM code_symbols WHERE project_id = ? AND file_path IN ({placeholders}) ORDER BY id",
             (project.project_id, *chunk),
         ).fetchall())
+    from .ecma_literal_property_path import literal_property_paths, admitted_mapping
+    from .literal_property_source import read_literal_source
+    import hashlib
+    literal_paths = {}
+    for path in paths:
+        conn.execute("UPDATE code_symbols SET literal_property_path = NULL "
+                     "WHERE project_id = ? AND file_path = ?", (project.project_id, path))
+        raw = read_literal_source(project, path)
+        try:
+            text = raw.decode("utf-8") if raw is not None else None
+        except UnicodeError:
+            text = None
+        literal_paths[path] = (literal_property_paths(text) if text is not None
+                              and hashlib.sha256(raw).hexdigest() == batch.source_digests[path] else {})
     grouped_rows: dict[tuple[str, str], list[sqlite3.Row]] = defaultdict(list)
     for row in rows:
         grouped_rows[(str(row["file_path"]), str(row["symbol"]))].append(row)
@@ -149,6 +163,15 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
         mechanism_evidence, _mechanism_terms = mechanism_evidence_payload(
             mechanisms_by_key.get(entity.key, [])
         )
+        literal_path = None
+        siblings = [e for e in batch.entities
+                    if (e.file_path, e.name) == (entity.file_path, entity.name)]
+        if admitted_mapping(grouped_rows[(entity.file_path, entity.name)], siblings,
+                            target, entity, project.project_id,
+                            batch.source_digests.get(entity.file_path),
+                            f"{batch.adapter_id}@{batch.adapter_version}"):
+            literal_path = literal_paths.get(entity.file_path, {}).get(
+                (entity.start_line, entity.end_line, entity.name))
         enriched += int(bool(method_evidence))
         conn.execute(
             """
@@ -156,7 +179,7 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
             SET symbol_key = ?, qualified_name = ?, signature = ?, start_line = ?, end_line = ?,
                 semantic_adapter = ?, source_digest = ?, evidence_class = ?,
                 method_evidence = ?, string_evidence = ?, mechanism_evidence = ?,
-                owner_name = ?, owner_kind = ?, callable_roles = ?
+                owner_name = ?, owner_kind = ?, callable_roles = ?, literal_property_path = ?
             WHERE project_id = ? AND id = ?
             """,
             (
@@ -164,7 +187,7 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
                 f"{batch.adapter_id}@{batch.adapter_version}", batch.source_digests.get(entity.file_path),
                 entity.evidence_class, method_evidence, string_evidence,
                 mechanism_evidence, entity.owner_name, entity.owner_kind,
-                json.dumps(entity.callable_roles, ensure_ascii=True),
+                json.dumps(entity.callable_roles, ensure_ascii=True), literal_path,
                 project.project_id, int(target["id"]),
             ),
         )

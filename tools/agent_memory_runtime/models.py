@@ -115,6 +115,7 @@ CODE_SEMANTIC_COLUMNS = {
         ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
     ],
     "code_symbols": [
+        ("literal_property_path", "TEXT DEFAULT NULL"),
         ("symbol_key", "TEXT"),
         ("qualified_name", "TEXT"),
         ("signature", "TEXT"),

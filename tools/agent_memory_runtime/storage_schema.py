@@ -95,6 +95,7 @@ def create_schema(conn: sqlite3.Connection) -> None:
           owner_name TEXT,
           owner_kind TEXT,
           callable_roles TEXT,
+          literal_property_path TEXT DEFAULT NULL,
           index_generation INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );

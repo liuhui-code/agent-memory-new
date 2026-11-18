@@ -84,6 +84,8 @@ class SQLiteHierarchicalLocalizer:
         )
         ranked = rank_callables([*candidates, *owners], ranking_query, use_direct_score)
         selected = select_diverse_callables(ranked, MAX_CALLABLES)
+        from .query_literal_property import prefer_literal_property
+        selected = prefer_literal_property(project, query, rows, files, ranked, selected)
         ranges = valid_source_ranges(selected, ranking_query)
         return bind_localization(project, query, ranked, selected, {
             **localization_contract(),
@@ -245,7 +247,6 @@ def attach_candidate_metadata(
         result.append(item)
     return result
 
-
 def select_graph_seeds(items: list[dict[str, Any]], limit: int) -> list[dict[str, Any]]:
     selected: list[dict[str, Any]] = []
     selected_ids: set[int] = set()
@@ -265,7 +266,6 @@ def select_graph_seeds(items: list[dict[str, Any]], limit: int) -> list[dict[str
             break
     return selected
 
-
 def graph_seed_priority(item: dict[str, Any]) -> tuple[float, int, int, float, int]:
     reasons = set(item.get("localization_reasons") or [])
     return (
@@ -275,7 +275,6 @@ def graph_seed_priority(item: dict[str, Any]) -> tuple[float, int, int, float, i
         -float(item.get("localization_score") or 0.0),
         int(item.get("id") or 0),
     )
-
 
 def rank_callables(
     items: list[dict[str, Any]],
@@ -349,6 +348,15 @@ def rank_callables(
     return sorted(
         role_aware,
         key=lambda item: (
+            *protected_priority(item),
+            str(item.get("file_path") or ""),
+            int(item.get("start_line") or 0),
+            int(item.get("id") or 0),
+        ),
+    )
+
+def protected_priority(item):
+    return (
             -int(bool(item.get("typed_contract_match"))),
             artifact_role_shadow_priority(item),
             -int(bool(item.get("explicit_owner_identity_match"))),
@@ -357,10 +365,6 @@ def rank_callables(
             -artifact_role_rank_score(item),
             artifact_role_tiebreak(item),
             int(item.get("graph_depth") or 0),
-            str(item.get("file_path") or ""),
-            int(item.get("start_line") or 0),
-            int(item.get("id") or 0),
-        ),
     )
 
 def file_rank_prior(rank: int) -> float:
@@ -381,7 +385,6 @@ def dedupe_callables(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if current is None or int(item.get("graph_depth") or 0) < int(current.get("graph_depth") or 0):
             chosen[record_id] = item
     return list(chosen.values())
-
 
 def select_diverse_callables(items: list[dict[str, Any]], limit: int) -> list[dict[str, Any]]:
     selected: list[dict[str, Any]] = []
@@ -424,7 +427,6 @@ def matching_mechanisms(payload: Any, query: str) -> list[dict[str, Any]]:
             })
     return sorted(matches, key=lambda item: (-len(item["matched_terms"]), item["line"], item["kind"]))
 
-
 def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
     return {
         **({"typed_contract_match": True, "typed_contract_weak": bool(item.get("typed_contract_weak"))} if item.get("typed_contract_match") else {}),
@@ -455,7 +457,6 @@ def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
         **({"target_owner_kind_match": True} if item.get("target_owner_kind_match") else {}),
     }
 
-
 def source_range(item: dict[str, Any], query: str) -> dict[str, Any]:
     start = int(item.get("start_line") or 0)
     end = int(item.get("end_line") or 0)
@@ -484,7 +485,6 @@ def source_range(item: dict[str, Any], query: str) -> dict[str, Any]:
         "end_line": end,
         "selection_reason": "callable_symbol_range",
     }
-
 
 def valid_source_ranges(items: list[dict[str, Any]], query: str) -> list[dict[str, Any]]:
     ranges: list[dict[str, Any]] = []

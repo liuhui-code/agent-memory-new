@@ -1,3 +1,21 @@
+## 2026-11-18 — Finite nested literal-property navigation acceptance
+
+- Independently accepted fresh V2 merge/list/two-context comparison selects the requested upload callback4–6 and discard callback10–12 with complete required text,860/874 tokens under unchanged default1500, uncertain and untruncated. Complete evidence recovery passed.
+- Preserve old flat identities/behavior and protected priorities; the optional spelling is not an alias or runtime-property authority. Numeric rows are re-created normally during relearn. The baseline discard output already contained its body, so the gain is selected-identity discrimination.
+- Keep the first candidate's NULL-path two-call STOP and its component bootstrap blind spot. This is a new finite source capability, not old-contract corruption or original37 full-group closure. Final38 targeted verification is recorded externally; no full-suite/CI claim. See docs/releases/nested-literal-property-20261118/.
+
+## 2026-11-18 — Nested literal spelling bootstrap mapping (candidate V2)
+
+- Preserve the first candidate and its two-call merge/list STOP: normal newly inserted symbols had NULL semantic coordinates, so the first optional-path guard declined both paths. Its component fixture had prefilled coordinates and did not cover that production initial state. Neither context request was run in that attempt.
+- Qualify the existing mapper's same atomic entity/row UPDATE using either complete fresh blank slots or consistent established identities. Keep mixed, conflicting, stale or ambiguous groups unknown; do not change the mapper, consumer, ranking or old semantic fields.
+- Revised producer four-method controls and final 38 unique targeted methods passed; the four overlap the final set. Actual candidate public acceptance remains pending. No original37 whole-group closure or repeated public STOP.
+
+## 2026-11-18 — Finite nested literal-property spelling (candidate)
+
+- Add one nullable source-spelling field to existing callable rows; preserve flat symbol identities, owners, method/string evidence and authority. Conservative bounded literal-object extraction declines ambiguous or unsupported shapes and clears stale facts on relearn.
+- A full pass-query navigation request may stably prefer an already selected uniquely matching row only within existing protected priorities, complete selected-file pools and bounded freshness checks. No new recall lane, score bonus, owner/call certificate or path-only certainty upgrade.
+- Candidate verification: 38 unique targeted methods passed (30 existing + 8 new), including temporary CLI/SQLite helper tests. Preliminary four-method runs overlap this set. Independent code/result review accepted; public candidate AFTER remains unverified. The baseline's discard output already contained its body but selected the other callback identity. This is a new finite capability, not an old-contract violation or original37 group closure.
+
 ## 2026-11-18 — Summary explicit-presentation evidence record (no runtime change)
 
 - Reuse the disclosed nonsealed Summary source/query bytes in a fresh project: four normal CLI calls, with raw/compact using independent learned-home copies. Independently accepted compact1255/2000, truncated=false, preserves both required method bodies and current identity/projection fields; complete evidence recovery passed.
