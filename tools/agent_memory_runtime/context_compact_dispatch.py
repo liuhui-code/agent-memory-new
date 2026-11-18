@@ -60,4 +60,6 @@ def dispatch_compact_context(data: dict[str, Any], _compact_context) -> dict[str
     if render_receipts:
         return _compact_context(data, render_receipts)
     from .context_recovery_append import ordinary_render
+    from .context_request_policy import mark_ordinary
+    mark_ordinary()
     return ordinary_render(recovery_original, data, _compact_context, render_receipts)

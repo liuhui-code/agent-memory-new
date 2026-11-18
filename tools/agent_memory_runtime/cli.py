@@ -71,6 +71,8 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--query", required=True)
     p.add_argument("--intent", choices=EXPLICIT_MEMORY_INTENTS)
     p.add_argument("--compact", action="store_true")
+    p.add_argument("--compact-token-budget", type=int, choices=(1500, 2000))
+    p.add_argument("--preserve-selected-source-anchors", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))
 

@@ -1,3 +1,23 @@
+## 2026-11-18 — Explicit preserve2000 finite actual acceptance
+
+- Independently reviewed V2 actual context returns1977/2000, with Store and Registry complete source bodies, all3logs and full callable risk/guidance/guard fields preserved. Complete recovery passed; actual JSON equals the separate pure result.
+- Global output remains truncated=true. The helper107characters include a partial final line; do not interpret this as complete auxiliary source. Original2053 incomplete STOP is retained and not reclassified.
+- Default1500 behavior and existing private authority limits remain unchanged. Final-tree49-method targeted verification is externally recorded; no full-suite/CI or original10 group closure claim. See docs/releases/explicit-preserve-budget-20261118/.
+
+## 2026-11-18 — Preserve-mode ordered source budgeting (candidate)
+
+- Account for final metadata before optional source bodies; preserve existing anchor/range order and all selected evidence. Default allocator remains unchanged. Acquired source allowance stays 1500 characters per anchor and 2600 total, without refunds after trimming or omission.
+- Check callback coverage against actually retained excerpts, not discarded acquired bodies. Fit each optional body against the entire serialized envelope using existing bounded trimming; no new rank or owner authority.
+- Independent pure saved-input AFTER passes the original fixed checks at 1977/2000: both requested owner bodies complete, all three logs and risk fields retained. Helper107 characters include a partial final line, not three complete lines. This is not liveB acceptance; previous2053 actual STOP remains intact.
+- Current49 unique targeted methods pass, including existing temporary CLI/DB component fixtures. Candidate/source/result review accepted. LiveB, final release and remote publication remain pending; no original10 closure claim.
+
+## 2026-11-18 — Explicit compact request presentation policy (candidate)
+
+- Add opt-in 1500/2000 token target and selected-anchor preservation; default 1500 remains. Only the final ordinary focus fallback changes; no new recall, owner or certificate authority. Private route limits remain independent.
+- Preserve projected evidence and risk/log fields with bounded source attachment; return explicit incomplete/nonzero rather than reduce protected content. Scoped request state restores on exceptions/nesting; canonical callback identity remains.
+- V3 independent candidate review accepted. Final candidate 45 targeted methods pass, including existing temporary CLI/DB component fixtures. Six new controls and independent baseline default-renderer equality are not additional method counts.
+- Actual B two-full-body/log/uncertainty/2000 acceptance has NOT run. No original10 closure, old-world replay, full-suite or CI claim.
+
 ## 2026-11-18 — Qualified-candidate retention projection consistency
 
 - Use this consumer's existing positive projection for qualified/path candidate matching. Keep global grammar/helper, code markup compatibility, ranks/caps and prior routes unchanged.

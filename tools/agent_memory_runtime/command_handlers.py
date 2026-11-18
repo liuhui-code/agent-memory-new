@@ -149,12 +149,24 @@ def search(args: argparse.Namespace) -> None:
 
 
 def context(args: argparse.Namespace) -> None:
+    from .context_request_policy import validate, CompactRequestIncomplete
+    budget = getattr(args, 'compact_token_budget', None)
+    preserve = getattr(args, 'preserve_selected_source_anchors', False)
+    if not args.compact and (budget is not None or preserve):
+        raise ValueError('compact presentation options require --compact')
+    validate(1500 if budget is None else budget, preserve)
     started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))
     if args.compact:
-        data = compact_context(data)
+        try:
+            data = (compact_context(data) if budget is None and not preserve else
+                    compact_context(data, token_budget=1500 if budget is None else budget,
+                                    preserve_selected_source_anchors=preserve))
+        except CompactRequestIncomplete as exc:
+            print(json.dumps(exc.payload, ensure_ascii=False))
+            raise SystemExit(2) from exc
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

@@ -94,7 +94,8 @@ def focus_callable_anchors(
             return retained_owner_anchors(portfolio, focused)
         return portfolio_anchors(portfolio, focused)
     if not primary.get("target_owner_kind_match") and not preferred_artifact:
-        return focused or anchors
+        from .context_request_policy import current
+        return anchors if current().preserve else focused or anchors
     return [callable_anchor(primary, focused[0] if focused else None)]
 
 

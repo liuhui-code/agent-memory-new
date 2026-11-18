@@ -42,6 +42,10 @@ def attach_source_excerpts(
     project_path: Any,
     token_budget: int,
 ) -> int:
+    from .context_request_policy import current
+    if current().preserve:
+        from .context_preserve_source import attach
+        return attach(payload, project_path, token_budget)
     root = resolved_root(project_path)
     handoff = payload.get("query_handoff")
     if root is None or not isinstance(handoff, dict):
