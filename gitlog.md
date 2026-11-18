@@ -1,3 +1,10 @@
+## 2026-11-18 — Finite accumulator recall and relevance
+
+- Connect the existing complete original accumulator request to indexed collectionfold in bounded file/method recall and relevance. Keep original-query/projection qualification, existing coefficients/limits and all source/identity/log/path/budget guards; no global alias or bare-result expansion.
+- Candidate 42 targeted methods pass. Four independent V2 AFTER contexts across two Development cohorts restore compact complete method lines 2–8 at 823 tokens each; raw establishes target identity, not full-body display. Final integrated targeted verification is recorded externally.
+- Preserve the recall-only V1 two-context STOP and unrun second cohort. Original26 remains historically closed, not counted again; no full-suite or CI claim. Named exclusion and caller fixes are retained.
+- Details: docs/releases/accumulator-finite-relevance-20261118/.
+
 ## 2026-11-18 — Finite plural caller retention
 
 - Add caller-local complete request qualification with unique member/actual-filter agreement, preserving indexed source identity and existing private binding. No global scope, ranking, caps or old both/list change.

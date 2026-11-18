@@ -19,3 +19,13 @@ def record_loop_request(query):
         return 'result'
     found=BARE.fullmatch(query)
     return found['relation'].lower() if found else None
+
+
+def accumulator_markers(original_query, retrieval_query):
+    """Finite original intent for local recall/relevance, never serving authority."""
+    from .query_language import positive_retrieval_query
+    if (isinstance(original_query, str)
+            and record_loop_request(original_query) == 'accumulator'
+            and retrieval_query == positive_retrieval_query(original_query)):
+        return ('collectionfold',)
+    return ()

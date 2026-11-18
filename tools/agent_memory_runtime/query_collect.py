@@ -19,6 +19,7 @@ from .models import Project
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .query_edges import collect_related_edge_candidates
 from .query_code_focus import score_file_behavior_match
+from .query_record_loop_request import accumulator_markers
 from .query_code_ranking import score_query_focus_coverage
 from .query_candidate_recall import (
     CandidateRecallBatch,
@@ -74,10 +75,8 @@ def apply_calibration_feedback(item: dict[str, Any], feedback_rows: dict[int, di
     item["calibration_feedback_ids"] = feedback.get("feedback_ids", [])
 
 
-
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
     return collect_matches_with_audit(project, query).matches
-
 
 def collect_matches_with_audit(
     project: Project,
@@ -91,7 +90,8 @@ def collect_matches_with_audit(
     tokens = query_tokens(retrieval_query)
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
-    behavior_terms = projected_behavior_terms(retrieval_query, projection, query)
+    accumulator = accumulator_markers(query, candidate_query)
+    behavior_terms = unique_list([*projected_behavior_terms(retrieval_query, projection, query), *accumulator])
     salient_terms = salient_query_tokens(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],
@@ -262,6 +262,7 @@ def collect_matches_with_audit(
             retrieval_query,
             score,
             reasons,
+            extra_markers=accumulator,
         )
         score, reasons = score_query_focus_coverage(
             retrieval_query, " ".join(search_terms), score, reasons
@@ -468,7 +469,6 @@ def score_symbol_behavior_match(
         score += 7.0 + 3.0 * (coverage - 1)
         reasons = unique_list([*reasons, "semantic_behavior"])
     return score, reasons, coverage
-
 
 def attach_recall_metadata(
     item: dict[str, Any],

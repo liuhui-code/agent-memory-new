@@ -1,0 +1,20 @@
+{
+  "candidate_commit": "b4c1d6fe542cf214c1c07f73396e8f61dcb329f3",
+  "source_and_tests": {
+    "tests/test_accumulator_recall_bridge.py": "b5f6b4dbb50a6ef384a846ff0fc627dfda0417c65ffeaeb87817065a645b52ed",
+    "tests/test_accumulator_relevance.py": "103051176f64afe2e3b361d8696baa96b0e99db1d0513f85f8f9d323041e6576",
+    "tools/agent_memory_runtime/query_candidate_recall.py": "2c1b2b34f68b607bdcbae627d988a296d43087b9c197c2fc9ff476ef5df3ec29",
+    "tools/agent_memory_runtime/query_code_focus.py": "45805dab085f76edb2018e0b3bd23868bdd7fa8790fb9bdc9f9f7b8fe6f3d46a",
+    "tools/agent_memory_runtime/query_collect.py": "814963f9a4fee4f34bd2e3fff5ae90b3e67ed1e4259013f95030dec27e3c4d55",
+    "tools/agent_memory_runtime/query_record_loop_request.py": "d7e526bfdff3ee173eeeca9c22126dd3d0951f65b25f56e696ead45c03a096cd"
+  },
+  "actual_public_outputs": {
+    "old-source-relation-compact": "d919a0a3f6fc92c3e359c465afc2a886cea5f00130c1c91712e6170826109638",
+    "old-source-relation-raw": "5f4ef3dba885e0f427025d1fbe02f83f96fdbb979a01ccb31d68e3d35f061181",
+    "two-positive-result-compact": "2e09505a9b775a797c60c216babfb6fc6685a13f693b73b4e8a5d62797e219f4",
+    "two-positive-result-raw": "ba3faebf1c2eae21ad8b4129eddcacf867903d5e2360584e881b74973feafb05"
+  },
+  "actual_result_sha256": "b597ec9f496261a1f3b88ee94c5a342bc5393999cc7a8fcd1f543f273e6642c9",
+  "component_final_stderr_sha256": "3e34c2082510273b43e11f73054b5c855cdca17ee8b07ec8c8d3ce909006e9f6",
+  "scope": "Independent Development follow-up; no original26 recount; V1 STOP preserved."
+}

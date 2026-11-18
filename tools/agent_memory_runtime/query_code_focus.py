@@ -13,7 +13,7 @@ from .arkts_ui_behavior import (
 )
 from .query_behavior_concepts import behavior_marker_terms, matching_behavior_markers
 from .query_language import target_role_terms
-from .text import identifier_tokens
+from .text import identifier_tokens, terms_from_text, unique_list
 
 
 IDENTITY_REASONS = {"exact_symbol", "exact_file_path", "exact_identifier"}
@@ -38,6 +38,7 @@ def score_file_behavior_match(
     query: str,
     score: float,
     reasons: list[str],
+    *, extra_markers: tuple[str, ...] = (),
 ) -> tuple[float, list[str]]:
     matches = matching_operation_names(
         summary,
@@ -49,7 +50,9 @@ def score_file_behavior_match(
     if distinctive_operation_names(matches):
         score += 12.0
         reasons.append("exact_behavior_operation")
-    structural = matching_behavior_markers(summary, query)
+    indexed = {term.casefold() for term in terms_from_text(summary)}
+    structural = unique_list([*matching_behavior_markers(summary, query),
+                              *(term for term in extra_markers if term in indexed)])
     if structural:
         score += 4.0 + 2.0 * (len(structural) - 1)
         reasons.append("structural_behavior")

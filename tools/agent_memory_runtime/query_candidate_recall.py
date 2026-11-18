@@ -8,6 +8,7 @@ from typing import Any, Protocol
 from .models import Project, QUERY_FTS_RECALL_LIMITS
 from .index_freshness import filter_fresh_candidate_rows
 from .query_behavior_concepts import behavior_marker_terms
+from .query_record_loop_request import accumulator_markers
 from .query_touch_index_recall import projected_method_terms, filter_projected_method_ids, projected_behavior_terms
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
 from .query_fielded_retrieval import candidate_refs
@@ -250,6 +251,10 @@ def recall_table_candidates(
         behavior_marker_terms(query)
         if table_name in STRUCTURAL_RECALL_TABLES else []
     )
+    # Recall-only bridge: never infer original intent from stripped text.
+    accumulator = accumulator_markers(original_query, query)
+    if accumulator and table_name == "code_files":
+        structural_terms = unique_list([*structural_terms, *accumulator])
     fielded_recall = table_name in TERM_COVERAGE_TABLES and bool(focus_terms)
     broad_limit = max(1, int(limit * 0.7)) if fielded_recall else limit
     broad_expression = fts_match_expression(query)
@@ -292,6 +297,8 @@ def recall_table_candidates(
             )
     method_terms = projected_method_terms(query, property_projection, original_query)
     behavior_terms = projected_behavior_terms(query, property_projection, original_query)
+    if accumulator and table_name == "code_symbols":
+        behavior_terms = unique_list([*behavior_terms, *accumulator])
     if table_name == "code_symbols" and len(method_terms) >= 2:
         method_ids = fts_table_ids(
             conn, project, "code_method_fts",
