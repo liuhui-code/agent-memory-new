@@ -1,0 +1,91 @@
+{
+  "classification": "development",
+  "origin": "Reused immutable independent Warehouse/Energy source fixtures; new broader request-qualification protocol frozen before first run. Not reported incidents.",
+  "stop": "No source/query rewrite if no public missing target. Only explicit2000 preserve considered; no default1500 metadata trimming, no runtime trigger causality.",
+  "cases": [
+    {
+      "id": "Warehouse",
+      "sources": {
+        "WarehouseAccumulator.ets": "@Component\nstruct WarehouseAccumulator {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => {\n      this.total += row.quantity\n    })\n  }\n  build() { Text(`${this.total}`) }\n}\n",
+        "WarehouseList.ets": "@Component\nstruct WarehouseList {\n  @State rows: StockRow[] = []\n  build() {\n    Column() {\n      ForEach(this.rows, (row: StockRow) => {\n        Text(`${row.quantity}`)\n      })\n    }\n  }\n}\n",
+        "WarehousePreview.ets": "@Component\nstruct WarehousePreview {\n  @State rows: StockRow[] = []\n  @State total: number = 0\n  build() {\n    Column() {\n      Text(`${this.total}`)\n      ForEach(this.rows, (row: StockRow) => { Text(`${row.quantity}`) })\n    }\n  }\n}\n",
+        "WarehouseReset.ets": "@Component\nstruct WarehouseReset {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => { console.info(`${row.quantity}`) })\n  }\n}\n",
+        "WarehouseDeferred.ets": "@Component\nstruct WarehouseDeferred {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.rows.forEach((row: StockRow) => {\n      queueMicrotask(() => { this.total += row.quantity })\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "reactive-en",
+          "query": "Locate the reactive aggregation owner.",
+          "required": "WarehouseAccumulator.ets"
+        },
+        {
+          "id": "state-zh",
+          "query": "请定位状态聚合源码，不要返回数据实体。",
+          "required": "WarehouseAccumulator.ets"
+        },
+        {
+          "id": "context-zh",
+          "query": "当前汇总值未变化，请定位状态聚合源码，不要返回数据实体。",
+          "required": "WarehouseAccumulator.ets"
+        },
+        {
+          "id": "generic",
+          "query": "Locate the state and iteration source.",
+          "required": null
+        },
+        {
+          "id": "display",
+          "query": "Locate the list display source.",
+          "required": null
+        },
+        {
+          "id": "negative",
+          "query": "Do not locate the reactive aggregation owner.",
+          "required": null
+        }
+      ]
+    },
+    {
+      "id": "Energy",
+      "sources": {
+        "EnergyAccumulator.ets": "@Component\nstruct EnergyAccumulator {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: MeterRow) => {\n      this.total += row.watts\n    })\n  }\n  build() { Text(`${this.total}`) }\n}\n",
+        "EnergyList.ets": "@Component\nstruct EnergyList {\n  @State rows: MeterRow[] = []\n  build() {\n    Column() {\n      ForEach(this.rows, (row: MeterRow) => {\n        Text(`${row.watts}`)\n      })\n    }\n  }\n}\n",
+        "EnergyPreview.ets": "@Component\nstruct EnergyPreview {\n  @State rows: MeterRow[] = []\n  @State total: number = 0\n  build() {\n    Column() {\n      Text(`${this.total}`)\n      ForEach(this.rows, (row: MeterRow) => { Text(`${row.watts}`) })\n    }\n  }\n}\n",
+        "EnergyReset.ets": "@Component\nstruct EnergyReset {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: MeterRow) => { console.info(`${row.watts}`) })\n  }\n}\n",
+        "EnergyDeferred.ets": "@Component\nstruct EnergyDeferred {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.rows.forEach((row: MeterRow) => {\n      queueMicrotask(() => { this.total += row.watts })\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "reactive-en",
+          "query": "Locate the reactive aggregation owner.",
+          "required": "EnergyAccumulator.ets"
+        },
+        {
+          "id": "state-zh",
+          "query": "请定位状态聚合源码，不要返回数据实体。",
+          "required": "EnergyAccumulator.ets"
+        },
+        {
+          "id": "context-zh",
+          "query": "当前汇总值未变化，请定位状态聚合源码，不要返回数据实体。",
+          "required": "EnergyAccumulator.ets"
+        },
+        {
+          "id": "generic",
+          "query": "Locate the state and iteration source.",
+          "required": null
+        },
+        {
+          "id": "display",
+          "query": "Locate the list display source.",
+          "required": null
+        },
+        {
+          "id": "negative",
+          "query": "Do not locate the reactive aggregation owner.",
+          "required": null
+        }
+      ]
+    }
+  ]
+}

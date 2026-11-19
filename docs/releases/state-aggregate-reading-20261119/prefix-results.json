@@ -1,0 +1,58 @@
+{
+  "positive": [
+    {
+      "query": "Changing the selected district leaves supply and demand totals stale. Locate the reactive aggregation owner.",
+      "accepted": true
+    },
+    {
+      "query": "Switching the selected week keeps traffic totals unchanged. Return the reactive aggregation source.",
+      "accepted": true
+    },
+    {
+      "query": "切换区域后供需汇总不刷新，请定位状态聚合源码，不要返回数据实体。",
+      "accepted": true
+    },
+    {
+      "query": "切换周期后访问汇总不刷新，请查找状态聚合源码。",
+      "accepted": true
+    }
+  ],
+  "negative": [
+    {
+      "query": "In Billing. Locate the reactive aggregation owner.",
+      "accepted": false
+    },
+    {
+      "query": "Ignore Revenue. Locate the reactive aggregation owner.",
+      "accepted": false
+    },
+    {
+      "query": "账单侧，请定位状态聚合源码。",
+      "accepted": false
+    },
+    {
+      "query": "排除收入，请定位状态聚合源码。",
+      "accepted": false
+    },
+    {
+      "query": "Changing the selected week leaves traffic totals unchanged. Ignore Billing. Locate the reactive aggregation owner.",
+      "accepted": false
+    },
+    {
+      "query": "切换周期后访问汇总不刷新，只看付款模块，请定位状态聚合源码。",
+      "accepted": false
+    },
+    {
+      "query": "切换仅付款后收入汇总不刷新，请定位状态聚合源码。",
+      "accepted": false
+    },
+    {
+      "query": "Compare the reactive aggregation owner.",
+      "accepted": false
+    },
+    {
+      "query": "Do not locate the reactive aggregation owner.",
+      "accepted": false
+    }
+  ]
+}

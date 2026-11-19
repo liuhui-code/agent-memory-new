@@ -16,15 +16,19 @@ from .query_output_loop_selection import valid_row
 _active = ContextVar('receiver_empty_command', default=None)
 
 
-def inventory(project):
+def inventory(project, paths=None):
+    if paths is not None and (not 0<len(paths)<=12 or any(not isinstance(p,str) or not p for p in paths)): return None
     start = time.monotonic()
     try:
         with connect(project) as conn:
             conn.set_progress_handler(lambda: int(time.monotonic()-start > .2), 1000)
             conn.execute('BEGIN')
             state = conn.execute('SELECT * FROM code_index_state WHERE project_id=?', (project.project_id,)).fetchone()
-            files = [dict(r) for r in conn.execute('SELECT * FROM code_files WHERE project_id=? ORDER BY id LIMIT 13', (project.project_id,))]
-            symbols = [dict(r) for r in conn.execute('SELECT * FROM code_symbols WHERE project_id=? ORDER BY id LIMIT 257', (project.project_id,))]
+            suffix='' if paths is None else ' AND file_path IN ('+','.join('?'for _ in paths)+')'
+            args=[project.project_id,*(paths or [])]
+            files = [dict(r) for r in conn.execute('SELECT * FROM code_files WHERE project_id=?'+suffix+' ORDER BY id LIMIT 13',args)]
+            symbols = [dict(r) for r in conn.execute('SELECT * FROM code_symbols WHERE project_id=?'+suffix+' ORDER BY id LIMIT 257',args)]
+            if paths is not None and len(files)!=len(paths):return None
             if state is None or state['status'] != 'active': return None
             state = dict(state)
         rows = [r for r in symbols if r['symbol_type'] in {'function','method'}]
@@ -45,14 +49,18 @@ def empty_eligible(data):
             and receiver_iteration_terms(data.get('query')))
 
 
-def authenticate(project, data, state, deadline=None):
-    if not empty_eligible(data) or state is None: return None
+def authenticate(project, data, state, deadline=None, *, state_bound=False, allowed=None):
+    if state_bound:
+        from .state_aggregate_transaction import eligible
+        if not eligible(data):return None
+    elif not empty_eligible(data):return None
+    if state is None:return None
     deadline = time.monotonic()+.5 if deadline is None else deadline
     files, rows, symbols, index = state
     root = Path(project.root).resolve()
     generation = data['source_freshness'].get('generation')
     if index['generation'] != generation: return None
-    anchors, members = [], []
+    anchors, members, receipts = [], [], []
     total_bytes = 0
     for f in files:
         if time.monotonic()>deadline: return None
@@ -67,6 +75,7 @@ def authenticate(project, data, state, deadline=None):
         if path.suffix not in {'.ets','.ts'}: continue
         lines=source.split('\n')
         for row in [r for r in rows if r['file_path']==name]:
+            if allowed is not None and (name,row.get('owner_name'),row['symbol'],row['start_line'],row['end_line']) not in allowed:continue
             if (not valid_row(row,project) or row.get('source_digest')!=f['source_digest']
                     or row.get('index_generation')!=generation or row['end_line']>len(lines)): return None
             lo,hi=row['start_line'],row['end_line']; text='\n'.join(lines[lo-1:hi])
@@ -82,6 +91,9 @@ def authenticate(project, data, state, deadline=None):
                     or not owner['start_line']<=lo<=hi<=owner['end_line']
                     or row['qualified_name']!=owner['symbol']+'.'+row['symbol']
                     or not re.search(r'\b(?:class|struct)\s+'+re.escape(owner['symbol'])+r'\b',lines[owner['start_line']-1])): return None
+            if state_bound:
+                from .state_aggregate_transaction import state_binding
+                if not state_binding(source,row,owner,[r for r in rows if r['file_path']==name]):continue
             span=dict(symbol=row['symbol'],start_line=lo,end_line=hi)
             anchors.append(dict(file_path=name,symbol=row['symbol'],symbol_type=row['symbol_type'],
                 record_ids=[row['id']],record_type='code_symbol',source_ranges=[span],
@@ -90,23 +102,28 @@ def authenticate(project, data, state, deadline=None):
                 source_excerpts=[dict(span,content=text,source='validated_request_snapshot',
                     selection_reason='complete_direct_receiver_callback_syntax',focus_line=None,truncated=False)]))
             members.append(dict(row,kind='symbol'))
-    return (anchors,members) if 0<len(anchors)<=2 else None
+            if state_bound:receipts.append(dict(file=f,lines=lines,members=[row]))
+    if not 0<len(anchors)<=2:return None
+    return (anchors,members,receipts) if state_bound else (anchors,members)
 
 
 def defer_accounting(project,query,data):
     session=_active.get()
     from .render_additive_transaction import eligible as render_eligible
     render = session is not None and session.allow_render and render_eligible(data)
+    from .state_aggregate_transaction import eligible as aggregate_eligible
+    aggregate = session is not None and session.allow_aggregate and aggregate_eligible(data)
     if (session is None or session.project!=project or session.query!=query
-            or session.baseline is not None or type(data) is not dict or not (empty_eligible(data) or render)):
+            or session.baseline is not None or type(data) is not dict or not (empty_eligible(data) or render or aggregate)):
         return False
     session.baseline=deepcopy(data)
     return True
 
 
 class EmptyReceiverSession:
-    def __init__(self,project,query,*,allow_render=False):
+    def __init__(self,project,query,*,allow_render=False,allow_aggregate=False):
         self.allow_render=allow_render
+        self.allow_aggregate=allow_aggregate
         self.project=project; self.query=query; self.baseline=None; self.done=False
     def __enter__(self):
         self.token=_active.set(self); return self
@@ -124,11 +141,17 @@ class EmptyReceiverSession:
     def finalize(self,output):
         if self.baseline is None: return output
         if not empty_eligible(self.baseline):
-            from .render_additive_transaction import finalize
+            from .state_aggregate_transaction import eligible as aggregate_eligible
+            if self.allow_aggregate and aggregate_eligible(self.baseline):
+                from .state_aggregate_transaction import finalize
+            else:
+                from .render_additive_transaction import finalize
             result,members=finalize(self.project,self.baseline,output)
             adopted=deepcopy(self.baseline)
             existing={(r.get('file_path'),r.get('id'),r.get('symbol_key')) for r in adopted.get('wiki_matches',[])}
             adopted['wiki_matches']=[*adopted.get('wiki_matches',[]),*(r for r in members if (r['file_path'],r['id'],r['symbol_key']) not in existing)]
+            if adopted.get('query_handoff',{}).get('code_anchors')==[] and members:
+                adopted['query_handoff']['code_anchors']=deepcopy(result['query_handoff']['code_anchors'])
             self.commit(adopted)
             return result
         from .context_record_loop_transaction import apply_record_loop_transaction

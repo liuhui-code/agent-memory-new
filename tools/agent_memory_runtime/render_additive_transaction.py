@@ -83,7 +83,7 @@ def qualify(project, baseline, deadline):
     return receipts if 0<len(receipts)<=3 and time.monotonic()<=deadline else None
 
 
-def append_passages(output, receipts):
+def append_passages(output, receipts, *, selection_reason='static_render_expression',anchor_role=None):
     if type(output) is not dict or not isinstance(output.get('output_budget'),dict): return output, []
     if output['output_budget'].get('target_tokens') not in (1500,2000): return output, []
     candidate=deepcopy(output);h=candidate.get('query_handoff',{});anchors=h.get('code_anchors')
@@ -104,12 +104,13 @@ def append_passages(output, receipts):
             if covered: continue
             if hi-lo+1>MAX_EXCERPT_LINES or len(text)>MAX_EXCERPT_CHARS: return output, []
             missing.append((row,dict(symbol=row['symbol'],start_line=lo,end_line=hi,content=text,
-                source='validated_request_snapshot',selection_reason='static_render_expression',truncated=False)))
+                source='validated_request_snapshot',selection_reason=selection_reason,truncated=False)))
         if not missing: continue
         # Never grow an existing anchor's identity or read window. A new source
         # passage is a separate supporting object even when its path is shared.
         anchor=dict(file_path=f['file_path'],record_ids=[],record_type='code_symbol',source_ranges=[],
                     read_window=dict(start_line=min(r['start_line']for r,e in missing),end_line=max(r['end_line']for r,e in missing)),source_excerpts=[])
+        if anchor_role is not None:anchor['role']=anchor_role
         anchors.append(anchor)
         snapshot=dict(index_generation=f['index_generation'],source_digest=f['source_digest'])
         if 'source_snapshot' in anchor and anchor['source_snapshot']!=snapshot: return output, []

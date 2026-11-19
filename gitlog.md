@@ -288,6 +288,20 @@
 
 # Local Development Log
 
+## 2026-11-19 — Optional source-bound state update reading for original08
+
+- Reuse isolated once-accounting transaction; admit only finite aggregation requests
+  in explicit2000+preserve. Bind direct receiver updates to same-component @State
+  number declarations and exact current candidate/source identity. No default/rank
+  or old request-grammar change; all old nonempty evidence stays intact.
+- Original08 Chinese optional output gains full reloadSummary9–16,1274→1479; original
+  English and paraphrase unchanged. Standard157 default gate remains1/3, not closed.
+- Six independent Development positives gain source; six controls unchanged.75 final
+  focused/performance tests and line limits pass. Rejected arbitrary-prefix parser
+  and corrected empty-display/nonempty-candidate risk retained in evidence.
+- docs/releases/state-aggregate-reading-20261119/ records static-only boundaries,
+  full reversibility and no runtime trigger/unique-root-cause claim.
+
 ## 2026-11-19 — Add authenticated requested declaration bodies without dropping context
 
 - Two unchanged public Development inputs selected an interface but displayed only

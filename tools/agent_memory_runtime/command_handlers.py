@@ -159,7 +159,8 @@ def context(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     from .receiver_empty_transaction import EmptyReceiverSession
-    with EmptyReceiverSession(project, args.query, allow_render=args.compact) as receiver_session:
+    with EmptyReceiverSession(project, args.query, allow_render=args.compact,
+                              allow_aggregate=(args.compact and budget==2000 and preserve)) as receiver_session:
         data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))
         if args.compact:
             from copy import deepcopy
