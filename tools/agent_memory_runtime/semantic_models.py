@@ -212,6 +212,14 @@ def source_text(raw: bytes) -> str:
     return raw.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n")
 
 
+def physical_source_lines(text: str) -> list[str]:
+    """Use file-reader CR/LF coordinates without splitting literal Unicode separators."""
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    if lines and lines[-1] == "":
+        lines.pop()
+    return lines
+
+
 def source_digest(source: str | bytes) -> str:
     """Hash file bytes unchanged; text is for synthetic/revision-only callers."""
     raw = source.encode("utf-8") if isinstance(source, str) else source

@@ -26,7 +26,7 @@ from .semantic_callable_profile import callable_roles, owner_kind
 from .semantic_dispatch_candidates import expand_dispatch_candidates
 from .semantic_models import (
     MAX_GAPS, SemanticBatch, SemanticEntity, SemanticMechanism,
-    SemanticRelation, source_digest, source_text, symbol_key,
+    SemanticRelation, source_digest, source_text, symbol_key, physical_source_lines,
 )
 from .source_call_scanner import call_argument_count, code_mask, scan_calls_masked
 CONTAINER_RE = re.compile(
@@ -110,7 +110,7 @@ def parse_source(
     digest = source_digest(text)
     text = source_text(text) if isinstance(text, bytes) else text
     rel_path = path.relative_to(project.root).as_posix()
-    lines = text.splitlines()
+    lines = physical_source_lines(text)
     entities: list[SemanticEntity] = []
     relations: list[SemanticRelation] = []
     gaps: list[dict[str, str]] = []

@@ -21,7 +21,10 @@ def qualified_source(project,payload,anchor,candidate):
     if p.is_absolute()or '..'in p.parts or str(p)!=path or p.suffix not in {'.ts','.ets'}or not file.is_relative_to(root):return None
     with file.open('rb')as stream:raw=stream.read(2*1024*1024+1)
     if len(raw)>2*1024*1024 or b'\0'in raw:return None
-    lines=raw.decode('utf-8').splitlines();digest=hashlib.sha256(raw).hexdigest();generation=payload['source_freshness']['generation']
+    text=raw.decode('utf-8')
+    # Legacy expanded_from readers use splitlines; decline ambiguous coordinates.
+    if any(c in text for c in '\v\f\x1c\x1d\x1e\x85\u2028\u2029'):return None
+    lines=text.splitlines();digest=hashlib.sha256(raw).hexdigest();generation=payload['source_freshness']['generation']
     if hi>len(lines):return None
     with connect(project)as conn:
         files=[dict(r)for r in conn.execute('SELECT * FROM code_files WHERE project_id=? AND file_path=?',(project.project_id,path))]

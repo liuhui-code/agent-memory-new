@@ -9,7 +9,7 @@ from pathlib import Path
 
 from .callable_behavior_hints import callable_behavior_hints
 from .models import Project
-from .semantic_models import SemanticEntity
+from .semantic_models import SemanticEntity, physical_source_lines
 from .text import ENGLISH_QUERY_STOPWORDS, identifier_tokens, unique_list
 
 
@@ -44,7 +44,9 @@ def load_semantic_source_lines(
         if source is None:
             continue
         try:
-            loaded[file_path] = read_source_text(source).splitlines()
+            text = read_source_text(source)
+            loaded[file_path] = (physical_source_lines(text)
+                                 if source.suffix.lower() in {".ts", ".tsx", ".ets"} else text.splitlines())
         except OSError:
             continue
     return loaded

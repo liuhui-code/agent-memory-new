@@ -1,0 +1,178 @@
+[
+  {
+    "name": "inside",
+    "anchors": [
+      {
+        "file_path": "DocumentStore.ts",
+        "symbol": "save",
+        "symbol_type": "function",
+        "record_ids": [
+          2,
+          1
+        ],
+        "source_ranges": [
+          {
+            "symbol": "save",
+            "start_line": 2,
+            "end_line": 6
+          },
+          {
+            "symbol": "DocumentStore",
+            "start_line": 1,
+            "end_line": 7
+          }
+        ],
+        "record_type": "code_symbol",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 7
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "save",
+            "start_line": 1,
+            "end_line": 7,
+            "content": "export class DocumentStore {\n  save(value: string): string {\n    const label = 'Document label'\n    if (value.length === 0) { return label }\n    return value.trim()\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "template",
+    "anchors": [
+      {
+        "file_path": "DocumentStore.ts",
+        "symbol": "save",
+        "symbol_type": "function",
+        "record_ids": [
+          2,
+          1
+        ],
+        "source_ranges": [
+          {
+            "symbol": "save",
+            "start_line": 3,
+            "end_line": 5
+          },
+          {
+            "symbol": "DocumentStore",
+            "start_line": 1,
+            "end_line": 6
+          }
+        ],
+        "record_type": "code_symbol",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 6
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "save",
+            "start_line": 1,
+            "end_line": 6,
+            "content": "export class DocumentStore {\n  label: string = `Document label`\n  save(value: string): string {\n    return value.trim()\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "comment",
+    "anchors": [
+      {
+        "file_path": "DocumentStore.ts",
+        "symbol": "save",
+        "symbol_type": "function",
+        "record_ids": [
+          2,
+          1
+        ],
+        "source_ranges": [
+          {
+            "symbol": "save",
+            "start_line": 3,
+            "end_line": 5
+          },
+          {
+            "symbol": "DocumentStore",
+            "start_line": 1,
+            "end_line": 6
+          }
+        ],
+        "record_type": "code_symbol",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 6
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "save",
+            "start_line": 1,
+            "end_line": 6,
+            "content": "export class DocumentStore {\n  /* Document label */\n  save(value: string): string {\n    return value.trim()\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "outside",
+    "anchors": [
+      {
+        "file_path": "DocumentStore.ts",
+        "symbol": "save",
+        "symbol_type": "function",
+        "record_ids": [
+          3,
+          1
+        ],
+        "source_ranges": [
+          {
+            "symbol": "save",
+            "start_line": 3,
+            "end_line": 5
+          },
+          {
+            "symbol": "DocumentStore",
+            "start_line": 1,
+            "end_line": 6
+          }
+        ],
+        "record_type": "code_symbol",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 6
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "save",
+            "start_line": 1,
+            "end_line": 6,
+            "content": "export class DocumentStore {\n  label: string = 'a'; hidden(): string { return 'b' }\n  save(value: string): string {\n    return value.trim()\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+{
+  "source": "export class QueuePolicy {\n  label: string = `Queue\u2029policy`\n  permits(items: string[]): boolean {\n    if (items.length > 5) { return false }\n    return true\n  }\n}\n",
+  "query": "Locate QueuePolicy.permits size guard source."
+}

@@ -97,3 +97,21 @@ class CallableEnvelopeTests(AgentMemoryTestBase):
         p=deepcopy(self.payload);a=p['query_handoff']['code_anchors'][0];a['symbol']='toggleRegion';a['source_ranges']=[dict(symbol='toggleRegion',start_line=5,end_line=10)];a['read_window']=dict(start_line=5,end_line=10)
         self.assertIsNot(self.apply(p),p)
         a['read_window']['start_line']=6;self.assertIs(self.apply(p),p)
+
+    def test_unicode_separator_after_matching_prefix_declines_expansion(self):
+        for separator in ('\u2028', '\u2029'):
+            source = SOURCE.replace("Button('Toggle')", "Button('To" + separator + "ggle')")
+            self.file.write_text(source)
+            self.run_memory(self.root, 'learn-path', '--path', '.')
+            with connect(self.project) as conn:
+                row = dict(conn.execute("SELECT * FROM code_symbols WHERE symbol='toggleRegion'").fetchone())
+            p = deepcopy(self.payload)
+            p['source_freshness']['generation'] = row['index_generation']
+            e = p['query_handoff']['code_anchors'][0]['source_excerpts'][0]
+            e.update(end_line=7, content="\n".join(source.split('\n')[5:7]))
+            # Prefix is unchanged; only the undisplayed suffix contains LS/PS.
+            self.assertEqual(e['content'], "\n".join(SOURCE.split('\n')[5:7]))
+            self.assertEqual((row['start_line'], row['end_line']), (5,10))
+            p['query_handoff']['source_excerpt_policy']['excerpt_chars'] = len(e['content'])
+            synchronize_estimate(p)
+            self.assertIs(self.apply(p), p)

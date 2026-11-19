@@ -1,3 +1,15 @@
+## 2026-11-19 — Keep typed ECMA coordinates aligned with physical source excerpts
+
+- Reproduced LS/PS string-literal source-range drift in two independent Development
+  public CLI projects; correct typed ranges and TS/TSX/ETS method evidence slicing.
+- Preserve raw-byte hashes and ordinary LF/CRLF/CR semantics. Merge-refresh of
+  archived old indexes repairs coordinates without editing their retained copies.
+- Decline legacy full-method expansion for extra Unicode/control splitlines
+  separators, preventing a false complete suffix while retaining original excerpts.
+- 38 focused methods pass. No old failure group, aggregate gate, external corpus,
+  default budget tradeoff, or runtime causal conclusion is claimed solved.
+- Evidence: docs/evidence/semantic-physical-lines/RESULT.md.
+
 ## 2026-11-19 — Add default guarded-field source followup without losing evidence
 
 ## 2026-11-19 — Preserve stage-13 source-return qualification and stop boundary

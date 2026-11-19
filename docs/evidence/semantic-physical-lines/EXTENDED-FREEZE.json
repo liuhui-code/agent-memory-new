@@ -1,0 +1,6 @@
+{
+  "inside": "export class DocumentStore {\n  save(value: string): string {\n    const label = 'Document label'\n    if (value.length === 0) { return label }\n    return value.trim()\n  }\n}\n",
+  "template": "export class DocumentStore {\n  label: string = `Document label`\n  save(value: string): string {\n    return value.trim()\n  }\n}\n",
+  "comment": "export class DocumentStore {\n  /* Document label */\n  save(value: string): string {\n    return value.trim()\n  }\n}\n",
+  "outside": "export class DocumentStore {\n  label: string = 'a'; hidden(): string { return 'b' }\n  save(value: string): string {\n    return value.trim()\n  }\n}\n"
+}
