@@ -1,0 +1,12 @@
+======================================================================
+FAIL: test_real_oversize_source_body_retains_navigation (tests.test_graph_field_body.GraphFieldBodyTests.test_real_oversize_source_body_retains_navigation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_graph_field_body.py", line 104, in test_real_oversize_source_body_retains_navigation
+    self.assertEqual(len(old['query_handoff']['next_queries']),2)
+AssertionError: 0 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 1.474s
+
+FAILED (failures=1)

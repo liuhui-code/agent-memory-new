@@ -1,0 +1,7 @@
+# Final review
+
+An independent reviewer checked569 recorded artifact hashes, the30 final before/after pairs, exact new source text and baseline restoration. Only two-matches/customer-two default and explicit1500 change. New method bodies are exact6–12; all original anchors remain as an unchanged prefix. Removing additions and restoring only excerpt counters/token estimate recovers all old JSON values. A second coordinator check independently repeated the30-pair restoration and source-byte checks.
+
+Final targeted log records92 passing test invocations, including inherited duplicate tests; this is not92 newly added tests or a full suite. Real body timeout and oversized-source unit branches preserve old valid hints. Oversized-source unit supplies current indexed edges/status because its artificial long source had no lexical recall; this is explicitly a unit boundary check, not a new natural public red. Ordinary dicts are not receipt inputs through the public CLI; the internal typed receipt is not claimed cryptographically unforgeable.
+
+No changed query, public source fixture, oracle, score, shared ranking, early selection, old role, old exclusive View authority, source limit or budget. Original13 stays unchanged; no original-group closure. The new body is terminal, and all non-enabled modes retain their previous behavior. Consumer observations are separately bounded in CONSUMERS.md.

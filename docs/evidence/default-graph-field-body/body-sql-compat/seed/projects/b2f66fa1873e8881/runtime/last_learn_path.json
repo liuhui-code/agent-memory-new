@@ -1,0 +1,530 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/body-sql-compat/source",
+  "path": ".",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "src/CatalogReader.ts",
+    "src/DirectoryReader.ts"
+  ],
+  "count": 2,
+  "summary": "Merged 2 files from .",
+  "parse_stats": {
+    "files_indexed": 2,
+    "skipped_by_reason": {},
+    "languages": {
+      "TypeScript": 2
+    },
+    "symbols_total": 8,
+    "symbols_by_type": {
+      "class": 2,
+      "const": 2,
+      "function": 4
+    },
+    "code_logs_total": 0,
+    "code_logs_by_level": {},
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "typescript-static",
+          "version": "1.2",
+          "language": "TypeScript"
+        }
+      ],
+      "capabilities": [
+        "api_boundaries",
+        "async_flow",
+        "callbacks",
+        "calls",
+        "definitions",
+        "inheritance",
+        "mechanisms",
+        "references",
+        "types"
+      ],
+      "files_indexed": 2,
+      "entities": 6,
+      "relations_extracted": 6,
+      "mechanisms_extracted": 2,
+      "relations_emitted": 6,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 4,
+      "gaps": [],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "TypeScript",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 2
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 0,
+        "effects_emitted": 0,
+        "truncated": false,
+        "max_wrapper_depth": 0
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 8,
+        "reference_name_count": 0,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 8
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 2,
+      "symbols_written": 8,
+      "passages_written": 10
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/body-sql-compat/source",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 2,
+      "scope_files": [
+        "src/CatalogReader.ts",
+        "src/DirectoryReader.ts"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 2,
+          "code_log_statement": 0,
+          "code_symbol": 8
+        },
+        "edge_count": 14,
+        "relation_counts": {
+          "calls": 2,
+          "contains": 8,
+          "exposes_api": 4
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 14,
+      "edge_delta": 14
+    },
+    "phase_ms": {
+      "extract": 3.118,
+      "load_scope": 5.614,
+      "invalidate": 1.024,
+      "prepare_rows": 3.644,
+      "insert_rows": 0.516,
+      "restore_business": 0.125,
+      "rebuild_graph": 15.742,
+      "summarize": 0.16,
+      "commit": 0.846,
+      "total": 30.805
+    },
+    "memory_edges_total": 14,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 2,
+      "symbols": 8,
+      "logs": 0
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 0,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "src/DirectoryReader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "resolve",
+              "symbol_type": "function",
+              "summary": "function resolve in src/DirectoryReader.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "directoryreader",
+                "ts",
+                "resolve",
+                "function",
+                "in",
+                "directory",
+                "reader"
+              ],
+              "hint_context": [
+                "src/DirectoryReader.ts",
+                "resolve",
+                "function",
+                "function resolve in src/DirectoryReader.ts"
+              ]
+            },
+            {
+              "symbol": "executeRows",
+              "symbol_type": "function",
+              "summary": "function executeRows in src/DirectoryReader.ts; identifier terms: execute rows",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "directoryreader",
+                "ts",
+                "executerows",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "execute",
+                "rows",
+                "directory",
+                "reader"
+              ],
+              "hint_context": [
+                "src/DirectoryReader.ts",
+                "executeRows",
+                "function",
+                "function executeRows in src/DirectoryReader.ts; identifier terms: execute rows"
+              ]
+            },
+            {
+              "symbol": "statement",
+              "symbol_type": "const",
+              "summary": "const statement in src/DirectoryReader.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "directoryreader",
+                "ts",
+                "statement",
+                "const",
+                "in",
+                "directory",
+                "reader"
+              ],
+              "hint_context": [
+                "src/DirectoryReader.ts",
+                "statement",
+                "const",
+                "const statement in src/DirectoryReader.ts"
+              ]
+            },
+            {
+              "symbol": "DirectoryReader",
+              "symbol_type": "class",
+              "summary": "class DirectoryReader in src/DirectoryReader.ts; identifier terms: directory reader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "directoryreader",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "directory",
+                "reader"
+              ],
+              "hint_context": [
+                "src/DirectoryReader.ts",
+                "DirectoryReader",
+                "class",
+                "class DirectoryReader in src/DirectoryReader.ts; identifier terms: directory reader"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 92,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "directoryreader",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "resolve",
+            "executerows",
+            "statement",
+            "directory",
+            "reader",
+            "type",
+            "script",
+            "execute",
+            "rows"
+          ],
+          "hint_context": [
+            "src/DirectoryReader.ts",
+            "TypeScript file with 9 non-empty lines",
+            "resolve executeRows statement DirectoryReader"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/CatalogReader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "queryRows",
+              "symbol_type": "function",
+              "summary": "function queryRows in src/CatalogReader.ts; identifier terms: query rows",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "catalogreader",
+                "ts",
+                "queryrows",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "query",
+                "rows",
+                "catalog",
+                "reader"
+              ],
+              "hint_context": [
+                "src/CatalogReader.ts",
+                "queryRows",
+                "function",
+                "function queryRows in src/CatalogReader.ts; identifier terms: query rows"
+              ]
+            },
+            {
+              "symbol": "lookup",
+              "symbol_type": "function",
+              "summary": "function lookup in src/CatalogReader.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "catalogreader",
+                "ts",
+                "lookup",
+                "function",
+                "in",
+                "catalog",
+                "reader"
+              ],
+              "hint_context": [
+                "src/CatalogReader.ts",
+                "lookup",
+                "function",
+                "function lookup in src/CatalogReader.ts"
+              ]
+            },
+            {
+              "symbol": "statement",
+              "symbol_type": "const",
+              "summary": "const statement in src/CatalogReader.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "catalogreader",
+                "ts",
+                "statement",
+                "const",
+                "in",
+                "catalog",
+                "reader"
+              ],
+              "hint_context": [
+                "src/CatalogReader.ts",
+                "statement",
+                "const",
+                "const statement in src/CatalogReader.ts"
+              ]
+            },
+            {
+              "symbol": "CatalogReader",
+              "symbol_type": "class",
+              "summary": "class CatalogReader in src/CatalogReader.ts; identifier terms: catalog reader",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "catalogreader",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "catalog",
+                "reader"
+              ],
+              "hint_context": [
+                "src/CatalogReader.ts",
+                "CatalogReader",
+                "class",
+                "class CatalogReader in src/CatalogReader.ts; identifier terms: catalog reader"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 92,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "catalogreader",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "queryrows",
+            "lookup",
+            "statement",
+            "catalog",
+            "reader",
+            "type",
+            "script",
+            "query",
+            "rows"
+          ],
+          "hint_context": [
+            "src/CatalogReader.ts",
+            "TypeScript file with 9 non-empty lines",
+            "queryRows lookup statement CatalogReader"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

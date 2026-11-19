@@ -3,6 +3,7 @@
 No new ranking, owner/causal authority, body delivery or recursive graph search.
 """
 from copy import deepcopy
+from dataclasses import dataclass
 import hashlib
 from pathlib import Path, PurePosixPath
 import sqlite3
@@ -52,7 +53,16 @@ def _append(project, original, payload):
     return trial if estimate_payload_tokens(trial) <= 2000 else payload
 
 
-def qualify_graph_field_navigation(project, original, payload):
+@dataclass(frozen=True)
+class _DisplayReceipt:
+    query: str
+    project_id: str
+    generation: int
+    navigation: list
+    bodies: list | None
+
+
+def qualify_graph_field_navigation(project, original, payload, *, _capture_body=False):
     permission = field_read_request(payload.get('query'))
     if not permission or not isinstance(original, dict) or original.get('query') != payload['query']:
         return None
@@ -166,7 +176,24 @@ def qualify_graph_field_navigation(project, original, payload):
                 reread = stream.read(MAX_FILE_BYTES + 1)
             if hashlib.sha256(reread).hexdigest() != digest or expired():
                 return None
-    return list(additions.values())
+    navigation = list(additions.values())
+    if _capture_body:
+        bodies = []
+        try:
+            for anchor in navigation:
+                lo, hi = anchor['read_window']['start_line'], anchor['read_window']['end_line']
+                data = captured[anchor['file_path']][1]
+                content = '\n'.join(data.decode('utf-8').splitlines()[lo-1:hi])
+                if len(content) > 1500 or expired():
+                    bodies = None
+                    break
+                bodies.append(dict(symbol=anchor['symbol'], start_line=lo, end_line=hi,
+                    content=content, source='current_worktree',
+                    selection_reason='authenticated_graph_field_body', focus_line=None, truncated=False))
+        except (UnicodeError, ValueError, KeyError):
+            bodies = None
+        return _DisplayReceipt(payload['query'], project.project_id, generation, navigation, bodies)
+    return navigation
 
 
 def _unique(rows, name):

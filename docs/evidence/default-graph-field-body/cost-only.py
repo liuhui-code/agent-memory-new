@@ -1,0 +1,12 @@
+import sys,json,pathlib,sqlite3,copy
+b=pathlib.Path(__file__).resolve().parent.parent;out=b/'recall-audit13';sys.path.insert(0,str(b/'repo/tools'))
+from agent_memory_runtime.context_budget import synchronize_estimate
+from agent_memory_runtime.performance_scoring import estimate_payload_tokens
+results=[]
+for name,field in [('two-matches','displayName'),('customer-two','customerCode')]:
+ d=json.loads((out/(name+'-current-default.json')).read_text());h=d['query_handoff'];c=h['callable_evidence']['alternatives'][0];path=c['file_path'];lo=c['source_range']['start_line'];hi=c['source_range']['end_line'];content='\n'.join((b/'default-field-followup'/name/'source'/path).read_text().splitlines()[lo-1:hi]);db=sqlite3.connect(next((b/'default-field-followup'/name/'seed').rglob('memory.db')));rid=db.execute('select id from code_symbols where file_path=? and symbol=?',(path,c['symbol'])).fetchone()[0];db.close()
+ a=dict(source='wiki',record_type='code_symbol',record_ids=[rid],file_path=path,symbol=c['symbol'],symbol_type='method',role='expansion',source_ranges=[dict(symbol=c['symbol'],start_line=lo,end_line=hi)],read_window=dict(start_line=lo,end_line=hi),display_basis=dict(kind='partial_static_guarded_field_call',field=field,domain_unverified=True,action_unverified=True,unverified_action=None),source_excerpts=[dict(symbol=c['symbol'],start_line=lo,end_line=hi,content=content,source='current_worktree',selection_reason='existing_alternative_field_body',focus_line=None,truncated=False)])
+ trial=copy.deepcopy(d);th=trial['query_handoff'];th['code_anchors'].append(a);es=[e for x in th['code_anchors'] for e in x.get('source_excerpts',[])];th['source_excerpt_policy'].update(excerpt_count=len(es),excerpt_chars=sum(len(e['content']) for e in es));synchronize_estimate(trial)
+ restored=copy.deepcopy(trial);restored['query_handoff']['code_anchors'].pop();restored['query_handoff']['source_excerpt_policy']=h['source_excerpt_policy'];restored['output_budget']=d['output_budget'];assert restored==d
+ (out/(name+'-cost-only.json')).write_text(json.dumps(trial,ensure_ascii=False,indent=2));results.append(dict(name=name,baseline=d['output_budget']['estimated_tokens'],cost_only=estimate_payload_tokens(trial),chars=th['source_excerpt_policy']['excerpt_chars'],old_objects_exact_restore=True,not_product_result=True))
+(out/'supplement-cost-summary.json').write_text(json.dumps(results,indent=2));print(results)

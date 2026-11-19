@@ -84,13 +84,14 @@ class GraphFieldFollowupTests(fixtures.GraphFieldNavigationTests):
             cli(project,'init');cli(project,'learn-path','--path','.','--json')
             args=['context','--query',frozen['query'],'--compact','--json','--project',str(root),'--memory-home',str(project.memory_home)]
             # Disable only the newly added terminal hook in a fresh process.
-            runner="import sys,runpy;sys.path.insert(0,sys.argv[1]+'/tools');import agent_memory_runtime.context_graph_field_followup as f;f.append_graph_field_followup=lambda project,original,payload:payload;p=sys.argv.pop(1)+'/tools/agent_memory.py';sys.argv[0]=p;runpy.run_path(p,run_name='__main__')"
+            runner="import sys,runpy;sys.path.insert(0,sys.argv[1]+'/tools');import agent_memory_runtime.context_graph_field_followup as f;f.append_graph_field_followup=lambda project,original,payload:payload;import agent_memory_runtime.context_graph_field_body as g;g.append_graph_field_display=lambda project,original,payload,**kw:payload;p=sys.argv.pop(1)+'/tools/agent_memory.py';sys.argv[0]=p;runpy.run_path(p,run_name='__main__')"
             before=subprocess.run([sys.executable,'-B','-c',runner,str(root_repo),*args],text=True,capture_output=True)
             self.assertEqual(before.returncode,0,before.stderr);b=json.loads(before.stdout)
             after=json.loads(cli(project,'context','--query',frozen['query'],'--compact','--json'))
             paths=after['query_handoff']['next_queries'];self.assertEqual(paths,['src/pages/ProfileEditor.ets'])
-            self.assertNotIn(paths[0],[a['file_path']for a in after['query_handoff']['code_anchors']])
-            restored=deepcopy(after);restored['query_handoff']['next_queries']=b['query_handoff']['next_queries'];restored['output_budget']=b['output_budget'];self.assertEqual(restored,b)
+            self.assertIn(paths[0],[a['file_path']for a in after['query_handoff']['code_anchors']])
+            added=after['query_handoff']['code_anchors'][-1];self.assertEqual((added['source_excerpts'][0]['start_line'],added['source_excerpts'][0]['end_line']),(6,12))
+            restored=deepcopy(after);restored['query_handoff']['next_queries']=b['query_handoff']['next_queries'];restored['output_budget']=b['output_budget'];restored['query_handoff']['code_anchors']=b['query_handoff']['code_anchors'];restored['query_handoff']['source_excerpt_policy']=b['query_handoff']['source_excerpt_policy'];self.assertEqual(restored,b)
             large=json.loads(cli(project,'context','--query',frozen['query'],'--compact','--compact-token-budget','2000','--preserve-selected-source-anchors','--json'))
             self.assertEqual(large['query_handoff']['next_queries'],b['query_handoff']['next_queries'])
             self.assertIn(paths[0],[a['file_path']for a in large['query_handoff']['code_anchors']])

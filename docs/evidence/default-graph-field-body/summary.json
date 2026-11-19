@@ -1,0 +1,204 @@
+{
+  "trace_clean_default_equal": true,
+  "initial_helper_raw_equal": true,
+  "current_default_budget": {
+    "estimated_tokens": 1491,
+    "target_tokens": 1500,
+    "truncated": true
+  },
+  "recall_tables": [
+    {
+      "table": "code_files",
+      "count": 19,
+      "limit": 160,
+      "saturated": false,
+      "target_in_ids": true,
+      "target_lanes": [
+        "structural_fts"
+      ],
+      "focus_terms": [
+        "必填显示名为空时提示错误但仍提交更新",
+        "必填",
+        "发源",
+        "源码"
+      ]
+    },
+    {
+      "table": "code_symbols",
+      "count": 16,
+      "limit": 220,
+      "saturated": false,
+      "target_in_ids": false,
+      "target_lanes": null,
+      "focus_terms": [
+        "必填显示名为空时提示错误但仍提交更新",
+        "必填",
+        "发源",
+        "源码"
+      ]
+    }
+  ],
+  "helper_runs": [
+    {
+      "name": "original-helper",
+      "structural_selected": [
+        "src/coordinators/OrderCommitCoordinator.ets"
+      ],
+      "focus_selected": [
+        "src/coordinators/OrderCommitCoordinator.ets"
+      ],
+      "field_candidates_before_focus": [
+        {
+          "rank": 13,
+          "path": "src/coordinators/OrderCommitCoordinator.ets",
+          "score": 6.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 14,
+          "path": "src/pages/AccountSettingsPage.ets",
+          "score": 6.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 20,
+          "path": "src/actions/OrderActionButton.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 21,
+          "path": "src/config/CommandOutputProfile.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 22,
+          "path": "src/pages/CommandOutputPage.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 23,
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 24,
+          "path": "src/pages/ProductSearchPage.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 25,
+          "path": "src/services/AttachmentService.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 26,
+          "path": "src/services/SnapshotCoordinator.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 27,
+          "path": "src/stores/LightingStore.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 28,
+          "path": "src/theme/SystemBarColorAdapter.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 29,
+          "path": "src/validation/OrderValidator.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "two-matches",
+      "structural_selected": [
+        "src/pages/AlternateEditor.ets"
+      ],
+      "focus_selected": [
+        "src/pages/AlternateEditor.ets"
+      ],
+      "field_candidates_before_focus": [
+        {
+          "rank": 1,
+          "path": "src/pages/AlternateEditor.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 2,
+          "path": "src/pages/ProfileEditor.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "customer-two",
+      "structural_selected": [
+        "src/pages/CustomerEditor.ets"
+      ],
+      "focus_selected": [
+        "src/pages/CustomerEditor.ets"
+      ],
+      "field_candidates_before_focus": [
+        {
+          "rank": 1,
+          "path": "src/pages/CustomerEditor.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        },
+        {
+          "rank": 2,
+          "path": "src/pages/SecondCustomerEditor.ets",
+          "score": 4.0,
+          "reasons": [
+            "structural_behavior"
+          ]
+        }
+      ]
+    }
+  ]
+}

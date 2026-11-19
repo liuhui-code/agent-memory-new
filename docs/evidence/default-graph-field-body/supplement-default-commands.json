@@ -1,0 +1,36 @@
+[
+  {
+    "name": "two-matches",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/two-matches-current-default-memory",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "customer-two",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/customer-two-current-default-memory",
+      "--compact"
+    ],
+    "rc": 0
+  }
+]

@@ -186,9 +186,14 @@ def context(args: argparse.Namespace) -> None:
             from .context_graph_field_navigation import append_graph_field_navigation
             data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))
             from .context_graph_field_followup import append_graph_field_followup
-            data = append_graph_field_followup(project, original_context, data)
             from .context_sql_reading import append_sql_reading
-            data = append_sql_reading(project, original_context, data)
+            if budget in (None, 1500) and not preserve:
+                data = append_sql_reading(project, original_context, data)
+                from .context_graph_field_body import append_graph_field_display
+                data = append_graph_field_display(project, original_context, data, enabled=True)
+            else:
+                data = append_graph_field_followup(project, original_context, data)
+                data = append_sql_reading(project, original_context, data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

@@ -1,0 +1,9 @@
+# Independent consumer observations
+
+Two fresh no-history internal consumers used the same actual Chinese request, current Query Skill and source tree. Neutral input copies contained the actual two-matches before/after JSON. Neither consumer received the oracle, intended filenames, score or the other response. Both were limited to2 additional source files,60 lines,2 searches and no additional Memory queries. This is one developer observation pair, not statistical A/B acceptance or independent real-world projects.
+
+A (before): supplied first editor body6–12. To inspect the alternate candidate and dispatch boundary, read ProfileEditor1–14 and ProfileGateway1–5:2 files,19 lines,0 searches. Both handlers were found to guard whitespace-empty input, show toast, return, and otherwise call updateProfile. ProfileEditor receiver binding was checked. No executed update or unique root cause was established.
+
+B (after): supplied both editor bodies6–12. Read ProfileGateway1–5 and AlternateEditor1–5,13–14:2 files,12 lines,2 filename searches. Confirmed the same guard/call structures and the AlternateEditor receiver binding; ProfileEditor receiver declaration was not additionally verified. Both sources remain ambiguous without actual interaction correlation. No actual network/persistence effect or root cause was claimed.
+
+The after observation read7 fewer extra source lines but performed2 more searches; total files were equal. Including supplied method lines, both inspected26 source lines, with different receiver declarations checked. Thus there is no demonstrated net efficiency or accuracy improvement, nor a controlled equal-depth performance result. The verified product gain is only that the first response supplies two complete method bodies instead of one plus navigation, within the same1500 limit and retaining all earlier evidence.

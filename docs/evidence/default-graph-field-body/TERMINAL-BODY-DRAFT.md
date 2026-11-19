@@ -1,0 +1,21 @@
+# Draft for review, not implemented or frozen implementation protocol
+
+## Existing capabilities
+72be803b permits whole guarded-field method body only for a displayed callable alternative also present as an exact raw typed anchor. The two current cases fail that raw-anchor prerequisite after structural selection.
+cacd10bf authenticates current response import-edge source endpoints, unique typed method/owner, generation/digest, actual import tokens and field guard/call shape. It only supplies new path navigation and deliberately skips any already anchored path; preserve2000 is its existing serving scope. The later default followup reuses this certificate for path search hints. This is weaker than exclusive field-scope authority and must remain so.
+
+## Smallest proposed capability
+Do not change SQL recall, focus, shared scores, old validation views, old roles or old arrays. A new DEFAULT1500 terminal option reuses graph qualification to append complete body on newly qualified missing paths, after existing default hint has run so its hint is retained verbatim. Raw and all2000 modes remain byte/value unchanged. This would not solve original13 at its present budget.
+
+Extend shared private qualifier with an opt-in body receipt produced INSIDE the existing transaction/read/hash-stability window. Default invocation must return exactly its existing navigation objects. Do not read arbitrary paths after qualification or trust persisted text; capture the complete method from the same authenticated bytes, <=40 lines and1500 characters. No raised edge/scope/row/time/file limits. Keep current same-path skip, explicitly not claiming all methods on an already present path are complete.
+
+Append the navigation metadata with current source_excerpts, selection reason naming authenticated graph-field body; do not invent business dispatch/unique owner/causal relevance. Preserve field, edge_id and domain/action-unverified boundary. Entire qualified positive set must fit together: primary<=3, expansion<=2, anchors<=5, existing total file7 policy, total excerpts2600chars and target1500 estimate. Any unknown identity/schema, stale index/source/import, ambiguous positive, scope/resource overflow, or one positive not fitting => exact old payload. Existing unrelated field/log/unknown evidence never deleted or rewritten. Only accurate budget and excerpt counters may change; remove additions/restore counters must recover baseline exactly.
+
+## Fixed public qualification
+Keep exact current two-matches and customer-two sources/queries, seeds, and defaults just recorded. Their second methods6–12 have no current body. Existing full typed-anchor field-body-shaped cost probes are1254/1264 versus1024/1030. These are structural estimates, not after runs, and final graph metadata may differ. Both complete methods and their metadata fit comfortably. They are existing Development examples, not two independent real incidents.
+
+Reuse unchanged profile/customer controls (already navigated, no new body-path duplicate), wrong-field and string-only, exact current original13 default/preserve/raw controls. No query or source edits to these fixtures.
+
+Before implementation, freeze supplemental unit data/expected behavior for: two new valid missing-path positives both fit; two positives with only one fitting slots/tokens/chars => none; unknown or stale endpoint among positives => none; three matching new methods >2 expansion => none; noncurrent/digest mismatch/foreignproject/wrongtypedid/importtamper/resource/unknownschema; SQL/log-only or explicitly excluded field requests => no-op. These are unit/identity mutations, not independent public red. Include unrelated existing positive/other-field/log objects and deep-compare retention. Preserve raw and both2000 outputs exactly. No admission of old failed strict views or broadening grammar.
+
+Only after reviewer agreement freeze protocol/input hashes, implement private capture + terminal append, run point tests and identical public before/after. Original13 must remain1/3 if still lacking budget. Consumer benefit claim requires separate fresh comparison; absence of new source reads may be plausible but is not established by structural cost or absence of body alone.

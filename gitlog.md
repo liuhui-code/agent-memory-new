@@ -13202,3 +13202,10 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Fresh selected original18 Development group passes3/3 with unchanged source/setup digests and requirements; no new runtime repair or full gate.
 - Three independent seed-copy public compact commands show complete exact coordinator lines1–16 at1047/873/845 estimated tokens; retain old1/3 evidence unchanged.
 - Save mapping, source, raw outputs and independent range review in docs/evidence/original18-current-verification. Original42 remains1/3 and continues separately.
+
+## 2026-11-19 — Supply complete graph-authenticated field bodies within spare default budget
+
+- Reuse same-read import/field identity validation for nonexclusive default1500 body display; retain old hints, roles and every prior payload value. All new bodies fit together or revert to the old hint baseline.
+- Two unchanged Development cases now supply the second full6–12 method at1248/1258 tokens versus1024/1030. Other controls and raw/2000 modes remain equal. Original13 five modes remain equal, not repaired.
+- Final60 public CLI controls and92 targeted test invocations pass; independent review verified exact source bytes and lossless baseline restoration. Preserve flag-script error, default-None integration no-op and oversized-source unit qualification failures.
+- Consumer pair does not prove net efficiency/accuracy gain: same2 files, extra lines19→12, searches0→2. Direct benefit is initial full-method coverage1→2. Evidence: docs/evidence/default-graph-field-body.

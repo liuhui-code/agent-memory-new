@@ -1,0 +1,53 @@
+[
+  {
+    "name": "original-helper",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/trace.py",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/original-helper-layers.json",
+      "context",
+      "--query",
+      "\u5fc5\u586b\u663e\u793a\u540d\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/original13/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/original-helper-memory"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "two-matches",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/trace.py",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/two-matches-layers.json",
+      "context",
+      "--query",
+      "\u5fc5\u586b\u663e\u793a\u540d\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/two-matches-memory"
+    ],
+    "rc": 0
+  },
+  {
+    "name": "customer-two",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/trace.py",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/customer-two-layers.json",
+      "context",
+      "--query",
+      "\u5fc5\u586b\u5ba2\u6237\u7f16\u53f7\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/customer-two-memory"
+    ],
+    "rc": 0
+  }
+]

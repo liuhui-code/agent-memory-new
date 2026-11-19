@@ -1,0 +1,36 @@
+[
+  {
+    "cmd": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-c",
+      "import sys,runpy;sys.path.insert(0,sys.argv[1]+'/tools');import agent_memory_runtime.context_graph_field_body as f;from agent_memory_runtime.context_graph_field_followup import append_graph_field_followup;f.append_graph_field_display=lambda p,o,d,**kw:append_graph_field_followup(p,o,d);p=sys.argv.pop(1)+'/tools/agent_memory.py';sys.argv[0]=p;runpy.run_path(p,run_name='__main__')",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo",
+      "context",
+      "--query",
+      "Find SQL parameter binding.",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/body-sql-compat/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/body-sql-compat/before-memory",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "cmd": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--query",
+      "Find SQL parameter binding.",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/body-sql-compat/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/recall-audit13/body-sql-compat/after-memory",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  }
+]

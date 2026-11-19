@@ -23,17 +23,24 @@ def append_graph_field_followup(project, original, payload):
         qualified = qualify_graph_field_navigation(project, original, payload)
         if not qualified:
             return payload
-        paths = list(dict.fromkeys(a['file_path'] for a in qualified))
-        if any(type(p) is not str or len(p) > 100 or not _PATH.fullmatch(p)
-               or any(part in {'.', '..'} for part in p.split('/')) for p in paths):
-            return payload
-        new = [p for p in paths if p not in hints]
-        if not new or len(hints) + len(new) > 3:
-            return payload
-        trial = deepcopy(payload)
-        trial['query_handoff']['next_queries'].extend(new)
-        synchronize_estimate(trial)
-        return trial if estimate_payload_tokens(trial) <= 1500 else payload
+        return _append_qualified_hints(payload, qualified)
     except (OSError, UnicodeError, ValueError, TypeError, KeyError, AttributeError,
             sqlite3.Error, Unknown, RecursionError):
         return payload
+
+
+def _append_qualified_hints(payload, qualified):
+    hints = payload['query_handoff']['next_queries']
+    if type(hints) is not list or len(hints) >= 3 or any(type(h) is not str or len(h) > 100 for h in hints):
+        return payload
+    paths = list(dict.fromkeys(a['file_path'] for a in qualified))
+    if any(type(p) is not str or len(p) > 100 or not _PATH.fullmatch(p)
+           or any(part in {'.', '..'} for part in p.split('/')) for p in paths):
+        return payload
+    new = [p for p in paths if p not in hints]
+    if not new or len(hints) + len(new) > 3:
+        return payload
+    trial = deepcopy(payload)
+    trial['query_handoff']['next_queries'].extend(new)
+    synchronize_estimate(trial)
+    return trial if estimate_payload_tokens(trial) <= 1500 else payload
