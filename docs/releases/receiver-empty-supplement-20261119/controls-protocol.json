@@ -1,0 +1,16 @@
+{
+  "queries": [
+    "Ignore accumulation while iterating records; locate display source.",
+    "Compared with accumulation while iterating records, locate the display source.",
+    "请忽略遍历累加，返回展示源码。",
+    "Locate the state aggregation source that accumulates values while iterating records."
+  ],
+  "source": {
+    "WarehouseAccumulator.ets": "@Component\nstruct WarehouseAccumulator {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => {\n      this.total += row.quantity\n    })\n  }\n  build() { Text(`${this.total}`) }\n}\n",
+    "WarehouseList.ets": "@Component\nstruct WarehouseList {\n  @State rows: StockRow[] = []\n  build() {\n    Column() {\n      ForEach(this.rows, (row: StockRow) => {\n        Text(`${row.quantity}`)\n      })\n    }\n  }\n}\n",
+    "WarehousePreview.ets": "@Component\nstruct WarehousePreview {\n  @State rows: StockRow[] = []\n  @State total: number = 0\n  build() {\n    Column() {\n      Text(`${this.total}`)\n      ForEach(this.rows, (row: StockRow) => { Text(`${row.quantity}`) })\n    }\n  }\n}\n",
+    "WarehouseReset.ets": "@Component\nstruct WarehouseReset {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => { console.info(`${row.quantity}`) })\n  }\n}\n",
+    "WarehouseDeferred.ets": "@Component\nstruct WarehouseDeferred {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.rows.forEach((row: StockRow) => {\n      queueMicrotask(() => { this.total += row.quantity })\n    })\n  }\n}\n"
+  },
+  "extra": "copy Accumulator as independent second direct receiver implementation; no method rewrite"
+}

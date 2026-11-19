@@ -13386,3 +13386,10 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Action priorities separate08 candidate loss, real body gaps, semantic selection,
  32 pending choice and44 missing provenance. No production edits/full gate.
   Evidence: docs/releases/prepared35-current-20261119/.
+
+## 2026-11-19 - Add finite empty-result receiver callback source supplementation
+
+- Preserve rejected common-ranking and initial private-view candidates and their real failures.
+- Add only a command-local empty-result transaction; no index marker, common ranking, old collectionfold authority or default budget change. Validate complete bounded source inventory and all1–2 direct callback update methods, then commit final accounting once after presentation.
+- Independent Chinese Development requests now read full refresh5–10 in raw/compact; nonempty outputs remain untouched. Unknown/over-limit/stale/budget cases fall back.13 new tests plus prior/performance controls total74 pass; compilation and500-line check pass.
+- Original08 unchanged standard157 single-group result stays1/3. This is not a full-suite or original-group closure claim. Evidence: docs/releases/receiver-empty-supplement-20261119/README.md.

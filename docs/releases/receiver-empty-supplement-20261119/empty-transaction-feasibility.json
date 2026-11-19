@@ -1,0 +1,88 @@
+[
+  {
+    "fixture": "Warehouse",
+    "classification": "component feasibility only, not public behavior or inherited selection authority",
+    "adopted": true,
+    "old_tokens": 564,
+    "new_tokens": 762,
+    "preserved": true,
+    "anchors": [
+      {
+        "file_path": "WarehouseAccumulator.ets",
+        "symbol": "refresh",
+        "symbol_type": "function",
+        "record_ids": [
+          2
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "refresh",
+            "start_line": 5,
+            "end_line": 10
+          }
+        ],
+        "read_window": {
+          "start_line": 5,
+          "end_line": 10
+        },
+        "role": "supporting",
+        "source_excerpts": [
+          {
+            "symbol": "refresh",
+            "start_line": 5,
+            "end_line": 10,
+            "content": "  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => {\n      this.total += row.quantity\n    })\n  }",
+            "source": "validated_request_snapshot",
+            "selection_reason": "complete_direct_receiver_callback_syntax",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "fixture": "Energy",
+    "classification": "component feasibility only, not public behavior or inherited selection authority",
+    "adopted": true,
+    "old_tokens": 564,
+    "new_tokens": 761,
+    "preserved": true,
+    "anchors": [
+      {
+        "file_path": "EnergyAccumulator.ets",
+        "symbol": "refresh",
+        "symbol_type": "function",
+        "record_ids": [
+          2
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "refresh",
+            "start_line": 5,
+            "end_line": 10
+          }
+        ],
+        "read_window": {
+          "start_line": 5,
+          "end_line": 10
+        },
+        "role": "supporting",
+        "source_excerpts": [
+          {
+            "symbol": "refresh",
+            "start_line": 5,
+            "end_line": 10,
+            "content": "  refresh() {\n    this.total = 0\n    this.rows.forEach((row: MeterRow) => {\n      this.total += row.watts\n    })\n  }",
+            "source": "validated_request_snapshot",
+            "selection_reason": "complete_direct_receiver_callback_syntax",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ]
+  }
+]

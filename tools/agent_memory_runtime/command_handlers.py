@@ -158,50 +158,53 @@ def context(args: argparse.Namespace) -> None:
     started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))
-    if args.compact:
-        from copy import deepcopy
-        from .context_field_alternative import field_read_request
-        from .context_web_policy_reading import web_reading_request
-        from .query_sql_reading_request import sql_reading_request
-        original_context = deepcopy(data) if field_read_request(args.query) or web_reading_request(args.query) or sql_reading_request(args.query) else None
-        try:
-            data = (compact_context(data) if budget is None and not preserve else
-                    compact_context(data, token_budget=1500 if budget is None else budget,
-                                    preserve_selected_source_anchors=preserve))
-        except CompactRequestIncomplete as exc:
-            print(json.dumps(exc.payload, ensure_ascii=False))
-            raise SystemExit(2) from exc
-    if args.compact:
-        from .context_static_reading import static_reading_order
-        data = static_reading_order(project, data)
-    if args.compact:
-        from .context_callable_envelope import expand_callable_envelopes
-        data = expand_callable_envelopes(project, data, enabled=True)
-        from .context_field_alternative import append_field_alternatives
-        if original_context is not None:
-            data = append_field_alternatives(project, original_context, data)
-            from .context_web_policy_reading import web_reading_order
-            data = web_reading_order(project, original_context, data)
-            from .context_graph_field_navigation import append_graph_field_navigation
-            data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))
-            from .context_graph_field_followup import append_graph_field_followup
-            from .context_sql_reading import append_sql_reading
-            if budget in (None, 1500) and not preserve:
-                data = append_sql_reading(project, original_context, data)
-                from .context_graph_field_body import append_graph_field_display
-                data = append_graph_field_display(project, original_context, data, enabled=True)
-            else:
-                data = append_graph_field_followup(project, original_context, data)
-                data = append_sql_reading(project, original_context, data)
-    record_query_usage(project, "context", args.query, data)
-    project.runtime_dir.mkdir(parents=True, exist_ok=True)
-    (project.runtime_dir / "last_context.json").write_text(
-        json.dumps(redact_source_excerpt_bodies(data), ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    append_query_performance_sample(project, "context", started_ms, data)
-    output(data, args.json)
+    from .receiver_empty_transaction import EmptyReceiverSession
+    with EmptyReceiverSession(project, args.query) as receiver_session:
+        data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))
+        if args.compact:
+            from copy import deepcopy
+            from .context_field_alternative import field_read_request
+            from .context_web_policy_reading import web_reading_request
+            from .query_sql_reading_request import sql_reading_request
+            original_context = deepcopy(data) if field_read_request(args.query) or web_reading_request(args.query) or sql_reading_request(args.query) else None
+            try:
+                data = (compact_context(data) if budget is None and not preserve else
+                        compact_context(data, token_budget=1500 if budget is None else budget,
+                                        preserve_selected_source_anchors=preserve))
+            except CompactRequestIncomplete as exc:
+                print(json.dumps(exc.payload, ensure_ascii=False))
+                raise SystemExit(2) from exc
+        if args.compact:
+            from .context_static_reading import static_reading_order
+            data = static_reading_order(project, data)
+        if args.compact:
+            from .context_callable_envelope import expand_callable_envelopes
+            data = expand_callable_envelopes(project, data, enabled=True)
+            from .context_field_alternative import append_field_alternatives
+            if original_context is not None:
+                data = append_field_alternatives(project, original_context, data)
+                from .context_web_policy_reading import web_reading_order
+                data = web_reading_order(project, original_context, data)
+                from .context_graph_field_navigation import append_graph_field_navigation
+                data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))
+                from .context_graph_field_followup import append_graph_field_followup
+                from .context_sql_reading import append_sql_reading
+                if budget in (None, 1500) and not preserve:
+                    data = append_sql_reading(project, original_context, data)
+                    from .context_graph_field_body import append_graph_field_display
+                    data = append_graph_field_display(project, original_context, data, enabled=True)
+                else:
+                    data = append_graph_field_followup(project, original_context, data)
+                    data = append_sql_reading(project, original_context, data)
+        data = receiver_session.finalize(data)
+        record_query_usage(project, "context", args.query, data)
+        project.runtime_dir.mkdir(parents=True, exist_ok=True)
+        (project.runtime_dir / "last_context.json").write_text(
+            json.dumps(redact_source_excerpt_bodies(data), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        append_query_performance_sample(project, "context", started_ms, data)
+        output(data, args.json)
 
 
 

@@ -1,0 +1,3980 @@
+{
+  "fixture": "Energy",
+  "query": {
+    "id": "iteration",
+    "query": "Locate the state and iteration source.",
+    "required": null
+  },
+  "outputs": {
+    "raw": {
+      "project_id": "7525a018058dff04",
+      "project_path": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/iteration08-qualification/Energy-release",
+      "query": "Locate the state and iteration source.",
+      "memory_intent": "code_current",
+      "memory_intent_v2": "code_location",
+      "memory_intent_source": "inferred",
+      "retrieval_lanes": {
+        "counts": {
+          "main_reflections": 0,
+          "correction_guards": 0,
+          "semantic_patch_notes": 0,
+          "blocked_memory_notes": 0
+        },
+        "intent_profile": {
+          "intent": "code_current",
+          "intent_v2": "code_location",
+          "intent_source": "inferred",
+          "legacy_intent": "code_current",
+          "preferred_lanes": [
+            "wiki_matches",
+            "code_log_matches",
+            "edge_matches"
+          ],
+          "interference_policy": "prefer current code/wiki/log anchors and block broad procedure memories"
+        },
+        "lane_budgets": {
+          "main_reflections": 0,
+          "correction_guards": 4,
+          "semantic_patch_notes": 6,
+          "blocked_memory_notes": 8
+        },
+        "policy": {
+          "procedure_experience": "main context only when the query intent can reuse a procedure",
+          "correction_experience": "guardrail lane; not injected as the main task direction by default",
+          "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+        }
+      },
+      "memory_brief": {
+        "intent": "code_current",
+        "intent_v2": "code_location",
+        "main_reflection_count": 0,
+        "correction_guard_count": 0,
+        "semantic_patch_count": 0,
+        "blocked_count": 0,
+        "conflict_count": 0
+      },
+      "followup_focus": null,
+      "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+      "semantic_facts": [],
+      "reflections": [],
+      "episodes": [
+        {
+          "id": 1,
+          "project_id": "7525a018058dff04",
+          "task": "Learn path . from /workspace/scratch/dcdb41e16594/concrete-resume-20261119/iteration08-qualification/Energy-release",
+          "summary": "Merged 5 files from .",
+          "outcome": "learned",
+          "files_touched": null,
+          "commands_run": null,
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "status": "active",
+          "importance": 0.5,
+          "last_used_at": null,
+          "use_count": 0,
+          "reviewed_at": null,
+          "derived_facts": null,
+          "derived_reflections": null,
+          "recall_lanes": [
+            "broad_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.01639344,
+            "best_rank": 1,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "score": 0.8,
+          "match_reasons": [
+            "episode"
+          ],
+          "warning": null,
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.503,
+          "trust_level": "usable_hint",
+          "trust_reasons": [
+            "confidence=0.65"
+          ],
+          "retrieval_explanation": {
+            "group": "episodes",
+            "score": 0.8,
+            "rerank_score": null,
+            "match_reasons": [
+              "episode"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": "active",
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "wiki_matches": [
+        {
+          "id": 4,
+          "project_id": "7525a018058dff04",
+          "file_path": "EnergyAccumulator.ets",
+          "symbol": "total",
+          "symbol_type": "state",
+          "summary": "state total in EnergyAccumulator.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:81f840c21f157438d1006f72",
+          "qualified_name": "EnergyAccumulator.total",
+          "signature": "total",
+          "start_line": 3,
+          "end_line": 3,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "3d4813385ced03811518ab1ed1eb4adb87d048588b61907b4300cff4c564d3c9",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "",
+          "callable_roles": "[]",
+          "literal_property_path": null,
+          "index_generation": 1,
+          "updated_at": "2026-11-19T04:31:39+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05655738,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 20.5,
+          "search_terms": [
+            "energyaccumulator.ets",
+            "state total in energyaccumulator.ets",
+            "total",
+            "state",
+            "energyaccumulator",
+            "ets",
+            "in",
+            "energy",
+            "accumulator",
+            "arkts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "symbol_type",
+            "symbol_summary",
+            "search_terms",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 20.5,
+            "rerank_score": null,
+            "match_reasons": [
+              "symbol_type",
+              "symbol_summary",
+              "search_terms",
+              "query_focus_coverage",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 10,
+          "project_id": "7525a018058dff04",
+          "file_path": "EnergyList.ets",
+          "symbol": "rows",
+          "symbol_type": "state",
+          "summary": "state rows in EnergyList.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:a4a9d294b85bdd366a99d8a2",
+          "qualified_name": "EnergyList.rows",
+          "signature": "rows",
+          "start_line": 3,
+          "end_line": 3,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "875ec339ea4bbc16143fa2f44982070ae007d84dbe58ed29007b7f876139d44e",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "",
+          "callable_roles": "[]",
+          "literal_property_path": null,
+          "index_generation": 1,
+          "updated_at": "2026-11-19T04:31:39+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.0547619,
+            "best_rank": 3,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 3,
+                "weight": 1.45,
+                "score": 0.02301587
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 20.5,
+          "search_terms": [
+            "energylist.ets",
+            "state rows in energylist.ets",
+            "rows",
+            "state",
+            "energylist",
+            "ets",
+            "in",
+            "energy",
+            "list",
+            "arkts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "symbol_type",
+            "symbol_summary",
+            "search_terms",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 20.5,
+            "rerank_score": null,
+            "match_reasons": [
+              "symbol_type",
+              "symbol_summary",
+              "search_terms",
+              "query_focus_coverage",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 2,
+          "project_id": "7525a018058dff04",
+          "file_path": "EnergyDeferred.ets",
+          "summary": "ArkTS file with 10 non-empty lines; components: EnergyDeferred; component terms: energy, deferred; operations: forEach; behavior: lifecyclesync, statewrite",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "a71008b3403c32d5f3bf87d106c639285ab905df2ed73557b7ac9c3b16955e36",
+          "index_generation": 1,
+          "updated_at": "2026-11-19T04:31:39+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05501792,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 3,
+                "weight": 1.45,
+                "score": 0.02301587
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 19.8,
+          "search_terms": [
+            "energydeferred.ets",
+            "arkts",
+            "arkts file with 10 non-empty lines; components: energydeferred; component terms: energy, deferred; operations: foreach; behavior: lifecyclesync, statewrite",
+            "energydeferred",
+            "ets",
+            "file",
+            "with",
+            "10",
+            "non",
+            "empty",
+            "lines",
+            "components",
+            "component",
+            "terms",
+            "energy",
+            "deferred",
+            "operations",
+            "foreach",
+            "behavior",
+            "lifecyclesync",
+            "statewrite",
+            "ark",
+            "ts",
+            "for",
+            "each",
+            "harmonyos",
+            "page"
+          ],
+          "match_reasons": [
+            "file_summary",
+            "search_terms",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "refresh",
+          "symbol_type": "function",
+          "start_line": 5,
+          "end_line": 9,
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 19.8,
+            "rerank_score": null,
+            "match_reasons": [
+              "file_summary",
+              "search_terms",
+              "query_focus_coverage",
+              "salient_query_evidence"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 12,
+          "project_id": "7525a018058dff04",
+          "file_path": "EnergyPreview.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in EnergyPreview.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:8e75f62b40663a59508e70fe",
+          "qualified_name": "EnergyPreview.build",
+          "signature": "build():unknown",
+          "start_line": 5,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "6e14fbcb5d2052f1f96f9e067a58321f784d53082b0bb541f87fd1d954ce60cf",
+          "evidence_class": "static",
+          "method_evidence": "total rows row watts column text foreach each stateread state read",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "EnergyPreview",
+          "owner_kind": "component",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+          "literal_property_path": null,
+          "index_generation": 1,
+          "updated_at": "2026-11-19T04:31:39+00:00",
+          "recall_lanes": [
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.02424242,
+            "best_rank": 6,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "salient_string_fts",
+                "rank": 6,
+                "weight": 1.6,
+                "score": 0.02424242
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 6.0,
+          "search_terms": [
+            "energypreview.ets",
+            "arkts function or lifecycle method build in energypreview.ets",
+            "build",
+            "function",
+            "energypreview",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "energy",
+            "preview",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 6.0,
+            "rerank_score": null,
+            "match_reasons": [
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 7,
+          "project_id": "7525a018058dff04",
+          "file_path": "EnergyDeferred.ets",
+          "symbol": "total",
+          "symbol_type": "state",
+          "summary": "state total in EnergyDeferred.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:b86cd618740ce8f3344aa4fa",
+          "qualified_name": "EnergyDeferred.total",
+          "signature": "total",
+          "start_line": 3,
+          "end_line": 3,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "a71008b3403c32d5f3bf87d106c639285ab905df2ed73557b7ac9c3b16955e36",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "",
+          "callable_roles": "[]",
+          "literal_property_path": null,
+          "index_generation": 1,
+          "updated_at": "2026-11-19T04:31:39+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 20.5,
+          "search_terms": [
+            "energydeferred.ets",
+            "state total in energydeferred.ets",
+            "total",
+            "state",
+            "energydeferred",
+            "ets",
+            "in",
+            "energy",
+            "deferred",
+            "arkts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "symbol_type",
+            "symbol_summary",
+            "search_terms",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 20.5,
+            "rerank_score": null,
+            "match_reasons": [
+              "symbol_type",
+              "symbol_summary",
+              "search_terms",
+              "query_focus_coverage",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "code_log_matches": [],
+      "edge_matches": [
+        {
+          "id": 18,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_log_statement",
+          "target_id": 1,
+          "evidence": "EnergyReset.ets:7",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 17,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 17,
+          "evidence": "EnergyReset.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 16,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 16,
+          "evidence": "EnergyReset.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 15,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 15,
+          "evidence": "EnergyReset.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 14,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 14,
+          "evidence": "EnergyPreview.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 13,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 13,
+          "evidence": "EnergyPreview.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 12,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 12,
+          "evidence": "EnergyPreview.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 11,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 11,
+          "evidence": "EnergyPreview.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 10,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 3,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 10,
+          "evidence": "EnergyList.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 9,
+          "project_id": "7525a018058dff04",
+          "source_type": "code_file",
+          "source_id": 3,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 9,
+          "evidence": "EnergyList.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-19T04:31:39+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-19T04:31:39+00:00",
+          "created_at": "2026-11-19T04:31:39+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "incident_trace_matches": [],
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "suggested_followup_terms": [
+        "energyaccumulator.ets",
+        "state total in energyaccumulator.ets",
+        "energylist.ets",
+        "state rows in energylist.ets",
+        "energydeferred.ets",
+        "energypreview.ets",
+        "arkts function or lifecycle method build in energypreview.ets",
+        "state total in energydeferred.ets",
+        "total",
+        "state",
+        "energyaccumulator",
+        "ets"
+      ],
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "Locate the state and iteration source.",
+        "log_keywords": [
+          "locate",
+          "the",
+          "state",
+          "and",
+          "iteration",
+          "source"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "record_type": "code_symbol",
+            "file_path": "EnergyAccumulator.ets",
+            "symbol": "total",
+            "symbol_type": "state",
+            "summary": "state total in EnergyAccumulator.ets",
+            "start_line": 3,
+            "end_line": 3,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 10,
+            "record_type": "code_symbol",
+            "file_path": "EnergyList.ets",
+            "symbol": "rows",
+            "symbol_type": "state",
+            "summary": "state rows in EnergyList.ets",
+            "start_line": 3,
+            "end_line": 3,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 2,
+            "record_type": "code_file",
+            "file_path": "EnergyDeferred.ets",
+            "symbol": "refresh",
+            "symbol_type": "function",
+            "summary": "ArkTS file with 10 non-empty lines; components: EnergyDeferred; component terms: energy, deferred; operations: forEach; behavior: lifecyclesync, statewrite",
+            "start_line": 5,
+            "end_line": 9,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 12,
+            "record_type": "code_symbol",
+            "file_path": "EnergyPreview.ets",
+            "symbol": "build",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method build in EnergyPreview.ets",
+            "start_line": 5,
+            "end_line": 10,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 7,
+            "record_type": "code_symbol",
+            "file_path": "EnergyDeferred.ets",
+            "symbol": "total",
+            "symbol_type": "state",
+            "summary": "state total in EnergyDeferred.ets",
+            "start_line": 3,
+            "end_line": 3,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "EnergyAccumulator.ets",
+            "symbol": "refresh",
+            "owner_name": "EnergyAccumulator",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 11.58,
+            "evidence_score": 11.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 10,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "EnergyDeferred.ets",
+              "symbol": "refresh",
+              "owner_name": "EnergyDeferred",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.58,
+              "evidence_score": 10.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "source_range": {
+                "start_line": 5,
+                "end_line": 9,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "EnergyList.ets",
+              "symbol": "build",
+              "owner_name": "EnergyList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.58,
+              "evidence_score": 9.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 10,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "fewer_than_two_supported_callable_identities"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      },
+      "network_limits": {
+        "max_depth": 1,
+        "edge_limit": 10,
+        "evidence_chain_limit": 3,
+        "allowed_relations": [
+          "configured_by",
+          "contains",
+          "emits_log",
+          "imports",
+          "passes_property",
+          "renders_component",
+          "routes_to",
+          "uses_resource"
+        ]
+      },
+      "source_freshness": {
+        "schema_version": "source-freshness/v1",
+        "status": "current",
+        "generation": 1,
+        "source_revision": "unversioned",
+        "extractor_version": "code-derived:v1",
+        "candidate_file_count": 5,
+        "checked_file_count": 5,
+        "current_file_count": 5,
+        "blocked_rows": 0,
+        "blocked_rows_by_table": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "stale_paths": [],
+        "missing_paths": [],
+        "unverified_paths": [],
+        "boundary_drift_scope_ids": [],
+        "policy": "digest_mismatch_and_missing_source_blocked"
+      },
+      "memory_use_policy": {
+        "mode": "advisory",
+        "authority_order": [
+          "current_source",
+          "explicit_user_instruction",
+          "source_truth",
+          "verified_experience",
+          "usable_hint",
+          "weak_hint"
+        ],
+        "rules": [
+          "Current source files and explicit user instructions override stored memory.",
+          "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+          "Use weak hints only to choose what to inspect next.",
+          "Do not let recency override evidence, status, confidence, or feedback penalties."
+        ]
+      },
+      "query_audit": {
+        "result_counts": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 1,
+          "wiki_matches": 5,
+          "code_log_matches": 0,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        },
+        "candidate_recall": {
+          "schema_version": "agent-candidate-recall-audit/v1",
+          "source_freshness": {
+            "schema_version": "source-freshness/v1",
+            "status": "current",
+            "generation": 1,
+            "source_revision": "unversioned",
+            "extractor_version": "code-derived:v1",
+            "candidate_file_count": 5,
+            "checked_file_count": 5,
+            "current_file_count": 5,
+            "blocked_rows": 0,
+            "blocked_rows_by_table": {
+              "code_files": 0,
+              "code_symbols": 0,
+              "code_log_statements": 0
+            },
+            "stale_paths": [],
+            "missing_paths": [],
+            "unverified_paths": [],
+            "boundary_drift_scope_ids": [],
+            "policy": "digest_mismatch_and_missing_source_blocked"
+          },
+          "provider": "sqlite_fts5_passage_rrf/v4",
+          "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+          "tables": {
+            "semantic_facts": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 2,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "reflections": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 2,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "episodes": {
+              "requested_limit": 80,
+              "candidate_count": 1,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 2,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 1
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 1,
+                "channel_counts": {
+                  "broad_fts": 1
+                },
+                "fused_candidate_count": 1
+              },
+              "candidate_refs": []
+            },
+            "code_files": {
+              "requested_limit": 160,
+              "candidate_count": 3,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 2,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 3,
+                "file_identity_fts": 0,
+                "file_semantic_fts": 3,
+                "salient_file_fts": 3
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "file_identity_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 6.0,
+                    "identity_terms_weight": 9.0
+                  },
+                  "file_semantic_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 3,
+                    "file_path_weight": 1.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "salient_file_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 3,
+                    "query_term_count": 3,
+                    "file_path_weight": 3.0,
+                    "semantic_terms_weight": 8.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": true,
+                "serving_channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 3,
+                  "channel_counts": {
+                    "file_identity_fts": 0,
+                    "file_semantic_fts": 3,
+                    "salient_file_fts": 3
+                  },
+                  "fused_candidate_count": 3
+                },
+                "candidate_fusion": {
+                  "5": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.04016393,
+                    "best_rank": 1,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "file_semantic_fts",
+                        "rank": 1,
+                        "weight": 1.0,
+                        "score": 0.01639344
+                      },
+                      {
+                        "channel": "salient_file_fts",
+                        "rank": 1,
+                        "weight": 1.45,
+                        "score": 0.02377049
+                      }
+                    ]
+                  },
+                  "1": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03951613,
+                    "best_rank": 2,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "file_semantic_fts",
+                        "rank": 2,
+                        "weight": 1.0,
+                        "score": 0.01612903
+                      },
+                      {
+                        "channel": "salient_file_fts",
+                        "rank": 2,
+                        "weight": 1.45,
+                        "score": 0.0233871
+                      }
+                    ]
+                  },
+                  "2": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03888889,
+                    "best_rank": 3,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "file_semantic_fts",
+                        "rank": 3,
+                        "weight": 1.0,
+                        "score": 0.01587302
+                      },
+                      {
+                        "channel": "salient_file_fts",
+                        "rank": 3,
+                        "weight": 1.45,
+                        "score": 0.02301587
+                      }
+                    ]
+                  }
+                },
+                "candidate_refs": [
+                  {
+                    "id": 5,
+                    "file_path": "EnergyReset.ets",
+                    "symbol": "",
+                    "channels": [
+                      "file_semantic_fts",
+                      "salient_file_fts"
+                    ]
+                  },
+                  {
+                    "id": 1,
+                    "file_path": "EnergyAccumulator.ets",
+                    "symbol": "",
+                    "channels": [
+                      "file_semantic_fts",
+                      "salient_file_fts"
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "file_path": "EnergyDeferred.ets",
+                    "symbol": "",
+                    "channels": [
+                      "file_semantic_fts",
+                      "salient_file_fts"
+                    ]
+                  }
+                ]
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 4,
+                "channel_counts": {
+                  "broad_fts": 3,
+                  "file_identity_fts": 0,
+                  "file_semantic_fts": 3,
+                  "salient_file_fts": 3
+                },
+                "fused_candidate_count": 3
+              },
+              "candidate_refs": [
+                {
+                  "id": 5,
+                  "file_path": "EnergyReset.ets",
+                  "channels": [
+                    "broad_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "file_path": "EnergyAccumulator.ets",
+                  "channels": [
+                    "broad_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "file_path": "EnergyDeferred.ets",
+                  "channels": [
+                    "broad_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                }
+              ]
+            },
+            "code_symbols": {
+              "requested_limit": 220,
+              "candidate_count": 12,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 2,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 6,
+                "method_body_fts": 0,
+                "symbol_identity_fts": 6,
+                "symbol_semantic_fts": 6,
+                "string_key_fts": 0,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 6
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "symbol_identity_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "symbol",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 6,
+                    "file_path_weight": 2.0,
+                    "symbol_weight": 8.0,
+                    "identity_terms_weight": 10.0
+                  },
+                  "symbol_semantic_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "symbol",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 6,
+                    "symbol_weight": 2.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "method_body_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms"
+                    ],
+                    "candidate_count": 6,
+                    "body_terms_weight": 8.0
+                  },
+                  "string_key_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "string_terms"
+                    ],
+                    "candidate_count": 0,
+                    "string_terms_weight": 9.0
+                  },
+                  "semantic_mechanism_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "mechanism_terms"
+                    ],
+                    "candidate_count": 0,
+                    "mechanism_terms_weight": 9.0
+                  },
+                  "salient_string_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms",
+                      "string_terms"
+                    ],
+                    "candidate_count": 6,
+                    "query_term_count": 3,
+                    "body_terms_weight": 3.0,
+                    "string_terms_weight": 10.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": true,
+                "serving_channels": [
+                  "salient_string_fts",
+                  "semantic_mechanism_fts",
+                  "string_key_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 6,
+                  "channel_counts": {
+                    "symbol_identity_fts": 6,
+                    "symbol_semantic_fts": 6,
+                    "method_body_fts": 0,
+                    "string_key_fts": 0,
+                    "semantic_mechanism_fts": 0,
+                    "salient_string_fts": 6
+                  },
+                  "fused_candidate_count": 12
+                },
+                "candidate_fusion": {
+                  "4": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.04016393,
+                    "best_rank": 1,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 1,
+                        "weight": 1.45,
+                        "score": 0.02377049
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 1,
+                        "weight": 1.0,
+                        "score": 0.01639344
+                      }
+                    ]
+                  },
+                  "7": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03951613,
+                    "best_rank": 2,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 2,
+                        "weight": 1.45,
+                        "score": 0.0233871
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 2,
+                        "weight": 1.0,
+                        "score": 0.01612903
+                      }
+                    ]
+                  },
+                  "10": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03888889,
+                    "best_rank": 3,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 3,
+                        "weight": 1.45,
+                        "score": 0.02301587
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 3,
+                        "weight": 1.0,
+                        "score": 0.01587302
+                      }
+                    ]
+                  },
+                  "13": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03828125,
+                    "best_rank": 4,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 4,
+                        "weight": 1.45,
+                        "score": 0.02265625
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 4,
+                        "weight": 1.0,
+                        "score": 0.015625
+                      }
+                    ]
+                  },
+                  "14": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03769231,
+                    "best_rank": 5,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 5,
+                        "weight": 1.45,
+                        "score": 0.02230769
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 5,
+                        "weight": 1.0,
+                        "score": 0.01538462
+                      }
+                    ]
+                  },
+                  "17": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03712121,
+                    "best_rank": 6,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 6,
+                        "weight": 1.45,
+                        "score": 0.0219697
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 6,
+                        "weight": 1.0,
+                        "score": 0.01515152
+                      }
+                    ]
+                  },
+                  "2": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.02622951,
+                    "best_rank": 1,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 1,
+                        "weight": 1.6,
+                        "score": 0.02622951
+                      }
+                    ]
+                  },
+                  "16": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.02580645,
+                    "best_rank": 2,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 2,
+                        "weight": 1.6,
+                        "score": 0.02580645
+                      }
+                    ]
+                  },
+                  "6": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.02539683,
+                    "best_rank": 3,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 3,
+                        "weight": 1.6,
+                        "score": 0.02539683
+                      }
+                    ]
+                  },
+                  "3": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.025,
+                    "best_rank": 4,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 4,
+                        "weight": 1.6,
+                        "score": 0.025
+                      }
+                    ]
+                  },
+                  "9": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.02461538,
+                    "best_rank": 5,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 5,
+                        "weight": 1.6,
+                        "score": 0.02461538
+                      }
+                    ]
+                  },
+                  "12": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.02424242,
+                    "best_rank": 6,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 6,
+                        "weight": 1.6,
+                        "score": 0.02424242
+                      }
+                    ]
+                  }
+                },
+                "candidate_refs": [
+                  {
+                    "id": 4,
+                    "file_path": "EnergyAccumulator.ets",
+                    "symbol": "total",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 7,
+                    "file_path": "EnergyDeferred.ets",
+                    "symbol": "total",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 10,
+                    "file_path": "EnergyList.ets",
+                    "symbol": "rows",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 13,
+                    "file_path": "EnergyPreview.ets",
+                    "symbol": "rows",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 14,
+                    "file_path": "EnergyPreview.ets",
+                    "symbol": "total",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 17,
+                    "file_path": "EnergyReset.ets",
+                    "symbol": "total",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "file_path": "EnergyAccumulator.ets",
+                    "symbol": "refresh",
+                    "channels": [
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 16,
+                    "file_path": "EnergyReset.ets",
+                    "symbol": "refresh",
+                    "channels": [
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 6,
+                    "file_path": "EnergyDeferred.ets",
+                    "symbol": "refresh",
+                    "channels": [
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 3,
+                    "file_path": "EnergyAccumulator.ets",
+                    "symbol": "build",
+                    "channels": [
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 9,
+                    "file_path": "EnergyList.ets",
+                    "symbol": "build",
+                    "channels": [
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 12,
+                    "file_path": "EnergyPreview.ets",
+                    "symbol": "build",
+                    "channels": [
+                      "salient_string_fts"
+                    ]
+                  }
+                ]
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 7,
+                "channel_counts": {
+                  "broad_fts": 6,
+                  "method_body_fts": 0,
+                  "symbol_identity_fts": 6,
+                  "symbol_semantic_fts": 6,
+                  "string_key_fts": 0,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 6
+                },
+                "fused_candidate_count": 12
+              },
+              "candidate_refs": [
+                {
+                  "id": 4,
+                  "file_path": "EnergyAccumulator.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "total"
+                },
+                {
+                  "id": 7,
+                  "file_path": "EnergyDeferred.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "total"
+                },
+                {
+                  "id": 10,
+                  "file_path": "EnergyList.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "rows"
+                },
+                {
+                  "id": 13,
+                  "file_path": "EnergyPreview.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "rows"
+                },
+                {
+                  "id": 14,
+                  "file_path": "EnergyPreview.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "total"
+                },
+                {
+                  "id": 17,
+                  "file_path": "EnergyReset.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "total"
+                },
+                {
+                  "id": 2,
+                  "file_path": "EnergyAccumulator.ets",
+                  "channels": [
+                    "salient_string_fts"
+                  ],
+                  "symbol": "refresh"
+                },
+                {
+                  "id": 16,
+                  "file_path": "EnergyReset.ets",
+                  "channels": [
+                    "salient_string_fts"
+                  ],
+                  "symbol": "refresh"
+                },
+                {
+                  "id": 6,
+                  "file_path": "EnergyDeferred.ets",
+                  "channels": [
+                    "salient_string_fts"
+                  ],
+                  "symbol": "refresh"
+                },
+                {
+                  "id": 3,
+                  "file_path": "EnergyAccumulator.ets",
+                  "channels": [
+                    "salient_string_fts"
+                  ],
+                  "symbol": "build"
+                },
+                {
+                  "id": 9,
+                  "file_path": "EnergyList.ets",
+                  "channels": [
+                    "salient_string_fts"
+                  ],
+                  "symbol": "build"
+                },
+                {
+                  "id": 12,
+                  "file_path": "EnergyPreview.ets",
+                  "channels": [
+                    "salient_string_fts"
+                  ],
+                  "symbol": "build"
+                }
+              ]
+            },
+            "code_log_statements": {
+              "requested_limit": 180,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 2,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            }
+          }
+        },
+        "retrieval_stages": {
+          "scored": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 1,
+            "wiki_matches": 15,
+            "code_log_matches": 0,
+            "edge_matches": 19,
+            "incident_trace_matches": 0
+          },
+          "after_intent_gate": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 1,
+            "wiki_matches": 15,
+            "code_log_matches": 0,
+            "edge_matches": 19,
+            "incident_trace_matches": 0
+          },
+          "selected": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 1,
+            "wiki_matches": 5,
+            "code_log_matches": 0,
+            "edge_matches": 10,
+            "incident_trace_matches": 0
+          }
+        },
+        "top_explanations": {
+          "semantic_facts": [],
+          "reflections": [],
+          "episodes": [
+            {
+              "type": "episodes",
+              "id": 1,
+              "score": 0.8,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.503,
+              "trust_level": "usable_hint",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "episode"
+              ],
+              "recall_lanes": [
+                "broad_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01639344,
+                "best_rank": 1,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "episodes",
+                "score": 0.8,
+                "rerank_score": null,
+                "match_reasons": [
+                  "episode"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": "active",
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "wiki_matches": [
+            {
+              "type": "wiki_matches",
+              "id": 10,
+              "score": 20.5,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.0547619,
+                "best_rank": 3,
+                "channel_count": 3,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 3,
+                    "weight": 1.0,
+                    "score": 0.01587302
+                  },
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 3,
+                    "weight": 1.45,
+                    "score": 0.02301587
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 3,
+                    "weight": 1.0,
+                    "score": 0.01587302
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 20.5,
+                "rerank_score": null,
+                "match_reasons": [
+                  "symbol_type",
+                  "symbol_summary",
+                  "search_terms",
+                  "query_focus_coverage",
+                  "source_locatable"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "wiki_matches",
+              "id": 7,
+              "score": 20.5,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.05564516,
+                "best_rank": 2,
+                "channel_count": 3,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 2,
+                    "weight": 1.0,
+                    "score": 0.01612903
+                  },
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 2,
+                    "weight": 1.45,
+                    "score": 0.0233871
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 2,
+                    "weight": 1.0,
+                    "score": 0.01612903
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 20.5,
+                "rerank_score": null,
+                "match_reasons": [
+                  "symbol_type",
+                  "symbol_summary",
+                  "search_terms",
+                  "query_focus_coverage",
+                  "source_locatable"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "wiki_matches",
+              "id": 4,
+              "score": 20.5,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.05655738,
+                "best_rank": 1,
+                "channel_count": 3,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  },
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 1,
+                    "weight": 1.45,
+                    "score": 0.02377049
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 20.5,
+                "rerank_score": null,
+                "match_reasons": [
+                  "symbol_type",
+                  "symbol_summary",
+                  "search_terms",
+                  "query_focus_coverage",
+                  "source_locatable"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "code_log_matches": [],
+          "edge_matches": [
+            {
+              "type": "edge_matches",
+              "id": 18,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "edge_matches",
+              "id": 17,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "edge_matches",
+              "id": 16,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "incident_trace_matches": []
+        },
+        "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+        "hierarchical_localization": {
+          "schema_version": "agent-hierarchical-localization/v2",
+          "provider": "sqlite_hierarchical_localizer/v2",
+          "mode": "serving",
+          "projection_contract": {
+            "candidate_recall_changed": false,
+            "affects_serving_projection": true,
+            "consumer": "query_handoff.callable_evidence"
+          },
+          "limits": {
+            "files": 8,
+            "file_callable_pool": 128,
+            "direct_callable_pool": 32,
+            "graph_seeds": 6,
+            "graph_owners": 16,
+            "callables": 12,
+            "source_ranges": 8
+          },
+          "stage_counts": {
+            "file_candidates": 5,
+            "file_callable_pool": 6,
+            "graph_seed_count": 6,
+            "graph_owner_pool": 0,
+            "selected_callables": 6,
+            "selected_ranges": 6
+          },
+          "file_candidates": [
+            {
+              "file_path": "EnergyAccumulator.ets",
+              "score": 20.5,
+              "first_rank": 1,
+              "record_ids": [
+                4,
+                1,
+                2,
+                3
+              ],
+              "direct_symbol_ids": [
+                4,
+                2,
+                3
+              ],
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable",
+                "file_summary",
+                "salient_query_evidence"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "file_semantic_fts",
+                "salient_file_fts",
+                "salient_string_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            },
+            {
+              "file_path": "EnergyDeferred.ets",
+              "score": 20.5,
+              "first_rank": 2,
+              "record_ids": [
+                7,
+                2,
+                6
+              ],
+              "direct_symbol_ids": [
+                7,
+                6
+              ],
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable",
+                "file_summary",
+                "salient_query_evidence"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "file_semantic_fts",
+                "salient_file_fts",
+                "salient_string_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            },
+            {
+              "file_path": "EnergyList.ets",
+              "score": 20.5,
+              "first_rank": 3,
+              "record_ids": [
+                10,
+                9
+              ],
+              "direct_symbol_ids": [
+                10,
+                9
+              ],
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            },
+            {
+              "file_path": "EnergyPreview.ets",
+              "score": 20.5,
+              "first_rank": 4,
+              "record_ids": [
+                13,
+                14,
+                12
+              ],
+              "direct_symbol_ids": [
+                13,
+                14,
+                12
+              ],
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            },
+            {
+              "file_path": "EnergyReset.ets",
+              "score": 20.5,
+              "first_rank": 6,
+              "record_ids": [
+                17,
+                5,
+                16
+              ],
+              "direct_symbol_ids": [
+                17,
+                16
+              ],
+              "match_reasons": [
+                "symbol_type",
+                "symbol_summary",
+                "search_terms",
+                "query_focus_coverage",
+                "source_locatable",
+                "file_summary",
+                "salient_query_evidence"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "file_semantic_fts",
+                "salient_file_fts",
+                "salient_string_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            }
+          ],
+          "graph_seeds": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 2,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "refresh",
+              "qualified_name": "EnergyAccumulator.refresh",
+              "start_line": 5,
+              "end_line": 10,
+              "score": 11.58,
+              "evidence_score": 11.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyAccumulator",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 3,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "build",
+              "qualified_name": "EnergyAccumulator.build",
+              "start_line": 11,
+              "end_line": 11,
+              "score": 11.58,
+              "evidence_score": 11.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyAccumulator",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 6,
+              "file_path": "EnergyDeferred.ets",
+              "symbol": "refresh",
+              "qualified_name": "EnergyDeferred.refresh",
+              "start_line": 5,
+              "end_line": 9,
+              "score": 10.58,
+              "evidence_score": 10.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyDeferred",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 9,
+              "file_path": "EnergyList.ets",
+              "symbol": "build",
+              "qualified_name": "EnergyList.build",
+              "start_line": 4,
+              "end_line": 10,
+              "score": 9.58,
+              "evidence_score": 9.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 12,
+              "file_path": "EnergyPreview.ets",
+              "symbol": "build",
+              "qualified_name": "EnergyPreview.build",
+              "start_line": 5,
+              "end_line": 10,
+              "score": 8.58,
+              "evidence_score": 8.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyPreview",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 16,
+              "file_path": "EnergyReset.ets",
+              "symbol": "refresh",
+              "qualified_name": "EnergyReset.refresh",
+              "start_line": 5,
+              "end_line": 8,
+              "score": 7.58,
+              "evidence_score": 7.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyReset",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            }
+          ],
+          "graph_owner_candidates": [],
+          "callable_candidates": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 2,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "refresh",
+              "qualified_name": "EnergyAccumulator.refresh",
+              "start_line": 5,
+              "end_line": 10,
+              "score": 11.58,
+              "evidence_score": 11.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyAccumulator",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 3,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "build",
+              "qualified_name": "EnergyAccumulator.build",
+              "start_line": 11,
+              "end_line": 11,
+              "score": 11.58,
+              "evidence_score": 11.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyAccumulator",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 6,
+              "file_path": "EnergyDeferred.ets",
+              "symbol": "refresh",
+              "qualified_name": "EnergyDeferred.refresh",
+              "start_line": 5,
+              "end_line": 9,
+              "score": 10.58,
+              "evidence_score": 10.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyDeferred",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 9,
+              "file_path": "EnergyList.ets",
+              "symbol": "build",
+              "qualified_name": "EnergyList.build",
+              "start_line": 4,
+              "end_line": 10,
+              "score": 9.58,
+              "evidence_score": 9.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 12,
+              "file_path": "EnergyPreview.ets",
+              "symbol": "build",
+              "qualified_name": "EnergyPreview.build",
+              "start_line": 5,
+              "end_line": 10,
+              "score": 8.58,
+              "evidence_score": 8.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyPreview",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 16,
+              "file_path": "EnergyReset.ets",
+              "symbol": "refresh",
+              "qualified_name": "EnergyReset.refresh",
+              "start_line": 5,
+              "end_line": 8,
+              "score": 7.58,
+              "evidence_score": 7.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "salient_string_fts"
+              ],
+              "owner_name": "EnergyReset",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            }
+          ],
+          "source_ranges": [
+            {
+              "symbol_id": 2,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "refresh",
+              "callable_start_line": 5,
+              "callable_end_line": 10,
+              "start_line": 5,
+              "end_line": 10,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 3,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "build",
+              "callable_start_line": 11,
+              "callable_end_line": 11,
+              "start_line": 11,
+              "end_line": 11,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 6,
+              "file_path": "EnergyDeferred.ets",
+              "symbol": "refresh",
+              "callable_start_line": 5,
+              "callable_end_line": 9,
+              "start_line": 5,
+              "end_line": 9,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 9,
+              "file_path": "EnergyList.ets",
+              "symbol": "build",
+              "callable_start_line": 4,
+              "callable_end_line": 10,
+              "start_line": 4,
+              "end_line": 10,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 12,
+              "file_path": "EnergyPreview.ets",
+              "symbol": "build",
+              "callable_start_line": 5,
+              "callable_end_line": 10,
+              "start_line": 5,
+              "end_line": 10,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 16,
+              "file_path": "EnergyReset.ets",
+              "symbol": "refresh",
+              "callable_start_line": 5,
+              "callable_end_line": 8,
+              "start_line": 5,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          ]
+        },
+        "callable_evidence_set": {
+          "schema_version": "agent-callable-evidence-set/v1",
+          "mode": "shadow",
+          "serving_projection_changed": false,
+          "target_scope": {
+            "kind": "multiple",
+            "basis": [
+              "conjoined_evidence_cue"
+            ]
+          },
+          "members": [
+            {
+              "position": 1,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "refresh",
+              "owner_name": "EnergyAccumulator",
+              "owner_kind": "component",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            },
+            {
+              "position": 2,
+              "file_path": "EnergyAccumulator.ets",
+              "symbol": "build",
+              "owner_name": "EnergyAccumulator",
+              "owner_kind": "component",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            },
+            {
+              "position": 3,
+              "file_path": "EnergyDeferred.ets",
+              "symbol": "refresh",
+              "owner_name": "EnergyDeferred",
+              "owner_kind": "component",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            }
+          ],
+          "competition": {
+            "member_count": 3,
+            "distinct_file_count": 2,
+            "same_owner_kind_alternative": true,
+            "graph_backed_alternative": false,
+            "excluded_member_count": 0
+          },
+          "calibration": {
+            "state": "portfolio_required",
+            "basis": [
+              "explicit_multi_target"
+            ]
+          },
+          "boundary": "retrieval_calibration_not_diagnosis"
+        },
+        "callable_passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "fewer_than_two_supported_callable_identities"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    "compact": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "7525a018058dff04",
+      "query": "Locate the state and iteration source.",
+      "memory_intent": "code_location",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "locate",
+          "state",
+          "iteration",
+          "source"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "EnergyAccumulator.ets",
+            "symbol": "total",
+            "symbol_type": "state",
+            "record_ids": [
+              4
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "total",
+                "start_line": 3,
+                "end_line": 3
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 3
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": null,
+                "start_line": 1,
+                "end_line": 10,
+                "content": "@Component\nstruct EnergyAccumulator {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: MeterRow) => {\n      this.total += row.watts\n    })\n  }",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": true
+              }
+            ]
+          },
+          {
+            "file_path": "EnergyList.ets",
+            "symbol": "rows",
+            "symbol_type": "state",
+            "record_ids": [
+              10
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "rows",
+                "start_line": 3,
+                "end_line": 3
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 3
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": null,
+                "start_line": 1,
+                "end_line": 11,
+                "content": "@Component\nstruct EnergyList {\n  @State rows: MeterRow[] = []\n  build() {\n    Column() {\n      ForEach(this.rows, (row: MeterRow) => {\n        Text(`${row.watts}`)\n      })\n    }\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "EnergyDeferred.ets",
+            "symbol": "refresh",
+            "symbol_type": "function",
+            "record_ids": [
+              2,
+              7
+            ],
+            "source_ranges": [
+              {
+                "symbol": "refresh",
+                "start_line": 5,
+                "end_line": 9
+              },
+              {
+                "symbol": "total",
+                "start_line": 3,
+                "end_line": 3
+              }
+            ],
+            "summary": "ArkTS file with 10 non-empty lines; components: EnergyDeferred; component terms: energy, deferred; operations: forEach; behavior: lifecyclesync, statewrite",
+            "record_refs": [
+              [
+                "code_file",
+                2
+              ],
+              [
+                "code_symbol",
+                7
+              ]
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 9
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": null,
+                "start_line": 1,
+                "end_line": 10,
+                "content": "@Component\nstruct EnergyDeferred {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.rows.forEach((row: MeterRow) => {\n      queueMicrotask(() => { this.total += row.watts })\n    })\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "EnergyPreview.ets",
+            "symbol": "build",
+            "symbol_type": "function",
+            "record_ids": [
+              12
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "build",
+                "start_line": 5,
+                "end_line": 10
+              }
+            ],
+            "read_window": {
+              "start_line": 5,
+              "end_line": 10
+            },
+            "role": "expansion"
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "EnergyAccumulator.ets",
+            "symbol": "refresh",
+            "owner_name": "EnergyAccumulator",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 11.58,
+            "evidence_score": 11.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 10,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "EnergyDeferred.ets",
+              "symbol": "refresh",
+              "owner_name": "EnergyDeferred",
+              "owner_kind": "component",
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.58,
+              "evidence_score": 10.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "source_range": {
+                "start_line": 5,
+                "end_line": 9,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 3,
+          "excerpt_chars": 616
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1395,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    }
+  }
+}

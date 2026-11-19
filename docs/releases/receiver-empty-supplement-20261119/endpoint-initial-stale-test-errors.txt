@@ -1,0 +1,22 @@
+F.F......
+======================================================================
+FAIL: test_adapters_and_old_marker (tests.test_receiver_iteration_hint.ReceiverIterationHintTests.test_adapters_and_old_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_receiver_iteration_hint.py", line 29, in test_adapters_and_old_marker
+    self.assertIn('receiverfold',hints);self.assertNotIn('collectionfold',hints)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'receiverfold' not found in ['statewrite', 'state', 'write', 'stateread', 'read']
+
+======================================================================
+FAIL: test_request_scope (tests.test_receiver_iteration_hint.ReceiverIterationHintTests.test_request_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_receiver_iteration_hint.py", line 32, in test_request_scope
+    self.assertIn('receiverfold',behavior_marker_terms('请定位遍历记录时累加状态总数的聚合源码。'))
+AssertionError: 'receiverfold' not found in ['collectionfold']
+
+----------------------------------------------------------------------
+Ran 9 tests in 5.090s
+
+FAILED (failures=2)

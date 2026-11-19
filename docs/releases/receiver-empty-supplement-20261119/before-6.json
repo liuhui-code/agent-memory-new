@@ -1,0 +1,809 @@
+{
+  "fixture": "Energy",
+  "query": {
+    "id": "aggregate-zh",
+    "query": "请定位遍历记录时累加状态总数的聚合源码。",
+    "required": "EnergyAccumulator.ets"
+  },
+  "outputs": {
+    "raw": {
+      "project_id": "0148b1940bb599b3",
+      "project_path": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/iteration08-qualification/Energy",
+      "query": "请定位遍历记录时累加状态总数的聚合源码。",
+      "memory_intent": "general_context",
+      "memory_intent_v2": "general_context",
+      "memory_intent_source": "inferred",
+      "retrieval_lanes": {
+        "counts": {
+          "main_reflections": 0,
+          "correction_guards": 0,
+          "semantic_patch_notes": 0,
+          "blocked_memory_notes": 0
+        },
+        "intent_profile": {
+          "intent": "general_context",
+          "intent_v2": "general_context",
+          "intent_source": "inferred",
+          "legacy_intent": "general_context",
+          "preferred_lanes": [
+            "semantic_facts",
+            "wiki_matches",
+            "reusable_procedure",
+            "historical_reflection"
+          ],
+          "interference_policy": "prefer source-backed and high-quality memories"
+        },
+        "lane_budgets": {
+          "main_reflections": 2,
+          "correction_guards": 4,
+          "semantic_patch_notes": 6,
+          "blocked_memory_notes": 8
+        },
+        "policy": {
+          "procedure_experience": "main context only when the query intent can reuse a procedure",
+          "correction_experience": "guardrail lane; not injected as the main task direction by default",
+          "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+        }
+      },
+      "memory_brief": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "main_reflection_count": 0,
+        "correction_guard_count": 0,
+        "semantic_patch_count": 0,
+        "blocked_count": 0,
+        "conflict_count": 0
+      },
+      "followup_focus": "log",
+      "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+      "semantic_facts": [],
+      "reflections": [],
+      "episodes": [],
+      "wiki_matches": [],
+      "code_log_matches": [],
+      "edge_matches": [],
+      "incident_trace_matches": [],
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "suggested_followup_terms": [],
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请定位遍历记录时累加状态总数的聚合源码。",
+        "log_keywords": [
+          "请定位遍历记录时累加状态总数的聚合源码",
+          "请定",
+          "定位",
+          "位遍",
+          "遍历",
+          "历记",
+          "记录",
+          "录时",
+          "时累",
+          "累加",
+          "加状",
+          "状态",
+          "态总",
+          "总数",
+          "数的",
+          "的聚",
+          "聚合",
+          "合源",
+          "源码"
+        ],
+        "log_anchors": [],
+        "code_anchors": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "unavailable",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "no_locatable_primary"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      },
+      "network_limits": {
+        "max_depth": 1,
+        "edge_limit": 10,
+        "evidence_chain_limit": 3,
+        "allowed_relations": [
+          "configured_by",
+          "contains",
+          "emits_log",
+          "imports",
+          "passes_property",
+          "renders_component",
+          "routes_to",
+          "uses_resource"
+        ]
+      },
+      "source_freshness": {
+        "schema_version": "source-freshness/v1",
+        "status": "empty",
+        "generation": 1,
+        "source_revision": "unversioned",
+        "extractor_version": "code-derived:v1",
+        "candidate_file_count": 0,
+        "checked_file_count": 0,
+        "current_file_count": 0,
+        "blocked_rows": 0,
+        "blocked_rows_by_table": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "stale_paths": [],
+        "missing_paths": [],
+        "unverified_paths": [],
+        "boundary_drift_scope_ids": [],
+        "policy": "digest_mismatch_and_missing_source_blocked"
+      },
+      "memory_use_policy": {
+        "mode": "advisory",
+        "authority_order": [
+          "current_source",
+          "explicit_user_instruction",
+          "source_truth",
+          "verified_experience",
+          "usable_hint",
+          "weak_hint"
+        ],
+        "rules": [
+          "Current source files and explicit user instructions override stored memory.",
+          "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+          "Use weak hints only to choose what to inspect next.",
+          "Do not let recency override evidence, status, confidence, or feedback penalties."
+        ]
+      },
+      "query_audit": {
+        "result_counts": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 0,
+          "code_log_matches": 0,
+          "edge_matches": 0,
+          "incident_trace_matches": 0
+        },
+        "candidate_recall": {
+          "schema_version": "agent-candidate-recall-audit/v1",
+          "source_freshness": {
+            "schema_version": "source-freshness/v1",
+            "status": "empty",
+            "generation": 1,
+            "source_revision": "unversioned",
+            "extractor_version": "code-derived:v1",
+            "candidate_file_count": 0,
+            "checked_file_count": 0,
+            "current_file_count": 0,
+            "blocked_rows": 0,
+            "blocked_rows_by_table": {
+              "code_files": 0,
+              "code_symbols": 0,
+              "code_log_statements": 0
+            },
+            "stale_paths": [],
+            "missing_paths": [],
+            "unverified_paths": [],
+            "boundary_drift_scope_ids": [],
+            "policy": "digest_mismatch_and_missing_source_blocked"
+          },
+          "provider": "sqlite_fts5_passage_rrf/v4",
+          "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+          "tables": {
+            "semantic_facts": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "reflections": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "episodes": {
+              "requested_limit": 80,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "code_files": {
+              "requested_limit": 160,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 1,
+              "lane_counts": {
+                "broad_fts": 0,
+                "structural_fts": 0,
+                "file_identity_fts": 0,
+                "file_semantic_fts": 0,
+                "salient_file_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "file_identity_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 6.0,
+                    "identity_terms_weight": 9.0
+                  },
+                  "file_semantic_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 1.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "salient_file_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 0,
+                    "query_term_count": 1,
+                    "file_path_weight": 3.0,
+                    "semantic_terms_weight": 8.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": false,
+                "serving_channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 3,
+                  "channel_counts": {
+                    "file_identity_fts": 0,
+                    "file_semantic_fts": 0,
+                    "salient_file_fts": 0
+                  },
+                  "fused_candidate_count": 0
+                },
+                "candidate_fusion": {},
+                "candidate_refs": []
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "structural_fts": 0,
+                  "file_identity_fts": 0,
+                  "file_semantic_fts": 0,
+                  "salient_file_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "code_symbols": {
+              "requested_limit": 220,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "behavior_method_fts": 0,
+                "symbol_identity_fts": 0,
+                "symbol_semantic_fts": 0,
+                "string_key_fts": 0,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "symbol_identity_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "symbol",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 0,
+                    "file_path_weight": 2.0,
+                    "symbol_weight": 8.0,
+                    "identity_terms_weight": 10.0
+                  },
+                  "symbol_semantic_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "symbol",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 0,
+                    "symbol_weight": 2.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "method_body_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms"
+                    ],
+                    "candidate_count": 0,
+                    "body_terms_weight": 8.0
+                  },
+                  "string_key_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "string_terms"
+                    ],
+                    "candidate_count": 0,
+                    "string_terms_weight": 9.0
+                  },
+                  "semantic_mechanism_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "mechanism_terms"
+                    ],
+                    "candidate_count": 0,
+                    "mechanism_terms_weight": 9.0
+                  },
+                  "salient_string_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms",
+                      "string_terms"
+                    ],
+                    "candidate_count": 0,
+                    "query_term_count": 1,
+                    "body_terms_weight": 3.0,
+                    "string_terms_weight": 10.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": false,
+                "serving_channels": [
+                  "salient_string_fts",
+                  "semantic_mechanism_fts",
+                  "string_key_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 6,
+                  "channel_counts": {
+                    "symbol_identity_fts": 0,
+                    "symbol_semantic_fts": 0,
+                    "method_body_fts": 0,
+                    "string_key_fts": 0,
+                    "semantic_mechanism_fts": 0,
+                    "salient_string_fts": 0
+                  },
+                  "fused_candidate_count": 0
+                },
+                "candidate_fusion": {},
+                "candidate_refs": []
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 8,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "behavior_method_fts": 0,
+                  "symbol_identity_fts": 0,
+                  "symbol_semantic_fts": 0,
+                  "string_key_fts": 0,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "code_log_statements": {
+              "requested_limit": 180,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            }
+          }
+        },
+        "retrieval_stages": {
+          "scored": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 0,
+            "code_log_matches": 0,
+            "edge_matches": 0,
+            "incident_trace_matches": 0
+          },
+          "after_intent_gate": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 0,
+            "code_log_matches": 0,
+            "edge_matches": 0,
+            "incident_trace_matches": 0
+          },
+          "selected": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 0,
+            "code_log_matches": 0,
+            "edge_matches": 0,
+            "incident_trace_matches": 0
+          }
+        },
+        "top_explanations": {
+          "semantic_facts": [],
+          "reflections": [],
+          "episodes": [],
+          "wiki_matches": [],
+          "code_log_matches": [],
+          "edge_matches": [],
+          "incident_trace_matches": []
+        },
+        "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+        "hierarchical_localization": {
+          "schema_version": "agent-hierarchical-localization/v2",
+          "provider": "sqlite_hierarchical_localizer/v2",
+          "mode": "serving",
+          "projection_contract": {
+            "candidate_recall_changed": false,
+            "affects_serving_projection": true,
+            "consumer": "query_handoff.callable_evidence"
+          },
+          "limits": {
+            "files": 8,
+            "file_callable_pool": 128,
+            "direct_callable_pool": 32,
+            "graph_seeds": 6,
+            "graph_owners": 16,
+            "callables": 12,
+            "source_ranges": 8
+          },
+          "stage_counts": {
+            "file_candidates": 0,
+            "file_callable_pool": 0,
+            "graph_seed_count": 0,
+            "graph_owner_pool": 0,
+            "selected_callables": 0,
+            "selected_ranges": 0
+          },
+          "file_candidates": [],
+          "graph_seeds": [],
+          "graph_owner_candidates": [],
+          "callable_candidates": [],
+          "source_ranges": []
+        },
+        "callable_evidence_set": {
+          "schema_version": "agent-callable-evidence-set/v1",
+          "mode": "shadow",
+          "serving_projection_changed": false,
+          "target_scope": {
+            "kind": "unknown",
+            "basis": [
+              "no_explicit_target_scope"
+            ]
+          },
+          "members": [],
+          "competition": {
+            "member_count": 0,
+            "distinct_file_count": 0,
+            "same_owner_kind_alternative": false,
+            "graph_backed_alternative": false,
+            "excluded_member_count": 0
+          },
+          "calibration": {
+            "state": "insufficient",
+            "basis": [
+              "no_locatable_primary"
+            ]
+          },
+          "boundary": "retrieval_calibration_not_diagnosis"
+        },
+        "callable_passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "no_locatable_primary"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    "compact": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "0148b1940bb599b3",
+      "query": "请定位遍历记录时累加状态总数的聚合源码。",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "empty",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请定位遍历记录时累加状态总数的聚合源码",
+          "请定",
+          "定位",
+          "位遍",
+          "遍历",
+          "历记",
+          "记录",
+          "录时",
+          "时累",
+          "累加",
+          "加状",
+          "状态"
+        ],
+        "log_anchors": [],
+        "code_anchors": [],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "unavailable",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "no_code_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "insufficient_evidence",
+        "next_action": "narrow_query_or_learn_relevant_scope",
+        "reason_codes": [
+          "no_inspectable_retrieval_evidence",
+          "no_log_anchor",
+          "no_code_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": false,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 564,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+}

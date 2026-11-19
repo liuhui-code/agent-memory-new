@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "fixture": "Warehouse",
+      "query": "aggregate",
+      "before_paths": [
+        "WarehouseAccumulator.ets",
+        "WarehouseList.ets",
+        "WarehouseDeferred.ets",
+        "WarehousePreview.ets"
+      ],
+      "after_paths": [
+        "WarehouseAccumulator.ets",
+        "WarehouseList.ets",
+        "WarehouseDeferred.ets",
+        "WarehousePreview.ets"
+      ]
+    },
+    {
+      "fixture": "Warehouse",
+      "query": "aggregate-zh",
+      "before_paths": [],
+      "after_paths": [
+        "WarehouseAccumulator.ets"
+      ]
+    },
+    {
+      "fixture": "Warehouse",
+      "query": "iteration",
+      "before_paths": [
+        "WarehouseAccumulator.ets",
+        "WarehouseList.ets",
+        "WarehouseDeferred.ets"
+      ],
+      "after_paths": [
+        "WarehouseAccumulator.ets",
+        "WarehouseList.ets",
+        "WarehouseDeferred.ets"
+      ]
+    },
+    {
+      "fixture": "Warehouse",
+      "query": "display",
+      "before_paths": [
+        "WarehouseList.ets"
+      ],
+      "after_paths": [
+        "WarehouseList.ets"
+      ]
+    },
+    {
+      "fixture": "Energy",
+      "query": "aggregate",
+      "before_paths": [
+        "EnergyAccumulator.ets",
+        "EnergyList.ets",
+        "EnergyDeferred.ets",
+        "EnergyPreview.ets"
+      ],
+      "after_paths": [
+        "EnergyAccumulator.ets",
+        "EnergyList.ets",
+        "EnergyDeferred.ets",
+        "EnergyPreview.ets"
+      ]
+    },
+    {
+      "fixture": "Energy",
+      "query": "aggregate-zh",
+      "before_paths": [],
+      "after_paths": [
+        "EnergyAccumulator.ets"
+      ]
+    },
+    {
+      "fixture": "Energy",
+      "query": "iteration",
+      "before_paths": [
+        "EnergyAccumulator.ets",
+        "EnergyList.ets",
+        "EnergyDeferred.ets",
+        "EnergyPreview.ets"
+      ],
+      "after_paths": [
+        "EnergyAccumulator.ets",
+        "EnergyList.ets",
+        "EnergyDeferred.ets",
+        "EnergyPreview.ets"
+      ]
+    },
+    {
+      "fixture": "Energy",
+      "query": "display",
+      "before_paths": [
+        "EnergyList.ets"
+      ],
+      "after_paths": [
+        "EnergyList.ets"
+      ]
+    }
+  ],
+  "boundary": "episodes/experience refs include different project IDs, local paths and learning timestamps in separate fresh archives; not asserted byte-equal. A same-object raw test retains five log anchors and a semantic fact exactly."
+}

@@ -1,0 +1,71 @@
+{
+  "classification": "development",
+  "origin": "independent authored synthetic fixtures, not real incidents or external evidence",
+  "stop": "Freeze before first public run. If positives already retain accumulator, do not modify sources/query to force failure. Deferred relation unknown, no trigger causality asserted.",
+  "cases": [
+    {
+      "id": "Warehouse",
+      "sources": {
+        "WarehouseAccumulator.ets": "@Component\nstruct WarehouseAccumulator {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => {\n      this.total += row.quantity\n    })\n  }\n  build() { Text(`${this.total}`) }\n}\n",
+        "WarehouseList.ets": "@Component\nstruct WarehouseList {\n  @State rows: StockRow[] = []\n  build() {\n    Column() {\n      ForEach(this.rows, (row: StockRow) => {\n        Text(`${row.quantity}`)\n      })\n    }\n  }\n}\n",
+        "WarehousePreview.ets": "@Component\nstruct WarehousePreview {\n  @State rows: StockRow[] = []\n  @State total: number = 0\n  build() {\n    Column() {\n      Text(`${this.total}`)\n      ForEach(this.rows, (row: StockRow) => { Text(`${row.quantity}`) })\n    }\n  }\n}\n",
+        "WarehouseReset.ets": "@Component\nstruct WarehouseReset {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: StockRow) => { console.info(`${row.quantity}`) })\n  }\n}\n",
+        "WarehouseDeferred.ets": "@Component\nstruct WarehouseDeferred {\n  @State total: number = 0\n  private rows: StockRow[] = []\n  refresh() {\n    this.rows.forEach((row: StockRow) => {\n      queueMicrotask(() => { this.total += row.quantity })\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "aggregate",
+          "query": "Locate the state aggregation source that accumulates values while iterating records.",
+          "required": "WarehouseAccumulator.ets"
+        },
+        {
+          "id": "aggregate-zh",
+          "query": "请定位遍历记录时累加状态总数的聚合源码。",
+          "required": "WarehouseAccumulator.ets"
+        },
+        {
+          "id": "iteration",
+          "query": "Locate the state and iteration source.",
+          "required": null
+        },
+        {
+          "id": "display",
+          "query": "Locate the list display that renders each record.",
+          "required": "WarehouseList.ets"
+        }
+      ]
+    },
+    {
+      "id": "Energy",
+      "sources": {
+        "EnergyAccumulator.ets": "@Component\nstruct EnergyAccumulator {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: MeterRow) => {\n      this.total += row.watts\n    })\n  }\n  build() { Text(`${this.total}`) }\n}\n",
+        "EnergyList.ets": "@Component\nstruct EnergyList {\n  @State rows: MeterRow[] = []\n  build() {\n    Column() {\n      ForEach(this.rows, (row: MeterRow) => {\n        Text(`${row.watts}`)\n      })\n    }\n  }\n}\n",
+        "EnergyPreview.ets": "@Component\nstruct EnergyPreview {\n  @State rows: MeterRow[] = []\n  @State total: number = 0\n  build() {\n    Column() {\n      Text(`${this.total}`)\n      ForEach(this.rows, (row: MeterRow) => { Text(`${row.watts}`) })\n    }\n  }\n}\n",
+        "EnergyReset.ets": "@Component\nstruct EnergyReset {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.total = 0\n    this.rows.forEach((row: MeterRow) => { console.info(`${row.watts}`) })\n  }\n}\n",
+        "EnergyDeferred.ets": "@Component\nstruct EnergyDeferred {\n  @State total: number = 0\n  private rows: MeterRow[] = []\n  refresh() {\n    this.rows.forEach((row: MeterRow) => {\n      queueMicrotask(() => { this.total += row.watts })\n    })\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "aggregate",
+          "query": "Locate the state aggregation source that accumulates values while iterating records.",
+          "required": "EnergyAccumulator.ets"
+        },
+        {
+          "id": "aggregate-zh",
+          "query": "请定位遍历记录时累加状态总数的聚合源码。",
+          "required": "EnergyAccumulator.ets"
+        },
+        {
+          "id": "iteration",
+          "query": "Locate the state and iteration source.",
+          "required": null
+        },
+        {
+          "id": "display",
+          "query": "Locate the list display that renders each record.",
+          "required": "EnergyList.ets"
+        }
+      ]
+    }
+  ]
+}

@@ -123,8 +123,10 @@ def limited_context(project: Project, query: str, explicit_intent: str | None = 
     else:
         from .query_context_accounting import adopted_context
         adopted = adopted_context(result)
-        record_context_use(project, adopted)
-        record_query_miss_if_empty(project, "context", query, adopted)
+        from .receiver_empty_transaction import defer_accounting
+        if not defer_accounting(project, query, adopted):
+            record_context_use(project, adopted)
+            record_query_miss_if_empty(project, "context", query, adopted)
     from .query_recovery_append_lifecycle import selected as select_recovery_append
     return select_recovery_append(result)
 def _context_pass(
@@ -430,12 +432,8 @@ def result_counts(data: dict[str, Any]) -> dict[str, int]:
         if isinstance(value, list)
     }
 
-
-
 def has_any_result(data: dict[str, Any]) -> bool:
     return any(result_counts(data).values())
-
-
 
 def normalize_query_miss(query: str) -> str:
     return " ".join(query.lower().split())

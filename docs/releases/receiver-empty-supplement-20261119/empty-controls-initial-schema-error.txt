@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/../iteration08-qualification/empty-controls.py", line 20, in <module>
+    db=next(home.glob('projects/*/memory.db'));c=sqlite3.connect(db);miss=c.execute('select normalized_query,occurrence_count from query_misses').fetchall()
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: occurrence_count
