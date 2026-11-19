@@ -1,0 +1,14 @@
+{
+  "classification": "Independent synthetic Development fixture designed to exercise typed callable tail display amid legitimate forwarding/logging context; not copied Account business, not external incident. Names and helper logs intentionally model archive transfer/audit vocabulary, not tuned after execution.",
+  "frozen_at": "2026-11-19T00:45:13.346992+00:00",
+  "sources": {
+    "src/ArchiveUploadCoordinator.ts": "import { ArchiveTransport } from './ArchiveTransport'\nimport { ArchiveAudit } from './ArchiveAudit'\n\nexport class ArchiveUploadCoordinator {\n  private transport: ArchiveTransport = new ArchiveTransport()\n  private audit: ArchiveAudit = new ArchiveAudit()\n  private archivePath: string = ''\n\n  async sendArchive(): Promise<void> {\n    if (this.archivePath.trim().length === 0) {\n      this.audit.reject('Archive upload requires a source path')\n      return\n    }\n    await this.transport.upload(this.archivePath)\n    this.audit.record(this.archivePath)\n  }\n}\n",
+    "src/ArchiveTransport.ts": "export class ArchiveTransport {\n  async upload(path: string): Promise<void> {\n    console.info('Archive upload transport started', path)\n    await Promise.resolve()\n    console.info('Archive upload transport completed', path)\n  }\n}\n",
+    "src/ArchiveAudit.ts": "export class ArchiveAudit {\n  reject(reason: string): void {\n    console.error('Archive upload rejected', reason)\n  }\n  record(path: string): void {\n    console.info('Archive upload recorded', path)\n  }\n}\n"
+  },
+  "queries": [
+    "Locate ArchiveUploadCoordinator.sendArchive",
+    "ArchiveUploadCoordinator.sendArchive"
+  ],
+  "expectation": "Inspect actual baseline; if no incomplete query_window_with_callable_tail, retain no-red result rather than changing this frozen input."
+}

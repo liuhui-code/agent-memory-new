@@ -1,0 +1,16 @@
+{
+  "classification": "Third mechanism-specific synthetic Development qualification constructed after two nonqualifying samples and measured allocation/focus observations. Not a blind test, independent incident, or proof of general performance. Natural settings/service/typed-options relation; no unrelated noise or padded strings. Owner name deliberately absent from message to avoid action-line focus shift.",
+  "frozen_at": "2026-11-19T00:49:17.869787+00:00",
+  "sources": {
+    "src/ConnectionSettings.ets": "import { ConnectionService } from './ConnectionService'\nimport { ConnectionOptions } from './ConnectionOptions'\n\n@Component\nexport struct ConnectionSettings {\n  @State endpoint: string = ''\n  private service: ConnectionService = new ConnectionService()\n  private options: ConnectionOptions = { secure: true }\n\n  applyEndpoint(): void {\n    if (this.endpoint.trim().length === 0) {\n      promptAction.showToast({ message: 'Endpoint is required' })\n      return\n    }\n    this.service.open(this.endpoint, this.options)\n  }\n\n  build() { Text(this.endpoint) }\n}\n",
+    "src/ConnectionService.ets": "import { ConnectionOptions } from './ConnectionOptions'\nexport class ConnectionService {\n  open(endpoint: string, options: ConnectionOptions): void {\n    console.info('endpoint requested', endpoint, options.secure)\n  }\n}\n",
+    "src/ConnectionOptions.ets": "export interface ConnectionOptions {\n  secure: boolean\n}\n"
+  },
+  "query": "Locate ConnectionSettings.applyEndpoint",
+  "budget": 1500,
+  "expected_method_range": [
+    10,
+    16
+  ],
+  "criterion": "Existing typed method/candidate selected, query_window_with_callable_tail prefix covers method start but loses method end after per-anchor character allocation; additive full union and metadata fit original1500. If absent or already complete, STOP without editing source/query/names."
+}

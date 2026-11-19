@@ -1,0 +1,279 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "104e89bc7119cbdd",
+  "query": "Locate ConnectionSettings.applyEndpoint",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "locate",
+      "connectionsettings",
+      "applyendpoint",
+      "console",
+      "endpoint",
+      "requested",
+      "service",
+      "open",
+      "options",
+      "info",
+      "secure"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 1,
+        "message_template": "endpoint requested",
+        "logger": "console",
+        "file_path": "src/ConnectionSettings.ets",
+        "function": "applyEndpoint",
+        "line": 15,
+        "effect_id": 1,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "open",
+        "wrapper_depth": 1,
+        "call_path": [
+          "applyEndpoint",
+          "open",
+          "console.info"
+        ],
+        "call_path_locations": [
+          "src/ConnectionSettings.ets#applyEndpoint",
+          "src/ConnectionService.ets#open",
+          "src/ConnectionService.ets#console.info"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 1,
+        "message_template": "endpoint requested",
+        "logger": "console",
+        "file_path": "src/ConnectionService.ets",
+        "function": "open",
+        "line": 4,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/ConnectionSettings.ets",
+        "symbol": "applyEndpoint",
+        "symbol_type": "function",
+        "record_ids": [
+          5
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "applyEndpoint",
+            "start_line": 10,
+            "end_line": 16
+          }
+        ],
+        "read_window": {
+          "start_line": 10,
+          "end_line": 16
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "applyEndpoint",
+            "start_line": 3,
+            "end_line": 11,
+            "content": "\n@Component\nexport struct ConnectionSettings {\n  @State endpoint: string = ''\n  private service: ConnectionService = new ConnectionService()\n  private options: ConnectionOptions = { secure: true }\n\n  applyEndpoint(): void {\n    if (this.endpoint.trim().length === 0) {",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": true
+          }
+        ]
+      },
+      {
+        "file_path": "src/ConnectionOptions.ets",
+        "symbol": "ConnectionOptions",
+        "symbol_type": "interface",
+        "graph_relation": "imports",
+        "record_ids": [
+          1
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "ConnectionOptions",
+            "start_line": 1,
+            "end_line": 3
+          }
+        ],
+        "read_window": {
+          "start_line": 1,
+          "end_line": 3
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "ConnectionOptions",
+            "start_line": 1,
+            "end_line": 3,
+            "content": "export interface ConnectionOptions {\n  secure: boolean\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/ConnectionService.ets",
+        "symbol": "ConnectionService",
+        "symbol_type": "class",
+        "graph_relation": "imports",
+        "record_ids": [
+          2
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "ConnectionService",
+            "start_line": 2,
+            "end_line": 6
+          }
+        ],
+        "read_window": {
+          "start_line": 2,
+          "end_line": 6
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "ConnectionService",
+            "start_line": 1,
+            "end_line": 6,
+            "content": "import { ConnectionOptions } from './ConnectionOptions'\nexport class ConnectionService {\n  open(endpoint: string, options: ConnectionOptions): void {\n    console.info('endpoint requested', endpoint, options.secure)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/ConnectionSettings.ets",
+        "symbol": "applyEndpoint",
+        "owner_name": "ConnectionSettings",
+        "owner_kind": "component",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 60.0,
+        "evidence_score": 60.0,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 10,
+          "end_line": 16,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/ConnectionService.ets",
+          "symbol": "open",
+          "owner_name": "ConnectionService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 15.72,
+          "evidence_score": 15.72,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 544
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 2,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1477,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "8236803e2d457b3b",
+  "query": "Locate AccountSettingsPage.saveAccount",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "locate",
+      "accountsettingspage",
+      "saveaccount",
+      "console",
+      "submit",
+      "account",
+      "update",
+      "displayname"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 6,
+        "message_template": "submit account update ${displayName}",
+        "logger": "console",
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "function": "saveAccount",
+        "line": 14,
+        "effect_id": 3,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "dispatchUpdate",
+        "wrapper_depth": 1,
+        "call_path": [
+          "saveAccount",
+          "dispatchUpdate",
+          "console.info"
+        ],
+        "call_path_locations": [
+          "src/pages/AccountSettingsPage.ets#saveAccount",
+          "src/services/AccountUpdateService.ets#dispatchUpdate",
+          "src/services/AccountUpdateService.ets#console.info"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 6,
+        "message_template": "submit account update ${displayName}",
+        "logger": "console",
+        "file_path": "src/services/AccountUpdateService.ets",
+        "function": "dispatchUpdate",
+        "line": 3,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "saveAccount",
+        "symbol_type": "function",
+        "record_ids": [
+          131
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "saveAccount",
+            "start_line": 9,
+            "end_line": 15
+          }
+        ],
+        "read_window": {
+          "start_line": 9,
+          "end_line": 15
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": null,
+            "start_line": 1,
+            "end_line": 13,
+            "content": "import { AccountUpdateService } from '../services/AccountUpdateService'\n\n@Entry\n@Component\nexport struct AccountSettingsPage {\n  @State displayName: string = ''\n  private updateService: AccountUpdateService = new AccountUpdateService()\n\n  saveAccount(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Required display name' })\n      return\n    }",
+            "source": "current_worktree",
+            "selection_reason": "query_window_with_callable_tail",
+            "focus_line": null,
+            "truncated": true
+          }
+        ]
+      },
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "symbol": "AccountUpdateService",
+        "symbol_type": "class",
+        "graph_relation": "imports",
+        "record_ids": [
+          373
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "AccountUpdateService",
+            "start_line": 1,
+            "end_line": 5
+          }
+        ],
+        "read_window": {
+          "start_line": 1,
+          "end_line": 5
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "AccountUpdateService",
+            "start_line": 1,
+            "end_line": 5,
+            "content": "export class AccountUpdateService {\n  dispatchUpdate(displayName: string): void {\n    console.info(`submit account update ${displayName}`)\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/models/ThemeSettings.ets",
+        "symbol": "ThemeSettings",
+        "symbol_type": "interface",
+        "record_ids": [
+          125
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "ThemeSettings",
+            "start_line": 1,
+            "end_line": 5
+          }
+        ],
+        "read_window": {
+          "start_line": 1,
+          "end_line": 5
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "ThemeSettings",
+            "start_line": 1,
+            "end_line": 5,
+            "content": "export interface ThemeSettings {\n  selectedMode: number;\n  followsSystem: boolean;\n  supportsDarkMode: boolean;\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "saveAccount",
+        "owner_kind": "component",
+        "source_range": {
+          "start_line": 9,
+          "end_line": 15,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": []
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 3,
+      "excerpt_chars": 651
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 2,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1387,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}

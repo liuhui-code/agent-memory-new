@@ -1,0 +1,731 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/source",
+  "path": ".",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "src/ArchiveAudit.ts",
+    "src/ArchiveTransport.ts",
+    "src/ArchiveUploadCoordinator.ts"
+  ],
+  "count": 3,
+  "summary": "Merged 3 files from .",
+  "parse_stats": {
+    "files_indexed": 3,
+    "skipped_by_reason": {},
+    "languages": {
+      "TypeScript": 3
+    },
+    "symbols_total": 7,
+    "symbols_by_type": {
+      "class": 3,
+      "function": 4
+    },
+    "code_logs_total": 4,
+    "code_logs_by_level": {
+      "error": 1,
+      "info": 3
+    },
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "typescript-static",
+          "version": "1.2",
+          "language": "TypeScript"
+        }
+      ],
+      "capabilities": [
+        "api_boundaries",
+        "async_flow",
+        "callbacks",
+        "calls",
+        "definitions",
+        "inheritance",
+        "mechanisms",
+        "references",
+        "types"
+      ],
+      "files_indexed": 3,
+      "entities": 7,
+      "relations_extracted": 14,
+      "mechanisms_extracted": 11,
+      "relations_emitted": 13,
+      "unresolved_relations": 1,
+      "method_summaries_enriched": 4,
+      "gaps": [
+        {
+          "kind": "unresolved_await_target",
+          "file_path": "src/ArchiveTransport.ts",
+          "symbol": "Promise.resolve"
+        }
+      ],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "TypeScript",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 3
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 3,
+        "effects_emitted": 4,
+        "truncated": false,
+        "max_wrapper_depth": 1
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 7,
+        "reference_name_count": 0,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 7
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 3,
+      "symbols_written": 7,
+      "passages_written": 10
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/source",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 3,
+      "scope_files": [
+        "src/ArchiveAudit.ts",
+        "src/ArchiveTransport.ts",
+        "src/ArchiveUploadCoordinator.ts"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 3,
+          "code_log_statement": 4,
+          "code_symbol": 7
+        },
+        "edge_count": 28,
+        "relation_counts": {
+          "awaits": 1,
+          "calls": 3,
+          "consumes_api": 2,
+          "contains": 11,
+          "emits_log": 4,
+          "exposes_api": 7
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 28,
+      "edge_delta": 28
+    },
+    "phase_ms": {
+      "extract": 3.681,
+      "load_scope": 4.727,
+      "invalidate": 0.543,
+      "prepare_rows": 3.162,
+      "insert_rows": 0.58,
+      "restore_business": 0.063,
+      "rebuild_graph": 19.468,
+      "summarize": 0.249,
+      "commit": 0.918,
+      "total": 33.406
+    },
+    "memory_edges_total": 28,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 3,
+      "symbols": 7,
+      "logs": 4
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 0,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "src/ArchiveAudit.ts",
+          "summary": "TypeScript file with 8 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "reject",
+              "symbol_type": "function",
+              "summary": "function reject in src/ArchiveAudit.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveaudit",
+                "ts",
+                "reject",
+                "function",
+                "in",
+                "archive",
+                "audit"
+              ],
+              "hint_context": [
+                "src/ArchiveAudit.ts",
+                "reject",
+                "function",
+                "function reject in src/ArchiveAudit.ts"
+              ]
+            },
+            {
+              "symbol": "record",
+              "symbol_type": "function",
+              "summary": "function record in src/ArchiveAudit.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveaudit",
+                "ts",
+                "record",
+                "function",
+                "in",
+                "archive",
+                "audit"
+              ],
+              "hint_context": [
+                "src/ArchiveAudit.ts",
+                "record",
+                "function",
+                "function record in src/ArchiveAudit.ts"
+              ]
+            },
+            {
+              "symbol": "ArchiveAudit",
+              "symbol_type": "class",
+              "summary": "class ArchiveAudit in src/ArchiveAudit.ts; identifier terms: archive audit",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveaudit",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "archive",
+                "audit"
+              ],
+              "hint_context": [
+                "src/ArchiveAudit.ts",
+                "ArchiveAudit",
+                "class",
+                "class ArchiveAudit in src/ArchiveAudit.ts; identifier terms: archive audit"
+              ]
+            }
+          ],
+          "logs": [
+            {
+              "message_template": "Archive upload rejected",
+              "function": "reject",
+              "level": "error",
+              "logger": "console",
+              "raw_statement": "console.error('Archive upload rejected', reason)",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveaudit",
+                "ts",
+                "archive",
+                "upload",
+                "rejected",
+                "reject",
+                "error",
+                "console",
+                "reason",
+                "audit"
+              ],
+              "hint_context": [
+                "src/ArchiveAudit.ts",
+                "Archive upload rejected",
+                "reject",
+                "error",
+                "console",
+                "console.error('Archive upload rejected', reason)"
+              ]
+            },
+            {
+              "message_template": "Archive upload recorded",
+              "function": "record",
+              "level": "info",
+              "logger": "console",
+              "raw_statement": "console.info('Archive upload recorded', path)",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveaudit",
+                "ts",
+                "archive",
+                "upload",
+                "recorded",
+                "record",
+                "info",
+                "console",
+                "path",
+                "audit"
+              ],
+              "hint_context": [
+                "src/ArchiveAudit.ts",
+                "Archive upload recorded",
+                "record",
+                "info",
+                "console",
+                "console.info('Archive upload recorded', path)"
+              ]
+            }
+          ],
+          "priority_score": 136,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms",
+            "missing_log_semantics",
+            "missing_log_business_summary",
+            "missing_log_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "archiveaudit",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "8",
+            "non",
+            "empty",
+            "lines",
+            "reject",
+            "record",
+            "archive",
+            "upload",
+            "rejected",
+            "recorded",
+            "audit",
+            "type",
+            "script"
+          ],
+          "hint_context": [
+            "src/ArchiveAudit.ts",
+            "TypeScript file with 8 non-empty lines",
+            "reject record ArchiveAudit",
+            "Archive upload rejected Archive upload recorded"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/ArchiveTransport.ts",
+          "summary": "TypeScript file with 7 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "upload",
+              "symbol_type": "function",
+              "summary": "function upload in src/ArchiveTransport.ts",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archivetransport",
+                "ts",
+                "upload",
+                "function",
+                "in",
+                "archive",
+                "transport"
+              ],
+              "hint_context": [
+                "src/ArchiveTransport.ts",
+                "upload",
+                "function",
+                "function upload in src/ArchiveTransport.ts"
+              ]
+            },
+            {
+              "symbol": "ArchiveTransport",
+              "symbol_type": "class",
+              "summary": "class ArchiveTransport in src/ArchiveTransport.ts; identifier terms: archive transport",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archivetransport",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "archive",
+                "transport"
+              ],
+              "hint_context": [
+                "src/ArchiveTransport.ts",
+                "ArchiveTransport",
+                "class",
+                "class ArchiveTransport in src/ArchiveTransport.ts; identifier terms: archive transport"
+              ]
+            }
+          ],
+          "logs": [
+            {
+              "message_template": "Archive upload transport started",
+              "function": "upload",
+              "level": "info",
+              "logger": "console",
+              "raw_statement": "console.info('Archive upload transport started', path)",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archivetransport",
+                "ts",
+                "archive",
+                "upload",
+                "transport",
+                "started",
+                "info",
+                "console",
+                "path"
+              ],
+              "hint_context": [
+                "src/ArchiveTransport.ts",
+                "Archive upload transport started",
+                "upload",
+                "info",
+                "console",
+                "console.info('Archive upload transport started', path)"
+              ]
+            },
+            {
+              "message_template": "Archive upload transport completed",
+              "function": "upload",
+              "level": "info",
+              "logger": "console",
+              "raw_statement": "console.info('Archive upload transport completed', path)",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archivetransport",
+                "ts",
+                "archive",
+                "upload",
+                "transport",
+                "completed",
+                "info",
+                "console",
+                "path"
+              ],
+              "hint_context": [
+                "src/ArchiveTransport.ts",
+                "Archive upload transport completed",
+                "upload",
+                "info",
+                "console",
+                "console.info('Archive upload transport completed', path)"
+              ]
+            }
+          ],
+          "priority_score": 116,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms",
+            "missing_log_semantics",
+            "missing_log_business_summary",
+            "missing_log_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "archivetransport",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "7",
+            "non",
+            "empty",
+            "lines",
+            "upload",
+            "archive",
+            "transport",
+            "started",
+            "completed",
+            "type",
+            "script"
+          ],
+          "hint_context": [
+            "src/ArchiveTransport.ts",
+            "TypeScript file with 7 non-empty lines",
+            "upload ArchiveTransport",
+            "Archive upload transport started Archive upload transport completed"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/ArchiveUploadCoordinator.ts",
+          "summary": "TypeScript file with 15 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "sendArchive",
+              "symbol_type": "function",
+              "summary": "function sendArchive in src/ArchiveUploadCoordinator.ts; identifier terms: send archive",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveuploadcoordinator",
+                "ts",
+                "sendarchive",
+                "function",
+                "in",
+                "identifier",
+                "terms",
+                "send",
+                "archive",
+                "upload",
+                "coordinator"
+              ],
+              "hint_context": [
+                "src/ArchiveUploadCoordinator.ts",
+                "sendArchive",
+                "function",
+                "function sendArchive in src/ArchiveUploadCoordinator.ts; identifier terms: send archive"
+              ]
+            },
+            {
+              "symbol": "ArchiveUploadCoordinator",
+              "symbol_type": "class",
+              "summary": "class ArchiveUploadCoordinator in src/ArchiveUploadCoordinator.ts; identifier terms: archive upload coordinator",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "archiveuploadcoordinator",
+                "ts",
+                "class",
+                "in",
+                "identifier",
+                "terms",
+                "archive",
+                "upload",
+                "coordinator"
+              ],
+              "hint_context": [
+                "src/ArchiveUploadCoordinator.ts",
+                "ArchiveUploadCoordinator",
+                "class",
+                "class ArchiveUploadCoordinator in src/ArchiveUploadCoordinator.ts; identifier terms: archive upload coordinator"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 52,
+          "priority_reasons": [
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "archiveuploadcoordinator",
+            "ts",
+            "typescript",
+            "file",
+            "with",
+            "15",
+            "non",
+            "empty",
+            "lines",
+            "sendarchive",
+            "archive",
+            "upload",
+            "coordinator",
+            "type",
+            "script",
+            "send"
+          ],
+          "hint_context": [
+            "src/ArchiveUploadCoordinator.ts",
+            "TypeScript file with 15 non-empty lines",
+            "sendArchive ArchiveUploadCoordinator"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

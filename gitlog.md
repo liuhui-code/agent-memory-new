@@ -1,5 +1,20 @@
 ## 2026-11-19 — Add default guarded-field source followup without losing evidence
 
+## 2026-11-19 — Preserve stage-13 source-return qualification and stop boundary
+
+- Replayed four secondary public Context queries against the verified Development corpus.
+  Qualified method requests retain an authenticated 9–15 locator but display only 1–13.
+- Traced the actual source allocation: three anchors grant 433 characters to the
+  selected 1–15 window, leaving a truncated prefix despite terminal budget headroom.
+- Preserved three frozen independent fixture attempts and complete-method controls.
+  None established the approved narrow independent public red; the last hypothetical
+  union also exceeded the unchanged 1500 budget. No serving implementation was made.
+- Kept the original 13 score at 1/3 and the public next-query direct-reading route;
+  no query rewriting, source deletion, score changes, full gate or closure claim.
+- Recorded a read-only main/work comparison, with no merge, rewrite, or author
+  attribution inferred from unverified commit metadata.
+- Evidence: docs/evidence/stage13-source-return/README.md.
+
 - Recover verified work branch48ac5f27 and byte-check all250 original Development source files against the retained manifest. Reproduce13 Chinese default1482 with no target anchor or followup; unchanged optional2000 navigation remains1984.
 - Share the existing current import/typed/source verifier and append pure relative source paths to existing next_queries only for1500 compact output. Preserve all old objects, hint order and shared exploration limits; all new paths must fit together or no-op. Raw and2000 behavior remain unchanged.
 - Six frozen existing developer fixtures receive48 actualCLI comparisons: two omitted-path cases gain usable hints, four stay unchanged.44 related executions including a persistent actualCLI regression pass. Original13 default1482→1491; original group still1/3 because hints are not returned anchors or source bodies.

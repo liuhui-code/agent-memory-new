@@ -1,0 +1,553 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/panel/source",
+  "path": ".",
+  "scope_id": 1,
+  "mode": "merge",
+  "files": [
+    "src/TransferPanel.ets",
+    "src/TransferQueue.ets"
+  ],
+  "count": 2,
+  "summary": "Merged 2 files from .",
+  "parse_stats": {
+    "files_indexed": 2,
+    "skipped_by_reason": {},
+    "languages": {
+      "ArkTS": 2
+    },
+    "symbols_total": 6,
+    "symbols_by_type": {
+      "class": 1,
+      "component": 1,
+      "function": 3,
+      "state": 1
+    },
+    "code_logs_total": 1,
+    "code_logs_by_level": {
+      "info": 1
+    },
+    "business_semantics_restored": {
+      "code_files": 0,
+      "code_symbols": 0,
+      "code_log_statements": 0
+    },
+    "semantic_index": {
+      "schema_version": "semantic-index/v1",
+      "adapters": [
+        {
+          "id": "arkts-static",
+          "version": "1.2",
+          "language": "ArkTS"
+        }
+      ],
+      "capabilities": [
+        "api_boundaries",
+        "async_flow",
+        "callbacks",
+        "calls",
+        "definitions",
+        "inheritance",
+        "mechanisms",
+        "references",
+        "state_flow",
+        "types"
+      ],
+      "files_indexed": 2,
+      "entities": 6,
+      "relations_extracted": 9,
+      "mechanisms_extracted": 6,
+      "relations_emitted": 9,
+      "unresolved_relations": 0,
+      "method_summaries_enriched": 3,
+      "gaps": [],
+      "adapter_errors": [],
+      "provider_runs": [
+        {
+          "language": "ArkTS",
+          "mode": "auto",
+          "status": "static",
+          "selected": "static",
+          "provider_configured": false,
+          "duration_ms": 0.0,
+          "output_bytes": 0,
+          "batch": 1,
+          "batch_files": 2
+        }
+      ],
+      "log_effects": {
+        "schema_version": "log-effect/v1",
+        "wrappers_resolved": 1,
+        "effects_emitted": 1,
+        "truncated": false,
+        "max_wrapper_depth": 1
+      },
+      "graph_candidate_resolution": {
+        "provider": "scoped-unique-symbols/v1",
+        "local_symbol_count": 6,
+        "reference_name_count": 3,
+        "resolved_external_symbol_count": 0,
+        "candidate_symbol_count": 6
+      }
+    },
+    "passage_index": {
+      "schema_version": "code-passages-v2",
+      "files_written": 2,
+      "symbols_written": 6,
+      "passages_written": 8
+    },
+    "normative_index": {
+      "schema_version": "normative-index/v1",
+      "source_root": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/panel/source",
+      "documents_indexed": 0,
+      "documents_added": 0,
+      "documents_updated": 0,
+      "documents_unchanged": 0,
+      "documents_retired": 0,
+      "retirement_counts": {},
+      "retirement_sample": [],
+      "retirement_sample_truncated": false,
+      "indexed_sample": [],
+      "indexed_sample_truncated": false,
+      "documents_requiring_metadata_review": 0,
+      "metadata_issues": [],
+      "metadata_issue_count": 0,
+      "metadata_issues_truncated": false,
+      "read_issues": [],
+      "read_issue_count": 0,
+      "read_issues_truncated": false,
+      "next_action": "no_normative_change",
+      "approval_inferred": false
+    },
+    "reverse_dependents_reindexed": [],
+    "dispatch_dependents_reindexed": [],
+    "edge_rebuild": {
+      "mode": "merge",
+      "scope_file_count": 2,
+      "scope_files": [
+        "src/TransferPanel.ets",
+        "src/TransferQueue.ets"
+      ],
+      "before": {
+        "node_counts": {
+          "code_file": 0,
+          "code_log_statement": 0,
+          "code_symbol": 0
+        },
+        "edge_count": 0,
+        "relation_counts": {}
+      },
+      "after": {
+        "node_counts": {
+          "code_file": 2,
+          "code_log_statement": 1,
+          "code_symbol": 6
+        },
+        "edge_count": 20,
+        "relation_counts": {
+          "calls": 1,
+          "consumes_api": 1,
+          "contains": 7,
+          "defines_state": 1,
+          "emits_log": 1,
+          "exposes_api": 5,
+          "imports": 1,
+          "reads_state": 3
+        }
+      },
+      "edges_deleted_estimate": 0,
+      "edges_inserted_estimate": 20,
+      "edge_delta": 20
+    },
+    "phase_ms": {
+      "extract": 4.198,
+      "load_scope": 4.669,
+      "invalidate": 0.759,
+      "prepare_rows": 3.411,
+      "insert_rows": 0.444,
+      "restore_business": 0.092,
+      "rebuild_graph": 25.008,
+      "summarize": 0.188,
+      "commit": 1.005,
+      "total": 39.792
+    },
+    "memory_edges_total": 23,
+    "memory_edges_total_provider": "project-counter/v1",
+    "index_generation": 1,
+    "source_revision": "unversioned"
+  },
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
+    "returned_counts": {
+      "files": 2,
+      "symbols": 6,
+      "logs": 1
+    },
+    "remaining_counts": {
+      "files": 0,
+      "symbols": 0,
+      "logs": 0
+    },
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "src/TransferPanel.ets",
+          "summary": "ArkTS file with 15 non-empty lines; components: TransferPanel; component terms: transfer, panel; behavior: validationguard, conditionalbranch",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "submitTransfer",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method submitTransfer in src/TransferPanel.ets; identifier terms: submit transfer",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferpanel",
+                "ets",
+                "submittransfer",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "identifier",
+                "terms",
+                "submit",
+                "transfer",
+                "panel",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TransferPanel.ets",
+                "submitTransfer",
+                "function",
+                "ArkTS function or lifecycle method submitTransfer in src/TransferPanel.ets; identifier terms: submit transfer"
+              ]
+            },
+            {
+              "symbol": "build",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method build in src/TransferPanel.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferpanel",
+                "ets",
+                "build",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "transfer",
+                "panel",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TransferPanel.ets",
+                "build",
+                "function",
+                "ArkTS function or lifecycle method build in src/TransferPanel.ets"
+              ]
+            },
+            {
+              "symbol": "destination",
+              "symbol_type": "state",
+              "summary": "state destination in src/TransferPanel.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferpanel",
+                "ets",
+                "destination",
+                "state",
+                "in",
+                "transfer",
+                "panel"
+              ],
+              "hint_context": [
+                "src/TransferPanel.ets",
+                "destination",
+                "state",
+                "state destination in src/TransferPanel.ets"
+              ]
+            },
+            {
+              "symbol": "TransferPanel",
+              "symbol_type": "component",
+              "summary": "ArkTS component TransferPanel declared in src/TransferPanel.ets; identifier terms: transfer panel",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferpanel",
+                "ets",
+                "component",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "transfer",
+                "panel",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TransferPanel.ets",
+                "TransferPanel",
+                "component",
+                "ArkTS component TransferPanel declared in src/TransferPanel.ets; identifier terms: transfer panel"
+              ]
+            }
+          ],
+          "logs": [],
+          "priority_score": 100,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "transferpanel",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "15",
+            "non",
+            "empty",
+            "lines",
+            "components",
+            "component",
+            "terms",
+            "transfer",
+            "panel",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "submittransfer",
+            "build",
+            "destination",
+            "ark",
+            "ts",
+            "submit"
+          ],
+          "hint_context": [
+            "src/TransferPanel.ets",
+            "ArkTS file with 15 non-empty lines; components: TransferPanel; component terms: transfer, panel; behavior: validationguard, conditionalbranch",
+            "submitTransfer build destination TransferPanel"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        },
+        {
+          "file_path": "src/TransferQueue.ets",
+          "summary": "ArkTS file with 5 non-empty lines",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [
+            {
+              "symbol": "enqueue",
+              "symbol_type": "function",
+              "summary": "ArkTS function or lifecycle method enqueue in src/TransferQueue.ets",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferqueue",
+                "ets",
+                "enqueue",
+                "function",
+                "arkts",
+                "or",
+                "lifecycle",
+                "method",
+                "in",
+                "transfer",
+                "queue",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TransferQueue.ets",
+                "enqueue",
+                "function",
+                "ArkTS function or lifecycle method enqueue in src/TransferQueue.ets"
+              ]
+            },
+            {
+              "symbol": "TransferQueue",
+              "symbol_type": "class",
+              "summary": "ArkTS class TransferQueue declared in src/TransferQueue.ets; identifier terms: transfer queue",
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 20,
+              "priority_reasons": [
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferqueue",
+                "ets",
+                "class",
+                "arkts",
+                "declared",
+                "in",
+                "identifier",
+                "terms",
+                "transfer",
+                "queue",
+                "ark",
+                "ts"
+              ],
+              "hint_context": [
+                "src/TransferQueue.ets",
+                "TransferQueue",
+                "class",
+                "ArkTS class TransferQueue declared in src/TransferQueue.ets; identifier terms: transfer queue"
+              ]
+            }
+          ],
+          "logs": [
+            {
+              "message_template": "transfer destination queued",
+              "function": "enqueue",
+              "level": "info",
+              "logger": "console",
+              "raw_statement": "console.info('transfer destination queued', destination)",
+              "business_event": null,
+              "trigger_stage": null,
+              "symptom_terms": [],
+              "likely_causes": [],
+              "process_hint": null,
+              "neighbor_terms": [],
+              "business_summary": "",
+              "business_terms": [],
+              "priority_score": 32,
+              "priority_reasons": [
+                "missing_log_semantics",
+                "missing_log_business_summary",
+                "missing_log_business_terms"
+              ],
+              "hint_terms": [
+                "src",
+                "transferqueue",
+                "ets",
+                "transfer",
+                "destination",
+                "queued",
+                "enqueue",
+                "info",
+                "console",
+                "queue"
+              ],
+              "hint_context": [
+                "src/TransferQueue.ets",
+                "transfer destination queued",
+                "enqueue",
+                "info",
+                "console",
+                "console.info('transfer destination queued', destination)"
+              ]
+            }
+          ],
+          "priority_score": 92,
+          "priority_reasons": [
+            "arkts_page_or_module",
+            "missing_file_business_summary",
+            "missing_file_business_terms",
+            "missing_symbol_semantics",
+            "missing_symbol_business_summary",
+            "missing_symbol_business_terms",
+            "missing_log_semantics",
+            "missing_log_business_summary",
+            "missing_log_business_terms"
+          ],
+          "hint_terms": [
+            "src",
+            "transferqueue",
+            "ets",
+            "arkts",
+            "file",
+            "with",
+            "5",
+            "non",
+            "empty",
+            "lines",
+            "enqueue",
+            "transfer",
+            "destination",
+            "queued",
+            "queue",
+            "ark",
+            "ts"
+          ],
+          "hint_context": [
+            "src/TransferQueue.ets",
+            "ArkTS file with 5 non-empty lines",
+            "enqueue TransferQueue",
+            "transfer destination queued"
+          ],
+          "truncated_counts": {
+            "symbols": 0,
+            "logs": 0
+          }
+        }
+      ]
+    }
+  }
+}

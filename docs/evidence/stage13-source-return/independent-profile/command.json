@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "-B",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/source",
+    "--memory-home",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/stage13-return/independent-profile/memory",
+    "--query",
+    "ProfileEditor.saveProfile",
+    "--compact",
+    "--json"
+  ],
+  "rc": 0
+}

@@ -1,0 +1,283 @@
+{
+  "classification": "secondary query probes on existing reviewed development source, not original fixed-case score; before product changes",
+  "runtime_tree": "08f1a28b05c967c7f0e174460cafb7c05669f189",
+  "probes": [
+    {
+      "file": "context.json",
+      "query": "src/pages/AccountSettingsPage.ets",
+      "budget": {
+        "estimated_tokens": 1493,
+        "target_tokens": 1500,
+        "truncated": true
+      },
+      "anchors": [
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "AccountSettingsPage",
+          "source_ranges": [
+            {
+              "symbol": "AccountSettingsPage",
+              "start_line": 5,
+              "end_line": 18
+            },
+            {
+              "symbol": "saveAccount",
+              "start_line": 9,
+              "end_line": 15
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 9,
+              "selection_reason": "query_window_with_callable_tail",
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService",
+          "source_ranges": [
+            {
+              "symbol": "AccountUpdateService",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 5,
+              "selection_reason": "query_term_window",
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/pages/DocumentBrowserSettingsPage.ets",
+          "symbol": "DocumentBrowserSettingsPage",
+          "source_ranges": [
+            {
+              "symbol": "DocumentBrowserSettingsPage",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 9,
+              "selection_reason": "query_term_window_within_anchor",
+              "truncated": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "method-context.json",
+      "query": "src/pages/AccountSettingsPage.ets saveAccount",
+      "budget": {
+        "estimated_tokens": 1461,
+        "target_tokens": 1500,
+        "truncated": true
+      },
+      "anchors": [
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "saveAccount",
+          "source_ranges": [
+            {
+              "symbol": "saveAccount",
+              "start_line": 9,
+              "end_line": 15
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 9,
+              "selection_reason": "query_window_with_callable_tail",
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/pages/CapabilitySettingsPage.ets",
+          "symbol": "CapabilitySettingsPage",
+          "source_ranges": [
+            {
+              "symbol": "CapabilitySettingsPage",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 9,
+              "selection_reason": "query_term_window_within_anchor",
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService",
+          "source_ranges": [
+            {
+              "symbol": "AccountUpdateService",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 5,
+              "selection_reason": "query_term_window",
+              "truncated": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "qualified-context.json",
+      "query": "AccountSettingsPage.saveAccount",
+      "budget": {
+        "estimated_tokens": 1387,
+        "target_tokens": 1500,
+        "truncated": true
+      },
+      "anchors": [
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "saveAccount",
+          "source_ranges": [
+            {
+              "symbol": "saveAccount",
+              "start_line": 9,
+              "end_line": 15
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 13,
+              "selection_reason": "query_window_with_callable_tail",
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService",
+          "source_ranges": [
+            {
+              "symbol": "AccountUpdateService",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 5,
+              "selection_reason": "query_term_window",
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/models/ThemeSettings.ets",
+          "symbol": "ThemeSettings",
+          "source_ranges": [
+            {
+              "symbol": "ThemeSettings",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 5,
+              "selection_reason": "query_term_window",
+              "truncated": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "locate-context.json",
+      "query": "Locate AccountSettingsPage.saveAccount",
+      "budget": {
+        "estimated_tokens": 1387,
+        "target_tokens": 1500,
+        "truncated": true
+      },
+      "anchors": [
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "saveAccount",
+          "source_ranges": [
+            {
+              "symbol": "saveAccount",
+              "start_line": 9,
+              "end_line": 15
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 13,
+              "selection_reason": "query_window_with_callable_tail",
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService",
+          "source_ranges": [
+            {
+              "symbol": "AccountUpdateService",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 5,
+              "selection_reason": "query_term_window",
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/models/ThemeSettings.ets",
+          "symbol": "ThemeSettings",
+          "source_ranges": [
+            {
+              "symbol": "ThemeSettings",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "excerpts": [
+            {
+              "start_line": 1,
+              "end_line": 5,
+              "selection_reason": "query_term_window",
+              "truncated": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

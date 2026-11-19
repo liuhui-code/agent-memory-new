@@ -1,0 +1,13 @@
+{
+  "classification": "Second independent developer qualification before product implementation; UI transfer form submits a destination to a queue. Explicitly chosen ArkTS synchronous UI call because first async TS fixture exposed a different unsupported window class. No first fixture rewrite, no claim of independent field incident.",
+  "frozen_at": "2026-11-19T00:46:11.518685+00:00",
+  "sources": {
+    "src/TransferPanel.ets": "import { TransferQueue } from './TransferQueue'\n\n@Entry\n@Component\nexport struct TransferPanel {\n  @State destination: string = ''\n  private queue: TransferQueue = new TransferQueue()\n\n  submitTransfer(): void {\n    if (this.destination.trim().length === 0) {\n      promptAction.showToast({ message: 'Transfer destination is required' })\n      return\n    }\n    this.queue.enqueue(this.destination)\n  }\n\n  build() { Text(this.destination) }\n}\n",
+    "src/TransferQueue.ets": "export class TransferQueue {\n  enqueue(destination: string): void {\n    console.info('transfer destination queued', destination)\n  }\n}\n"
+  },
+  "queries": [
+    "Locate TransferPanel.submitTransfer",
+    "TransferPanel.submitTransfer"
+  ],
+  "stop": "If this does not yield the approved window/type, retain no-op and report no independent eligible red."
+}

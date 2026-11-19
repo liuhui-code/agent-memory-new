@@ -1,0 +1,48 @@
+[
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/settings/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/settings/memory"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "learn-path",
+      "--path",
+      ".",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/settings/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/settings/memory"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--query",
+      "Locate ConnectionSettings.applyEndpoint",
+      "--compact",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/settings/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/callable-tail-union/settings/memory"
+    ],
+    "rc": 0
+  }
+]

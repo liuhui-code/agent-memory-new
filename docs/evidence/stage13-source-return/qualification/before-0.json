@@ -1,0 +1,274 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "64b087954eec6d0f",
+  "query": "Locate ArchiveUploadCoordinator.sendArchive",
+  "memory_intent": "memory_maintenance",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "locate",
+      "archiveuploadcoordinator",
+      "sendarchive",
+      "console",
+      "archive",
+      "upload",
+      "transport",
+      "started",
+      "archivepath",
+      "completed",
+      "rejected",
+      "audit"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 3,
+        "message_template": "Archive upload transport started",
+        "logger": "console",
+        "file_path": "src/ArchiveUploadCoordinator.ts",
+        "function": "sendArchive",
+        "line": 14,
+        "effect_id": 3,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "upload",
+        "wrapper_depth": 1,
+        "call_path": [
+          "sendArchive",
+          "upload",
+          "console.info"
+        ],
+        "call_path_locations": [
+          "src/ArchiveUploadCoordinator.ts#sendArchive",
+          "src/ArchiveTransport.ts#upload",
+          "src/ArchiveTransport.ts#console.info"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 4,
+        "message_template": "Archive upload transport completed",
+        "logger": "console",
+        "file_path": "src/ArchiveUploadCoordinator.ts",
+        "function": "sendArchive",
+        "line": 14,
+        "effect_id": 4,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "upload",
+        "wrapper_depth": 1,
+        "call_path": [
+          "sendArchive",
+          "upload",
+          "console.info"
+        ],
+        "call_path_locations": [
+          "src/ArchiveUploadCoordinator.ts#sendArchive",
+          "src/ArchiveTransport.ts#upload",
+          "src/ArchiveTransport.ts#console.info"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 1,
+        "message_template": "Archive upload rejected",
+        "logger": "console",
+        "file_path": "src/ArchiveUploadCoordinator.ts",
+        "function": "sendArchive",
+        "line": 11,
+        "effect_id": 1,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "reject",
+        "wrapper_depth": 1,
+        "call_path": [
+          "sendArchive",
+          "reject",
+          "console.error"
+        ],
+        "call_path_locations": [
+          "src/ArchiveUploadCoordinator.ts#sendArchive",
+          "src/ArchiveAudit.ts#reject",
+          "src/ArchiveAudit.ts#console.error"
+        ],
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/ArchiveUploadCoordinator.ts",
+        "symbol": "sendArchive",
+        "symbol_type": "function",
+        "record_ids": [
+          7
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "sendArchive",
+            "start_line": 9,
+            "end_line": 16
+          }
+        ],
+        "read_window": {
+          "start_line": 9,
+          "end_line": 16
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "sendArchive",
+            "start_line": 6,
+            "end_line": 14,
+            "content": "  private audit: ArchiveAudit = new ArchiveAudit()\n  private archivePath: string = ''\n\n  async sendArchive(): Promise<void> {\n    if (this.archivePath.trim().length === 0) {\n      this.audit.reject('Archive upload requires a source path')\n      return\n    }\n    await this.transport.upload(this.archivePath)",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": true
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/ArchiveUploadCoordinator.ts",
+        "symbol": "sendArchive",
+        "owner_name": "ArchiveUploadCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": [
+          "async",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 64.5,
+        "evidence_score": 64.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 9,
+          "end_line": 12,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/ArchiveTransport.ts",
+          "symbol": "upload",
+          "owner_name": "ArchiveTransport",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.61,
+          "evidence_score": 26.61,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/ArchiveAudit.ts",
+          "symbol": "reject",
+          "owner_name": "ArchiveAudit",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 18.67,
+          "evidence_score": 18.67,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 1,
+      "excerpt_chars": 307
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "limited_code_anchor_diversity",
+    "no_strong_log_anchor"
+  ],
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "limited_code_anchor_diversity",
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1481,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}
