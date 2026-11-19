@@ -1,0 +1,178 @@
+{
+  "kind": "Development, targeted group only",
+  "materialized_source_files": 157,
+  "baseline_revision": "a79313bea484e1a748274be815a9cf4b1324dcb7",
+  "seed": 1,
+  "baseline": {
+    "passed": 1,
+    "failed": 2,
+    "cases": [
+      {
+        "variant": "original",
+        "status": "fail",
+        "oracle_anchor_precision": 0.3333,
+        "source_paths": [
+          "src/actions/BackupCommandPanel.ets",
+          "src/pages/CommandOutputPage.ets",
+          "src/runtime/CommandEligibility.ets"
+        ],
+        "bytes_exact": true,
+        "body_ranges": [
+          [
+            2,
+            13
+          ]
+        ],
+        "read_window": {
+          "start_line": 13,
+          "end_line": 15
+        },
+        "budget": {
+          "estimated_tokens": 1459,
+          "target_tokens": 1500,
+          "truncated": true
+        }
+      },
+      {
+        "variant": "en-paraphrase",
+        "status": "fail",
+        "oracle_anchor_precision": 0.3333,
+        "source_paths": [
+          "src/coordinators/DocumentNavigationCoordinator.ets",
+          "src/models/InteractionState.ets",
+          "src/runtime/CommandEligibility.ets"
+        ],
+        "bytes_exact": true,
+        "body_ranges": [
+          [
+            2,
+            13
+          ]
+        ],
+        "read_window": {
+          "start_line": 13,
+          "end_line": 15
+        },
+        "budget": {
+          "estimated_tokens": 1499,
+          "target_tokens": 1500,
+          "truncated": true
+        }
+      },
+      {
+        "variant": "zh-noise",
+        "status": "pass",
+        "oracle_anchor_precision": 1.0,
+        "source_paths": [
+          "src/runtime/CommandEligibility.ets"
+        ],
+        "bytes_exact": true,
+        "body_ranges": [
+          [
+            9,
+            11
+          ],
+          [
+            13,
+            15
+          ]
+        ],
+        "read_window": {
+          "start_line": 9,
+          "end_line": 15
+        },
+        "budget": {
+          "estimated_tokens": 997,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    ]
+  },
+  "candidate": {
+    "passed": 1,
+    "failed": 2,
+    "cases": [
+      {
+        "variant": "original",
+        "status": "fail",
+        "oracle_anchor_precision": 0.3333,
+        "source_paths": [
+          "src/actions/BackupCommandPanel.ets",
+          "src/pages/CommandOutputPage.ets",
+          "src/runtime/CommandEligibility.ets"
+        ],
+        "bytes_exact": true,
+        "body_ranges": [
+          [
+            2,
+            15
+          ]
+        ],
+        "read_window": {
+          "start_line": 13,
+          "end_line": 15
+        },
+        "budget": {
+          "estimated_tokens": 1479,
+          "target_tokens": 1500,
+          "truncated": true
+        }
+      },
+      {
+        "variant": "en-paraphrase",
+        "status": "fail",
+        "oracle_anchor_precision": 0.3333,
+        "source_paths": [
+          "src/coordinators/DocumentNavigationCoordinator.ets",
+          "src/models/InteractionState.ets",
+          "src/runtime/CommandEligibility.ets"
+        ],
+        "bytes_exact": true,
+        "body_ranges": [
+          [
+            2,
+            13
+          ]
+        ],
+        "read_window": {
+          "start_line": 13,
+          "end_line": 15
+        },
+        "budget": {
+          "estimated_tokens": 1499,
+          "target_tokens": 1500,
+          "truncated": true
+        }
+      },
+      {
+        "variant": "zh-noise",
+        "status": "pass",
+        "oracle_anchor_precision": 1.0,
+        "source_paths": [
+          "src/runtime/CommandEligibility.ets"
+        ],
+        "bytes_exact": true,
+        "body_ranges": [
+          [
+            9,
+            11
+          ],
+          [
+            13,
+            15
+          ]
+        ],
+        "read_window": {
+          "start_line": 9,
+          "end_line": 15
+        },
+        "budget": {
+          "estimated_tokens": 997,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    ]
+  }
+}

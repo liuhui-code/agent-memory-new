@@ -299,6 +299,19 @@
 
 # Local Development Log
 
+## 2026-11-19 - Complete the certified callable tail without narrowing alternatives
+
+- Reproduce a public compact omission in the independent parcel-dispatch and
+  label-reprint fixture; a certified second method was cut even when its exact
+  contiguous tail fit in the final default budget.
+- Append the authenticated suffix transactionally, keeping all current evidence
+  and uncertainty. Retain the previous response for stale/unqualified/over-budget
+  snapshots. Explicit 1500 matches the default without changing the 2000 modes.
+- Original Case 35 English excerpt 2–13 becomes exact 2–15 (1459→1479); unchanged
+  paraphrase and Chinese outputs. Targeted Development gate remains 1/3; 67
+  focused tests passed. No full-gate or Agent outcome claim. Details:
+  docs/evidence/certified-callable-tail/README.md.
+
 ## 2026-11-19 — Optional source-bound state update reading for original08
 
 - Reuse isolated once-accounting transaction; admit only finite aggregation requests

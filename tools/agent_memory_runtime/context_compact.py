@@ -104,7 +104,13 @@ def _compact_context(data: dict[str, Any], render_receipts=None, lifecycle_recei
     from .context_source_recovery import recover_partial_primary
     payload = recover_partial_primary(payload, data.get('project_path'), token_budget, source_rows=data.get('wiki_matches') or [])
     from .context_display_union import union_primary_display
-    return request_policy.check(union_primary_display(payload, data.get('project_path'), token_budget, source_rows=data.get('wiki_matches') or []), protected)
+    payload = union_primary_display(payload, data.get('project_path'), token_budget, source_rows=data.get('wiki_matches') or [])
+    if not request_policy.current().preserve:
+        from .context_certified_callable_tail import extend_certified_tail
+        payload = extend_certified_tail(payload, data.get('project_path'), token_budget,
+                                        evidence=handoff.get('callable_evidence') or {},
+                                        source_rows=data.get('wiki_matches') or [])
+    return request_policy.check(payload, protected)
 
 
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
