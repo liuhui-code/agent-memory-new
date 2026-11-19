@@ -13376,3 +13376,13 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
   not default precision success, whole Builder coverage or full old-body retention.
 - Old independent pair no-red STOP respected; no production/scoring/default edits.
   Evidence: docs/releases/cross-layer39-current-20261119/README.md.
+
+## 2026-11-19 - Verify35 and prioritize substantive remaining work
+
+- Original35 current1/3; English target2–13 omits canAdjustVolume return14/close15,
+  Chinese methods9–11/13–15 complete.157 source hashes match; original scoring intact.
+- Fully recoverable suffix feasibility1528/1568 exceeds1500 and primary/displayed
+  identities differ; no speculative reuse of single-primary repair.
+- Action priorities separate08 candidate loss, real body gaps, semantic selection,
+ 32 pending choice and44 missing provenance. No production edits/full gate.
+  Evidence: docs/releases/prepared35-current-20261119/.

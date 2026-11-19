@@ -1,0 +1,276 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-xuc6coq7/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-xuc6coq7/agent-memory-case-r7qgy27p/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "Commands become usable only after playback starts; return the gates that admit both Prepared and Playing state for seek and volume.",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "434d15e7fab4a29b",
+    "query": "Commands become usable only after playback starts; return the gates that admit both Prepared and Playing state for seek and volume.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "commands",
+        "become",
+        "usable",
+        "only",
+        "after",
+        "playback",
+        "starts",
+        "return"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 10,
+          "message_template": "attachment cached file remains usable",
+          "logger": "hilog",
+          "file_path": "src/pages/DownloadsPage.ets",
+          "function": "retryDownload",
+          "line": 8,
+          "effect_id": 8,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "loadAttachment",
+          "wrapper_depth": 1,
+          "call_path": [
+            "retryDownload",
+            "loadAttachment",
+            "hilog.debug"
+          ],
+          "call_path_locations": [
+            "src/pages/DownloadsPage.ets#retryDownload",
+            "src/services/AttachmentService.ets#loadAttachment",
+            "src/services/AttachmentService.ets#hilog.debug"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 9,
+          "message_template": "attachment download failed after cache write",
+          "logger": "hilog",
+          "file_path": "src/pages/DownloadsPage.ets",
+          "function": "retryDownload",
+          "line": 8,
+          "effect_id": 7,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "loadAttachment",
+          "wrapper_depth": 1,
+          "call_path": [
+            "retryDownload",
+            "loadAttachment",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/pages/DownloadsPage.ets#retryDownload",
+            "src/services/AttachmentService.ets#loadAttachment",
+            "src/services/AttachmentService.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 9,
+          "message_template": "attachment download failed after cache write",
+          "logger": "hilog",
+          "file_path": "src/services/AttachmentService.ets",
+          "function": "loadAttachment",
+          "line": 11,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/CommandEligibility.ets",
+          "symbol": "canAdjustVolume",
+          "symbol_type": "function",
+          "record_ids": [
+            359
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "canAdjustVolume",
+              "start_line": 13,
+              "end_line": 15
+            }
+          ],
+          "read_window": {
+            "start_line": 13,
+            "end_line": 15
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 13,
+              "content": "  Idle,\n  Prepared,\n  Playing,\n  Released\n}\n\nexport class CommandEligibility {\n  canSeek(phase: CommandPhase): boolean {\n    return phase === CommandPhase.Prepared || phase === CommandPhase.Playing\n  }\n\n  canAdjustVolume(phase: CommandPhase): boolean {",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/models/InteractionState.ets",
+          "symbol": "selectPointer",
+          "symbol_type": "function",
+          "record_ids": [
+            122
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "selectPointer",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 7,
+              "content": "export class InteractionState {\n  activePointer: number = 0\n\n  selectPointer(index: number): void {\n    this.activePointer = index\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "navigateToEntry",
+          "symbol_type": "function",
+          "record_ids": [
+            62
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "navigateToEntry",
+              "start_line": 17,
+              "end_line": 24
+            }
+          ],
+          "read_window": {
+            "start_line": 17,
+            "end_line": 24
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "navigateToEntry",
+              "start_line": 11,
+              "end_line": 25,
+              "content": "  }\n\n  resetIndicator(): void {\n    this.loading = false\n  }\n\n  async navigateToEntry(entry: number): Promise<void> {\n    this.requestedEntry = entry\n    const content = await this.loader.load(entry)\n    if (entry !== this.requestedEntry) {\n      return\n    }\n    this.visibleContent = content\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": {
+          "file_path": "src/runtime/CommandEligibility.ets",
+          "symbol": "canSeek",
+          "source_range": {
+            "start_line": 9,
+            "end_line": 11,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": []
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 3,
+        "excerpt_chars": 687
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_strong_log_anchor"
+    ],
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_strong_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 3,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1499,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}
