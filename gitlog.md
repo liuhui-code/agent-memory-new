@@ -13296,3 +13296,14 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 
 - Public Development reproduction shows bare Englishlog substring in dialog/catalog routes read-only source lookup to diagnosis and admits an unrelated cached-file-refresh procedure. Use complete lexical/identifier logging terms only; preserve error/failure/Chinese rules, priority andexplicitintent.
 -24 focused invocations pass.24 independent-seed CLI executions (12 pairs) have only4 expectedcatalog/dialog changes, others8 equal; procedure stays available only as blocked-note evidence on code_location. Raw-schema assertion mistake retained. Original42 single-group remains1/3, not closed. No budget/Oracle/full-gate changes; goal_planner separate classifier untouched. Evidence: docs/evidence/log-intent-word-boundary/.
+
+## 2026-11-19 - Verify original16 standard gesture group
+
+- Unchanged standard Development group passes3/3; historical16 was2/3, not the
+  combined15/16 report's4/6. All157 materialized file hashes match restored source.
+- Original English actual build5–12 is complete; paraphrase/Chinese return only
+  complete callback8–10, not the entire required6–11 span or build. Original
+  overlap scoring remains unchanged; uncertain primary is not causal proof.
+-32 focused gesture source/scope/selection tests pass. Evidence only; no runtime,
+  budget, oracle or default-retention changes. Details in
+  docs/releases/gesture16-current-20261119/README.md.
