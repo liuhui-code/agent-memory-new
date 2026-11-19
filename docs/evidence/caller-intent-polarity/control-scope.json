@@ -1,0 +1,6 @@
+{
+ "scope":"Suppress caller-intent activation only where existing explicit result-exclusion/comparison parsing removes the marker. No claim of general natural-language discourse resolution.",
+ "negative":["Find ModalBridge implementation. Do not return actual caller context.","Find ModalBridge implementation, not the actual caller context.","Show controller implementation; exclude onClick.","Do not return actual caller context.","返回控制器实现，不要返回调用方。","Find controller implementation compared with actual caller context."],
+ "positive":["Find the actual caller of ModalBridge.finish.","Find the actual caller of ModalBridge.finish, not the controller implementation.","Return actual caller context, not only the generic controller.","Do not return controller implementation. Find actual caller context.","定位 onClick 调用方","Compare actual caller context with controller implementation."],
+ "unchanged":["Find ModalBridge implementation.","The completion overlay does not dismiss when Confirm is tapped; return the actual button callback and its caller context, not only the generic close adapter."]
+}

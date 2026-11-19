@@ -1,0 +1,252 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "b0c68d8b76a89f1e",
+  "query": "Find the actual caller of ModalBridge.finish.",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "find",
+      "actual",
+      "caller",
+      "modalbridge",
+      "finish"
+    ],
+    "log_anchors": [],
+    "code_anchors": [
+      {
+        "file_path": "ConfirmPanel.ets",
+        "symbol": "onClick",
+        "symbol_type": "function",
+        "graph_relation": "caller_owner",
+        "record_ids": [
+          3
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "onClick",
+            "start_line": 6,
+            "end_line": 8
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 8
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "onClick",
+            "start_line": 1,
+            "end_line": 10,
+            "content": "import { ModalBridge } from './ModalBridge'\n@Component\nexport struct ConfirmPanel {\n bridge: ModalBridge = new ModalBridge()\n build() {\n  Button('Confirm').onClick(() => {\n   this.bridge.finish()\n  })\n }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "ModalBridge.ets",
+        "symbol": "ModalBridge",
+        "symbol_type": "class",
+        "record_ids": [
+          2
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "ModalBridge",
+            "start_line": 1,
+            "end_line": 4
+          }
+        ],
+        "summary": "ArkTS file with 4 non-empty lines",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 4
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "ModalBridge",
+            "start_line": 1,
+            "end_line": 4,
+            "content": "export class ModalBridge {\n finish(): void { this.controller.close() }\n reset(): void { this.controller.reset() }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "ModalBridge.ets",
+        "symbol": "finish",
+        "owner_name": "ModalBridge",
+        "owner_kind": "class",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 39.5,
+        "evidence_score": 39.5,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 2,
+          "end_line": 2,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "ConfirmPanel.ets",
+          "symbol": "build",
+          "owner_name": "ConfirmPanel",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 12.58,
+          "evidence_score": 12.58,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "salient_query_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 9,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "ResetPanel.ets",
+          "symbol": "onClick",
+          "owner_name": "ResetPanel",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 8.2,
+          "evidence_score": 8.2,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "graph_owner:calls",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 6,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [
+      {
+        "source_type": "code_file",
+        "source_id": 3,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 2,
+        "confidence": 0.85,
+        "evidence_kind": "static_import"
+      },
+      {
+        "source_type": "code_file",
+        "source_id": 1,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 2,
+        "confidence": 0.85,
+        "evidence_kind": "static_import"
+      }
+    ],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 2,
+      "excerpt_chars": 320
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor",
+    "limited_code_anchor_diversity"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1316,
+    "target_tokens": 1500,
+    "truncated": false
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "source": "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/docs/eval/indirect-caller-current/protocol.json",
+  "queries": [
+    "Find ModalBridge implementation.",
+    "Find ModalBridge implementation. Do not return actual caller context.",
+    "Find ModalBridge implementation, not the actual caller context.",
+    "Find the actual caller of ModalBridge.finish.",
+    "Find the actual caller of ModalBridge.finish, not the controller implementation."
+  ],
+  "hypothesis": "Negated caller role must not activate caller-only focus; positive caller requests retained. Public CLI exploratory Development; no original acceptance claim."
+}

@@ -13209,3 +13209,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Two unchanged Development cases now supply the second full6–12 method at1248/1258 tokens versus1024/1030. Other controls and raw/2000 modes remain equal. Original13 five modes remain equal, not repaired.
 - Final60 public CLI controls and92 targeted test invocations pass; independent review verified exact source bytes and lossless baseline restoration. Preserve flag-script error, default-None integration no-op and oversized-source unit qualification failures.
 - Consumer pair does not prove net efficiency/accuracy gain: same2 files, extra lines19→12, searches0→2. Direct benefit is initial full-method coverage1→2. Evidence: docs/evidence/default-graph-field-body.
+
+## 2026-11-19 — Do not activate caller focus from an explicit negative role
+
+- Reproduce public Development queries where adding "Do not return actual caller context" incorrectly promotes ResetPanel over requested ModalBridge implementation. Gate caller intent on affirmative spans, not retained negative search identifiers. Preserve mixed/quoted/non-exclusive unknown clauses and all ordinary retrieval/graph evidence.
+- Final24 focused tests pass; retained first boundary failure and independent review qualifiers. Original42 selected Development group remains1/3, not fixed; no score/oracle/budget/full-gate change.
+- Record latest32 group1/3 and read-only13/32 display tradeoffs.1963 plain32 body replacement is not recoverable; correct protected envelope remains2011. No lossy/default reallocation or new encoding shipped. Evidence and per-item available-path/non-equivalence ledger: docs/evidence/caller-intent-polarity/.

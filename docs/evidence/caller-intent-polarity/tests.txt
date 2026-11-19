@@ -1,0 +1,25 @@
+F.F.....................
+======================================================================
+FAIL: test_explicit_negative_and_background_are_not_caller_permission (tests.test_caller_intent_polarity.CallerIntentPolarityTests.test_explicit_negative_and_background_are_not_caller_permission) (q='Find ModalBridge implementation, not the actual caller context.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_caller_intent_polarity.py", line 20, in test_explicit_negative_and_background_are_not_caller_permission
+    with self.subTest(q=q): self.assertFalse(caller_owner_query(q))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_public_negative_role_does_not_override_implementation_target (tests.test_caller_intent_polarity.CallerIntentPolarityTests.test_public_negative_role_does_not_override_implementation_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_caller_intent_polarity.py", line 51, in test_public_negative_role_does_not_override_implementation_target
+    self.assertEqual('ModalBridge.ets',data['query_handoff']['code_anchors'][0]['file_path'])
+AssertionError: 'ModalBridge.ets' != 'ResetPanel.ets'
+- ModalBridge.ets
++ ResetPanel.ets
+
+
+----------------------------------------------------------------------
+Ran 24 tests in 11.039s
+
+FAILED (failures=2)

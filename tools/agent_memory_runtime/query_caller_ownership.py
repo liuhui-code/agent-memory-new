@@ -7,7 +7,11 @@ from typing import Any
 
 from .models import Project
 from .records import row_dict
-from .query_language import positive_retrieval_query
+from .query_language import (
+    positive_retrieval_query, result_alternative_query,
+    NEGATIVE_RESULT_CLAUSE_RE, COMPARISON_CLAUSE_RE,
+)
+from .query_qualified_exclusions import qualified_exclusions
 from .query_target_scope import classify_target_scope
 from .storage import connect
 from .text import code_search_terms, json_list
@@ -129,7 +133,32 @@ def collect_bounded_caller_owners(
 
 
 def caller_owner_query(query: str) -> bool:
-    lowered = query.casefold()
+    # Match affirmative request text, not retrieval's retained negative names.
+    # Unknown quoted/contrastive clauses keep the legacy interpretation.
+    positive = query
+    if not any(c in query for c in '`"“”‘’') and not re.search(r"(?<!\w)'[^'\n]*'", query):
+        positive = result_alternative_query(query)
+        _qualified, positive = qualified_exclusions(positive)
+        def mask(match):
+            clause = match.group()
+            if (clause[0] not in ",;，；" and match.start()
+                and re.match(r"[\w$]", match.string[match.start()-1])):
+                return clause
+            if re.search(r"\b(?:but|however|although|and|or|also|yet|instead)\b|但是|但也|不仅|不只", clause, re.I):
+                return clause
+            if re.search(r"\b(?:not|don't)\s+(?:return\s+)?(?:only|just|merely|solely|exclusively)\b", clause, re.I):
+                return clause
+            if not re.match(
+                r"(?:[,;，；]\s*not\s+|rather\s+than\b|do\s+not\s+return\b|don't\s+return\b|"
+                r"(?:excluding|exclude|ignore|omit|omitting)\b|不要返回|而不是|排除|忽略|"
+                r"compared\s+(?:with|to)\b|unlike\b|versus\b|vs\b|opposite\s+to\b|相比|对比)",
+                clause, re.I,
+            ):
+                return clause
+            return " "
+        positive = NEGATIVE_RESULT_CLAUSE_RE.sub(mask, positive)
+        positive = COMPARISON_CLAUSE_RE.sub(mask, positive)
+    lowered = positive.casefold()
     return any(marker in lowered for marker in CALLER_QUERY_MARKERS)
 
 
