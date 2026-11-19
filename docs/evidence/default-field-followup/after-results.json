@@ -1,0 +1,370 @@
+[
+  {
+    "control": "profile",
+    "mode": "raw",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": null,
+    "after": null,
+    "next_queries": null
+  },
+  {
+    "control": "profile",
+    "mode": "default",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "profile",
+    "mode": "explicit1500",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "profile",
+    "mode": "preserve2000",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1013,
+      "truncated": false
+    },
+    "after": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1013,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "customer",
+    "mode": "raw",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": null,
+    "after": null,
+    "next_queries": null
+  },
+  {
+    "control": "customer",
+    "mode": "default",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1016,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1016,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "customer",
+    "mode": "explicit1500",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1016,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1016,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "customer",
+    "mode": "preserve2000",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1016,
+      "truncated": false
+    },
+    "after": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1016,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "wrong-field",
+    "mode": "raw",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": null,
+    "after": null,
+    "next_queries": null
+  },
+  {
+    "control": "wrong-field",
+    "mode": "default",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "wrong-field",
+    "mode": "explicit1500",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1013,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "wrong-field",
+    "mode": "preserve2000",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1013,
+      "truncated": false
+    },
+    "after": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1013,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "two-matches",
+    "mode": "raw",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": null,
+    "after": null,
+    "next_queries": null
+  },
+  {
+    "control": "two-matches",
+    "mode": "default",
+    "unchanged": false,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1016,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1024,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": [
+      "src/pages/ProfileEditor.ets"
+    ]
+  },
+  {
+    "control": "two-matches",
+    "mode": "explicit1500",
+    "unchanged": false,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1016,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1024,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": [
+      "src/pages/ProfileEditor.ets"
+    ]
+  },
+  {
+    "control": "two-matches",
+    "mode": "preserve2000",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1131,
+      "truncated": false
+    },
+    "after": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1131,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "customer-two",
+    "mode": "raw",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": null,
+    "after": null,
+    "next_queries": null
+  },
+  {
+    "control": "customer-two",
+    "mode": "default",
+    "unchanged": false,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1021,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1030,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": [
+      "src/pages/SecondCustomerEditor.ets"
+    ]
+  },
+  {
+    "control": "customer-two",
+    "mode": "explicit1500",
+    "unchanged": false,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 1021,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 1030,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": [
+      "src/pages/SecondCustomerEditor.ets"
+    ]
+  },
+  {
+    "control": "customer-two",
+    "mode": "preserve2000",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1138,
+      "truncated": false
+    },
+    "after": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1138,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "string-only",
+    "mode": "raw",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": null,
+    "after": null,
+    "next_queries": null
+  },
+  {
+    "control": "string-only",
+    "mode": "default",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 568,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 568,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "string-only",
+    "mode": "explicit1500",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "estimated_tokens": 568,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "after": {
+      "estimated_tokens": 568,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "next_queries": []
+  },
+  {
+    "control": "string-only",
+    "mode": "preserve2000",
+    "unchanged": true,
+    "old_evidence_equal": true,
+    "before": {
+      "target_tokens": 2000,
+      "estimated_tokens": 568,
+      "truncated": false
+    },
+    "after": {
+      "target_tokens": 2000,
+      "estimated_tokens": 568,
+      "truncated": false
+    },
+    "next_queries": []
+  }
+]

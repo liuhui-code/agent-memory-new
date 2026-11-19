@@ -185,6 +185,8 @@ def context(args: argparse.Namespace) -> None:
             data = web_reading_order(project, original_context, data)
             from .context_graph_field_navigation import append_graph_field_navigation
             data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))
+            from .context_graph_field_followup import append_graph_field_followup
+            data = append_graph_field_followup(project, original_context, data)
             from .context_sql_reading import append_sql_reading
             data = append_sql_reading(project, original_context, data)
     record_query_usage(project, "context", args.query, data)

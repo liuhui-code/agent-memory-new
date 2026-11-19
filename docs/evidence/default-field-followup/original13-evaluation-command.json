@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "-B",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "eval-context-capability",
+    "--project",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/original13/source",
+    "--memory-home",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/original-eval-home",
+    "--source",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/original13/source",
+    "--cases",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/docs/eval/system-capability-cases.json",
+    "--case-id",
+    "context-validation-stop-owner",
+    "--json"
+  ],
+  "rc": 0
+}

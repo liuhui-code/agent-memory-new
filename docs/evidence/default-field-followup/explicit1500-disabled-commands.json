@@ -1,0 +1,128 @@
+[
+  {
+    "control": "profile",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/explicit1500-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0,
+    "old_evidence_equal": true
+  },
+  {
+    "control": "customer",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/explicit1500-disabled-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0,
+    "old_evidence_equal": true
+  },
+  {
+    "control": "wrong-field",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/explicit1500-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0,
+    "old_evidence_equal": true
+  },
+  {
+    "control": "two-matches",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/explicit1500-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0,
+    "old_evidence_equal": true
+  },
+  {
+    "control": "customer-two",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/explicit1500-disabled-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0,
+    "old_evidence_equal": true
+  },
+  {
+    "control": "string-only",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/disabled.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/explicit1500-disabled-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0,
+    "old_evidence_equal": true
+  }
+]

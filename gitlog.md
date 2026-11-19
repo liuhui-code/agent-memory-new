@@ -1,3 +1,10 @@
+## 2026-11-19 — Add default guarded-field source followup without losing evidence
+
+- Recover verified work branch48ac5f27 and byte-check all250 original Development source files against the retained manifest. Reproduce13 Chinese default1482 with no target anchor or followup; unchanged optional2000 navigation remains1984.
+- Share the existing current import/typed/source verifier and append pure relative source paths to existing next_queries only for1500 compact output. Preserve all old objects, hint order and shared exploration limits; all new paths must fit together or no-op. Raw and2000 behavior remain unchanged.
+- Six frozen existing developer fixtures receive48 actualCLI comparisons: two omitted-path cases gain usable hints, four stay unchanged.44 related executions including a persistent actualCLI regression pass. Original13 default1482→1491; original group still1/3 because hints are not returned anchors or source bodies.
+- A fresh candidate consumer uses the hint for its first source read; baseline already answered correctly and both total2 searches/2newfiles23lines. Do not claim aggregate efficiency or accuracy improvement. No full gate, score change, rewritten source/query, owner certainty or lost support. Full evidence and independent review boundary: docs/evidence/default-field-followup/.
+
 ## 2026-11-18 — Avoid repeated source text during staged discovery
 
 - Current existing-intent probes do not fix13/34 principal selection. Preserve actual outputs and prior staged-source navigation facts; do not call34 entire response missing its existing alternative.

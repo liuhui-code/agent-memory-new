@@ -1,0 +1,11 @@
+首次定位来源：original-after.json 的 `query_handoff.next_queries[0]` 指向 `src/pages/AccountSettingsPage.ets`。父任务没有提供此目标路径。在第一次源命令中先按该字段读取文件，才在同一命令后半进行了第一次 rg 搜索。AccountUpdateService 的路径由页面第 1 行 import 和第一次搜索共同给出。
+
+send_message 原文：
+独立观察完成。实际答复：校验中止在 `src/pages/AccountSettingsPage.ets:9–14` 的 `saveAccount()`：第 10 行对 `displayName.trim()` 判空（空串和纯空白都命中），第 11 行显示 `Required display name`，第 12 行 `return`；只有未命中该分支才到第 14 行 `this.updateService.dispatchUpdate(this.displayName)`，传递原始名字。分发实现是 `src/services/AccountUpdateService.ets:1–5` 的 `dispatchUpdate()`（2–4），目前仅第 3 行 `console.info`，无网络/持久化调用。该静态路径不支持“同次 saveAccount 先提示后仍分发”的说法，也不能断言真实症状不存在/唯一来源；页面 `build()` 第17行为空，未观察到 UI 绑定或真实提交证据。如现象可复现，需对照同一交互的入口、提示、分发和实际请求的运行证据（不把 console.info 当实际提交）。`OrderCommitCoordinator.commitOrder` 是 customerId/订单路径；两条包装日志为 job 提交和 profile 加载，不是显示名路径。原 JSON 不变。台账：输入已有 3 主文件片段（OrderCommitCoordinator:8–15 8行、JobDispatchPage:4–20 17行、WrappedProfileService:1–9 9行），均只消费不重读；扩展第1轮两文件，`nl -ba src/pages/AccountSettingsPage.ets` 1–18 新18行，随即路径搜索 `rg -l -i 'displayName|display.name|显示名' src` 两路径无源行；随后 `nl -ba src/services/AccountUpdateService.ets` 1–5 新5行，`rg -l 'saveAccount|dispatchUpdate|Required display name' src` 同两路径无源行。总源码覆盖 5/7 文件（额外读取 2 文件/23行，各一次）、搜索 2/3、扩展 1/2轮；按所求可验证静态事实完成停止，非预算停止。真实运行证据未提供。未读评估/测试/历史/报告，未修改。
+
+final 原文：
+`AccountSettingsPage.ets:9–14` 的 `saveAccount()` 对显示名去空白后判空。为空时先提示 `Required display name`，随即 `return`；只有非空时才调用 `dispatchUpdate()`。
+
+`AccountUpdateService.ets:2–4` 的 `dispatchUpdate()` 目前只调用 `console.info`，没有发送请求或写入数据。因此，这段源码不支持同一次 `saveAccount()` 先提示错误再分发更新。页面的 `build()` 为空，也没有运行证据可确认用户看到的实际提交来自哪里。
+
+已消费 3 个原有源码片段，另读 2 个文件共 23 行，执行 2 次仅返回路径的搜索。因已核实所求静态事实而停止，未耗尽预算。

@@ -39,29 +39,43 @@ def append_graph_field_navigation(project, original, payload, *, enabled=False):
 
 
 def _append(project, original, payload):
+    anchors = payload['query_handoff']['code_anchors']
+    expansions = sum(a.get('role') == 'expansion' for a in anchors)
+    if expansions >= EXPANSION_ANCHOR_LIMIT or len(anchors) >= 5:
+        return payload
+    additions = qualify_graph_field_navigation(project, original, payload)
+    if not additions or len(additions) + expansions > EXPANSION_ANCHOR_LIMIT or len(anchors) + len(additions) > 5:
+        return payload
+    trial = deepcopy(payload)
+    trial['query_handoff']['code_anchors'].extend(additions)
+    synchronize_estimate(trial)
+    return trial if estimate_payload_tokens(trial) <= 2000 else payload
+
+
+def qualify_graph_field_navigation(project, original, payload):
     permission = field_read_request(payload.get('query'))
     if not permission or not isinstance(original, dict) or original.get('query') != payload['query']:
-        return payload
+        return None
     root = Path(project.root).resolve()
     if (original.get('project_id') != project.project_id or payload.get('project_id') != project.project_id
             or Path(original.get('project_path', '')).resolve() != root):
-        return payload
+        return None
     fresh = payload.get('source_freshness') or {}; raw_fresh = original.get('source_freshness') or {}
     generation = fresh.get('generation')
     if (fresh.get('status') != 'current' or raw_fresh.get('status') != 'current'
             or type(generation) is not int or generation <= 0 or raw_fresh.get('generation') != generation):
-        return payload
+        return None
     h = payload['query_handoff']; anchors = h.get('code_anchors')
     if (type(anchors) is not list or h.get('source_exploration') != exploration_contract()
             or any(type(a) is not dict or a.get('role') not in {'primary', 'expansion'} for a in anchors)):
-        return payload
+        return None
     primary = sum(a['role'] == 'primary' for a in anchors)
     expansions = len(anchors) - primary
-    if primary > 3 or expansions >= EXPANSION_ANCHOR_LIMIT or len(anchors) >= 5:
-        return payload
+    if primary > 3 or expansions > EXPANSION_ANCHOR_LIMIT or len(anchors) > 5:
+        return None
     edges = original.get('edge_matches')
     if type(edges) is not list or not 0 < len(edges) <= MAX_EDGES:
-        return payload
+        return None
     started = monotonic(); captured = {}; additions = {}; edge_ids = set()
     def expired():
         return monotonic() - started > MAX_SECONDS
@@ -86,55 +100,55 @@ def _append(project, original, payload):
         db.set_progress_handler(lambda: int(expired()), 1000)
         states = [dict(r) for r in db.execute('SELECT * FROM code_index_state WHERE project_id=?', (project.project_id,))]
         if len(states) != 1 or states[0].get('generation') != generation or states[0].get('status') != 'active':
-            return payload
+            return None
         for supplied in edges:
             if type(supplied) is not dict:
-                return payload
+                return None
             if supplied.get('relation') != 'imports':
                 continue
             eid = supplied.get('id')
             if type(eid) is not int or eid <= 0 or eid in edge_ids:
-                return payload
+                return None
             edge_ids.add(eid)
             rows = [dict(r) for r in db.execute('SELECT * FROM memory_edges WHERE project_id=? AND id=?', (project.project_id, eid))]
             if len(rows) != 1:
-                return payload
+                return None
             edge = rows[0]
             keys = ('project_id', 'source_type', 'source_id', 'relation', 'target_type', 'target_id',
                     'evidence_kind', 'valid_from', 'valid_to', 'extractor_version')
             if (any(edge.get(k) != supplied.get(k) for k in keys) or edge.get('valid_to') is not None
                     or edge.get('source_type') != 'code_file' or edge.get('target_type') != 'code_file'
                     or edge.get('evidence_kind') != 'static_import'):
-                return payload
+                return None
             endpoints = []
             for key in ('source_id', 'target_id'):
                 rid = edge[key]
                 if type(rid) is not int or rid <= 0:
-                    return payload
+                    return None
                 rows = [dict(r) for r in db.execute('SELECT * FROM code_files WHERE project_id=? AND id=?', (project.project_id, rid))]
                 if len(rows) != 1:
-                    return payload
+                    return None
                 endpoints.append(rows[0])
             source, data, digest = read_file(endpoints[0]); target, _, _ = read_file(endpoints[1])
             facts = guarded_calls(data.decode('utf-8'))
             if expired():
-                return payload
+                return None
             if facts is None:
                 continue  # unsupported source remains evidence, not a negative or uniqueness proof
             if not _import_matches(source, target, root, data.decode('utf-8')):
-                return payload
+                return None
             matching = [f for f in facts if parts(f['field']) == permission['field_parts']]
             if not matching:
                 continue
             symbols = [dict(r) for r in db.execute('SELECT * FROM code_symbols WHERE project_id=? AND file_path=? LIMIT ?',
                        (project.project_id, endpoints[0]['file_path'], MAX_ROWS_PER_FILE + 1))]
             if len(symbols) > MAX_ROWS_PER_FILE:
-                return payload
+                return None
             for fact in matching:
                 method = _unique(symbols, fact['owner'] + '.' + fact['method'])
                 owner = _unique(symbols, fact['owner'])
                 if not _valid_fact(db, project, method, owner, fact, digest, generation):
-                    return payload
+                    return None
                 path = method['file_path']; lo, hi = method['start_line'], method['end_line']
                 # Existing path already provides navigation; do not create a competing duplicate.
                 if any(a.get('file_path') == path for a in anchors):
@@ -151,13 +165,8 @@ def _append(project, original, payload):
             with file.open('rb') as stream:
                 reread = stream.read(MAX_FILE_BYTES + 1)
             if hashlib.sha256(reread).hexdigest() != digest or expired():
-                return payload
-    if not additions or len(additions) + expansions > EXPANSION_ANCHOR_LIMIT or len(anchors) + len(additions) > 5:
-        return payload
-    trial = deepcopy(payload)
-    trial['query_handoff']['code_anchors'].extend(additions.values())
-    synchronize_estimate(trial)
-    return trial if estimate_payload_tokens(trial) <= 2000 else payload
+                return None
+    return list(additions.values())
 
 
 def _unique(rows, name):

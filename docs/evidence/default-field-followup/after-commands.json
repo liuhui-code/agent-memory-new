@@ -1,0 +1,482 @@
+[
+  {
+    "control": "profile",
+    "label": "raw",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/after-raw-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "profile",
+    "label": "default",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/after-default-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "profile",
+    "label": "explicit1500",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/after-explicit1500-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "profile",
+    "label": "preserve2000",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/profile/after-preserve2000-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer",
+    "label": "raw",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/after-raw-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer",
+    "label": "default",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/after-default-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer",
+    "label": "explicit1500",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/after-explicit1500-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer",
+    "label": "preserve2000",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer/after-preserve2000-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "wrong-field",
+    "label": "raw",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/after-raw-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "wrong-field",
+    "label": "default",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/after-default-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "wrong-field",
+    "label": "explicit1500",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/after-explicit1500-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "wrong-field",
+    "label": "preserve2000",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/wrong-field/after-preserve2000-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "two-matches",
+    "label": "raw",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/after-raw-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "two-matches",
+    "label": "default",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/after-default-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "two-matches",
+    "label": "explicit1500",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/after-explicit1500-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "two-matches",
+    "label": "preserve2000",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/two-matches/after-preserve2000-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer-two",
+    "label": "raw",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/after-raw-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer-two",
+    "label": "default",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/after-default-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer-two",
+    "label": "explicit1500",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/after-explicit1500-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "customer-two",
+    "label": "preserve2000",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/customer-two/after-preserve2000-home",
+      "--query",
+      "必填客户编号为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "string-only",
+    "label": "raw",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/after-raw-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "string-only",
+    "label": "default",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/after-default-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "string-only",
+    "label": "explicit1500",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/after-explicit1500-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "1500"
+    ],
+    "rc": 0
+  },
+  {
+    "control": "string-only",
+    "label": "preserve2000",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/default-field-followup/string-only/after-preserve2000-home",
+      "--query",
+      "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。",
+      "--json",
+      "--compact",
+      "--compact-token-budget",
+      "2000",
+      "--preserve-selected-source-anchors"
+    ],
+    "rc": 0
+  }
+]
