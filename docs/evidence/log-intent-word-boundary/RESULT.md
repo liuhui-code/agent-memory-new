@@ -1,0 +1,11 @@
+# English log substring misroutes read-only source requests
+
+Existing controlled Development sourceCacheService and cached-file-refresh procedure fixture from tests/test_explicit_context_intent.py. Six frozen public requests establish actual routing impact, not just a renamed label: 'Locate cache file source.' stays code_location with no experience reference. Insertingcatalog or dialog incorrectly activates runtime_log_diagnosis through substringlog and returns cached-file-refresh procedure in the primary context, despite only requesting source location. Genuine log/logging/logger controls keep the diagnostic route.
+
+Change ONLY Englishlog trigger in infer_memory_intent_v2 to complete lexical/identifier terms. Use existing tokenize+identifier_tokens with original case so CacheLogger, LOG_EVENT andcache_log remain recognized. Complete compatibilityterms:log,logs,logging,logger,loggers,hilog,syslog,logcat. No generic*log suffix, project-name whitelist, changedintentpriority or new userparser. Other failure/error/Chinese rules andexplicit--intent override remain unchanged.
+
+24 public CLI runs compare6queries×raw/compact×legacy/current, each from samefrozen memorycopy. Onlycatalog/dialog4pairs change:code_location restored, procedure removed fromprimary experience_refs with blocked-memory reason retained. Other8pairs exactlyequal. Legacyclassifier source snapshot saved, no reliance on futureHEAD for reconstruction. No realincident/generalization claim.
+
+24 focused unittest invocations pass, including positive logging compounds, negativecatalog/dialog/login/logout/backlog/etc, higher-prioritysemantic/correction/maintenance andexplicitintent. Initialraw test incorrectly expectedcompact code_location at legacy rawmemory_intent rather thanmemory_intent_v2; recorded failure retained, fixedassertion with no production changes for that error.
+
+Original42 selectedDevelopmentgroup remains1/3. Its originalmemoryintent correction does NOT establish betterprecision or completeparenttext. goal_planner's separate barelog classification remains untouched and is a separate potentialissue. No fullgate, score, originalquery rewrite, budgetchange or originalgroup closure claim. Independentreview approves narrowmemory-intent fix only.

@@ -1,0 +1,262 @@
+[
+  {
+    "query": 0,
+    "mode": "raw",
+    "equal": true,
+    "before_intent": "code_location",
+    "after_intent": "code_location",
+    "before_refs": [],
+    "after_refs": []
+  },
+  {
+    "query": 0,
+    "mode": "compact",
+    "equal": true,
+    "before_intent": "code_location",
+    "after_intent": "code_location",
+    "before_refs": [],
+    "after_refs": []
+  },
+  {
+    "query": 1,
+    "mode": "raw",
+    "equal": false,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "code_location",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ],
+    "after_refs": []
+  },
+  {
+    "query": 1,
+    "mode": "compact",
+    "equal": false,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "code_location",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ],
+    "after_refs": []
+  },
+  {
+    "query": 2,
+    "mode": "raw",
+    "equal": false,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "code_location",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ],
+    "after_refs": []
+  },
+  {
+    "query": 2,
+    "mode": "compact",
+    "equal": false,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "code_location",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ],
+    "after_refs": []
+  },
+  {
+    "query": 3,
+    "mode": "raw",
+    "equal": true,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "runtime_log_diagnosis",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ],
+    "after_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ]
+  },
+  {
+    "query": 3,
+    "mode": "compact",
+    "equal": true,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "runtime_log_diagnosis",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ],
+    "after_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ]
+  },
+  {
+    "query": 4,
+    "mode": "raw",
+    "equal": true,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "runtime_log_diagnosis",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ],
+    "after_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ]
+  },
+  {
+    "query": 4,
+    "mode": "compact",
+    "equal": true,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "runtime_log_diagnosis",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ],
+    "after_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ]
+  },
+  {
+    "query": 5,
+    "mode": "raw",
+    "equal": true,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "runtime_log_diagnosis",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ],
+    "after_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "problem": null,
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture.",
+        "trust_level": null,
+        "warnings": []
+      }
+    ]
+  },
+  {
+    "query": 5,
+    "mode": "compact",
+    "equal": true,
+    "before_intent": "runtime_log_diagnosis",
+    "after_intent": "runtime_log_diagnosis",
+    "before_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ],
+    "after_refs": [
+      {
+        "reflection_id": 1,
+        "experience_type": "procedure_experience",
+        "task": "refresh cached files safely",
+        "trigger_condition": "A cache file refresh workflow is requested.",
+        "verification_method": "Run the controlled cache refresh fixture."
+      }
+    ]
+  }
+]

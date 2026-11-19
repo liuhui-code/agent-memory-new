@@ -1,0 +1,29 @@
+[
+  [
+    "python",
+    "-B",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "init",
+    "--project",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/intent-word-boundary/gate-manager",
+    "--memory-home",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/intent-word-boundary/gate-memory"
+  ],
+  [
+    "python",
+    "-B",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "eval-context-capability",
+    "--cases",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/docs/eval/system-capability-cases.json",
+    "--source",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/docs/eval/fixtures/system-capability",
+    "--case-id",
+    "context-indirect-dialog-caller-owner",
+    "--json",
+    "--project",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/intent-word-boundary/gate-manager",
+    "--memory-home",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/intent-word-boundary/gate-memory"
+  ]
+]

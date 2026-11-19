@@ -1,0 +1,28 @@
+{
+  "queries": [
+    "Locate cache file source.",
+    "Locate catalog cache file source.",
+    "Locate dialog cache file source.",
+    "Locate log cache file source.",
+    "Locate logging cache file source.",
+    "Locate logger cache file source."
+  ],
+  "reflection": {
+    "experience_type": "procedure_experience",
+    "task_type": "workflow",
+    "outcome": "success",
+    "task": "refresh cached files safely",
+    "lesson": "Refresh cached files in bounded groups and verify before publishing.",
+    "trigger_condition": "A cache file refresh workflow is requested.",
+    "repair_action": "Refresh bounded groups, verify the generation, then publish.",
+    "verification_method": "Run the controlled cache refresh fixture.",
+    "source_cases": [
+      "development_fixture:intent-contract-cache-refresh"
+    ],
+    "negative_preconditions": [
+      "Do not use for read-only cache lookup."
+    ],
+    "confidence": 0.9
+  },
+  "classification": "Existing controlled Development procedure fixture; not a real incident. Read-only code-location queries must not gain procedure lane from unrelated word substring."
+}

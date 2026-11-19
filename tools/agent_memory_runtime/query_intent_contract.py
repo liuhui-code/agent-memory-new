@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .text import tokenize, identifier_tokens
+
 
 EXPLICIT_MEMORY_INTENTS = (
     "code_location",
@@ -49,8 +51,10 @@ def infer_memory_intent_v2(query: str) -> str:
         "archive", "refresh",
     )):
         return "memory_maintenance"
-    if any(token in lowered for token in (
-        "日志", "报错", "错误", "异常", "失败", "崩溃", "incident", "log",
+    log_terms = set(tokenize(query)) | set(identifier_tokens(query))
+    explicit_log_term = bool(log_terms & {"log", "logs", "logging", "logger", "loggers", "hilog", "syslog", "logcat"})
+    if explicit_log_term or any(token in lowered for token in (
+        "日志", "报错", "错误", "异常", "失败", "崩溃", "incident",
         "traceback", "exception", "error", "failed", "failure",
     )):
         return "runtime_log_diagnosis"

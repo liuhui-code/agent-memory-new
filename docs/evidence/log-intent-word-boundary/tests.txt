@@ -1,0 +1,16 @@
+..F.....................
+======================================================================
+FAIL: test_public_unrelated_word_does_not_admit_refresh_procedure (tests.test_log_intent_word_boundary.LogIntentWordBoundaryTests.test_public_unrelated_word_does_not_admit_refresh_procedure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_log_intent_word_boundary.py", line 31, in test_public_unrelated_word_does_not_admit_refresh_procedure
+    self.assertEqual('code_location',d['memory_intent'])
+AssertionError: 'code_location' != 'code_current'
+- code_location
++ code_current
+
+
+----------------------------------------------------------------------
+Ran 24 tests in 2.018s
+
+FAILED (failures=1)
