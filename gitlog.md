@@ -1,3 +1,9 @@
+## 2026-11-19 - Fix verified TypeScript readonly constructor property edges
+
+- A frozen TypeScript audio-export fixture exposed missing static caller-to-callee edges on an equivalent constructor parameter-property form. Reuse parsed constructor headers and strict rooted receiver checks; keep plain, mutable, shadowed, static, nested, reassigned and ambiguous forms out of the new path.
+- Frozen public graph comparison recovers both exact call-site edges; explicit typed field and ordinary-parameter controls are unchanged. Existing archives gain edges after ordinary re-learning, not on read. 50 focused tests, compile and line limits passed. Case 39 and the full capability gate were not rerun.
+- Evidence: [TypeScript constructor property](docs/evidence/typescript-constructor-property/README.md).
+
 ## 2026-11-19 — Prioritize a complete Web method within default compact budget
 
 - After source, index generation, caller and effect checks, show the existing

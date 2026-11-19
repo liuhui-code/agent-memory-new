@@ -1,5 +1,5 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
-"""Bounded static identity for this.field calls through named type aliases."""
+"""Bounded static identity for verified named this.field receiver bindings."""
 import re
 from collections import Counter
 from .ecma_callback_mask import callback_mask_lines
@@ -65,8 +65,10 @@ def typed_alias_bindings(lines, containers, fields_by_owner, imports):
     return result
 
 
-def aliased_field_relations(lines, block, context):
-    bindings = context.typed_alias_fields.get(block.owner or '', {})
+def aliased_field_relations(lines, block, context, constructor_fields=None):
+    owner = block.owner or ''
+    constructor_fields = (constructor_fields or {}).get(owner, {})
+    bindings = {**constructor_fields, **context.typed_alias_fields.get(owner, {})}
     if not bindings:
         return []
     body = '\n'.join(lines[block.start:block.end + 1])
@@ -90,7 +92,7 @@ def aliased_field_relations(lines, block, context):
             source_key=block.entity.key, relation='calls', target_name=method,
             target_qualified_name=f'{original}.{method}', target_file_path=path,
             line=block.start + relative_line, confidence=0.9,
-            detail=f'aliased typed field call; field={field}; arity={call_argument_count(call)}'))
+            detail=f'{field_evidence(field, constructor_fields)} call; field={field}; arity={call_argument_count(call)}'))
     for match in re.finditer(r'\bawait\s+' + ROOT_CALL, code):
         field, method = match.groups()
         if field not in bindings:
@@ -99,6 +101,11 @@ def aliased_field_relations(lines, block, context):
         result.append(SemanticRelation(
             source_key=block.entity.key, relation='awaits', target_name=method,
             target_qualified_name=f'{original}.{method}', target_file_path=path,
-            line=block.start + 1, confidence=0.9,
-            detail=f'aliased typed field await; field={field}'))
+            line=(block.start + 1 + code.count('\n', 0, match.start()) if field in constructor_fields
+                  else block.start + 1),
+            confidence=0.9, detail=f'{field_evidence(field, constructor_fields)} await; field={field}'))
     return result
+
+
+def field_evidence(field, constructor_fields):
+    return "typed constructor property" if field in constructor_fields else "aliased typed field"

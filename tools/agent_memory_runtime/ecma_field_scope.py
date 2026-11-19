@@ -17,12 +17,18 @@ def verified_direct_field_lines(lines, start, end):
 
 
 def verified_masked_field_lines(masked):
+    indices = verified_depth_lines(masked, ("{",))
+    return None if indices is None else [masked[index] for index in indices if 0 < index < len(masked) - 1]
+
+
+def verified_depth_lines(masked, depth):
     stack = []
     result = []
+    expected_depth = list(depth)
     pairs = {')': '(', ']': '[', '}': '{'}
     for index, line in enumerate(masked):
-        if 0 < index < len(masked) - 1 and stack == ['{']:
-            result.append(line)
+        if stack == expected_depth:
+            result.append(index)
         for char in line:
             if char in '([{':
                 stack.append(char)

@@ -6,6 +6,7 @@ from .semantic_models import SemanticEntity
 if TYPE_CHECKING:
     from .semantic_ecma import Container
 from .ecma_field_scope import collect_field_types
+from .ecma_parameter_properties import constructor_receivers
 from .ecma_import_alias import alias_bindings
 from .ecma_typed_import_alias import typed_alias_bindings
 
@@ -16,6 +17,7 @@ class ParsedFileContext:
     imported_paths: dict[str, str | None]
     imported_aliases: dict[str, str | None]
     typed_alias_fields: dict[str, dict[str, tuple[str, str]]]
+    constructor_fields: dict[str, dict[str, tuple[str, str]]]
 
 def build_context(
     lines: list[str],
@@ -23,6 +25,8 @@ def build_context(
     entities: list[SemanticEntity],
     imports: list[tuple[str, str, str | None]],
     field_re,
+    language: str,
+    named_imports: set[str],
 ) -> ParsedFileContext:
     fields_by_owner = {
         container.name: collect_field_types(lines, container, field_re)
@@ -40,4 +44,6 @@ def build_context(
         imported_paths={alias: path for _name, alias, path in imports},
         imported_aliases=alias_bindings(imports),
         typed_alias_fields=typed_alias_bindings(lines, containers, fields_by_owner, imports),
+        constructor_fields=(constructor_receivers(lines, containers, imports, named_imports)
+                            if language == "TypeScript" else {}),
     )

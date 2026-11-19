@@ -132,10 +132,10 @@ def parse_source(
     entities.extend(block.entity for block in callbacks)
     from .arkts_builder_roles import attach_builder_roles
     attach_builder_roles(lines, language, rel_path, containers, callables)
-    imports = parse_imports(project, path, text, language)
+    imports, named_imports = parse_imports(project, path, text, language)
     by_qualified = {entity.qualified_name: entity for entity in entities}
     by_name = unique_entity_names(entities)
-    context = build_file_context(lines, containers, entities, imports)
+    context = build_context(lines, containers, entities, imports, FIELD_RE, language, named_imports)
     for entity in entities:
         if entity.exported:
             relations.append(relation(f"file:{rel_path}", "exposes_api", entity.key, entity.start_line, 0.95, "exported symbol"))
@@ -298,7 +298,7 @@ def callable_relations(
     body = "\n".join(body_lines)
     fields = context.fields_by_owner.get(block.owner or "", {})
     imported_paths = context.imported_paths
-    result.extend(aliased_field_relations(lines, block, context))
+    result.extend(aliased_field_relations(lines, block, context, context.constructor_fields))
     local_prefix = f"{block.owner}." if block.owner else ""
     mask = code_mask(body)
     local_calls = scan_calls_masked(body, mask, r"\bthis\.([A-Za-z_$][\w$]*)\s*\(")
@@ -372,10 +372,7 @@ def callable_relations(
             line=block.start + 1, confidence=0.9, detail=f"typed awaited call through {field_name}",
         ))
     return result
-def build_file_context(lines, containers, entities, imports):
-    return build_context(lines, containers, entities, imports, FIELD_RE)
-
-def parse_imports(project: Project, path: Path, text: str, language: str) -> list[tuple[str, str, str | None]]:
+def parse_imports(project: Project, path: Path, text: str, language: str) -> tuple[list[tuple[str, str, str | None]], set[str]]:
     result: list[tuple[str, str, str | None]] = []
     extensions = [".ets", ".ts", ".js"] if language == "ArkTS" else [".ts", ".tsx", ".js"]
     matches = admitted_import_matches(text, (IMPORT_RE, DEFAULT_IMPORT_RE))
@@ -386,10 +383,11 @@ def parse_imports(project: Project, path: Path, text: str, language: str) -> lis
             parts = re.split(r"\s+as\s+", raw.strip())
             if parts and parts[0]:
                 result.append((parts[0], parts[-1], target_path))
+    named_imports = {alias for _name, alias, _path in result}
     for match in matches[1]:
         name, module = match.groups()
         result.append((name, name, resolve_relative_module(project, path, module, extensions)))
-    return result
+    return result, named_imports
 
 
 def resolve_relative_module(project: Project, path: Path, module: str, extensions: list[str]) -> str | None:
