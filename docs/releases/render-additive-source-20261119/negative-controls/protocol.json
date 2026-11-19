@@ -1,0 +1,83 @@
+{
+  "classification": "frozen public no-new-authority controls; source changes defined before outcomes",
+  "cases": [
+    {
+      "id": "Bulletin-discarded",
+      "sources": {
+        "BulletinDetails.ets": "@Component\nexport struct BulletinDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    this.cleanedBody()\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.markup)\n    }\n  }\n\n  cleanedBody(): string {\n    return this.markup\n      .replace('<p>', '')\n      .replace('</p>', '')\n  }\n}\n",
+        "BulletinDetailsStore.ets": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity."
+        }
+      ]
+    },
+    {
+      "id": "Bulletin-other-value",
+      "sources": {
+        "BulletinDetails.ets": "@Component\nexport struct BulletinDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.markup)\n    }\n  }\n\n  cleanedBody(): string {\n    return this.markup\n      .replace('<p>', '')\n      .replace('</p>', '')\n  }\n}\n",
+        "BulletinDetailsStore.ets": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity."
+        }
+      ]
+    },
+    {
+      "id": "Bulletin-delegate",
+      "sources": {
+        "BulletinDetails.ets": "@Component\nexport struct BulletinDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.cleanedBody())\n    }\n  }\n\n  cleanedBody(): string {\n    return this.cleaner.clean(this.markup)\n  }\n}\n",
+        "BulletinDetailsStore.ets": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity."
+        }
+      ]
+    },
+    {
+      "id": "Invoice-discarded",
+      "sources": {
+        "InvoiceDetails.ets": "@Component\nexport struct InvoiceDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    this.cleanedBody()\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.markup)\n    }\n  }\n\n  cleanedBody(): string {\n    return this.markup\n      .replace('<p>', '')\n      .replace('</p>', '')\n  }\n}\n",
+        "InvoiceDetailsStore.ets": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity."
+        }
+      ]
+    },
+    {
+      "id": "Invoice-other-value",
+      "sources": {
+        "InvoiceDetails.ets": "@Component\nexport struct InvoiceDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.markup)\n    }\n  }\n\n  cleanedBody(): string {\n    return this.markup\n      .replace('<p>', '')\n      .replace('</p>', '')\n  }\n}\n",
+        "InvoiceDetailsStore.ets": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity."
+        }
+      ]
+    },
+    {
+      "id": "Invoice-delegate",
+      "sources": {
+        "InvoiceDetails.ets": "@Component\nexport struct InvoiceDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.cleanedBody())\n    }\n  }\n\n  cleanedBody(): string {\n    return this.cleaner.clean(this.markup)\n  }\n}\n",
+        "InvoiceDetailsStore.ets": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1226 @@
+[
+  {
+    "fixture": "Bulletin-discarded",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "5a939f101f13f61c",
+      "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "bulletin",
+          "details",
+          "still",
+          "display",
+          "markup",
+          "tags",
+          "locate",
+          "ui",
+          "rendering",
+          "cleanup",
+          "owner",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "BulletinDetailsStore.ets",
+            "symbol": "saveDetails",
+            "symbol_type": "function",
+            "record_ids": [
+              5,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "BulletinDetailsStore",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "BulletinDetailsStore.ets",
+            "symbol": "saveDetails",
+            "owner_name": "BulletinDetailsStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "BulletinDetails.ets",
+              "symbol": "build",
+              "owner_name": "BulletinDetails",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.0,
+              "evidence_score": 23.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 7,
+                "end_line": 14,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 5,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 170
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1079,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "fixture": "Bulletin-other-value",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "898eceffab344ef3",
+      "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "bulletin",
+          "details",
+          "still",
+          "display",
+          "markup",
+          "tags",
+          "locate",
+          "ui",
+          "rendering",
+          "cleanup",
+          "owner",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "BulletinDetailsStore.ets",
+            "symbol": "saveDetails",
+            "symbol_type": "function",
+            "record_ids": [
+              5,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "BulletinDetailsStore",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "BulletinDetailsStore.ets",
+            "symbol": "saveDetails",
+            "owner_name": "BulletinDetailsStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "BulletinDetails.ets",
+              "symbol": "build",
+              "owner_name": "BulletinDetails",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.0,
+              "evidence_score": 23.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 7,
+                "end_line": 13,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 5,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 170
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1079,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "fixture": "Bulletin-delegate",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "6d0e23269ffb4221",
+      "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "bulletin",
+          "details",
+          "still",
+          "display",
+          "markup",
+          "tags",
+          "locate",
+          "ui",
+          "rendering",
+          "cleanup",
+          "owner",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "BulletinDetailsStore.ets",
+            "symbol": "saveDetails",
+            "symbol_type": "function",
+            "record_ids": [
+              5,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "BulletinDetailsStore",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "BulletinDetailsStore.ets",
+            "symbol": "saveDetails",
+            "owner_name": "BulletinDetailsStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "BulletinDetails.ets",
+              "symbol": "cleanedBody",
+              "owner_name": "BulletinDetails",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.0,
+              "evidence_score": 23.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 15,
+                "end_line": 17,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 5,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 170
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1081,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "fixture": "Invoice-discarded",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "0508789bf877727e",
+      "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "invoice",
+          "details",
+          "still",
+          "display",
+          "markup",
+          "tags",
+          "locate",
+          "ui",
+          "rendering",
+          "cleanup",
+          "owner",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "InvoiceDetailsStore.ets",
+            "symbol": "saveDetails",
+            "symbol_type": "function",
+            "record_ids": [
+              5,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "InvoiceDetailsStore",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "InvoiceDetailsStore.ets",
+            "symbol": "saveDetails",
+            "owner_name": "InvoiceDetailsStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "InvoiceDetails.ets",
+              "symbol": "build",
+              "owner_name": "InvoiceDetails",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.0,
+              "evidence_score": 23.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 7,
+                "end_line": 14,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 5,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1076,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "fixture": "Invoice-other-value",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "72658ea02b9c46dc",
+      "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "invoice",
+          "details",
+          "still",
+          "display",
+          "markup",
+          "tags",
+          "locate",
+          "ui",
+          "rendering",
+          "cleanup",
+          "owner",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "InvoiceDetailsStore.ets",
+            "symbol": "saveDetails",
+            "symbol_type": "function",
+            "record_ids": [
+              5,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "InvoiceDetailsStore",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "InvoiceDetailsStore.ets",
+            "symbol": "saveDetails",
+            "owner_name": "InvoiceDetailsStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "InvoiceDetails.ets",
+              "symbol": "build",
+              "owner_name": "InvoiceDetails",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.0,
+              "evidence_score": 23.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 7,
+                "end_line": 13,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 5,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1076,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "fixture": "Invoice-delegate",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "d3a85c6cfa7c1384",
+      "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "invoice",
+          "details",
+          "still",
+          "display",
+          "markup",
+          "tags",
+          "locate",
+          "ui",
+          "rendering",
+          "cleanup",
+          "owner",
+          "rather"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "InvoiceDetailsStore.ets",
+            "symbol": "saveDetails",
+            "symbol_type": "function",
+            "record_ids": [
+              5,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "InvoiceDetailsStore",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveDetails",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "InvoiceDetailsStore.ets",
+            "symbol": "saveDetails",
+            "owner_name": "InvoiceDetailsStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "InvoiceDetails.ets",
+              "symbol": "cleanedBody",
+              "owner_name": "InvoiceDetails",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.0,
+              "evidence_score": 23.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 15,
+                "end_line": 17,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 5,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1078,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

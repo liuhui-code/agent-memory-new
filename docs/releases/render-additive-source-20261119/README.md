@@ -1,0 +1,19 @@
+# Additive static rendering passages, not exclusive owner selection
+
+## Verified public improvement
+Two frozen independent synthetic Development domains (Bulletin, Invoice) originally show only a Store body in default compact output even though a valid UI build/helper is recalled. The final public CLI now retains the complete old Store anchor and appends complete build7–13 and cleanedBody15–19 source. Actual estimates1335/1332 under unchanged1500. All other old fields, primary/alternatives, logs, graphs and old anchor objects are preserved. The six separately frozen discarded-return, other-value and unknown-delegate public controls are deeply identical before/after. These are synthetic development observations, not real incidents or external efficacy validation.
+
+## Reused authority and bounded transaction
+No new value-flow parser or common-ranking rule: reuse the existing finite cleanup request and whole-file render expression parser, plus typed row validation. Source syntax establishes only that Text consumes this helper expression, not runtime execution, HTML correctness, XSS safety, business-domain relevance or a unique owner. Unknown sources remain unknown and all existing evidence stays present.
+
+The positive pool is the existing raw wiki candidate paths, at most12, not the whole repository. Validate active generation, all selected file digests, unique symbol keys, component identity/declaration boundaries and method ranges. Limits:256 symbols,256KiB per file,1MiB total,0.5-second qualification deadline checked around work (not a hard OS I/O timeout). Revalidate before committing the whole addition. Every missing qualified method across supported owners is added atomically or all additions are rejected. Actual visible bytes, not range labels, determine coverage. New anchors alone carry new identities and snapshots, even for same-file missing methods. Respect existing anchor/excerpt/line/character and estimated-token limits.
+
+Only nonempty ordinary compact CLI output is eligible. Raw/direct calls remain unchanged. Reuse the command-local final accounting session; old private RenderContext lifecycle stays separate. Successful addition, fallback, exception and commit-error once semantics have dedicated tests. Facts increment once in raw/compact/direct and the old RenderContext path. No new persistent authority, background process or index marker.
+
+## Validation and original05 boundary
+89 focused tests pass:12 new plus existing empty-receiver, render-source/selection/request and two performance modules. Python syntax and500-line checks pass; no full suite or CI claim. Reviewer approved after corrections. Latest unchanged standard157 original05 remains1/3. Existing2000-preserve output remains1836 with Article1–13, not full helper. No original05 closure or aggregate gain is claimed.32 default policy and main are unchanged.
+
+## Rejected work retained
+An intermediate same-file branch extended the old anchor ids/ranges/excerpts without its original read window. Independent review rejected this. Its source and original05 intermediate1966 output are retained only as rejected evidence; that apparent improvement is explicitly withdrawn. Final code uses independent anchors and ordinary capacity checks, returning original05 unchanged when a fourth displayed source anchor would be required.
+
+Initial lifecycle tests assumed a learned episode was actually retrieved; it was not, so zero use_count was correct. Tests now insert a small explicit fixture semantic fact and verify that fact's real count. One related-suite invocation omitted PYTHONPATH=tests:. and hit four existing test-module import errors; the corrected command passed without altering those old tests. Initial multi-positive test allowed either outcome; final test explicitly requires both complete positive sources, with separate atomic capacity-failure tests.

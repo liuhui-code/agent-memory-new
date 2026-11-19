@@ -1,0 +1,258 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-6ht9uxmd/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-6ht9uxmd/agent-memory-case-dno79we5/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "Article details still display markup tags. Locate the UI rendering cleanup owner rather than the article data entity.",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "ec99fb6f54dfa3c5",
+    "query": "Article details still display markup tags. Locate the UI rendering cleanup owner rather than the article data entity.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "article",
+        "details",
+        "still",
+        "display",
+        "markup",
+        "tags",
+        "locate",
+        "ui"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 6,
+          "message_template": "submit account update ${displayName}",
+          "logger": "console",
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "function": "saveAccount",
+          "line": 14,
+          "effect_id": 3,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "dispatchUpdate",
+          "wrapper_depth": 1,
+          "call_path": [
+            "saveAccount",
+            "dispatchUpdate",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/pages/AccountSettingsPage.ets#saveAccount",
+            "src/services/AccountUpdateService.ets#dispatchUpdate",
+            "src/services/AccountUpdateService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 6,
+          "message_template": "submit account update ${displayName}",
+          "logger": "console",
+          "file_path": "src/services/AccountUpdateService.ets",
+          "function": "dispatchUpdate",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/views/ArticleMarkupView.ets",
+          "symbol": "article",
+          "symbol_type": "state",
+          "record_ids": [
+            443
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "article",
+              "start_line": 5,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "article",
+              "start_line": 1,
+              "end_line": 13,
+              "content": "import { ArticleRecord } from '../entities/ArticleRecord'\n\n@ComponentV2\nexport struct ArticleMarkupView {\n  @Param article: ArticleRecord = new ArticleRecord()\n\n  build() {\n    Column() {\n      Text(this.article.title)\n      Text(this.cleanedBody())\n    }\n  }\n",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/pages/NotificationDetailsPage.ets",
+          "symbol": "NotificationDetailsPage",
+          "symbol_type": "component",
+          "record_ids": [
+            261
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "NotificationDetailsPage",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 9
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 9,
+              "content": "@Component\nexport struct NotificationDetailsPage {\n  build() {\n    Column() {\n      Text('Notification details')\n    }\n    .padding(12)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "saveAccount",
+          "symbol_type": "function",
+          "record_ids": [
+            131
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "saveAccount",
+              "start_line": 9,
+              "end_line": 15
+            }
+          ],
+          "read_window": {
+            "start_line": 9,
+            "end_line": 15
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "saveAccount",
+              "start_line": 3,
+              "end_line": 18,
+              "content": "@Entry\n@Component\nexport struct AccountSettingsPage {\n  @State displayName: string = ''\n  private updateService: AccountUpdateService = new AccountUpdateService()\n\n  saveAccount(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Required display name' })\n      return\n    }\n    this.updateService.dispatchUpdate(this.displayName)\n  }\n\n  build() {}\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/pages/RuleEditorPage.ets",
+          "symbol": "DetailsDisclosure",
+          "owner_kind": "component",
+          "source_range": {
+            "start_line": 15,
+            "end_line": 19,
+            "selection_reason": "semantic_mechanism_window"
+          }
+        },
+        "alternatives": []
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 3,
+        "excerpt_chars": 798
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_strong_log_anchor"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_strong_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 2,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1438,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}

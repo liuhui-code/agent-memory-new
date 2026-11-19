@@ -95,15 +95,18 @@ def authenticate(project, data, state, deadline=None):
 
 def defer_accounting(project,query,data):
     session=_active.get()
+    from .render_additive_transaction import eligible as render_eligible
+    render = session is not None and session.allow_render and render_eligible(data)
     if (session is None or session.project!=project or session.query!=query
-            or session.baseline is not None or type(data) is not dict or not empty_eligible(data)):
+            or session.baseline is not None or type(data) is not dict or not (empty_eligible(data) or render)):
         return False
     session.baseline=deepcopy(data)
     return True
 
 
 class EmptyReceiverSession:
-    def __init__(self,project,query):
+    def __init__(self,project,query,*,allow_render=False):
+        self.allow_render=allow_render
         self.project=project; self.query=query; self.baseline=None; self.done=False
     def __enter__(self):
         self.token=_active.set(self); return self
@@ -120,6 +123,14 @@ class EmptyReceiverSession:
         record_query_miss_if_empty(self.project,'context',self.query,adopted)
     def finalize(self,output):
         if self.baseline is None: return output
+        if not empty_eligible(self.baseline):
+            from .render_additive_transaction import finalize
+            result,members=finalize(self.project,self.baseline,output)
+            adopted=deepcopy(self.baseline)
+            existing={(r.get('file_path'),r.get('id'),r.get('symbol_key')) for r in adopted.get('wiki_matches',[])}
+            adopted['wiki_matches']=[*adopted.get('wiki_matches',[]),*(r for r in members if (r['file_path'],r['id'],r['symbol_key']) not in existing)]
+            self.commit(adopted)
+            return result
         from .context_record_loop_transaction import apply_record_loop_transaction
         from .context_compact import compact_context
         deadline=time.monotonic()+.5

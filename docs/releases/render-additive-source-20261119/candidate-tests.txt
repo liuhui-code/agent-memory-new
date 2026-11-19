@@ -1,0 +1,22 @@
+======================================================================
+FAIL: test_legacy_render_context_keeps_once_accounting (tests.test_render_additive_transaction.RenderAdditiveTests.test_legacy_render_context_keeps_once_accounting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_additive_transaction.py", line 58, in test_legacy_render_context_keeps_once_accounting
+    out=self.cli('context','--query','Return the UI rendering cleanup owner.','--json','--compact');self.assertEqual(before+1,self.count());self.assertTrue(out['query_handoff']['code_anchors'])
+                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_public_addition_and_accounting_once_raw_unchanged (tests.test_render_additive_transaction.RenderAdditiveTests.test_public_addition_and_accounting_once_raw_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_additive_transaction.py", line 22, in test_public_addition_and_accounting_once_raw_unchanged
+    before=self.count();raw=self.cli('context','--query',self.q,'--json');self.assertEqual(before+1,self.count())
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0
+
+----------------------------------------------------------------------
+Ran 7 tests in 7.860s
+
+FAILED (failures=2)

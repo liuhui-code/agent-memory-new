@@ -1,0 +1,32 @@
+{
+  "classification": "independent frozen synthetic Development; not actual incident or runtime causality",
+  "contract": "Existing same-value static syntax witness can only add missing helper body without dropping logs, anchors, metadata, unknown sources or changing defaults; complete existing output is no-op; no public red means stop.",
+  "cases": [
+    {
+      "id": "Bulletin",
+      "sources": {
+        "BulletinDetails.ets": "@Component\nexport struct BulletinDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.cleanedBody())\n    }\n  }\n\n  cleanedBody(): string {\n    return this.markup\n      .replace('<p>', '')\n      .replace('</p>', '')\n  }\n}\n",
+        "BulletinDetailsStore.ets": "export class BulletinDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save bulletin details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity."
+        }
+      ]
+    },
+    {
+      "id": "Invoice",
+      "sources": {
+        "InvoiceDetails.ets": "@Component\nexport struct InvoiceDetails {\n  title: string = ''\n  subtitle: string = ''\n  markup: string = ''\n\n  build() {\n    Column() {\n      Text(this.title)\n      Text(this.subtitle)\n      Text(this.cleanedBody())\n    }\n  }\n\n  cleanedBody(): string {\n    return this.markup\n      .replace('<p>', '')\n      .replace('</p>', '')\n  }\n}\n",
+        "InvoiceDetailsStore.ets": "export class InvoiceDetailsStore {\n  title: string = ''\n  saveDetails() {\n    this.title = this.title.trim()\n    console.info('save invoice details markup title')\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "original-style",
+          "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity."
+        }
+      ]
+    }
+  ]
+}

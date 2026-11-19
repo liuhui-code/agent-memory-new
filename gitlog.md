@@ -288,6 +288,12 @@
 
 # Local Development Log
 
+## 2026-11-19 — Append certified static rendering passages without narrowing old evidence
+
+- Reuse finite render syntax receipts to append missing build/helper passages in nonempty compact output, preserving all old anchors, primary, logs and graph evidence. Reuse command-local once accounting; raw/direct and private RenderContext routes unchanged.
+- Two frozen public Development examples recover build7–13/helper15–19 at1335/1332 tokens; six unknown/other-value/discarded controls unchanged.89 focused tests, performance modules, syntax and line limits pass.
+- Rejected same-anchor mutation and its apparent original05 explicit1966 improvement retained as rejected evidence. Final original05 standard157 stays1/3 and explicit2000 stays1836. No full gate/main/32 policy change. Evidence: docs/releases/render-additive-source-20261119/.
+
 ## 2026-11-19 — Preserve mixed declaration and callable requests
 
 - Fix existing multi-target compact guard counting declarations and methods separately. New mixed permission requires exact positive method identity, non-exclusion, unique path and retained range coverage; legacy callable-only behavior remains unchanged.

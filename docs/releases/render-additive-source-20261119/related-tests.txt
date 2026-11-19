@@ -1,0 +1,44 @@
+======================================================================
+ERROR: test_chinese_excluding_actual_positive_owner_falls_back (tests.test_render_request_zh.ChineseRenderTransportTests.test_chinese_excluding_actual_positive_owner_falls_back)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 82, in test_chinese_excluding_actual_positive_owner_falls_back
+    self.use_fixture('请定位清洗并渲染正文的 view，不要返回 MessageSurface 数据类。',lambda f:self.assertIs(f.bind(),f.baseline))
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 52, in use_fixture
+    import test_render_selection as fixture_module
+ModuleNotFoundError: No module named 'test_render_selection'
+
+======================================================================
+ERROR: test_chinese_protected_log_and_path_unchanged (tests.test_render_request_zh.ChineseRenderTransportTests.test_chinese_protected_log_and_path_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 79, in test_chinese_protected_log_and_path_unchanged
+    self.use_fixture('请返回负责清洗并渲染正文的 UI 源码。',check)
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 52, in use_fixture
+    import test_render_selection as fixture_module
+ModuleNotFoundError: No module named 'test_render_selection'
+
+======================================================================
+ERROR: test_chinese_stale_source_identity_falls_back (tests.test_render_request_zh.ChineseRenderTransportTests.test_chinese_stale_source_identity_falls_back)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 88, in test_chinese_stale_source_identity_falls_back
+    self.use_fixture('请定位清洗并渲染文本的视图源码。',check)
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 52, in use_fixture
+    import test_render_selection as fixture_module
+ModuleNotFoundError: No module named 'test_render_selection'
+
+======================================================================
+ERROR: test_chinese_two_sources_and_complete_snapshot (tests.test_render_request_zh.ChineseRenderTransportTests.test_chinese_two_sources_and_complete_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 70, in test_chinese_two_sources_and_complete_snapshot
+    self.use_fixture('请定位清洗并渲染文本的视图源码。',check)
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_render_request_zh.py", line 52, in use_fixture
+    import test_render_selection as fixture_module
+ModuleNotFoundError: No module named 'test_render_selection'
+
+----------------------------------------------------------------------
+Ran 86 tests in 28.672s
+
+FAILED (errors=4)
