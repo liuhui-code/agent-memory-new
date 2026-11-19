@@ -1,0 +1,5209 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-p7ikoxkv/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-p7ikoxkv/agent-memory-case-v_twwrk9/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--json"
+  ],
+  "query": "Status bar color conversion returns an invalid opaque value. Locate native color parsing ownership.",
+  "payload": {
+    "project_id": "157f65dae15c887c",
+    "project_path": "/tmp/agent-memory-benchmark-p7ikoxkv/workspace",
+    "query": "Status bar color conversion returns an invalid opaque value. Locate native color parsing ownership.",
+    "memory_intent": "general_context",
+    "memory_intent_v2": "general_context",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "intent_source": "inferred",
+        "legacy_intent": "general_context",
+        "preferred_lanes": [
+          "semantic_facts",
+          "wiki_matches",
+          "reusable_procedure",
+          "historical_reflection"
+        ],
+        "interference_policy": "prefer source-backed and high-quality memories"
+      },
+      "lane_budgets": {
+        "main_reflections": 2,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "general_context",
+      "intent_v2": "general_context",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": "log",
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 431,
+        "project_id": "157f65dae15c887c",
+        "file_path": "src/theme/SystemBarColorAdapter.ets",
+        "symbol": "parseNativeColor",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method parseNativeColor in src/theme/SystemBarColorAdapter.ets; identifier terms: parse native color",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:14b147abf04bc2b37b317fd3",
+        "qualified_name": "SystemBarColorAdapter.parseNativeColor",
+        "signature": "parseNativeColor(color: string):string",
+        "start_line": 2,
+        "end_line": 12,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "3074351031d87e389bb0e7d3786b38bfd3047915782312ce32ca394ee5432a02",
+        "evidence_class": "static",
+        "method_evidence": "color trim includes substring length values map value parse native split parseint int join",
+        "string_evidence": "rgb",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:color.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"guard\",\"conditional\"]},{\"confidence\":0.9,\"detail\":\"call:color.includes\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:color.substring\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:value.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":8,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"guard\",\"conditional\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":8,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\"]},{\"confidence\":0.9,\"detail\":\"call:color.substring\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:14b147abf04bc2b37b317fd3\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "SystemBarColorAdapter",
+        "owner_kind": "adapter",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-19T04:01:54+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.09563723,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 4,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 68.0,
+        "search_terms": [
+          "src/theme/systembarcoloradapter.ets",
+          "arkts function or lifecycle method parsenativecolor in src/theme/systembarcoloradapter.ets; identifier terms: parse native color",
+          "parsenativecolor",
+          "function",
+          "src",
+          "theme",
+          "systembarcoloradapter",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "parse",
+          "native",
+          "color",
+          "system",
+          "bar",
+          "adapter",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 68.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [
+      {
+        "id": 12,
+        "project_id": "157f65dae15c887c",
+        "file_path": "src/services/ProfileService.ets",
+        "line": 5,
+        "function": "loadProfile",
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "profile load failed session invalid",
+        "raw_statement": "hilog.error(0x1000, 'ProfileService', 'profile load failed session invalid')",
+        "business_summary": null,
+        "business_terms": [],
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": null,
+        "process_hint": null,
+        "neighbor_terms": null,
+        "source_digest": "fb117eedad12d88f625d03b5e58a858e73c37270fa67850a79dd255a1caa1ae8",
+        "index_generation": 1,
+        "updated_at": "2026-11-19T04:01:54+00:00",
+        "start_line": 4,
+        "end_line": 6,
+        "recall_lanes": [
+          "broad_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01639344,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "kind": "log_statement",
+        "score": 5.2,
+        "search_terms": [
+          "src/services/profileservice.ets",
+          "error",
+          "hilog",
+          "profile load failed session invalid",
+          "loadprofile",
+          "src",
+          "services",
+          "profileservice",
+          "ets",
+          "profile",
+          "load",
+          "failed",
+          "session",
+          "invalid",
+          "0x1000",
+          "service",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failure"
+        ],
+        "match_reasons": [
+          "log_message",
+          "log_context",
+          "search_terms"
+        ],
+        "log_signal_score": 0.51,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "stage",
+          "route_or_resource",
+          "entity_id_or_key",
+          "action_result",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_reason",
+          "missing_correlation"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 5.2,
+          "rerank_score": null,
+          "match_reasons": [
+            "log_message",
+            "log_context",
+            "search_terms"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 1,
+        "project_id": "157f65dae15c887c",
+        "file_path": "src/abilities/SessionAbility.ets",
+        "line": 7,
+        "function": "onCreate",
+        "wrapper_symbol": "loadProfile",
+        "sink_log_id": 12,
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "profile load failed session invalid",
+        "evidence_class": "static_wrapped",
+        "wrapper_depth": 1,
+        "truncated": 0,
+        "call_path": [
+          "onCreate",
+          "loadProfile",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/abilities/SessionAbility.ets#onCreate",
+          "src/services/ProfileService.ets#loadProfile",
+          "src/services/ProfileService.ets#hilog.error"
+        ],
+        "raw_call": "profileService.loadProfile()",
+        "source_digest": "586f796b3831f085a5468ea8e10c969f7eb32ee5ea9fd7d08e46c0512ba0dbed",
+        "index_generation": 1,
+        "updated_at": "2026-11-19T04:01:55+00:00",
+        "kind": "log_effect",
+        "raw_statement": "profileService.loadProfile()",
+        "business_summary": "",
+        "business_terms": [],
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": "[]",
+        "process_hint": "",
+        "neighbor_terms": "[]",
+        "recall_lanes": [
+          "log_effect_fts"
+        ],
+        "recall_fusion": {},
+        "start_line": 6,
+        "end_line": 8,
+        "score": 3.6,
+        "search_terms": [
+          "src/abilities/sessionability.ets",
+          "error",
+          "hilog",
+          "profile load failed session invalid",
+          "oncreate",
+          "src",
+          "abilities",
+          "sessionability",
+          "ets",
+          "profile",
+          "load",
+          "failed",
+          "session",
+          "invalid",
+          "profileservice",
+          "loadprofile",
+          "ability",
+          "on",
+          "create",
+          "service",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failure"
+        ],
+        "match_reasons": [
+          "log_message",
+          "search_terms",
+          "static_wrapped"
+        ],
+        "log_signal_score": 0.51,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "stage",
+          "route_or_resource",
+          "entity_id_or_key",
+          "action_result",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_reason",
+          "missing_correlation"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 3.6,
+          "rerank_score": null,
+          "match_reasons": [
+            "log_message",
+            "search_terms",
+            "static_wrapped"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 10,
+        "project_id": "157f65dae15c887c",
+        "file_path": "src/pages/ProfilePage.ets",
+        "line": 9,
+        "function": "aboutToAppear",
+        "wrapper_symbol": "loadProfile",
+        "sink_log_id": 12,
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "profile load failed session invalid",
+        "evidence_class": "static_wrapped",
+        "wrapper_depth": 1,
+        "truncated": 0,
+        "call_path": [
+          "aboutToAppear",
+          "loadProfile",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/pages/ProfilePage.ets#aboutToAppear",
+          "src/services/ProfileService.ets#loadProfile",
+          "src/services/ProfileService.ets#hilog.error"
+        ],
+        "raw_call": "profileService.loadProfile()",
+        "source_digest": "07d17cd9224bf57acf476bd1d041a6eecde7ef24e061d035bc085fe7598a77ea",
+        "index_generation": 1,
+        "updated_at": "2026-11-19T04:01:55+00:00",
+        "kind": "log_effect",
+        "raw_statement": "profileService.loadProfile()",
+        "business_summary": "",
+        "business_terms": [],
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": "[]",
+        "process_hint": "",
+        "neighbor_terms": "[]",
+        "recall_lanes": [
+          "log_effect_fts"
+        ],
+        "recall_fusion": {},
+        "start_line": 8,
+        "end_line": 10,
+        "score": 3.6,
+        "search_terms": [
+          "src/pages/profilepage.ets",
+          "error",
+          "hilog",
+          "profile load failed session invalid",
+          "abouttoappear",
+          "src",
+          "pages",
+          "profilepage",
+          "ets",
+          "profile",
+          "load",
+          "failed",
+          "session",
+          "invalid",
+          "profileservice",
+          "loadprofile",
+          "page",
+          "about",
+          "to",
+          "appear",
+          "service",
+          "arkts",
+          "harmonyos",
+          "component",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failure"
+        ],
+        "match_reasons": [
+          "log_message",
+          "search_terms",
+          "static_wrapped"
+        ],
+        "log_signal_score": 0.51,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "stage",
+          "route_or_resource",
+          "entity_id_or_key",
+          "action_result",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_reason",
+          "missing_correlation"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 3.6,
+          "rerank_score": null,
+          "match_reasons": [
+            "log_message",
+            "search_terms",
+            "static_wrapped"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "edge_matches": [
+      {
+        "id": 605,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 96,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 33,
+        "evidence": "src/pages/WarehouseFacetPage.ets -> src/entities/FacetRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 586,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 81,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 117,
+        "evidence": "src/pages/ProfilePage.ets -> src/services/ProfileService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 553,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 117,
+        "evidence": "src/abilities/SessionAbility.ets -> src/services/ProfileService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 548,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 117,
+        "relation": "contains",
+        "target_type": "code_log_statement",
+        "target_id": 12,
+        "evidence": "src/services/ProfileService.ets:5",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 508,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 152,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 508,
+        "evidence": "src/widgets/MessageActionBar.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 507,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 152,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 507,
+        "evidence": "src/widgets/MessageActionBar.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 472,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 142,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 472,
+        "evidence": "src/views/InventoryOverlayPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 471,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 142,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 471,
+        "evidence": "src/views/InventoryOverlayPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 470,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 142,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 470,
+        "evidence": "src/views/InventoryOverlayPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 469,
+        "project_id": "157f65dae15c887c",
+        "source_type": "code_file",
+        "source_id": 141,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 469,
+        "evidence": "src/views/InventoryList.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T04:01:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T04:01:54+00:00",
+        "created_at": "2026-11-19T04:01:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "profile load failed session invalid",
+      "error",
+      "hilog",
+      "failed",
+      "log",
+      "logger",
+      "warning",
+      "session",
+      "invalid",
+      "src/abilities/sessionability.ets",
+      "sessionability",
+      "arkts function or lifecycle method parsenativecolor in src/theme/systembarcoloradapter.ets; identifier terms: parse native color"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "Status bar color conversion returns an invalid opaque value. Locate native color parsing ownership.",
+      "log_keywords": [
+        "status",
+        "bar",
+        "color",
+        "conversion",
+        "returns",
+        "an",
+        "invalid",
+        "opaque",
+        "value",
+        "locate",
+        "native",
+        "parsing",
+        "ownership",
+        "hilog",
+        "loadprofile",
+        "profile",
+        "load",
+        "failed",
+        "session",
+        "error"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 12,
+          "effect_id": null,
+          "message_template": "profile load failed session invalid",
+          "logger": "hilog",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/ProfileService.ets",
+          "function": "loadProfile",
+          "line": 5,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 12,
+          "effect_id": 1,
+          "message_template": "profile load failed session invalid",
+          "logger": "hilog",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/abilities/SessionAbility.ets",
+          "function": "onCreate",
+          "line": 7,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "loadProfile",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "onCreate",
+            "loadProfile",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/abilities/SessionAbility.ets#onCreate",
+            "src/services/ProfileService.ets#loadProfile",
+            "src/services/ProfileService.ets#hilog.error"
+          ]
+        },
+        {
+          "log_id": 12,
+          "effect_id": 10,
+          "message_template": "profile load failed session invalid",
+          "logger": "hilog",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/pages/ProfilePage.ets",
+          "function": "aboutToAppear",
+          "line": 9,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "loadProfile",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "aboutToAppear",
+            "loadProfile",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/pages/ProfilePage.ets#aboutToAppear",
+            "src/services/ProfileService.ets#loadProfile",
+            "src/services/ProfileService.ets#hilog.error"
+          ]
+        }
+      ],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 431,
+          "record_type": "code_symbol",
+          "file_path": "src/theme/SystemBarColorAdapter.ets",
+          "symbol": "parseNativeColor",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method parseNativeColor in src/theme/SystemBarColorAdapter.ets; identifier terms: parse native color",
+          "start_line": 2,
+          "end_line": 12,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "log_emitter",
+          "record_id": 12,
+          "record_type": "code_log_statement",
+          "file_path": "src/services/ProfileService.ets",
+          "symbol": "loadProfile",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wrapped_log_caller",
+          "record_id": 1,
+          "record_type": "code_log_effect",
+          "file_path": "src/abilities/SessionAbility.ets",
+          "symbol": "onCreate",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 6,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wrapped_log_caller",
+          "record_id": 10,
+          "record_type": "code_log_effect",
+          "file_path": "src/pages/ProfilePage.ets",
+          "symbol": "aboutToAppear",
+          "symbol_type": null,
+          "summary": null,
+          "start_line": 8,
+          "end_line": 10,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/theme/SystemBarColorAdapter.ets",
+          "symbol": "parseNativeColor",
+          "owner_name": "SystemBarColorAdapter",
+          "owner_kind": "adapter",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 34.5,
+          "evidence_score": 34.5,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/pages/DraftStatusPage.ets",
+            "symbol": "build",
+            "owner_name": "DraftStatusPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 19.7,
+            "evidence_score": 19.7,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 10,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/pages/StartupStatusPage.ets",
+            "symbol": "build",
+            "owner_name": "StartupStatusPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.7,
+            "evidence_score": 16.7,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "candidate_count": 1,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 17,
+      "checked_file_count": 17,
+      "current_file_count": 17,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 1,
+        "code_log_matches": 3,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 17,
+          "checked_file_count": 17,
+          "current_file_count": 17,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 7,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 1,
+            "lane_counts": {
+              "broad_fts": 2,
+              "structural_fts": 1,
+              "file_identity_fts": 5,
+              "file_semantic_fts": 7,
+              "salient_file_fts": 3
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 5,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 7,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 3,
+                  "query_term_count": 6,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 5,
+                  "file_semantic_fts": 7,
+                  "salient_file_fts": 3
+                },
+                "fused_candidate_count": 7
+              },
+              "candidate_fusion": {
+                "128": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06203067,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 1,
+                      "weight": 1.35,
+                      "score": 0.02213115
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    }
+                  ]
+                },
+                "142": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03926011,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    }
+                  ]
+                },
+                "92": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03864087,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    }
+                  ]
+                },
+                "152": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03816764,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 2,
+                      "weight": 1.35,
+                      "score": 0.02177419
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    }
+                  ]
+                },
+                "91": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03681319,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 3,
+                      "weight": 1.35,
+                      "score": 0.02142857
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "94": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03624527,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 4,
+                      "weight": 1.35,
+                      "score": 0.02109375
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "70": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0356946,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 5,
+                      "weight": 1.35,
+                      "score": 0.02076923
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 128,
+                  "file_path": "src/theme/SystemBarColorAdapter.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 142,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 92,
+                  "file_path": "src/pages/ThemePreferencesPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 152,
+                  "file_path": "src/widgets/MessageActionBar.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 91,
+                  "file_path": "src/pages/StartupStatusPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 94,
+                  "file_path": "src/pages/UpgradeStatusPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 70,
+                  "file_path": "src/pages/DraftStatusPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 5,
+              "channel_counts": {
+                "broad_fts": 2,
+                "structural_fts": 1,
+                "file_identity_fts": 5,
+                "file_semantic_fts": 7,
+                "salient_file_fts": 3
+              },
+              "fused_candidate_count": 7
+            },
+            "candidate_refs": [
+              {
+                "id": 128,
+                "file_path": "src/theme/SystemBarColorAdapter.ets",
+                "channels": [
+                  "broad_fts",
+                  "structural_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 152,
+                "file_path": "src/widgets/MessageActionBar.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 142,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 92,
+                "file_path": "src/pages/ThemePreferencesPage.ets",
+                "channels": [
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 91,
+                "file_path": "src/pages/StartupStatusPage.ets",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 94,
+                "file_path": "src/pages/UpgradeStatusPage.ets",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 70,
+                "file_path": "src/pages/DraftStatusPage.ets",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              }
+            ]
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 46,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 10,
+              "method_body_fts": 2,
+              "behavior_method_fts": 0,
+              "symbol_identity_fts": 17,
+              "symbol_semantic_fts": 14,
+              "string_key_fts": 24,
+              "semantic_mechanism_fts": 2,
+              "salient_string_fts": 8
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 17,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 14,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 24,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 24,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 2,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 8,
+                  "query_term_count": 6,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 17,
+                  "symbol_semantic_fts": 14,
+                  "method_body_fts": 2,
+                  "string_key_fts": 24,
+                  "semantic_mechanism_fts": 2,
+                  "salient_string_fts": 8
+                },
+                "fused_candidate_count": 46
+              },
+              "candidate_fusion": {
+                "431": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0795082,
+                  "best_rank": 1,
+                  "channel_count": 4,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "method_body_fts",
+                      "rank": 1,
+                      "weight": 0.8,
+                      "score": 0.01311475
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 1,
+                      "weight": 1.6,
+                      "score": 0.02622951
+                    }
+                  ]
+                },
+                "325": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05244971,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 16,
+                      "weight": 1.45,
+                      "score": 0.01907895
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 13,
+                      "weight": 1.0,
+                      "score": 0.01369863
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 1,
+                      "weight": 1.2,
+                      "score": 0.01967213
+                    }
+                  ]
+                },
+                "174": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0513923,
+                  "best_rank": 3,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 17,
+                      "weight": 1.45,
+                      "score": 0.01883117
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 14,
+                      "weight": 1.0,
+                      "score": 0.01351351
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 3,
+                      "weight": 1.2,
+                      "score": 0.01904762
+                    }
+                  ]
+                },
+                "329": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04629825,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 1,
+                      "weight": 1.25,
+                      "score": 0.0204918
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 2,
+                      "weight": 1.6,
+                      "score": 0.02580645
+                    }
+                  ]
+                },
+                "327": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04555812,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 2,
+                      "weight": 1.25,
+                      "score": 0.02016129
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 3,
+                      "weight": 1.6,
+                      "score": 0.02539683
+                    }
+                  ]
+                },
+                "136": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03951613,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    }
+                  ]
+                },
+                "430": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03888889,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                },
+                "135": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03790323,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "method_body_fts",
+                      "rank": 2,
+                      "weight": 0.8,
+                      "score": 0.01290323
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 4,
+                      "weight": 1.6,
+                      "score": 0.025
+                    }
+                  ]
+                },
+                "507": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03726679,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 7,
+                      "weight": 1.45,
+                      "score": 0.02164179
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "508": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03670814,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 8,
+                      "weight": 1.45,
+                      "score": 0.02132353
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "259": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03616601,
+                  "best_rank": 6,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 9,
+                      "weight": 1.45,
+                      "score": 0.02101449
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "175": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03563966,
+                  "best_rank": 7,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 10,
+                      "weight": 1.45,
+                      "score": 0.02071429
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    }
+                  ]
+                },
+                "337": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03512842,
+                  "best_rank": 8,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 11,
+                      "weight": 1.45,
+                      "score": 0.02042254
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 8,
+                      "weight": 1.0,
+                      "score": 0.01470588
+                    }
+                  ]
+                },
+                "173": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03463164,
+                  "best_rank": 9,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 12,
+                      "weight": 1.45,
+                      "score": 0.02013889
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 9,
+                      "weight": 1.0,
+                      "score": 0.01449275
+                    }
+                  ]
+                },
+                "324": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03414873,
+                  "best_rank": 10,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 13,
+                      "weight": 1.45,
+                      "score": 0.01986301
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 10,
+                      "weight": 1.0,
+                      "score": 0.01428571
+                    }
+                  ]
+                },
+                "335": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0336791,
+                  "best_rank": 11,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 14,
+                      "weight": 1.45,
+                      "score": 0.01959459
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 11,
+                      "weight": 1.0,
+                      "score": 0.01408451
+                    }
+                  ]
+                },
+                "336": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03322222,
+                  "best_rank": 12,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 15,
+                      "weight": 1.45,
+                      "score": 0.01933333
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 12,
+                      "weight": 1.0,
+                      "score": 0.01388889
+                    }
+                  ]
+                },
+                "343": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02461538,
+                  "best_rank": 5,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 5,
+                      "weight": 1.6,
+                      "score": 0.02461538
+                    }
+                  ]
+                },
+                "345": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02424242,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 6,
+                      "weight": 1.6,
+                      "score": 0.02424242
+                    }
+                  ]
+                },
+                "468": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0238806,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 7,
+                      "weight": 1.6,
+                      "score": 0.0238806
+                    }
+                  ]
+                },
+                "471": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02352941,
+                  "best_rank": 8,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 8,
+                      "weight": 1.6,
+                      "score": 0.02352941
+                    }
+                  ]
+                },
+                "405": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02265625,
+                  "best_rank": 4,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    }
+                  ]
+                },
+                "29": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02230769,
+                  "best_rank": 5,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 5,
+                      "weight": 1.45,
+                      "score": 0.02230769
+                    }
+                  ]
+                },
+                "27": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0219697,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 6,
+                      "weight": 1.45,
+                      "score": 0.0219697
+                    }
+                  ]
+                },
+                "347": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01935484,
+                  "best_rank": 2,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 2,
+                      "weight": 1.2,
+                      "score": 0.01935484
+                    }
+                  ]
+                },
+                "138": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01875,
+                  "best_rank": 4,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 4,
+                      "weight": 1.2,
+                      "score": 0.01875
+                    }
+                  ]
+                },
+                "397": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01846154,
+                  "best_rank": 5,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 5,
+                      "weight": 1.2,
+                      "score": 0.01846154
+                    }
+                  ]
+                },
+                "188": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01818182,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 6,
+                      "weight": 1.2,
+                      "score": 0.01818182
+                    }
+                  ]
+                },
+                "189": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01791045,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 7,
+                      "weight": 1.2,
+                      "score": 0.01791045
+                    }
+                  ]
+                },
+                "190": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01764706,
+                  "best_rank": 8,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 8,
+                      "weight": 1.2,
+                      "score": 0.01764706
+                    }
+                  ]
+                },
+                "191": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0173913,
+                  "best_rank": 9,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 9,
+                      "weight": 1.2,
+                      "score": 0.0173913
+                    }
+                  ]
+                },
+                "192": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01714286,
+                  "best_rank": 10,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 10,
+                      "weight": 1.2,
+                      "score": 0.01714286
+                    }
+                  ]
+                },
+                "193": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01690141,
+                  "best_rank": 11,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 11,
+                      "weight": 1.2,
+                      "score": 0.01690141
+                    }
+                  ]
+                },
+                "194": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01666667,
+                  "best_rank": 12,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 12,
+                      "weight": 1.2,
+                      "score": 0.01666667
+                    }
+                  ]
+                },
+                "195": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01643836,
+                  "best_rank": 13,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 13,
+                      "weight": 1.2,
+                      "score": 0.01643836
+                    }
+                  ]
+                },
+                "196": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01621622,
+                  "best_rank": 14,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 14,
+                      "weight": 1.2,
+                      "score": 0.01621622
+                    }
+                  ]
+                },
+                "197": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.016,
+                  "best_rank": 15,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 15,
+                      "weight": 1.2,
+                      "score": 0.016
+                    }
+                  ]
+                },
+                "198": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01578947,
+                  "best_rank": 16,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 16,
+                      "weight": 1.2,
+                      "score": 0.01578947
+                    }
+                  ]
+                },
+                "199": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01558442,
+                  "best_rank": 17,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 17,
+                      "weight": 1.2,
+                      "score": 0.01558442
+                    }
+                  ]
+                },
+                "200": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01538462,
+                  "best_rank": 18,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 18,
+                      "weight": 1.2,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "201": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01518987,
+                  "best_rank": 19,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 19,
+                      "weight": 1.2,
+                      "score": 0.01518987
+                    }
+                  ]
+                },
+                "202": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.015,
+                  "best_rank": 20,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 20,
+                      "weight": 1.2,
+                      "score": 0.015
+                    }
+                  ]
+                },
+                "203": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01481481,
+                  "best_rank": 21,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 21,
+                      "weight": 1.2,
+                      "score": 0.01481481
+                    }
+                  ]
+                },
+                "204": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01463415,
+                  "best_rank": 22,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 22,
+                      "weight": 1.2,
+                      "score": 0.01463415
+                    }
+                  ]
+                },
+                "205": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01445783,
+                  "best_rank": 23,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 23,
+                      "weight": 1.2,
+                      "score": 0.01445783
+                    }
+                  ]
+                },
+                "206": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01428571,
+                  "best_rank": 24,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 24,
+                      "weight": 1.2,
+                      "score": 0.01428571
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 431,
+                  "file_path": "src/theme/SystemBarColorAdapter.ets",
+                  "symbol": "parseNativeColor",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "method_body_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 325,
+                  "file_path": "src/pages/StartupStatusPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 174,
+                  "file_path": "src/pages/DraftStatusPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 329,
+                  "file_path": "src/pages/ThemePreferencesPage.ets",
+                  "symbol": "$selectedIndex",
+                  "channels": [
+                    "semantic_mechanism_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 327,
+                  "file_path": "src/pages/ThemePreferencesPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "semantic_mechanism_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 136,
+                  "file_path": "src/pages/AppearanceSettingsPage.ets",
+                  "symbol": "statusBarColor",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 430,
+                  "file_path": "src/theme/SystemBarColorAdapter.ets",
+                  "symbol": "SystemBarColorAdapter",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 135,
+                  "file_path": "src/pages/AppearanceSettingsPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "method_body_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 507,
+                  "file_path": "src/widgets/MessageActionBar.ets",
+                  "symbol": "MessageActionBar",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 508,
+                  "file_path": "src/widgets/MessageActionBar.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 259,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "statusText",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 175,
+                  "file_path": "src/pages/DraftStatusPage.ets",
+                  "symbol": "checkpointStatus",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 337,
+                  "file_path": "src/pages/UpgradeStatusPage.ets",
+                  "symbol": "archiveStatus",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 173,
+                  "file_path": "src/pages/DraftStatusPage.ets",
+                  "symbol": "DraftStatusPage",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 324,
+                  "file_path": "src/pages/StartupStatusPage.ets",
+                  "symbol": "StartupStatusPage",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 335,
+                  "file_path": "src/pages/UpgradeStatusPage.ets",
+                  "symbol": "UpgradeStatusPage",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 336,
+                  "file_path": "src/pages/UpgradeStatusPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 343,
+                  "file_path": "src/pages/WarehouseFacetPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 345,
+                  "file_path": "src/pages/WarehouseFacetPage.ets",
+                  "symbol": "onClick",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 468,
+                  "file_path": "src/views/InventoryList.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 471,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 405,
+                  "file_path": "src/storage/DraftPreferences.ets",
+                  "symbol": "save",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 29,
+                  "file_path": "src/components/KeyboardFocusHint.ets",
+                  "symbol": "updateFocusMessage",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 27,
+                  "file_path": "src/cache/BoundedResultCache.ets",
+                  "symbol": "put",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 347,
+                  "file_path": "src/pages/WorkspaceLoadingPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 138,
+                  "file_path": "src/pages/CacheInspectorPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 397,
+                  "file_path": "src/services/ProfileService.ets",
+                  "symbol": "loadProfile",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 188,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment1",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 189,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment2",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 190,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment3",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 191,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment4",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 192,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment5",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 193,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment6",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 194,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment7",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 195,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment8",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 196,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment9",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 197,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment10",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 198,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment11",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 199,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment12",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 200,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment13",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 201,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment14",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 202,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment15",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 203,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment16",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 204,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment17",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 205,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment18",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 206,
+                  "file_path": "src/pages/LedgerMaintenancePage.ets",
+                  "symbol": "inspectLedgerSegment19",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 8,
+              "channel_counts": {
+                "broad_fts": 10,
+                "method_body_fts": 2,
+                "behavior_method_fts": 0,
+                "symbol_identity_fts": 17,
+                "symbol_semantic_fts": 14,
+                "string_key_fts": 24,
+                "semantic_mechanism_fts": 2,
+                "salient_string_fts": 8
+              },
+              "fused_candidate_count": 46
+            },
+            "candidate_refs": [
+              {
+                "id": 431,
+                "file_path": "src/theme/SystemBarColorAdapter.ets",
+                "channels": [
+                  "broad_fts",
+                  "method_body_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "parseNativeColor"
+              },
+              {
+                "id": 136,
+                "file_path": "src/pages/AppearanceSettingsPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "statusBarColor"
+              },
+              {
+                "id": 430,
+                "file_path": "src/theme/SystemBarColorAdapter.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "SystemBarColorAdapter"
+              },
+              {
+                "id": 507,
+                "file_path": "src/widgets/MessageActionBar.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "MessageActionBar"
+              },
+              {
+                "id": 325,
+                "file_path": "src/pages/StartupStatusPage.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 259,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "statusText"
+              },
+              {
+                "id": 174,
+                "file_path": "src/pages/DraftStatusPage.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 175,
+                "file_path": "src/pages/DraftStatusPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "checkpointStatus"
+              },
+              {
+                "id": 337,
+                "file_path": "src/pages/UpgradeStatusPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "archiveStatus"
+              },
+              {
+                "id": 173,
+                "file_path": "src/pages/DraftStatusPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "DraftStatusPage"
+              },
+              {
+                "id": 324,
+                "file_path": "src/pages/StartupStatusPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "StartupStatusPage"
+              },
+              {
+                "id": 335,
+                "file_path": "src/pages/UpgradeStatusPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "UpgradeStatusPage"
+              },
+              {
+                "id": 329,
+                "file_path": "src/pages/ThemePreferencesPage.ets",
+                "channels": [
+                  "semantic_mechanism_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "$selectedIndex"
+              },
+              {
+                "id": 327,
+                "file_path": "src/pages/ThemePreferencesPage.ets",
+                "channels": [
+                  "semantic_mechanism_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 135,
+                "file_path": "src/pages/AppearanceSettingsPage.ets",
+                "channels": [
+                  "method_body_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 508,
+                "file_path": "src/widgets/MessageActionBar.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 336,
+                "file_path": "src/pages/UpgradeStatusPage.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 343,
+                "file_path": "src/pages/WarehouseFacetPage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 345,
+                "file_path": "src/pages/WarehouseFacetPage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "onClick"
+              },
+              {
+                "id": 468,
+                "file_path": "src/views/InventoryList.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 471,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 405,
+                "file_path": "src/storage/DraftPreferences.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "save"
+              },
+              {
+                "id": 29,
+                "file_path": "src/components/KeyboardFocusHint.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "updateFocusMessage"
+              },
+              {
+                "id": 27,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "put"
+              },
+              {
+                "id": 347,
+                "file_path": "src/pages/WorkspaceLoadingPage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 138,
+                "file_path": "src/pages/CacheInspectorPage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 397,
+                "file_path": "src/services/ProfileService.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "loadProfile"
+              },
+              {
+                "id": 188,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment1"
+              },
+              {
+                "id": 189,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment2"
+              },
+              {
+                "id": 190,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment3"
+              },
+              {
+                "id": 191,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment4"
+              },
+              {
+                "id": 192,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment5"
+              },
+              {
+                "id": 193,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment6"
+              },
+              {
+                "id": 194,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment7"
+              },
+              {
+                "id": 195,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment8"
+              },
+              {
+                "id": 196,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment9"
+              },
+              {
+                "id": 197,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment10"
+              },
+              {
+                "id": 198,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment11"
+              },
+              {
+                "id": 199,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment12"
+              },
+              {
+                "id": 200,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment13"
+              },
+              {
+                "id": 201,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment14"
+              },
+              {
+                "id": 202,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment15"
+              },
+              {
+                "id": 203,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment16"
+              },
+              {
+                "id": 204,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment17"
+              },
+              {
+                "id": 205,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment18"
+              },
+              {
+                "id": 206,
+                "file_path": "src/pages/LedgerMaintenancePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "inspectLedgerSegment19"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 1,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 1
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 1,
+              "channel_counts": {
+                "broad_fts": 1
+              },
+              "fused_candidate_count": 1
+            },
+            "candidate_refs": [
+              {
+                "id": 12,
+                "file_path": "src/services/ProfileService.ets",
+                "channels": [
+                  "broad_fts"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 51,
+          "code_log_matches": 3,
+          "edge_matches": 40,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 51,
+          "code_log_matches": 3,
+          "edge_matches": 40,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 1,
+          "code_log_matches": 3,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 431,
+            "score": 68.0,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "source_locatable",
+              "multi_term_method_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.09563723,
+              "best_rank": 1,
+              "channel_count": 5,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                },
+                {
+                  "channel": "method_body_fts",
+                  "rank": 1,
+                  "weight": 0.8,
+                  "score": 0.01311475
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "salient_string_fts",
+                  "rank": 1,
+                  "weight": 1.6,
+                  "score": 0.02622951
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 68.0,
+              "rerank_score": null,
+              "match_reasons": [
+                "file_path",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "source_locatable",
+                "multi_term_method_evidence"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [
+          {
+            "type": "code_log_matches",
+            "id": 12,
+            "score": 5.2,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "log_message",
+              "log_context",
+              "search_terms"
+            ],
+            "recall_lanes": [
+              "broad_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01639344,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 5.2,
+              "rerank_score": null,
+              "match_reasons": [
+                "log_message",
+                "log_context",
+                "search_terms"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "code_log_matches",
+            "id": 10,
+            "score": 3.6,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "log_message",
+              "search_terms",
+              "static_wrapped"
+            ],
+            "recall_lanes": [
+              "log_effect_fts"
+            ],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 3.6,
+              "rerank_score": null,
+              "match_reasons": [
+                "log_message",
+                "search_terms",
+                "static_wrapped"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "code_log_matches",
+            "id": 1,
+            "score": 3.6,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "log_message",
+              "search_terms",
+              "static_wrapped"
+            ],
+            "recall_lanes": [
+              "log_effect_fts"
+            ],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 3.6,
+              "rerank_score": null,
+              "match_reasons": [
+                "log_message",
+                "search_terms",
+                "static_wrapped"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 548,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 508,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 507,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 8,
+          "file_callable_pool": 8,
+          "graph_seed_count": 6,
+          "graph_owner_pool": 0,
+          "selected_callables": 8,
+          "selected_ranges": 8
+        },
+        "file_candidates": [
+          {
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "score": 68.0,
+            "first_rank": 1,
+            "record_ids": [
+              431,
+              430,
+              128
+            ],
+            "direct_symbol_ids": [
+              431,
+              430
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "source_locatable",
+              "multi_term_method_evidence",
+              "file_summary",
+              "structural_behavior"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts",
+              "structural_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 1,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/pages/AppearanceSettingsPage.ets",
+            "score": 50.25,
+            "first_rank": 2,
+            "record_ids": [
+              136,
+              135
+            ],
+            "direct_symbol_ids": [
+              136,
+              135
+            ],
+            "match_reasons": [
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "query_focus_coverage",
+              "multi_concept_coverage",
+              "source_locatable",
+              "method_evidence",
+              "salient_query_evidence",
+              "multi_term_method_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "method_body_fts",
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/pages/DraftStatusPage.ets",
+            "score": 43.0,
+            "first_rank": 5,
+            "record_ids": [
+              173,
+              175,
+              174,
+              70
+            ],
+            "direct_symbol_ids": [
+              173,
+              175,
+              174
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable",
+              "string_evidence",
+              "file_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/pages/StartupStatusPage.ets",
+            "score": 43.0,
+            "first_rank": 7,
+            "record_ids": [
+              324,
+              325,
+              91
+            ],
+            "direct_symbol_ids": [
+              324,
+              325
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable",
+              "string_evidence",
+              "file_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/widgets/MessageActionBar.ets",
+            "score": 24.5,
+            "first_rank": 16,
+            "record_ids": [
+              507,
+              508,
+              152
+            ],
+            "direct_symbol_ids": [
+              507,
+              508
+            ],
+            "match_reasons": [
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "source_locatable",
+              "file_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "score": 12.8,
+            "first_rank": 21,
+            "record_ids": [
+              142,
+              471
+            ],
+            "direct_symbol_ids": [
+              471
+            ],
+            "match_reasons": [
+              "file_summary",
+              "search_terms",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "file_semantic_fts",
+              "salient_file_fts",
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/views/InventoryList.ets",
+            "score": 6.0,
+            "first_rank": 27,
+            "record_ids": [
+              468
+            ],
+            "direct_symbol_ids": [
+              468
+            ],
+            "match_reasons": [
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/services/ProfileService.ets",
+            "score": 4.5,
+            "first_rank": 50,
+            "record_ids": [
+              397
+            ],
+            "direct_symbol_ids": [
+              397
+            ],
+            "match_reasons": [
+              "string_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "string_key_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 431,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "qualified_name": "SystemBarColorAdapter.parseNativeColor",
+            "start_line": 2,
+            "end_line": 12,
+            "score": 34.5,
+            "evidence_score": 34.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 174,
+            "file_path": "src/pages/DraftStatusPage.ets",
+            "symbol": "build",
+            "qualified_name": "DraftStatusPage.build",
+            "start_line": 5,
+            "end_line": 10,
+            "score": 19.7,
+            "evidence_score": 19.7,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "DraftStatusPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 325,
+            "file_path": "src/pages/StartupStatusPage.ets",
+            "symbol": "build",
+            "qualified_name": "StartupStatusPage.build",
+            "start_line": 3,
+            "end_line": 8,
+            "score": 16.7,
+            "evidence_score": 16.7,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "StartupStatusPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 508,
+            "file_path": "src/widgets/MessageActionBar.ets",
+            "symbol": "build",
+            "qualified_name": "MessageActionBar.build",
+            "start_line": 3,
+            "end_line": 8,
+            "score": 8.64,
+            "evidence_score": 8.64,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "MessageActionBar",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 135,
+            "file_path": "src/pages/AppearanceSettingsPage.ets",
+            "symbol": "build",
+            "qualified_name": "AppearanceSettingsPage.build",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 14.985,
+            "evidence_score": 14.985,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "method_evidence",
+              "salient_query_evidence",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "method_body_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "AppearanceSettingsPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 471,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryOverlayPanel.build",
+            "start_line": 5,
+            "end_line": 16,
+            "score": 6.58,
+            "evidence_score": 6.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "InventoryOverlayPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 431,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "qualified_name": "SystemBarColorAdapter.parseNativeColor",
+            "start_line": 2,
+            "end_line": 12,
+            "score": 34.5,
+            "evidence_score": 34.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 174,
+            "file_path": "src/pages/DraftStatusPage.ets",
+            "symbol": "build",
+            "qualified_name": "DraftStatusPage.build",
+            "start_line": 5,
+            "end_line": 10,
+            "score": 19.7,
+            "evidence_score": 19.7,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "DraftStatusPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 325,
+            "file_path": "src/pages/StartupStatusPage.ets",
+            "symbol": "build",
+            "qualified_name": "StartupStatusPage.build",
+            "start_line": 3,
+            "end_line": 8,
+            "score": 16.7,
+            "evidence_score": 16.7,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "StartupStatusPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 135,
+            "file_path": "src/pages/AppearanceSettingsPage.ets",
+            "symbol": "build",
+            "qualified_name": "AppearanceSettingsPage.build",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 14.985,
+            "evidence_score": 14.985,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "method_evidence",
+              "salient_query_evidence",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "method_body_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "AppearanceSettingsPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 508,
+            "file_path": "src/widgets/MessageActionBar.ets",
+            "symbol": "build",
+            "qualified_name": "MessageActionBar.build",
+            "start_line": 3,
+            "end_line": 8,
+            "score": 8.64,
+            "evidence_score": 8.64,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "MessageActionBar",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 471,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryOverlayPanel.build",
+            "start_line": 5,
+            "end_line": 16,
+            "score": 6.58,
+            "evidence_score": 6.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "InventoryOverlayPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 468,
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "qualified_name": "InventoryList.build",
+            "start_line": 5,
+            "end_line": 14,
+            "score": 5.58,
+            "evidence_score": 5.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "InventoryList",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 397,
+            "file_path": "src/services/ProfileService.ets",
+            "symbol": "loadProfile",
+            "qualified_name": "ProfileService.loadProfile",
+            "start_line": 4,
+            "end_line": 6,
+            "score": 4.81,
+            "evidence_score": 4.81,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "string_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "string_key_fts"
+            ],
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 431,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "callable_start_line": 2,
+            "callable_end_line": 12,
+            "start_line": 2,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 174,
+            "file_path": "src/pages/DraftStatusPage.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 10,
+            "start_line": 5,
+            "end_line": 10,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 325,
+            "file_path": "src/pages/StartupStatusPage.ets",
+            "symbol": "build",
+            "callable_start_line": 3,
+            "callable_end_line": 8,
+            "start_line": 3,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 135,
+            "file_path": "src/pages/AppearanceSettingsPage.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 7,
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 508,
+            "file_path": "src/widgets/MessageActionBar.ets",
+            "symbol": "build",
+            "callable_start_line": 3,
+            "callable_end_line": 8,
+            "start_line": 3,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 471,
+            "file_path": "src/views/InventoryOverlayPanel.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 16,
+            "start_line": 5,
+            "end_line": 16,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 468,
+            "file_path": "src/views/InventoryList.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 14,
+            "start_line": 5,
+            "end_line": 14,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 397,
+            "file_path": "src/services/ProfileService.ets",
+            "symbol": "loadProfile",
+            "callable_start_line": 4,
+            "callable_end_line": 6,
+            "start_line": 4,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "unknown",
+          "basis": [
+            "no_explicit_target_scope"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "src/pages/DraftStatusPage.ets",
+            "symbol": "build",
+            "owner_name": "DraftStatusPage",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 3,
+            "file_path": "src/pages/StartupStatusPage.ets",
+            "symbol": "build",
+            "owner_name": "StartupStatusPage",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 3,
+          "distinct_file_count": 3,
+          "same_owner_kind_alternative": false,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "insufficient",
+          "basis": [
+            "no_substantive_primary_support"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  }
+}

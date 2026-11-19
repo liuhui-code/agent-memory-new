@@ -1,0 +1,77 @@
+[
+  {
+    "capture": 1,
+    "target_start": 2,
+    "target_end": 12,
+    "exact_complete_method": true,
+    "budget": {
+      "estimated_tokens": 1467,
+      "target_tokens": 1500,
+      "truncated": true
+    },
+    "anchors": [
+      {
+        "path": "src/theme/SystemBarColorAdapter.ets",
+        "role": "primary",
+        "graph_relation": null,
+        "has_body": true
+      }
+    ]
+  },
+  {
+    "capture": 3,
+    "target_start": 2,
+    "target_end": 12,
+    "exact_complete_method": true,
+    "budget": {
+      "estimated_tokens": 1460,
+      "target_tokens": 1500,
+      "truncated": true
+    },
+    "anchors": [
+      {
+        "path": "src/theme/SystemBarColorAdapter.ets",
+        "role": "primary",
+        "graph_relation": null,
+        "has_body": true
+      },
+      {
+        "path": "src/entities/FacetRecord.ets",
+        "role": "primary",
+        "graph_relation": "imports",
+        "has_body": true
+      },
+      {
+        "path": "src/widgets/MessageActionBar.ets",
+        "role": "primary",
+        "graph_relation": null,
+        "has_body": true
+      },
+      {
+        "path": "src/io/ClipboardContentReader.ets",
+        "role": "expansion",
+        "graph_relation": null,
+        "has_body": false
+      }
+    ]
+  },
+  {
+    "capture": 5,
+    "target_start": 2,
+    "target_end": 12,
+    "exact_complete_method": true,
+    "budget": {
+      "estimated_tokens": 916,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "anchors": [
+      {
+        "path": "src/theme/SystemBarColorAdapter.ets",
+        "role": "primary",
+        "graph_relation": null,
+        "has_body": true
+      }
+    ]
+  }
+]

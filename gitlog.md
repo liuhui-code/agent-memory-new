@@ -13357,3 +13357,12 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
   with all3 logs, but some other anchors have no bodies. Not lossless-old-body or
   default completion.6 policy controls pass; no production/oracle/default changes.
 - Evidence: docs/releases/restore43-current-20261119/README.md.
+
+## 2026-11-19 - Verify original28 unchanged standard boundary
+
+- Original28 remains2/3; all3 actual parseNativeColor excerpts complete2–12.
+  English precision fails with graph FacetRecord, distinct MessageActionBar and
+  ClipboardContentReader expansion (no body), not target-body loss or duplicates.
+-157 source hashes match. Prior compound-prefix STOP read and respected; no
+  independent failed experiment rerun, serving/oracle/budget edit or full gate.
+- Evidence: docs/releases/color28-current-20261119/README.md.
