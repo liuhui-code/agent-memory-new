@@ -1,0 +1,363 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "f78b3da145fc7382",
+  "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+  "memory_intent": "runtime_log_diagnosis",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "failed",
+      "background",
+      "job",
+      "reaches",
+      "screen",
+      "unhelpful",
+      "raw",
+      "error",
+      "value",
+      "locate",
+      "both",
+      "service"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 1,
+        "message_template": "job submission failed: ${error}",
+        "logger": "logger",
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "function": "onClick",
+        "line": 8,
+        "effect_id": 9,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "submit",
+        "wrapper_depth": 1,
+        "call_path": [
+          "onClick",
+          "submit",
+          "logger.error"
+        ],
+        "call_path_locations": [
+          "src/pages/JobDispatchPage.ets#onClick",
+          "src/gateways/JobTransport.ets#submit",
+          "src/gateways/JobTransport.ets#logger.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 4,
+        "message_template": "WRAP_PROFILE_7F19 load failed",
+        "logger": "hilog",
+        "file_path": "src/services/WrappedProfileService.ets",
+        "function": "load",
+        "line": 7,
+        "effect_id": 13,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "report",
+        "wrapper_depth": 2,
+        "call_path": [
+          "load",
+          "report",
+          "emit",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/services/WrappedProfileService.ets#load",
+          "src/logging/DomainLogger.ets#report",
+          "src/logging/LogSink.ets#emit",
+          "src/logging/LogSink.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 1,
+        "message_template": "job submission failed: ${error}",
+        "logger": "logger",
+        "file_path": "src/gateways/JobTransport.ets",
+        "function": "submit",
+        "line": 9,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "JobDispatchPage",
+        "symbol_type": "component",
+        "record_ids": [
+          72,
+          9
+        ],
+        "source_ranges": [
+          {
+            "symbol": "JobDispatchPage",
+            "start_line": 2,
+            "end_line": 22
+          },
+          {
+            "symbol": "onClick",
+            "start_line": 7,
+            "end_line": 14
+          }
+        ],
+        "summary": "ArkTS file with 19 non-empty lines; components: JobDispatchPage; operations: onClick; behavior: callbackboundary, errorpresentationboundary, conditionalbranch, asyncboundary, uical",
+        "record_refs": [
+          [
+            "code_file",
+            72
+          ],
+          [
+            "code_log_effect",
+            9
+          ]
+        ],
+        "read_window": {
+          "start_line": 2,
+          "end_line": 22
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "onClick",
+            "start_line": 7,
+            "end_line": 14,
+            "content": "    Button('Run job').onClick(async () => {\n      const result = await this.transport.submit('nightly')\n      if (typeof result === 'boolean') {\n        this.showBanner('Job submitted')\n      } else {\n        this.showBanner(`Job failed: ${result}`)\n      }\n    })",
+            "source": "current_worktree",
+            "selection_reason": "arkts_dsl_callback_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/gateways/JobTransport.ets",
+        "symbol": "JobTransport",
+        "symbol_type": "class",
+        "record_ids": [
+          37
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "JobTransport",
+            "start_line": 1,
+            "end_line": 13
+          }
+        ],
+        "summary": "ArkTS file with 12 non-empty lines; behavior: errorreturnboundary, asyncboundary",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 13
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "submit",
+            "start_line": 4,
+            "end_line": 12,
+            "content": "  async submit(payload: string): Promise<boolean | string> {\n    try {\n      await this.socket.send(payload)\n      return true\n    } catch (error) {\n      Logger.error(`job submission failed: ${error}`)\n      return `${error}`\n    }\n  }",
+            "source": "current_worktree",
+            "selection_reason": "callable_mechanism_window",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "symbol_type": "function",
+        "record_ids": [
+          266
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "retryFailedParcel",
+            "start_line": 7,
+            "end_line": 20
+          }
+        ],
+        "read_window": {
+          "start_line": 7,
+          "end_line": 20
+        },
+        "role": "primary"
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "symbol_type": "function",
+        "record_ids": [
+          107
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "report",
+            "start_line": 5,
+            "end_line": 7
+          }
+        ],
+        "read_window": {
+          "start_line": 5,
+          "end_line": 7
+        },
+        "role": "expansion"
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "owner_name": "ParcelRetryPage",
+        "owner_kind": "component",
+        "callable_roles": [
+          "async",
+          "guard",
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 32.565,
+        "evidence_score": 32.565,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence"
+        ],
+        "source_range": {
+          "start_line": 7,
+          "end_line": 20,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "retryFailedParcel",
+          "owner_name": "ParcelDeliveryService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 25.08,
+          "evidence_score": 25.08,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/pages/JobDispatchPage.ets",
+          "symbol": "onClick",
+          "owner_name": "JobDispatchPage",
+          "owner_kind": "component",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.31,
+          "evidence_score": 18.31,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 7,
+            "end_line": 14,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 2,
+      "excerpt_chars": 500
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_strong_log_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "target_tokens": 2000,
+    "estimated_tokens": 1959,
+    "truncated": true
+  }
+}

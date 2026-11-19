@@ -13366,3 +13366,13 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 -157 source hashes match. Prior compound-prefix STOP read and respected; no
   independent failed experiment rerun, serving/oracle/budget edit or full gate.
 - Evidence: docs/releases/color28-current-20261119/README.md.
+
+## 2026-11-19 - Verify cross-layer39 default and actual explicit pair reading
+
+- Unchanged standard39 remains1/3; two English default outputs lose required pair,
+  Chinese returns full submit4–12/onClick7–14.157 source hashes match.
+- Existing explicit2000 preserve mode actually returns both complete methods for
+  both English requests at1959/1887. Extra anchors remain, some without bodies;
+  not default precision success, whole Builder coverage or full old-body retention.
+- Old independent pair no-red STOP respected; no production/scoring/default edits.
+  Evidence: docs/releases/cross-layer39-current-20261119/README.md.

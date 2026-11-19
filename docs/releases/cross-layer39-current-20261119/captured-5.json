@@ -1,0 +1,276 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-yyr7vvld/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-yyr7vvld/agent-memory-case-m42thu4o/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "后台任务发送失败后页面只显示原始错误对象，请同时返回服务层 catch 返回值和页面层错误提示消费逻辑。",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "f8c0efcb1840c5ed",
+    "query": "后台任务发送失败后页面只显示原始错误对象，请同时返回服务层 catch 返回值和页面层错误提示消费逻辑。",
+    "memory_intent": "runtime_log_diagnosis",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "后台任务发送失败后页面只显示原始错误对象",
+        "后台",
+        "台任",
+        "任务",
+        "务发",
+        "发送",
+        "送失",
+        "失败"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "job submission failed: ${error}",
+          "logger": "logger",
+          "file_path": "src/pages/JobDispatchPage.ets",
+          "function": "onClick",
+          "line": 8,
+          "effect_id": 9,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "submit",
+          "wrapper_depth": 1,
+          "call_path": [
+            "onClick",
+            "submit",
+            "logger.error"
+          ],
+          "call_path_locations": [
+            "src/pages/JobDispatchPage.ets#onClick",
+            "src/gateways/JobTransport.ets#submit",
+            "src/gateways/JobTransport.ets#logger.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 4,
+          "message_template": "WRAP_PROFILE_7F19 load failed",
+          "logger": "hilog",
+          "file_path": "src/services/WrappedProfileService.ets",
+          "function": "load",
+          "line": 7,
+          "effect_id": 13,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "report",
+          "wrapper_depth": 2,
+          "call_path": [
+            "load",
+            "report",
+            "emit",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/services/WrappedProfileService.ets#load",
+            "src/logging/DomainLogger.ets#report",
+            "src/logging/LogSink.ets#emit",
+            "src/logging/LogSink.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "job submission failed: ${error}",
+          "logger": "logger",
+          "file_path": "src/gateways/JobTransport.ets",
+          "function": "submit",
+          "line": 9,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/gateways/JobTransport.ets",
+          "record_ids": [
+            37
+          ],
+          "record_type": "code_file",
+          "summary": "ArkTS file with 12 non-empty lines; behavior: errorreturnboundary, asyncboundary",
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "submit",
+              "start_line": 4,
+              "end_line": 12,
+              "content": "  async submit(payload: string): Promise<boolean | string> {\n    try {\n      await this.socket.send(payload)\n      return true\n    } catch (error) {\n      Logger.error(`job submission failed: ${error}`)\n      return `${error}`\n    }\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/pages/JobDispatchPage.ets",
+          "record_ids": [
+            72,
+            9
+          ],
+          "summary": "ArkTS file with 19 non-empty lines; components: JobDispatchPage; operations: onClick; behavior: callbackboundary, errorpresentationboundary, conditionalbranch, asyncboundary, uical",
+          "record_refs": [
+            [
+              "code_file",
+              72
+            ],
+            [
+              "code_log_effect",
+              9
+            ]
+          ],
+          "source_ranges": [
+            {
+              "symbol": "onClick",
+              "start_line": 7,
+              "end_line": 14
+            }
+          ],
+          "read_window": {
+            "start_line": 7,
+            "end_line": 14
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "onClick",
+              "start_line": 7,
+              "end_line": 14,
+              "content": "    Button('Run job').onClick(async () => {\n      const result = await this.transport.submit('nightly')\n      if (typeof result === 'boolean') {\n        this.showBanner('Job submitted')\n      } else {\n        this.showBanner(`Job failed: ${result}`)\n      }\n    })",
+              "source": "current_worktree",
+              "selection_reason": "arkts_dsl_callback_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "source": "wrapped_log_caller",
+          "file_path": "src/services/WrappedProfileService.ets",
+          "symbol": "load",
+          "record_ids": [
+            13
+          ],
+          "record_type": "code_log_effect",
+          "source_ranges": [
+            {
+              "symbol": "load",
+              "start_line": 6,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 6,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "load",
+              "start_line": 1,
+              "end_line": 9,
+              "content": "import { DomainLogger } from '../logging/DomainLogger'\n\nexport class WrappedProfileService {\n  private logger: DomainLogger = new DomainLogger()\n\n  load(): void {\n    this.logger.report('WRAP_PROFILE_7F19 load failed')\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel",
+          "owner_kind": "component",
+          "source_range": {
+            "start_line": 7,
+            "end_line": 20,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": []
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 3,
+        "excerpt_chars": 724
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_strong_log_anchor"
+    ],
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_strong_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 3,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1473,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}

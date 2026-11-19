@@ -1,0 +1,122 @@
+[
+  {
+    "file": "captured-1.json",
+    "excerpts": [
+      {
+        "path": "src/pages/ParcelRetryPage.ets",
+        "start": 5,
+        "end": 13,
+        "exact": true,
+        "truncated": true
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 1491,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  },
+  {
+    "file": "captured-3.json",
+    "excerpts": [
+      {
+        "path": "src/pages/NotificationDetailsPage.ets",
+        "start": 1,
+        "end": 9,
+        "exact": true,
+        "truncated": false
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 1351,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  {
+    "file": "captured-5.json",
+    "excerpts": [
+      {
+        "path": "src/gateways/JobTransport.ets",
+        "start": 4,
+        "end": 12,
+        "exact": true,
+        "truncated": false
+      },
+      {
+        "path": "src/pages/JobDispatchPage.ets",
+        "start": 7,
+        "end": 14,
+        "exact": true,
+        "truncated": false
+      },
+      {
+        "path": "src/services/WrappedProfileService.ets",
+        "start": 1,
+        "end": 9,
+        "exact": true,
+        "truncated": false
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 1473,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  },
+  {
+    "file": "explicit-1.json",
+    "excerpts": [
+      {
+        "path": "src/pages/JobDispatchPage.ets",
+        "start": 7,
+        "end": 14,
+        "exact": true,
+        "truncated": false
+      },
+      {
+        "path": "src/gateways/JobTransport.ets",
+        "start": 4,
+        "end": 12,
+        "exact": true,
+        "truncated": false
+      }
+    ],
+    "budget": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1959,
+      "truncated": true
+    }
+  },
+  {
+    "file": "explicit-3.json",
+    "excerpts": [
+      {
+        "path": "src/gateways/JobTransport.ets",
+        "start": 4,
+        "end": 12,
+        "exact": true,
+        "truncated": false
+      },
+      {
+        "path": "src/pages/JobDispatchPage.ets",
+        "start": 7,
+        "end": 14,
+        "exact": true,
+        "truncated": false
+      },
+      {
+        "path": "src/pages/NotificationDetailsPage.ets",
+        "start": 1,
+        "end": 9,
+        "exact": true,
+        "truncated": false
+      }
+    ],
+    "budget": {
+      "target_tokens": 2000,
+      "estimated_tokens": 1887,
+      "truncated": false
+    }
+  }
+]
