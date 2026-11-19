@@ -7,7 +7,7 @@ import re
 
 from .query_language import (
     COMPARISON_CLAUSE_RE, NEGATIVE_RESULT_CLAUSE_RE,
-    excluded_result_identifiers, result_alternative_query,
+    excluded_result_identifiers, result_alternative_query, affirmative_role_query,
 )
 from .query_target_scope import classify_target_scope
 
@@ -95,7 +95,7 @@ def focus_callable_anchors(
         return portfolio_anchors(portfolio, focused)
     if not primary.get("target_owner_kind_match") and not preferred_artifact:
         from .context_request_policy import current
-        return anchors if current().preserve else focused or anchors
+        return anchors if (current().preserve or requested_declaration_present(anchors, query)) else focused or anchors
     return [callable_anchor(primary, focused[0] if focused else None)]
 
 
@@ -322,3 +322,31 @@ def multiple_requested_anchors_present(
         ):
             paths.add(str(path))
     return len(paths) >= 2
+
+
+def requested_declaration_present(anchors: list[dict[str, Any]], query: str) -> bool:
+    """A generic callable prior cannot erase an explicitly requested declaration.
+
+    This only declines the final untyped narrowing; it grants no ranking,
+    exclusion, callable ownership, or new source-reading authority.
+    """
+    if not isinstance(query, str) or len(query) > 400:
+        return False
+    positive = affirmative_role_query(query).strip()
+    match = re.fullmatch(
+        r"(?:find|locate|return|show)\s+(?:the\s+)?"
+        r"(?P<name>[A-Za-z_$][A-Za-z0-9_$]*)\s+"
+        r"(?:data entity|entity definition|record definition|data model|"
+        r"entity fields|class declaration|interface declaration|struct declaration)\s*[.]?",
+        positive, re.I | re.ASCII,
+    )
+    if match is None:
+        return False
+    name = match['name']
+    if re.sub(r'[^a-z0-9]', '', name.casefold()) in excluded_result_identifiers(query):
+        return False
+    matches = [anchor for anchor in anchors
+               if anchor.get('symbol') == name
+               and anchor.get('symbol_type') in {'class', 'struct', 'interface'}
+               and valid_retained_range(anchor) and anchor.get('file_path')]
+    return len({anchor['file_path'] for anchor in matches}) == 1

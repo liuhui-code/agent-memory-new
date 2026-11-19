@@ -1,0 +1,67 @@
+{
+  "classification": "frozen independent synthetic Development, not external efficacy",
+  "hypothesis": "Rather-than result clause may negate positive rendering target or promote excluded entity; near-name UI and reverse explicit data request must not be treated as same entity. No expected exact ranking or imposed sole-owner rule.",
+  "stop": "If original-style request preserves cleanup target and excludes entity, do not expand rules merely for variant scores. Do not mutate these queries after observing results.",
+  "cases": [
+    {
+      "id": "Bulletin",
+      "sources": {
+        "BulletinRecord.ets": "export class BulletinRecord {\n  body: string = ''\n}\n",
+        "BulletinPanel.ets": "@Component\nexport struct BulletinPanel {\n  body: string = ''\n  cleanBody(): string {\n    return this.body.replace('<p>', '').replace('</p>', '')\n  }\n  build() {\n    Column() { Text(this.cleanBody()) }\n  }\n}\n",
+        "BulletinRecordPreview.ets": "@Component\nexport struct BulletinRecordPreview {\n  body: string = ''\n  build() {\n    Column() { Text(this.body) }\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "render-rather-role",
+          "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner rather than the bulletin data entity."
+        },
+        {
+          "id": "render-positive",
+          "query": "Bulletin details still display markup tags. Locate the UI rendering cleanup owner."
+        },
+        {
+          "id": "render-rather-named",
+          "query": "Locate BulletinPanel.cleanBody rather than BulletinRecord."
+        },
+        {
+          "id": "entity-reverse",
+          "query": "Locate the BulletinRecord data entity rather than the BulletinPanel rendering owner."
+        },
+        {
+          "id": "compare-control",
+          "query": "Compare BulletinRecord and BulletinPanel source."
+        }
+      ]
+    },
+    {
+      "id": "Invoice",
+      "sources": {
+        "InvoiceRecord.ets": "export class InvoiceRecord {\n  body: string = ''\n}\n",
+        "InvoicePanel.ets": "@Component\nexport struct InvoicePanel {\n  body: string = ''\n  cleanBody(): string {\n    return this.body.replace('<p>', '').replace('</p>', '')\n  }\n  build() {\n    Column() { Text(this.cleanBody()) }\n  }\n}\n",
+        "InvoiceRecordPreview.ets": "@Component\nexport struct InvoiceRecordPreview {\n  body: string = ''\n  build() {\n    Column() { Text(this.body) }\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "render-rather-role",
+          "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner rather than the invoice data entity."
+        },
+        {
+          "id": "render-positive",
+          "query": "Invoice details still display markup tags. Locate the UI rendering cleanup owner."
+        },
+        {
+          "id": "render-rather-named",
+          "query": "Locate InvoicePanel.cleanBody rather than InvoiceRecord."
+        },
+        {
+          "id": "entity-reverse",
+          "query": "Locate the InvoiceRecord data entity rather than the InvoicePanel rendering owner."
+        },
+        {
+          "id": "compare-control",
+          "query": "Compare InvoiceRecord and InvoicePanel source."
+        }
+      ]
+    }
+  ]
+}

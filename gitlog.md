@@ -288,6 +288,12 @@
 
 # Local Development Log
 
+## 2026-11-19 — Preserve explicitly requested declarations in compact output
+
+- Two frozen natural CLI fixtures show a named data entity present first in raw context being discarded for an unrelated bounded method. Guard only the final ordinary callable narrowing for exact finite declaration requests; retain old candidates and budgets.
+- Source bodies restored at lines1–3 with old Preview evidence preserved; eight frozen controls identical. Existing entity-definition control repaired, five additional controls unchanged. Independent review approved limited publication.
+- Focused regressions, performance checks and line limits pass; original05 standard157 single group remains1/3. No full gate or original-group repair claim. Evidence: docs/releases/explicit-declaration-retention-20261119/.
+
 ## 2026-11-18 - Add non-exclusive terminal static scan reading entry
 
 - New authorized reading-order feature: finite static Map clock-write/minimum-scan/key-delete proof joins unique current indexed method and complete already-displayed source. No file-name guessing or runtime causal inference.
