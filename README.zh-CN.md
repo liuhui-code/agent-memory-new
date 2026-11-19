@@ -315,6 +315,16 @@ Runtime 不推荐模式、不生成或排名候选、不选择设计、不生成
 调用方负担和可信的后续变化，设计反馈沿用 Reflect。它不通过机械打分评价品味；
 设计质量和 Memory 增量收益仍待实证，见[开发交付与验证范围](docs/design-guidance-development.zh-CN.md)。
 
+Query Skill 已预置六个[有来源的成熟系统案例](skills/agent-memory-query/references/design-cases.md)：
+Shopify、VS Code、SQLite、Stripe API v1、Google SRE 和 Cloudflare 2019 WAF 事故。
+按问题特征选读，卡片区分来源事实、迁移判断、代价与反例；它们是外部参考，不是本项目验证经验，
+也不改变 Runtime 查询、排名或自动选型。
+
+新增[设计质量反思与元反思](skills/agent-memory-reflect/references/design-quality-review.md)：
+先检查这次代码的边界、抽象、总复杂度、演进性和代价，再在合格触发下审查输入指导、
+案例适配、经验复用和评价规则。沿用当前模型与现有系统治理，质量意见保持建议性质，
+普通设计反馈不自动改规则，也不认证长期品味收益。
+
 Rust `.rs` 已通过原有学习与查询入口接入受限声明导航，保留源码范围和内容摘要；
 宏展开、实际 cfg、类型与调用关系仍未知。设计视图裁剪时优先保留已学习的显式文件锚点，
 大范围中的方法证据使用聚焦 `context` 查询。学习优先限定 `src` 等源码目录，避免构建输出。

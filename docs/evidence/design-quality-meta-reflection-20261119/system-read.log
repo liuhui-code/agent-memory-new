@@ -1,0 +1,124 @@
+{
+  "schema_version": "system-evolution-review/v1",
+  "project_id": "acf5f77745d2087a",
+  "available": true,
+  "advisory_only": true,
+  "evidence_verified": false,
+  "report": {
+    "additional_cost": {
+      "elapsed_ms": null,
+      "tokens": null
+    },
+    "advisory_only": true,
+    "change_proposals": [
+      {
+        "acceptance_criteria": [
+          "Ordinary and system records stay separate.",
+          "Opinions stay advisory; no automatic rule or serving change."
+        ],
+        "change_kind": "requirement",
+        "compatibility": "Keep the existing query and report schemas.",
+        "evidence_refs": [
+          "file:docs/design-preview-development-case.zh-CN.md",
+          "artifact:docs/evidence/design-preview-development-20261117/delivery.json"
+        ],
+        "problem": "Controlled requirement: retain design-quality opinions without treating them as verified task outcomes.",
+        "proposal_state": "needs_evidence",
+        "proposed_change": "Use conditional feedback and a separately triggered system review; consider one guidance correction only with evidence.",
+        "rollback": "No product mutation occurs in this development fixture.",
+        "target_component": "reflect"
+      }
+    ],
+    "checks": [],
+    "memory_use": "used",
+    "missing_evidence": [
+      "Synthetic manual input is not a real user review event.",
+      "No independent quality comparison, total cost, long-term gain, or Runtime defect is established."
+    ],
+    "model_opinions": [
+      {
+        "assessment": "Historical per-instance completion checks and external rendering fit the declared scope; production binding remains unknown.",
+        "counter_evidence_refs": [],
+        "dimension": "design_boundary",
+        "evidence_refs": [
+          "file:docs/design-preview-development-case.zh-CN.md"
+        ]
+      },
+      {
+        "assessment": "Two render functions share a format boundary; this does not establish that all future variants fit.",
+        "counter_evidence_refs": [],
+        "dimension": "design_abstraction",
+        "evidence_refs": [
+          "file:docs/design-preview-development-case.zh-CN.md"
+        ]
+      },
+      {
+        "assessment": "The historical owner stayed unchanged for one format change; caller and recovery costs were not independently measured.",
+        "counter_evidence_refs": [],
+        "dimension": "design_total_complexity",
+        "evidence_refs": [
+          "file:docs/design-preview-development-case.zh-CN.md"
+        ]
+      },
+      {
+        "assessment": "One predeclared JSON change stayed local; arbitrary future maintainability is unproven.",
+        "counter_evidence_refs": [],
+        "dimension": "design_evolution",
+        "evidence_refs": [
+          "file:docs/design-preview-development-case.zh-CN.md"
+        ]
+      },
+      {
+        "assessment": "Thread stop and click ordering were outside scope; incremental Skill/Memory benefit and total cost remain unknown.",
+        "counter_evidence_refs": [],
+        "dimension": "design_tradeoffs",
+        "evidence_refs": [
+          "file:docs/design-preview-development-case.zh-CN.md"
+        ]
+      }
+    ],
+    "observations": [
+      {
+        "refs": [
+          "file:docs/design-preview-development-case.zh-CN.md",
+          "artifact:docs/evidence/design-preview-development-20261117/delivery.json"
+        ],
+        "summary": "META_DESIGN_QUALITY_ONLY fixture baseline compatibility: synthetic persistence fixture using known P1 history; no new task or model evaluation."
+      }
+    ],
+    "omitted_counts": {},
+    "query_refs": [],
+    "report_format": "system-meta-review/v1",
+    "review_revision": 1,
+    "review_status": "partial",
+    "target_components": [
+      "reflect",
+      "rules"
+    ],
+    "task_outcome": "unknown",
+    "task_ref": {
+      "key": "fixture-design-quality.manual",
+      "origin": "client_local"
+    },
+    "task_state": "completed",
+    "trigger": "manual",
+    "version_refs": {
+      "runtime_digest": "96e99a70ea140a3ff8692c1b9bff7233583cc34289bcaa9c0e5c92662c797ef1",
+      "runtime_revision": "3c6a07a591d0e139256e515323993616d1ec08cc",
+      "skill_digest": "14da49ba7bdc92a4b247f38129dd51b52d54afa2bbf00f4d38333e3b36ef3ec3",
+      "skill_revision": null
+    }
+  },
+  "revisions": [
+    {
+      "id": 1,
+      "review_key": "meta-8ba796cb48939e15d5eb5798d124b55f7a19ae95ce405358b3b9abc6dc461791",
+      "review_revision": 1,
+      "task_origin": "client_local",
+      "task_key": "fixture-design-quality.manual",
+      "payload_digest": "19c5ab8972ba23657f0e43eba0b29d4385b0fba52c45c472297e2a376982bf22",
+      "created_at": "2026-11-18T16:55:14+00:00"
+    }
+  ],
+  "revisions_truncated": false
+}

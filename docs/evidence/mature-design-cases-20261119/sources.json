@@ -1,0 +1,58 @@
+{
+  "classification": "external_reference_material",
+  "added_on": "2026-11-19",
+  "checked_on": "2026-11-18",
+  "source_bytes_pinned": false,
+  "upstream_current_deployment_verified": false,
+  "allowed_use": "Advisory design reading; not project facts, accepted procedures, or evaluation evidence",
+  "cases": [
+    {
+      "id": "shopify-modular-monolith",
+      "card": "skills/agent-memory-query/references/design-case-shopify-modularity.md",
+      "primary_source": "https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity",
+      "evidence_kind": "historical_team_report",
+      "historical_date": "2019-02-21",
+      "date_meaning": "publication date"
+    },
+    {
+      "id": "vscode-extension-host",
+      "card": "skills/agent-memory-query/references/design-case-vscode-host.md",
+      "primary_source": "https://code.visualstudio.com/api/advanced-topics/extension-host",
+      "evidence_kind": "official_architecture_documentation",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "sqlite-wal-snapshot",
+      "card": "skills/agent-memory-query/references/design-case-sqlite-wal.md",
+      "primary_source": "https://sqlite.org/wal.html",
+      "evidence_kind": "official_mechanism_documentation",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "stripe-v1-idempotency",
+      "card": "skills/agent-memory-query/references/design-case-stripe-idempotency.md",
+      "primary_source": "https://docs.stripe.com/api/idempotent_requests",
+      "evidence_kind": "official_api_contract_v1_with_v2_distinction",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "sre-resource-admission",
+      "card": "skills/agent-memory-query/references/design-case-sre-overload.md",
+      "primary_source": "https://sre.google/sre-book/handling-overload/",
+      "evidence_kind": "published_engineering_practice",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "cloudflare-waf-2019",
+      "card": "skills/agent-memory-query/references/design-case-cloudflare-waf.md",
+      "primary_source": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
+      "evidence_kind": "vendor_incident_report",
+      "historical_date": "2019-07-02",
+      "date_meaning": "incident date"
+    }
+  ]
+}

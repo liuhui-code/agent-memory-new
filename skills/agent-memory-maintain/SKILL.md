@@ -440,3 +440,7 @@ bounded observations and the retained task identity to Reflect's installed
 Do not recursively review meta-review/system-improvement work or treat every health call
 as a task boundary. Respect stops/budgets; a missing reference is a capability gap, not
 evidence that an automatic hook or review ran.
+
+For a design-guidance review, use Reflect's
+[design-quality lens](../agent-memory-reflect/references/design-quality-review.md)
+without changing the existing trigger or proposal lifecycle.

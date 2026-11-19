@@ -10965,3 +10965,78 @@ Delivery scope:
 - No production behavior changed in this step, so the prior 81/14 tests are not
   rerun. Check staged content/whitespace and the resulting commit tree; do not push
   or begin real tasks, model trials or deployment.
+
+## 2026-11-19 - Preload source-backed design cases in the existing Query Skill
+
+- Added six concise case cards and a bilingual problem-feature index: Shopify's
+  modular monolith, VS Code extension hosts, SQLite WAL, Stripe API v1 idempotency,
+  Google SRE resource admission, and Cloudflare's 2019 WAF incident. Official or
+  author sources were checked on November 18; Context7 transport failed, so current
+  SQLite/Stripe details were checked against official pages directly.
+- Separate source observations from transfer hypotheses, costs and counterexamples.
+  Keep API v1/v2 behavior distinct, author reports separate from independent results,
+  and incident follow-up plans separate from confirmed completion. No source manuals
+  or full incidents are copied into the package.
+- Route from the existing Query Skill and design guides; load relevant cards only.
+  Skill resources are external reading material, not project facts, approved rules,
+  procedures or an automatic matching service. Runtime/catalog/SQLite are unchanged.
+- Updated both READMEs, usage and CONTEXT. The new Skill bundle is a new version;
+  preserve the prior 23-resource comparison baseline and all historical evidence.
+  An actual isolated install matched all 30 Skill resources and 310 installed
+  Runtime files; all ten case-branch local links resolved. The 311 source Runtime
+  files remain unchanged. The standard validator could not import PyYAML; retained
+  the error and verified unchanged frontmatter as a bounded observation. Final
+  status is passed_with_validator_unavailable, recorded under docs/evidence/
+  mature-design-cases-20261119/verification.json; this is not design efficacy.
+- No real cohort, independent model trial, business Memory, original memory.md,
+  runtime changes, commit or push. No new wording-only unit tests or rerun of the
+  earlier 81/14 cases occurred for this resource-only change.
+
+## 2026-11-19 - Add design-quality reflection and system-review guidance
+
+- Added an on-demand Reflect reference for boundaries, abstraction, total complexity,
+  evolution and accepted costs. Reused ordinary design reflection fields, keeping
+  observations distinct from qualitative judgments, unknown benefits and countercases.
+- Added the second-level review of input guidance, query/case transfer, learning,
+  reflection/evaluation and data expression. Reuse existing trigger/report/proposal
+  contracts; feature-development requests are not manual-review events, and ordinary
+  design feedback or unattractive code does not invent a Memory system signal.
+- Routed from Reflect, Query design completion, system review and Maintain. Existing
+  R2/R3 windows can use these questions only within their already-bound design scope
+  and fields; no window, model connection, automatic score, retry or deployment is added.
+- Updated README/usage/context. Isolated protocol replay and resource observations
+  belong to docs/evidence/design-quality-meta-reflection-20261119/verification.json.
+  These are development fixtures and known P1 history, not new real-task results,
+  independent host adherence or long-term taste/Memory benefit.
+- Final replay passed 21 resource/protocol assertions: four Skills with 31 resources,
+  seven cross-resource links, ordinary design feedback, five bounded quality opinions,
+  one advisory needs_evidence proposal, idempotent saving, unchanged nonempty full/
+  compact query_handoff, and separation from ordinary search. No-signal and recursive
+  automatic review still skip. The manual request is explicitly synthetic, not an
+  event inferred from this feature-development request.
+- Retained three failed harness attempts and their executed scripts: nonexistent
+  read command, unsupported update --json, then JSON-decoding update's human output.
+  Corrected only the development driver to existing list/update contracts. These
+  are not three Runtime defects or independent design cases. The official metadata
+  validator lacks PyYAML; all four frontmatters match the committed versions, so the
+  final result is passed_with_validator_unavailable rather than a full validator pass.
+- Runtime/schema/serving paths and prior case cards are unchanged. No real cohort,
+  business Memory, original memory.md, sealed assets, commit or push; do not rerun
+  earlier 81/14 cases for this reference-only change.
+
+## 2026-11-19 - Prepare case and design-quality guidance delivery to main
+
+- User explicitly requested delivery to remote main. Fetched origin/main and
+  confirmed it is an ancestor of local 3c6a07a; the pending integration commit and
+  this reference/Skill enhancement are both in scope. Keep normal fast-forward
+  push semantics, with no force push or unrelated files.
+- Rechecked current design-quality evidence: 21 resource/protocol assertions passed,
+  source Runtime files are unchanged, and the prior 14 case-resource checks retain
+  their historical scope. The standard Skill validator remains unavailable without
+  PyYAML; metadata is unchanged and this limitation is not represented as a pass.
+- After validation, only CONTEXT/gitlog gain this delivery note. Preserve original
+  reports, failure attempts, case/source provenance and captured Git fields. Actual
+  commit and remote identifiers belong to Git; do not rewrite historical evidence.
+- Use an explicit staging allowlist excluding original memory.md and unrelated
+  user material. Verify staged blobs and final remote main before reporting success.
+  Do not start real tasks/models, deployment, migrations or additional evaluation.

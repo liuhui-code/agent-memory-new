@@ -1,5 +1,9 @@
 # Worked Design Examples
 
+For externally documented systems, see [the mature case index](design-cases.md).
+Those source-backed cards complement the local/synthetic examples below; their
+reported behavior is not an outcome observed in this project.
+
 Read only the relevant example. Synthetic examples illustrate judgment; they
 are not observations of an Agent, benchmarks, or evidence of efficacy. The
 historical case below has its own bounded source and limits.

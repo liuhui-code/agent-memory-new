@@ -1,0 +1,167 @@
+{
+  "classification": "generated_development_fixture",
+  "status": "failed_controlled_replay",
+  "attempt": 3,
+  "previous_attempts": [
+    "attempt-1/verification.json",
+    "attempt-2/verification.json"
+  ],
+  "fixture_corrections": [
+    "Use existing list --type reflection; read is not a Runtime command",
+    "update emits JSON by default and does not accept the --json option"
+  ],
+  "git_head": "3c6a07a591d0e139256e515323993616d1ec08cc",
+  "temporary_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t",
+  "checks": {
+    "isolated_install_passed": true,
+    "four_skills_31_resources_match": true,
+    "installed_310_runtime_files_match": true,
+    "four_frontmatters_unchanged_from_commit": true,
+    "seven_design_review_links_resolve": true,
+    "ordinary_design_fields_saved_as_candidate_only": true
+  },
+  "commands": [
+    {
+      "id": "skill-quick-validate",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+        "/Users/liuhui/Documents/code/agent-memory-new/skills/agent-memory-reflect"
+      ],
+      "returncode": 1,
+      "seconds": 0.044,
+      "log": "skill-quick-validate.log",
+      "log_sha256": "11097aa784615ecaf05a1fcdaddca9710d0f4dc78cdf33072c6c3205dbb92d06"
+    },
+    {
+      "id": "install",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/memory-home",
+        "--local-skills"
+      ],
+      "returncode": 0,
+      "seconds": 2.192,
+      "log": "install.log",
+      "log_sha256": "7f4ff13c6c4c4f98117b32c6ca86547e7a19f110ed1dd29842a2c1e98796da57"
+    },
+    {
+      "id": "ordinary-save",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project/tools/agent_memory.py",
+        "reflect",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/ordinary-reflection.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.817,
+      "log": "ordinary-save.log",
+      "log_sha256": "48cc706542b10d59cda2458cef060a5c6e41364d0fa108e79840cd7f42d415dc"
+    },
+    {
+      "id": "ordinary-read",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project/tools/agent_memory.py",
+        "list",
+        "--type",
+        "reflection",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.908,
+      "log": "ordinary-read.log",
+      "log_sha256": "ddfa50d377ea63955eaca29eea8d16c338a260871549728956077e078794d4de"
+    },
+    {
+      "id": "baseline-fact",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project/tools/agent_memory.py",
+        "update",
+        "--type",
+        "semantic",
+        "--fact",
+        "Controlled fixture baseline compatibility is preserved across system-review writes.",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-v2acar3t/memory-home"
+      ],
+      "returncode": 0,
+      "seconds": 0.875,
+      "log": "baseline-fact.log",
+      "log_sha256": "eae4cc2a0b08e7cdf6bbb3af38dcf3e9ee361bc54df95f4bce623233e6fa5581"
+    }
+  ],
+  "experimental_model_runs": 0,
+  "real_presented_tasks": 0,
+  "independent_reviews": 0,
+  "new_unit_tests": 0,
+  "prior_81_or_P1_14_tests_rerun": false,
+  "committed": false,
+  "pushed": false,
+  "standard_validator": "unavailable_missing_PyYAML",
+  "resource_links": [
+    {
+      "from": "agent-memory-reflect/SKILL.md",
+      "target": "references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/system-meta-review.md",
+      "target": "design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/design-quality-review.md",
+      "target": "system-meta-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/design-quality-review.md",
+      "target": "system-trigger.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-query/references/code-design.md",
+      "target": "../../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-maintain/SKILL.md",
+      "target": "../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-maintain/references/system-handoffs.md",
+      "target": "../../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    }
+  ],
+  "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+  "finished_at": "2026-11-18T16:51:42.527474+00:00",
+  "verification_script": "/private/tmp/agent-memory-verify-design-quality-20261119.py",
+  "verification_script_sha256": "340114090bc61f8e68dc71a5abd53ac09998a85815a3511768dc0fd3231845fd"
+}

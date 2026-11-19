@@ -5,6 +5,10 @@ They are advisory references, not new Runtime catalog entries or project
 authority. Read the original material when a decision depends on it. Source
 availability, approval, and applicability are different questions.
 
+For concrete system precedents, consult [the mature case index](design-cases.md).
+It separates documented mechanisms, team reports and a public incident; select
+by problem features and inspect transfer limits rather than adopting a brand's architecture.
+
 ## Choose By The Decision
 
 | Need | Read | Use it for | Do not use it for |

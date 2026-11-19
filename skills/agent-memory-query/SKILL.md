@@ -58,6 +58,10 @@ guidance, worked examples and an optional decision template. Load those aids
 only when the actual decision needs them; reference retrieval is not a pattern
 recommendation or evidence that Memory improved the design.
 
+For a source-backed architecture precedent, consult
+[the mature case index](references/design-cases.md) and read only a relevant card.
+These are external references with transfer limits, not verified project experience.
+
 Use `search` or `wiki-search` only when the selected protocol calls for a broader or code-only view. Do not pass temporary runtime-log files to Agent Memory.
 
 ## Normative Context

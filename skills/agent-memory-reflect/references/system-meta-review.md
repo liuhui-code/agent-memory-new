@@ -7,6 +7,11 @@ client responsibilities; there is no new model connection, background worker or 
 The supporting Runtime has passed isolated regressions. One real Codex ordinary-task
 fixture also executed the installed handoff; this does not establish universal host adherence.
 
+When the requested scope concerns code/design quality or the system's design
+guidance, read [design-quality-review.md](design-quality-review.md). It adds
+evidence-based review questions and existing-field mappings, not new triggers,
+automatic taste scores or authority to apply proposals.
+
 ## Trigger At A Real Task Boundary
 
 Apply the current user's instructions first. Do not recursively start an automatic

@@ -1,0 +1,496 @@
+{
+  "classification": "generated_development_fixture",
+  "status": "passed_with_validator_unavailable",
+  "attempt": 4,
+  "previous_attempts": [
+    "attempt-1/verification.json",
+    "attempt-2/verification.json",
+    "attempt-3/verification.json"
+  ],
+  "fixture_corrections": [
+    "Use existing list --type reflection; read is not a Runtime command",
+    "update does not accept --json and emits a human acknowledgement; do not JSON-decode it"
+  ],
+  "git_head": "3c6a07a591d0e139256e515323993616d1ec08cc",
+  "temporary_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6",
+  "checks": {
+    "isolated_install_passed": true,
+    "four_skills_31_resources_match": true,
+    "installed_310_runtime_files_match": true,
+    "four_frontmatters_unchanged_from_commit": true,
+    "seven_design_review_links_resolve": true,
+    "ordinary_design_fields_saved_as_candidate_only": true,
+    "nonempty_baseline_query_handoff": true,
+    "ordinary_quality_feedback_does_not_add_auto_trigger": true,
+    "recursive_automatic_review_still_suppressed": true,
+    "synthetic_manual_decision_without_model_or_claim": true,
+    "five_quality_opinions_roundtrip_advisory_only": true,
+    "one_needs_evidence_candidate_without_promotion": true,
+    "system_save_is_idempotent": true,
+    "ordinary_and_system_row_counts_separate": true,
+    "nonempty_compact_query_handoff_unchanged": true,
+    "nonempty_full_query_handoff_unchanged": true,
+    "system_review_not_ordinary_retrieval": true,
+    "runtime_311_source_files_unchanged": true,
+    "six_external_cases_and_index_unchanged": true,
+    "root_head_and_index_unchanged": true,
+    "tracked_diff_check_passed": true
+  },
+  "commands": [
+    {
+      "id": "skill-quick-validate",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+        "/Users/liuhui/Documents/code/agent-memory-new/skills/agent-memory-reflect"
+      ],
+      "returncode": 1,
+      "seconds": 0.044,
+      "log": "skill-quick-validate.log",
+      "log_sha256": "11097aa784615ecaf05a1fcdaddca9710d0f4dc78cdf33072c6c3205dbb92d06"
+    },
+    {
+      "id": "install",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--local-skills"
+      ],
+      "returncode": 0,
+      "seconds": 2.277,
+      "log": "install.log",
+      "log_sha256": "cecb2cfca0c28b5dd08f57cf6e15b2140787c5cc1c51d51402071cc0c3c335f4"
+    },
+    {
+      "id": "ordinary-save",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "reflect",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/ordinary-reflection.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.823,
+      "log": "ordinary-save.log",
+      "log_sha256": "f39345a6dd8c5a0da13f8ebc5116a2d2148136e09893ce84c6dd965ad968a066"
+    },
+    {
+      "id": "ordinary-read",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "list",
+        "--type",
+        "reflection",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.77,
+      "log": "ordinary-read.log",
+      "log_sha256": "6b72412fd65edbbaf68a70847ebee9fb66843a7b5b94f5949d6493f6e45a7c2d"
+    },
+    {
+      "id": "baseline-fact",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "update",
+        "--type",
+        "semantic",
+        "--fact",
+        "Controlled fixture baseline compatibility is preserved across system-review writes.",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home"
+      ],
+      "returncode": 0,
+      "seconds": 1.014,
+      "log": "baseline-fact.log",
+      "log_sha256": "eae4cc2a0b08e7cdf6bbb3af38dcf3e9ee361bc54df95f4bce623233e6fa5581"
+    },
+    {
+      "id": "context-before-compact",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "context",
+        "--query",
+        "fixture baseline compatibility",
+        "--compact",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.874,
+      "log": "context-before-compact.log",
+      "log_sha256": "348a279ec1fad516e75c051621b3ff0888dcaa65d2e7482358c1c3f0aada6b4b"
+    },
+    {
+      "id": "context-before-full",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "context",
+        "--query",
+        "fixture baseline compatibility",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.907,
+      "log": "context-before-full.log",
+      "log_sha256": "9a52275196e716a52b1edfd3aa467bfc868482384e1ad279deeee7967470ea6b"
+    },
+    {
+      "id": "trigger-auto-no-signal",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "reflect-system-trigger",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/trigger-auto-fixture.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.796,
+      "log": "trigger-auto-no-signal.log",
+      "log_sha256": "0f9386d4bf53f96e0777ce71cdbf9eba52426efea721e1e18608753f908450dc"
+    },
+    {
+      "id": "trigger-recursive-skip",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "reflect-system-trigger",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/trigger-recursive-fixture.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.783,
+      "log": "trigger-recursive-skip.log",
+      "log_sha256": "47c13e7da6e24dbc59a20f950b29e59edc0800fb9f2265427fa947926f7302e5"
+    },
+    {
+      "id": "trigger-manual-fixture",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "reflect-system-trigger",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/trigger-manual-fixture.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.796,
+      "log": "trigger-manual-fixture.log",
+      "log_sha256": "24e8a281c20aa79a6f243390837cf5ae03f9d24f9af3fd9c941ba11e1c0fb88d"
+    },
+    {
+      "id": "system-save",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "reflect-system",
+        "--review-key",
+        "meta-8ba796cb48939e15d5eb5798d124b55f7a19ae95ce405358b3b9abc6dc461791",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/system-review-fixture.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.826,
+      "log": "system-save.log",
+      "log_sha256": "08d98c6e183c797c01984aef08987cca352a511fc120d0536cc90e5de2153b64"
+    },
+    {
+      "id": "system-save-idempotent",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "reflect-system",
+        "--review-key",
+        "meta-8ba796cb48939e15d5eb5798d124b55f7a19ae95ce405358b3b9abc6dc461791",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/system-review-fixture.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.843,
+      "log": "system-save-idempotent.log",
+      "log_sha256": "991bf5d255720c91074e40dc1a8b577f3bdfe3ebc738532a68296dd02fd3e615"
+    },
+    {
+      "id": "system-read",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "maintain-system",
+        "--review-key",
+        "meta-8ba796cb48939e15d5eb5798d124b55f7a19ae95ce405358b3b9abc6dc461791",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.741,
+      "log": "system-read.log",
+      "log_sha256": "5db37ee6c5df46c99514687c7aea09ae64cb1a44bf03778046b275164a20b695"
+    },
+    {
+      "id": "context-after-compact",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "context",
+        "--query",
+        "fixture baseline compatibility",
+        "--compact",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.892,
+      "log": "context-after-compact.log",
+      "log_sha256": "348a279ec1fad516e75c051621b3ff0888dcaa65d2e7482358c1c3f0aada6b4b"
+    },
+    {
+      "id": "context-after-full",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "context",
+        "--query",
+        "fixture baseline compatibility",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.88,
+      "log": "context-after-full.log",
+      "log_sha256": "81612f3c8b51ab6ecfe08c872e62631a640367ebf01b9a04dae4523845034e5a"
+    },
+    {
+      "id": "system-marker-not-in-ordinary-search",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project/tools/agent_memory.py",
+        "search",
+        "--query",
+        "META_DESIGN_QUALITY_ONLY",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-alqa3qa6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.873,
+      "log": "system-marker-not-in-ordinary-search.log",
+      "log_sha256": "8dd0e76fada65a49fef90154fd190ba46aaac7279969381c22d8b41277c2a603"
+    }
+  ],
+  "experimental_model_runs": 0,
+  "real_presented_tasks": 0,
+  "independent_reviews": 0,
+  "new_unit_tests": 0,
+  "prior_81_or_P1_14_tests_rerun": false,
+  "committed": false,
+  "pushed": false,
+  "standard_validator": "unavailable_missing_PyYAML",
+  "resource_links": [
+    {
+      "from": "agent-memory-reflect/SKILL.md",
+      "target": "references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/system-meta-review.md",
+      "target": "design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/design-quality-review.md",
+      "target": "system-meta-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/design-quality-review.md",
+      "target": "system-trigger.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-query/references/code-design.md",
+      "target": "../../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-maintain/SKILL.md",
+      "target": "../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-maintain/references/system-handoffs.md",
+      "target": "../../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    }
+  ],
+  "record_counts": {
+    "semantic_facts": 1,
+    "reflections": 1,
+    "episodes": 0,
+    "system_meta_reviews": 1,
+    "system_change_proposals": 1
+  },
+  "report_canonical_chars": 3253,
+  "ordinary_reflection_id": 1,
+  "system_review_id": 1,
+  "proposal_id": 1,
+  "proposal_state": "needs_evidence",
+  "manual_fixture_review_key": "meta-8ba796cb48939e15d5eb5798d124b55f7a19ae95ce405358b3b9abc6dc461791",
+  "skill_resource_count": 31,
+  "runtime_installed_files": 310,
+  "source_skill_digest": "14da49ba7bdc92a4b247f38129dd51b52d54afa2bbf00f4d38333e3b36ef3ec3",
+  "file_sha256": {
+    "README.md": "5ede7a2488f2a497cd1840c7b52ff0db8d1daeed4a0cbc35b853180ed35ea876",
+    "README.zh-CN.md": "aa2b17607d4a643783c97dc899070a3c308ceaea43031c963b49d5d3cd662e82",
+    "CONTEXT.md": "ae6e4e436de9b5a958bef44a8794e79bc9e6002a38eb614a2d21f7b518932e3e",
+    "gitlog.md": "626c07be75beb07d4d16a6be706bae86b099891ae4b7c2fe2b2228de60464b55",
+    "docs/design-usage-guide.md": "b76edde546e654d09e75c2884a9181c1bb409cef339e15ece27657d219c02e13",
+    "skills/agent-memory-query/references/code-design.md": "af610124393c9e270a9da9463b126828310f10c360020817838b89779577c5aa",
+    "skills/agent-memory-reflect/SKILL.md": "2948e516c1b47363d203de1a67250406fc24168dcb1bcaf9e07955c5eae815b5",
+    "skills/agent-memory-reflect/references/design-quality-review.md": "b0c3923b944b442bdf5ec94091f47d0afbdd20f9594af3499b8913194e87ef85",
+    "skills/agent-memory-reflect/references/system-meta-review.md": "5d8f674055007a0d0c3749778f663850b1be5653e9b49d231cb326e1170c6b89",
+    "skills/agent-memory-maintain/SKILL.md": "85d3475e5020303faed680df049da941b810e55f625723951bfc0db0744d9555",
+    "skills/agent-memory-maintain/references/system-handoffs.md": "f193cecfef95ffe5aae65c6aa7e351514421fbcd39360218c5c8208befda1565"
+  },
+  "limits": [
+    "Protocol/resource development replay, not real host activation or design efficacy.",
+    "Historical P1 success is replayed, not new evidence or independent reuse.",
+    "The manual trigger is synthetic; developing this feature did not create a real manual-review event.",
+    "Quality opinions and unknown costs do not authenticate evidence or authorize promotion.",
+    "The standard validator is unavailable if PyYAML is missing; frontmatter comparison is bounded."
+  ],
+  "finished_at": "2026-11-18T16:55:18.956640+00:00",
+  "verification_script": "/private/tmp/agent-memory-verify-design-quality-20261119.py",
+  "verification_script_sha256": "97e4d542933c3978f629412015b8fc3d36b3ff7d8f281d792722938bad075198",
+  "post_check_documentation_updates": {
+    "paths": [
+      "CONTEXT.md",
+      "gitlog.md"
+    ],
+    "reason": "Record completed checks, preserved harness failures, and validator limitation",
+    "previous_sha256": {
+      "CONTEXT.md": "6582413617a9ba5d5a301329a6c7218315c4ec8ae82f20f5104bad663c0cb3c2",
+      "gitlog.md": "9eb37740edada3139180c11ab8a27ab1e8536bf64283866194ab1c2b5a612770"
+    },
+    "resource_or_runtime_changed": false
+  },
+  "historical_harness_attempts": [
+    {
+      "attempt": 1,
+      "report_sha256": "96db49c70aa0df1a80fc70dd38be2818927f749ad56beb1943de7d45485e5a0b",
+      "executed_script_matches": true,
+      "logs_intact": true,
+      "error": "RuntimeError: ordinary-read failed; retained log"
+    },
+    {
+      "attempt": 2,
+      "report_sha256": "c8f9dea1e6363e01334e756ff00fa6de05e8c8026ea188a75623175a32941e61",
+      "executed_script_matches": true,
+      "logs_intact": true,
+      "error": "RuntimeError: baseline-fact failed; retained log"
+    },
+    {
+      "attempt": 3,
+      "report_sha256": "06db0b0ff2a624cc0188792efc923bdece742ab2bfd779b2c58a3dbb4c956b6b",
+      "executed_script_matches": true,
+      "logs_intact": true,
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    }
+  ],
+  "documentation_links": [
+    {
+      "from": "README.md",
+      "target": "skills/agent-memory-reflect/references/design-quality-review.md",
+      "exists": true
+    },
+    {
+      "from": "README.zh-CN.md",
+      "target": "skills/agent-memory-reflect/references/design-quality-review.md",
+      "exists": true
+    },
+    {
+      "from": "docs/design-usage-guide.md",
+      "target": "../skills/agent-memory-reflect/references/design-quality-review.md",
+      "exists": true
+    }
+  ],
+  "version_digest_basis": {
+    "runtime_digest": "SHA-256 of the sorted P0 source Runtime file-digest map (311 files including the source-only checker); installed 310-file supply verified separately",
+    "skill_digest": "SHA-256 of the sorted 31-resource current source Skill file-digest map, identical to the temporary install",
+    "authenticity": "Caller-supplied source identities; no host or efficacy authentication"
+  },
+  "source_evidence_hashes": {
+    "docs/design-preview-development-case.zh-CN.md": "def532e276429eb26c428818148d5b66677e44f913759d9730c79380630a87ad",
+    "docs/evidence/design-preview-development-20261117/delivery.json": "ea10aa24bb1713991606d99896c05671aa6004b51767cb90fc1b3c35a45ffacd",
+    "docs/evidence/design-preview-development-20261117/feedback-payload-final.json": "5af66371d8e4c1f2136135b7e0672d99caa93d711dbd380a7011b591fd8a1797"
+  },
+  "finalized_at": "2026-11-18T16:59:19.549124+00:00"
+}

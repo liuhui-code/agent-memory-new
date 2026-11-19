@@ -1,0 +1,13 @@
+{
+  "classification": "generated_development_fixture",
+  "ordinary_input": "Replay existing historical P1 payload; no new product task or test execution",
+  "manual_request_fixture": "Synthetic input only; feature-development request is not treated as a real manual review event",
+  "expected_auto_without_signal": "skip/no_concrete_signal",
+  "expected_recursive_auto": "skip/recursive_review_suppressed",
+  "expected_manual_fixture": "manual review decision; no model invocation or claim",
+  "expected_report": "Five bounded quality opinions and one advisory needs_evidence proposal",
+  "expected_isolation": "Same nonempty full and compact query_handoff before and after system save",
+  "expected_retry": "Same report save idempotent; one report and one proposal",
+  "additional_host_models": false,
+  "real_campaign": false
+}

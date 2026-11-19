@@ -1,0 +1,262 @@
+{
+  "classification": "development_resource_check",
+  "status": "passed_with_validator_unavailable",
+  "git_head": "3c6a07a591d0e139256e515323993616d1ec08cc",
+  "temporary_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/mature-design-cases-yyqx5ooh",
+  "checks": {
+    "actual_temporary_install_passed": true,
+    "four_skills_only": true,
+    "all_30_skill_resources_match": true,
+    "installed_310_runtime_files_match": true,
+    "source_311_runtime_files_unchanged": true,
+    "frontmatter_unchanged_from_committed_skill": true,
+    "new_index_and_six_cards_are_installed": true,
+    "case_branch_10_local_links_resolve_in_installed_skill": true,
+    "only_seven_new_case_resources_and_four_guide_edits": true,
+    "case_resource_whitespace_passed": true,
+    "tracked_diff_check_passed": true,
+    "root_head_unchanged": true,
+    "root_index_empty": true,
+    "current_case_corpus_requires_new_evaluation_version": true
+  },
+  "commands": [
+    {
+      "id": "skill-quick-validate",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+        "/Users/liuhui/Documents/code/agent-memory-new/skills/agent-memory-query"
+      ],
+      "returncode": 1,
+      "seconds": 0.066,
+      "log": "skill-quick-validate.log",
+      "log_sha256": "11097aa784615ecaf05a1fcdaddca9710d0f4dc78cdf33072c6c3205dbb92d06"
+    },
+    {
+      "id": "install",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/mature-design-cases-yyqx5ooh/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/mature-design-cases-yyqx5ooh/memory-home",
+        "--local-skills"
+      ],
+      "returncode": 0,
+      "seconds": 2.867,
+      "log": "install.log",
+      "log_sha256": "87bfecc86f49add85ff118ab1129a7aaa1a1539f48f71563e8931f4b940630ea"
+    },
+    {
+      "id": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.061,
+      "log": "diff-check.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_cases": [
+    {
+      "id": "shopify-modular-monolith",
+      "card": "skills/agent-memory-query/references/design-case-shopify-modularity.md",
+      "primary_source": "https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity",
+      "evidence_kind": "historical_team_report",
+      "historical_date": "2019-02-21",
+      "date_meaning": "publication date"
+    },
+    {
+      "id": "vscode-extension-host",
+      "card": "skills/agent-memory-query/references/design-case-vscode-host.md",
+      "primary_source": "https://code.visualstudio.com/api/advanced-topics/extension-host",
+      "evidence_kind": "official_architecture_documentation",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "sqlite-wal-snapshot",
+      "card": "skills/agent-memory-query/references/design-case-sqlite-wal.md",
+      "primary_source": "https://sqlite.org/wal.html",
+      "evidence_kind": "official_mechanism_documentation",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "stripe-v1-idempotency",
+      "card": "skills/agent-memory-query/references/design-case-stripe-idempotency.md",
+      "primary_source": "https://docs.stripe.com/api/idempotent_requests",
+      "evidence_kind": "official_api_contract_v1_with_v2_distinction",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "sre-resource-admission",
+      "card": "skills/agent-memory-query/references/design-case-sre-overload.md",
+      "primary_source": "https://sre.google/sre-book/handling-overload/",
+      "evidence_kind": "published_engineering_practice",
+      "historical_date": null,
+      "date_meaning": null
+    },
+    {
+      "id": "cloudflare-waf-2019",
+      "card": "skills/agent-memory-query/references/design-case-cloudflare-waf.md",
+      "primary_source": "https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/",
+      "evidence_kind": "vendor_incident_report",
+      "historical_date": "2019-07-02",
+      "date_meaning": "incident date"
+    }
+  ],
+  "runtime_source_files": 311,
+  "skill_source_resources": 30,
+  "new_wording_only_tests": 0,
+  "old_81_or_P1_14_tests_rerun": false,
+  "real_tasks": 0,
+  "experimental_model_runs": 0,
+  "independent_host_adoption_verified": false,
+  "committed": false,
+  "pushed": false,
+  "standard_validator": "unavailable_missing_PyYAML",
+  "case_branch_links": [
+    {
+      "from": "references/design-cases.md",
+      "target": "design-case-shopify-modularity.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-cases.md",
+      "target": "design-case-vscode-host.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-cases.md",
+      "target": "design-case-sqlite-wal.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-cases.md",
+      "target": "design-case-stripe-idempotency.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-cases.md",
+      "target": "design-case-sre-overload.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-cases.md",
+      "target": "design-case-cloudflare-waf.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "SKILL.md",
+      "target": "references/design-cases.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/code-design.md",
+      "target": "design-cases.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-examples.md",
+      "target": "design-cases.md",
+      "exists": true,
+      "within_skill": true
+    },
+    {
+      "from": "references/design-reference-guide.md",
+      "target": "design-cases.md",
+      "exists": true,
+      "within_skill": true
+    }
+  ],
+  "added_resources": [
+    "skills/agent-memory-query/references/design-case-cloudflare-waf.md",
+    "skills/agent-memory-query/references/design-case-shopify-modularity.md",
+    "skills/agent-memory-query/references/design-case-sqlite-wal.md",
+    "skills/agent-memory-query/references/design-case-sre-overload.md",
+    "skills/agent-memory-query/references/design-case-stripe-idempotency.md",
+    "skills/agent-memory-query/references/design-case-vscode-host.md",
+    "skills/agent-memory-query/references/design-cases.md"
+  ],
+  "modified_resources": [
+    "skills/agent-memory-query/SKILL.md",
+    "skills/agent-memory-query/references/code-design.md",
+    "skills/agent-memory-query/references/design-examples.md",
+    "skills/agent-memory-query/references/design-reference-guide.md"
+  ],
+  "limits": [
+    "Missing PyYAML blocks the official metadata validator if unavailable; unchanged frontmatter is a bounded observation",
+    "Installation/resource checks do not prove independent host adoption or design benefit",
+    "Cases are external references, not verified project memory, procedures, holdouts, or promotion evidence",
+    "Current source case pack differs from the frozen historical P2 Skill bundle",
+    "Official sources were read on 2026-11-18; their upstream bytes are not pinned"
+  ],
+  "file_sha256": {
+    "README.md": "f695496a9b180cff6d30483072255c0f2911b11dc52f60b515bd3edb8c9a83f3",
+    "README.zh-CN.md": "cd8371a96939e6aecd50d85bfb9b944fa81cdd9c5fd999aecb1006bd7021b7e5",
+    "CONTEXT.md": "12b85831d01dc95d7a6416f93c6bd638aa6c7837c04f7b1faaa26026ae4acfa6",
+    "gitlog.md": "7b2dfed3aa57bc09bed72bb823a931aeac47177bad4f0d2d4a68662fe3612643",
+    "docs/design-usage-guide.md": "3f5f11a37b2284797f36a0931da225cf321a3c2c9a08c904b216f05572e4cd41",
+    "skills/agent-memory-query/references/design-case-cloudflare-waf.md": "85d46b82f55821b934e463d8028af85e88e1812d4ebc486bde6a83577d211f79",
+    "skills/agent-memory-query/references/design-case-shopify-modularity.md": "b089f22b08cf843c289f535d9a9d72ade001ef9489af233421f35dfa25487597",
+    "skills/agent-memory-query/references/design-case-sqlite-wal.md": "9c0f8818006291e8780a1d10088cd1bae4bc5a46275c4ef70f76cd580fe0908c",
+    "skills/agent-memory-query/references/design-case-sre-overload.md": "4c751bfe0e08ba2e6cf0faa64198b12f7f03ef75e287c919050da4e08e6a8ed7",
+    "skills/agent-memory-query/references/design-case-stripe-idempotency.md": "54d5142804b16c7295c0b616b6afac45fdbe81575b6c07e2386f846ed8c618d1",
+    "skills/agent-memory-query/references/design-case-vscode-host.md": "86be5c8949b454b4c8aea4b10964a2b83c986fc65350723166c8da0522660d5d",
+    "skills/agent-memory-query/references/design-cases.md": "95d036af1b6572c40bbde803c7412edc9b1501be499b12030a25f4851d37f5b6",
+    "skills/agent-memory-query/SKILL.md": "b196e17f92d129ea8897cda4e1a7dd253076aac09022e04a3a04eb02752c3c79",
+    "skills/agent-memory-query/references/code-design.md": "52a4a0d968984585ba82b07635ec912e7b0d189bf2f42628f2483dfb496fce04",
+    "skills/agent-memory-query/references/design-examples.md": "2242f734a84027589253e8abdb5c2a560b847719e9d65bc6474df817392b7f3d",
+    "skills/agent-memory-query/references/design-reference-guide.md": "226f9da5757635053404fd05f580f494794d96aedf723f1b03b331af769c1d3e",
+    "docs/evidence/mature-design-cases-20261119/sources.json": "b94e2cbb95eb4be45d23b40b825ae6d6c767159d01b0ca4255f5c54309f05bd8",
+    "docs/evidence/mature-design-cases-20261119/context7-errors.json": "59e2278e02f49c67610bd92751262f12c3f50833c28d8af71667b42d3b39f6bb"
+  },
+  "finished_at": "2026-11-18T16:13:01.902955+00:00",
+  "verification_script": "/private/tmp/agent-memory-verify-mature-cases-20261119.py",
+  "verification_script_sha256": "66c705dcbd810740fbf6c48c05b96296c0eb1617c19a87c167777fdd715b0233",
+  "post_check_documentation_updates": {
+    "paths": [
+      "CONTEXT.md",
+      "gitlog.md"
+    ],
+    "reason": "Record actual completed resource checks and the metadata-validator limitation",
+    "resource_or_runtime_bytes_changed": false,
+    "previous_sha256": {
+      "CONTEXT.md": "d5c55a474640498384001cabbacc7fdf20e8d791fecb1a1b3cc181ad34a8b360",
+      "gitlog.md": "cc3f6ae91edb17dba5167a2f4b56ca119a826381e4fbb5c44a0df0e3315030ec"
+    }
+  },
+  "documentation_case_index_links": [
+    {
+      "from": "README.md",
+      "target": "skills/agent-memory-query/references/design-cases.md",
+      "exists": true
+    },
+    {
+      "from": "README.zh-CN.md",
+      "target": "skills/agent-memory-query/references/design-cases.md",
+      "exists": true
+    },
+    {
+      "from": "docs/design-usage-guide.md",
+      "target": "../skills/agent-memory-query/references/design-cases.md",
+      "exists": true
+    }
+  ],
+  "closing_diff_check_passed": true,
+  "finalized_at": "2026-11-18T16:18:00.402655+00:00"
+}

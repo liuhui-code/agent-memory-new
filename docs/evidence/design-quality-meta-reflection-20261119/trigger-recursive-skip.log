@@ -1,0 +1,30 @@
+{
+  "schema_version": "system-meta-trigger-decision/v1",
+  "policy_version": "system-meta-trigger-policy/v1",
+  "decision": "skip",
+  "should_review": false,
+  "reason": "recursive_review_suppressed",
+  "trigger": null,
+  "project_id": "acf5f77745d2087a",
+  "archive_available": null,
+  "review_key": null,
+  "next_review_revision": null,
+  "report_binding": null,
+  "claim_requested": false,
+  "claim_created": false,
+  "claim": null,
+  "claim_unavailable_reason": null,
+  "model_invoked": false,
+  "evidence_verified": false,
+  "task_identity_authenticated": false,
+  "task_boundary_observed": false,
+  "host_invocation_guaranteed": false,
+  "application_performed": false,
+  "budget": {
+    "max_report_chars": 4000,
+    "max_evidence_refs": 8,
+    "max_checks": 5,
+    "max_proposals": 1,
+    "automatic_retries": 0
+  }
+}

@@ -453,6 +453,17 @@ Design feedback uses the existing Reflect path. See the
 [development delivery and verification scope](docs/design-guidance-development.zh-CN.md);
 incremental design quality and Memory benefit remain unmeasured.
 
+Six [source-backed design cases](skills/agent-memory-query/references/design-cases.md)
+are bundled with the Query Skill: Shopify, VS Code, SQLite, Stripe API v1, Google SRE,
+and the 2019 Cloudflare WAF incident. Select by problem features and read transfer
+limits. These are external references, not verified project experience or new Runtime rankings.
+
+[Design-quality reflection](skills/agent-memory-reflect/references/design-quality-review.md)
+reviews boundaries, abstraction, total complexity, evolution and accepted costs.
+A separate system review can inspect the guidance, case use and learning rules
+through existing triggers and governance. Quality judgments remain advisory;
+ordinary feedback does not automatically change rules or prove long-term benefit.
+
 Rust `.rs` files now support bounded source-declaration navigation through the
 existing learning and context commands. Definitions carry source spans and
 digests; macros, active cfg, types and calls remain unresolved. Explicit learned

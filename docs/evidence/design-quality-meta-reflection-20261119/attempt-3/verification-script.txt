@@ -1,0 +1,280 @@
+# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+"""Isolated field/trigger/storage replay; no real task or independent model evaluation."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+import sqlite3
+import subprocess
+import sys
+import tempfile
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+ROOT = Path('/Users/liuhui/Documents/code/agent-memory-new')
+OUT = ROOT / 'docs/evidence/design-quality-meta-reflection-20261119'
+SKILLS = ('agent-memory-learn', 'agent-memory-query', 'agent-memory-reflect', 'agent-memory-maintain')
+MARKER = 'META_DESIGN_QUALITY_ONLY'
+QUERY = 'fixture baseline compatibility'
+
+
+def sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def save(path: Path, value: object) -> None:
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
+def hashes(path: Path) -> dict[str, str]:
+    return {p.relative_to(path).as_posix(): sha(p) for p in sorted(path.rglob('*'))
+            if p.is_file() and '__pycache__' not in p.parts and p.name != '.DS_Store'}
+
+
+def frontmatter(data: bytes) -> bytes:
+    return data[:data.index(b'\n---', 4) + 4]
+
+
+def main() -> None:
+    OUT.mkdir(exist_ok=True)
+    baseline = json.loads((ROOT / 'docs/evidence/development-baseline-20261117/manifest.json').read_text())
+    previous = json.loads((ROOT / 'docs/evidence/mature-design-cases-20261119/verification.json').read_text())
+    head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    source_skills = {}
+    for name in SKILLS:
+        source_skills.update({name + '/' + p: h for p, h in hashes(ROOT / 'skills' / name).items()})
+    skill_digest = hashlib.sha256(json.dumps(source_skills, sort_keys=True).encode()).hexdigest()
+    runtime_digest = hashlib.sha256(json.dumps(baseline['runtime_files'], sort_keys=True).encode()).hexdigest()
+    work = Path(tempfile.mkdtemp(prefix='design-quality-meta-reflection-'))
+    project, home = work / 'installed-project', work / 'memory-home'
+    project.mkdir()
+    checks, records = {}, []
+    report = {'classification': 'generated_development_fixture', 'status': 'running',
+              'attempt': 3, 'previous_attempts': ['attempt-1/verification.json', 'attempt-2/verification.json'],
+              'fixture_corrections': ['Use existing list --type reflection; read is not a Runtime command',
+                                      'update emits JSON by default and does not accept the --json option'],
+              'git_head': head, 'temporary_root': str(work), 'checks': checks, 'commands': records,
+              'experimental_model_runs': 0, 'real_presented_tasks': 0, 'independent_reviews': 0,
+              'new_unit_tests': 0, 'prior_81_or_P1_14_tests_rerun': False,
+              'committed': False, 'pushed': False}
+
+    def run(label: str, argv: list[str]) -> subprocess.CompletedProcess:
+        start = time.monotonic()
+        result = subprocess.run(argv, cwd=project, text=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT, timeout=45)
+        path = OUT / (label + '.log')
+        path.write_text(result.stdout, encoding='utf-8')
+        records.append({'id': label, 'argv': argv, 'returncode': result.returncode,
+                        'seconds': round(time.monotonic() - start, 3),
+                        'log': path.name, 'log_sha256': sha(path)})
+        return result
+
+    def cli(label: str, command: str, *args: str) -> dict:
+        flags = [] if command == 'update' else ['--json']
+        result = run(label, [sys.executable, str(project / 'tools/agent_memory.py'), command, *args,
+                            '--project', str(project), '--memory-home', str(home), *flags])
+        if result.returncode:
+            raise RuntimeError(label + ' failed; retained log')
+        return json.loads(result.stdout)
+
+    plan = {
+        'classification': 'generated_development_fixture',
+        'ordinary_input': 'Replay existing historical P1 payload; no new product task or test execution',
+        'manual_request_fixture': 'Synthetic input only; feature-development request is not treated as a real manual review event',
+        'expected_auto_without_signal': 'skip/no_concrete_signal',
+        'expected_recursive_auto': 'skip/recursive_review_suppressed',
+        'expected_manual_fixture': 'manual review decision; no model invocation or claim',
+        'expected_report': 'Five bounded quality opinions and one advisory needs_evidence proposal',
+        'expected_isolation': 'Same nonempty full and compact query_handoff before and after system save',
+        'expected_retry': 'Same report save idempotent; one report and one proposal',
+        'additional_host_models': False, 'real_campaign': False,
+    }
+    save(OUT / 'replay-plan.json', plan)
+    try:
+        validator = run('skill-quick-validate', [sys.executable,
+            '/Users/liuhui/.codex/skills/.system/skill-creator/scripts/quick_validate.py',
+            str(ROOT / 'skills/agent-memory-reflect')])
+        report['standard_validator'] = 'passed' if validator.returncode == 0 else (
+            'unavailable_missing_PyYAML' if "No module named 'yaml'" in validator.stdout else 'failed')
+        if report['standard_validator'] == 'failed':
+            raise RuntimeError('unexpected official metadata-validator failure')
+        installed = run('install', [sys.executable, str(ROOT / 'install.py'), '--project', str(project),
+                                   '--memory-home', str(home), '--local-skills'])
+        if installed.returncode:
+            raise RuntimeError('installation failed')
+        checks['isolated_install_passed'] = True
+        installed_skills = project / '.agents/skills'
+        checks['four_skills_31_resources_match'] = (
+            len(source_skills) == 31 and hashes(installed_skills) == source_skills
+            and sorted(p.name for p in installed_skills.iterdir() if p.is_dir()) == sorted(SKILLS))
+        runtime = {p.removeprefix('tools/'): h for p, h in baseline['runtime_files'].items()
+                   if p != 'tools/check_line_limits.py'}
+        checks['installed_310_runtime_files_match'] = hashes(project / 'tools') == runtime
+        checks['four_frontmatters_unchanged_from_commit'] = all(
+            frontmatter((ROOT / 'skills' / name / 'SKILL.md').read_bytes()) == frontmatter(
+                subprocess.check_output(['git', 'show', head + ':skills/' + name + '/SKILL.md'], cwd=ROOT))
+            for name in SKILLS)
+        link_sources = [
+            'agent-memory-reflect/SKILL.md', 'agent-memory-reflect/references/system-meta-review.md',
+            'agent-memory-reflect/references/design-quality-review.md',
+            'agent-memory-query/references/code-design.md', 'agent-memory-maintain/SKILL.md',
+            'agent-memory-maintain/references/system-handoffs.md']
+        links = []
+        for relative in link_sources:
+            file = installed_skills / relative
+            for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)', file.read_text()):
+                if target.endswith('design-quality-review.md') or relative.endswith('design-quality-review.md'):
+                    path = (file.parent / target).resolve()
+                    links.append({'from': relative, 'target': target, 'exists': path.is_file(),
+                                  'within_skills': installed_skills.resolve() in path.parents})
+        checks['seven_design_review_links_resolve'] = len(links) == 7 and all(
+            x['exists'] and x['within_skills'] for x in links)
+        report['resource_links'] = links
+        ordinary = json.loads((ROOT / 'docs/evidence/design-preview-development-20261117/feedback-payload-final.json').read_text())
+        ordinary['task'] = 'DEVELOPMENT REPLAY: historical P1 preview design-quality reflection'
+        ordinary['scope'] = 'Known P1 development history replay; not a new task or newly run tests'
+        ordinary['summary'] = 'Historical P1 recorded 14 controlled checks and a local JSON format change; replay only.'
+        save(OUT / 'ordinary-reflection.json', ordinary)
+        reflected = cli('ordinary-save', 'reflect', '--payload-file', str(OUT / 'ordinary-reflection.json'))
+        read_back = cli('ordinary-read', 'list', '--type', 'reflection')
+        checks['ordinary_design_fields_saved_as_candidate_only'] = (
+            reflected.get('task_type') == 'design' and reflected.get('experience_type') is None
+            and ordinary['lesson'] in json.dumps(read_back, ensure_ascii=False))
+        cli('baseline-fact', 'update', '--type', 'semantic', '--fact',
+            'Controlled fixture baseline compatibility is preserved across system-review writes.')
+        before_compact = cli('context-before-compact', 'context', '--query', QUERY, '--compact')
+        before_full = cli('context-before-full', 'context', '--query', QUERY)
+        checks['nonempty_baseline_query_handoff'] = bool(before_compact['query_handoff']['semantic_refs'])
+        trigger = {
+            'schema_version': 'system-meta-trigger/v1',
+            'task_ref': {'key': 'fixture-design-quality.auto', 'origin': 'client_local'},
+            'task_state': 'completed', 'task_outcome': 'unknown', 'memory_use': 'used',
+            'memory_requested': False, 'manual_request': False, 'review_enabled': True,
+            'user_cancelled': False, 'budget_available': True, 'activity': 'task',
+            'signals': [], 'version_refs': {}, 'query_refs': []}
+        save(OUT / 'trigger-auto-fixture.json', trigger)
+        automatic = cli('trigger-auto-no-signal', 'reflect-system-trigger', '--payload-file', str(OUT / 'trigger-auto-fixture.json'))
+        checks['ordinary_quality_feedback_does_not_add_auto_trigger'] = (
+            not automatic['should_review'] and automatic['reason'] == 'no_concrete_signal')
+        recursive = {**trigger, 'task_ref': {'key': 'fixture-design-quality.recursive', 'origin': 'client_local'},
+                     'activity': 'system_evolution'}
+        save(OUT / 'trigger-recursive-fixture.json', recursive)
+        skip = cli('trigger-recursive-skip', 'reflect-system-trigger', '--payload-file', str(OUT / 'trigger-recursive-fixture.json'))
+        checks['recursive_automatic_review_still_suppressed'] = (
+            not skip['should_review'] and skip['reason'] == 'recursive_review_suppressed')
+        manual = {**trigger, 'task_ref': {'key': 'fixture-design-quality.manual', 'origin': 'client_local'},
+                  'manual_request': True, 'activity': 'system_review',
+                  'version_refs': {'runtime_revision': head, 'runtime_digest': runtime_digest,
+                                   'skill_revision': None, 'skill_digest': skill_digest}}
+        save(OUT / 'trigger-manual-fixture.json', manual)
+        decision = cli('trigger-manual-fixture', 'reflect-system-trigger', '--payload-file', str(OUT / 'trigger-manual-fixture.json'))
+        checks['synthetic_manual_decision_without_model_or_claim'] = (
+            decision['should_review'] and not decision['model_invoked'] and not decision['claim_created'])
+        refs = ['file:docs/design-preview-development-case.zh-CN.md',
+                'artifact:docs/evidence/design-preview-development-20261117/delivery.json']
+        opinions = [
+            ('design_boundary', 'Historical per-instance completion checks and external rendering fit the declared scope; production binding remains unknown.'),
+            ('design_abstraction', 'Two render functions share a format boundary; this does not establish that all future variants fit.'),
+            ('design_total_complexity', 'The historical owner stayed unchanged for one format change; caller and recovery costs were not independently measured.'),
+            ('design_evolution', 'One predeclared JSON change stayed local; arbitrary future maintainability is unproven.'),
+            ('design_tradeoffs', 'Thread stop and click ordering were outside scope; incremental Skill/Memory benefit and total cost remain unknown.')]
+        meta = {
+            'report_format': 'system-meta-review/v1', 'task_ref': manual['task_ref'],
+            'review_revision': 1, 'trigger': 'manual', 'task_state': 'completed',
+            'task_outcome': 'unknown', 'memory_use': 'used', 'version_refs': manual['version_refs'],
+            'query_refs': [], 'observations': [{'summary': MARKER + ' ' + QUERY +
+                ': synthetic persistence fixture using known P1 history; no new task or model evaluation.', 'refs': refs}],
+            'checks': [], 'model_opinions': [{'dimension': d, 'assessment': a, 'evidence_refs': [refs[0]],
+                'counter_evidence_refs': []} for d, a in opinions],
+            'target_components': ['reflect', 'rules'],
+            'change_proposals': [{'target_component': 'reflect', 'change_kind': 'requirement',
+                'problem': 'Controlled requirement: retain design-quality opinions without treating them as verified task outcomes.',
+                'proposed_change': 'Use conditional feedback and a separately triggered system review; consider one guidance correction only with evidence.',
+                'evidence_refs': refs, 'acceptance_criteria': ['Ordinary and system records stay separate.',
+                    'Opinions stay advisory; no automatic rule or serving change.'],
+                'compatibility': 'Keep the existing query and report schemas.',
+                'rollback': 'No product mutation occurs in this development fixture.',
+                'proposal_state': 'needs_evidence'}],
+            'missing_evidence': ['Synthetic manual input is not a real user review event.',
+                'No independent quality comparison, total cost, long-term gain, or Runtime defect is established.'],
+            'omitted_counts': {}, 'additional_cost': {'tokens': None, 'elapsed_ms': None},
+            'review_status': 'partial', 'advisory_only': True}
+        meta.update(decision['report_binding'])
+        report_chars = len(json.dumps(meta, ensure_ascii=False, sort_keys=True, separators=(',', ':')))
+        if report_chars > 4000:
+            raise ValueError('report fixture exceeds existing character budget')
+        save(OUT / 'system-review-fixture.json', meta)
+        saved = cli('system-save', 'reflect-system', '--review-key', decision['review_key'],
+                    '--payload-file', str(OUT / 'system-review-fixture.json'))
+        duplicate = cli('system-save-idempotent', 'reflect-system', '--review-key', decision['review_key'],
+                        '--payload-file', str(OUT / 'system-review-fixture.json'))
+        registry = cli('system-read', 'maintain-system', '--review-key', decision['review_key'])
+        databases = list(home.rglob('memory.db'))
+        if len(databases) != 1:
+            raise RuntimeError('expected one owned development archive')
+        with sqlite3.connect(databases[0]) as conn:
+            stored = json.loads(conn.execute('SELECT payload_json FROM system_meta_reviews WHERE id=?',
+                                            (saved['review']['id'],)).fetchone()[0])
+            proposal = conn.execute('SELECT state FROM system_change_proposals WHERE id=?',
+                                    (saved['proposal_id'],)).fetchone()[0]
+            counts = {table: conn.execute('SELECT count(*) FROM ' + table).fetchone()[0]
+                      for table in ('semantic_facts', 'reflections', 'episodes', 'system_meta_reviews', 'system_change_proposals')}
+        checks['five_quality_opinions_roundtrip_advisory_only'] = stored == meta and len(stored['model_opinions']) == 5 and stored['advisory_only']
+        checks['one_needs_evidence_candidate_without_promotion'] = (
+            proposal == 'needs_evidence' and saved['advisory_only'] and not saved['evidence_verified'] and not saved['ranking_updated'])
+        checks['system_save_is_idempotent'] = saved['inserted'] and not duplicate['inserted'] and saved['review'] == duplicate['review']
+        checks['ordinary_and_system_row_counts_separate'] = counts == {
+            'semantic_facts': 1, 'reflections': 1, 'episodes': 0, 'system_meta_reviews': 1, 'system_change_proposals': 1}
+        after_compact = cli('context-after-compact', 'context', '--query', QUERY, '--compact')
+        after_full = cli('context-after-full', 'context', '--query', QUERY)
+        checks['nonempty_compact_query_handoff_unchanged'] = before_compact['query_handoff'] == after_compact['query_handoff']
+        checks['nonempty_full_query_handoff_unchanged'] = before_full['query_handoff'] == after_full['query_handoff']
+        searched = cli('system-marker-not-in-ordinary-search', 'search', '--query', MARKER)
+        ordinary_results = {kind: searched.get(kind, []) for kind in
+                            ('semantic_facts', 'reflections', 'episodes', 'wiki_matches', 'code_log_matches')}
+        checks['system_review_not_ordinary_retrieval'] = (
+            MARKER not in json.dumps(ordinary_results) and MARKER not in json.dumps(after_full['query_handoff']))
+        checks['runtime_311_source_files_unchanged'] = all(sha(ROOT / p) == h for p, h in baseline['runtime_files'].items())
+        card_paths = [p for p in previous['file_sha256'] if '/design-case-' in p or p.endswith('/design-cases.md')]
+        checks['six_external_cases_and_index_unchanged'] = len(card_paths) == 7 and all(sha(ROOT / p) == previous['file_sha256'][p] for p in card_paths)
+        checks['root_head_and_index_unchanged'] = (
+            subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip() == head
+            and not subprocess.check_output(['git', 'diff', '--cached', '--name-only'], cwd=ROOT).strip())
+        diff = subprocess.run(['git', 'diff', '--check'], cwd=ROOT, capture_output=True, text=True)
+        (OUT / 'diff-check.log').write_text(diff.stdout + diff.stderr)
+        checks['tracked_diff_check_passed'] = diff.returncode == 0
+        report.update({'record_counts': counts, 'report_canonical_chars': report_chars,
+                       'ordinary_reflection_id': reflected['id'], 'system_review_id': saved['review']['id'],
+                       'proposal_id': saved['proposal_id'], 'proposal_state': proposal,
+                       'manual_fixture_review_key': decision['review_key'], 'skill_resource_count': len(source_skills),
+                       'runtime_installed_files': len(runtime), 'source_skill_digest': skill_digest})
+        scoped = ['README.md', 'README.zh-CN.md', 'CONTEXT.md', 'gitlog.md', 'docs/design-usage-guide.md',
+                  'skills/agent-memory-query/references/code-design.md', 'skills/agent-memory-reflect/SKILL.md',
+                  'skills/agent-memory-reflect/references/design-quality-review.md',
+                  'skills/agent-memory-reflect/references/system-meta-review.md', 'skills/agent-memory-maintain/SKILL.md',
+                  'skills/agent-memory-maintain/references/system-handoffs.md']
+        report['file_sha256'] = {p: sha(ROOT / p) for p in scoped}
+        report['limits'] = ['Protocol/resource development replay, not real host activation or design efficacy.',
+            'Historical P1 success is replayed, not new evidence or independent reuse.',
+            'The manual trigger is synthetic; developing this feature did not create a real manual-review event.',
+            'Quality opinions and unknown costs do not authenticate evidence or authorize promotion.',
+            'The standard validator is unavailable if PyYAML is missing; frontmatter comparison is bounded.']
+        report['status'] = ('passed_with_validator_unavailable' if report['standard_validator'] != 'passed'
+                            else 'passed_controlled_replay') if all(checks.values()) else 'failed_controlled_replay'
+    except Exception as exc:
+        report['status'], report['error'] = 'failed_controlled_replay', type(exc).__name__ + ': ' + str(exc)
+    report['finished_at'] = datetime.now(timezone.utc).isoformat()
+    report['verification_script'], report['verification_script_sha256'] = str(Path(__file__)), sha(Path(__file__))
+    save(OUT / 'verification.json', report)
+    print(json.dumps({'status': report['status'], 'checks': checks,
+                      'report_chars': report.get('report_canonical_chars'), 'error': report.get('error')}, ensure_ascii=False))
+    if report['status'] == 'failed_controlled_replay':
+        raise SystemExit(1)
+
+
+if __name__ == '__main__':
+    main()

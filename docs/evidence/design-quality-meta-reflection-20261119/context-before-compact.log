@@ -1,0 +1,105 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "acf5f77745d2087a",
+  "query": "fixture baseline compatibility",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "empty",
+    "generation": 0
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "fixture",
+      "baseline",
+      "compatibility"
+    ],
+    "log_anchors": [],
+    "code_anchors": [],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "unavailable",
+      "primary": null,
+      "alternatives": [],
+      "boundary": "retrieval_evidence_not_root_cause"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [
+      {
+        "reflection_id": 1,
+        "task": "DEVELOPMENT REPLAY: historical P1 preview design-quality reflection",
+        "problem": "Develop an isolated single-view preview state owner under threaded host assumptions",
+        "trigger_condition": "Designing finite selected-row previews whose asynchronous completion may outlive the current request",
+        "verification_method": "python3 -m unittest -v tests.test_design_preview_case: 14 controlled checks; negative control and coordinator digest comparison"
+      }
+    ],
+    "semantic_refs": [
+      {
+        "semantic_id": 1,
+        "fact": "Controlled fixture baseline compatibility is preserved across system-review writes."
+      }
+    ],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor",
+    "no_code_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "insufficient_evidence",
+    "next_action": "narrow_query_or_learn_relevant_scope",
+    "reason_codes": [
+      "no_inspectable_retrieval_evidence",
+      "no_log_anchor",
+      "no_code_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": false,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 701,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}

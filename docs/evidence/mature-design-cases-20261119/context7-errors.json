@@ -1,0 +1,31 @@
+{
+  "classification": "source_research",
+  "attempted_stage": "resolve_library_id",
+  "fallback": "official publisher pages through web",
+  "failures": [
+    {
+      "library": "SQLite",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "tool call error: tool call failed for `context7/resolve-library-id`\n\nCaused by:\n    Transport send error: Transport [codex_rmcp_client::tool_list_changes::ToolListChanges<codex_rmcp_client::event_notification_transport::EventNotificationTransport<rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>>>] error: Client error: HTTP request failed: http/request failed: error sending request for url (https://mcp.context7.com/mcp)"
+          }
+        ],
+        "isError": true
+      }
+    },
+    {
+      "library": "Stripe API",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "tool call error: tool call failed for `context7/resolve-library-id`\n\nCaused by:\n    Transport send error: Transport [codex_rmcp_client::tool_list_changes::ToolListChanges<codex_rmcp_client::event_notification_transport::EventNotificationTransport<rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>>>] error: Client error: HTTP request failed: http/request failed: error sending request for url (https://mcp.context7.com/mcp)"
+          }
+        ],
+        "isError": true
+      }
+    }
+  ]
+}

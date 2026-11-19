@@ -80,6 +80,11 @@ load a whole catalog for every task. Read
 [design-examples.md](design-examples.md) when a worked example would resolve
 uncertainty about scope, historical transfer, or unnecessary abstraction.
 
+For documented system decisions or a public failure analysis, use
+[design-cases.md](design-cases.md) to match problem features before selecting a card.
+Distinguish source facts from transfer hypotheses; a vendor contract, historical
+report, or familiar system name does not establish suitability for this project.
+
 Identify the problem features first: the volatile decision, responsibility or
 state owner, lifetime, consistency requirement, failure boundary, and credible
 change. Search project decisions and experience using the existing context
@@ -134,6 +139,11 @@ Do not turn a hypothetical result into `what_worked` or a verified procedure.
 Track helpful, ignored, misleading, or superseded reuse through the existing
 experience feedback path. One successful check does not authorize a new global
 rule, automatic Skill update, or a system meta-review.
+
+For a material design lesson, use Reflect's
+[design-quality review](../../agent-memory-reflect/references/design-quality-review.md)
+to distinguish observed behavior from quality opinions and inspect guidance failure
+only under the existing system-review entry conditions.
 
 ## Context Interpretation
 

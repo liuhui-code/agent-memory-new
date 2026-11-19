@@ -118,3 +118,8 @@ and the separate R2/lifecycle workflow; preserve the failed/unknown history.
 All authenticity, efficacy, promotion and host-execution flags remain false. A real host
 test proves only that tested host and controlled workflow. Normal-task automatic sampling,
 independent efficacy campaigns and automatic next-candidate deployment remain separate work.
+
+When the existing bound window specifically concerns design guidance, Reflect's
+[design-quality review](../../agent-memory-reflect/references/design-quality-review.md)
+can inform the current host's concise assessment. Keep the original R2 fields and
+budgets; this does not authorize a new window, schema, model call or next candidate.

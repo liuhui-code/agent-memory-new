@@ -276,6 +276,19 @@ Agent 应将重要问题进一步转为设计约束、风险或验收标准。
 - [参考选择指南](../skills/agent-memory-query/references/design-reference-guide.md)：ADD、arc42、复杂度评审、DPR、EIP 和 MADR 的用途与限制。
 - [工作示例](../skills/agent-memory-query/references/design-examples.md)：局部改动、ArkLog 历史开发证据、历史缓存经验与当前一致性要求失配。
 - [决策模板](../skills/agent-memory-query/references/design-decision-template.md)：重要决定的条件、备选、代价、验证状态和重审条件；不是 Runtime JSON。
+- [成熟系统案例索引](../skills/agent-memory-query/references/design-cases.md)：六个官方/作者来源的设计或失败案例，按问题特征选择，包含适用前提、代价和失配条件。
+
+可以向安装了新版 Skill 的 Agent 提出：“先找与这次问题匹配的成熟案例，说明哪些能借鉴、
+哪些前提不成立，再比较设计方案。”案例随 Skill 资源分发，不预写成项目事实或成功经历；
+当前由 Agent 读取索引和相关卡片，不会自动进入 `design-context` 的静态目录或改变查询协议。
+案例中的 API/版本合同需要按当前任务核对，不能把历史报告或修复计划当作当前运行结果。
+
+[设计质量反思与元反思](../skills/agent-memory-reflect/references/design-quality-review.md)把反馈分为两层：
+普通 Reflect 保存本次设计的实际结果、质量意见、代价与失配条件；系统元反思则审查形成设计的
+输入指导、查询/案例、学习和评价规则，至多形成一个待审查的改进候选。
+可以明确请求“复盘这次设计的边界与代价，并检查 Memory 的设计指导是否误导”；
+未明确请求时，仍须满足既有真实任务/Memory 系统信号条件，不因设计不够好自动增加触发。
+意见不编码为品味分或通过标记，也不绕过候选验证与回退合同。
 
 引用影响决定时，说明匹配的特征、已经满足/未知/被否定的前提、可迁移范围和反例。
 评审时比较易变决定是否被隐藏、状态归属、失败路径、调用方负担和一次可信变化的传播。

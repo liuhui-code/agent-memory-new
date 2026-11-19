@@ -1,0 +1,139 @@
+{
+  "classification": "generated_development_fixture",
+  "status": "failed_controlled_replay",
+  "git_head": "3c6a07a591d0e139256e515323993616d1ec08cc",
+  "temporary_root": "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6",
+  "checks": {
+    "isolated_install_passed": true,
+    "four_skills_31_resources_match": true,
+    "installed_310_runtime_files_match": true,
+    "four_frontmatters_unchanged_from_commit": true,
+    "seven_design_review_links_resolve": true
+  },
+  "commands": [
+    {
+      "id": "skill-quick-validate",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+        "/Users/liuhui/Documents/code/agent-memory-new/skills/agent-memory-reflect"
+      ],
+      "returncode": 1,
+      "seconds": 0.05,
+      "log": "skill-quick-validate.log",
+      "log_sha256": "11097aa784615ecaf05a1fcdaddca9710d0f4dc78cdf33072c6c3205dbb92d06"
+    },
+    {
+      "id": "install",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/Users/liuhui/Documents/code/agent-memory-new/install.py",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/memory-home",
+        "--local-skills"
+      ],
+      "returncode": 0,
+      "seconds": 2.316,
+      "log": "install.log",
+      "log_sha256": "3511a111e7c02a277d8921e710cee11e4a36b8e3ec5e0d71b325c01c2f925309"
+    },
+    {
+      "id": "ordinary-save",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/installed-project/tools/agent_memory.py",
+        "reflect",
+        "--payload-file",
+        "/Users/liuhui/Documents/code/agent-memory-new/docs/evidence/design-quality-meta-reflection-20261119/ordinary-reflection.json",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/memory-home",
+        "--json"
+      ],
+      "returncode": 0,
+      "seconds": 0.867,
+      "log": "ordinary-save.log",
+      "log_sha256": "27affc6c304170186c14aa71cb7e3351e8202f5dadc979aa5c4e2dbb6be122a3"
+    },
+    {
+      "id": "ordinary-read",
+      "argv": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/installed-project/tools/agent_memory.py",
+        "read",
+        "--type",
+        "reflection",
+        "--id",
+        "1",
+        "--project",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/installed-project",
+        "--memory-home",
+        "/var/folders/6x/y713d9_n1gl90wk20zms7q5m0000gn/T/design-quality-meta-reflection-xfm182o6/memory-home",
+        "--json"
+      ],
+      "returncode": 2,
+      "seconds": 0.897,
+      "log": "ordinary-read.log",
+      "log_sha256": "6f61c538d9213d84381f30916d42e232fd4967eb1491da6034a29d93987c9255"
+    }
+  ],
+  "experimental_model_runs": 0,
+  "real_presented_tasks": 0,
+  "independent_reviews": 0,
+  "new_unit_tests": 0,
+  "prior_81_or_P1_14_tests_rerun": false,
+  "committed": false,
+  "pushed": false,
+  "standard_validator": "unavailable_missing_PyYAML",
+  "resource_links": [
+    {
+      "from": "agent-memory-reflect/SKILL.md",
+      "target": "references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/system-meta-review.md",
+      "target": "design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/design-quality-review.md",
+      "target": "system-meta-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-reflect/references/design-quality-review.md",
+      "target": "system-trigger.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-query/references/code-design.md",
+      "target": "../../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-maintain/SKILL.md",
+      "target": "../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    },
+    {
+      "from": "agent-memory-maintain/references/system-handoffs.md",
+      "target": "../../agent-memory-reflect/references/design-quality-review.md",
+      "exists": true,
+      "within_skills": true
+    }
+  ],
+  "error": "RuntimeError: ordinary-read failed; retained log",
+  "finished_at": "2026-11-18T16:46:30.542194+00:00",
+  "verification_script": "/private/tmp/agent-memory-verify-design-quality-20261119.py",
+  "verification_script_sha256": "77a6e405779f0c88630ba6d2c7aad7edd7bbe4c0a8676ea3686bf20385ab05fa"
+}

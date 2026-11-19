@@ -1,0 +1,105 @@
+{
+  "report_format": "system-meta-review/v1",
+  "task_ref": {
+    "key": "fixture-design-quality.manual",
+    "origin": "client_local"
+  },
+  "review_revision": 1,
+  "trigger": "manual",
+  "task_state": "completed",
+  "task_outcome": "unknown",
+  "memory_use": "used",
+  "version_refs": {
+    "runtime_revision": "3c6a07a591d0e139256e515323993616d1ec08cc",
+    "runtime_digest": "96e99a70ea140a3ff8692c1b9bff7233583cc34289bcaa9c0e5c92662c797ef1",
+    "skill_revision": null,
+    "skill_digest": "14da49ba7bdc92a4b247f38129dd51b52d54afa2bbf00f4d38333e3b36ef3ec3"
+  },
+  "query_refs": [],
+  "observations": [
+    {
+      "summary": "META_DESIGN_QUALITY_ONLY fixture baseline compatibility: synthetic persistence fixture using known P1 history; no new task or model evaluation.",
+      "refs": [
+        "file:docs/design-preview-development-case.zh-CN.md",
+        "artifact:docs/evidence/design-preview-development-20261117/delivery.json"
+      ]
+    }
+  ],
+  "checks": [],
+  "model_opinions": [
+    {
+      "dimension": "design_boundary",
+      "assessment": "Historical per-instance completion checks and external rendering fit the declared scope; production binding remains unknown.",
+      "evidence_refs": [
+        "file:docs/design-preview-development-case.zh-CN.md"
+      ],
+      "counter_evidence_refs": []
+    },
+    {
+      "dimension": "design_abstraction",
+      "assessment": "Two render functions share a format boundary; this does not establish that all future variants fit.",
+      "evidence_refs": [
+        "file:docs/design-preview-development-case.zh-CN.md"
+      ],
+      "counter_evidence_refs": []
+    },
+    {
+      "dimension": "design_total_complexity",
+      "assessment": "The historical owner stayed unchanged for one format change; caller and recovery costs were not independently measured.",
+      "evidence_refs": [
+        "file:docs/design-preview-development-case.zh-CN.md"
+      ],
+      "counter_evidence_refs": []
+    },
+    {
+      "dimension": "design_evolution",
+      "assessment": "One predeclared JSON change stayed local; arbitrary future maintainability is unproven.",
+      "evidence_refs": [
+        "file:docs/design-preview-development-case.zh-CN.md"
+      ],
+      "counter_evidence_refs": []
+    },
+    {
+      "dimension": "design_tradeoffs",
+      "assessment": "Thread stop and click ordering were outside scope; incremental Skill/Memory benefit and total cost remain unknown.",
+      "evidence_refs": [
+        "file:docs/design-preview-development-case.zh-CN.md"
+      ],
+      "counter_evidence_refs": []
+    }
+  ],
+  "target_components": [
+    "reflect",
+    "rules"
+  ],
+  "change_proposals": [
+    {
+      "target_component": "reflect",
+      "change_kind": "requirement",
+      "problem": "Controlled requirement: retain design-quality opinions without treating them as verified task outcomes.",
+      "proposed_change": "Use conditional feedback and a separately triggered system review; consider one guidance correction only with evidence.",
+      "evidence_refs": [
+        "file:docs/design-preview-development-case.zh-CN.md",
+        "artifact:docs/evidence/design-preview-development-20261117/delivery.json"
+      ],
+      "acceptance_criteria": [
+        "Ordinary and system records stay separate.",
+        "Opinions stay advisory; no automatic rule or serving change."
+      ],
+      "compatibility": "Keep the existing query and report schemas.",
+      "rollback": "No product mutation occurs in this development fixture.",
+      "proposal_state": "needs_evidence"
+    }
+  ],
+  "missing_evidence": [
+    "Synthetic manual input is not a real user review event.",
+    "No independent quality comparison, total cost, long-term gain, or Runtime defect is established."
+  ],
+  "omitted_counts": {},
+  "additional_cost": {
+    "tokens": null,
+    "elapsed_ms": null
+  },
+  "review_status": "partial",
+  "advisory_only": true
+}
