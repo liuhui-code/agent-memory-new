@@ -1,0 +1,139 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "8236803e2d457b3b",
+  "query": "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit.",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "restart",
+      "loses",
+      "saved",
+      "editor",
+      "text",
+      "return",
+      "coordinator",
+      "owning",
+      "restore",
+      "lifecycle",
+      "current",
+      "state"
+    ],
+    "log_anchors": [],
+    "code_anchors": [
+      {
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "DraftSessionCoordinator",
+        "symbol_type": "class",
+        "record_ids": [
+          63
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "DraftSessionCoordinator",
+            "start_line": 1,
+            "end_line": 16
+          }
+        ],
+        "read_window": {
+          "start_line": 1,
+          "end_line": 16
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "DraftSessionCoordinator",
+            "start_line": 1,
+            "end_line": 16,
+            "content": "export class DraftSessionCoordinator {\n  @State draftText: string = ''\n  private draftPreferences: DraftPreferences = new DraftPreferences()\n\n  aboutToAppear(): void {\n    this.restoreDraft()\n  }\n\n  async restoreDraft(): Promise<void> {\n    this.draftText = await this.draftPreferences.load()\n  }\n\n  async saveDraft(): Promise<void> {\n    await this.draftPreferences.save(this.draftText)\n  }\n}",
+            "source": "validated_request_snapshot",
+            "selection_reason": "finite_same_owner_source_shape",
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "uncertain",
+      "primary": null,
+      "alternatives": [],
+      "boundary": "finite_same_owner_source_shape_not_runtime_proof"
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "missing_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "validated_request_snapshot",
+      "body_persisted": false,
+      "excerpt_count": 1,
+      "excerpt_chars": 393
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "no_log_anchor",
+    "limited_code_anchor_diversity"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 0,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 873,
+    "target_tokens": 1500,
+    "truncated": false
+  }
+}

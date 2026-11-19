@@ -1,0 +1,65 @@
+[
+  {
+    "variant": "original",
+    "query": "A saved draft resets after relaunch. Locate the owner that combines lifecycle restore, state update, and persistence.",
+    "budget": {
+      "estimated_tokens": 1047,
+      "target_tokens": 1500,
+      "truncated": true
+    },
+    "excerpts": [
+      {
+        "path": "src/coordinators/DraftSessionCoordinator.ets",
+        "range": [
+          1,
+          16
+        ],
+        "source_exact": true,
+        "truncated": false,
+        "covers_required_5_15": true
+      }
+    ]
+  },
+  {
+    "variant": "en-paraphrase",
+    "query": "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "budget": {
+      "estimated_tokens": 873,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "path": "src/coordinators/DraftSessionCoordinator.ets",
+        "range": [
+          1,
+          16
+        ],
+        "source_exact": true,
+        "truncated": false,
+        "covers_required_5_15": true
+      }
+    ]
+  },
+  {
+    "variant": "zh-noise",
+    "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+    "budget": {
+      "estimated_tokens": 845,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "excerpts": [
+      {
+        "path": "src/coordinators/DraftSessionCoordinator.ets",
+        "range": [
+          1,
+          16
+        ],
+        "source_exact": true,
+        "truncated": false,
+        "covers_required_5_15": true
+      }
+    ]
+  }
+]

@@ -13196,3 +13196,9 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Rechecked original34 default/plain2000 existing alternative navigation and preserved2000 full method; do not duplicate delivered capability.
 - Five paired isolated Agent developer observations: one clear referent correction, one partial/remaining binding failure, three target outcomes unchanged; retain search regressions and all replies.
 - STOP: candidate guidance not adopted, no Runtime/Skill/oracle changes and no original-group closure. See docs/releases/request-referent-study-20261118.
+
+## 2026-11-19 — Verify existing original18 lifecycle acceptance
+
+- Fresh selected original18 Development group passes3/3 with unchanged source/setup digests and requirements; no new runtime repair or full gate.
+- Three independent seed-copy public compact commands show complete exact coordinator lines1–16 at1047/873/845 estimated tokens; retain old1/3 evidence unchanged.
+- Save mapping, source, raw outputs and independent range review in docs/evidence/original18-current-verification. Original42 remains1/3 and continues separately.

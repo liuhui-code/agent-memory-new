@@ -1,0 +1,53 @@
+[
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/original13/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-context-original-memory",
+      "--query",
+      "A saved draft resets after relaunch. Locate the owner that combines lifecycle restore, state update, and persistence.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/original13/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-context-en-paraphrase-memory",
+      "--query",
+      "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit.",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "context",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/original13/source",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-context-zh-noise-memory",
+      "--query",
+      "\u8349\u7a3f\u4fdd\u5b58\u540e\u91cd\u542f\u4ecd\u88ab\u6e05\u7a7a\uff0c\u8bf7\u53ea\u8fd4\u56de\u540c\u65f6\u8d1f\u8d23\u751f\u547d\u5468\u671f\u6062\u590d\u3001\u72b6\u6001\u5199\u5165\u548c\u6301\u4e45\u5316\u7684\u534f\u8c03\u6e90\u7801\u3002",
+      "--compact",
+      "--json"
+    ],
+    "rc": 0
+  }
+]

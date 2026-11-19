@@ -1,0 +1,70 @@
+{
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "fixture_records_are_reviewed_and_synthetic": true,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "development",
+      "change_policy": "editable",
+      "source_isolation": "project_neutral",
+      "lineage_defaults": {
+        "source_family": "system-capability-fixtures/v1",
+        "independence_basis": "reviewed project-neutral synthetic fixtures maintained with the development gate"
+      }
+    }
+  },
+  "case": {
+    "id": "context-lifecycle-persistence-owner-precision",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "A saved draft resets after relaunch. Locate the owner that combines lifecycle restore, state update, and persistence."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "A saved draft resets after relaunch. Locate the owner that combines lifecycle restore, state update, and persistence."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit."
+      },
+      {
+        "id": "zh-noise",
+        "description": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/coordinators/DraftSessionCoordinator.ets"
+      ],
+      "forbidden_files": [
+        "src/pages/DraftPage.ets",
+        "src/storage/DraftPreferences.ets"
+      ],
+      "root_cause_category": "persistence",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 1.0,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+            "start_line": 5,
+            "end_line": 15
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  }
+}

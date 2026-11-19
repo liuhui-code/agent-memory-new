@@ -1,0 +1,35 @@
+[
+  {
+    "cmd": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "init",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-manager",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-memory"
+    ],
+    "rc": 0
+  },
+  {
+    "cmd": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "-B",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+      "eval-context-capability",
+      "--cases",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/docs/eval/system-capability-cases.json",
+      "--source",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/docs/eval/fixtures/system-capability",
+      "--case-id",
+      "context-lifecycle-persistence-owner-precision",
+      "--json",
+      "--project",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-manager",
+      "--memory-home",
+      "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/current18-42/18-memory"
+    ],
+    "rc": 0
+  }
+]
