@@ -9,7 +9,7 @@ from .query_caller_ownership import caller_source_identity, requested_caller_ide
 from .query_behavior_concepts import behavior_marker_terms
 from .query_salient_source_retention import redundant_source_supplement
 from .query_code_focus import attach_file_source_locations, focus_code_candidates
-from .query_language import excluded_result_roles, positive_retrieval_query
+from .query_language import excluded_result_roles, positive_retrieval_query, affirmative_role_query
 from .source_path_policy import (
     filter_explicit_language_candidates,
     filter_generated_candidates,
@@ -272,6 +272,7 @@ def opaque_identifiers_in_candidate(item: dict[str, Any]) -> set[str]:
 
 
 def behavior_owner_query(query: str) -> bool:
+    query = affirmative_role_query(query)
     lowered = query.casefold()
     markers = (
         " owner", " page", " view", "click", "handler", "render", "route",
@@ -286,7 +287,7 @@ def behavior_owner_query(query: str) -> bool:
 
 
 def entity_definition_query(query: str) -> bool:
-    lowered = query.casefold()
+    lowered = affirmative_role_query(query).casefold()
     markers = (
         "entity definition", "record definition", "data model", "entity fields",
         "实体定义", "数据模型", "记录定义",
