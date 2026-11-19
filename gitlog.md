@@ -13317,3 +13317,12 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
   0.5, meeting the unchanged threshold but not proving exclusive ownership.
 -34 focused adjective/constant vertical controls pass. Evidence:
   docs/releases/scroll07-current-20261119/README.md. Not a full aggregate gate.
+
+## 2026-11-19 - Verify original archive IO group
+
+- context-archive-io-owner current standard3/3; all three actual installBundle4–11
+  excerpts complete,157 source hashes match;28 existing focused controls pass.
+- Stable case ID retained; numeric25 mapping not assumed from array position.
+  No new runtime/source/oracle/budget changes.08 tie reweighting not justified by
+  missing exact request-field/trigger binding; no speculative change shipped.
+- Evidence: docs/releases/archive-current-20261119/README.md.

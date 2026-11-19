@@ -1,0 +1,210 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-cm3g3psk/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-cm3g3psk/agent-memory-case-9s8yo9y3/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "6f0aac38b7ea4a44",
+    "query": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。",
+    "memory_intent": "semantic_correction",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "资源解压时复用了旧压缩包并残留数据",
+        "资源",
+        "源解",
+        "解压",
+        "压时",
+        "时复",
+        "复用",
+        "用了",
+        "了旧",
+        "旧压",
+        "压缩",
+        "缩包"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/io/AssetArchiveInstaller.ets",
+          "record_ids": [
+            39
+          ],
+          "record_type": "code_file",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: archiveioboundary, asyncboundary",
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "installBundle",
+              "start_line": 4,
+              "end_line": 11,
+              "content": "  async installBundle(context: UIContext): Promise<void> {\n    const data = context.resourceManager.getRawFileContentSync('bundle.zip')\n    const archivePath = context.tempDir + '/bundle.zip'\n    const archive = fs.openSync(archivePath, fs.OpenMode.CREATE)\n    fs.writeSync(archive.fd, data.buffer)\n    fs.closeSync(archive)\n    await unzip(archivePath, context.filesDir)\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": {
+          "file_path": "src/widgets/NotificationRow.ets",
+          "symbol": "build",
+          "owner_name": "NotificationRow",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 18.76,
+          "evidence_score": 18.76,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 13,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "saveProfileData",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.71,
+            "evidence_score": 17.71,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 11,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 10.76,
+            "evidence_score": 10.76,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 10,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 375
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1144,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+}

@@ -1,0 +1,4515 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-cm3g3psk/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-cm3g3psk/agent-memory-case-9s8yo9y3/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--json"
+  ],
+  "query": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。",
+  "payload": {
+    "project_id": "6f0aac38b7ea4a44",
+    "project_path": "/tmp/agent-memory-benchmark-cm3g3psk/workspace",
+    "query": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。",
+    "memory_intent": "correction_guard",
+    "memory_intent_v2": "semantic_correction",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "correction_guard",
+        "intent_v2": "semantic_correction",
+        "intent_source": "inferred",
+        "legacy_intent": "correction_guard",
+        "preferred_lanes": [
+          "correction_guard",
+          "semantic_patch",
+          "semantic_facts",
+          "wiki_matches"
+        ],
+        "interference_policy": "prefer correction guardrails and semantic patches; keep procedure advice out of main context"
+      },
+      "lane_budgets": {
+        "main_reflections": 0,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "correction_guard",
+      "intent_v2": "semantic_correction",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": "resource",
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 39,
+        "project_id": "6f0aac38b7ea4a44",
+        "file_path": "src/io/AssetArchiveInstaller.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: archiveioboundary, asyncboundary",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "0cb8a26a19bde1bbdc4249b8fbc378272076bda8831c0bbbcf05bfff4f612cfc",
+        "index_generation": 1,
+        "updated_at": "2026-11-19T03:45:30+00:00",
+        "recall_lanes": [
+          "structural_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.0204918,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "structural_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 4.0,
+        "search_terms": [
+          "src/io/assetarchiveinstaller.ets",
+          "arkts",
+          "arkts file with 11 non-empty lines; behavior: archiveioboundary, asyncboundary",
+          "src",
+          "io",
+          "assetarchiveinstaller",
+          "ets",
+          "file",
+          "with",
+          "11",
+          "non",
+          "empty",
+          "lines",
+          "behavior",
+          "archiveioboundary",
+          "asyncboundary",
+          "asset",
+          "archive",
+          "installer",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "structural_behavior"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 4.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "structural_behavior"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [],
+    "edge_matches": [
+      {
+        "id": 876,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 144,
+        "relation": "passes_property",
+        "target_type": "code_symbol",
+        "target_id": 484,
+        "evidence": "src/views/MessageRow.ets passes text to QuotedMessagePreview",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_component_property_flow",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 875,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 144,
+        "relation": "renders_component",
+        "target_type": "code_symbol",
+        "target_id": 484,
+        "evidence": "src/views/MessageRow.ets renders QuotedMessagePreview",
+        "confidence": 0.75,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_component_composition",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.818,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.75",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.75,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 625,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 144,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 146,
+        "evidence": "src/views/MessageRow.ets -> src/views/QuotedMessagePreview.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 609,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 116,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 35,
+        "evidence": "src/services/ProductSearchService.ets -> src/entities/ProductRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 599,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 90,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 118,
+        "evidence": "src/pages/SnapshotAuditPage.ets -> src/services/SnapshotCoordinator.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 586,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 81,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 117,
+        "evidence": "src/pages/ProfilePage.ets -> src/services/ProfileService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 583,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 79,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 116,
+        "evidence": "src/pages/ProductSearchPage.ets -> src/services/ProductSearchService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 582,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 79,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 35,
+        "evidence": "src/pages/ProductSearchPage.ets -> src/entities/ProductRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 574,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 68,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 109,
+        "evidence": "src/pages/DownloadsPage.ets -> src/services/AttachmentService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 563,
+        "project_id": "6f0aac38b7ea4a44",
+        "source_type": "code_file",
+        "source_id": 57,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 107,
+        "evidence": "src/pages/AccountSettingsPage.ets -> src/services/AccountUpdateService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:45:31+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:45:31+00:00",
+        "created_at": "2026-11-19T03:45:31+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "src/io/assetarchiveinstaller.ets",
+      "arkts",
+      "arkts file with 11 non-empty lines; behavior: archiveioboundary, asyncboundary",
+      "src",
+      "io",
+      "assetarchiveinstaller",
+      "ets",
+      "file",
+      "with",
+      "11",
+      "non",
+      "empty"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。",
+      "log_keywords": [
+        "资源解压时复用了旧压缩包并残留数据",
+        "资源",
+        "源解",
+        "解压",
+        "压时",
+        "时复",
+        "复用",
+        "用了",
+        "了旧",
+        "旧压",
+        "压缩",
+        "缩包",
+        "包并",
+        "并残",
+        "残留",
+        "留数",
+        "数据",
+        "请只返回创建和写入临时归档的源码",
+        "请只",
+        "只返"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 39,
+          "record_type": "code_file",
+          "file_path": "src/io/AssetArchiveInstaller.ets",
+          "symbol": "",
+          "symbol_type": null,
+          "summary": "ArkTS file with 11 non-empty lines; behavior: archiveioboundary, asyncboundary",
+          "start_line": null,
+          "end_line": null,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": {
+          "file_path": "src/widgets/NotificationRow.ets",
+          "symbol": "build",
+          "owner_name": "NotificationRow",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 18.76,
+          "evidence_score": 18.76,
+          "reasons": [
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 13,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "saveProfileData",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.71,
+            "evidence_score": 17.71,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 11,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 10.76,
+            "evidence_score": 10.76,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 10,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "fewer_than_two_supported_callable_identities"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "candidate_count": 0,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 46,
+      "checked_file_count": 46,
+      "current_file_count": 46,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 1,
+        "code_log_matches": 0,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 46,
+          "checked_file_count": 46,
+          "current_file_count": 46,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 19,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 1,
+            "lane_counts": {
+              "broad_fts": 18,
+              "structural_fts": 1,
+              "file_identity_fts": 1,
+              "file_semantic_fts": 18,
+              "salient_file_fts": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 1,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 18,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 2,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 1,
+                  "file_semantic_fts": 18,
+                  "salient_file_fts": 0
+                },
+                "fused_candidate_count": 18
+              },
+              "candidate_fusion": {
+                "48": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03751576,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 1,
+                      "weight": 1.35,
+                      "score": 0.02213115
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "153": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01639344,
+                  "best_rank": 1,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    }
+                  ]
+                },
+                "147": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01612903,
+                  "best_rank": 2,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    }
+                  ]
+                },
+                "85": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01587302,
+                  "best_rank": 3,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                },
+                "86": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.015625,
+                  "best_rank": 4,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "103": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01515152,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "108": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01492537,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    }
+                  ]
+                },
+                "2": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01470588,
+                  "best_rank": 8,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 8,
+                      "weight": 1.0,
+                      "score": 0.01470588
+                    }
+                  ]
+                },
+                "116": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01449275,
+                  "best_rank": 9,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 9,
+                      "weight": 1.0,
+                      "score": 0.01449275
+                    }
+                  ]
+                },
+                "131": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01428571,
+                  "best_rank": 10,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 10,
+                      "weight": 1.0,
+                      "score": 0.01428571
+                    }
+                  ]
+                },
+                "123": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01408451,
+                  "best_rank": 11,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 11,
+                      "weight": 1.0,
+                      "score": 0.01408451
+                    }
+                  ]
+                },
+                "25": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01388889,
+                  "best_rank": 12,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 12,
+                      "weight": 1.0,
+                      "score": 0.01388889
+                    }
+                  ]
+                },
+                "68": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01369863,
+                  "best_rank": 13,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 13,
+                      "weight": 1.0,
+                      "score": 0.01369863
+                    }
+                  ]
+                },
+                "81": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01351351,
+                  "best_rank": 14,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 14,
+                      "weight": 1.0,
+                      "score": 0.01351351
+                    }
+                  ]
+                },
+                "125": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01333333,
+                  "best_rank": 15,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 15,
+                      "weight": 1.0,
+                      "score": 0.01333333
+                    }
+                  ]
+                },
+                "26": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01315789,
+                  "best_rank": 16,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 16,
+                      "weight": 1.0,
+                      "score": 0.01315789
+                    }
+                  ]
+                },
+                "42": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01298701,
+                  "best_rank": 17,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 17,
+                      "weight": 1.0,
+                      "score": 0.01298701
+                    }
+                  ]
+                },
+                "79": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01282051,
+                  "best_rank": 18,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 18,
+                      "weight": 1.0,
+                      "score": 0.01282051
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 48,
+                  "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 153,
+                  "file_path": "src/widgets/NotificationRow.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 147,
+                  "file_path": "src/views/SnapshotCommandRow.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 85,
+                  "file_path": "src/pages/RuleCreatorPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 86,
+                  "file_path": "src/pages/RuleEditorPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 103,
+                  "file_path": "src/runtime/LeaseController.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 108,
+                  "file_path": "src/services/AssetSource.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "file_path": "src/abilities/SessionAbility.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 116,
+                  "file_path": "src/services/ProductSearchService.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 131,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 123,
+                  "file_path": "src/stores/DeviceSyncStore.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 25,
+                  "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 68,
+                  "file_path": "src/pages/DownloadsPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 81,
+                  "file_path": "src/pages/ProfilePage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 125,
+                  "file_path": "src/stores/LightingStore.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 26,
+                  "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 42,
+                  "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 79,
+                  "file_path": "src/pages/ProductSearchPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 5,
+              "channel_counts": {
+                "broad_fts": 18,
+                "structural_fts": 1,
+                "file_identity_fts": 1,
+                "file_semantic_fts": 18,
+                "salient_file_fts": 0
+              },
+              "fused_candidate_count": 19
+            },
+            "candidate_refs": [
+              {
+                "id": 48,
+                "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 153,
+                "file_path": "src/widgets/NotificationRow.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 147,
+                "file_path": "src/views/SnapshotCommandRow.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 85,
+                "file_path": "src/pages/RuleCreatorPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 86,
+                "file_path": "src/pages/RuleEditorPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 103,
+                "file_path": "src/runtime/LeaseController.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 108,
+                "file_path": "src/services/AssetSource.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 116,
+                "file_path": "src/services/ProductSearchService.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 2,
+                "file_path": "src/abilities/SessionAbility.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 131,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 81,
+                "file_path": "src/pages/ProfilePage.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 25,
+                "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 123,
+                "file_path": "src/stores/DeviceSyncStore.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 68,
+                "file_path": "src/pages/DownloadsPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 26,
+                "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 125,
+                "file_path": "src/stores/LightingStore.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 42,
+                "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 79,
+                "file_path": "src/pages/ProductSearchPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 39,
+                "file_path": "src/io/AssetArchiveInstaller.ets",
+                "channels": [
+                  "structural_fts"
+                ]
+              }
+            ]
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 45,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 9,
+              "behavior_method_fts": 0,
+              "symbol_identity_fts": 32,
+              "symbol_semantic_fts": 9,
+              "string_key_fts": 3,
+              "semantic_mechanism_fts": 10,
+              "salient_string_fts": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 32,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 9,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 8,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 3,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 10,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 2,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 32,
+                  "symbol_semantic_fts": 9,
+                  "method_body_fts": 0,
+                  "string_key_fts": 3,
+                  "semantic_mechanism_fts": 10,
+                  "salient_string_fts": 0
+                },
+                "fused_candidate_count": 45
+              },
+              "candidate_fusion": {
+                "512": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04016393,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    }
+                  ]
+                },
+                "491": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03816739,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "362": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03809873,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 6,
+                      "weight": 1.45,
+                      "score": 0.0219697
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    }
+                  ]
+                },
+                "1": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03787985,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 9,
+                      "weight": 1.0,
+                      "score": 0.01449275
+                    }
+                  ]
+                },
+                "304": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03758162,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    }
+                  ]
+                },
+                "115": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03719655,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 8,
+                      "weight": 1.45,
+                      "score": 0.02132353
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                },
+                "310": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03701357,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 5,
+                      "weight": 1.45,
+                      "score": 0.02230769
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 8,
+                      "weight": 1.0,
+                      "score": 0.01470588
+                    }
+                  ]
+                },
+                "116": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03663949,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 9,
+                      "weight": 1.45,
+                      "score": 0.02101449
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "117": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0360989,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 10,
+                      "weight": 1.45,
+                      "score": 0.02071429
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "364": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02164179,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 7,
+                      "weight": 1.45,
+                      "score": 0.02164179
+                    }
+                  ]
+                },
+                "434": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0204918,
+                  "best_rank": 1,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 1,
+                      "weight": 1.25,
+                      "score": 0.0204918
+                    }
+                  ]
+                },
+                "406": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02042254,
+                  "best_rank": 11,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 11,
+                      "weight": 1.45,
+                      "score": 0.02042254
+                    }
+                  ]
+                },
+                "154": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02016129,
+                  "best_rank": 2,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 2,
+                      "weight": 1.25,
+                      "score": 0.02016129
+                    }
+                  ]
+                },
+                "405": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02013889,
+                  "best_rank": 12,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 12,
+                      "weight": 1.45,
+                      "score": 0.02013889
+                    }
+                  ]
+                },
+                "109": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01986301,
+                  "best_rank": 13,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 13,
+                      "weight": 1.45,
+                      "score": 0.01986301
+                    }
+                  ]
+                },
+                "477": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01984127,
+                  "best_rank": 3,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 3,
+                      "weight": 1.25,
+                      "score": 0.01984127
+                    }
+                  ]
+                },
+                "510": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01967213,
+                  "best_rank": 1,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 1,
+                      "weight": 1.2,
+                      "score": 0.01967213
+                    }
+                  ]
+                },
+                "114": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01959459,
+                  "best_rank": 14,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 14,
+                      "weight": 1.45,
+                      "score": 0.01959459
+                    }
+                  ]
+                },
+                "354": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01953125,
+                  "best_rank": 4,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 4,
+                      "weight": 1.25,
+                      "score": 0.01953125
+                    }
+                  ]
+                },
+                "506": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01935484,
+                  "best_rank": 2,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 2,
+                      "weight": 1.2,
+                      "score": 0.01935484
+                    }
+                  ]
+                },
+                "107": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01933333,
+                  "best_rank": 15,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 15,
+                      "weight": 1.45,
+                      "score": 0.01933333
+                    }
+                  ]
+                },
+                "431": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01923077,
+                  "best_rank": 5,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 5,
+                      "weight": 1.25,
+                      "score": 0.01923077
+                    }
+                  ]
+                },
+                "112": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01907895,
+                  "best_rank": 16,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 16,
+                      "weight": 1.45,
+                      "score": 0.01907895
+                    }
+                  ]
+                },
+                "504": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01904762,
+                  "best_rank": 3,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 3,
+                      "weight": 1.2,
+                      "score": 0.01904762
+                    }
+                  ]
+                },
+                "436": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01893939,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 6,
+                      "weight": 1.25,
+                      "score": 0.01893939
+                    }
+                  ]
+                },
+                "424": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01883117,
+                  "best_rank": 17,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 17,
+                      "weight": 1.45,
+                      "score": 0.01883117
+                    }
+                  ]
+                },
+                "27": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01865672,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 7,
+                      "weight": 1.25,
+                      "score": 0.01865672
+                    }
+                  ]
+                },
+                "182": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01858974,
+                  "best_rank": 18,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 18,
+                      "weight": 1.45,
+                      "score": 0.01858974
+                    }
+                  ]
+                },
+                "131": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01838235,
+                  "best_rank": 8,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 8,
+                      "weight": 1.25,
+                      "score": 0.01838235
+                    }
+                  ]
+                },
+                "423": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01835443,
+                  "best_rank": 19,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 19,
+                      "weight": 1.45,
+                      "score": 0.01835443
+                    }
+                  ]
+                },
+                "425": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.018125,
+                  "best_rank": 20,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 20,
+                      "weight": 1.45,
+                      "score": 0.018125
+                    }
+                  ]
+                },
+                "399": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01811594,
+                  "best_rank": 9,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 9,
+                      "weight": 1.25,
+                      "score": 0.01811594
+                    }
+                  ]
+                },
+                "80": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01790123,
+                  "best_rank": 21,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 21,
+                      "weight": 1.45,
+                      "score": 0.01790123
+                    }
+                  ]
+                },
+                "70": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01785714,
+                  "best_rank": 10,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 10,
+                      "weight": 1.25,
+                      "score": 0.01785714
+                    }
+                  ]
+                },
+                "90": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01768293,
+                  "best_rank": 22,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 22,
+                      "weight": 1.45,
+                      "score": 0.01768293
+                    }
+                  ]
+                },
+                "60": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01746988,
+                  "best_rank": 23,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 23,
+                      "weight": 1.45,
+                      "score": 0.01746988
+                    }
+                  ]
+                },
+                "127": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0172619,
+                  "best_rank": 24,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 24,
+                      "weight": 1.45,
+                      "score": 0.0172619
+                    }
+                  ]
+                },
+                "374": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01705882,
+                  "best_rank": 25,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 25,
+                      "weight": 1.45,
+                      "score": 0.01705882
+                    }
+                  ]
+                },
+                "379": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01686047,
+                  "best_rank": 26,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 26,
+                      "weight": 1.45,
+                      "score": 0.01686047
+                    }
+                  ]
+                },
+                "427": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01666667,
+                  "best_rank": 27,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 27,
+                      "weight": 1.45,
+                      "score": 0.01666667
+                    }
+                  ]
+                },
+                "9": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01647727,
+                  "best_rank": 28,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 28,
+                      "weight": 1.45,
+                      "score": 0.01647727
+                    }
+                  ]
+                },
+                "100": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01629213,
+                  "best_rank": 29,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 29,
+                      "weight": 1.45,
+                      "score": 0.01629213
+                    }
+                  ]
+                },
+                "395": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01611111,
+                  "best_rank": 30,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 30,
+                      "weight": 1.45,
+                      "score": 0.01611111
+                    }
+                  ]
+                },
+                "29": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01593407,
+                  "best_rank": 31,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 31,
+                      "weight": 1.45,
+                      "score": 0.01593407
+                    }
+                  ]
+                },
+                "388": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01576087,
+                  "best_rank": 32,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 32,
+                      "weight": 1.45,
+                      "score": 0.01576087
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 512,
+                  "file_path": "src/widgets/NotificationRow.ets",
+                  "symbol": "app.media.chevron",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 491,
+                  "file_path": "src/views/SnapshotCommandRow.ets",
+                  "symbol": "sys.symbol.archivebox",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 362,
+                  "file_path": "src/runtime/LeaseController.ets",
+                  "symbol": "MediaCleanupLease",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+                  "symbol": "saveProfileData",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 304,
+                  "file_path": "src/pages/RuleCreatorPage.ets",
+                  "symbol": "sys.symbol.chevron_down",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 115,
+                  "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                  "symbol": "VoiceCaptureCoordinator",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 310,
+                  "file_path": "src/pages/RuleEditorPage.ets",
+                  "symbol": "sys.symbol.chevron_down",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 116,
+                  "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                  "symbol": "startCapture",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 117,
+                  "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                  "symbol": "stopCapture",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 364,
+                  "file_path": "src/runtime/LeaseController.ets",
+                  "symbol": "attach",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 434,
+                  "file_path": "src/validation/OrderValidator.ets",
+                  "symbol": "validate",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 406,
+                  "file_path": "src/storage/DraftPreferences.ets",
+                  "symbol": "load",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 154,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "symbol": "updateFolder",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 405,
+                  "file_path": "src/storage/DraftPreferences.ets",
+                  "symbol": "save",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 109,
+                  "file_path": "src/logging/DomainLogger.ets",
+                  "symbol": "report",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 477,
+                  "file_path": "src/views/MessageRow.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 510,
+                  "file_path": "src/widgets/NotificationRow.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 114,
+                  "file_path": "src/logging/LogSink.ets",
+                  "symbol": "emit",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 354,
+                  "file_path": "src/pools/ThumbnailPool.ets",
+                  "symbol": "storeThumbnail",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 506,
+                  "file_path": "src/web/SecureDocumentBrowser.ets",
+                  "symbol": "onLoadIntercept",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 107,
+                  "file_path": "src/logging/ConsoleFailureReporter.ets",
+                  "symbol": "report",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 431,
+                  "file_path": "src/theme/SystemBarColorAdapter.ets",
+                  "symbol": "parseNativeColor",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 112,
+                  "file_path": "src/logging/FileFailureReporter.ets",
+                  "symbol": "report",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 504,
+                  "file_path": "src/web/SecureDocumentBrowser.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 436,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "symbol": "loadFolder",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 424,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "symbol": "measureContent",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 27,
+                  "file_path": "src/cache/BoundedResultCache.ets",
+                  "symbol": "put",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 182,
+                  "file_path": "src/pages/JobDispatchPage.ets",
+                  "symbol": "showBanner",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 131,
+                  "file_path": "src/pages/AccountSettingsPage.ets",
+                  "symbol": "saveAccount",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 423,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "symbol": "normalizeContent",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 425,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "symbol": "shouldCheckpoint",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 399,
+                  "file_path": "src/services/SnapshotCoordinator.ets",
+                  "symbol": "restoreSnapshot",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 80,
+                  "file_path": "src/crypto/SessionCodeGenerator.ets",
+                  "symbol": "generateSessionCode",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 70,
+                  "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+                  "symbol": "commitOrder",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 90,
+                  "file_path": "src/gateways/JobTransport.ets",
+                  "symbol": "submit",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 60,
+                  "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                  "symbol": "updateLabel",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 127,
+                  "file_path": "src/models/WorkspaceSchema.ets",
+                  "symbol": "describePreviousItem",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 374,
+                  "file_path": "src/services/AccountUpdateService.ets",
+                  "symbol": "dispatchUpdate",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 379,
+                  "file_path": "src/services/AttachmentService.ets",
+                  "symbol": "writeCache",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 427,
+                  "file_path": "src/streaming/ConversationDraftStore.ets",
+                  "symbol": "describePendingWrite",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 9,
+                  "file_path": "src/abilities/SnapshotTransferAbility.ets",
+                  "symbol": "persistTransferState",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 100,
+                  "file_path": "src/io/ProcessOutputReader.ets",
+                  "symbol": "readOutput",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 395,
+                  "file_path": "src/services/ProductSearchService.ets",
+                  "symbol": "queryProducts",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 29,
+                  "file_path": "src/components/KeyboardFocusHint.ets",
+                  "symbol": "updateFocusMessage",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 388,
+                  "file_path": "src/services/DocumentLoader.ets",
+                  "symbol": "loadEntry",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 7,
+              "channel_counts": {
+                "broad_fts": 9,
+                "behavior_method_fts": 0,
+                "symbol_identity_fts": 32,
+                "symbol_semantic_fts": 9,
+                "string_key_fts": 3,
+                "semantic_mechanism_fts": 10,
+                "salient_string_fts": 0
+              },
+              "fused_candidate_count": 45
+            },
+            "candidate_refs": [
+              {
+                "id": 512,
+                "file_path": "src/widgets/NotificationRow.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "app.media.chevron"
+              },
+              {
+                "id": 362,
+                "file_path": "src/runtime/LeaseController.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "MediaCleanupLease"
+              },
+              {
+                "id": 491,
+                "file_path": "src/views/SnapshotCommandRow.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "sys.symbol.archivebox"
+              },
+              {
+                "id": 304,
+                "file_path": "src/pages/RuleCreatorPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "sys.symbol.chevron_down"
+              },
+              {
+                "id": 310,
+                "file_path": "src/pages/RuleEditorPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "sys.symbol.chevron_down"
+              },
+              {
+                "id": 1,
+                "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "saveProfileData"
+              },
+              {
+                "id": 115,
+                "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "VoiceCaptureCoordinator"
+              },
+              {
+                "id": 116,
+                "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "startCapture"
+              },
+              {
+                "id": 117,
+                "file_path": "src/media/VoiceCaptureCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "stopCapture"
+              },
+              {
+                "id": 364,
+                "file_path": "src/runtime/LeaseController.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "attach"
+              },
+              {
+                "id": 434,
+                "file_path": "src/validation/OrderValidator.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "validate"
+              },
+              {
+                "id": 406,
+                "file_path": "src/storage/DraftPreferences.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "load"
+              },
+              {
+                "id": 154,
+                "file_path": "src/pages/CollectionPage.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "updateFolder"
+              },
+              {
+                "id": 405,
+                "file_path": "src/storage/DraftPreferences.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "save"
+              },
+              {
+                "id": 109,
+                "file_path": "src/logging/DomainLogger.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "report"
+              },
+              {
+                "id": 477,
+                "file_path": "src/views/MessageRow.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 510,
+                "file_path": "src/widgets/NotificationRow.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 114,
+                "file_path": "src/logging/LogSink.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "emit"
+              },
+              {
+                "id": 354,
+                "file_path": "src/pools/ThumbnailPool.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "storeThumbnail"
+              },
+              {
+                "id": 506,
+                "file_path": "src/web/SecureDocumentBrowser.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "onLoadIntercept"
+              },
+              {
+                "id": 107,
+                "file_path": "src/logging/ConsoleFailureReporter.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "report"
+              },
+              {
+                "id": 431,
+                "file_path": "src/theme/SystemBarColorAdapter.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "parseNativeColor"
+              },
+              {
+                "id": 112,
+                "file_path": "src/logging/FileFailureReporter.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "report"
+              },
+              {
+                "id": 504,
+                "file_path": "src/web/SecureDocumentBrowser.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 436,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "loadFolder"
+              },
+              {
+                "id": 424,
+                "file_path": "src/streaming/ConversationDraftStore.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "measureContent"
+              },
+              {
+                "id": 27,
+                "file_path": "src/cache/BoundedResultCache.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "put"
+              },
+              {
+                "id": 182,
+                "file_path": "src/pages/JobDispatchPage.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "showBanner"
+              },
+              {
+                "id": 131,
+                "file_path": "src/pages/AccountSettingsPage.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "saveAccount"
+              },
+              {
+                "id": 423,
+                "file_path": "src/streaming/ConversationDraftStore.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "normalizeContent"
+              },
+              {
+                "id": 425,
+                "file_path": "src/streaming/ConversationDraftStore.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "shouldCheckpoint"
+              },
+              {
+                "id": 399,
+                "file_path": "src/services/SnapshotCoordinator.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "restoreSnapshot"
+              },
+              {
+                "id": 80,
+                "file_path": "src/crypto/SessionCodeGenerator.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "generateSessionCode"
+              },
+              {
+                "id": 70,
+                "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "commitOrder"
+              },
+              {
+                "id": 90,
+                "file_path": "src/gateways/JobTransport.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "submit"
+              },
+              {
+                "id": 60,
+                "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "updateLabel"
+              },
+              {
+                "id": 127,
+                "file_path": "src/models/WorkspaceSchema.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "describePreviousItem"
+              },
+              {
+                "id": 374,
+                "file_path": "src/services/AccountUpdateService.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "dispatchUpdate"
+              },
+              {
+                "id": 379,
+                "file_path": "src/services/AttachmentService.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "writeCache"
+              },
+              {
+                "id": 427,
+                "file_path": "src/streaming/ConversationDraftStore.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "describePendingWrite"
+              },
+              {
+                "id": 9,
+                "file_path": "src/abilities/SnapshotTransferAbility.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "persistTransferState"
+              },
+              {
+                "id": 100,
+                "file_path": "src/io/ProcessOutputReader.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "readOutput"
+              },
+              {
+                "id": 395,
+                "file_path": "src/services/ProductSearchService.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "queryProducts"
+              },
+              {
+                "id": 29,
+                "file_path": "src/components/KeyboardFocusHint.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "updateFocusMessage"
+              },
+              {
+                "id": 388,
+                "file_path": "src/services/DocumentLoader.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "loadEntry"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 43,
+          "code_log_matches": 0,
+          "edge_matches": 40,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 43,
+          "code_log_matches": 0,
+          "edge_matches": 40,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 1,
+          "code_log_matches": 0,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 39,
+            "score": 4.0,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "structural_behavior"
+            ],
+            "recall_lanes": [
+              "structural_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.0204918,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "structural_fts",
+                  "rank": 1,
+                  "weight": 1.25,
+                  "score": 0.0204918
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 4.0,
+              "rerank_score": null,
+              "match_reasons": [
+                "structural_behavior"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 876,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.853,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.85,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 625,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.853,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.85,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 609,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.853,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.85,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 8,
+          "file_callable_pool": 13,
+          "graph_seed_count": 6,
+          "graph_owner_pool": 0,
+          "selected_callables": 12,
+          "selected_ranges": 8
+        },
+        "file_candidates": [
+          {
+            "file_path": "src/widgets/NotificationRow.ets",
+            "score": 17.75,
+            "first_rank": 1,
+            "record_ids": [
+              512,
+              153,
+              510
+            ],
+            "direct_symbol_ids": [
+              512,
+              510
+            ],
+            "match_reasons": [
+              "expanded_query:symbol",
+              "expanded_query:symbol_type",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "expanded_query:file_summary",
+              "expanded_query:string_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_semantic_fts",
+              "string_key_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/runtime/LeaseController.ets",
+            "score": 9.75,
+            "first_rank": 3,
+            "record_ids": [
+              362,
+              103
+            ],
+            "direct_symbol_ids": [
+              362
+            ],
+            "match_reasons": [
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable",
+              "expanded_query:file_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "score": 9.5,
+            "first_rank": 4,
+            "record_ids": [
+              1
+            ],
+            "direct_symbol_ids": [
+              1
+            ],
+            "match_reasons": [
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/views/SnapshotCommandRow.ets",
+            "score": 8.4,
+            "first_rank": 5,
+            "record_ids": [
+              147,
+              491
+            ],
+            "direct_symbol_ids": [
+              491
+            ],
+            "match_reasons": [
+              "expanded_query:file_summary",
+              "expanded_query:search_terms",
+              "expanded_query:symbol_type",
+              "expanded_query:symbol_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "file_semantic_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "score": 7.0,
+            "first_rank": 6,
+            "record_ids": [
+              431
+            ],
+            "direct_symbol_ids": [
+              431
+            ],
+            "match_reasons": [
+              "expanded_query:mechanism_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "semantic_mechanism_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/media/VoiceCaptureCoordinator.ets",
+            "score": 6.5,
+            "first_rank": 8,
+            "record_ids": [
+              115,
+              116,
+              117,
+              48
+            ],
+            "direct_symbol_ids": [
+              115,
+              116,
+              117
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable",
+              "expanded_query:file_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/cache/BoundedResultCache.ets",
+            "score": 4.5,
+            "first_rank": 12,
+            "record_ids": [
+              27
+            ],
+            "direct_symbol_ids": [
+              27
+            ],
+            "match_reasons": [
+              "expanded_query:mechanism_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "semantic_mechanism_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/io/AssetArchiveInstaller.ets",
+            "score": 4.0,
+            "first_rank": 21,
+            "record_ids": [
+              39
+            ],
+            "direct_symbol_ids": [],
+            "match_reasons": [
+              "structural_behavior"
+            ],
+            "recall_lanes": [
+              "structural_fts"
+            ],
+            "structural_coverage": 1,
+            "definition_identity": false
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 1,
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "saveProfileData",
+            "qualified_name": "saveProfileData",
+            "start_line": 6,
+            "end_line": 11,
+            "score": 17.71,
+            "evidence_score": 17.71,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 431,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "qualified_name": "SystemBarColorAdapter.parseNativeColor",
+            "start_line": 2,
+            "end_line": 12,
+            "score": 10.76,
+            "evidence_score": 10.76,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable",
+              "expanded_query:mechanism_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "semantic_mechanism_fts"
+            ],
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 510,
+            "file_path": "src/widgets/NotificationRow.ets",
+            "symbol": "build",
+            "qualified_name": "NotificationRow.build",
+            "start_line": 5,
+            "end_line": 13,
+            "score": 18.76,
+            "evidence_score": 18.76,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "string_key_fts"
+            ],
+            "owner_name": "NotificationRow",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 116,
+            "file_path": "src/media/VoiceCaptureCoordinator.ets",
+            "symbol": "startCapture",
+            "qualified_name": "VoiceCaptureCoordinator.startCapture",
+            "start_line": 4,
+            "end_line": 6,
+            "score": 6.17,
+            "evidence_score": 6.17,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "VoiceCaptureCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 117,
+            "file_path": "src/media/VoiceCaptureCoordinator.ets",
+            "symbol": "stopCapture",
+            "qualified_name": "VoiceCaptureCoordinator.stopCapture",
+            "start_line": 8,
+            "end_line": 11,
+            "score": 6.17,
+            "evidence_score": 6.17,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "VoiceCaptureCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 27,
+            "file_path": "src/cache/BoundedResultCache.ets",
+            "symbol": "put",
+            "qualified_name": "BoundedResultCache.put",
+            "start_line": 11,
+            "end_line": 27,
+            "score": 6.31,
+            "evidence_score": 6.31,
+            "reasons": [
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable",
+              "expanded_query:mechanism_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "semantic_mechanism_fts"
+            ],
+            "owner_name": "BoundedResultCache",
+            "owner_kind": "class",
+            "callable_roles": [
+              "guard",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 510,
+            "file_path": "src/widgets/NotificationRow.ets",
+            "symbol": "build",
+            "qualified_name": "NotificationRow.build",
+            "start_line": 5,
+            "end_line": 13,
+            "score": 18.76,
+            "evidence_score": 18.76,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "string_key_fts"
+            ],
+            "owner_name": "NotificationRow",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 1,
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "saveProfileData",
+            "qualified_name": "saveProfileData",
+            "start_line": 6,
+            "end_line": 11,
+            "score": 17.71,
+            "evidence_score": 17.71,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 431,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "qualified_name": "SystemBarColorAdapter.parseNativeColor",
+            "start_line": 2,
+            "end_line": 12,
+            "score": 10.76,
+            "evidence_score": 10.76,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable",
+              "expanded_query:mechanism_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "semantic_mechanism_fts"
+            ],
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 3,
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "onBackground",
+            "qualified_name": "ProfileBootstrapAbility.onBackground",
+            "start_line": 22,
+            "end_line": 24,
+            "score": 8.5,
+            "evidence_score": 8.5,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "ProfileBootstrapAbility",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 364,
+            "file_path": "src/runtime/LeaseController.ets",
+            "symbol": "attach",
+            "qualified_name": "LeaseController.attach",
+            "start_line": 8,
+            "end_line": 10,
+            "score": 7.5,
+            "evidence_score": 7.5,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "LeaseController",
+            "owner_kind": "controller",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 365,
+            "file_path": "src/runtime/LeaseController.ets",
+            "symbol": "releaseLease",
+            "qualified_name": "LeaseController.releaseLease",
+            "start_line": 12,
+            "end_line": 18,
+            "score": 7.5,
+            "evidence_score": 7.5,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "LeaseController",
+            "owner_kind": "controller",
+            "callable_roles": [
+              "guard",
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 27,
+            "file_path": "src/cache/BoundedResultCache.ets",
+            "symbol": "put",
+            "qualified_name": "BoundedResultCache.put",
+            "start_line": 11,
+            "end_line": 27,
+            "score": 6.31,
+            "evidence_score": 6.31,
+            "reasons": [
+              "first_stage_rank_prior",
+              "semantic_mechanism",
+              "source_locatable",
+              "expanded_query:mechanism_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "semantic_mechanism_fts"
+            ],
+            "owner_name": "BoundedResultCache",
+            "owner_kind": "class",
+            "callable_roles": [
+              "guard",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 116,
+            "file_path": "src/media/VoiceCaptureCoordinator.ets",
+            "symbol": "startCapture",
+            "qualified_name": "VoiceCaptureCoordinator.startCapture",
+            "start_line": 4,
+            "end_line": 6,
+            "score": 6.17,
+            "evidence_score": 6.17,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "VoiceCaptureCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 117,
+            "file_path": "src/media/VoiceCaptureCoordinator.ets",
+            "symbol": "stopCapture",
+            "qualified_name": "VoiceCaptureCoordinator.stopCapture",
+            "start_line": 8,
+            "end_line": 11,
+            "score": 6.17,
+            "evidence_score": 6.17,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "VoiceCaptureCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 96,
+            "file_path": "src/io/AssetArchiveInstaller.ets",
+            "symbol": "installBundle",
+            "qualified_name": "AssetArchiveInstaller.installBundle",
+            "start_line": 4,
+            "end_line": 11,
+            "score": 5.5,
+            "evidence_score": 5.5,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "AssetArchiveInstaller",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "persistence_write",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 488,
+            "file_path": "src/views/SnapshotCommandRow.ets",
+            "symbol": "build",
+            "qualified_name": "SnapshotCommandRow.build",
+            "start_line": 6,
+            "end_line": 11,
+            "score": 5.5,
+            "evidence_score": 5.5,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "SnapshotCommandRow",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 26,
+            "file_path": "src/cache/BoundedResultCache.ets",
+            "symbol": "constructor",
+            "qualified_name": "BoundedResultCache.constructor",
+            "start_line": 9,
+            "end_line": 9,
+            "score": 2.5,
+            "evidence_score": 2.5,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "BoundedResultCache",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 510,
+            "file_path": "src/widgets/NotificationRow.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 13,
+            "start_line": 5,
+            "end_line": 13,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 1,
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "saveProfileData",
+            "callable_start_line": 6,
+            "callable_end_line": 11,
+            "start_line": 6,
+            "end_line": 11,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 431,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "callable_start_line": 2,
+            "callable_end_line": 12,
+            "start_line": 6,
+            "end_line": 10,
+            "selection_reason": "semantic_mechanism_window",
+            "mechanism_kind": "resource_bound",
+            "mechanism_terms": [
+              "resource"
+            ]
+          },
+          {
+            "symbol_id": 3,
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "onBackground",
+            "callable_start_line": 22,
+            "callable_end_line": 24,
+            "start_line": 22,
+            "end_line": 24,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 364,
+            "file_path": "src/runtime/LeaseController.ets",
+            "symbol": "attach",
+            "callable_start_line": 8,
+            "callable_end_line": 10,
+            "start_line": 8,
+            "end_line": 10,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 365,
+            "file_path": "src/runtime/LeaseController.ets",
+            "symbol": "releaseLease",
+            "callable_start_line": 12,
+            "callable_end_line": 18,
+            "start_line": 12,
+            "end_line": 18,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 27,
+            "file_path": "src/cache/BoundedResultCache.ets",
+            "symbol": "put",
+            "callable_start_line": 11,
+            "callable_end_line": 27,
+            "start_line": 11,
+            "end_line": 15,
+            "selection_reason": "semantic_mechanism_window",
+            "mechanism_kind": "resource_bound",
+            "mechanism_terms": [
+              "resource"
+            ]
+          },
+          {
+            "symbol_id": 116,
+            "file_path": "src/media/VoiceCaptureCoordinator.ets",
+            "symbol": "startCapture",
+            "callable_start_line": 4,
+            "callable_end_line": 6,
+            "start_line": 4,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "multiple",
+          "basis": [
+            "conjoined_evidence_cue"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "src/widgets/NotificationRow.ets",
+            "symbol": "build",
+            "owner_name": "NotificationRow",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+            "symbol": "saveProfileData",
+            "owner_kind": "module",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 3,
+            "file_path": "src/theme/SystemBarColorAdapter.ets",
+            "symbol": "parseNativeColor",
+            "owner_name": "SystemBarColorAdapter",
+            "owner_kind": "adapter",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "semantic_mechanism",
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 3,
+          "distinct_file_count": 3,
+          "same_owner_kind_alternative": false,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "portfolio_required",
+          "basis": [
+            "explicit_multi_target"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "fewer_than_two_supported_callable_identities"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  }
+}

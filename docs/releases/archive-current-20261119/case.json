@@ -1,0 +1,52 @@
+{
+  "id": "context-archive-io-owner",
+  "task_type": "diagnosis",
+  "review_status": "validated",
+  "task": {
+    "description": "An existing temporary archive is reused during asset extraction. Locate archive creation and write ownership."
+  },
+  "query_variants": [
+    {
+      "id": "original",
+      "description": "An existing temporary archive is reused during asset extraction. Locate archive creation and write ownership."
+    },
+    {
+      "id": "en-paraphrase",
+      "description": "Bundle extraction can retain stale bytes from a temporary archive; return the source that opens, writes, and extracts it rather than package metadata."
+    },
+    {
+      "id": "zh-noise",
+      "description": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。"
+    }
+  ],
+  "source": {
+    "before_revision": "working-tree"
+  },
+  "provenance": {
+    "kind": "reviewed_synthetic_context_fixture"
+  },
+  "oracle": {
+    "expected_files": [
+      "src/io/AssetArchiveInstaller.ets"
+    ],
+    "forbidden_files": [
+      "src/config/ArchivePackageProfile.ets",
+      "src/pages/UpgradeStatusPage.ets"
+    ],
+    "root_cause_category": "io",
+    "expected_causal_level": "association",
+    "context_requirements": {
+      "required_top_k": 2,
+      "min_anchor_precision": 1.0,
+      "require_source_excerpt": true,
+      "required_source_spans": [
+        {
+          "file_path": "src/io/AssetArchiveInstaller.ets",
+          "start_line": 4,
+          "end_line": 11
+        }
+      ],
+      "min_source_span_recall": 1.0
+    }
+  }
+}
