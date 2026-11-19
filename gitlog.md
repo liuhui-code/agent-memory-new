@@ -13348,3 +13348,12 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
   localization identical; no rollback to false certainty.8 ambiguity tests pass.
 - Evidence only, no production/oracle/budget changes or full suite. See
   docs/releases/keyboard-current-transition-20261119/ and current-evidence-map-20261119/.
+
+## 2026-11-19 - Verify restore43 actual default and explicit source boundaries
+
+- Original43 standard remains2/3; scored Chinese pass actually returns14–16 and
+  omits getSync key17. English paraphrase14–18 is partial; original both methods full.
+- Existing explicit2000 preserve mode returns full read14–20/write6–11 at1940/1981
+  with all3 logs, but some other anchors have no bodies. Not lossless-old-body or
+  default completion.6 policy controls pass; no production/oracle/default changes.
+- Evidence: docs/releases/restore43-current-20261119/README.md.
