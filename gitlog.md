@@ -288,6 +288,18 @@
 
 # Local Development Log
 
+## 2026-11-19 — Restore an already-selected method signature without replacing evidence
+
+- Freeze two public Development persistence requests and four controls. Semantic
+  windows omitted the method declaration despite spare budget. Reuse current-source
+  callable envelopes with unique method/owner/file/digest/generation authentication.
+- Preserve all prior excerpt bytes/metadata and all other evidence; ambiguity and
+  insufficient budget return the unchanged payload. Two positives now show full9–13;
+  four controls unchanged. Targeted/performance67 tests and line limits pass.
+- Original14 remains3/3 on standard157 sources, while English paraphrase gains its
+  missing declaration (1187→1256). Do not count span hits as prior full text or claim
+  a newly closed group. Evidence: docs/releases/semantic-method-envelope-20261119/.
+
 ## 2026-11-19 — Append certified static rendering passages without narrowing old evidence
 
 - Reuse finite render syntax receipts to append missing build/helper passages in nonempty compact output, preserving all old anchors, primary, logs and graph evidence. Reuse command-local once accounting; raw/direct and private RenderContext routes unchanged.

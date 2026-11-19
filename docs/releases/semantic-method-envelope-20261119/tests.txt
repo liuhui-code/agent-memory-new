@@ -1,0 +1,66 @@
+======================================================================
+ERROR: test_atomic_budget_and_extra_line_separator (tests.test_selected_mechanism_envelope.SelectedMechanismEnvelopeTests.test_atomic_budget_and_extra_line_separator)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_selected_mechanism_envelope.py", line 28, in setUp
+    a=self.payload['query_handoff']['code_anchors'][0];e=a['source_excerpts'][0]
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'CompletedProcess' object is not subscriptable
+
+======================================================================
+ERROR: test_full_source_reversible_without_touching_evidence (tests.test_selected_mechanism_envelope.SelectedMechanismEnvelopeTests.test_full_source_reversible_without_touching_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_selected_mechanism_envelope.py", line 28, in setUp
+    a=self.payload['query_handoff']['code_anchors'][0];e=a['source_excerpts'][0]
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'CompletedProcess' object is not subscriptable
+
+======================================================================
+ERROR: test_missing_owner_name_requires_exact_unique_index_identity (tests.test_selected_mechanism_envelope.SelectedMechanismEnvelopeTests.test_missing_owner_name_requires_exact_unique_index_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_selected_mechanism_envelope.py", line 28, in setUp
+    a=self.payload['query_handoff']['code_anchors'][0];e=a['source_excerpts'][0]
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'CompletedProcess' object is not subscriptable
+
+======================================================================
+ERROR: test_same_name_other_owner_is_ambiguous (tests.test_selected_mechanism_envelope.SelectedMechanismEnvelopeTests.test_same_name_other_owner_is_ambiguous)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_selected_mechanism_envelope.py", line 28, in setUp
+    a=self.payload['query_handoff']['code_anchors'][0];e=a['source_excerpts'][0]
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'CompletedProcess' object is not subscriptable
+
+======================================================================
+ERROR: test_stale_source_and_generation (tests.test_selected_mechanism_envelope.SelectedMechanismEnvelopeTests.test_stale_source_and_generation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_selected_mechanism_envelope.py", line 28, in setUp
+    a=self.payload['query_handoff']['code_anchors'][0];e=a['source_excerpts'][0]
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'CompletedProcess' object is not subscriptable
+
+======================================================================
+ERROR: test_wrong_file_identity_and_unknown_metadata (tests.test_selected_mechanism_envelope.SelectedMechanismEnvelopeTests.test_wrong_file_identity_and_unknown_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_selected_mechanism_envelope.py", line 28, in setUp
+    a=self.payload['query_handoff']['code_anchors'][0];e=a['source_excerpts'][0]
+      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'CompletedProcess' object is not subscriptable
+
+======================================================================
+FAIL: test_hook_after_reading_and_no_reentry (tests.test_callable_envelope.CallableEnvelopeTests.test_hook_after_reading_and_no_reentry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_callable_envelope.py", line 94, in test_hook_after_reading_and_no_reentry
+    self.assertIn('if args.compact:\n        from .context_callable_envelope',source)
+AssertionError: 'if args.compact:\n        from .context_callable_envelope' not found in 'def context(args: argparse.Namespace) -> None:\n    from .context_request_policy import validate, CompactRequestIncomplete\n    budget = getattr(args, \'compact_token_budget\', None)\n    preserve = getattr(args, \'preserve_selected_source_anchors\', False)\n    if not args.compact and (budget is not None or preserve):\n        raise ValueError(\'compact presentation options require --compact\')\n    validate(1500 if budget is None else budget, preserve)\n    started_ms = monotonic_ms()\n    project = resolve_project(args.project, args.memory_home)\n    ensure_initialized(project)\n    from .receiver_empty_transaction import EmptyReceiverSession\n    with EmptyReceiverSession(project, args.query, allow_render=args.compact) as receiver_session:\n        data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))\n        if args.compact:\n            from copy import deepcopy\n            from .context_field_alternative import field_read_request\n            from .context_web_policy_reading import web_reading_request\n            from .query_sql_reading_request import sql_reading_request\n            original_context = deepcopy(data) if field_read_request(args.query) or web_reading_request(args.query) or sql_reading_request(args.query) else None\n            try:\n                data = (compact_context(data) if budget is None and not preserve else\n                        compact_context(data, token_budget=1500 if budget is None else budget,\n                                        preserve_selected_source_anchors=preserve))\n            except CompactRequestIncomplete as exc:\n                print(json.dumps(exc.payload, ensure_ascii=False))\n                raise SystemExit(2) from exc\n        if args.compact:\n            from .context_static_reading import static_reading_order\n            data = static_reading_order(project, data)\n        if args.compact:\n            from .context_callable_envelope import expand_callable_envelopes\n            data = expand_callable_envelopes(project, data, enabled=True)\n            from .context_field_alternative import append_field_alternatives\n            if original_context is not None:\n                data = append_field_alternatives(project, original_context, data)\n                from .context_web_policy_reading import web_reading_order\n                data = web_reading_order(project, original_context, data)\n                from .context_graph_field_navigation import append_graph_field_navigation\n                data = append_graph_field_navigation(project, original_context, data, enabled=(budget == 2000 and preserve))\n                from .context_graph_field_followup import append_graph_field_followup\n                from .context_sql_reading import append_sql_reading\n                if budget in (None, 1500) and not preserve:\n                    data = append_sql_reading(project, original_context, data)\n                    from .context_graph_field_body import append_graph_field_display\n                    data = append_graph_field_display(project, original_context, data, enabled=True)\n                else:\n                    data = append_graph_field_followup(project, original_context, data)\n                    data = append_sql_reading(project, original_context, data)\n        data = receiver_session.finalize(data)\n        record_query_usage(project, "context", args.query, data)\n        project.runtime_dir.mkdir(parents=True, exist_ok=True)\n        (project.runtime_dir / "last_context.json").write_text(\n            json.dumps(redact_source_excerpt_bodies(data), ensure_ascii=False, indent=2) + "\\n",\n            encoding="utf-8",\n        )\n        append_query_performance_sample(project, "context", started_ms, data)\n        output(data, args.json)\n'
+
+----------------------------------------------------------------------
+Ran 18 tests in 7.897s
+
+FAILED (failures=1, errors=6)

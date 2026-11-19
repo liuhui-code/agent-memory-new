@@ -1,0 +1,270 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-jy1br_6y/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-jy1br_6y/agent-memory-case-13x4yub8/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "The usage counter and last-used time are not persisted after restart. Locate successful-use state and storage ownership.",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "c830e4e8f71cc197",
+    "query": "The usage counter and last-used time are not persisted after restart. Locate successful-use state and storage ownership.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "usage",
+        "counter",
+        "last",
+        "used",
+        "time",
+        "persisted",
+        "after",
+        "restart",
+        "locate",
+        "successful",
+        "use",
+        "state"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 9,
+          "message_template": "attachment download failed after cache write",
+          "logger": "hilog",
+          "file_path": "src/pages/DownloadsPage.ets",
+          "function": "retryDownload",
+          "line": 8,
+          "effect_id": 7,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "loadAttachment",
+          "wrapper_depth": 1,
+          "call_path": [
+            "retryDownload",
+            "loadAttachment",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/pages/DownloadsPage.ets#retryDownload",
+            "src/services/AttachmentService.ets#loadAttachment",
+            "src/services/AttachmentService.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 5,
+          "message_template": "generic network timeout",
+          "logger": "hilog",
+          "file_path": "src/network/NetworkClient.ets",
+          "function": "request",
+          "line": 5,
+          "evidence_class": "direct",
+          "truncated": false
+        },
+        {
+          "log_id": 9,
+          "message_template": "attachment download failed after cache write",
+          "logger": "hilog",
+          "file_path": "src/services/AttachmentService.ets",
+          "function": "loadAttachment",
+          "line": 11,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+          "symbol": "recordSuccessfulUse",
+          "symbol_type": "function",
+          "record_ids": [
+            74
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "recordSuccessfulUse",
+              "start_line": 9,
+              "end_line": 13
+            }
+          ],
+          "read_window": {
+            "start_line": 9,
+            "end_line": 13
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "recordSuccessfulUse",
+              "start_line": 9,
+              "end_line": 13,
+              "content": "  async recordSuccessfulUse(session: SessionRecord): Promise<void> {\n    session.usageCount += 1\n    session.lastUsedAt = Date.now()\n    await this.sessionStore.save(session)\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+          "symbol": "recordSuccessfulUse",
+          "owner_name": "SessionUsageCoordinator",
+          "owner_kind": "coordinator",
+          "file_structural_coverage": 2,
+          "callable_roles": [
+            "async",
+            "persistence_write",
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 41.0,
+          "evidence_score": 41.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 10,
+            "end_line": 13,
+            "selection_reason": "semantic_mechanism_window"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/storage/DraftPreferences.ets",
+            "symbol": "save",
+            "owner_name": "DraftPreferences",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.75,
+            "evidence_score": 15.75,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/storage/OrderStore.ets",
+            "symbol": "save",
+            "owner_name": "OrderStore",
+            "owner_kind": "store",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.75,
+            "evidence_score": 14.75,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 178
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "limited_code_anchor_diversity",
+      "no_strong_log_anchor"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 3,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1411,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+}

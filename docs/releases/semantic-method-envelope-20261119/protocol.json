@@ -1,0 +1,46 @@
+{
+  "classification": "authored independent Development, static requests not reported incidents",
+  "stop": "Freeze once. Only actual public missing method signature with existing body supports change; no fixture/query rewriting after results.",
+  "cases": [
+    {
+      "id": "Voucher",
+      "sources": {
+        "VoucherUsageCoordinator.ets": "export interface VoucherRecord {\n  usageCount: number\n  lastUsedAt: number\n}\n\nexport class VoucherUsageCoordinator {\n  private store: VoucherStore = new VoucherStore()\n\n  async recordSuccessfulUse(record: VoucherRecord): Promise<void> {\n    record.usageCount += 1\n    record.lastUsedAt = Date.now()\n    await this.store.save(record)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "persistence",
+          "query": "Return the voucher usage counter and timestamp persistence coordinator."
+        },
+        {
+          "id": "named",
+          "query": "Locate VoucherUsageCoordinator.recordSuccessfulUse source."
+        },
+        {
+          "id": "declaration",
+          "query": "Locate the VoucherRecord entity definition."
+        }
+      ]
+    },
+    {
+      "id": "Lease",
+      "sources": {
+        "LeaseUsageCoordinator.ets": "export interface LeaseRecord {\n  usageCount: number\n  lastUsedAt: number\n}\n\nexport class LeaseUsageCoordinator {\n  private store: LeaseStore = new LeaseStore()\n\n  async recordSuccessfulUse(record: LeaseRecord): Promise<void> {\n    record.usageCount += 1\n    record.lastUsedAt = Date.now()\n    await this.store.save(record)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "persistence",
+          "query": "Return the lease usage counter and timestamp persistence coordinator."
+        },
+        {
+          "id": "named",
+          "query": "Locate LeaseUsageCoordinator.recordSuccessfulUse source."
+        },
+        {
+          "id": "declaration",
+          "query": "Locate the LeaseRecord entity definition."
+        }
+      ]
+    }
+  ]
+}

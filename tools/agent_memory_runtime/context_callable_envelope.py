@@ -12,7 +12,7 @@ from .performance_scoring import estimate_payload_tokens
 FIELDS=frozenset(('symbol','start_line','end_line','content','source','selection_reason','focus_line','truncated'))
 
 
-def qualified_source(project,payload,anchor,candidate):
+def qualified_source(project,payload,anchor,candidate,*,mechanism_bounds=None):
     path=candidate.get('file_path');owner=candidate.get('owner_name');name=candidate.get('symbol');bounds=candidate.get('source_range')or{}
     lo,hi=bounds.get('start_line'),bounds.get('end_line')
     if (not all(type(v)is str and v for v in (path,owner,name)) or type(lo)is not int or type(hi)is not int
@@ -44,11 +44,40 @@ def qualified_source(project,payload,anchor,candidate):
         owner_display=anchor.get('symbol')==owner
         method_display=(anchor.get('symbol')==name and anchor.get('source_ranges')==[dict(symbol=name,start_line=lo,end_line=hi)]
                         and anchor.get('read_window')==dict(start_line=lo,end_line=hi))
+        if mechanism_bounds is not None:
+            a,b=mechanism_bounds
+            method_display=(anchor.get('symbol')==name and anchor.get('source_ranges')==[dict(symbol=name,start_line=a,end_line=b,selection_reason='bounded_callable_primary')]
+                            and anchor.get('read_window')==dict(start_line=a,end_line=b) and lo<=a<=b<=hi)
+            owner_display=False
         if anchor.get('record_ids')!=[files[0]['id']]or not(owner_display or method_display):return None
     elif anchor.get('record_type')=='code_symbol':
         if anchor.get('record_ids')!=[method['id']]or anchor.get('symbol')!=name:return None
     else:return None
     return lines
+
+
+
+def selected_mechanism_candidate(project, anchor, old, evidence):
+    """Resolve only an already-selected bounded method, never find a new owner."""
+    c=evidence.get('primary');bounds=(old['start_line'],old['end_line'])
+    if (evidence.get('certainty')!='bounded' or not isinstance(c,dict)
+        or anchor.get('record_type')!='code_file' or anchor.get('role')!='primary'
+        or c.get('file_path')!=anchor.get('file_path') or c.get('symbol')!=anchor.get('symbol')
+        or old.get('symbol')!=anchor.get('symbol')
+        or c.get('source_range')!=dict(start_line=bounds[0],end_line=bounds[1],selection_reason='semantic_mechanism_window')):return None
+    # A conflicting same-file/name alternate is ambiguity, not a second vote.
+    if any(a.get('file_path')==c['file_path'] and a.get('symbol')==c['symbol']
+           for a in evidence.get('alternatives',[]) if isinstance(a,dict)):return None
+    with connect(project)as conn:
+        rows=[dict(r)for r in conn.execute('SELECT * FROM code_symbols WHERE project_id=? AND file_path=? AND symbol=?',
+                                          (project.project_id,c['file_path'],c['symbol']))]
+    if len(rows)!=1:return None
+    row=rows[0];owner=row.get('owner_name')
+    if (not owner or row.get('qualified_name')!=owner+'.'+c['symbol']
+        or c.get('owner_name')not in (None,owner) or c.get('owner_kind')!=row.get('owner_kind')
+        or not row['start_line']<=bounds[0]<=bounds[1]<=row['end_line']
+        or (row['start_line'],row['end_line'])==bounds):return None
+    return dict(c,owner_name=owner,source_range=dict(start_line=row['start_line'],end_line=row['end_line'],selection_reason='callable_symbol_range'))
 
 
 def expand_callable_envelopes(project,payload,*,enabled=False):
@@ -67,17 +96,22 @@ def _expand(project,payload,*,enabled=False):
         if len(excerpts)!=1:continue
         old=excerpts[0]
         if (not isinstance(old,dict)or set(old)!=FIELDS or old['source']!='current_worktree'
-            or old['selection_reason']!='callable_mechanism_window'or type(old['content'])is not str
+            or old['selection_reason']not in {'callable_mechanism_window','bounded_callable_primary'}or type(old['content'])is not str
             or type(old['start_line'])is not int or type(old['end_line'])is not int
             or not 0<old['start_line']<=old['end_line']):continue
-        matches=[]
-        for c in candidates:
+        matches=[];mechanism_bounds=None
+        if old['selection_reason']=='bounded_callable_primary':
+            try:c=selected_mechanism_candidate(project,anchor,old,ev)
+            except(sqlite3.Error,KeyError,TypeError,ValueError):continue
+            if c is None:continue
+            matches=[c];mechanism_bounds=(old['start_line'],old['end_line'])
+        for c in ([] if mechanism_bounds else candidates):
             b=c.get('source_range')or{};lo,hi=b.get('start_line'),b.get('end_line')
             if (c.get('file_path')==anchor.get('file_path')and type(lo)is int and type(hi)is int
                 and lo<=old['start_line']<=old['end_line']<=hi and (lo,hi)!=(old['start_line'],old['end_line'])):matches.append(c)
         if len(matches)!=1:continue
         c=matches[0];lo,hi=c['source_range']['start_line'],c['source_range']['end_line']
-        try:lines=qualified_source(project,payload,anchor,c)
+        try:lines=qualified_source(project,payload,anchor,c,mechanism_bounds=mechanism_bounds)
         except(OSError,UnicodeError,KeyError,TypeError,ValueError,sqlite3.Error):continue
         if lines is None or old['content']!='\n'.join(lines[old['start_line']-1:old['end_line']]):continue
         content='\n'.join(lines[lo-1:hi])
