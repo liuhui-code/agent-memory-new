@@ -200,6 +200,9 @@ def context(args: argparse.Namespace) -> None:
                     data = append_graph_field_followup(project, original_context, data)
                     data = append_sql_reading(project, original_context, data)
         data = receiver_session.finalize(data)
+        if args.compact and budget is None and not preserve and original_context is not None:
+            from .context_web_body_budget import prioritize_web_body
+            data = prioritize_web_body(project, original_context, data)
         record_query_usage(project, "context", args.query, data)
         project.runtime_dir.mkdir(parents=True, exist_ok=True)
         (project.runtime_dir / "last_context.json").write_text(

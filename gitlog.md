@@ -1,3 +1,14 @@
+## 2026-11-19 — Prioritize a complete Web method within default compact budget
+
+- After source, index generation, caller and effect checks, show the existing
+  complete requested Web method while deferring the surrounding wrapped-log class
+  context to the existing read window. Preserve its real call, all anchors/order,
+  logs, graph and callable evidence. Unqualified or over-budget outputs roll back.
+- Original Web group: exact selected body 9–13 → 8–18 at 1499/1500. Same legacy
+  precision result, 1/3; explicit compact modes and raw unchanged on a fixed seed.
+  Independent fixture and focused control limits: docs/evidence/web-body-budget.
+  No full gate, runtime WebView behavior verification or security claim.
+
 ## 2026-11-19 — Verify original08 standard failure and exact first loss
 
 - Only original08 standard group rerun:1/3. Original query returns full9–16;
