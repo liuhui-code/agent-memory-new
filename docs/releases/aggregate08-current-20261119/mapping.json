@@ -1,0 +1,56 @@
+{
+  "number": "08",
+  "case_id": "context-abstract-reactive-aggregate",
+  "source_row": "|08 abstract-reactive-aggregate|1/3；11-14；80feab8|reloadSummary ID295、9–16与两个writes_state边存在；24项行为召回包含它。coverage2与UI方法并列，strongest_semantic前两文件保BackupCommandPanel/ProductSearchPage，真实numeric目标被focus删。|不是producer缺失。writes_state不证明数值累积，foreach/watch概念也不证明算术；独立5固定query全部满足冻结retention，未复现top2同层red。|先界定请求要求的numeric证据如何获得权限，再考虑独立同分竞争合同；不能扩top2/调权或排除真实UI ForEach。现阶段保留原first-loss，不补无收益marker。|",
+  "case": {
+    "id": "context-abstract-reactive-aggregate",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "Changing the selected quarter leaves revenue and cost totals unchanged. Locate the reactive aggregation owner."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "Changing the selected quarter leaves revenue and cost totals unchanged. Locate the reactive aggregation owner."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "Quarter selection changes but financial totals do not refresh. Return the state and iteration source."
+      },
+      {
+        "id": "zh-noise",
+        "description": "切换季度后收入成本汇总不刷新，请定位状态聚合源码，不要返回数据实体。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/pages/RevenueQuarterPage.ets"
+      ],
+      "forbidden_files": [
+        "src/entities/ProductRecord.ets"
+      ],
+      "root_cause_category": "state",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/pages/RevenueQuarterPage.ets",
+            "start_line": 9,
+            "end_line": 16
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  }
+}

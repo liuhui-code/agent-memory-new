@@ -1,3 +1,13 @@
+## 2026-11-19 — Verify original08 standard failure and exact first loss
+
+- Only original08 standard group rerun:1/3. Original query returns full9–16;
+  English returns target9–11 only plus two extras; Chinese loses target entirely.
+- Fresh standard157-source return-only trace equals cleanCLI: current target
+  method entersfocus at semantic coverage2 but tied first-two-file policy dropsit.
+- No source/index defect or budget permission was inferred; no top2/score change,
+  stopped-fixture retry, other group or full gate. Evidence preserves all failures:
+  docs/releases/aggregate08-current-20261119/README.md.
+
 ## 2026-11-19 — Verify original04 standard group and complete build source
 
 - Original04 standard current3/3; historical/current source and setup digests match.

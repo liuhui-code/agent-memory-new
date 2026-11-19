@@ -1,0 +1,229 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-8lj0fzxw/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-8lj0fzxw/agent-memory-case-8xojfl1r/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "Changing the selected quarter leaves revenue and cost totals unchanged. Locate the reactive aggregation owner.",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "2c7df602d1516285",
+    "query": "Changing the selected quarter leaves revenue and cost totals unchanged. Locate the reactive aggregation owner.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "changing",
+        "selected",
+        "quarter",
+        "leaves",
+        "revenue",
+        "cost",
+        "totals",
+        "unchanged",
+        "locate",
+        "reactive",
+        "aggregation",
+        "owner"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "reloadSummary",
+          "symbol_type": "function",
+          "record_ids": [
+            295
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "reloadSummary",
+              "start_line": 9,
+              "end_line": 16
+            }
+          ],
+          "read_window": {
+            "start_line": 9,
+            "end_line": 16
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "reloadSummary",
+              "start_line": 9,
+              "end_line": 16,
+              "content": "  private reloadSummary(): void {\n    this.revenueTotal = 0\n    this.costTotal = 0\n    this.entries.forEach((entry: LedgerEntry) => {\n      this.revenueTotal += entry.revenue\n      this.costTotal += entry.cost\n    })\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "build",
+          "owner_name": "RevenueQuarterPage",
+          "owner_kind": "component",
+          "file_structural_coverage": 2,
+          "callable_roles": [
+            "source_operation_checked:v2.1",
+            "source_operation_unresolved:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 30.5,
+          "evidence_score": 30.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 18,
+            "end_line": 20,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/widgets/SeatCell.ets",
+            "symbol": "onCellTapped",
+            "owner_name": "SeatCell",
+            "owner_kind": "component",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 11.255,
+            "evidence_score": 11.255,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "method_evidence"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 7,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/controllers/WorkspaceSelectionController.ets",
+            "symbol": "onEditRequested",
+            "owner_name": "WorkspaceSelectionController",
+            "owner_kind": "controller",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 10.255,
+            "evidence_score": 10.255,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "method_evidence"
+            ],
+            "source_range": {
+              "start_line": 10,
+              "end_line": 14,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 220
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1200,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+}
