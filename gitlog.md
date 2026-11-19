@@ -13326,3 +13326,13 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
   No new runtime/source/oracle/budget changes.08 tie reweighting not justified by
   missing exact request-field/trigger binding; no speculative change shipped.
 - Evidence: docs/releases/archive-current-20261119/README.md.
+
+## 2026-11-19 - Stop unqualified05 exact exclusion expansion
+
+- Two prospective independent public domains already return both full near-name
+  and ordinary cleanup UIs under exact data-class exclusions; no positive red.
+  New exclusion contract not implemented; frozen observations retained.9 existing
+  request/transport controls pass; original05 latest1/3 unchanged, not rerun.
+- Shared-record current standard recheck3/3 with full collect2–12 and25 controls,
+  but historical integrated evidence already closed original26. Do not count this
+  as a new closure. See docs/releases/render05-scope-qualification-20261119/.

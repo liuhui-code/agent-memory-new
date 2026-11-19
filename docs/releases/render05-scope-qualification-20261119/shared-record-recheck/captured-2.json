@@ -1,0 +1,5164 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-3v1pt1es/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-3v1pt1es/agent-memory-case-jifa55ab/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--json"
+  ],
+  "query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+  "payload": {
+    "project_id": "2f9fd515e026151a",
+    "project_path": "/tmp/agent-memory-benchmark-3v1pt1es/workspace",
+    "query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+    "memory_intent": "general_context",
+    "memory_intent_v2": "general_context",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "intent_source": "inferred",
+        "legacy_intent": "general_context",
+        "preferred_lanes": [
+          "semantic_facts",
+          "wiki_matches",
+          "reusable_procedure",
+          "historical_reflection"
+        ],
+        "interference_policy": "prefer source-backed and high-quality memories"
+      },
+      "lane_budgets": {
+        "main_reflections": 2,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "general_context",
+      "intent_v2": "general_context",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": null,
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 120,
+        "project_id": "2f9fd515e026151a",
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "f3b1a6dad256dd3b15547fa2b0450152d828562fe3cfbf5464fd3820ff0de92b",
+        "index_generation": 1,
+        "updated_at": "2026-11-19T03:50:02+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "structural_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.09806609,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "structural_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 4,
+              "weight": 1.45,
+              "score": 0.02265625
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 39.4,
+        "search_terms": [
+          "src/sharing/sharedrecordcollector.ets",
+          "arkts",
+          "arkts file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+          "src",
+          "sharing",
+          "sharedrecordcollector",
+          "ets",
+          "file",
+          "with",
+          "13",
+          "non",
+          "empty",
+          "lines",
+          "behavior",
+          "collectionfold",
+          "conditionalbranch",
+          "shared",
+          "record",
+          "collector",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "file_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "structural_behavior",
+          "salient_query_evidence"
+        ],
+        "symbol": "SharedRecordCollector",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 13,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 39.4,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:file_path",
+            "file_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "structural_behavior",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 436,
+        "project_id": "2f9fd515e026151a",
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:d86cb8d6438e84d3a7d17cef",
+        "qualified_name": "FolderCollectionLoader.loadFolder",
+        "signature": "async loadFolder(folderId: string):Promise<void>",
+        "start_line": 5,
+        "end_line": 9,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "fa44760a1262677ba7abdb7103c7587f4b7c260ebcd6b79ce735f0bf0c5d6156",
+        "evidence_class": "static",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":6,\"source_key\":\"symbol:d86cb8d6438e84d3a7d17cef\",\"terms\":[\"guard\",\"conditional\",\"folder\",\"id\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":6,\"source_key\":\"symbol:d86cb8d6438e84d3a7d17cef\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"folder\",\"id\"]},{\"confidence\":0.9,\"detail\":\"call:assetsource.getassets\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:d86cb8d6438e84d3a7d17cef\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "FolderCollectionLoader",
+        "owner_kind": "viewmodel",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "literal_property_path": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-19T03:50:02+00:00",
+        "recall_lanes": [
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05178856,
+          "best_rank": 16,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 17,
+              "weight": 1.45,
+              "score": 0.01883117
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 24,
+              "weight": 1.0,
+              "score": 0.01190476
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 16,
+              "weight": 1.6,
+              "score": 0.02105263
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 30.5,
+        "search_terms": [
+          "src/viewmodels/foldercollectionloader.ets",
+          "arkts function or lifecycle method loadfolder in src/viewmodels/foldercollectionloader.ets; identifier terms: load folder",
+          "loadfolder",
+          "function",
+          "src",
+          "viewmodels",
+          "foldercollectionloader",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "load",
+          "folder",
+          "collection",
+          "loader",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 30.5,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 64,
+        "project_id": "2f9fd515e026151a",
+        "file_path": "src/pages/CollectionPage.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "c04023fac5d14fa8faa154e2b4c84685db26e3fe3ace20da870b9b32cd04c12c",
+        "index_generation": 1,
+        "updated_at": "2026-11-19T03:50:02+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07690732,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 28.8,
+        "search_terms": [
+          "src/pages/collectionpage.ets",
+          "arkts",
+          "arkts file with 13 non-empty lines; components: collectionpage; behavior: conditionalbranch, statewrite",
+          "src",
+          "pages",
+          "collectionpage",
+          "ets",
+          "file",
+          "with",
+          "13",
+          "non",
+          "empty",
+          "lines",
+          "components",
+          "behavior",
+          "conditionalbranch",
+          "statewrite",
+          "collection",
+          "page",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component"
+        ],
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "symbol": "CollectionPage",
+        "symbol_type": "component",
+        "start_line": 3,
+        "end_line": 15,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 28.8,
+          "rerank_score": null,
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [],
+    "edge_matches": [
+      {
+        "id": 892,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 149,
+        "relation": "passes_property",
+        "target_type": "code_symbol",
+        "target_id": 523,
+        "evidence": "src/views/WorkGalleryPage.ets passes item to WorkCard",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_component_property_flow",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 795,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 93,
+        "relation": "passes_property",
+        "target_type": "code_symbol",
+        "target_id": 493,
+        "evidence": "src/pages/TimelinePage.ets passes entry, showHeader to TimelineRow",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_component_property_flow",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 794,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 93,
+        "relation": "renders_component",
+        "target_type": "code_symbol",
+        "target_id": 493,
+        "evidence": "src/pages/TimelinePage.ets renders TimelineRow",
+        "confidence": 0.75,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_component_composition",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.818,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.75",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.75,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 614,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 133,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 32,
+        "evidence": "src/views/ArticleMarkupView.ets -> src/entities/ArticleRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 609,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 116,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 35,
+        "evidence": "src/services/ProductSearchService.ets -> src/entities/ProductRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 605,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 96,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 33,
+        "evidence": "src/pages/WarehouseFacetPage.ets -> src/entities/FacetRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 601,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 93,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 148,
+        "evidence": "src/pages/TimelinePage.ets -> src/views/TimelineRow.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 583,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 79,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 116,
+        "evidence": "src/pages/ProductSearchPage.ets -> src/services/ProductSearchService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 582,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 79,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 35,
+        "evidence": "src/pages/ProductSearchPage.ets -> src/entities/ProductRecord.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 525,
+        "project_id": "2f9fd515e026151a",
+        "source_type": "code_file",
+        "source_id": 157,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 525,
+        "evidence": "src/widgets/WorkCard.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-19T03:50:03+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-19T03:50:03+00:00",
+        "created_at": "2026-11-19T03:50:03+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "src/sharing/sharedrecordcollector.ets",
+      "src/viewmodels/foldercollectionloader.ets",
+      "arkts function or lifecycle method loadfolder in src/viewmodels/foldercollectionloader.ets; identifier terms: load folder",
+      "src/pages/collectionpage.ets",
+      "loadfolder",
+      "foldercollectionloader",
+      "load",
+      "loader",
+      "sharedrecordcollector",
+      "arkts",
+      "arkts file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+      "src"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+      "log_keywords": [
+        "combining",
+        "multiple",
+        "shared",
+        "records",
+        "preserves",
+        "only",
+        "the",
+        "final",
+        "item",
+        "locate",
+        "collection",
+        "aggregation",
+        "ownership"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 120,
+          "record_type": "code_file",
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "symbol": "SharedRecordCollector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+          "start_line": 1,
+          "end_line": 13,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 436,
+          "record_type": "code_symbol",
+          "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "loadFolder",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+          "start_line": 5,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 64,
+          "record_type": "code_file",
+          "file_path": "src/pages/CollectionPage.ets",
+          "symbol": "CollectionPage",
+          "symbol_type": "component",
+          "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+          "start_line": 3,
+          "end_line": 15,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "symbol": "collect",
+          "owner_name": "SharedRecordCollector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 23.69,
+          "evidence_score": 23.69,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/components/RecordPreview.ets",
+            "symbol": "build",
+            "owner_name": "RecordPreview",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 18.04,
+            "evidence_score": 18.04,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 7,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "symbol": "loadFolder",
+            "owner_name": "FolderCollectionLoader",
+            "owner_kind": "viewmodel",
+            "callable_roles": [
+              "async",
+              "state_write",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 15.49,
+            "evidence_score": 15.49,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 5,
+              "end_line": 9,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/sharing/SharedRecordCollector.ets",
+              "symbol": "collect",
+              "owner_name": "SharedRecordCollector",
+              "source_range": {
+                "start_line": 2,
+                "end_line": 12,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "salient_query_evidence"
+              ]
+            },
+            {
+              "file_path": "src/components/RecordPreview.ets",
+              "symbol": "build",
+              "owner_name": "RecordPreview",
+              "source_range": {
+                "start_line": 5,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "multi_term_method_evidence"
+              ]
+            },
+            {
+              "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+              "symbol": "loadFolder",
+              "owner_name": "FolderCollectionLoader",
+              "source_range": {
+                "start_line": 5,
+                "end_line": 9,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "salient_query_evidence"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_cross_file_targets",
+            "bounded_passage_diversity"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "candidate_count": 0,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 27,
+      "checked_file_count": 27,
+      "current_file_count": 27,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 3,
+        "code_log_matches": 0,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 27,
+          "checked_file_count": 27,
+          "current_file_count": 27,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 11,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 1,
+            "lane_counts": {
+              "broad_fts": 5,
+              "structural_fts": 1,
+              "file_identity_fts": 9,
+              "file_semantic_fts": 6,
+              "salient_file_fts": 5
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 9,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 6,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 5,
+                  "query_term_count": 6,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 9,
+                  "file_semantic_fts": 6,
+                  "salient_file_fts": 5
+                },
+                "fused_candidate_count": 11
+              },
+              "candidate_fusion": {
+                "140": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0613281,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 3,
+                      "weight": 1.35,
+                      "score": 0.02142857
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    }
+                  ]
+                },
+                "120": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06118084,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 1,
+                      "weight": 1.35,
+                      "score": 0.02213115
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    }
+                  ]
+                },
+                "64": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06103431,
+                  "best_rank": 2,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 2,
+                      "weight": 1.35,
+                      "score": 0.02177419
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    }
+                  ]
+                },
+                "126": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03864087,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    }
+                  ]
+                },
+                "23": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03769231,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 5,
+                      "weight": 1.45,
+                      "score": 0.02230769
+                    }
+                  ]
+                },
+                "12": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03592075,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 5,
+                      "weight": 1.35,
+                      "score": 0.02076923
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "131": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02109375,
+                  "best_rank": 4,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 4,
+                      "weight": 1.35,
+                      "score": 0.02109375
+                    }
+                  ]
+                },
+                "32": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02045455,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 6,
+                      "weight": 1.35,
+                      "score": 0.02045455
+                    }
+                  ]
+                },
+                "33": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02014925,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 7,
+                      "weight": 1.35,
+                      "score": 0.02014925
+                    }
+                  ]
+                },
+                "34": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01985294,
+                  "best_rank": 8,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 8,
+                      "weight": 1.35,
+                      "score": 0.01985294
+                    }
+                  ]
+                },
+                "35": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01956522,
+                  "best_rank": 9,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 9,
+                      "weight": 1.35,
+                      "score": 0.01956522
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 140,
+                  "file_path": "src/views/InventoryItem.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 120,
+                  "file_path": "src/sharing/SharedRecordCollector.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 64,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 126,
+                  "file_path": "src/stores/SeatStore.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 23,
+                  "file_path": "src/controllers/SeatMapController.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 12,
+                  "file_path": "src/components/RecordPreview.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 131,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                },
+                {
+                  "id": 32,
+                  "file_path": "src/entities/ArticleRecord.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                },
+                {
+                  "id": 33,
+                  "file_path": "src/entities/FacetRecord.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                },
+                {
+                  "id": 34,
+                  "file_path": "src/entities/InventoryRecord.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                },
+                {
+                  "id": 35,
+                  "file_path": "src/entities/ProductRecord.ets",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 5,
+              "channel_counts": {
+                "broad_fts": 5,
+                "structural_fts": 1,
+                "file_identity_fts": 9,
+                "file_semantic_fts": 6,
+                "salient_file_fts": 5
+              },
+              "fused_candidate_count": 11
+            },
+            "candidate_refs": [
+              {
+                "id": 120,
+                "file_path": "src/sharing/SharedRecordCollector.ets",
+                "channels": [
+                  "broad_fts",
+                  "structural_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 64,
+                "file_path": "src/pages/CollectionPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 140,
+                "file_path": "src/views/InventoryItem.ets",
+                "channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 126,
+                "file_path": "src/stores/SeatStore.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 23,
+                "file_path": "src/controllers/SeatMapController.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 12,
+                "file_path": "src/components/RecordPreview.ets",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts"
+                ]
+              },
+              {
+                "id": 131,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              },
+              {
+                "id": 32,
+                "file_path": "src/entities/ArticleRecord.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              },
+              {
+                "id": 33,
+                "file_path": "src/entities/FacetRecord.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              },
+              {
+                "id": 34,
+                "file_path": "src/entities/InventoryRecord.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              },
+              {
+                "id": 35,
+                "file_path": "src/entities/ProductRecord.ets",
+                "channels": [
+                  "file_identity_fts"
+                ]
+              }
+            ]
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 43,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 19,
+              "method_body_fts": 3,
+              "behavior_method_fts": 1,
+              "symbol_identity_fts": 28,
+              "symbol_semantic_fts": 24,
+              "string_key_fts": 3,
+              "semantic_mechanism_fts": 1,
+              "salient_string_fts": 16
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 28,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 24,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 20,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 3,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 1,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 16,
+                  "query_term_count": 6,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 28,
+                  "symbol_semantic_fts": 24,
+                  "method_body_fts": 3,
+                  "string_key_fts": 3,
+                  "semantic_mechanism_fts": 1,
+                  "salient_string_fts": 16
+                },
+                "fused_candidate_count": 43
+              },
+              "candidate_fusion": {
+                "466": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.08011023,
+                  "best_rank": 1,
+                  "channel_count": 4,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 12,
+                      "weight": 1.45,
+                      "score": 0.02013889
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 9,
+                      "weight": 1.0,
+                      "score": 0.01449275
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 1,
+                      "weight": 1.2,
+                      "score": 0.01967213
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 2,
+                      "weight": 1.6,
+                      "score": 0.02580645
+                    }
+                  ]
+                },
+                "403": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.07585241,
+                  "best_rank": 2,
+                  "channel_count": 4,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    },
+                    {
+                      "channel": "method_body_fts",
+                      "rank": 3,
+                      "weight": 0.8,
+                      "score": 0.01269841
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 5,
+                      "weight": 1.6,
+                      "score": 0.02461538
+                    }
+                  ]
+                },
+                "127": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05767814,
+                  "best_rank": 8,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 13,
+                      "weight": 1.45,
+                      "score": 0.01986301
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 10,
+                      "weight": 1.0,
+                      "score": 0.01428571
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 8,
+                      "weight": 1.6,
+                      "score": 0.02352941
+                    }
+                  ]
+                },
+                "436": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05178856,
+                  "best_rank": 16,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 17,
+                      "weight": 1.45,
+                      "score": 0.01883117
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 24,
+                      "weight": 1.0,
+                      "score": 0.01190476
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 16,
+                      "weight": 1.6,
+                      "score": 0.02105263
+                    }
+                  ]
+                },
+                "174": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04527713,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 3,
+                      "weight": 1.2,
+                      "score": 0.01904762
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 1,
+                      "weight": 1.6,
+                      "score": 0.02622951
+                    }
+                  ]
+                },
+                "37": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04401524,
+                  "best_rank": 2,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 20,
+                      "weight": 1.45,
+                      "score": 0.018125
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 17,
+                      "weight": 1.0,
+                      "score": 0.01298701
+                    },
+                    {
+                      "channel": "method_body_fts",
+                      "rank": 2,
+                      "weight": 0.8,
+                      "score": 0.01290323
+                    }
+                  ]
+                },
+                "314": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04016393,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    }
+                  ]
+                },
+                "38": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03878528,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    }
+                  ]
+                },
+                "437": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03840049,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "74": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03793269,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 5,
+                      "weight": 1.45,
+                      "score": 0.02230769
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "402": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03784271,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 6,
+                      "weight": 1.45,
+                      "score": 0.0219697
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                },
+                "525": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03656716,
+                  "best_rank": 7,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 7,
+                      "weight": 1.45,
+                      "score": 0.02164179
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    }
+                  ]
+                },
+                "465": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03572038,
+                  "best_rank": 8,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 9,
+                      "weight": 1.45,
+                      "score": 0.02101449
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 8,
+                      "weight": 1.0,
+                      "score": 0.01470588
+                    }
+                  ]
+                },
+                "153": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03540804,
+                  "best_rank": 8,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 8,
+                      "weight": 1.45,
+                      "score": 0.02132353
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 11,
+                      "weight": 1.0,
+                      "score": 0.01408451
+                    }
+                  ]
+                },
+                "156": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03460317,
+                  "best_rank": 10,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 10,
+                      "weight": 1.45,
+                      "score": 0.02071429
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 12,
+                      "weight": 1.0,
+                      "score": 0.01388889
+                    }
+                  ]
+                },
+                "155": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03412117,
+                  "best_rank": 11,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 11,
+                      "weight": 1.45,
+                      "score": 0.02042254
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 13,
+                      "weight": 1.0,
+                      "score": 0.01369863
+                    }
+                  ]
+                },
+                "154": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03310811,
+                  "best_rank": 14,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 14,
+                      "weight": 1.45,
+                      "score": 0.01959459
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 14,
+                      "weight": 1.0,
+                      "score": 0.01351351
+                    }
+                  ]
+                },
+                "435": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03266667,
+                  "best_rank": 15,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 15,
+                      "weight": 1.45,
+                      "score": 0.01933333
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 15,
+                      "weight": 1.0,
+                      "score": 0.01333333
+                    }
+                  ]
+                },
+                "36": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03174764,
+                  "best_rank": 16,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 18,
+                      "weight": 1.45,
+                      "score": 0.01858974
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 16,
+                      "weight": 1.0,
+                      "score": 0.01315789
+                    }
+                  ]
+                },
+                "341": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03117494,
+                  "best_rank": 18,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 19,
+                      "weight": 1.45,
+                      "score": 0.01835443
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 18,
+                      "weight": 1.0,
+                      "score": 0.01282051
+                    }
+                  ]
+                },
+                "84": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03055946,
+                  "best_rank": 19,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 21,
+                      "weight": 1.45,
+                      "score": 0.01790123
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 19,
+                      "weight": 1.0,
+                      "score": 0.01265823
+                    }
+                  ]
+                },
+                "85": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03018293,
+                  "best_rank": 20,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 22,
+                      "weight": 1.45,
+                      "score": 0.01768293
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 20,
+                      "weight": 1.0,
+                      "score": 0.0125
+                    }
+                  ]
+                },
+                "86": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02981556,
+                  "best_rank": 21,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 23,
+                      "weight": 1.45,
+                      "score": 0.01746988
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 21,
+                      "weight": 1.0,
+                      "score": 0.01234568
+                    }
+                  ]
+                },
+                "87": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02945703,
+                  "best_rank": 22,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 24,
+                      "weight": 1.45,
+                      "score": 0.0172619
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 22,
+                      "weight": 1.0,
+                      "score": 0.01219512
+                    }
+                  ]
+                },
+                "72": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02910702,
+                  "best_rank": 23,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 25,
+                      "weight": 1.45,
+                      "score": 0.01705882
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 23,
+                      "weight": 1.0,
+                      "score": 0.01204819
+                    }
+                  ]
+                },
+                "419": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02539683,
+                  "best_rank": 3,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 3,
+                      "weight": 1.6,
+                      "score": 0.02539683
+                    }
+                  ]
+                },
+                "51": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.025,
+                  "best_rank": 4,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 4,
+                      "weight": 1.6,
+                      "score": 0.025
+                    }
+                  ]
+                },
+                "524": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02424242,
+                  "best_rank": 6,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 6,
+                      "weight": 1.6,
+                      "score": 0.02424242
+                    }
+                  ]
+                },
+                "468": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0238806,
+                  "best_rank": 7,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 7,
+                      "weight": 1.6,
+                      "score": 0.0238806
+                    }
+                  ]
+                },
+                "333": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02318841,
+                  "best_rank": 9,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 9,
+                      "weight": 1.6,
+                      "score": 0.02318841
+                    }
+                  ]
+                },
+                "471": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02285714,
+                  "best_rank": 10,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 10,
+                      "weight": 1.6,
+                      "score": 0.02285714
+                    }
+                  ]
+                },
+                "316": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02253521,
+                  "best_rank": 11,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 11,
+                      "weight": 1.6,
+                      "score": 0.02253521
+                    }
+                  ]
+                },
+                "499": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02222222,
+                  "best_rank": 12,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 12,
+                      "weight": 1.6,
+                      "score": 0.02222222
+                    }
+                  ]
+                },
+                "276": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02191781,
+                  "best_rank": 13,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 13,
+                      "weight": 1.6,
+                      "score": 0.02191781
+                    }
+                  ]
+                },
+                "279": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02162162,
+                  "best_rank": 14,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 14,
+                      "weight": 1.6,
+                      "score": 0.02162162
+                    }
+                  ]
+                },
+                "343": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02133333,
+                  "best_rank": 15,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 15,
+                      "weight": 1.6,
+                      "score": 0.02133333
+                    }
+                  ]
+                },
+                "98": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.0204918,
+                  "best_rank": 1,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "semantic_mechanism_fts",
+                      "rank": 1,
+                      "weight": 1.25,
+                      "score": 0.0204918
+                    }
+                  ]
+                },
+                "340": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01935484,
+                  "best_rank": 2,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 2,
+                      "weight": 1.2,
+                      "score": 0.01935484
+                    }
+                  ]
+                },
+                "376": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01907895,
+                  "best_rank": 16,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 16,
+                      "weight": 1.45,
+                      "score": 0.01907895
+                    }
+                  ]
+                },
+                "395": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01686047,
+                  "best_rank": 26,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 26,
+                      "weight": 1.45,
+                      "score": 0.01686047
+                    }
+                  ]
+                },
+                "339": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01666667,
+                  "best_rank": 27,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 27,
+                      "weight": 1.45,
+                      "score": 0.01666667
+                    }
+                  ]
+                },
+                "394": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01647727,
+                  "best_rank": 28,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 28,
+                      "weight": 1.45,
+                      "score": 0.01647727
+                    }
+                  ]
+                },
+                "313": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.01311475,
+                  "best_rank": 1,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "method_body_fts",
+                      "rank": 1,
+                      "weight": 0.8,
+                      "score": 0.01311475
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 466,
+                  "file_path": "src/views/InventoryItem.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 403,
+                  "file_path": "src/sharing/SharedRecordCollector.ets",
+                  "symbol": "collect",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "method_body_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 127,
+                  "file_path": "src/models/WorkspaceSchema.ets",
+                  "symbol": "describePreviousItem",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 436,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "symbol": "loadFolder",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 174,
+                  "file_path": "src/pages/DraftStatusPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "string_key_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 37,
+                  "file_path": "src/components/RecordPreview.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "method_body_fts"
+                  ]
+                },
+                {
+                  "id": 314,
+                  "file_path": "src/pages/ShareComposerPage.ets",
+                  "symbol": "sharedRecords",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 38,
+                  "file_path": "src/components/RecordPreview.ets",
+                  "symbol": "sharedRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 437,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "symbol": "items",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 74,
+                  "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+                  "symbol": "recordSuccessfulUse",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 402,
+                  "file_path": "src/sharing/SharedRecordCollector.ets",
+                  "symbol": "SharedRecordCollector",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 525,
+                  "file_path": "src/widgets/WorkCard.ets",
+                  "symbol": "item",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 465,
+                  "file_path": "src/views/InventoryItem.ets",
+                  "symbol": "InventoryItem",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 153,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "symbol": "CollectionPage",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 156,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "symbol": "folderId",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 155,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 154,
+                  "file_path": "src/pages/CollectionPage.ets",
+                  "symbol": "updateFolder",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 435,
+                  "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                  "symbol": "FolderCollectionLoader",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 36,
+                  "file_path": "src/components/RecordPreview.ets",
+                  "symbol": "RecordPreview",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 341,
+                  "file_path": "src/pages/VoiceMessagePage.ets",
+                  "symbol": "recording",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 84,
+                  "file_path": "src/entities/ArticleRecord.ets",
+                  "symbol": "ArticleRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 85,
+                  "file_path": "src/entities/FacetRecord.ets",
+                  "symbol": "FacetRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 86,
+                  "file_path": "src/entities/InventoryRecord.ets",
+                  "symbol": "InventoryRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 87,
+                  "file_path": "src/entities/ProductRecord.ets",
+                  "symbol": "ProductRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 72,
+                  "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+                  "symbol": "SessionRecord",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 419,
+                  "file_path": "src/stores/SeatStore.ets",
+                  "symbol": "replaceSeat",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 51,
+                  "file_path": "src/controllers/SeatMapController.ets",
+                  "symbol": "onSeatTapped",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 524,
+                  "file_path": "src/widgets/WorkCard.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 468,
+                  "file_path": "src/views/InventoryList.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 333,
+                  "file_path": "src/pages/TimelinePage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 471,
+                  "file_path": "src/views/InventoryOverlayPanel.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 316,
+                  "file_path": "src/pages/ShipmentTimelinePage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 499,
+                  "file_path": "src/views/WorkGalleryPage.ets",
+                  "symbol": "renderWorkGallery",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 276,
+                  "file_path": "src/pages/ProductSearchPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 279,
+                  "file_path": "src/pages/ProductSearchPage.ets",
+                  "symbol": "onSubmit",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 343,
+                  "file_path": "src/pages/WarehouseFacetPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 98,
+                  "file_path": "src/io/ClipboardContentReader.ets",
+                  "symbol": "readPlainText",
+                  "channels": [
+                    "semantic_mechanism_fts"
+                  ]
+                },
+                {
+                  "id": 340,
+                  "file_path": "src/pages/VoiceMessagePage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 376,
+                  "file_path": "src/services/AssetSource.ets",
+                  "symbol": "getAssets",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 395,
+                  "file_path": "src/services/ProductSearchService.ets",
+                  "symbol": "queryProducts",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 339,
+                  "file_path": "src/pages/VoiceMessagePage.ets",
+                  "symbol": "toggleRecording",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 394,
+                  "file_path": "src/services/ProductSearchService.ets",
+                  "symbol": "search",
+                  "channels": [
+                    "symbol_identity_fts"
+                  ]
+                },
+                {
+                  "id": 313,
+                  "file_path": "src/pages/ShareComposerPage.ets",
+                  "symbol": "build",
+                  "channels": [
+                    "method_body_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 8,
+              "channel_counts": {
+                "broad_fts": 19,
+                "method_body_fts": 3,
+                "behavior_method_fts": 1,
+                "symbol_identity_fts": 28,
+                "symbol_semantic_fts": 24,
+                "string_key_fts": 3,
+                "semantic_mechanism_fts": 1,
+                "salient_string_fts": 16
+              },
+              "fused_candidate_count": 43
+            },
+            "candidate_refs": [
+              {
+                "id": 403,
+                "file_path": "src/sharing/SharedRecordCollector.ets",
+                "channels": [
+                  "broad_fts",
+                  "method_body_fts",
+                  "behavior_method_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "collect"
+              },
+              {
+                "id": 466,
+                "file_path": "src/views/InventoryItem.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 37,
+                "file_path": "src/components/RecordPreview.ets",
+                "channels": [
+                  "broad_fts",
+                  "method_body_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 127,
+                "file_path": "src/models/WorkspaceSchema.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "describePreviousItem"
+              },
+              {
+                "id": 314,
+                "file_path": "src/pages/ShareComposerPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "sharedRecords"
+              },
+              {
+                "id": 38,
+                "file_path": "src/components/RecordPreview.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "sharedRecord"
+              },
+              {
+                "id": 74,
+                "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "recordSuccessfulUse"
+              },
+              {
+                "id": 402,
+                "file_path": "src/sharing/SharedRecordCollector.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "SharedRecordCollector"
+              },
+              {
+                "id": 436,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "loadFolder"
+              },
+              {
+                "id": 153,
+                "file_path": "src/pages/CollectionPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "CollectionPage"
+              },
+              {
+                "id": 156,
+                "file_path": "src/pages/CollectionPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "folderId"
+              },
+              {
+                "id": 155,
+                "file_path": "src/pages/CollectionPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 154,
+                "file_path": "src/pages/CollectionPage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "updateFolder"
+              },
+              {
+                "id": 435,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "FolderCollectionLoader"
+              },
+              {
+                "id": 36,
+                "file_path": "src/components/RecordPreview.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "RecordPreview"
+              },
+              {
+                "id": 174,
+                "file_path": "src/pages/DraftStatusPage.ets",
+                "channels": [
+                  "string_key_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 341,
+                "file_path": "src/pages/VoiceMessagePage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "recording"
+              },
+              {
+                "id": 84,
+                "file_path": "src/entities/ArticleRecord.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "ArticleRecord"
+              },
+              {
+                "id": 85,
+                "file_path": "src/entities/FacetRecord.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "FacetRecord"
+              },
+              {
+                "id": 86,
+                "file_path": "src/entities/InventoryRecord.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "InventoryRecord"
+              },
+              {
+                "id": 72,
+                "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "SessionRecord"
+              },
+              {
+                "id": 87,
+                "file_path": "src/entities/ProductRecord.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "ProductRecord"
+              },
+              {
+                "id": 437,
+                "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "items"
+              },
+              {
+                "id": 525,
+                "file_path": "src/widgets/WorkCard.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "item"
+              },
+              {
+                "id": 465,
+                "file_path": "src/views/InventoryItem.ets",
+                "channels": [
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "InventoryItem"
+              },
+              {
+                "id": 339,
+                "file_path": "src/pages/VoiceMessagePage.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts"
+                ],
+                "symbol": "toggleRecording"
+              },
+              {
+                "id": 419,
+                "file_path": "src/stores/SeatStore.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "replaceSeat"
+              },
+              {
+                "id": 51,
+                "file_path": "src/controllers/SeatMapController.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "onSeatTapped"
+              },
+              {
+                "id": 524,
+                "file_path": "src/widgets/WorkCard.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 468,
+                "file_path": "src/views/InventoryList.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 333,
+                "file_path": "src/pages/TimelinePage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 471,
+                "file_path": "src/views/InventoryOverlayPanel.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 316,
+                "file_path": "src/pages/ShipmentTimelinePage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 499,
+                "file_path": "src/views/WorkGalleryPage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "renderWorkGallery"
+              },
+              {
+                "id": 276,
+                "file_path": "src/pages/ProductSearchPage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 279,
+                "file_path": "src/pages/ProductSearchPage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "onSubmit"
+              },
+              {
+                "id": 343,
+                "file_path": "src/pages/WarehouseFacetPage.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 98,
+                "file_path": "src/io/ClipboardContentReader.ets",
+                "channels": [
+                  "semantic_mechanism_fts"
+                ],
+                "symbol": "readPlainText"
+              },
+              {
+                "id": 340,
+                "file_path": "src/pages/VoiceMessagePage.ets",
+                "channels": [
+                  "string_key_fts"
+                ],
+                "symbol": "build"
+              },
+              {
+                "id": 376,
+                "file_path": "src/services/AssetSource.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "getAssets"
+              },
+              {
+                "id": 395,
+                "file_path": "src/services/ProductSearchService.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "queryProducts"
+              },
+              {
+                "id": 394,
+                "file_path": "src/services/ProductSearchService.ets",
+                "channels": [
+                  "symbol_identity_fts"
+                ],
+                "symbol": "search"
+              },
+              {
+                "id": 313,
+                "file_path": "src/pages/ShareComposerPage.ets",
+                "channels": [
+                  "method_body_fts"
+                ],
+                "symbol": "build"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 52,
+          "code_log_matches": 0,
+          "edge_matches": 40,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 52,
+          "code_log_matches": 0,
+          "edge_matches": 40,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 3,
+          "code_log_matches": 0,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 120,
+            "score": 39.4,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "expanded_query:file_path",
+              "file_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "structural_behavior",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "structural_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.09806609,
+              "best_rank": 1,
+              "channel_count": 5,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "structural_fts",
+                  "rank": 1,
+                  "weight": 1.25,
+                  "score": 0.0204918
+                },
+                {
+                  "channel": "file_identity_fts",
+                  "rank": 1,
+                  "weight": 1.35,
+                  "score": 0.02213115
+                },
+                {
+                  "channel": "file_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "salient_file_fts",
+                  "rank": 4,
+                  "weight": 1.45,
+                  "score": 0.02265625
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 39.4,
+              "rerank_score": null,
+              "match_reasons": [
+                "expanded_query:file_path",
+                "file_summary",
+                "expanded_query:search_terms",
+                "exact_path_segment",
+                "structural_behavior",
+                "salient_query_evidence"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 436,
+            "score": 30.5,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.05178856,
+              "best_rank": 16,
+              "channel_count": 3,
+              "contributions": [
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 17,
+                  "weight": 1.45,
+                  "score": 0.01883117
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 24,
+                  "weight": 1.0,
+                  "score": 0.01190476
+                },
+                {
+                  "channel": "salient_string_fts",
+                  "rank": 16,
+                  "weight": 1.6,
+                  "score": 0.02105263
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 30.5,
+              "rerank_score": null,
+              "match_reasons": [
+                "file_path",
+                "symbol_summary",
+                "search_terms",
+                "exact_path_segment",
+                "salient_query_evidence",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 64,
+            "score": 28.8,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "file_path",
+              "file_summary",
+              "search_terms",
+              "exact_path_segment",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.07690732,
+              "best_rank": 2,
+              "channel_count": 4,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 3,
+                  "weight": 1.0,
+                  "score": 0.01587302
+                },
+                {
+                  "channel": "file_identity_fts",
+                  "rank": 2,
+                  "weight": 1.35,
+                  "score": 0.02177419
+                },
+                {
+                  "channel": "file_semantic_fts",
+                  "rank": 3,
+                  "weight": 1.0,
+                  "score": 0.01587302
+                },
+                {
+                  "channel": "salient_file_fts",
+                  "rank": 2,
+                  "weight": 1.45,
+                  "score": 0.0233871
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 28.8,
+              "rerank_score": null,
+              "match_reasons": [
+                "file_path",
+                "file_summary",
+                "search_terms",
+                "exact_path_segment",
+                "salient_query_evidence"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 525,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 892,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.853,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.85,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 795,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.853,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.85,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 8,
+          "file_callable_pool": 7,
+          "graph_seed_count": 6,
+          "graph_owner_pool": 1,
+          "selected_callables": 8,
+          "selected_ranges": 8
+        },
+        "file_candidates": [
+          {
+            "file_path": "src/sharing/SharedRecordCollector.ets",
+            "score": 45.5,
+            "first_rank": 1,
+            "record_ids": [
+              403,
+              402,
+              120
+            ],
+            "direct_symbol_ids": [
+              403,
+              402
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "expanded_query:method_evidence",
+              "exact_path_segment",
+              "salient_query_evidence",
+              "semantic_behavior",
+              "source_locatable",
+              "expanded_query:symbol",
+              "file_summary",
+              "structural_behavior"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "behavior_method_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts",
+              "structural_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 1,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/components/RecordPreview.ets",
+            "score": 40.0,
+            "first_rank": 3,
+            "record_ids": [
+              38,
+              36,
+              37,
+              12
+            ],
+            "direct_symbol_ids": [
+              38,
+              36,
+              37
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "source_locatable",
+              "expanded_query:method_evidence",
+              "multi_term_method_evidence",
+              "expanded_query:file_summary"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "method_body_fts",
+              "file_identity_fts",
+              "file_semantic_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "score": 34.0,
+            "first_rank": 5,
+            "record_ids": [
+              437,
+              435,
+              436,
+              131
+            ],
+            "direct_symbol_ids": [
+              437,
+              435,
+              436
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "broad_fts",
+              "salient_string_fts",
+              "file_identity_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/pages/CollectionPage.ets",
+            "score": 32.5,
+            "first_rank": 6,
+            "record_ids": [
+              153,
+              64,
+              154,
+              155,
+              156
+            ],
+            "direct_symbol_ids": [
+              153,
+              154,
+              155,
+              156
+            ],
+            "match_reasons": [
+              "file_path",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "source_locatable",
+              "file_summary",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/entities/ArticleRecord.ets",
+            "score": 32.0,
+            "first_rank": 9,
+            "record_ids": [
+              84,
+              32
+            ],
+            "direct_symbol_ids": [
+              84
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/entities/FacetRecord.ets",
+            "score": 32.0,
+            "first_rank": 10,
+            "record_ids": [
+              85,
+              33
+            ],
+            "direct_symbol_ids": [
+              85
+            ],
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/pages/ShareComposerPage.ets",
+            "score": 26.25,
+            "first_rank": 19,
+            "record_ids": [
+              314,
+              313
+            ],
+            "direct_symbol_ids": [
+              314,
+              313
+            ],
+            "match_reasons": [
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "source_locatable",
+              "expanded_query:method_evidence",
+              "multi_term_method_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "method_body_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/widgets/WorkCard.ets",
+            "score": 21.5,
+            "first_rank": 26,
+            "record_ids": [
+              525,
+              524
+            ],
+            "direct_symbol_ids": [
+              525,
+              524
+            ],
+            "match_reasons": [
+              "exact_symbol",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 403,
+            "file_path": "src/sharing/SharedRecordCollector.ets",
+            "symbol": "collect",
+            "qualified_name": "SharedRecordCollector.collect",
+            "start_line": 2,
+            "end_line": 12,
+            "score": 23.69,
+            "evidence_score": 23.69,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "salient_query_evidence",
+              "semantic_behavior"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "behavior_method_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "SharedRecordCollector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 436,
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "symbol": "loadFolder",
+            "qualified_name": "FolderCollectionLoader.loadFolder",
+            "start_line": 5,
+            "end_line": 9,
+            "score": 15.49,
+            "evidence_score": 15.49,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "FolderCollectionLoader",
+            "owner_kind": "viewmodel",
+            "callable_roles": [
+              "async",
+              "state_write",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 37,
+            "file_path": "src/components/RecordPreview.ets",
+            "symbol": "build",
+            "qualified_name": "RecordPreview.build",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 18.04,
+            "evidence_score": 18.04,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "RecordPreview",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 154,
+            "file_path": "src/pages/CollectionPage.ets",
+            "symbol": "updateFolder",
+            "qualified_name": "CollectionPage.updateFolder",
+            "start_line": 6,
+            "end_line": 10,
+            "score": 11.77,
+            "evidence_score": 11.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "CollectionPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 155,
+            "file_path": "src/pages/CollectionPage.ets",
+            "symbol": "build",
+            "qualified_name": "CollectionPage.build",
+            "start_line": 12,
+            "end_line": 14,
+            "score": 11.77,
+            "evidence_score": 11.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "CollectionPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 524,
+            "file_path": "src/widgets/WorkCard.ets",
+            "symbol": "build",
+            "qualified_name": "WorkCard.build",
+            "start_line": 5,
+            "end_line": 9,
+            "score": 4.58,
+            "evidence_score": 4.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "WorkCard",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 498,
+            "file_path": "src/views/WorkGalleryPage.ets",
+            "symbol": "build",
+            "qualified_name": "WorkGalleryPage.build",
+            "start_line": 4,
+            "end_line": 9,
+            "score": 6.05,
+            "evidence_score": 6.05,
+            "reasons": [
+              "graph_owner:passes_property",
+              "source_locatable"
+            ],
+            "graph_depth": 1,
+            "graph_relations": [
+              "passes_property"
+            ],
+            "recall_lanes": [],
+            "owner_name": "WorkGalleryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": null,
+            "artifact_query_intent": null
+          }
+        ],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 403,
+            "file_path": "src/sharing/SharedRecordCollector.ets",
+            "symbol": "collect",
+            "qualified_name": "SharedRecordCollector.collect",
+            "start_line": 2,
+            "end_line": 12,
+            "score": 23.69,
+            "evidence_score": 23.69,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "salient_query_evidence",
+              "semantic_behavior"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "behavior_method_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "SharedRecordCollector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 37,
+            "file_path": "src/components/RecordPreview.ets",
+            "symbol": "build",
+            "qualified_name": "RecordPreview.build",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 18.04,
+            "evidence_score": 18.04,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "method_body_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "RecordPreview",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 436,
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "symbol": "loadFolder",
+            "qualified_name": "FolderCollectionLoader.loadFolder",
+            "start_line": 5,
+            "end_line": 9,
+            "score": 15.49,
+            "evidence_score": 15.49,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "FolderCollectionLoader",
+            "owner_kind": "viewmodel",
+            "callable_roles": [
+              "async",
+              "state_write",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 154,
+            "file_path": "src/pages/CollectionPage.ets",
+            "symbol": "updateFolder",
+            "qualified_name": "CollectionPage.updateFolder",
+            "start_line": 6,
+            "end_line": 10,
+            "score": 11.77,
+            "evidence_score": 11.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "CollectionPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 155,
+            "file_path": "src/pages/CollectionPage.ets",
+            "symbol": "build",
+            "qualified_name": "CollectionPage.build",
+            "start_line": 12,
+            "end_line": 14,
+            "score": 11.77,
+            "evidence_score": 11.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path",
+              "symbol_summary",
+              "search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "CollectionPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 313,
+            "file_path": "src/pages/ShareComposerPage.ets",
+            "symbol": "build",
+            "qualified_name": "ShareComposerPage.build",
+            "start_line": 5,
+            "end_line": 7,
+            "score": 9.265,
+            "evidence_score": 9.265,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "multi_term_method_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "method_body_fts"
+            ],
+            "owner_name": "ShareComposerPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 498,
+            "file_path": "src/views/WorkGalleryPage.ets",
+            "symbol": "build",
+            "qualified_name": "WorkGalleryPage.build",
+            "start_line": 4,
+            "end_line": 9,
+            "score": 6.05,
+            "evidence_score": 6.05,
+            "reasons": [
+              "graph_owner:passes_property",
+              "source_locatable"
+            ],
+            "graph_depth": 1,
+            "graph_relations": [
+              "passes_property"
+            ],
+            "recall_lanes": [],
+            "owner_name": "WorkGalleryPage",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 524,
+            "file_path": "src/widgets/WorkCard.ets",
+            "symbol": "build",
+            "qualified_name": "WorkCard.build",
+            "start_line": 5,
+            "end_line": 9,
+            "score": 4.58,
+            "evidence_score": 4.58,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "WorkCard",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 403,
+            "file_path": "src/sharing/SharedRecordCollector.ets",
+            "symbol": "collect",
+            "callable_start_line": 2,
+            "callable_end_line": 12,
+            "start_line": 2,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 37,
+            "file_path": "src/components/RecordPreview.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 7,
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 436,
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "symbol": "loadFolder",
+            "callable_start_line": 5,
+            "callable_end_line": 9,
+            "start_line": 5,
+            "end_line": 9,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 154,
+            "file_path": "src/pages/CollectionPage.ets",
+            "symbol": "updateFolder",
+            "callable_start_line": 6,
+            "callable_end_line": 10,
+            "start_line": 6,
+            "end_line": 10,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 155,
+            "file_path": "src/pages/CollectionPage.ets",
+            "symbol": "build",
+            "callable_start_line": 12,
+            "callable_end_line": 14,
+            "start_line": 12,
+            "end_line": 14,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 313,
+            "file_path": "src/pages/ShareComposerPage.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 7,
+            "start_line": 5,
+            "end_line": 7,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 498,
+            "file_path": "src/views/WorkGalleryPage.ets",
+            "symbol": "build",
+            "callable_start_line": 4,
+            "callable_end_line": 9,
+            "start_line": 4,
+            "end_line": 9,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 524,
+            "file_path": "src/widgets/WorkCard.ets",
+            "symbol": "build",
+            "callable_start_line": 5,
+            "callable_end_line": 9,
+            "start_line": 5,
+            "end_line": 9,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "multiple",
+          "basis": [
+            "explicit_multi_target_cue"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "src/sharing/SharedRecordCollector.ets",
+            "symbol": "collect",
+            "owner_name": "SharedRecordCollector",
+            "owner_kind": "class",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "src/components/RecordPreview.ets",
+            "symbol": "build",
+            "owner_name": "RecordPreview",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 3,
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "symbol": "loadFolder",
+            "owner_name": "FolderCollectionLoader",
+            "owner_kind": "viewmodel",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 3,
+          "distinct_file_count": 3,
+          "same_owner_kind_alternative": false,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "portfolio_required",
+          "basis": [
+            "explicit_multi_target"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "composed",
+        "target_scope": "multiple",
+        "members": [
+          {
+            "file_path": "src/sharing/SharedRecordCollector.ets",
+            "symbol": "collect",
+            "owner_name": "SharedRecordCollector",
+            "source_range": {
+              "start_line": 2,
+              "end_line": 12,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "salient_query_evidence"
+            ]
+          },
+          {
+            "file_path": "src/components/RecordPreview.ets",
+            "symbol": "build",
+            "owner_name": "RecordPreview",
+            "source_range": {
+              "start_line": 5,
+              "end_line": 7,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "multi_term_method_evidence"
+            ]
+          },
+          {
+            "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+            "symbol": "loadFolder",
+            "owner_name": "FolderCollectionLoader",
+            "source_range": {
+              "start_line": 5,
+              "end_line": 9,
+              "selection_reason": "callable_symbol_range"
+            },
+            "support_reasons": [
+              "salient_query_evidence"
+            ]
+          }
+        ],
+        "selection_basis": [
+          "existing_localization",
+          "same_owner_scope",
+          "explicit_cross_file_targets",
+          "bounded_passage_diversity"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  }
+}

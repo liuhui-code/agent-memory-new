@@ -1,0 +1,79 @@
+{
+  "classification": "prospective independent Development capability qualification; no runtime changes yet",
+  "contract": "Single explicit excluded data class identity, not owner/path substring. Both genuine cleanup UI owners including near-name retained. Existing log/graph/budget and uncertain identity fail open to baseline.",
+  "cases": [
+    {
+      "id": "ReceiptRecord",
+      "sources": {
+        "ReceiptRecord.ets": "export class ReceiptRecord {\n  body: string = ''\n}\n",
+        "ReceiptPanel.ets": "@Component\nexport struct ReceiptPanel {\n  body: string = ''\n  build() {\n    Column() { Text(this.cleanBody()) }\n  }\n  cleanBody(): string {\n    return this.body.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+        "ReceiptRecordPreview.ets": "@Component\nexport struct ReceiptRecordPreview {\n  body: string = ''\n  build() {\n    Column() { Text(this.cleanBody()) }\n  }\n  cleanBody(): string {\n    return this.body.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+        "Settings.ets": "export class Settings {\n  label: string = ''\n  save(): void { this.label = this.label.trim() }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "exact-data-exclusion",
+          "query": "收据详情仍显示 HTML 标签，请定位清洗并渲染正文的 view，不要返回 ReceiptRecord 数据类。",
+          "required_complete_owners": [
+            "ReceiptPanel",
+            "ReceiptRecordPreview"
+          ]
+        },
+        {
+          "id": "positive",
+          "query": "收据详情仍显示 HTML 标签，请定位清洗并渲染正文的 view。",
+          "required_complete_owners": [
+            "ReceiptPanel",
+            "ReceiptRecordPreview"
+          ]
+        },
+        {
+          "id": "contradictory-ui-exclusion",
+          "query": "收据详情仍显示 HTML 标签，请定位清洗并渲染正文的 view，不要返回 ReceiptPanel 数据类。",
+          "require_baseline_unchanged": true
+        }
+      ]
+    },
+    {
+      "id": "NoticeRecord",
+      "sources": {
+        "NoticeRecord.ets": "export class NoticeRecord {\n  text: string = ''\n}\n",
+        "NoticePanel.ets": "@Component\nexport struct NoticePanel {\n  text: string = ''\n  build() {\n    Column() { Text(this.cleanBody()) }\n  }\n  cleanBody(): string {\n    return this.text.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+        "NoticeRecordPreview.ets": "@Component\nexport struct NoticeRecordPreview {\n  text: string = ''\n  build() {\n    Column() { Text(this.cleanBody()) }\n  }\n  cleanBody(): string {\n    return this.text.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+        "Settings.ets": "export class Settings {\n  label: string = ''\n  save(): void { this.label = this.label.trim() }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "exact-data-exclusion",
+          "query": "通知详情仍显示 HTML 标签，请定位清洗并渲染正文的 view，不要返回 NoticeRecord 数据类。",
+          "required_complete_owners": [
+            "NoticePanel",
+            "NoticeRecordPreview"
+          ]
+        },
+        {
+          "id": "positive",
+          "query": "通知详情仍显示 HTML 标签，请定位清洗并渲染正文的 view。",
+          "required_complete_owners": [
+            "NoticePanel",
+            "NoticeRecordPreview"
+          ]
+        },
+        {
+          "id": "contradictory-ui-exclusion",
+          "query": "通知详情仍显示 HTML 标签，请定位清洗并渲染正文的 view，不要返回 NoticePanel 数据类。",
+          "require_baseline_unchanged": true
+        }
+      ]
+    }
+  ],
+  "additional_required_controls": [
+    "same short class identity in different directories",
+    "unknown class",
+    "duplicate UI/class name",
+    "explicit positive and excluded same target",
+    "quoted/log requests",
+    "multiple exclusion identifiers",
+    "old identity/digest/index generation and budget rollback"
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-3v1pt1es/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-3v1pt1es/agent-memory-case-3grblt0l/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "2f9fd515e026151a",
+    "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "batch",
+        "shared",
+        "records",
+        "reduced",
+        "last",
+        "value",
+        "return",
+        "record",
+        "iteration",
+        "accumulator",
+        "owner",
+        "rather"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "symbol": "collect",
+          "symbol_type": "function",
+          "record_ids": [
+            403
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "collect",
+              "start_line": 2,
+              "end_line": 12
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 12
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "collect",
+              "start_line": 2,
+              "end_line": 12,
+              "content": "  collect(records: ShareRecord[]): string {\n    let output = ''\n    for (const record of records) {\n      if (record.kind === 'markup') {\n        output = this.convertMarkup(record.content)\n      } else {\n        output = record.content\n      }\n    }\n    return output\n  }",
+              "source": "validated_request_snapshot",
+              "selection_reason": "complete_direct_loop_result_method",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": null,
+        "alternatives": [],
+        "boundary": "positive_direct_syntax_not_unique_owner_or_runtime_causality"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "validated_request_snapshot",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 272
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 795,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}

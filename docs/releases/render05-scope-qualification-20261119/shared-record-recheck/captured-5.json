@@ -1,0 +1,178 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-3v1pt1es/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-3v1pt1es/agent-memory-case-h8r8raag/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "聚合多个共享记录时只保留最后一个条目，请返回循环处理记录并写入结果的源码，不要返回预览组件。",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "2f9fd515e026151a",
+    "query": "聚合多个共享记录时只保留最后一个条目，请返回循环处理记录并写入结果的源码，不要返回预览组件。",
+    "memory_intent": "semantic_correction",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "聚合多个共享记录时只保留最后一个条目",
+        "聚合",
+        "合多",
+        "多个",
+        "个共",
+        "共享",
+        "享记",
+        "记录",
+        "录时",
+        "时只",
+        "只保",
+        "保留"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "symbol": "collect",
+          "symbol_type": "function",
+          "record_ids": [
+            120
+          ],
+          "record_type": "code_file",
+          "source_ranges": [
+            {
+              "symbol": "collect",
+              "start_line": 2,
+              "end_line": 12
+            }
+          ],
+          "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+          "read_window": {
+            "start_line": 2,
+            "end_line": 12
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "collect",
+              "start_line": 2,
+              "end_line": 12,
+              "content": "  collect(records: ShareRecord[]): string {\n    let output = ''\n    for (const record of records) {\n      if (record.kind === 'markup') {\n        output = this.convertMarkup(record.content)\n      } else {\n        output = record.content\n      }\n    }\n    return output\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "symbol": "collect",
+          "owner_name": "SharedRecordCollector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 10.12,
+          "evidence_score": 10.12,
+          "reasons": [
+            "first_stage_rank_prior",
+            "source_locatable",
+            "semantic_behavior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 272
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 928,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+}
