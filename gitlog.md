@@ -13336,3 +13336,15 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 - Shared-record current standard recheck3/3 with full collect2–12 and25 controls,
   but historical integrated evidence already closed original26. Do not count this
   as a new closure. See docs/releases/render05-scope-qualification-20261119/.
+
+## 2026-11-19 - Reconcile evidence inventory and trace keyboard precision transition
+
+- Stable historical case IDs inventoried across evidence/releases/eval; rejected
+  candidates and later baseline comparators are not promoted by timestamp alone.
+- Current keyboard standard1/3, same source/setup as old2/3. Full callback5–11 in
+  all3; precise failure is two English extra-source paths, not absent body.
+- Fixed English discrete versions localize92c9b559→786da70d change to intentional
+  preservation of hidden distinct callable competitors in certainty. Adjacent
+  localization identical; no rollback to false certainty.8 ambiguity tests pass.
+- Evidence only, no production/oracle/budget changes or full suite. See
+  docs/releases/keyboard-current-transition-20261119/ and current-evidence-map-20261119/.
