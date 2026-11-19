@@ -22,6 +22,7 @@ from .log_api_catalog import (
     parse_log_api_call,
 )
 from .source_call_scanner import scan_calls
+from .semantic_models import physical_source_lines
 from .source_adapters import source_language_for
 from .source_static_extractors import extended_summary, extended_symbols, native_callable_ranges
 from .text import identifier_tokens, unique_list
@@ -285,11 +286,16 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
         text = path.read_text(encoding="utf-8", errors="ignore")
     except OSError:
         return []
-    lines = text.splitlines()
+    lines = (physical_source_lines(text)
+             if language in {"ArkTS", "JavaScript", "TypeScript"} else text.splitlines())
     receiver_bindings = log_receiver_bindings(text, language)
     functions_by_line: dict[int, str | None] = {}
     if language in {"ArkTS", "JavaScript", "TypeScript"}:
-        functions_by_line.update(callable_symbols_by_line(lines, language))
+        # Same-line lexical separators may hide a second callable from this line
+        # parser. Keep the log, but do not certify a containing function.
+        mask = code_mask(text)
+        if not any(c in mask for c in "\v\f\x1c\x1d\x1e\x85\u2028\u2029"):
+            functions_by_line.update(callable_symbols_by_line(lines, language))
     elif language == "C/C++":
         for item in native_callable_ranges(text):
             for line_number in range(item["start_line"], item["end_line"] + 1):

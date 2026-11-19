@@ -1,0 +1,29 @@
+test_callback_and_non_ecma_owner_controls (tests.test_log_physical_owner.LogPhysicalOwnerTests.test_callback_and_non_ecma_owner_controls) ... FAIL
+test_code_separator_cannot_certify_same_line_callable (tests.test_log_physical_owner.LogPhysicalOwnerTests.test_code_separator_cannot_certify_same_line_callable) ... ok
+test_inline_log_after_literal_separator_has_physical_owner (tests.test_log_physical_owner.LogPhysicalOwnerTests.test_inline_log_after_literal_separator_has_physical_owner) ... ok
+test_public_list_reports_physical_function (tests.test_log_physical_owner.LogPhysicalOwnerTests.test_public_list_reports_physical_function) ... ok
+test_two_methods_and_noncode_cannot_steal_owner (tests.test_log_physical_owner.LogPhysicalOwnerTests.test_two_methods_and_noncode_cannot_steal_owner) ... ok
+
+======================================================================
+FAIL: test_callback_and_non_ecma_owner_controls (tests.test_log_physical_owner.LogPhysicalOwnerTests.test_callback_and_non_ecma_owner_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tests/test_log_physical_owner.py", line 66, in test_callback_and_non_ecma_owner_controls
+    self.assertEqual([(l['line'],l['function'])for l in logs],[(3,'run')])
+AssertionError: Lists differ: [(2, 'run'), (3, 'run')] != [(3, 'run')]
+
+First differing element 0:
+(2, 'run')
+(3, 'run')
+
+First list contains 1 additional elements.
+First extra element 1:
+(3, 'run')
+
+- [(2, 'run'), (3, 'run')]
++ [(3, 'run')]
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.333s
+
+FAILED (failures=1)

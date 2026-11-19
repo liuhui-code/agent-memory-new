@@ -1,3 +1,16 @@
+## 2026-11-19 — Align ECMA log function ownership with physical log locations
+
+- Two independent Development public CLI projects reproduce lost function owners
+  after a literal Unicode line separator. Correct only ECMA ownership line tables.
+- Actual list/context logs recover run/connect; message, level, raw statement,
+  physical line and digest remain unchanged after copied-index merge refresh.
+- Keep logs but decline function certification for active ambiguous separators.
+  No complete JS lexer or novel callback-resolution capability is claimed.
+- 39 targeted methods pass; final five new controls pass again with no-final-newline
+  coverage. Preserve the initial test-expectation correction and generated evidence.
+- Evidence: docs/evidence/log-physical-owner/RESULT.md. No old group closure,
+  aggregate gate or change to default budget/evidence-retention policy.
+
 ## 2026-11-19 — Keep typed ECMA coordinates aligned with physical source excerpts
 
 - Reproduced LS/PS string-literal source-range drift in two independent Development
