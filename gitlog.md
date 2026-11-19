@@ -1,3 +1,16 @@
+## 2026-11-19 — Revalidate historical touch item 20 and distinguish source scopes
+
+- Recover exact case-ID/query/oracle mapping, not array position; standard current
+  single-group evaluation is3/3 versus historical2/3, without any serving change.
+- Read-only response capture confirms all three actual excerpts8–11 are exact and
+  complete callbacks, not full build6–12. Do not attribute improvement to this audit.
+- Explain conflicting manual run: recovered bundle250 vs evaluator's existing157
+  materialized files. Mixed249 indexed source includes92 other fixtures and still
+  fails Chinese; isolated/direct157 replay passes. Not query-history contamination.
+- Preserve both scopes/results and mapping evidence. No all-suite result, oracle
+  change, source deletion, or change of default budget/retention policy.
+- Evidence: docs/releases/touch20-current-20261119/README.md.
+
 ## 2026-11-19 — Align ECMA log function ownership with physical log locations
 
 - Two independent Development public CLI projects reproduce lost function owners

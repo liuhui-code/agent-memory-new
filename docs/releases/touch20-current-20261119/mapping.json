@@ -1,0 +1,67 @@
+{
+  "ledger_number": "20",
+  "ledger": "docs/evidence/remaining-consumer-feasibility/README.md row touch-access-safety-owner",
+  "case_id": "context-touch-access-safety-owner",
+  "case": {
+    "id": "context-touch-access-safety-owner",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "An empty touch event has no first pointer and the interaction crashes. Locate the touch boundary and indexed access owner."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "An empty touch event has no first pointer and the interaction crashes. Locate the touch boundary and indexed access owner."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "The first finger is missing from a touch callback; return the source that reads the pointer collection."
+      },
+      {
+        "id": "zh-noise",
+        "description": "触摸事件为空时第一个手指缺失并导致交互异常，请只返回触摸回调和索引读取所在源码。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/views/PlaybackTouchSurface.ets"
+      ],
+      "forbidden_files": [
+        "src/widgets/TouchOverlay.ets",
+        "src/models/InteractionState.ets"
+      ],
+      "root_cause_category": "state",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 1.0,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/views/PlaybackTouchSurface.ets",
+            "start_line": 8,
+            "end_line": 11
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  },
+  "case_sha256": "7a8ce4df6a856b80e22044635cb02d749780b3b8c514fb225c860285eaa2d206",
+  "pack_sha256": "8af1074414c3db63e164145ad8b9a1fcaf8dee69120ebe4d22876a15d8bb801e",
+  "prior": "docs/evidence/touch-callback-opening/original-after.json",
+  "prior_selected": [
+    "context-touch-access-safety-owner"
+  ],
+  "local_revision": "8f5d0fd4b28e98e5127e72240c8f08bb89a5777f",
+  "remote_revision": "fc278c75313093eae088d548be52e14d85ac03f1",
+  "reason": "Old 20 report predates finite intent polarity and log/function context changes; revalidate existing three unchanged Development variants, not STOP experimental fixtures.",
+  "governance": null
+}

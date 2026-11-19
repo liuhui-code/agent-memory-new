@@ -1,0 +1,41 @@
+[
+  {
+    "query": "An empty touch event has no first pointer and the interaction crashes. Locate the touch boundary and indexed access owner.",
+    "excerpts": [
+      {
+        "path": "src/views/PlaybackTouchSurface.ets",
+        "start": 8,
+        "end": 11,
+        "exact_original": true,
+        "full_callback": true,
+        "full_build": false
+      }
+    ]
+  },
+  {
+    "query": "The first finger is missing from a touch callback; return the source that reads the pointer collection.",
+    "excerpts": [
+      {
+        "path": "src/views/PlaybackTouchSurface.ets",
+        "start": 8,
+        "end": 11,
+        "exact_original": true,
+        "full_callback": true,
+        "full_build": false
+      }
+    ]
+  },
+  {
+    "query": "触摸事件为空时第一个手指缺失并导致交互异常，请只返回触摸回调和索引读取所在源码。",
+    "excerpts": [
+      {
+        "path": "src/views/PlaybackTouchSurface.ets",
+        "start": 8,
+        "end": 11,
+        "exact_original": true,
+        "full_callback": true,
+        "full_build": false
+      }
+    ]
+  }
+]
