@@ -1,0 +1,59 @@
+[
+  {
+    "query": "The inventory list separator has the wrong thickness. Return the ArkTS behavior owner and current source window.",
+    "excerpts": [
+      {
+        "path": "src/views/InventoryList.ets",
+        "start": 5,
+        "end": 14,
+        "exact": true,
+        "truncated": false,
+        "selection_reason": null
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 795,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "permission": null
+  },
+  {
+    "query": "Locate the inventory divider stroke width implementation.",
+    "excerpts": [
+      {
+        "path": "src/views/InventoryList.ets",
+        "start": 5,
+        "end": 14,
+        "exact": true,
+        "truncated": false,
+        "selection_reason": null
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 766,
+      "target_tokens": 1500,
+      "truncated": false
+    },
+    "permission": null
+  },
+  {
+    "query": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 InventoryRecord 或 InventoryItem。",
+    "excerpts": [
+      {
+        "path": "src/views/InventoryList.ets",
+        "start": 5,
+        "end": 14,
+        "exact": true,
+        "truncated": false,
+        "selection_reason": null
+      }
+    ],
+    "budget": {
+      "estimated_tokens": 1091,
+      "target_tokens": 1500,
+      "truncated": true
+    },
+    "permission": null
+  }
+]

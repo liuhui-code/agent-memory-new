@@ -1,0 +1,57 @@
+{
+  "number": "04",
+  "case_id": "context-arkts-ui-operation-owner",
+  "source_row": "|04 arkts-ui-operation-owner|0/3；11-14；import-traversal 后1105717|最新原组仍0/3。旧原文 raw InventoryList 首位，localizer 选 WorkspaceAbility；其他两项正确 divider 源码伴额外owner。独立 GlyphList 语言query被 EntryAbility 污染。|没有已确认的丢失UI证书。全局 ArkTS/ETS language-only拆分虽修独立UI，却破坏四条真实隐式startup控，已撤回；不可重试该方案或加启动特例。|复用已固定UI与四startup反例审“语言限定 vs 隐式平台目标”的输入角色边界；需新明确合同，当前不可直接改 query_tokens。无需继续parser调查。|",
+  "case": {
+    "id": "context-arkts-ui-operation-owner",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "The inventory list separator has the wrong thickness. Return the ArkTS behavior owner and current source window."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "The inventory list separator has the wrong thickness. Return the ArkTS behavior owner and current source window."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "Locate the inventory divider stroke width implementation."
+      },
+      {
+        "id": "zh-noise",
+        "description": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 InventoryRecord 或 InventoryItem。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/views/InventoryList.ets"
+      ],
+      "forbidden_files": [
+        "src/entities/InventoryRecord.ets",
+        "src/views/InventoryItem.ets"
+      ],
+      "root_cause_category": "ui_layout",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/views/InventoryList.ets",
+            "start_line": 6,
+            "end_line": 14
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  }
+}
