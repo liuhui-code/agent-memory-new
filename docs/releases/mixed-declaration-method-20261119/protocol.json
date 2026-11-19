@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Bulletin",
+    "kind": "positive",
+    "query": "Locate both BulletinRecord and BulletinPanel.cleanBody source."
+  },
+  {
+    "name": "Bulletin",
+    "kind": "negative",
+    "query": "Locate BulletinPanel.cleanBody rather than BulletinRecord."
+  },
+  {
+    "name": "Bulletin",
+    "kind": "comparison",
+    "query": "Locate BulletinPanel.cleanBody compared with BulletinRecord."
+  },
+  {
+    "name": "Bulletin",
+    "kind": "quoted",
+    "query": "Find the string \"BulletinRecord and BulletinPanel.cleanBody\" in source."
+  },
+  {
+    "name": "Invoice",
+    "kind": "positive",
+    "query": "Locate both InvoiceRecord and InvoicePanel.cleanBody source."
+  },
+  {
+    "name": "Invoice",
+    "kind": "negative",
+    "query": "Locate InvoicePanel.cleanBody rather than InvoiceRecord."
+  },
+  {
+    "name": "Invoice",
+    "kind": "comparison",
+    "query": "Locate InvoicePanel.cleanBody compared with InvoiceRecord."
+  },
+  {
+    "name": "Invoice",
+    "kind": "quoted",
+    "query": "Find the string \"InvoiceRecord and InvoicePanel.cleanBody\" in source."
+  }
+]

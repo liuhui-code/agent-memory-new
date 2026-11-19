@@ -288,6 +288,12 @@
 
 # Local Development Log
 
+## 2026-11-19 — Preserve mixed declaration and callable requests
+
+- Fix existing multi-target compact guard counting declarations and methods separately. New mixed permission requires exact positive method identity, non-exclusion, unique path and retained range coverage; legacy callable-only behavior remains unchanged.
+- Two frozen public CLI positive fixtures restore complete declaration1–3 while preserving full old Panel1–10; six negative/comparison/quote outputs unchanged.85 targeted tests pass, including performance; line limits pass.
+- Original05 standard157 remains1/3. No full gate, main edit, budget increase or32 default tradeoff. Evidence: docs/releases/mixed-declaration-method-20261119/.
+
 ## 2026-11-19 — Preserve explicitly requested declarations in compact output
 
 - Two frozen natural CLI fixtures show a named data entity present first in raw context being discarded for an unrelated bounded method. Guard only the final ordinary callable narrowing for exact finite declaration requests; retain old candidates and budgets.

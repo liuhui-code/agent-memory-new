@@ -8,6 +8,7 @@ import re
 from .query_language import (
     COMPARISON_CLAUSE_RE, NEGATIVE_RESULT_CLAUSE_RE,
     excluded_result_identifiers, result_alternative_query, affirmative_role_query,
+    excluded_code_candidate,
 )
 from .query_target_scope import classify_target_scope
 
@@ -293,6 +294,7 @@ def multiple_requested_anchors_present(
     ))
     excluded = excluded_result_identifiers(query)
     owners: dict[str, set[str]] = {}
+    named_paths: set[str] = set()
     if (classify_target_scope(positive).get("kind") == "multiple"
             and not re.search(r"[`\"']", positive)
             and not re.search(r"\b(?:strings?|text|literals?)\b|字符串|字面量|文本", positive, re.I)):
@@ -307,6 +309,8 @@ def multiple_requested_anchors_present(
         if len(named_paths) >= 2:
             return True
     paths: set[str] = set()
+    mixed_methods: dict[str, set[str]] = {}
+    mixed_covered: set[tuple[str, str]] = set()
     candidates = [evidence.get("primary"), *(evidence.get("alternatives") or [])]
     for candidate in candidates:
         if not isinstance(candidate, dict) or not explicitly_named_candidate(candidate, positive):
@@ -315,13 +319,27 @@ def multiple_requested_anchors_present(
         if not valid_retained_range(span):
             continue
         path = candidate.get("file_path")
+        owner, symbol = candidate.get('owner_name'), candidate.get('symbol')
+        qualified = (symbol if isinstance(symbol, str) and '.' in symbol
+                     else f'{owner}.{symbol}' if owner and symbol else '')
+        mixed = bool(named_paths and path and qualified
+                     and not excluded_code_candidate(query, candidate)
+                     and re.search(r'(?<![\w$.])' + re.escape(qualified) + r'(?![\w$.])', positive))
+        if mixed:
+            mixed_methods.setdefault(qualified, set()).add(str(path))
         if any(
             anchor.get("file_path") == path and valid_retained_range(anchor)
             and anchor["start_line"] <= span["start_line"] <= span["end_line"] <= anchor["end_line"]
             for anchor in anchors
         ):
             paths.add(str(path))
-    return len(paths) >= 2
+            if mixed:
+                mixed_covered.add((qualified, str(path)))
+    # Keep legacy method-only semantics; new mixed permission requires a unique
+    # qualified identity even when a competing method has no retained anchor.
+    mixed_paths = {next(iter(locations)) for name, locations in mixed_methods.items()
+                   if len(locations) == 1 and (name, next(iter(locations))) in mixed_covered}
+    return len(paths) >= 2 or len(named_paths | mixed_paths) >= 2
 
 
 def requested_declaration_present(anchors: list[dict[str, Any]], query: str) -> bool:
