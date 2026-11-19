@@ -17,6 +17,15 @@ from .query_certified_portfolio_bounds import certified_projection
 from .query_code_selection import explicitly_named_candidate
 
 
+DECLARATION_REQUEST_RE = re.compile(
+        r"(?:find|locate|return|show)\s+(?:the\s+)?"
+        r"(?P<name>[A-Za-z_$][A-Za-z0-9_$]*)\s+"
+        r"(?:data entity|entity definition|record definition|data model|"
+        r"entity fields|class declaration|interface declaration|struct declaration)\s*[.]?",
+        re.I | re.ASCII,
+    )
+
+
 def focus_callable_anchors(
     anchors: list[dict[str, Any]], evidence: Any, path_activated: Any,
     query: str = "",
@@ -351,13 +360,7 @@ def requested_declaration_present(anchors: list[dict[str, Any]], query: str) -> 
     if not isinstance(query, str) or len(query) > 400:
         return False
     positive = affirmative_role_query(query).strip()
-    match = re.fullmatch(
-        r"(?:find|locate|return|show)\s+(?:the\s+)?"
-        r"(?P<name>[A-Za-z_$][A-Za-z0-9_$]*)\s+"
-        r"(?:data entity|entity definition|record definition|data model|"
-        r"entity fields|class declaration|interface declaration|struct declaration)\s*[.]?",
-        positive, re.I | re.ASCII,
-    )
+    match = DECLARATION_REQUEST_RE.fullmatch(positive)
     if match is None:
         return False
     name = match['name']

@@ -288,6 +288,19 @@
 
 # Local Development Log
 
+## 2026-11-19 — Add authenticated requested declaration bodies without dropping context
+
+- Two unchanged public Development inputs selected an interface but displayed only
+  its closing brace and another method. Authenticate the already-selected exact
+  declaration ID/type/range/digest/generation; append complete source while keeping
+  every original excerpt and all evidence. No new candidate or ranking authority.
+- Two positives restored declaration1–4;12 other public requests unchanged.86 focused
+  and performance tests pass, plus line limits. No default budget/lossy tradeoff.
+- Original24 standard single group3/3 recorded with actual source-line boundaries;
+  original31/41 already have integrated passes and were not repeated. No original
+  failure closure attributed to this display fix. See
+  docs/releases/explicit-declaration-body-20261119/README.md.
+
 ## 2026-11-19 — Restore an already-selected method signature without replacing evidence
 
 - Freeze two public Development persistence requests and four controls. Semantic

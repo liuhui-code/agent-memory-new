@@ -1,0 +1,78 @@
+{
+  "classification": "Independent authored Development reused unchanged source and positive queries from semantic-envelope14; new negative controls frozen before execution.",
+  "stop": "Freeze once. Only actual public missing method signature with existing body supports change; no fixture/query rewriting after results.",
+  "cases": [
+    {
+      "id": "Voucher",
+      "sources": {
+        "VoucherUsageCoordinator.ets": "export interface VoucherRecord {\n  usageCount: number\n  lastUsedAt: number\n}\n\nexport class VoucherUsageCoordinator {\n  private store: VoucherStore = new VoucherStore()\n\n  async recordSuccessfulUse(record: VoucherRecord): Promise<void> {\n    record.usageCount += 1\n    record.lastUsedAt = Date.now()\n    await this.store.save(record)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "persistence",
+          "query": "Return the voucher usage counter and timestamp persistence coordinator."
+        },
+        {
+          "id": "named",
+          "query": "Locate VoucherUsageCoordinator.recordSuccessfulUse source."
+        },
+        {
+          "id": "declaration",
+          "query": "Locate the VoucherRecord entity definition."
+        },
+        {
+          "id": "negative",
+          "query": "Do not return the VoucherRecord entity definition."
+        },
+        {
+          "id": "quoted",
+          "query": "Explain the text \"Locate the VoucherRecord entity definition.\""
+        },
+        {
+          "id": "comparison",
+          "query": "Compare the VoucherRecord entity definition with its persistence method."
+        },
+        {
+          "id": "rather",
+          "query": "Locate the persistence method rather than the VoucherRecord entity definition."
+        }
+      ]
+    },
+    {
+      "id": "Lease",
+      "sources": {
+        "LeaseUsageCoordinator.ets": "export interface LeaseRecord {\n  usageCount: number\n  lastUsedAt: number\n}\n\nexport class LeaseUsageCoordinator {\n  private store: LeaseStore = new LeaseStore()\n\n  async recordSuccessfulUse(record: LeaseRecord): Promise<void> {\n    record.usageCount += 1\n    record.lastUsedAt = Date.now()\n    await this.store.save(record)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "id": "persistence",
+          "query": "Return the lease usage counter and timestamp persistence coordinator."
+        },
+        {
+          "id": "named",
+          "query": "Locate LeaseUsageCoordinator.recordSuccessfulUse source."
+        },
+        {
+          "id": "declaration",
+          "query": "Locate the LeaseRecord entity definition."
+        },
+        {
+          "id": "negative",
+          "query": "Do not return the LeaseRecord entity definition."
+        },
+        {
+          "id": "quoted",
+          "query": "Explain the text \"Locate the LeaseRecord entity definition.\""
+        },
+        {
+          "id": "comparison",
+          "query": "Compare the LeaseRecord entity definition with its persistence method."
+        },
+        {
+          "id": "rather",
+          "query": "Locate the persistence method rather than the LeaseRecord entity definition."
+        }
+      ]
+    }
+  ]
+}

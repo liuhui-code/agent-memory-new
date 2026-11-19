@@ -180,6 +180,8 @@ def context(args: argparse.Namespace) -> None:
         if args.compact:
             from .context_callable_envelope import expand_callable_envelopes
             data = expand_callable_envelopes(project, data, enabled=True)
+            from .context_declaration_excerpt import append_requested_declaration
+            data = append_requested_declaration(project, data)
             from .context_field_alternative import append_field_alternatives
             if original_context is not None:
                 data = append_field_alternatives(project, original_context, data)
