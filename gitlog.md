@@ -13307,3 +13307,13 @@ File operator result: public Equality/Loose false statewrite removed;7 real writ
 -32 focused gesture source/scope/selection tests pass. Evidence only; no runtime,
   budget, oracle or default-retention changes. Details in
   docs/releases/gesture16-current-20261119/README.md.
+
+## 2026-11-19 - Verify original07 standard vertical layout group
+
+- Original07 current standard3/3 versus historical1/3; source digest unchanged,
+  all157 materialized file hashes match. No runtime/source/oracle/budget changes.
+- All three actual target excerpts are complete build6–16. English primary stays
+  null/supporting; Chinese keeps a distinct horizontal-list source and precision
+  0.5, meeting the unchanged threshold but not proving exclusive ownership.
+-34 focused adjective/constant vertical controls pass. Evidence:
+  docs/releases/scroll07-current-20261119/README.md. Not a full aggregate gate.

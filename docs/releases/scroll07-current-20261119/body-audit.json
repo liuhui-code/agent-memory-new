@@ -1,0 +1,80 @@
+[
+  {
+    "capture": 1,
+    "excerpts": [
+      {
+        "path": "src/pages/ShipmentTimelinePage.ets",
+        "start": 6,
+        "end": 16,
+        "exact": true
+      }
+    ],
+    "primary": null,
+    "budget": {
+      "estimated_tokens": 754,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  },
+  {
+    "capture": 3,
+    "excerpts": [
+      {
+        "path": "src/pages/ShipmentTimelinePage.ets",
+        "start": 6,
+        "end": 16,
+        "exact": true
+      }
+    ],
+    "primary": null,
+    "budget": {
+      "estimated_tokens": 756,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  },
+  {
+    "capture": 5,
+    "excerpts": [
+      {
+        "path": "src/pages/ShipmentTimelinePage.ets",
+        "start": 6,
+        "end": 16,
+        "exact": true
+      },
+      {
+        "path": "src/views/WorkGalleryPage.ets",
+        "start": 12,
+        "end": 20,
+        "exact": true
+      }
+    ],
+    "primary": {
+      "file_path": "src/pages/ShipmentTimelinePage.ets",
+      "symbol": "build",
+      "owner_name": "ShipmentTimelinePage",
+      "owner_kind": "component",
+      "file_structural_coverage": 2,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 16,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "budget": {
+      "estimated_tokens": 1350,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+]

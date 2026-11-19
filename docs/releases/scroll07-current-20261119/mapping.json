@@ -1,0 +1,586 @@
+{
+  "number": "07",
+  "case": {
+    "id": "context-abstract-scroll-structure",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "Shipment records cannot scroll when their content fills the viewport. Locate the vertical layout owner."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "Shipment records cannot scroll when their content fills the viewport. Locate the vertical layout owner."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "The viewport clips shipment records and the vertical layout does not move. Return the current code owner."
+      },
+      {
+        "id": "zh-noise",
+        "description": "运输记录填满屏幕后无法滑动，请返回纵向布局源码，不要分析根因。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/pages/ShipmentTimelinePage.ets"
+      ],
+      "forbidden_files": [
+        "src/views/InventoryList.ets"
+      ],
+      "root_cause_category": "ui_layout",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/pages/ShipmentTimelinePage.ets",
+            "start_line": 7,
+            "end_line": 15
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  },
+  "historical_result": "docs/evidence/scroll-structure-current/baseline.json",
+  "historical_cases": [
+    {
+      "case_id": "context-abstract-scroll-structure::original",
+      "scenario_id": "context-abstract-scroll-structure",
+      "query_variant": "original",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "src/components/RecordPreview.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/sharing/SharedRecordCollector.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "src/components/RecordPreview.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "src/components/RecordPreview.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 9,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 419
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": null,
+        "candidate_file_count": 13,
+        "localizer_file_count": 8,
+        "callable_count": 9,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "src/pages/ShipmentTimelinePage.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1411,
+      "memory_prepare_ms": 1614,
+      "query_elapsed_ms": 404,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "src/pages/ShipmentTimelinePage.ets",
+            "start_line": 7,
+            "end_line": 15
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "context-abstract-scroll-structure::en-paraphrase",
+      "scenario_id": "context-abstract-scroll-structure",
+      "query_variant": "en-paraphrase",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "src/crypto/SessionCodeGenerator.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/pages/ShortcutSearchPage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "src/crypto/SessionCodeGenerator.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "src/crypto/SessionCodeGenerator.ets",
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 9,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 472
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 17,
+        "localizer_file_count": 8,
+        "callable_count": 9,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "src/crypto/SessionCodeGenerator.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1395,
+      "memory_prepare_ms": 1613,
+      "query_elapsed_ms": 374,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "src/pages/ShipmentTimelinePage.ets",
+            "start_line": 7,
+            "end_line": 15
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "context-abstract-scroll-structure::zh-noise",
+      "scenario_id": "context-abstract-scroll-structure",
+      "query_variant": "zh-noise",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "src/pages/ShipmentTimelinePage.ets",
+        "src/views/WorkGalleryPage.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 5,
+        "callable_candidate_count": 9,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 422
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": null,
+        "candidate_file_count": 5,
+        "localizer_file_count": 5,
+        "callable_count": 9,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "src/pages/ShipmentTimelinePage.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1289,
+      "memory_prepare_ms": 1613,
+      "query_elapsed_ms": 368,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "src/pages/ShipmentTimelinePage.ets",
+            "start_line": 7,
+            "end_line": 15
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "current_cases": [
+    {
+      "case_id": "context-abstract-scroll-structure::original",
+      "status": "pass"
+    },
+    {
+      "case_id": "context-abstract-scroll-structure::en-paraphrase",
+      "status": "pass"
+    },
+    {
+      "case_id": "context-abstract-scroll-structure::zh-noise",
+      "status": "pass"
+    }
+  ],
+  "materialized_files": 157,
+  "all_source_hashes_match": true
+}

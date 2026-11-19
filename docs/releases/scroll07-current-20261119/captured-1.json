@@ -1,0 +1,148 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "/workspace/scratch/dcdb41e16594/concrete-resume-20261119/repo/tools/agent_memory.py",
+    "context",
+    "--project",
+    "/tmp/agent-memory-benchmark-4yxoo5q5/workspace",
+    "--memory-home",
+    "/tmp/agent-memory-benchmark-4yxoo5q5/agent-memory-case-v6n15i37/memory-home",
+    "--query",
+    "<task-description-or-agent-extracted-term>",
+    "--compact",
+    "--json"
+  ],
+  "query": "Shipment records cannot scroll when their content fills the viewport. Locate the vertical layout owner.",
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "abfa214e48b80792",
+    "query": "Shipment records cannot scroll when their content fills the viewport. Locate the vertical layout owner.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "shipment",
+        "records",
+        "scroll",
+        "content",
+        "fills",
+        "viewport",
+        "locate",
+        "vertical",
+        "layout",
+        "owner"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/pages/ShipmentTimelinePage.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            316
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 6,
+              "end_line": 16
+            }
+          ],
+          "read_window": {
+            "start_line": 6,
+            "end_line": 16
+          },
+          "role": "supporting",
+          "source_excerpts": [
+            {
+              "symbol": "build",
+              "start_line": 6,
+              "end_line": 16,
+              "content": "  build() {\n    Column() {\n      List() {\n        ForEach(this.shipments, (shipment: Shipment) => {\n          ListItem() { Text(shipment.label) }\n        })\n      }\n      .listDirection(Axis.Vertical)\n      .height('100%')\n    }\n  }",
+              "truncated": false,
+              "source": "validated_request_snapshot"
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": null,
+        "alternatives": [],
+        "boundary": "non_exhaustive_static_vertical_list_configuration_not_sdk_identity_or_effect"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "validated_request_snapshot",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 232
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 754,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}
