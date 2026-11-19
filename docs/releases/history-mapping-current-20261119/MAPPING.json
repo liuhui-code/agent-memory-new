@@ -1,0 +1,66 @@
+[
+  {
+    "number": "04",
+    "case_id": "context-arkts-ui-operation-owner",
+    "result": "docs/evidence/negative-identifier-current/before-original.json",
+    "passed": 0,
+    "total": 3,
+    "status": "retained published baseline; producer-final is rejected experiment"
+  },
+  {
+    "number": "05",
+    "case_id": "context-domain-model-versus-render-owner",
+    "result": "05/evaluation.json",
+    "passed": 1,
+    "total": 3,
+    "status": "fresh current; same as later render05-zh-request result, not regression from stale2/3"
+  },
+  {
+    "number": "07",
+    "case_id": "context-abstract-scroll-structure",
+    "result": "docs/evidence/scroll-structure-current/baseline.json",
+    "passed": 1,
+    "total": 3,
+    "status": "retained historical"
+  },
+  {
+    "number": "08",
+    "case_id": "context-abstract-reactive-aggregate",
+    "result": "docs/eval/reactive-aggregate-audit/original-current.json",
+    "passed": 1,
+    "total": 3,
+    "status": "retained historical"
+  },
+  {
+    "number": "09",
+    "case_id": "context-abstract-visual-overlap",
+    "result": "docs/evidence/rebuild-visual09-20261115/integrated-english-or-original09.json",
+    "passed": 3,
+    "total": 3,
+    "status": "latest retained integrated pass;707775f/c42ec97 are current ancestors; not a new run"
+  },
+  {
+    "number": "11",
+    "case_id": "context-post-action-refresh-owner",
+    "result": "11/evaluation.json",
+    "passed": 2,
+    "total": 3,
+    "status": "fresh current; English still fails"
+  },
+  {
+    "number": "16",
+    "case_id": "context-gesture-state-owner",
+    "result": "docs/evidence/commit-gesture-current/baseline.json",
+    "passed": 2,
+    "total": 3,
+    "status": "retained historical; select this scenario from combined4/6 report"
+  },
+  {
+    "number": "20",
+    "case_id": "context-touch-access-safety-owner",
+    "result": "docs/releases/touch20-current-20261119/evaluation.json",
+    "passed": 3,
+    "total": 3,
+    "status": "fresh previous standard run; mixed-scope direct failure separately retained"
+  }
+]

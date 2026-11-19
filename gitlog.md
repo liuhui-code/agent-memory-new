@@ -1,3 +1,14 @@
+## 2026-11-19 — Correct historical group mapping and verify 05/11 individually
+
+- Standard original05 remains1/3, consistent with its newer specialist report;
+  do not compare against stale broad-ledger2/3 as a new regression.
+- Standard original11 remains2/3; captured English body1–9 lacksrefreshState
+  tail although span-overlap passes. No unsafe primary substitution was made.
+- Recover retained09 integrated3/3 and distinguish rejected04 candidates and
+  the separate16 scenario inside a combined4/6 report. No aggregate claim.
+- Keep standardmaterialization separate from mixed recovered-bundle querying.
+  Evidence: docs/releases/history-mapping-current-20261119/README.md.
+
 ## 2026-11-19 — Revalidate historical touch item 20 and distinguish source scopes
 
 - Recover exact case-ID/query/oracle mapping, not array position; standard current

@@ -1,0 +1,59 @@
+{
+  "number": "05",
+  "case_id": "context-domain-model-versus-render-owner",
+  "case": {
+    "id": "context-domain-model-versus-render-owner",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "Article details still display markup tags. Locate the UI rendering cleanup owner rather than the article data entity."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "Article details still display markup tags. Locate the UI rendering cleanup owner rather than the article data entity."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "Find the Article view code that strips repeated HTML-like tags before Text renders the body."
+      },
+      {
+        "id": "zh-noise",
+        "description": "文章详情仍显示 HTML 标签，请定位负责清洗并渲染正文的 view，不要返回 ArticleRecord 数据类。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/views/ArticleMarkupView.ets"
+      ],
+      "forbidden_files": [
+        "src/entities/ArticleRecord.ets"
+      ],
+      "root_cause_category": "ui_layout",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/views/ArticleMarkupView.ets",
+            "start_line": 7,
+            "end_line": 18
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  },
+  "ledger_row": "|05 domain-model-versus-render-owner|2/3；11-13；134cfcb|正确 ArticleMarkupView 正文已完整，AccountSettings/NotificationDetails 为直接词面/补充候选。独立 MessageSurface 红同样混入 Record 与无关 trim；不是 proved callable winner 被投影擦除。|没有现有 transform→render 值依赖证书。replace/trim、Text 调用都真实，不足将其他候选判无操作；角色名 Record 不授权删除。|先说明清洗方法输出如何被 build 消费，独立绑定正反证明后才讨论源值依赖表示；当前不做 post-focus 删除。|",
+  "pack_sha256": "8af1074414c3db63e164145ad8b9a1fcaf8dee69120ebe4d22876a15d8bb801e",
+  "runtime": "fc278c75313093eae088d548be52e14d85ac03f1",
+  "reason": "Historical 134cfcb result predates affirmative role and explicit negative entity/behavior focus fixes, including09e6413; verify unchanged original group rather than presume improvement."
+}

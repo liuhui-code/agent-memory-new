@@ -1,0 +1,55 @@
+{
+  "number": "11",
+  "case_id": "context-post-action-refresh-owner",
+  "source_row": "|11 post-action-refresh-owner|2/3；11-14；bc92352(runtime8ce567b)|focus正确LightingStore，salient加InteractionState/CommandOutputPage；bounded DraftPage.reloadPreview34.735 **不在raw anchors**，compact因此原样保留。目标range1–13而actual excerpt1–9，1479token，缺refresh body。|现recover_partial_primary要求primary恰匹配已选anchor及typed digest来源，缺主源时拒读是遵守合同，不能用第一anchor替代。独立四控primary均在raw，全部retention过，未重现缺对齐红。|不绕过来源证明补全文；需先有已选目标与localizer主选的对齐权限合同及独立同层red，不能删extras凑预算。停止固定探针后不追加噪声。|",
+  "case": {
+    "id": "context-post-action-refresh-owner",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "The lighting action completes but the details state remains unchanged. Locate action dispatch and authoritative refresh ownership."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "The lighting action completes but the details state remains unchanged. Locate action dispatch and authoritative refresh ownership."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "A command succeeds while the lighting view stays stale; find the command and state reload owner."
+      },
+      {
+        "id": "zh-noise",
+        "description": "灯光操作成功但详情状态未刷新，请定位命令执行和权威状态更新源码。"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/stores/LightingStore.ets"
+      ],
+      "forbidden_files": [],
+      "root_cause_category": "state",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/stores/LightingStore.ets",
+            "start_line": 5,
+            "end_line": 13
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  },
+  "reason": "Prior post-action report predates additive callable envelopes and later context identity/projection changes; verify whether actual missing body remains under unchanged default policy, not replay stopped independent probes."
+}
