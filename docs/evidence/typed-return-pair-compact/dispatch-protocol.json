@@ -1,0 +1,55 @@
+{
+  "base": "13d4fa6a437dc5a8a218173c8a7cca1dbdc575e2",
+  "queries": [
+    "Why does the dispatch board display this label? Trace the returned route value into the board and show both relevant methods.",
+    "Why does the dispatch board display this label?"
+  ],
+  "cases": {
+    "cell-write": {
+      "sha256": {
+        "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8",
+        "DispatchBoard.ts": "f437376113a546d6d349b6db65ef22ef6307da828871240aa3557e915c272203"
+      },
+      "expected_runtime": "south terminal"
+    },
+    "own-set": {
+      "sha256": {
+        "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8",
+        "DispatchBoard.ts": "de476ff270894afa71725e7700c929c55c3d788f3e4c4907697d66ac462b1f51"
+      },
+      "expected_runtime": "south terminal"
+    },
+    "ignored-arg": {
+      "sha256": {
+        "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8",
+        "DispatchBoard.ts": "dbc37a903675f61ab667c184d73ad3d0a89770b0708ddd0e1b54818673370c8c"
+      },
+      "expected_runtime": "cached"
+    },
+    "unrelated-read": {
+      "sha256": {
+        "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8",
+        "DispatchBoard.ts": "3faafe4e7b37efa962cc1f682ea7d13d2cb13fe6660eda4f96102579c72d3c18"
+      },
+      "expected_runtime": "cached"
+    },
+    "arrow-delay": {
+      "sha256": {
+        "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8",
+        "DispatchBoard.ts": "99bfeaa44fd5aa58af686912ad2cfc5f115b5ddd535ad1599f7a2517524974ef"
+      },
+      "expected_runtime": "blank"
+    },
+    "literal": {
+      "sha256": {
+        "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8",
+        "DispatchBoard.ts": "62f7ef9b60540edb970172bab4d8ad9bfb70bc60c9d9338629233fac94b7caf0"
+      },
+      "expected_runtime": "cached"
+    }
+  },
+  "runtime_reads": [
+    "RouteTable.ts",
+    "DispatchBoard.ts"
+  ]
+}

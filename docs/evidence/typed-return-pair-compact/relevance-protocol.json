@@ -1,0 +1,21 @@
+{
+  "base": "13d4fa6a437dc5a8a218173c8a7cca1dbdc575e2",
+  "runtime_reads": [
+    "RouteTable.ts",
+    "DispatchBoard.ts"
+  ],
+  "variants": {
+    "display-condition": "Why does the dispatch board display this vehicle condition? Show both condition methods.",
+    "condition-mapping": "Why does the dispatch board display this vehicle condition? Show both condition methods in the dispatch board and explain if the route table is involved.",
+    "route-values": "Why does the dispatch board display this label? Trace the returned route value into the board and show both relevant methods."
+  },
+  "expected": {
+    "display-condition": "unavailable",
+    "condition-mapping": "unavailable",
+    "route-values": "south terminal"
+  },
+  "files": {
+    "DispatchBoard.ts": "38335deb3ca05afefc39063d4d6f31221c2bc57ee40e0d26ac3417f9b1a0cd88",
+    "RouteTable.ts": "b69ef7bdd2c942ffd59332de6ffce57e66e206e0716fea68ee0e25ae5e7e67b8"
+  }
+}

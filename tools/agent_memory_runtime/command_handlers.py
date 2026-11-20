@@ -162,7 +162,11 @@ def context(args: argparse.Namespace) -> None:
     with EmptyReceiverSession(project, args.query, allow_render=args.compact,
                               allow_aggregate=(args.compact and budget==2000 and preserve)) as receiver_session:
         data = build_context_facade(project).execute(args.query, getattr(args, "intent", None))
+        pair_context = None
         if args.compact:
+            from .context_ts_return_pair import eligible
+            if budget is None and not preserve and eligible(args.query, data):
+                pair_context = data
             from copy import deepcopy
             from .context_field_alternative import field_read_request
             from .context_web_policy_reading import web_reading_request
@@ -203,6 +207,9 @@ def context(args: argparse.Namespace) -> None:
         if args.compact and budget is None and not preserve and original_context is not None:
             from .context_web_body_budget import prioritize_web_body
             data = prioritize_web_body(project, original_context, data)
+        if pair_context is not None:
+            from .context_ts_return_pair import retain
+            data = retain(project, args.query, pair_context, data)
         record_query_usage(project, "context", args.query, data)
         project.runtime_dir.mkdir(parents=True, exist_ok=True)
         (project.runtime_dir / "last_context.json").write_text(

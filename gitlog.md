@@ -1,3 +1,9 @@
+## 2026-11-20 - Retain backed TypeScript return-value source in ordinary compact context
+
+- Keep current raw selection and compact evidence intact. Only an already-admitted TypeScript producer whose exact await binding feeds a returned own slot, on the selected primary path, may append its complete method, with typed endpoint, freshness and budget checks.
+- Two independently frozen development domains preserve the missing producer body in three positives within the same 1,500 limit; unread, ignored-argument, unrelated-read, closure, non-composite and explicit-mode controls are unchanged. Original Case 39 and full acceptance were not run.
+- Evidence: [TypeScript return-pair compact presentation](docs/evidence/typed-return-pair-compact/README.md).
+
 ## 2026-11-19 - Fix verified TypeScript readonly constructor property edges
 
 - A frozen TypeScript audio-export fixture exposed missing static caller-to-callee edges on an equivalent constructor parameter-property form. Reuse parsed constructor headers and strict rooted receiver checks; keep plain, mutable, shadowed, static, nested, reassigned and ambiguous forms out of the new path.
