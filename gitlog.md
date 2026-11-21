@@ -1,3 +1,9 @@
+## 2026-11-21 - Record recall materialization and Case 08 evidence boundary
+
+- Generic controls show provider order can be lost at SQL materialization even when the pre-freshness audit displays it. Source filtering preserves the hydrated survivor order. The shared path also affects non-code facts.
+- The independent public attempt did not reproduce the Case 08 cutoff. This record adds no serving or evaluator change and no new acceptance result.
+- Evidence: [Recall materialization order](docs/evidence/recall-materialization-order/README.md).
+
 ## 2026-11-20 - Retain backed TypeScript return-value source in ordinary compact context
 
 - Keep current raw selection and compact evidence intact. Only an already-admitted TypeScript producer whose exact await binding feeds a returned own slot, on the selected primary path, may append its complete method, with typed endpoint, freshness and budget checks.
